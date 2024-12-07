@@ -24,6 +24,7 @@ function LevelState:__new(level)
    self.action = nil
    self.waiting = false
    self.dt = 0
+   self.time = 0
 end
 
 --- This is the core turn logic, and if you need to use a different scheduler or want a different turn structure you should override this.
@@ -50,6 +51,7 @@ end
 
 function LevelState:update(dt)
    self.dt = dt
+   self.time = self.time + dt
 
    -- we're waiting and there's no input so stop advancing
    if not self.action and self.waiting then return end
@@ -150,7 +152,7 @@ function LevelState:draw()
       love.graphics.draw(spriteAtlas.image, spriteQuad, x * 16, y * 16)
    end
 
-   love.graphics.setColor(1, 1, 0, 0.2)
+   love.graphics.setColor(1, 1, 0, math.sin(self.time * 4) * 0.1 + 0.3)
    love.graphics.rectangle("fill", self.actor.position.x * 16, self.actor.position.y * 16, 16, 16)
 
    love.graphics.setColor(1, 1, 1, 1)
