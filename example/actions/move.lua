@@ -2,6 +2,10 @@ local PointTarget = prism.Target:extend("PointTarget")
 PointTarget.typesAllowed = { Point = true }
 PointTarget.range = 1
 
+---@class MoveAction : Action
+---@field name string
+---@field silent boolean
+---@field targets table<Target>
 local Move = prism.Action:extend("MoveAction")
 Move.name = "move"
 Move.silent = true

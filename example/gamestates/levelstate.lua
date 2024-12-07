@@ -51,7 +51,7 @@ end
 
 function LevelState:update(dt)
    self.dt = dt
-   self.time = self.time + dt
+   self.time = (self.time + dt) % 4
 
    -- we're waiting and there's no input so stop advancing
    if not self.action and self.waiting then return end
@@ -78,6 +78,8 @@ function LevelState:draw()
 
    local cx, cy = self.camera:getPosition()
    local camVec = prism.Vector2(cx, cy)
+
+   ---@diagnostic disable-next-line
    local goalVec = prism.Vector2(self.actor.position.x * 16 - hw, self.actor.position.y * 16 - hh)
    local lerpedPos = camVec:lerp(goalVec, 5*self.dt)
    ---@diagnostic disable-next-line
@@ -153,6 +155,7 @@ function LevelState:draw()
    end
 
    love.graphics.setColor(1, 1, 0, math.sin(self.time * 4) * 0.1 + 0.3)
+   ---@diagnostic disable-next-line
    love.graphics.rectangle("fill", self.actor.position.x * 16, self.actor.position.y * 16, 16, 16)
 
    love.graphics.setColor(1, 1, 1, 1)
