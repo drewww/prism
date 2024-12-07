@@ -33,6 +33,14 @@ function Camera:setRotation(rotation)
    self.rotation = rotation or self.rotation
 end
 
+function Camera:toWorldSpace(x, y)
+   -- Reverse the translation (subtract position)
+   local tx = x + self.position.x
+   local ty = y + self.position.y
+   
+   return tx, ty
+end
+
 function Camera:push()
    love.graphics.push()
    love.graphics.rotate(-self.rotation)

@@ -87,6 +87,11 @@ function Vector2:__tostring()
    return "x: " .. self.x .. " y: " .. self.y
 end
 
+---@return number hash
+function Vector2:hash()
+   return self.x and self.y * 0x4000000 + self.x --  26-bit x and y
+end
+
 --- Euclidian distance from another point.
 --- @param vec Vector2
 --- @return number distance

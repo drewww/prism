@@ -53,6 +53,26 @@ function LevelState:update(dt)
    self.dt = dt
    self.time = (self.time + dt) % 4
 
+   if self.actor then
+      --- align camera
+      local w, h = love.graphics.getDimensions()
+      local hw, hh = math.floor(w/2), math.floor(h/2)
+
+      local cx, cy = self.camera:getPosition()
+      local camVec = prism.Vector2(cx, cy)
+
+      ---@diagnostic disable-next-line
+      local goalVec = prism.Vector2(self.actor.position.x * 16 - hw, self.actor.position.y * 16 - hh)
+      local lerpedPos = camVec:lerp(goalVec, 5*dt)
+      self.camera:setPosition(lerpedPos.x, lerpedPos.y)
+
+      -- get path
+      local x, y = love.mouse.getPosition()
+      local wx, wy = self.camera:toWorldSpace(x, y)
+      local wx, wy = math.floor(wx/16), math.floor(wy/16)
+      self.path = self.level:findPath(self.actor:getPosition(), prism.Vector2(wx, wy))
+   end
+
    -- we're waiting and there's no input so stop advancing
    if not self.action and self.waiting then return end
 
@@ -73,17 +93,6 @@ function LevelState:update(dt)
 end
 
 function LevelState:draw()
-   local w, h = love.graphics.getDimensions()
-   local hw, hh = math.floor(w/2), math.floor(h/2)
-
-   local cx, cy = self.camera:getPosition()
-   local camVec = prism.Vector2(cx, cy)
-
-   ---@diagnostic disable-next-line
-   local goalVec = prism.Vector2(self.actor.position.x * 16 - hw, self.actor.position.y * 16 - hh)
-   local lerpedPos = camVec:lerp(goalVec, 5*self.dt)
-   ---@diagnostic disable-next-line
-   self.camera:setPosition(lerpedPos.x, lerpedPos.y)
    self.camera:push()
 
    -- Create SparseGrids to store different sets of cells
@@ -152,6 +161,13 @@ function LevelState:draw()
    for x, y, cell in sensesComponent.cells:each() do
       local spriteQuad = spriteAtlas:getQuadByIndex(string.byte(cell.char) + 1)
       love.graphics.draw(spriteAtlas.image, spriteQuad, x * 16, y * 16)
+   end
+
+   if self.path then
+      love.graphics.setColor(0, 1, 0, 0.3)
+      for i, v in ipairs(self.path) do
+         love.graphics.rectangle("fill", v.x * 16, v.y * 16, 16, 16)
+      end
    end
 
    love.graphics.setColor(1, 1, 0, math.sin(self.time * 4) * 0.1 + 0.3)

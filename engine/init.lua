@@ -41,6 +41,8 @@ prism.Grid = require_relative "structures.grid"
 prism.BooleanBuffer = require_relative "structures.booleanbuffer"
 --- @type Queue
 prism.Queue = require_relative "structures.queue"
+--- @type PriorityQueue
+prism.PriorityQueue = require_relative "structures.priority_queue"
 
 -- Algorithms
 prism.fov = {}
@@ -48,6 +50,9 @@ prism.fov.Row = require_relative "algorithms.fov.row"
 prism.fov.Quadrant = require_relative "algorithms.fov.quadrant"
 prism.fov.Fraction = require_relative "algorithms.fov.fraction"
 prism.computeFOV = require_relative "algorithms.fov.fov"
+
+---@type fun(start: Vector2, goal: Vector2, passableCallback: fun(x: integer, y: integer): boolean, costCallback: fun(x: integer, y: integer): integer)
+prism.astar = require_relative "algorithms.astar"
 
 -- Core
 --- @type Scheduler

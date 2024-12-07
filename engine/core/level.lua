@@ -367,6 +367,26 @@ function Level:updateOpacityCache(x, y)
    self.systemManager:afterOpacityChanged(self, x, y)
 end
 
+--- Finds a path from startpos to endpos
+---@param startPos Vector2
+---@param goalPos Vector2
+---@return table<Vector2>|nil
+function Level:findPath(startPos, goalPos)
+   if
+      startPos.x < 1 or startPos.x > self.map.w or startPos.y < 1 or startPos.y > self.map.h or
+      goalPos.x < 1 or goalPos.x > self.map.w or goalPos.y < 1 or goalPos.y > self.map.h
+   then
+      return
+   end
+   -- Define the passability callback (checks if a position is walkable)
+   local function passable_callback(x, y)
+      return self:getCellPassable(x, y)  -- Assume this is a method in your Level class that checks passability
+   end
+
+   -- Use the prism.astar function to find the path
+   return prism.astar(startPos, goalPos, passable_callback)
+end
+
 --- Returns a list of all actors that are within the given range of the given
 --- position. The type parameter determines the type of range to use. Currently
 --- only "fov" and "box" are supported. The fov type uses a field of view
@@ -411,5 +431,7 @@ function Level:sparseMapCallback()
       self:updateCaches(x, y)
    end
 end
+
+
 
 return Level
