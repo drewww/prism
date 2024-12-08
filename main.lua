@@ -45,3 +45,7 @@ end
 function love.update(dt) manager:update(dt) end
 
 function love.keypressed(key, scancode) manager:keypressed(key, scancode) end
+
+function love.mousepressed( x, y, button, istouch, presses )
+   manager:mousepressed(x, y, button, istouch, presses )
+end

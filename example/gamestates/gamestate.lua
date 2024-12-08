@@ -27,6 +27,10 @@ function GameState:keypressed(key, scancode)
    -- handle keypresses here
 end
 
+function GameState:mousepressed( x, y, button, istouch, presses )
+   -- handle mousepress here
+end
+
 function GameState:getManager() return self.manager end
 
 return GameState

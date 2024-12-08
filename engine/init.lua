@@ -123,6 +123,9 @@ prism.components.Collider = require_relative "core.components.collider"
 --- @type ControllerComponent
 prism.components.Controller = require_relative "core.components.controller"
 
+--- @type BTControllerComponent
+prism.components.BTController = require_relative "core.components.btcontroller"
+
 --- @type PlayerControllerComponent
 prism.components.PlayerController = require_relative "core.components.player_controller"
 
@@ -163,7 +166,7 @@ local function loadItems(path, itemType, recurse, definitions)
          fileName = string.gsub(fileName, ".lua", "")
          fileName = string.gsub(fileName, "/", ".")
 
-         local name = string.gsub(item:sub(1, 1):upper() .. item:sub(2), ".lua", "")
+         local name = string.gsub(item, ".lua", "")
          local item = require(fileName)
          local strippedClassName = string.gsub(item.className, prism._itemPatterns[itemType], "")
 
@@ -172,7 +175,7 @@ local function loadItems(path, itemType, recurse, definitions)
          items[strippedClassName] = item
          
          table.insert(definitions, "--- @type " .. item.className)
-         table.insert(definitions, "prism." .. itemType .. "." .. name .. " = nil")
+         table.insert(definitions, "prism." .. itemType .. "." .. strippedClassName .. " = nil")
       elseif info.type == "directory" and recurse then
          loadItems(fileName, itemType, recurse, definitions)
       end

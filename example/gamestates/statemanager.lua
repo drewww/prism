@@ -48,4 +48,9 @@ function StateManager:keypressed(key, scancode)
    if topState then topState:keypressed(key, scancode) end
 end
 
+function StateManager:mousepressed( x, y, button, istouch, presses )
+   local topState = self.stateStack[#self.stateStack]
+   if topState then topState:mousepressed( x, y, button, istouch, presses ) end
+end
+
 return StateManager

@@ -15,6 +15,7 @@ function Move:perform(level)
    --- @type Vector2
    local destination = self:getTarget(1)
 
+   assert(self.owner:getPosition():distanceChebyshev(destination) == 1)
    if level:getCellPassable(destination.x, destination.y) then
       local moveComponent = self.owner:getComponent(prism.components.Move)
       moveComponent.curMovePoints = moveComponent.curMovePoints - 1

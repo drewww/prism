@@ -8,7 +8,8 @@ Player.components = {
    prism.components.PlayerController(),
    prism.components.Senses(),
    prism.components.Sight { range = 10, fov = true },
-   prism.components.Move { movePoints = 5 },
+   prism.components.Move { movePoints = 10 },
+   prism.components.ActionPoint { actionPoints = 1 }
 }
 
 return Player

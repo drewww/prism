@@ -26,7 +26,7 @@ end
 --- Gets the values stored at the specified coordinates.
 --- @param x number The x-coordinate.
 --- @param y number The y-coordinate.
---- @return table elements A table of values stored at the specified coordinates, or an empty table if none.
+--- @return table elements A set[actor]=bool of values stored at the specified coordinates, or an empty table if none.
 function SparseMap:get(x, y) 
    return self.map[hash(x, y)] or dummy 
 end
