@@ -45,7 +45,7 @@ function Camera:push()
    love.graphics.push()
    love.graphics.rotate(-self.rotation)
    love.graphics.scale(1 / self.scale.x, 1 / self.scale.y)
-   love.graphics.translate(-self.position.x, -self.position.y)
+   love.graphics.translate(-math.floor(self.position.x), -math.floor(self.position.y))
 end
 
 function Camera:pop()

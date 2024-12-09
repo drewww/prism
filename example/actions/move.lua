@@ -1,15 +1,27 @@
+---@type SRDAction
+local SRDAction = require "example.actions.srdaction"
+
 local PointTarget = prism.Target:extend("PointTarget")
 PointTarget.typesAllowed = { Point = true }
 PointTarget.range = 1
 
----@class MoveAction : Action
+---@class MoveAction : SRDAction
 ---@field name string
 ---@field silent boolean
 ---@field targets table<Target>
-local Move = prism.Action:extend("MoveAction")
+local Move = SRDAction:extend("MoveAction")
 Move.name = "move"
 Move.silent = true
 Move.targets = { PointTarget }
+Move.stripName = true
+
+function Move:movePointCost(level, actor)
+   return 1
+end
+
+function Move:actionSlot()
+   return nil
+end
 
 function Move:perform(level)
    --- @type Vector2
@@ -17,8 +29,7 @@ function Move:perform(level)
 
    assert(self.owner:getPosition():distanceChebyshev(destination) == 1)
    if level:getCellPassable(destination.x, destination.y) then
-      local moveComponent = self.owner:getComponent(prism.components.Move)
-      moveComponent.curMovePoints = moveComponent.curMovePoints - 1
+  
       level:moveActor(self.owner, destination, false)
    end
 end

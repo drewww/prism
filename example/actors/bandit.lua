@@ -10,7 +10,17 @@ Bandit.components = {
    prism.components.BTController(BanditBehavior),
    prism.components.Senses(),
    prism.components.Sight { range = 10, fov = true },
-   prism.components.Move { movePoints = 10 },
+   prism.components.SRDStats {
+      stats = {
+         STR = 10,
+         DEX = 10,
+         CON = 10,
+         WIS = 10,
+         CHA = 10,
+         INT = 10
+      },
+      movePoints = 6
+   }
 }
 
 return Bandit

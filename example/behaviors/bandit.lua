@@ -16,6 +16,8 @@ return prism.BehaviorTree.Root {
                end
             end
          end
+
+         return true
       end),
       --prism.behaviors.Pathfind(targetActor:getPosition())
    }

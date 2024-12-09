@@ -5,6 +5,8 @@ local spriteAtlas = SpriteAtlas.fromGrid("example/display/wanderlust_16x16.png",
 
 local Camera = require "example.display.camera"
 
+local SensesTracker = require "example.sensestracker"
+
 --- This is the core turn logic, and if you need to use a different scheduler or want a different turn structure you should override this.
 --- There is a version of this provided for time-based 
 ---@param level Level
@@ -12,104 +14,27 @@ local Camera = require "example.display.camera"
 ---@param controller ControllerComponent
 ---@diagnostic disable-next-line
 function prism.turn(level, actor, controller)
-   local moveComponent = actor:getComponent(prism.components.Move)
-   if moveComponent then
-      moveComponent.curMovePoints = moveComponent.movePoints
-   end
-
-   local actionPointComponent = actor:getComponent(prism.components.ActionPoint)
-   if actionPointComponent then
-      actionPointComponent.curActionPoints = actionPointComponent.actionPoints
-   end
+   local SRDStatsComponent = actor:getComponent(prism.components.SRDStats)
+   SRDStatsComponent:resetOnTurn()
 
    while true do -- no brakes baby
       local action = controller:act(level, actor)
+      ---@cast action SRDAction
 
       if action:is(prism.actions.EndTurn) then break end
       -- we make sure we got an action back from the controller for sanity's sake
       assert(action, "Actor " .. actor.name .. " returned nil from act()")
-      assert(action.canPerform(actor))
+      assert(action:canPerform(level, actor))
 
+      SRDStatsComponent.curMovePoints = SRDStatsComponent.curMovePoints - action:movePointCost(level, actor)
+
+      local slot = action:actionSlot(level, actor)
+      if slot then
+         SRDStatsComponent.actionSlots[slot] = false
+      end
+
+      print "PERFORM"
       level:performAction(action)
-   end
-end
-
----@class SensesTracker : Object
----@field exploredCells SparseGrid
----@field otherSensedCells SparseGrid
----@field totalSensedActors SparseMap
----@field otherSensedActors SparseMap
-local SensesTracker = prism.Object:extend("SensesTracker")
-
----@param level Level
----@param curActor Actor
-function SensesTracker:createSensedMaps(level, curActor)
-   self.exploredCells = prism.SparseGrid() 
-   self.otherSensedActors = prism.SparseMap()
-   self.otherSensedCells = prism.SparseGrid()
-   self.totalSensedActors = prism.SparseMap()
-
-   local actorSet = {}
-
-   -- Collect explored cells
-   for actor in level:eachActor(prism.components.PlayerController) do
-      local sensesComponent = actor:getComponent(prism.components.Senses)
-      for x, y, cell in sensesComponent.explored:each() do
-         self.exploredCells:set(x, y, cell)
-      end
-   end
-
-   for actor in level:eachActor(prism.components.PlayerController) do
-      if actor ~= curActor then
-         local sensesComponent = actor:getComponent(prism.components.Senses)
-         for x, y, cell in sensesComponent.cells:each() do
-            self.otherSensedCells:set(x, y, cell)
-         end
-      end
-   end
-
-   -- Collect other sensed actors
-   for actor in level:eachActor(prism.components.PlayerController) do
-      if actor ~= curActor then
-         local sensesComponent = actor:getComponent(prism.components.Senses)
-         for actorInSight in sensesComponent.actors:eachActor() do
-            actorSet[actorInSight] = true
-            self.otherSensedActors:insert(actorInSight.position.x, actorInSight.position.y, actorInSight)
-         end
-      end
-   end
-
-   local sensesComponent = curActor:getComponent(prism.components.Senses)
-   if sensesComponent then
-      for actor in sensesComponent.actors:eachActor() do
-         actorSet[actor] = true
-         self.totalSensedActors:insert(actor.position.x, actor.position.y, actor)
-      end
-   end
-
-   for actor, _ in pairs(actorSet) do
-      print(actor.name)
-      self.totalSensedActors:insert(actor.position.x, actor.position.y, actor)
-   end
-end
-
-function SensesTracker:passableCallback()
-   return function(x, y)
-      local passable = false
-      --- @type Cell
-      local cell = self.exploredCells:get(x, y)
-
-      if cell then 
-         passable = cell.passable
-      end
-
-      for actor, _ in pairs(self.totalSensedActors:get(x, y)) do
-         if actor:getComponent(prism.components.Collider) ~= nil then
-            passable = false
-         end
-      end
-
-      return passable
    end
 end
 
@@ -123,6 +48,9 @@ local waitPathConstant = 0.2
 --- @field waiting boolean
 --- @field dt number
 --- @field sensesTracker SensesTracker
+--- @field path table<Vector2>
+--- @field decidedPath table<Vector2>
+--- @field targetActor Actor
 local LevelState = GameState:extend("LevelState")
 
 --- This state is passed a Level object and sets up the interface and main loop for
@@ -171,14 +99,22 @@ function LevelState:update(dt)
       --self.path = self.level:findPath(self.actor:getPosition(), prism.Vector2(wx, wy))
       if self.path then table.remove(self.path, #self.path) end
 
-      local moveComponent = self.actor:getComponent(prism.components.Move)
-      if moveComponent then
-         if moveComponent.curMovePoints == 0 then
+      local SRDStatsComponent = self.actor:getComponent(prism.components.SRDStats)
+      if SRDStatsComponent then
+         if SRDStatsComponent.curMovePoints == 0 then
             self.decidedPath = nil
          end
-      end   
-   end
+      end
 
+      local sensesComponent = self.actor:getComponent(prism.components.Senses)   
+      if sensesComponent then
+         local actorBucket = sensesComponent.actors:getActorsAt(wx, wy)
+
+         if #actorBucket > 0 then
+            self.targetActor = actorBucket[1]
+         end
+      end
+   end
 
    if self.waiting and not self.action and self.decidedPath and self.waitPathTime > waitPathConstant then
       self.waitPathTime = 0
@@ -197,9 +133,25 @@ function LevelState:update(dt)
       end
    end
 
+   if self.waiting and not self.action and self.decidedTarget then
+      print "ATTACK DECIDED"
+      local attackAction = self.actor:getAction(prism.actions.Attack)
+
+      print(attackAction, attackAction:validateTarget(1, self.actor, self.decidedTarget), attackAction:canPerform(self.level, self.decidedTarget))
+      if 
+         attackAction and attackAction:validateTarget(1, self.actor, self.decidedTarget)
+         and attackAction:canPerform(self.level, self.decidedTarget)
+      then
+         print "YEET"
+         self.action = attackAction(self.actor, {self.decidedTarget})
+      end
+      self.decidedTarget = nil
+   end
+
    -- we're waiting and there's no input so stop advancing
    if not self.action and self.waiting then return end
 
+   print(self.action and self.action.name)
    local success, ret = coroutine.resume(self.updateCoroutine, self.level, self.action)
    self.action = nil
 
@@ -258,19 +210,19 @@ function LevelState:draw()
       love.graphics.draw(spriteAtlas.image, spriteQuad, x * 16, y * 16)
    end
 
-   local moveComponent = self.actor:getComponent(prism.components.Move)
-   if moveComponent then
+   local SRDStatsComponent = self.actor:getComponent(prism.components.SRDStats)
+   if SRDStatsComponent then
       if self.decidedPath then
          love.graphics.setColor(0, 1, 0, 0.3)
          for i, v in ipairs(self.decidedPath) do
-            if #self.decidedPath - i < moveComponent.curMovePoints then 
+            if #self.decidedPath - i < SRDStatsComponent.curMovePoints then 
                love.graphics.rectangle("fill", v.x * 16, v.y * 16, 16, 16)
             end
          end
       elseif self.path then
          love.graphics.setColor(0, 1, 0, 0.3)
          for i, v in ipairs(self.path) do
-            if #self.path - i < moveComponent.curMovePoints then 
+            if #self.path - i < SRDStatsComponent.curMovePoints then 
                love.graphics.rectangle("fill", v.x * 16, v.y * 16, 16, 16)
             end
          end
@@ -290,6 +242,7 @@ function LevelState:draw()
    self.camera:pop()
 
    love.graphics.print("Frame Time: " .. love.timer.getAverageDelta(), 10, 10)
+   love.graphics.print("HP: " .. SRDStatsComponent.HP, 10, 20)
 end
 
 local keysToVectors = {
@@ -327,6 +280,10 @@ end
 function LevelState:mousepressed( x, y, button, istouch, presses )
    if self.path then
       self.decidedPath = self.path
+   end
+
+   if self.targetActor then
+      self.decidedTarget = self.targetActor
    end
 end
 
