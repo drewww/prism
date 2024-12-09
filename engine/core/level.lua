@@ -15,14 +15,15 @@ local Level = prism.Object:extend("Level")
 --- Constructor for the Level class.
 --- @param map Map The map to use for the level.
 --- @param actors table<Actor> A list of actors to
-function Level:__new(map, actors, scheduler)
+function Level:__new(map, actors, scheduler, seed)
    self.systemManager = prism.SystemManager(self)
    self.actorStorage = prism.ActorStorage(true, self:sparseMapCallback(), self:sparseMapCallback())
    self.scheduler = scheduler or prism.SimpleScheduler()
    self.map = map
    self.opacityCache = prism.BooleanBuffer(map.w, map.h)  -- holds a cache of opacity to speed up fov calcs
    self.passableCache = prism.BooleanBuffer(map.w, map.h) -- holds a cache of passability to speed up a* calcs
-
+   self.RNG = prism.RNG(seed or love.timer.getTime())
+   
    self:initialize(actors)
 end
 
