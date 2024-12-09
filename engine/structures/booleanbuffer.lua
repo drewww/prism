@@ -10,11 +10,11 @@ local BooleanBuffer = prism.Object:extend("BooleanBuffer")
 --- @param w integer The width of the buffer.
 --- @param h integer The height of the buffer.
 function BooleanBuffer:__new(w, h)
-    self.w = w
-    self.h = h
+   self.w = w
+   self.h = h
 
-    -- Initialize the buffer with false values
-    self.buffer = ffi.new("bool[?]", w * h)
+   -- Initialize the buffer with false values
+   self.buffer = ffi.new("bool[?]", w * h)
 end
 
 --- Calculate the index in the buffer array for the given coordinates.
@@ -22,14 +22,14 @@ end
 --- @param y integer The y-coordinate (1-based).
 --- @return integer index The corresponding index in the buffer array.
 function BooleanBuffer:getIndex(x, y)
-    assert(x > 0 and y > 0, "Index out of bounds (" .. x .. ", " .. y .. ")")
-    assert(x <= self.w and y <= self.h, "Index out of bounds (" .. x .. ", " .. y .. ")")
-    return (y - 1) * self.w + (x - 1)
+   assert(x > 0 and y > 0, "Index out of bounds (" .. x .. ", " .. y .. ")")
+   assert(x <= self.w and y <= self.h, "Index out of bounds (" .. x .. ", " .. y .. ")")
+   return (y - 1) * self.w + (x - 1)
 end
 
 --- Clear the buffer, setting all values to false.
 function BooleanBuffer:clear()
-    ffi.fill(self.buffer, ffi.sizeof("bool") * self.w * self.h)
+   ffi.fill(self.buffer, ffi.sizeof("bool") * self.w * self.h)
 end
 
 --- Set the value at the given coordinates.
