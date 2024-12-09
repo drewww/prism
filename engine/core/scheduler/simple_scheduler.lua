@@ -25,6 +25,7 @@ end
 --- @param actor Actor The actor to remove.
 function SimpleScheduler:remove(actor)
    self.currentQueue:remove(actor)
+   self.nextQueue:remove(actor)
 end
 
 --- Checks if an actor is in the scheduler.
