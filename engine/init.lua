@@ -170,6 +170,10 @@ local function loadItems(path, itemType, recurse, definitions)
          local item = require(fileName)
          local strippedClassName = string.gsub(item.className, prism._itemPatterns[itemType], "")
 
+         if not item.stripName then
+            strippedClassName = item.className
+         end
+
          assert(strippedClassName ~= "", "File " .. name .. " contains type " .. itemType .. " without a valid stripped name!")
          assert(items[strippedClassName] == nil, "File " .. name .. " contains type " .. itemType .. " with duplicate name!")
          items[strippedClassName] = item
@@ -200,7 +204,7 @@ function prism.loadModule(directory)
       return
    end
 
-   file:write(table.concat(definitions, "\n\n"))
+   file:write(table.concat(definitions, "\n"))
    file:close()
 end
 
