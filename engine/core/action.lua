@@ -46,8 +46,8 @@ end
 --- sure an action is valid for the actor. This would be useful for 
 --- @param actor Actor The actor trying to perform the action
 --- @param source Actor? An optional second actor for things like zapping a wand.
-function Action.canPerform(actor, source)
-    return true
+function Action:canPerform(actor, source)
+   return true
 end
 
 --- Performs the action. This should be overriden on all subclasses
@@ -93,7 +93,7 @@ end
 --- @param owner Actor The actor that is performing the action.
 --- @param to_validate Actor The target actor to _validate.
 --- @return boolean true if the specified target actor is valid for this action, false otherwise.
-function Action:_validateTarget(n, owner, to_validate)
+function Action:validateTarget(n, owner, to_validate)
    return self.targets[n]:_validate(owner, to_validate)
 end
 
