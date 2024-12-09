@@ -1,6 +1,6 @@
 --- The base class for all nodes in the behavior tree.
 --- @class BTNode : Object
---- @overload fun(run: fun(level: Level, actor: Actor)): BTNode
+--- @overload fun(run: fun(level: Level, actor: Actor): boolean|Action): BTNode
 --- @type BTNode
 local BTNode = prism.Object:extend("BTNode")
 
@@ -8,7 +8,7 @@ local BTNode = prism.Object:extend("BTNode")
 --- prism.BTNode(function(level, actor) return true end)
 --- For this reason simple nodes like succeeders, inverters, failers etc.
 --- should just be created using these anonymous nodes.
---- @param run fun(self: BTNode, level: Level, actor: Actor)
+--- @param run fun(self: BTNode, level: Level, actor: Actor): boolean|Action
 function BTNode:__new(run)
    self.run = run or self.run
 end
