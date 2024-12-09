@@ -137,8 +137,8 @@ local rangeCase = {
     ["euclidean"] = Vector2.distance
 }
 --- Gets the range, a ciel'd integer representing the number of tiles away the other vector is
---- ciel'd.
 --- @param type DistanceType
+--- @param vec Vector2
 function Vector2:getRange(type, vec)
     return rangeCase[type](self, vec)
 end
