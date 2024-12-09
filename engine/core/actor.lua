@@ -116,8 +116,11 @@ function Actor:getComponent(prototype) return self.componentCache[prototype] end
 --- Actions
 --
 
---- @param prototype Action
+--- @generic T 
+--- @param prototype T The type of the component to return.
+--- @return T?
 function Actor:getAction(prototype)
+   ---@cast prototype Actor
    assert(prototype:is(prism.Action), "Expected argument prototype to be of type Action!")
 
    for _, component in pairs(self.components) do
