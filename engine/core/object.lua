@@ -3,6 +3,7 @@
 ---@field className string A unique name for this class. By convention this should match the annotation name you use.
 local Object = {}
 Object.className = "Object"
+Object.stripName = true
 
 --- Creates a new class and sets its metatable to the extended class.
 --- @generic T
