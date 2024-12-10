@@ -21,11 +21,13 @@ end
 --- Removes and returns the element from the start of the queue.
 --- @return any The value at the start of the queue.
 function Queue:pop()
-    local value = self.queue[self.first]
-    self.queue[self.first] = nil
-    self.first = self.first + 1
+   local value = self.queue[self.first]
+   if value then
+      self.queue[self.first] = nil
+      self.first = self.first + 1
 
-    return value
+      return value
+   end
 end
 
 --- Checks if the queue is empty.

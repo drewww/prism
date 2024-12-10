@@ -80,6 +80,13 @@ function SparseMap:has(x, y, value)
    return self.map[xyhash][value] or false
 end
 
+--- Checks where the specified value exists within the map.
+--- @param value  any
+--- @return boolean containsValue
+function SparseMap:contains(value)
+   return self.list[value]
+end
+
 --- Inserts a value at the specified coordinates.
 --- @param x number The x-coordinate.
 --- @param y number The y-coordinate.

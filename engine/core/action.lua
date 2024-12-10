@@ -44,9 +44,8 @@ end
 
 --- This method should be overriden by subclasses. This is called to make
 --- sure an action is valid for the actor. This would be useful for 
---- @param actor Actor The actor trying to perform the action
---- @param source Actor? An optional second actor for things like zapping a wand.
-function Action:canPerform(actor, source)
+--- @param level Level
+function Action:canPerform(level)
    return true
 end
 

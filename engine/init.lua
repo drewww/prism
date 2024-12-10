@@ -113,6 +113,8 @@ prism.cells = {}
 prism.targets = {}
 prism.messages = {}
 prism.systems = {}
+prism.messages = {}
+prism.decisions = {}
 
 --- @type SensesSystem
 prism.systems.Senses = require_relative "core.systems.senses"
@@ -135,6 +137,12 @@ prism.components.Senses = require_relative "core.components.senses"
 --- @type OpaqueComponent
 prism.components.Opaque = require_relative "core.components.opaque"
 
+--- @type ActionDecision
+prism.decisions.ActionDecision = require_relative "core.decisions.actiondecision"
+
+--- @type ActionMessage
+prism.messages.ActionMessage = require_relative "core.messages.actionmessage"
+
 prism._items = {
    "targets",
    "cells",
@@ -142,6 +150,7 @@ prism._items = {
    "components",
    "actors",
    "messages",
+   "decisions",
    "systems",
 }
 
@@ -153,6 +162,7 @@ prism._itemPatterns = {
    targets = "[tT][aA][rR][gG][eE][tT]",
    messages = "[mM][eE][sS][sS][aA][gG][eE]",
    systems = "[sS][yY][sS][tT][eE][mM]",
+   decisions = "[dD][eE][cC][iI][sS][iI][oO][nN]",
 }
 
 local function loadItems(path, itemType, recurse, definitions)
@@ -223,4 +233,5 @@ function prism.turn(level, actor, controller)
    assert(action, "Actor " .. actor.name .. " returned nil from act()")
 
    level:performAction(action)
+   level:yield(prism.messages.ActionMessage(action))
 end

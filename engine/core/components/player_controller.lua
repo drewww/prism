@@ -6,10 +6,10 @@ local PlayerController = prism.components.Controller:extend("PlayerController")
 ---@param level Level
 ---@param actor Actor
 function PlayerController:act(level, actor)
-   local action = level:yield(actor)
-   assert(action, "UI returned a nil action!")
-
-   return action
+   local actionDecision = level:yield(prism.decisions.ActionDecision(actor))
+   --- @cast actionDecision ActionDecision
+   
+   return actionDecision.action
 end
 
 return PlayerController

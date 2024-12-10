@@ -184,7 +184,7 @@ end
 --- system to ensure that the player's fov is always updated when we yield
 --- even if it's not their turn.
 --- @param level Level The level to call onYield for.
---- @param event table The event data that caused the yield.
+--- @param event Message The event data that caused the yield.
 function SystemManager:onYield(level, event)
    for _, system in ipairs(self.systems) do
       system:onYield(level, event)

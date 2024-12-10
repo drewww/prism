@@ -14,7 +14,7 @@ function SensesSystem:onTurn(level, actor)
 end
 
 ---@param level Level
----@param event any
+---@param event Message
 function SensesSystem:onYield(level, event)
    for actor in level:eachActor(prism.components.Senses) do
       self:triggerRebuild(level, actor)

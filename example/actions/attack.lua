@@ -31,7 +31,6 @@ function Attack:actionSlot()
 end
 
 function Attack:perform(level)
-   print "YA"
    --- @type Actor
    local attackTarget = self:getTarget(1)
 
@@ -39,15 +38,12 @@ function Attack:perform(level)
    local targetStats = attackTarget:getComponent(prism.components.SRDStats)
 
    local attackRoll = ownerStats.stats.STR + level.RNG:random(1, 20)
-   print("Attacking:", attackRoll, targetStats.naturalAC)
    if attackRoll >= targetStats.naturalAC then
-      print("Attack hit:", attackRoll)
       local damageRoll = ownerStats.stats.STR + level.RNG:random(1, 6)
       targetStats.HP = targetStats.HP - damageRoll
 
-      print("Dealt damage:", damageRoll)
       if targetStats.HP < 0 then
-         print "REMOVING"
+         print "HE DEAD"
          level:removeActor(attackTarget)
       end
    end

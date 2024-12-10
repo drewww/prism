@@ -15,13 +15,14 @@ function SRDAction:actionSlot(level, actor)
    return "Action"
 end
 
-function SRDAction:canPerform(level, actor)
-   local SRDStatsComponent = actor:getComponent(prism.components.SRDStats)
+---@param level Level
+function SRDAction:canPerform(level)
+   local SRDStatsComponent = self.owner:getComponent(prism.components.SRDStats)
    ---@cast SRDStatsComponent SRDStatsComponent
 
    if SRDStatsComponent then
-      local moveCost = self:movePointCost(level, actor)
-      local actionSlot = self:actionSlot(level, actor)
+      local moveCost = self:movePointCost(level, self.owner)
+      local actionSlot = self:actionSlot(level, self.owner)
 
       if SRDStatsComponent.curMovePoints < moveCost then
          return false
@@ -32,7 +33,7 @@ function SRDAction:canPerform(level, actor)
       end
    end
 
-   return true
+   return prism.Action.canPerform(self, level)
 end
 
 return SRDAction

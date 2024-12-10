@@ -29,7 +29,7 @@ function Move:perform(level)
 
    assert(self.owner:getPosition():distanceChebyshev(destination) == 1)
    if level:getCellPassable(destination.x, destination.y) then
-  
+      self.previousPosition = self.owner:getPosition()
       level:moveActor(self.owner, destination, false)
    end
 end

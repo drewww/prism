@@ -92,7 +92,7 @@ function System:onTurnEnd(level, actor) end
 --- The most common usage for this right now is updating the sight component of any
 --- input controlled actors in the Sight system.
 --- @param level Level The Level object this System is attached to.
---- @param event table The event data that caused the yield.
+--- @param event Message The event data that caused the yield.
 function System:onYield(level, event) end
 
 --- This method is called when descending to a lower level.

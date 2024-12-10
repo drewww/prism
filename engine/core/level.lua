@@ -72,10 +72,11 @@ end
 --- Yields to the main 'thread', a coroutine in this case. This is called in run, and a few systems. Any time you want
 --- the interface to update you should call this. Avoid calling coroutine.yield directly,
 --- as this function will call the onYield method on all systems.
---- @param ... any Any arguments to pass to the main thread. This will be replaced with the message class in the future.
-function Level:yield(...)
-   self.systemManager:onYield(self, ...)
-   local _, ret = coroutine.yield(...)
+--- @param message table<Message>
+--- @return Decision|nil
+function Level:yield(message)
+   self.systemManager:onYield(self, message)
+   local _, ret = coroutine.yield(message)
    return ret
 end
 
@@ -212,6 +213,7 @@ function Level:performAction(action, silent)
       self:getCell(x, y):beforeAction(self, owner, action)
    end
    action:perform(self)
+   self:yield({prism.messages.ActionMessage(action)})
    if not silent then
       self.systemManager:afterAction(self, owner, action)
       local x, y = owner:getPosition():decompose()
