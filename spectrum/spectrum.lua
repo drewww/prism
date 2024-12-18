@@ -48,7 +48,7 @@ function Spectrum:update(dt, curActor)
    
    --- align camera
    local w, h = love.graphics.getDimensions()
-   local hw, hh = math.floor(w/2), math.floor(h/2)
+   local hw, hh = math.floor(w/2) * self.camera.scale.x, math.floor(h/2) * self.camera.scale.y
 
    local cx, cy = self.camera:getPosition()
    local camVec = prism.Vector2(cx, cy)
