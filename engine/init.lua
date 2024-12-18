@@ -243,5 +243,19 @@ function prism.turn(level, actor, controller)
    assert(action, "Actor " .. actor.name .. " returned nil from act()")
 
    level:performAction(action)
-   level:yield(prism.messages.ActionMessage(action))
+end
+
+--- Runs the level coroutine and returns the next message, or nil if the coroutine has halted.
+--- @return Message|nil
+function prism.advanceCoroutine(updateCoroutine, level, decision)
+   local success, ret = coroutine.resume(updateCoroutine, level, decision)
+
+   if not success then
+      error(ret .. "\n" .. debug.traceback(updateCoroutine))
+   end
+
+   local coroutineStatus = coroutine.status(updateCoroutine)
+   if coroutineStatus == "suspended" then
+      return ret
+   end
 end
