@@ -9,8 +9,11 @@ handlers[prism.actions.Move] = function (spectrum, message)
    return function(dt)
       t = t + dt
       local lerpFactor = t/maxT
-      local actor = message.action.owner
-      local lastPos = message.action.previousPosition
+
+      local action = message.action
+      --- @cast action MoveAction
+      local actor = action.owner
+      local lastPos = action.previousPosition
 
       local curPos = actor:getPosition()
 
