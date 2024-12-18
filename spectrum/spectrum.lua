@@ -14,8 +14,10 @@ local Camera = require "spectrum.camera"
 local Spectrum = prism.Object:extend("Spectrum")
 
 ---@param spriteAtlas SpriteAtlas
+---@param cellSize Vector2
 ---@param level Level
-function Spectrum:__new(spriteAtlas, level)
+function Spectrum:__new(spriteAtlas, cellSize, level)
+   self.cellSize = cellSize
    self.level = level
    self.spriteAtlas = spriteAtlas
    self.sensesTracker = SensesTracker()
@@ -52,11 +54,12 @@ function Spectrum:update(dt, curActor)
    local camVec = prism.Vector2(cx, cy)
 
 
+   local cSx, cSy = self.cellSize.x, self.cellSize.y
    ---@diagnostic disable-next-line
    local goalVec
 
    if curActor then
-      goalVec = prism.Vector2(curActor.position.x * 16 - hw, curActor.position.y * 16 - hh)
+      goalVec = prism.Vector2(curActor.position.x * cSx - hw, curActor.position.y * cSy - hh)
    elseif self.currentMessageGroup then
       local center = prism.Vector2(0, 0)
 
@@ -77,7 +80,7 @@ function Spectrum:update(dt, curActor)
       local averaged = center
       averaged.x = averaged.x / #actorsInvolved
       averaged.y = averaged.y / #actorsInvolved
-      goalVec = prism.Vector2(averaged.x * 16 - hw, averaged.y * 16 - hh)
+      goalVec = prism.Vector2(averaged.x * cSx - hw, averaged.y * cSy - hh)
    end
 
    local lerpedPos = camVec:lerp(goalVec or camVec, 5*dt)
@@ -138,12 +141,13 @@ function Spectrum:beforeDrawCells(curActor)
 end
 
 function Spectrum:drawCells(curActor)
+   local cSx, cSy = self.cellSize.x, self.cellSize.y
    -- Set colors and draw the cells in one loop
    love.graphics.setColor(1, 1, 1, 0.3) -- Color for explored cells
    for x, y, cell in self.sensesTracker.exploredCells:each() do
       local spriteQuad = self.spriteAtlas:getQuadByIndex(string.byte(cell.char) + 1)
       if spriteQuad then
-         love.graphics.draw(self.spriteAtlas.image, spriteQuad, x * 16, y * 16)
+         love.graphics.draw(self.spriteAtlas.image, spriteQuad, x * cSx, y * cSy)
       end
    end
 
@@ -156,7 +160,7 @@ function Spectrum:drawCells(curActor)
    for x, y, cell in self.sensesTracker.otherSensedCells:each() do
       local spriteQuad = self.spriteAtlas:getQuadByIndex(string.byte(cell.char) + 1)
       if spriteQuad then
-         love.graphics.draw(self.spriteAtlas.image, spriteQuad, x * 16, y * 16)
+         love.graphics.draw(self.spriteAtlas.image, spriteQuad, x * cSx, y * cSy)
       end
    end
 
@@ -166,7 +170,7 @@ function Spectrum:drawCells(curActor)
    local sensesComponent = curActor:getComponent(prism.components.Senses)
    for x, y, cell in sensesComponent.cells:each() do
       local spriteQuad = self.spriteAtlas:getQuadByIndex(string.byte(cell.char) + 1)
-      love.graphics.draw(self.spriteAtlas.image, spriteQuad, x * 16, y * 16)
+      love.graphics.draw(self.spriteAtlas.image, spriteQuad, x * cSx, y * cSy)
    end
 end
 
@@ -177,9 +181,10 @@ end
 function Spectrum:drawActor(actor, drawnSet)
    if drawnSet[actor] then return end
 
+   local cSx, cSy = self.cellSize.x, self.cellSize.y
    drawnSet[actor] = true
    local spriteQuad = self.spriteAtlas:getQuadByIndex(string.byte(actor.char) + 1)
-   love.graphics.draw(self.spriteAtlas.image, spriteQuad, actor.position.x * 16, actor.position.y * 16)
+   love.graphics.draw(self.spriteAtlas.image, spriteQuad, actor.position.x * cSx, actor.position.y * cSy)
 end
 
 function Spectrum:drawActors(curActor)
@@ -218,10 +223,11 @@ function Spectrum:afterDrawActors(curActor)
 end
 
 function Spectrum:getCellUnderMouse()
+   local cSx, cSy = self.cellSize.x, self.cellSize.y
    local mx, my = love.mouse.getPosition()
    local wx, wy = self.camera:toWorldSpace(mx, my)
-   local tileX = math.floor(wx / 16)
-   local tileY = math.floor(wy / 16)
+   local tileX = math.floor(wx / cSx)
+   local tileY = math.floor(wy / cSy)
    return tileX, tileY
 end
 

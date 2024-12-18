@@ -29,7 +29,7 @@ function LevelState:__new(level)
    self.updateCoroutine = coroutine.create(level.run)
    self.decision = nil
    self.waitPathTime = 0
-   self.spectrum = Spectrum(spriteAtlas, level)
+   self.spectrum = Spectrum(spriteAtlas, prism.Vector2(16, 16), level)
    self.lastActor = nil
 
    self.spectrum.beforeDrawCells = self:drawBeforeCellsCallback()
@@ -154,7 +154,10 @@ end
 
 
 function LevelState:drawBeforeCellsCallback()
+   ---@param spectrum Spectrum
+   ---@param curActor Actor
    return function(spectrum, curActor)
+      local cSx, cSy = spectrum.cellSize.x, spectrum.cellSize.y
       if not curActor then curActor = self.lastActor end
 
       local SRDStatsComponent = curActor:getComponent(prism.components.SRDStats)
@@ -163,7 +166,7 @@ function LevelState:drawBeforeCellsCallback()
             love.graphics.setColor(0, 1, 0, 0.3)
             for i, v in ipairs(self.decidedPath.path) do
                if self.decidedPath:totalCostAt(i) <= SRDStatsComponent.curMovePoints then
-                  love.graphics.rectangle("fill", v.x * 16, v.y * 16, 16, 16)
+                  love.graphics.rectangle("fill", v.x * cSx, v.y * cSy, cSx, cSy)
                end
             end
          elseif self.path then
@@ -174,14 +177,14 @@ function LevelState:drawBeforeCellsCallback()
                   love.graphics.setColor(0, 1, 0, 0.3)
                end
 
-               love.graphics.rectangle("fill", v.x * 16, v.y * 16, 16, 16)
+               love.graphics.rectangle("fill", v.x * cSx, v.y * cSy, cSx, cSy)
             end
          end
       end
 
       love.graphics.setColor(1, 1, 0, math.sin(self.spectrum.time * 4) * 0.1 + 0.3)
       ---@diagnostic disable-next-line
-      love.graphics.rectangle("fill", curActor.position.x * 16, curActor.position.y * 16, 16, 16)   
+      love.graphics.rectangle("fill", curActor.position.x * cSx, curActor.position.y * cSy, cSx, cSy)   
    end
 end
 
