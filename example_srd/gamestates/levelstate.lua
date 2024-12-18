@@ -37,39 +37,10 @@ function LevelState:__new(level)
    for action, func in pairs(ActionHandlers) do
       self.spectrum:registerActionHandlers(action, func)   
    end
-
-   self:advanceCoroutine()
 end
 
 function LevelState:advanceCoroutine()
-   local curActor
-   ---@diagnostic disable-next-line
-   if self.decision and self.decision:is(prism.decisions.ActionDecision) then curActor = self.decision.actor end
 
-   local success, ret = coroutine.resume(self.updateCoroutine, self.level, self.decision)
-   self.decision = nil
-
-   if not success then
-      error(ret .. "\n" .. debug.traceback(self.updateCoroutine))
-   end
-
-   local coroutineStatus = coroutine.status(self.updateCoroutine)
-   if coroutineStatus == "suspended" and ret.is and ret:is(prism.Decision) then
-      if ret.actor and self.lastActor ~= ret.actor then
-         self.path = nil
-         self.decidedPath = nil
-      end
-      self.decision = ret
-      return
-   elseif ret then
-      if ret.action and self.lastActor ~= ret.action.owner then
-         self.path = nil
-         self.decidedPath = nil
-      end
-      self.spectrum:queueMessage(ret)
-   elseif coroutineStatus == "dead" then
-      self.manager:pop()
-   end
 end
 
 function LevelState:shouldAdvance()
@@ -82,14 +53,32 @@ function LevelState:shouldAdvance()
    if decisionDone then return true end
 end
 
+function LevelState:checkPath(actor)
+   if self.lastActor ~= actor then
+      self.path = nil
+      self.decidedPath = nil
+   end
+end
+
 function LevelState:update(dt)
    self.waitPathTime = self.waitPathTime + dt
    while self:shouldAdvance() do
-      self:advanceCoroutine()
+      local message = prism.advanceCoroutine(self.updateCoroutine, self.level, self.decision)
+      if message then
+         if message:is(prism.Decision) then
+            ---@cast message Decision
+            self.decision = message
+            self:checkPath(self.decision.actor)
+         elseif message:is(prism.messages.ActionMessage) then
+            ---@cast message ActionMessage
+            self.spectrum:queueMessage(message)
+            self:checkPath(message.action.owner)
+         end
+      end
    end
 
    local curActor
-   if self.decision and self.decision:is(prism.decisions.ActionDecision) then
+   if self.decision and self.decision:instanceOf(prism.decisions.ActionDecision) then
       local decision = self.decision
       ---@cast decision ActionDecision
       
@@ -159,6 +148,7 @@ function LevelState:drawBeforeCellsCallback()
    return function(spectrum, curActor)
       local cSx, cSy = spectrum.cellSize.x, spectrum.cellSize.y
       if not curActor then curActor = self.lastActor end
+      if not curActor then return end
 
       local SRDStatsComponent = curActor:getComponent(prism.components.SRDStats)
       if SRDStatsComponent then
