@@ -35,9 +35,9 @@ end
 
 function Camera:toWorldSpace(x, y)
    -- Reverse the translation (subtract position)
-   local tx = x + self.position.x
-   local ty = y + self.position.y
-   
+   local tx = x * self.scale.x + self.position.x
+   local ty = y * self.scale.y + self.position.y
+
    return tx, ty
 end
 
