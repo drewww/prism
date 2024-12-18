@@ -11,11 +11,9 @@ mapbuilder:addActor(prism.actors.Bandit(), 19, 19)
 
 local map, actors = mapbuilder:build()
 
-local level = prism.Level(map, actors)
 local sensesSystem = prism.systems.Senses()
 local sightSystem = prism.systems.Sight()
-level:addSystem(sensesSystem)
-level:addSystem(sightSystem)
+local level = prism.Level(map, actors, {sensesSystem, sightSystem})
 
 local StateManager = require "example_srd.gamestates.statemanager"
 local LevelState = require "example_srd.gamestates.levelstate"
