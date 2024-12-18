@@ -9,6 +9,7 @@ PointTarget.range = 1
 ---@field name string
 ---@field silent boolean
 ---@field targets table<Target>
+---@field previousPosition Vector2
 local Move = SRDAction:extend("MoveAction")
 Move.name = "move"
 Move.silent = true
