@@ -3,6 +3,8 @@
 --- @field w number The width of the grid.
 --- @field h number The height of the grid.
 --- @field data any[] The data stored in the grid.
+--- @overload fun(w, h, initialValue): Grid
+--- @type Grid
 local Grid = prism.Object:extend("Grid")
 
 --- The constructor for the 'Grid' class.
