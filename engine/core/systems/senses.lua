@@ -13,6 +13,12 @@ function SensesSystem:onTurn(level, actor)
    self:triggerRebuild(level, actor)
 end
 
+function SensesSystem:postInitialize(level)
+   for actor, senses in level:eachActor(prism.components.Senses) do
+      self:triggerRebuild(level, actor)
+   end
+end
+
 ---@param level Level
 ---@param event Message
 function SensesSystem:onYield(level, event)
