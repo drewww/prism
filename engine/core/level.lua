@@ -8,14 +8,15 @@
 --- @field opacityCache BooleanBuffer A cache of cell opacity || actor opacity for each cell. Used to speed up fov/lighting calculations.
 --- @field passableCache BooleanBuffer A cache of cell passability || actor passability for each cell. Used to speed up pathfinding.
 --- @field RNG RNG The level's local random number generator, use this for randomness within the level like attack rolls.
---- @overload fun(map: Map, actors: Actor[], scheduler: Scheduler): Level
+--- @overload fun(map: Map, actors: [Actor], systems: [System], scheduler: Scheduler): Level
 --- @type Level
 local Level = prism.Object:extend("Level")
 
 --- Constructor for the Level class.
 --- @param map Map The map to use for the level.
---- @param actors table<Actor> A list of actors to
-function Level:__new(map, actors, scheduler, seed)
+--- @param actors [Actor] A list of actors to
+--- @param systems [System]
+function Level:__new(map, actors, systems, scheduler, seed)
    self.systemManager = prism.SystemManager(self)
    self.actorStorage = prism.ActorStorage(true, self:sparseMapCallback(), self:sparseMapCallback())
    self.scheduler = scheduler or prism.SimpleScheduler()
@@ -24,14 +25,19 @@ function Level:__new(map, actors, scheduler, seed)
    self.passableCache = prism.BooleanBuffer(map.w, map.h) -- holds a cache of passability to speed up a* calcs
    self.RNG = prism.RNG(seed or love.timer.getTime())
    
-   self:initialize(actors)
+   self:initialize(actors, systems)
 end
 
---- @param actors table<Actor>
-function Level:initialize(actors)
+--- @param actors [Actor]
+--- @param systems [System]
+function Level:initialize(actors, systems)
    assert(#actors > 0, "A level must be initialized with at least one actor!")
    self:initializeOpacityCache()
    self:initializePassabilityCache()
+
+   for i = 1, #systems do
+      self:addSystem(systems[i])
+   end
 
    self.systemManager:initialize(self)
 
@@ -213,7 +219,7 @@ function Level:performAction(action, silent)
       self:getCell(x, y):beforeAction(self, owner, action)
    end
    action:perform(self)
-   self:yield({prism.messages.ActionMessage(action)})
+   self:yield(prism.messages.ActionMessage(action))
    if not silent then
       self.systemManager:afterAction(self, owner, action)
       local x, y = owner:getPosition():decompose()
