@@ -6,8 +6,8 @@ local Camera = require "spectrum.camera"
 ---@field spriteAtlas SpriteAtlas
 ---@field sensesTracker SensesTracker
 ---@field messageQueue Queue
----@field currentMessageGroup table<ActionMessage>|nil
----@field currentActionHandlers table<fun(dt): boolean>
+---@field currentMessage ActionMessage|nil
+---@field currentActionHandler fun(dt): boolean
 ---@field camera Camera
 ---@field time number
 ---@field dt number
@@ -24,8 +24,8 @@ function Spectrum:__new(spriteAtlas, cellSize, level)
    self.camera = Camera()
    self.actionHandlers = {}
    self.messageQueue = prism.Queue()
-   self.currentMessageGroup = nil
-   self.currentActionHandlers = nil
+   self.currentMessage = nil
+   self.currentActionHandler = nil
    self.time = 0
    self.dt = 0
 
@@ -60,20 +60,18 @@ function Spectrum:update(dt, curActor)
 
    if curActor then
       goalVec = prism.Vector2(curActor.position.x * cSx - hw, curActor.position.y * cSy - hh)
-   elseif self.currentMessageGroup then
+   elseif self.currentMessage then
       local center = prism.Vector2(0, 0)
 
-      for _, actionMessage in ipairs(self.currentMessageGroup) do
-         table.insert(actorsInvolved, actionMessage.action.owner)
-         center = center + actionMessage.action.owner:getPosition()
+      table.insert(actorsInvolved, self.currentMessage.action.owner)
+      center = center + self.currentMessage.action.owner:getPosition()
 
-         for i = 1, actionMessage.action:getNumTargets() do
-            local target = actionMessage.action:getTarget(i)
+      for i = 1, self.currentMessage.action:getNumTargets() do
+         local target = self.currentMessage.action:getTarget(i)
 
-            if target:is(prism.Actor) then
-               table.insert(actorsInvolved, target)
-               center = center + target:getPosition()
-            end
+         if target:is(prism.Actor) then
+            table.insert(actorsInvolved, target)
+            center = center + target:getPosition()
          end
       end
 
@@ -88,31 +86,24 @@ function Spectrum:update(dt, curActor)
 end
 
 function Spectrum:updateAnimations()
-   if not self.currentMessageGroup then
-      self.currentMessageGroup = self.messageQueue:pop()
+   if not self.currentMessage then
+      self.currentMessage = self.messageQueue:pop()
 
-      if self.currentMessageGroup then
-         self.currentActionHandlers = {}
-
-         for _, actionMessage in ipairs(self.currentMessageGroup) do
-            ---@cast actionMessage ActionMessage
-            
-            if self.sensesTracker.totalSensedActors:contains(actionMessage.action.owner) then
-               local actionPrototype = getmetatable(actionMessage.action)
-               table.insert(self.currentActionHandlers, self.actionHandlers[actionPrototype](self, actionMessage))
-            end
+      if self.currentMessage then
+         print "YERT"
+         if self.sensesTracker.totalSensedActors:contains(self.currentMessage.action.owner) then
+            local actionPrototype = getmetatable(self.currentMessage.action)
+            self.currentActionHandler = self.actionHandlers[actionPrototype](self, self.currentMessage)
+            print "SKERT"
+         else
+            self.currentMessage = nil
          end
       end
-   end
-
-   if self.currentActionHandlers and not next(self.currentActionHandlers) then
-      self.currentMessageGroup = nil
-      self.currentActionHandlers = nil
    end
 end
 
 function Spectrum:isAnimating()
-   return self.currentMessageGroup ~= nil
+   return self.currentMessage ~= nil
 end
 
 --- @param actionPrototype Action
@@ -121,9 +112,9 @@ function Spectrum:registerActionHandlers(actionPrototype, handleFunc)
    self.actionHandlers[actionPrototype] = handleFunc
 end
 
---- @param messageTable table<Message>
-function Spectrum:queueMessage(messageTable)
-   self.messageQueue:push(messageTable)
+--- @param message Message
+function Spectrum:queueMessage(message)
+   self.messageQueue:push(message)
    self:updateAnimations()
 end
 
@@ -141,13 +132,18 @@ function Spectrum:beforeDrawCells(curActor)
 end
 
 function Spectrum:drawCells(curActor)
+   local drawnCells = prism.Grid(self.level.map.w, self.level.map.h, false)
+
    local cSx, cSy = self.cellSize.x, self.cellSize.y
-   -- Set colors and draw the cells in one loop
-   love.graphics.setColor(1, 1, 1, 0.3) -- Color for explored cells
-   for x, y, cell in self.sensesTracker.exploredCells:each() do
-      local spriteQuad = self.spriteAtlas:getQuadByIndex(string.byte(cell.char) + 1)
-      if spriteQuad then
+
+   if curActor then
+      love.graphics.setColor(1, 1, 1, 1) -- Color for the main actor's sensed cells
+      -- Collect the main actor's sensed cells
+      local sensesComponent = curActor:getComponent(prism.components.Senses)
+      for x, y, cell in sensesComponent.cells:each() do
+         local spriteQuad = self.spriteAtlas:getQuadByIndex(string.byte(cell.char) + 1)
          love.graphics.draw(self.spriteAtlas.image, spriteQuad, x * cSx, y * cSy)
+         drawnCells:set(x, y, true)
       end
    end
 
@@ -158,19 +154,24 @@ function Spectrum:drawCells(curActor)
    end
    if not curActor then love.graphics.setColor(1, 1, 1, 1) end
    for x, y, cell in self.sensesTracker.otherSensedCells:each() do
-      local spriteQuad = self.spriteAtlas:getQuadByIndex(string.byte(cell.char) + 1)
-      if spriteQuad then
-         love.graphics.draw(self.spriteAtlas.image, spriteQuad, x * cSx, y * cSy)
+      if not drawnCells:get(x, y) then
+         local spriteQuad = self.spriteAtlas:getQuadByIndex(string.byte(cell.char) + 1)
+         if spriteQuad then
+            love.graphics.draw(self.spriteAtlas.image, spriteQuad, x * cSx, y * cSy)
+            drawnCells:set(x, y, true)
+         end
       end
    end
-
-   if not curActor then return end
-   love.graphics.setColor(1, 1, 1, 1) -- Color for the main actor's sensed cells
-   -- Collect the main actor's sensed cells
-   local sensesComponent = curActor:getComponent(prism.components.Senses)
-   for x, y, cell in sensesComponent.cells:each() do
-      local spriteQuad = self.spriteAtlas:getQuadByIndex(string.byte(cell.char) + 1)
-      love.graphics.draw(self.spriteAtlas.image, spriteQuad, x * cSx, y * cSy)
+   -- Set colors and draw the cells in one loop
+   love.graphics.setColor(1, 1, 1, 0.3) -- Color for explored cells
+   for x, y, cell in self.sensesTracker.exploredCells:each() do
+      if not drawnCells:get(x, y) then
+         local spriteQuad = self.spriteAtlas:getQuadByIndex(string.byte(cell.char) + 1)
+         if spriteQuad then
+            love.graphics.draw(self.spriteAtlas.image, spriteQuad, x * cSx, y * cSy)
+            drawnCells:set(x, y, true)
+         end
+      end
    end
 end
 
@@ -192,14 +193,16 @@ function Spectrum:drawActors(curActor)
    local drawnSet = {}
 
    love.graphics.setColor(1, 1, 1, 1) -- Color for the main actor's sensed cells
-   if self.currentMessageGroup then
-      for k, handler in ipairs(self.currentActionHandlers) do
-         local finished, drawnActors = handler(self.dt)
-         for _, drawn in ipairs(drawnActors) do
-            drawnSet[drawn] = true
-         end
+   if self.currentMessage then
+      local finished, drawnActors = self.currentActionHandler(self.dt)
+      print(finished, drawnActors)
+      for _, drawn in ipairs(drawnActors) do
+         drawnSet[drawn] = true
+      end
 
-         if finished then self.currentActionHandlers[k] = nil end
+      if finished then 
+         self.currentActionHandler = nil
+         self.currentMessage = nil
       end
    end
 
