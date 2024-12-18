@@ -7,7 +7,6 @@
 local Row = prism.Object:extend("Row")
 
 function Row:__new(depth, startSlope, endSlope)
-   assert(depth and startSlope and endSlope, "Row:new(depth, start_slope, end_slope)")
    self.depth = depth
    self.startSlope = startSlope
    self.endSlope = endSlope

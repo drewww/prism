@@ -16,17 +16,17 @@ function SightSystem:onSenses(level, actor)
    local sightComponent = actor:getComponent(prism.components.Sight)
    local sightLimit = sightComponent.range
 
-   local actor_pos = actor:getPosition()
+   local actorPos = actor:getPosition()
 
    -- we check if the sight component has a fov and if so we clear it
    if sightComponent.fov then
       local sightLimit = sightComponent.range
-      self.compute_fov(level, sensesComponent, actor_pos, sightLimit)
+      self.computeFOV(level, sensesComponent, actorPos, sightLimit)
    else
       -- we have a sight component but no fov which essentially means the actor has blind sight and can see
       -- all cells within a certain radius  generally only simple actors have this vision type
-      for x = actor_pos.x - sightLimit, actor_pos.x + sightLimit do
-         for y = actor_pos.y - sightLimit, actor_pos.y + sightLimit do
+      for x = actorPos.x - sightLimit, actorPos.x + sightLimit do
+         for y = actorPos.y - sightLimit, actorPos.y + sightLimit do
             sensesComponent.cells:set(x, y, level:getCell(x, y))
          end
       end
@@ -55,9 +55,9 @@ end
 ---@param level Level
 ---@param sensesComponent SensesComponent
 ---@param origin Vector2
----@param max_depth integer
-function SightSystem.compute_fov(level, sensesComponent, origin, max_depth)
-   level:computeFOV(origin, max_depth, function(x, y)
+---@param maxDepth integer
+function SightSystem.computeFOV(level, sensesComponent, origin, maxDepth)
+   level:computeFOV(origin, maxDepth, function(x, y)
       sensesComponent.cells:set(x, y, level:getCell(x, y))
    end)
 end

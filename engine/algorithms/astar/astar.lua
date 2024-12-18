@@ -3,7 +3,7 @@
 local function heuristic(a, b) return a:distance(b)  end
 
 -- helper function to reconstruct the path
-local function reconstruct_path(came_from, cost_so_far, current)
+local function reconstructPath(cameFrom, costSoFar, current)
    local path = {}
    local costs = {}
 
@@ -12,42 +12,42 @@ local function reconstruct_path(came_from, cost_so_far, current)
       table.insert(path, 1, current)
 
       if last then
-         local last_cost = cost_so_far[last:hash()]
-         local cost = cost_so_far[current:hash()]
-         table.insert(costs, 1, last_cost - cost)
+         local lastCost = costSoFar[last:hash()]
+         local cost = costSoFar[current:hash()]
+         table.insert(costs, 1, lastCost - cost)
       end
       
       last = current
-      current = came_from[current:hash()]
+      current = cameFrom[current:hash()]
    end
 
    table.remove(path, 1)
    return prism.Path(path, costs)
 end
 
-local function default_cost_callback(_, _) return 1 end
+local function defaultCostCallback(_, _) return 1 end
 
 ---@param start Vector2
 ---@param goal Vector2
----@param passable_callback fun(x: integer, y: integer): boolean
----@param cost_callback fun(x: integer, y: integer): integer
+---@param passableCallback fun(x: integer, y: integer): boolean
+---@param costCallback fun(x: integer, y: integer): integer
 ---@param minDistance integer
-local function astar_search(start, goal, passable_callback, cost_callback, minDistance)
+local function astarSearch(start, goal, passableCallback, costCallback, minDistance)
    minDistance = minDistance or 0
-   cost_callback = cost_callback or default_cost_callback
+   costCallback = costCallback or defaultCostCallback
 
    local frontier = prism.PriorityQueue()
    frontier:push(start, 0)
 
-   local came_from = {} -- [vec] = vec | nil
-   local cost_so_far = {} -- [vec] = float
+   local cameFrom = {} -- [vec] = vec | nil
+   local costSoFar = {} -- [vec] = float
 
-   came_from[start:hash()] = nil
-   cost_so_far[start:hash()] = 0
+   cameFrom[start:hash()] = nil
+   costSoFar[start:hash()] = 0
 
    local final
    local pathFound = false
-   while not frontier:is_empty() do
+   while not frontier:isEmpty() do
       local current = frontier:pop()
       --- @cast current Vector2
       if current:getRange(prism._defaultDistance, goal) <= minDistance then
@@ -56,25 +56,25 @@ local function astar_search(start, goal, passable_callback, cost_callback, minDi
          break 
       end
 
-      for _, neighbor_dir in ipairs(prism.neighborhood) do
-         local neighbor = current + neighbor_dir
+      for _, neighborDir in ipairs(prism.neighborhood) do
+         local neighbor = current + neighborDir
          --- @cast neighbor Vector2
-         if passable_callback(neighbor.x, neighbor.y) then
-            local move_cost = cost_callback(neighbor.x, neighbor.y)
-            local new_cost = cost_so_far[current:hash()] + move_cost
-            if not cost_so_far[neighbor:hash()] or new_cost < cost_so_far[neighbor:hash()] then
-               cost_so_far[neighbor:hash()] = new_cost
-               local priority = new_cost + heuristic(neighbor, goal)
+         if passableCallback(neighbor.x, neighbor.y) then
+            local moveCost = costCallback(neighbor.x, neighbor.y)
+            local newCost = costSoFar[current:hash()] + moveCost
+            if not costSoFar[neighbor:hash()] or newCost < costSoFar[neighbor:hash()] then
+               costSoFar[neighbor:hash()] = newCost
+               local priority = newCost + heuristic(neighbor, goal)
                frontier:push(neighbor, priority)
-               came_from[neighbor:hash()] = current
+               cameFrom[neighbor:hash()] = current
             end
          end
       end
    end
 
    if pathFound then
-      return reconstruct_path(came_from, cost_so_far, final)
+      return reconstructPath(cameFrom, costSoFar, final)
    end
 end
 
-return astar_search
+return astarSearch

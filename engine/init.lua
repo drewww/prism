@@ -1,10 +1,10 @@
-local function require_relative(p) return require(table.concat({ prism.path, p }, ".")) end
 
 --- We export a global namespace.
 --- @module "prism"
 prism = {}
 prism.path = ...
-prism.require_relative = require_relative
+
+function prism.require(p) return require(table.concat({ prism.path, p }, ".")) end
 
 --- @type boolean
 prism._initialized = false
@@ -15,13 +15,13 @@ prism._defaultRangeType = "8way"
 -- Root object
 
 --- @type Object
-prism.Object = require_relative "core.object"
+prism.Object = prism.require "core.object"
 
 -- Math
 --- @type Vector2 
-prism.Vector2 = require_relative "math.vector"
+prism.Vector2 = prism.require "math.vector"
 --- @type BoundingBox
-prism.BoundingBox = require_relative "math.bounding_box"
+prism.BoundingBox = prism.require "math.bounding_box"
 
 prism.neighborhood = prism.Vector2.neighborhood8
 
@@ -32,84 +32,84 @@ end
 
 -- Structures
 --- @type SparseMap
-prism.SparseMap = require_relative "structures.sparsemap"
+prism.SparseMap = prism.require "structures.sparsemap"
 --- @type SparseGrid
-prism.SparseGrid = require_relative "structures.sparsegrid"
+prism.SparseGrid = prism.require "structures.sparsegrid"
 --- @type SparseArray
-prism.SparseArray = require_relative "structures.sparsearray"
+prism.SparseArray = prism.require "structures.sparsearray"
 --- @type Grid
-prism.Grid = require_relative "structures.grid"
+prism.Grid = prism.require "structures.grid"
 --- @type BooleanBuffer
-prism.BooleanBuffer = require_relative "structures.booleanbuffer"
+prism.BooleanBuffer = prism.require "structures.booleanbuffer"
 --- @type Queue
-prism.Queue = require_relative "structures.queue"
+prism.Queue = prism.require "structures.queue"
 --- @type PriorityQueue
-prism.PriorityQueue = require_relative "structures.priority_queue"
+prism.PriorityQueue = prism.require "structures.priority_queue"
 
 -- Algorithms
 prism.fov = {}
-prism.fov.Row = require_relative "algorithms.fov.row"
-prism.fov.Quadrant = require_relative "algorithms.fov.quadrant"
-prism.fov.Fraction = require_relative "algorithms.fov.fraction"
-prism.computeFOV = require_relative "algorithms.fov.fov"
+prism.fov.Row = prism.require "algorithms.fov.row"
+prism.fov.Quadrant = prism.require "algorithms.fov.quadrant"
+prism.fov.Fraction = prism.require "algorithms.fov.fraction"
+prism.computeFOV = prism.require "algorithms.fov.fov"
 
-prism.Path = require_relative "algorithms.astar.path"
+prism.Path = prism.require "algorithms.astar.path"
 
 --- @alias PassableCallback fun(x: integer, y: integer):boolean
 --- @alias CostCallback fun(x: integer, y: integer): integer
 --- @type fun(start: Vector2, goal: Vector2, passableCallback: PassableCallback, costCallback: CostCallback?, minDistance: integer?): Path
-prism.astar = require_relative "algorithms.astar.astar"
+prism.astar = prism.require "algorithms.astar.astar"
 
 -- Core
 --- @type Scheduler
-prism.Scheduler = require_relative "core.scheduler.scheduler"
+prism.Scheduler = prism.require "core.scheduler.scheduler"
 --- @type TimeScheduler
-prism.TimeScheduler = require_relative "core.scheduler.time_scheduler"
+prism.TimeScheduler = prism.require "core.scheduler.time_scheduler"
 --- @type SimpleScheduler
-prism.SimpleScheduler = require_relative "core.scheduler.simple_scheduler"
+prism.SimpleScheduler = prism.require "core.scheduler.simple_scheduler"
 --- @type Action
-prism.Action = require_relative "core.action"
+prism.Action = prism.require "core.action"
 --- @type Component
-prism.Component = require_relative "core.component"
+prism.Component = prism.require "core.component"
 --- @type Actor
-prism.Actor = require_relative "core.actor"
+prism.Actor = prism.require "core.actor"
 --- @type ActorStorage
-prism.ActorStorage = require_relative "core.actorstorage"
+prism.ActorStorage = prism.require "core.actorstorage"
 --- @type Cell
-prism.Cell = require_relative "core.cell"
+prism.Cell = prism.require "core.cell"
 --- @type RNG
-prism.RNG = require_relative "core.rng"
+prism.RNG = prism.require "core.rng"
 --- @type System
-prism.System = require_relative "core.system"
+prism.System = prism.require "core.system"
 --- @type SystemManager
-prism.SystemManager = require_relative "core.system_manager"
+prism.SystemManager = prism.require "core.system_manager"
 --- @type MapBuilder
-prism.MapBuilder = require_relative "core.map_builder"
+prism.MapBuilder = prism.require "core.map_builder"
 --- @type Map
-prism.Map = require_relative "core.map"
+prism.Map = prism.require "core.map"
 --- @type Message
-prism.Message = require_relative "core.message"
+prism.Message = prism.require "core.message"
 --- @type Decision
-prism.Decision = require_relative "core.decision"
+prism.Decision = prism.require "core.decision"
 --- @type Target
-prism.Target = require_relative "core.target"
+prism.Target = prism.require "core.target"
 --- @type Level
-prism.Level = require_relative "core.level"
+prism.Level = prism.require "core.level"
 
 -- Behavior Tree
 
 prism.BehaviorTree = {}
 
 --- @type BTNode
-prism.BehaviorTree.Node = require_relative "core.behavior_tree.btnode"
+prism.BehaviorTree.Node = prism.require "core.behavior_tree.btnode"
 --- @type BTNode
-prism.BehaviorTree.Root = require_relative "core.behavior_tree.btroot"
+prism.BehaviorTree.Root = prism.require "core.behavior_tree.btroot"
 --- @type BTNode
-prism.BehaviorTree.Selector = require_relative "core.behavior_tree.btselector"
+prism.BehaviorTree.Selector = prism.require "core.behavior_tree.btselector"
 --- @type BTSequence
-prism.BehaviorTree.Sequence = require_relative "core.behavior_tree.btsequence"
+prism.BehaviorTree.Sequence = prism.require "core.behavior_tree.btsequence"
 --- @type BTSucceeder
-prism.BehaviorTree.Succeeder = require_relative "core.behavior_tree.btsucceeder"
+prism.BehaviorTree.Succeeder = prism.require "core.behavior_tree.btsucceeder"
 
 
 prism.actors = {}
@@ -124,31 +124,31 @@ prism.decisions = {}
 prism.behaviors = {}
 
 --- @type SensesSystem
-prism.systems.Senses = require_relative "core.systems.senses"
+prism.systems.Senses = prism.require "core.systems.senses"
 
 --- @type ColliderComponent
-prism.components.Collider = require_relative "core.components.collider"
+prism.components.Collider = prism.require "core.components.collider"
 
 --- @type ControllerComponent
-prism.components.Controller = require_relative "core.components.controller"
+prism.components.Controller = prism.require "core.components.controller"
 
 --- @type BTControllerComponent
-prism.components.BTController = require_relative "core.components.btcontroller"
+prism.components.BTController = prism.require "core.components.btcontroller"
 
 --- @type PlayerControllerComponent
-prism.components.PlayerController = require_relative "core.components.player_controller"
+prism.components.PlayerController = prism.require "core.components.player_controller"
 
 --- @type SensesComponent
-prism.components.Senses = require_relative "core.components.senses"
+prism.components.Senses = prism.require "core.components.senses"
 
 --- @type OpaqueComponent
-prism.components.Opaque = require_relative "core.components.opaque"
+prism.components.Opaque = prism.require "core.components.opaque"
 
 --- @type ActionDecision
-prism.decisions.ActionDecision = require_relative "core.decisions.actiondecision"
+prism.decisions.ActionDecision = prism.require "core.decisions.actiondecision"
 
 --- @type ActionMessage
-prism.messages.ActionMessage = require_relative "core.messages.actionmessage"
+prism.messages.ActionMessage = prism.require "core.messages.actionmessage"
 
 prism._items = {
    "targets",
@@ -207,7 +207,7 @@ local function loadItems(path, itemType, recurse, definitions)
 end
 
 function prism.loadModule(directory)
-   local source_dir = love.filesystem.getSource() -- Get the source directory
+   local sourceDir = love.filesystem.getSource() -- Get the source directory
    local definitions = { "---@meta " .. string.lower(directory) }
 
    for _, item in ipairs(prism._items) do
@@ -215,10 +215,10 @@ function prism.loadModule(directory)
    end
 
    -- Define the output file path
-   local output_file = source_dir .. "/definitions/" .. directory .. ".lua"
+   local outputFile = sourceDir .. "/definitions/" .. directory .. ".lua"
 
    -- Write the concatenated definitions to the file
-   local file, err = io.open(output_file, "w")
+   local file, err = io.open(outputFile, "w")
    if not file then
       print("Failed to open file for writing: " .. (err or "Unknown error"))
       return

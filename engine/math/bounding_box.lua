@@ -33,18 +33,6 @@ function BoundingBox:union(other)
    return BoundingBox(x, y, i, j)
 end
 
-function BoundingBox:overlaps_point_box(x, y, hw)
-   local point_box_x1, point_box_y1 = x - hw, y - hw
-   local point_box_x2, point_box_y2 = x + hw, y + hw
-
-   return not (
-      self.i < point_box_x1
-      or self.x > point_box_x2
-      or self.j < point_box_y1
-      or self.y > point_box_y2
-   )
-end
-
 function BoundingBox:__tostring()
    return string.format("BoundingBox(x=%d, y=%d, i=%d, j=%d)", self.x, self.y, self.i, self.j)
 end

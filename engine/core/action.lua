@@ -86,11 +86,11 @@ end
 --- _validates the specified target for this action.
 --- @param n number The index of the target object to _validate.
 --- @param owner Actor The actor that is performing the action.
---- @param to_validate Actor The target actor to _validate.
+--- @param toValidate Actor The target actor to _validate.
 --- @param targets [any] The previously selected targets.
 --- @return boolean true if the specified target actor is valid for this action, false otherwise.
-function Action:validateTarget(n, owner, to_validate, targets)
-   return self.targets[n]:_validate(owner, to_validate, targets)
+function Action:validateTarget(n, owner, toValidate, targets)
+   return self.targets[n]:_validate(owner, toValidate, targets)
 end
 
 return Action

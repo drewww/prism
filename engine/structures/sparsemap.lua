@@ -1,11 +1,9 @@
-local math_floor = math.floor
-
 local function hash(x, y)
    return x and y * 0x4000000 + x -- 26-bit x and y
 end
 
 local function unhash(hash) 
-   return hash % 0x4000000, math_floor(hash / 0x4000000) 
+   return hash % 0x4000000, math.floor(hash / 0x4000000) 
 end
 
 local dummy = {}

@@ -16,11 +16,11 @@ end
 --- @param controller BTControllerComponent
 --- @return boolean|Action
 function BTSucceeder:run(level, actor, controller)
-   local return_value = self.node:run(level, actor, controller)
-   if return_value == false then 
+   local ret = self.node:run(level, actor, controller)
+   if ret == false then 
        return true 
    end
-   return return_value
+   return ret
 end
 
 return BTSucceeder

@@ -1,7 +1,7 @@
 ---@param goals table<number, Vector2> List of goal positions.
----@param passable_callback fun(x: integer, y: integer): boolean Function to determine passable cells.
+---@param passableCallback PassableCallback
 ---@return SparseGrid<number> map The Dijkstra map as a SparseGrid where each cell's value is its distance to the nearest goal.
-local function dijkstra_map(goals, passable_callback)
+local function dijkstraMap(goals, passableCallback)
    -- Create the SparseGrid to store distances
    local distances = prism.SparseGrid()
 
@@ -18,17 +18,17 @@ local function dijkstra_map(goals, passable_callback)
        local current = table.remove(frontier, 1)
        ---@cast current Vector2
 
-       local current_cost = distances:get(current.x, current.y) or math.huge
+       local currentCost = distances:get(current.x, current.y) or math.huge
 
-       for _, neighbor_dir in ipairs(prism.neighborhood) do
-           local neighbor = current + neighbor_dir
+       for _, neighborDir in ipairs(prism.neighborhood) do
+           local neighbor = current + neighborDir
            ---@cast neighbor Vector2
 
-           if passable_callback(neighbor.x, neighbor.y) then
-               local existing_cost = distances:get(neighbor.x, neighbor.y) or math.huge
+           if passableCallback(neighbor.x, neighbor.y) then
+               local existingCost = distances:get(neighbor.x, neighbor.y) or math.huge
 
-               if current_cost + 1 < existing_cost then
-                   distances:set(neighbor.x, neighbor.y, current_cost + 1)
+               if currentCost + 1 < existingCost then
+                   distances:set(neighbor.x, neighbor.y, currentCost + 1)
                    table.insert(frontier, neighbor)
                end
            end
@@ -38,4 +38,4 @@ local function dijkstra_map(goals, passable_callback)
    return distances
 end
 
-return dijkstra_map
+return dijkstraMap

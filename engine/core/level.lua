@@ -80,8 +80,8 @@ function Level:yield(message)
    return ret
 end
 
-function Level:trigger(event_name, ...)
-   self.systemManager:trigger(event_name, ...)
+function Level:trigger(eventName, ...)
+   self.systemManager:trigger(eventName, ...)
 end
 
 --
@@ -95,9 +95,9 @@ end
 function Level:addSystem(system) self.systemManager:addSystem(system) end
 
 --- Gets a system by name.
---- @param class_name string The name of the system to get.
+--- @param className string The name of the system to get.
 --- @return System? system The system with the given name.
-function Level:getSystem(class_name) self.systemManager:getSystem(class_name) end
+function Level:getSystem(className) self.systemManager:getSystem(className) end
 
 --
 -- Actor
@@ -267,8 +267,8 @@ function Level:getActorsAt(x, y) return self.actorStorage:getActorsAt(x, y) end
 --- @return function iter An iterator that returns the next actor at the given position.
 function Level:eachActorAt(x, y) return self.actorStorage:eachActorAt(x, y) end
 
-function Level:computeFOV(origin, max_depth, callback)
-   prism.computeFOV(self, origin, max_depth, callback)
+function Level:computeFOV(origin, maxDepth, callback)
+   prism.computeFOV(self, origin, maxDepth, callback)
 end
 
 --- Sets the cell at the given position to the given cell.
@@ -382,12 +382,12 @@ function Level:findPath(startPos, goalPos, minDistance)
       error("Path destination is not on the map.")
    end
    -- Define the passability callback (checks if a position is walkable)
-   local function passable_callback(x, y)
+   local function passableCallback(x, y)
       return self:getCellPassable(x, y)  -- Assume this is a method in your Level class that checks passability
    end
 
    -- Use the prism.astar function to find the path
-   return prism.astar(startPos, goalPos, passable_callback, nil, minDistance)
+   return prism.astar(startPos, goalPos, passableCallback, nil, minDistance)
 end
 
 --- Returns a list of all actors that are within the given range of the given
@@ -410,7 +410,7 @@ function Level:getAOE(type, position, range)
    if type == "fov" then
       local fov = prism.SparseGrid()
 
-      prism.compute_fov(position, range, function(x, y)
+      prism.computeFOV(position, range, function(x, y)
          fov:set(x, y, true)
       end)
 

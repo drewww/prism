@@ -53,8 +53,8 @@ function LevelState:advanceCoroutine()
       error(ret .. "\n" .. debug.traceback(self.updateCoroutine))
    end
 
-   local coroutine_status = coroutine.status(self.updateCoroutine)
-   if coroutine_status == "suspended" and ret.is and ret:is(prism.Decision) then
+   local coroutineStatus = coroutine.status(self.updateCoroutine)
+   if coroutineStatus == "suspended" and ret.is and ret:is(prism.Decision) then
       if ret.actor and self.lastActor ~= ret.actor then
          self.path = nil
          self.decidedPath = nil
@@ -67,7 +67,7 @@ function LevelState:advanceCoroutine()
          self.decidedPath = nil
       end
       self.spectrum:queueMessage(ret)
-   elseif coroutine_status == "dead" then
+   elseif coroutineStatus == "dead" then
       self.manager:pop()
    end
 end

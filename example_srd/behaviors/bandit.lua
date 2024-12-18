@@ -21,13 +21,13 @@ return prism.BehaviorTree.Root {
          end
 
          if candidate then
-            controller.blackboard.melee_target = candidate
+            controller.blackboard.meleeTarget = candidate
             return true
          end
 
          return false
       end),
-      PathfindBehavior(function(_, _, controller) return controller.blackboard.melee_target:getPosition() end, 1),
+      PathfindBehavior(function(_, _, controller) return controller.blackboard.meleeTarget:getPosition() end, 1),
       prism.BehaviorTree.Node(function(_, level, actor, controller)
          local attackAction = actor:getAction(prism.actions.Attack)
          if not attackAction then return false end
@@ -35,7 +35,7 @@ return prism.BehaviorTree.Root {
          local stats = actor:getComponent(prism.components.SRDStats)
          local weapon = stats.attacks:get(1)
 
-         local attackInstance = attackAction(actor, {weapon, controller.blackboard.melee_target})
+         local attackInstance = attackAction(actor, {weapon, controller.blackboard.meleeTarget})
          if attackInstance:canPerform(level) then
             return attackInstance
          end
