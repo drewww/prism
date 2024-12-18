@@ -1,5 +1,5 @@
 ---@type SRDAction
-local SRDAction = require "example.actions.srdaction"
+local SRDAction = require "example_srd.actions.srdaction"
 
 ---@class EndTurnAction : SRDAction
 ---@field name string

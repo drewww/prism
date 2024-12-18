@@ -13,11 +13,12 @@ end
 --- Runs the behavior tree starting from this root node.
 --- @param level Level
 --- @param actor Actor
+--- @param controller BTControllerComponent
 --- @return Action
-function BTRoot:run(level, actor)
+function BTRoot:run(level, actor, controller)
    for i = 1, #self.children do
       local child = self.children[i]
-      local result = child:run(level, actor)
+      local result = child:run(level, actor, controller)
       if result and type(result) ~= "boolean" and result:is(prism.Action) then 
          --- @type Action
          return result 

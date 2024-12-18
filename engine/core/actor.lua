@@ -135,7 +135,6 @@ end
 --- Get a list of actions from the actor and all of its components.
 --- @return table<Action> totalActions Returns a table of all actions.
 function Actor:getActions()
-   -- TODO: Cache this, not super important this is mainly used by the UI.
    local totalActions = {}
 
    for k, component in pairs(self.components) do

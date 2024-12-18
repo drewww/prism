@@ -10,13 +10,14 @@ handlers[prism.actions.Move] = function (spectrum, message)
       local lerpFactor = t/maxT
       local actor = message.action.owner
       local lastPos = message.action.previousPosition
+
       local curPos = actor:getPosition()
 
-      local lerpPos = lastPos:lerp(curPos, lerpFactor)
+      local lerpPos = lastPos:lerp(curPos, lerpFactor * lerpFactor)
       local spriteQuad = spectrum.spriteAtlas:getQuadByIndex(string.byte(actor.char) + 1)
       love.graphics.draw(spectrum.spriteAtlas.image, spriteQuad, lerpPos.x * 16, lerpPos.y * 16)
 
-      return maxT<=t, {actor}
+      return maxT <= t, {actor}
    end
 end
 
@@ -27,8 +28,7 @@ handlers[prism.actions.Attack] = function (spectrum, message)
    local maxT = 0.15
    return function(dt)
       t = t + dt
-      local lerpFactor = t/maxT
-      local target = message.action:getTarget(1)
+      local target = message.action:getTarget(2)
       local targetPosition = target:getPosition()
       
       local r, g, b, a = love.graphics.getColor()

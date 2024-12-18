@@ -1,5 +1,5 @@
 ---@type SRDAction
-local SRDAction = require "example.actions.srdaction"
+local SRDAction = require "example_srd.actions.srdaction"
 
 local PointTarget = prism.Target:extend("PointTarget")
 PointTarget.typesAllowed = { Point = true }
@@ -23,15 +23,20 @@ function Move:actionSlot()
    return nil
 end
 
+function Move:canPerform(level)
+   local destination = self:getTarget(1)
+   return level:getCellPassable(destination.x, destination.y) and prism.actions.SRDAction.canPerform(self, level)
+end
+
 function Move:perform(level)
    --- @type Vector2
    local destination = self:getTarget(1)
 
    assert(self.owner:getPosition():distanceChebyshev(destination) == 1)
-   if level:getCellPassable(destination.x, destination.y) then
-      self.previousPosition = self.owner:getPosition()
-      level:moveActor(self.owner, destination, false)
-   end
+   assert(level:getCellPassable(destination.x, destination.y))
+
+   self.previousPosition = self.owner:getPosition()
+   level:moveActor(self.owner, destination, false)
 end
 
 return Move

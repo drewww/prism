@@ -48,8 +48,7 @@ end
 --- @param y number The y-coordinate.
 --- @return boolean True if the cell is passable, false otherwise.
 function Map:getCellPassable(x, y)
-   local cell = self:getCell(x, y)
-   return cell and cell.passable or false
+   return self.passableCache:get(x, y)
 end
 
 --- Returns true if the cell at the specified coordinates is opaque, false otherwise.

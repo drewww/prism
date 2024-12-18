@@ -26,17 +26,65 @@ function Spectrum:__new(spriteAtlas, level)
    self.currentActionHandlers = nil
    self.time = 0
    self.dt = 0
+
+   self.sensesTracker:createSensedMaps(level)
 end
 
 function Spectrum:update(dt, curActor)
    self.time = self.time + dt
    self.dt = dt
 
-   if self.currentMessageGroup and next(self.currentActionHandlers) == nil then
-      self.currentMessageGroup = nil
-      self.currentActionHandlers = nil
+   self.sensesTracker:createSensedMaps(self.level, curActor)
+
+   local actorsInvolved = {}
+   
+   if not curActor and not self:isAnimating() then
+      error("No decision and no messages recieved, but updating!")
    end
 
+   self:updateAnimations()
+   
+   --- align camera
+   local w, h = love.graphics.getDimensions()
+   local hw, hh = math.floor(w/2), math.floor(h/2)
+
+   local cx, cy = self.camera:getPosition()
+   local camVec = prism.Vector2(cx, cy)
+
+
+   ---@diagnostic disable-next-line
+   local goalVec
+
+   if curActor then
+      goalVec = prism.Vector2(curActor.position.x * 16 - hw, curActor.position.y * 16 - hh)
+   elseif self.currentMessageGroup then
+      local center = prism.Vector2(0, 0)
+
+      for _, actionMessage in ipairs(self.currentMessageGroup) do
+         table.insert(actorsInvolved, actionMessage.action.owner)
+         center = center + actionMessage.action.owner:getPosition()
+
+         for i = 1, actionMessage.action:getNumTargets() do
+            local target = actionMessage.action:getTarget(i)
+
+            if target:is(prism.Actor) then
+               table.insert(actorsInvolved, target)
+               center = center + target:getPosition()
+            end
+         end
+      end
+
+      local averaged = center
+      averaged.x = averaged.x / #actorsInvolved
+      averaged.y = averaged.y / #actorsInvolved
+      goalVec = prism.Vector2(averaged.x * 16 - hw, averaged.y * 16 - hh)
+   end
+
+   local lerpedPos = camVec:lerp(goalVec or camVec, 5*dt)
+   self.camera:setPosition(lerpedPos.x, lerpedPos.y)
+end
+
+function Spectrum:updateAnimations()
    if not self.currentMessageGroup then
       self.currentMessageGroup = self.messageQueue:pop()
 
@@ -46,7 +94,7 @@ function Spectrum:update(dt, curActor)
          for _, actionMessage in ipairs(self.currentMessageGroup) do
             ---@cast actionMessage ActionMessage
             
-            if not self.sensesTracker.totalSensedActors:contains(actionMessage.actor) then         
+            if self.sensesTracker.totalSensedActors:contains(actionMessage.action.owner) then
                local actionPrototype = getmetatable(actionMessage.action)
                table.insert(self.currentActionHandlers, self.actionHandlers[actionPrototype](self, actionMessage))
             end
@@ -54,23 +102,14 @@ function Spectrum:update(dt, curActor)
       end
    end
 
-   self.sensesTracker:createSensedMaps(self.level, curActor)
-   
-   --- align camera
-   local w, h = love.graphics.getDimensions()
-   local hw, hh = math.floor(w/2), math.floor(h/2)
-
-   local cx, cy = self.camera:getPosition()
-   local camVec = prism.Vector2(cx, cy)
-
-   ---@diagnostic disable-next-line
-   local goalVec = prism.Vector2(curActor.position.x * 16 - hw, curActor.position.y * 16 - hh)
-   local lerpedPos = camVec:lerp(goalVec, 5*dt)
-   self.camera:setPosition(lerpedPos.x, lerpedPos.y)
+   if self.currentActionHandlers and not next(self.currentActionHandlers) then
+      self.currentMessageGroup = nil
+      self.currentActionHandlers = nil
+   end
 end
 
 function Spectrum:isAnimating()
-   return self.currentMessageGroup
+   return self.currentMessageGroup ~= nil
 end
 
 --- @param actionPrototype Action
@@ -82,6 +121,7 @@ end
 --- @param messageTable table<Message>
 function Spectrum:queueMessage(messageTable)
    self.messageQueue:push(messageTable)
+   self:updateAnimations()
 end
 
 function Spectrum:draw(curActor)
@@ -99,7 +139,7 @@ end
 
 function Spectrum:drawCells(curActor)
    -- Set colors and draw the cells in one loop
-   love.graphics.setColor(0.3, 0.3, 0.3, 1) -- Color for explored cells
+   love.graphics.setColor(1, 1, 1, 0.3) -- Color for explored cells
    for x, y, cell in self.sensesTracker.exploredCells:each() do
       local spriteQuad = self.spriteAtlas:getQuadByIndex(string.byte(cell.char) + 1)
       if spriteQuad then
@@ -107,7 +147,12 @@ function Spectrum:drawCells(curActor)
       end
    end
 
-   love.graphics.setColor(0.7, 0.7, 0.7, 1) -- Color for other sensed cells
+   if curActor then
+      love.graphics.setColor(1, 1, 1, 0.7) -- Color for explored cells
+   else
+      love.graphics.setColor(1, 1, 1, 1)
+   end
+   if not curActor then love.graphics.setColor(1, 1, 1, 1) end
    for x, y, cell in self.sensesTracker.otherSensedCells:each() do
       local spriteQuad = self.spriteAtlas:getQuadByIndex(string.byte(cell.char) + 1)
       if spriteQuad then
@@ -115,6 +160,7 @@ function Spectrum:drawCells(curActor)
       end
    end
 
+   if not curActor then return end
    love.graphics.setColor(1, 1, 1, 1) -- Color for the main actor's sensed cells
    -- Collect the main actor's sensed cells
    local sensesComponent = curActor:getComponent(prism.components.Senses)
@@ -142,23 +188,26 @@ function Spectrum:drawActors(curActor)
 
    love.graphics.setColor(1, 1, 1, 1) -- Color for the main actor's sensed cells
    if self.currentMessageGroup then
-      for v, handler in ipairs(self.currentActionHandlers) do
+      for k, handler in ipairs(self.currentActionHandlers) do
          local finished, drawnActors = handler(self.dt)
          for _, drawn in ipairs(drawnActors) do
             drawnSet[drawn] = true
          end
 
-         if finished then self.currentActionHandlers[v] = nil end
+         if finished then self.currentActionHandlers[k] = nil end
       end
    end
 
-   local sensesComponent = curActor:getComponent(prism.components.Senses)
-   love.graphics.setColor(1, 1, 1, 1)
-   for actor in sensesComponent.actors:eachActor() do
-      self:drawActor(actor, drawnSet)
+   if curActor then
+      local sensesComponent = curActor:getComponent(prism.components.Senses)
+      love.graphics.setColor(1, 1, 1, 1)
+      for actor in sensesComponent.actors:eachActor() do
+         self:drawActor(actor, drawnSet)
+      end
    end
    
    love.graphics.setColor(0.5, 0.5, 0.5, 1) -- Color for the main actor's sensed cells
+   if not curActor then love.graphics.setColor(1, 1, 1, 1) end
    for x, y, actor in self.sensesTracker.otherSensedActors:each() do
       self:drawActor(actor, drawnSet)
    end

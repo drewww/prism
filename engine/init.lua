@@ -35,6 +35,8 @@ end
 prism.SparseMap = require_relative "structures.sparsemap"
 --- @type SparseGrid
 prism.SparseGrid = require_relative "structures.sparsegrid"
+--- @type SparseArray
+prism.SparseArray = require_relative "structures.sparsearray"
 --- @type Grid
 prism.Grid = require_relative "structures.grid"
 --- @type BooleanBuffer
@@ -51,8 +53,12 @@ prism.fov.Quadrant = require_relative "algorithms.fov.quadrant"
 prism.fov.Fraction = require_relative "algorithms.fov.fraction"
 prism.computeFOV = require_relative "algorithms.fov.fov"
 
----@type fun(start: Vector2, goal: Vector2, passableCallback: fun(x: integer, y: integer): boolean, costCallback: fun(x: integer, y: integer): integer)
-prism.astar = require_relative "algorithms.astar"
+prism.Path = require_relative "algorithms.astar.path"
+
+--- @alias PassableCallback fun(x: integer, y: integer):boolean
+--- @alias CostCallback fun(x: integer, y: integer): integer
+--- @type fun(start: Vector2, goal: Vector2, passableCallback: PassableCallback, costCallback: CostCallback?, minDistance: integer?): Path
+prism.astar = require_relative "algorithms.astar.astar"
 
 -- Core
 --- @type Scheduler
@@ -115,6 +121,7 @@ prism.messages = {}
 prism.systems = {}
 prism.messages = {}
 prism.decisions = {}
+prism.behaviors = {}
 
 --- @type SensesSystem
 prism.systems.Senses = require_relative "core.systems.senses"
@@ -148,6 +155,7 @@ prism._items = {
    "cells",
    "actions",
    "components",
+   --"behaviors",
    "actors",
    "messages",
    "decisions",
@@ -163,7 +171,9 @@ prism._itemPatterns = {
    messages = "[mM][eE][sS][sS][aA][gG][eE]",
    systems = "[sS][yY][sS][tT][eE][mM]",
    decisions = "[dD][eE][cC][iI][sS][iI][oO][nN]",
+   behaviors = "[bB][eE][hH][aA][vV][iI][oO][rR]",
 }
+
 
 local function loadItems(path, itemType, recurse, definitions)
    local info = {}

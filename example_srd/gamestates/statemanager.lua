@@ -1,4 +1,4 @@
-local GameState = require "example.gamestates.gamestate"
+local GameState = require "example_srd.gamestates.gamestate"
 
 ---@class GameStateManager : Object
 local StateManager = prism.Object:extend("GameStateManager")

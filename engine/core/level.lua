@@ -373,13 +373,13 @@ end
 --- Finds a path from startpos to endpos
 ---@param startPos Vector2
 ---@param goalPos Vector2
----@return table<Vector2>|nil
-function Level:findPath(startPos, goalPos)
+---@return Path | nil
+function Level:findPath(startPos, goalPos, minDistance)
    if
       startPos.x < 1 or startPos.x > self.map.w or startPos.y < 1 or startPos.y > self.map.h or
       goalPos.x < 1 or goalPos.x > self.map.w or goalPos.y < 1 or goalPos.y > self.map.h
    then
-      return
+      error("Path destination is not on the map.")
    end
    -- Define the passability callback (checks if a position is walkable)
    local function passable_callback(x, y)
@@ -387,7 +387,7 @@ function Level:findPath(startPos, goalPos)
    end
 
    -- Use the prism.astar function to find the path
-   return prism.astar(startPos, goalPos, passable_callback)
+   return prism.astar(startPos, goalPos, passable_callback, nil, minDistance)
 end
 
 --- Returns a list of all actors that are within the given range of the given

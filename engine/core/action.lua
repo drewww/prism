@@ -6,8 +6,8 @@
 --- @field silent boolean A silent action doesn't generate messages
 --- @field owner Actor The actor taking the action.
 --- @field source Actor? An object granting the owner of the action this action. A wand's zap action is a good example.
---- @field targets table<Target>
---- @field targetObjects table<Object>
+--- @field targets [Target]
+--- @field targetObjects [Object]
 --- @overload fun(owner: Actor, targets: table<Target>): Action
 --- @type Action
 local Action = prism.Object:extend("Action")
@@ -16,7 +16,7 @@ Action.silent = false
 
 --- Constructor for the Action class.
 ---@param owner Actor The actor that is performing the action.
----@param targets table? An optional list of target actors. Not all actions require targets.
+---@param targets [Object]? An optional list of target actors. Not all actions require targets.
 ---@param source Actor? An optional actor indicating the source of that action, for stuff like a wand or scroll.
 function Action:__new(owner, targets, source)
    self.owner = owner
@@ -36,7 +36,7 @@ function Action:__new(owner, targets, source)
    )
    for i, target in ipairs(self.targets) do
       assert(
-         target:_validate(owner, self.targetObjects[i]),
+         target:_validate(owner, self.targetObjects[i], self.targetObjects),
          "Invalid target " .. i .. " for action " .. self.name
       )
    end
@@ -69,10 +69,6 @@ function Action:getNumTargets()
    return #self.targets
 end
 
---- Returns a list of target actors associated with this action.
---- @return table targetList A list of target actors associated with this action.
-function Action:getTargets() return self.targetObjects end
-
 --- Returns the target object at the specified index.
 --- @tparam number index The index of the target object to retrieve.
 --- @return Target|nil targetObject
@@ -91,9 +87,10 @@ end
 --- @param n number The index of the target object to _validate.
 --- @param owner Actor The actor that is performing the action.
 --- @param to_validate Actor The target actor to _validate.
+--- @param targets [any] The previously selected targets.
 --- @return boolean true if the specified target actor is valid for this action, false otherwise.
-function Action:validateTarget(n, owner, to_validate)
-   return self.targets[n]:_validate(owner, to_validate)
+function Action:validateTarget(n, owner, to_validate, targets)
+   return self.targets[n]:_validate(owner, to_validate, targets)
 end
 
 return Action

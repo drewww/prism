@@ -13,11 +13,12 @@ end
 --- Runs the selector node.
 --- @param level Level
 --- @param actor Actor
+--- @param controller BTControllerComponent
 --- @return boolean|Action
-function BTSelector:run(level, actor)
+function BTSelector:run(level, actor, controller)
    for i = 1, #self.children do
       local child = self.children[i]
-      local result = child:run(level, actor)
+      local result = child:run(level, actor, controller)
       if result then 
           return result 
       end

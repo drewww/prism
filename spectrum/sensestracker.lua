@@ -7,8 +7,15 @@
 ---@field otherSensedActors SparseMap -- A map tracking actors sensed by other actors (excluding the current actor).
 local SensesTracker = prism.Object:extend("SensesTracker")
 
+function SensesTracker:__new()
+   self.exploredCells = prism.SparseGrid() 
+   self.otherSensedActors = prism.SparseMap()
+   self.otherSensedCells = prism.SparseGrid()
+   self.totalSensedActors = prism.SparseMap()
+end
+
 ---@param level Level
----@param curActor Actor
+---@param curActor Actor|nil
 function SensesTracker:createSensedMaps(level, curActor)
    self.exploredCells = prism.SparseGrid() 
    self.otherSensedActors = prism.SparseMap()
@@ -45,14 +52,16 @@ function SensesTracker:createSensedMaps(level, curActor)
       end
    end
 
-   local sensesComponent = curActor:getComponent(prism.components.Senses)
-   if sensesComponent then
-      for actor in sensesComponent.actors:eachActor() do
-         actorSet[actor] = true
-         self.totalSensedActors:insert(actor.position.x, actor.position.y, actor)
+   if curActor then
+      local sensesComponent = curActor:getComponent(prism.components.Senses)
+      if sensesComponent then
+         for actor in sensesComponent.actors:eachActor() do
+            actorSet[actor] = true
+            self.totalSensedActors:insert(actor.position.x, actor.position.y, actor)
+         end
       end
    end
-
+   
    for actor, _ in pairs(actorSet) do
       self.totalSensedActors:insert(actor.position.x, actor.position.y, actor)
    end

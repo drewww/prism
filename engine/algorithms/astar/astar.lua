@@ -3,15 +3,26 @@
 local function heuristic(a, b) return a:distance(b)  end
 
 -- helper function to reconstruct the path
-local function reconstruct_path(came_from, current)
+local function reconstruct_path(came_from, cost_so_far, current)
    local path = {}
+   local costs = {}
 
+   local last
    while current do
-      table.insert(path, current)
+      table.insert(path, 1, current)
+
+      if last then
+         local last_cost = cost_so_far[last:hash()]
+         local cost = cost_so_far[current:hash()]
+         table.insert(costs, 1, last_cost - cost)
+      end
+      
+      last = current
       current = came_from[current:hash()]
    end
 
-   return path
+   table.remove(path, 1)
+   return prism.Path(path, costs)
 end
 
 local function default_cost_callback(_, _) return 1 end
@@ -20,7 +31,9 @@ local function default_cost_callback(_, _) return 1 end
 ---@param goal Vector2
 ---@param passable_callback fun(x: integer, y: integer): boolean
 ---@param cost_callback fun(x: integer, y: integer): integer
-local function astar_search(start, goal, passable_callback, cost_callback)
+---@param minDistance integer
+local function astar_search(start, goal, passable_callback, cost_callback, minDistance)
+   minDistance = minDistance or 0
    cost_callback = cost_callback or default_cost_callback
 
    local frontier = prism.PriorityQueue()
@@ -32,10 +45,14 @@ local function astar_search(start, goal, passable_callback, cost_callback)
    came_from[start:hash()] = nil
    cost_so_far[start:hash()] = 0
 
+   local final
+   local pathFound = false
    while not frontier:is_empty() do
       local current = frontier:pop()
       --- @cast current Vector2
-      if current == goal then
+      if current:getRange(prism._defaultDistance, goal) <= minDistance then
+         final = current
+         pathFound = true
          break 
       end
 
@@ -55,7 +72,9 @@ local function astar_search(start, goal, passable_callback, cost_callback)
       end
    end
 
-   return reconstruct_path(came_from, goal)
+   if pathFound then
+      return reconstruct_path(came_from, cost_so_far, final)
+   end
 end
 
 return astar_search

@@ -1,4 +1,4 @@
----@meta example
+---@meta example_srd
 --- @type FloorCell
 prism.cells.Floor = nil
 --- @type WallCell
@@ -15,6 +15,8 @@ prism.actions.SRDAction = nil
 prism.components.Sight = nil
 --- @type SRDStatsComponent
 prism.components.SRDStats = nil
+--- @type BanditActor
+prism.actors.Bandit = nil
 --- @type PlayerActor
 prism.actors.Player = nil
 --- @type SightSystem

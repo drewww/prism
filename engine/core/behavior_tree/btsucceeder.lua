@@ -13,9 +13,10 @@ end
 --- Runs the succeeder node.
 --- @param level Level
 --- @param actor Actor
+--- @param controller BTControllerComponent
 --- @return boolean|Action
-function BTSucceeder:run(level, actor)
-   local return_value = self.node:run(level, actor)
+function BTSucceeder:run(level, actor, controller)
+   local return_value = self.node:run(level, actor, controller)
    if return_value == false then 
        return true 
    end

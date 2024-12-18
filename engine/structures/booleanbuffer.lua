@@ -1,7 +1,5 @@
 local ffi = require "ffi"
 
-local _max, _min = math.max, math.min
-
 --- A class representing a 2D boolean buffer implemented as a densely packed C type.
 --- @class BooleanBuffer : Object
 local BooleanBuffer = prism.Object:extend("BooleanBuffer")
