@@ -90,11 +90,9 @@ function Spectrum:updateAnimations()
       self.currentMessage = self.messageQueue:pop()
 
       if self.currentMessage then
-         print "YERT"
          if self.sensesTracker.totalSensedActors:contains(self.currentMessage.action.owner) then
             local actionPrototype = getmetatable(self.currentMessage.action)
             self.currentActionHandler = self.actionHandlers[actionPrototype](self, self.currentMessage)
-            print "SKERT"
          else
             self.currentMessage = nil
          end
@@ -195,7 +193,6 @@ function Spectrum:drawActors(curActor)
    love.graphics.setColor(1, 1, 1, 1) -- Color for the main actor's sensed cells
    if self.currentMessage then
       local finished, drawnActors = self.currentActionHandler(self.dt)
-      print(finished, drawnActors)
       for _, drawn in ipairs(drawnActors) do
          drawnSet[drawn] = true
       end
