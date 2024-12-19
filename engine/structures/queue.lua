@@ -6,16 +6,16 @@ local Queue = prism.Object:extend("Queue")
 
 --- Initializes a new Queue instance.
 function Queue:__new()
-    self.queue = {}
-    self.first = 1
-    self.last = 0
+   self.queue = {}
+   self.first = 1
+   self.last = 0
 end
 
 --- Adds an element to the end of the queue.
 --- @param value any The value to be added to the queue.
 function Queue:push(value)
-    self.last = self.last + 1
-    self.queue[self.last] = value
+   self.last = self.last + 1
+   self.queue[self.last] = value
 end
 
 --- Removes and returns the element from the start of the queue.
@@ -33,38 +33,38 @@ end
 --- Checks if the queue is empty.
 --- @return boolean True if the queue is empty, false otherwise.
 function Queue:empty()
-    return self.first > self.last
+   return self.first > self.last
 end
 
 --- Returns the element at the start of the queue without removing it.
 --- @return any The value at the start of the queue.
 function Queue:peek()
-    return self.queue[self.first]
+   return self.queue[self.first]
 end
 
 --- Removes all elements from the queue.
 function Queue:clear()
-    self.queue = {}
-    self.first = 1
-    self.last = 0
+   self.queue = {}
+   self.first = 1
+   self.last = 0
 end
 
 --- Checks if the queue contains a specific value.
 --- @param value any The value to check for.
 --- @return boolean True if the value is in the queue, false otherwise.
 function Queue:contains(value)
-    for i = self.first, self.last do
-        if self.queue[i] == value then
-            return true
-        end
-    end
-    return false
+   for i = self.first, self.last do
+      if self.queue[i] == value then
+         return true
+      end
+   end
+   return false
 end
 
 --- Returns the number of elements in the queue.
 --- @return number The size of the queue.
 function Queue:size()
-    return self.last - self.first + 1
+   return self.last - self.first + 1
 end
 
 --- Removes the first occurrence of the specified value from the queue.
@@ -72,15 +72,15 @@ end
 --- @return boolean True if the value was removed, false otherwise.
 function Queue:remove(value)
    for i = self.first, self.last do
-       if self.queue[i] == value then
-           -- Shift elements to fill the gap
-           for j = i, self.last - 1 do
-               self.queue[j] = self.queue[j + 1]
-           end
-           self.queue[self.last] = nil
-           self.last = self.last - 1
-           return true
-       end
+      if self.queue[i] == value then
+         -- Shift elements to fill the gap
+         for j = i, self.last - 1 do
+            self.queue[j] = self.queue[j + 1]
+         end
+         self.queue[self.last] = nil
+         self.last = self.last - 1
+         return true
+      end
    end
    return false
 end
@@ -109,13 +109,13 @@ assert(queue:size() == 2, "Test 4 Failed: Size should be 2 after two pushes")
 
 -- Test 5: Fill the queue and check that elements come out in the correct order
 local queue = Queue()
-local testData = {5, 2, 8, 9, 1, 3, 7, 6, 4}
+local testData = { 5, 2, 8, 9, 1, 3, 7, 6, 4 }
 for i, v in ipairs(testData) do
-    queue:push(v)
+   queue:push(v)
 end
 
 for i, v in ipairs(testData) do
-    assert(queue:pop() == v, "Test 5 Failed: The order of elements coming out of the queue is incorrect")
+   assert(queue:pop() == v, "Test 5 Failed: The order of elements coming out of the queue is incorrect")
 end
 
 -- Test 6: Interleave pushes and pops

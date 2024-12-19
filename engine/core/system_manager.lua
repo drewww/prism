@@ -25,10 +25,10 @@ function SystemManager:addSystem(system)
          assert(
             self.systems[requirement],
             "System "
-               .. system.name
-               .. " requires system "
-               .. requirement
-               .. " but it is not present."
+            .. system.name
+            .. " requires system "
+            .. requirement
+            .. " but it is not present."
          )
       end
    end
@@ -41,10 +41,10 @@ function SystemManager:addSystem(system)
             if softRequirement == system.name then
                error(
                   "System "
-                     .. system.name
-                     .. " is out of order. It must be added before "
-                     .. existingSystem.name
-                     .. " because it is a soft requirement."
+                  .. system.name
+                  .. " is out of order. It must be added before "
+                  .. existingSystem.name
+                  .. " because it is a soft requirement."
                )
             end
          end
@@ -192,7 +192,7 @@ function SystemManager:onYield(level, event)
 end
 
 --- This is useful for calling custom events you define in your Actions, Systems, etc.
---- An example usage of this can be found in the Sight system. 
+--- An example usage of this can be found in the Sight system.
 --- @param eventString string The key of the event handler method into the system.
 ---@param ... any The arguments to be passed to the event handler method.
 function SystemManager:trigger(eventString, ...)

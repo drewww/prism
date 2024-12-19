@@ -28,11 +28,11 @@ function Action:__new(owner, targets, source)
    assert(
       #self.targetObjects == #self.targets,
       "Invalid number of targets for action "
-         .. self.name
-         .. " expected "
-         .. #self.targets
-         .. " got "
-         .. #self.targetObjects
+      .. self.name
+      .. " expected "
+      .. #self.targets
+      .. " got "
+      .. #self.targetObjects
    )
    for i, target in ipairs(self.targets) do
       assert(
@@ -43,7 +43,7 @@ function Action:__new(owner, targets, source)
 end
 
 --- This method should be overriden by subclasses. This is called to make
---- sure an action is valid for the actor. This would be useful for 
+--- sure an action is valid for the actor. This would be useful for
 --- @param level Level
 function Action:canPerform(level)
    return true
@@ -52,7 +52,7 @@ end
 --- Performs the action. This should be overriden on all subclasses
 --- @param level Level The level the action is being performed in.
 function Action:perform(level)
-    error("This is a virtual method and must be overriden on subclasses!")
+   error("This is a virtual method and must be overriden on subclasses!")
 end
 
 --- Returns the target actor at the specified index.

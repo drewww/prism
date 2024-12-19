@@ -6,8 +6,8 @@ local BTSequence = prism.BehaviorTree.Node:extend("BTSequence")
 
 --- Creates a new BTSequence.
 --- @param children BTNode[]
-function BTSequence:__new(children) 
-    self.children = children 
+function BTSequence:__new(children)
+   self.children = children
 end
 
 --- Runs the sequence node.
@@ -18,11 +18,11 @@ end
 function BTSequence:run(level, actor, controller)
    for i, child in ipairs(self.children) do
       local result = child:run(level, actor, controller)
-      if result == false then 
-          return false 
+      if result == false then
+         return false
       end
-      if type(result) == "table" then 
-          return result 
+      if type(result) == "table" then
+         return result
       end
    end
    return true

@@ -6,8 +6,8 @@ local BTRoot = prism.BehaviorTree.Node:extend("BTRoot")
 
 --- Creates a new BTRoot.
 --- @param children BTNode[]
-function BTRoot:__new(children) 
-   self.children = children 
+function BTRoot:__new(children)
+   self.children = children
 end
 
 --- Runs the behavior tree starting from this root node.
@@ -19,9 +19,9 @@ function BTRoot:run(level, actor, controller)
    for i = 1, #self.children do
       local child = self.children[i]
       local result = child:run(level, actor, controller)
-      if result and type(result) ~= "boolean" and result:is(prism.Action) then 
+      if result and type(result) ~= "boolean" and result:is(prism.Action) then
          --- @type Action
-         return result 
+         return result
       end
    end
 

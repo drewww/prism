@@ -1,4 +1,3 @@
-
 --- We export a global namespace.
 --- @module "prism"
 prism = {}
@@ -22,7 +21,7 @@ prism.Object = prism.require "core.object"
 prism.Color4 = prism.require "math.color"
 
 -- Math
---- @type Vector2 
+--- @type Vector2
 prism.Vector2 = prism.require "math.vector"
 --- @type BoundingBox
 prism.BoundingBox = prism.require "math.bounding_box"
@@ -198,10 +197,12 @@ local function loadItems(path, itemType, recurse, definitions)
             strippedClassName = item.className
          end
 
-         assert(strippedClassName ~= "", "File " .. name .. " contains type " .. itemType .. " without a valid stripped name!")
-         assert(items[strippedClassName] == nil, "File " .. name .. " contains type " .. itemType .. " with duplicate name!")
+         assert(strippedClassName ~= "",
+            "File " .. name .. " contains type " .. itemType .. " without a valid stripped name!")
+         assert(items[strippedClassName] == nil,
+            "File " .. name .. " contains type " .. itemType .. " with duplicate name!")
          items[strippedClassName] = item
-         
+
          table.insert(definitions, "--- @type " .. item.className)
          table.insert(definitions, "prism." .. itemType .. "." .. strippedClassName .. " = nil")
       elseif info.type == "directory" and recurse then
@@ -233,7 +234,7 @@ function prism.loadModule(directory)
 end
 
 --- This is the core turn logic, and if you need to use a different scheduler or want a different turn structure you should override this.
---- There is a version of this provided for time-based 
+--- There is a version of this provided for time-based
 ---@param level Level
 ---@param actor Actor
 ---@param controller ControllerComponent

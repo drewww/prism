@@ -2,8 +2,8 @@ local function hash(x, y)
    return x and y * 0x4000000 + x -- 26-bit x and y
 end
 
-local function unhash(hash) 
-   return hash % 0x4000000, math.floor(hash / 0x4000000) 
+local function unhash(hash)
+   return hash % 0x4000000, math.floor(hash / 0x4000000)
 end
 
 local dummy = {}
@@ -25,15 +25,15 @@ end
 --- @param x number The x-coordinate.
 --- @param y number The y-coordinate.
 --- @return table elements A set[actor]=bool of values stored at the specified coordinates, or an empty table if none.
-function SparseMap:get(x, y) 
-   return self.map[hash(x, y)] or dummy 
+function SparseMap:get(x, y)
+   return self.map[hash(x, y)] or dummy
 end
 
 --- Gets the values stored at the specified hash.
 --- @param hash number The hash value of the coordinates.
 --- @return table A table of values stored at the specified hash, or an empty table if none.
-function SparseMap:getByHash(hash) 
-   return self.map[hash] or dummy 
+function SparseMap:getByHash(hash)
+   return self.map[hash] or dummy
 end
 
 --- Returns an iterator over all entries in the sparse map.
@@ -49,8 +49,8 @@ end
 
 --- Returns the total number of entries in the sparse map.
 --- @return number The total number of entries.
-function SparseMap:count() 
-   return self.__count 
+function SparseMap:count()
+   return self.__count
 end
 
 --- Returns the number of values stored at the specified coordinates.
@@ -113,7 +113,7 @@ function SparseMap:remove(x, y, val)
    return true
 end
 
--- Some quick n dirty testing 
+-- Some quick n dirty testing
 local test = SparseMap()
 test:insert(1, 1, "test")
 test:insert(1, 2, "test2")

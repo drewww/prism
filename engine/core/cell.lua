@@ -37,5 +37,4 @@ function Cell:beforeAction(level, actor, action) end
 --- @param action Action The action that was taken.
 function Cell:afterAction(level, actor, action) end
 
-
 return Cell

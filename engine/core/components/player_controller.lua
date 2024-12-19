@@ -8,7 +8,7 @@ local PlayerController = prism.components.Controller:extend("PlayerController")
 function PlayerController:act(level, actor)
    local actionDecision = level:yield(prism.decisions.ActionDecision(actor))
    --- @cast actionDecision ActionDecision
-   
+
    return actionDecision.action
 end
 

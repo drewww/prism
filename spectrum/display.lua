@@ -37,16 +37,16 @@ function Display:update(dt, curActor)
    self.sensesTracker:createSensedMaps(self.level, curActor)
 
    local actorsInvolved = {}
-   
+
    if not curActor and not self:isAnimating() then
       error("No decision and no messages recieved, but updating!")
    end
 
    self:updateAnimations()
-   
+
    --- align camera
    local w, h = love.graphics.getDimensions()
-   local hw, hh = math.floor(w/2) * self.camera.scale.x, math.floor(h/2) * self.camera.scale.y
+   local hw, hh = math.floor(w / 2) * self.camera.scale.x, math.floor(h / 2) * self.camera.scale.y
 
    local cx, cy = self.camera:getPosition()
    local camVec = prism.Vector2(cx, cy)
@@ -79,7 +79,7 @@ function Display:update(dt, curActor)
       goalVec = prism.Vector2(averaged.x * cSx - hw, averaged.y * cSy - hh)
    end
 
-   local lerpedPos = camVec:lerp(goalVec or camVec, 5*dt)
+   local lerpedPos = camVec:lerp(goalVec or camVec, 5 * dt)
    self.camera:setPosition(lerpedPos.x, lerpedPos.y)
 end
 
@@ -183,12 +183,12 @@ function Display:getQuad(actor)
    if type(drawable.index) == "number" then
       local index = drawable.index
       --- @cast index integer
-      
+
       return self.spriteAtlas:getQuadByIndex(index)
    else
       local index = drawable.index
       --- @cast index string
-      
+
       return self.spriteAtlas:getQuadByName(index)
    end
 end
@@ -197,7 +197,7 @@ function Display:getActorColor(actor)
    local drawable = actor:getComponent(prism.components.Drawable)
    if not drawable then return end
    --- @cast drawable DrawableComponent
-   
+
    return drawable.color
 end
 
@@ -232,7 +232,7 @@ function Display:drawActors(curActor)
          self.drawnSet[drawn] = true
       end
 
-      if finished then 
+      if finished then
          self.currentActionHandler = nil
          self.currentMessage = nil
       end
@@ -244,7 +244,7 @@ function Display:drawActors(curActor)
          self:drawActor(actor, 1)
       end
    end
-   
+
    local alpha = 0.5
    if not curActor then alpha = 1 end
    for x, y, actor in self.sensesTracker.otherSensedActors:each() do

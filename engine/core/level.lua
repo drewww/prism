@@ -24,7 +24,7 @@ function Level:__new(map, actors, systems, scheduler, seed)
    self.opacityCache = prism.BooleanBuffer(map.w, map.h)  -- holds a cache of opacity to speed up fov calcs
    self.passableCache = prism.BooleanBuffer(map.w, map.h) -- holds a cache of passability to speed up a* calcs
    self.RNG = prism.RNG(seed or love.timer.getTime())
-   
+
    self:initialize(actors, systems)
 end
 
@@ -160,7 +160,7 @@ function Level:addComponent(actor, component)
    ---@diagnostic disable-next-line
    actor:__addComponent(component)
    self.actorStorage:updateComponentCache(actor)
-   
+
    local pos = actor:getPosition()
    self:updateCaches(pos.x, pos.y)
 end
@@ -209,7 +209,7 @@ function Level:performAction(action, silent)
    -- this happens sometimes if one effect kills an entity and a second effect
    -- tries to damage it for instance.
    if not self:hasActor(action.owner) then return end
-   
+
    assert(action.owner:hasAction(getmetatable(action)))
    local owner = action.owner
 
@@ -334,7 +334,6 @@ function Level:updatePassabilityCache(x, y)
    end
 end
 
-
 --- Returns true if the cell at the given position is opaque, false otherwise.
 --- @param x number The x component of the position to check.
 --- @param y number The y component of the position to check.
@@ -382,14 +381,14 @@ end
 ---@return Path | nil
 function Level:findPath(startPos, goalPos, minDistance)
    if
-      startPos.x < 1 or startPos.x > self.map.w or startPos.y < 1 or startPos.y > self.map.h or
-      goalPos.x < 1 or goalPos.x > self.map.w or goalPos.y < 1 or goalPos.y > self.map.h
+       startPos.x < 1 or startPos.x > self.map.w or startPos.y < 1 or startPos.y > self.map.h or
+       goalPos.x < 1 or goalPos.x > self.map.w or goalPos.y < 1 or goalPos.y > self.map.h
    then
       error("Path destination is not on the map.")
    end
    -- Define the passability callback (checks if a position is walkable)
    local function passableCallback(x, y)
-      return self:getCellPassable(x, y)  -- Assume this is a method in your Level class that checks passability
+      return self:getCellPassable(x, y) -- Assume this is a method in your Level class that checks passability
    end
 
    -- Use the prism.astar function to find the path
@@ -440,7 +439,5 @@ function Level:sparseMapCallback()
       self:updateCaches(x, y)
    end
 end
-
-
 
 return Level

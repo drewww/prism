@@ -1,23 +1,23 @@
 local function sortFunction(a, b)
-    if a.time == b.time then return a.lastAct < b.lastAct end
-    return a.time < b.time
+   if a.time == b.time then return a.lastAct < b.lastAct end
+   return a.time < b.time
 end
- 
+
 local function insertSorted(list, value)
-    local left = 1
-    local right = #list
-    local mid
- 
-    while left <= right do
-       mid = math.floor((left + right) / 2)
-       if sortFunction(value, list[mid]) then
-          right = mid - 1
-       else
-          left = mid + 1
-       end
-    end
- 
-    table.insert(list, left, value)
+   local left = 1
+   local right = #list
+   local mid
+
+   while left <= right do
+      mid = math.floor((left + right) / 2)
+      if sortFunction(value, list[mid]) then
+         right = mid - 1
+      else
+         left = mid + 1
+      end
+   end
+
+   table.insert(list, left, value)
 end
 
 --- The 'TimeScheduler' manages a queue of actors and schedules their actions.
@@ -128,9 +128,8 @@ function TimeScheduler:updateTime(time)
    self.time = self.time + time
 end
 
-
 function TimeScheduler:timestamp()
-    return self.time
+   return self.time
 end
 
 return TimeScheduler

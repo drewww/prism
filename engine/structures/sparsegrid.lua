@@ -5,8 +5,8 @@ local function hash(x, y)
 end
 
 ---@param hash number
-local function unhash(hash) 
-   return hash % 0x4000000, math.floor(hash / 0x4000000) 
+local function unhash(hash)
+   return hash % 0x4000000, math.floor(hash / 0x4000000)
 end
 
 --- A sparse grid class that stores data using hashed coordinates. Similar to a SparseMap

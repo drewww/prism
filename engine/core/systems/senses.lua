@@ -32,7 +32,7 @@ function SensesSystem:triggerRebuild(level, actor)
    if not sensesComponent then return end
 
    sensesComponent.cells = prism.SparseGrid()
-   
+
    level:trigger("onSenses", level, actor)
 
    for x, y, cell in sensesComponent.cells:each() do

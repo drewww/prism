@@ -13,16 +13,16 @@ local Color4 = prism.Object:extend("Color4")
 ---@param b number The blue component (0-1).
 ---@param a number The alpha component (0-1).
 function Color4:__new(r, g, b, a)
-    self.r = r or 0
-    self.g = g or 0
-    self.b = b or 0
-    self.a = a or 1 -- Default alpha to 1 (fully opaque)
+   self.r = r or 0
+   self.g = g or 0
+   self.b = b or 0
+   self.a = a or 1  -- Default alpha to 1 (fully opaque)
 end
 
 --- Returns a copy of the color.
 ---@return Color4 A copy of the color.
 function Color4:copy()
-    return Color4(self.r, self.g, self.b, self.a)
+   return Color4(self.r, self.g, self.b, self.a)
 end
 
 --- Linearly interpolates between two colors.
@@ -30,19 +30,19 @@ end
 ---@param t number A value between 0 and 1, where 0 is this color and 1 is the target color.
 ---@return Color4 The interpolated color.
 function Color4:lerp(target, t)
-    return Color4(
-        self.r + (target.r - self.r) * t,
-        self.g + (target.g - self.g) * t,
-        self.b + (target.b - self.b) * t,
-        self.a + (target.a - self.a) * t
-    )
+   return Color4(
+      self.r + (target.r - self.r) * t,
+      self.g + (target.g - self.g) * t,
+      self.b + (target.b - self.b) * t,
+      self.a + (target.a - self.a) * t
+   )
 end
 
 --- Multiplies the color's components by a scalar.
 ---@param scalar number The scalar value.
 ---@return Color4 The scaled color.
 function Color4.__mul(self, scalar)
-    return Color4(self.r * scalar, self.g * scalar, self.b * scalar, self.a * scalar)
+   return Color4(self.r * scalar, self.g * scalar, self.b * scalar, self.a * scalar)
 end
 
 --- Adds two colors together.
@@ -50,7 +50,7 @@ end
 ---@param b Color4 The second color.
 ---@return Color4 The sum of the two colors.
 function Color4.__add(a, b)
-    return Color4(a.r + b.r, a.g + b.g, a.b + b.b, a.a + b.a)
+   return Color4(a.r + b.r, a.g + b.g, a.b + b.b, a.a + b.a)
 end
 
 --- Subtracts one color from another.
@@ -58,13 +58,13 @@ end
 ---@param b Color4 The second color.
 ---@return Color4 The difference of the two colors.
 function Color4.__sub(a, b)
-    return Color4(a.r - b.r, a.g - b.g, a.b - b.b, a.a - b.a)
+   return Color4(a.r - b.r, a.g - b.g, a.b - b.b, a.a - b.a)
 end
 
 --- Negates the color's components.
 ---@return Color4 The negated color.
 function Color4.__unm(self)
-    return Color4(-self.r, -self.g, -self.b, -self.a)
+   return Color4(-self.r, -self.g, -self.b, -self.a)
 end
 
 --- Checks equality between two colors.
@@ -72,30 +72,30 @@ end
 ---@param b Color4 The second color.
 ---@return boolean True if the colors are equal, false otherwise.
 function Color4.__eq(a, b)
-    return a.r == b.r and a.g == b.g and a.b == b.b and a.a == b.a
+   return a.r == b.r and a.g == b.g and a.b == b.b and a.a == b.a
 end
 
 --- Creates a string representation of the color.
 ---@return string The string representation.
 function Color4:__tostring()
-    return string.format("r: %.2f, g: %.2f, b: %.2f, a: %.2f", self.r, self.g, self.b, self.a)
+   return string.format("r: %.2f, g: %.2f, b: %.2f, a: %.2f", self.r, self.g, self.b, self.a)
 end
 
 --- Returns the components of the color as numbers.
 ---@return number r, number g, number b, number a The components of the color.
 function Color4:decompose()
-    return self.r, self.g, self.b, self.a
+   return self.r, self.g, self.b, self.a
 end
 
 --- Clamps the components of the color between 0 and 1.
 ---@return Color4 The clamped color.
 function Color4:clamp()
-    return Color4(
-        math.min(1, math.max(0, self.r)),
-        math.min(1, math.max(0, self.g)),
-        math.min(1, math.max(0, self.b)),
-        math.min(1, math.max(0, self.a))
-    )
+   return Color4(
+      math.min(1, math.max(0, self.r)),
+      math.min(1, math.max(0, self.g)),
+      math.min(1, math.max(0, self.b)),
+      math.min(1, math.max(0, self.a))
+   )
 end
 
 --- Predefined colors

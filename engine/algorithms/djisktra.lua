@@ -10,29 +10,29 @@ local function dijkstraMap(goals, passableCallback)
 
    -- Initialize frontier with goals
    for _, goal in ipairs(goals) do
-       table.insert(frontier, goal)
-       distances:set(goal.x, goal.y, 0)
+      table.insert(frontier, goal)
+      distances:set(goal.x, goal.y, 0)
    end
 
    while #frontier > 0 do
-       local current = table.remove(frontier, 1)
-       ---@cast current Vector2
+      local current = table.remove(frontier, 1)
+      ---@cast current Vector2
 
-       local currentCost = distances:get(current.x, current.y) or math.huge
+      local currentCost = distances:get(current.x, current.y) or math.huge
 
-       for _, neighborDir in ipairs(prism.neighborhood) do
-           local neighbor = current + neighborDir
-           ---@cast neighbor Vector2
+      for _, neighborDir in ipairs(prism.neighborhood) do
+         local neighbor = current + neighborDir
+         ---@cast neighbor Vector2
 
-           if passableCallback(neighbor.x, neighbor.y) then
-               local existingCost = distances:get(neighbor.x, neighbor.y) or math.huge
+         if passableCallback(neighbor.x, neighbor.y) then
+            local existingCost = distances:get(neighbor.x, neighbor.y) or math.huge
 
-               if currentCost + 1 < existingCost then
-                   distances:set(neighbor.x, neighbor.y, currentCost + 1)
-                   table.insert(frontier, neighbor)
-               end
-           end
-       end
+            if currentCost + 1 < existingCost then
+               distances:set(neighbor.x, neighbor.y, currentCost + 1)
+               table.insert(frontier, neighbor)
+            end
+         end
+      end
    end
 
    return distances

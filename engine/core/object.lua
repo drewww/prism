@@ -11,13 +11,13 @@ Object.stripName = true
 --- @param className string
 --- @return T prototype The new class prototype extended from this one.
 function Object:extend(className)
-    assert(className, "You must supply a class name when extending Objects!")
-    local o = {}
-    setmetatable(o, self)
-    self.__index = self
-    self.__call = self.__call or Object.__call
-    o.className = className
-    return o
+   assert(className, "You must supply a class name when extending Objects!")
+   local o = {}
+   setmetatable(o, self)
+   self.__index = self
+   self.__call = self.__call or Object.__call
+   o.className = className
+   return o
 end
 
 --- Creates a new instance of the class. Calls the __new method.
@@ -27,7 +27,7 @@ end
 --- @return T newInstance The new instance.
 function Object:__call(...)
    local o = {}
-   
+
    -- we hard cast self to a table
    --- @diagnostic disable-next-line
    --- @cast self Object

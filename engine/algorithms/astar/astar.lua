@@ -1,6 +1,6 @@
 ---@param a Vector2
 ---@param b Vector2
-local function heuristic(a, b) return a:distance(b)  end
+local function heuristic(a, b) return a:distance(b) end
 
 -- helper function to reconstruct the path
 local function reconstructPath(cameFrom, costSoFar, current)
@@ -16,7 +16,7 @@ local function reconstructPath(cameFrom, costSoFar, current)
          local cost = costSoFar[current:hash()]
          table.insert(costs, 1, lastCost - cost)
       end
-      
+
       last = current
       current = cameFrom[current:hash()]
    end
@@ -39,7 +39,7 @@ local function astarSearch(start, goal, passableCallback, costCallback, minDista
    local frontier = prism.PriorityQueue()
    frontier:push(start, 0)
 
-   local cameFrom = {} -- [vec] = vec | nil
+   local cameFrom = {}  -- [vec] = vec | nil
    local costSoFar = {} -- [vec] = float
 
    cameFrom[start:hash()] = nil
@@ -53,7 +53,7 @@ local function astarSearch(start, goal, passableCallback, costCallback, minDista
       if current:getRange(prism._defaultDistance, goal) <= minDistance then
          final = current
          pathFound = true
-         break 
+         break
       end
 
       for _, neighborDir in ipairs(prism.neighborhood) do
@@ -76,34 +76,5 @@ local function astarSearch(start, goal, passableCallback, costCallback, minDista
       return reconstructPath(cameFrom, costSoFar, final)
    end
 end
-
---[[
-   while not( openSet:isEmpty() ) do
-        
-        --- @type AStar.Node
-        local currentNode = openSet:dequeue()
-        closedSet:append( tostring( currentNode.position ) )
-
-        if self.abortAtCost and currentNode.fCost and currentNode.fCost >= self.abortAtCost then return Array() end
-
-        for _, direction in ipairs( Vector2.CARDINAL_DIRECTIONS ) do
-            local position = currentNode.position + direction
-
-            -- Found the goal check, return path
-            if position == goal then
-                return makePath( currentNode )
-            end
-
-            if self.isValid( position ) and not( closedSet:has( tostring( position ) ) ) then
-                local node = AStar.Node( position, currentNode )
-                node.gCost = self.getCost( position )
-                node.hCost = self.heuristic( position, goal )
-                node.fCost = node.gCost + node.hCost
-
-                openSet:enqueue( node, node.fCost )
-            end
-        end
-    end
-]]
 
 return astarSearch

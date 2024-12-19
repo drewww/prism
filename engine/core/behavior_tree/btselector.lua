@@ -6,8 +6,8 @@ local BTSelector = prism.BehaviorTree.Node:extend("BTSelector")
 
 --- Creates a new BTSelector.
 --- @param children BTNode[]
-function BTSelector:__new(children) 
-    self.children = children 
+function BTSelector:__new(children)
+   self.children = children
 end
 
 --- Runs the selector node.
@@ -19,8 +19,8 @@ function BTSelector:run(level, actor, controller)
    for i = 1, #self.children do
       local child = self.children[i]
       local result = child:run(level, actor, controller)
-      if result then 
-          return result 
+      if result then
+         return result
       end
    end
    return false

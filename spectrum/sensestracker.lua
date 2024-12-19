@@ -8,7 +8,7 @@
 local SensesTracker = prism.Object:extend("SensesTracker")
 
 function SensesTracker:__new()
-   self.exploredCells = prism.SparseGrid() 
+   self.exploredCells = prism.SparseGrid()
    self.otherSensedActors = prism.SparseMap()
    self.otherSensedCells = prism.SparseGrid()
    self.totalSensedActors = prism.SparseMap()
@@ -17,7 +17,7 @@ end
 ---@param level Level
 ---@param curActor Actor|nil
 function SensesTracker:createSensedMaps(level, curActor)
-   self.exploredCells = prism.SparseGrid() 
+   self.exploredCells = prism.SparseGrid()
    self.otherSensedActors = prism.SparseMap()
    self.otherSensedCells = prism.SparseGrid()
    self.totalSensedActors = prism.SparseMap()
@@ -61,7 +61,7 @@ function SensesTracker:createSensedMaps(level, curActor)
          end
       end
    end
-   
+
    for actor, _ in pairs(actorSet) do
       self.totalSensedActors:insert(actor.position.x, actor.position.y, actor)
    end
@@ -73,7 +73,7 @@ function SensesTracker:passableCallback()
       --- @type Cell
       local cell = self.exploredCells:get(x, y)
 
-      if cell then 
+      if cell then
          passable = cell.passable
       end
 

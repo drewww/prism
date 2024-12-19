@@ -47,7 +47,7 @@ function ActorStorage:removeActor(actor)
    for k, v in ipairs(self.actors) do
       if v == actor then return table.remove(self.actors, k) end
    end
-   
+
    self.actorsSet[actor] = nil
 end
 
@@ -58,7 +58,7 @@ function ActorStorage:hasActor(actor)
    return self.actorsSet[actor]
 end
 
---- Returns an iterator over the actors in the storage. If a component is specified, only actors with that 
+--- Returns an iterator over the actors in the storage. If a component is specified, only actors with that
 --- component will be returned.
 --- @param ... Component? The components to filter by.
 --- @return function iter An iterator over the actors in the storage.
@@ -149,7 +149,7 @@ function ActorStorage:removeSparseMapEntries(actor)
    self.sparseMap:remove(pos.x, pos.y, actor)
    self.removeSparseMapCallback(pos.x, pos.y, actor)
 end
- 
+
 --- Inserts the specified actor into the spatial map.
 --- @param actor Actor The actor to insert.
 function ActorStorage:insertSparseMapEntries(actor)

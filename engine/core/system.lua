@@ -82,7 +82,6 @@ function System:onTick(level) end
 --- @param actor Actor The Actor object that is about to take its turn.
 function System:onTurn(level, actor) end
 
-
 --- This method is called when a new turn ends.
 --- @param level Level The Level object this System is attached to.
 --- @param actor Actor The Actor object that is about to take its turn.

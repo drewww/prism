@@ -113,7 +113,7 @@ function Actor:getComponent(prototype) return self.componentCache[prototype] end
 --- Actions
 --
 
---- @generic T 
+--- @generic T
 --- @param prototype T The type of the component to return.
 --- @return T?
 function Actor:getAction(prototype)
@@ -155,7 +155,7 @@ function Actor:hasAction(action)
          end
       end
    end
-   
+
    return false
 end
 

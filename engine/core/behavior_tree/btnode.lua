@@ -13,17 +13,17 @@ function BTNode:__new(run)
    self.run = run or self.run
 end
 
---- Override this method in your own nodes, or supply an anonymous function 
+--- Override this method in your own nodes, or supply an anonymous function
 --- to the constructor to create an 'anonymous node'. While we pass in self here
 --- it's generally not a good idea to store state on the nodes itself, but it can be
---- fine for caching a path for instance. 
+--- fine for caching a path for instance.
 --- @param self BTNode
 --- @param level Level
 --- @param actor Actor
 --- @param controller BTControllerComponent
 --- @return boolean|Action
 function BTNode:run(level, actor, controller)
-    error "BTNode is an abstract class! Extend it or provide a run method!"
+   error "BTNode is an abstract class! Extend it or provide a run method!"
 end
 
 return BTNode

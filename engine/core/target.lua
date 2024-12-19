@@ -42,7 +42,7 @@ function Target:_validate(owner, targetObject, targets)
          isValid = true
       end
    end
-   
+
    local targetPosition = nil
    if typeValidators.Point(targetObject) then targetPosition = targetObject end
    if typeValidators.Actor(targetObject) then targetPosition = targetObject.position end

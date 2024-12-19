@@ -96,21 +96,21 @@ end
 --- @param vec Vector2
 --- @return number distance
 function Vector2:distance(vec)
-    return math.sqrt(math.pow(self.x - vec.x, 2) + math.pow(self.y - vec.y, 2))
+   return math.sqrt(math.pow(self.x - vec.x, 2) + math.pow(self.y - vec.y, 2))
 end
 
 --- Manhattan distance from another point.
 --- @param vec Vector2
 --- @return number distance
 function Vector2:distanceManhattan(vec)
-    return math.abs(self.x - vec.x) + math.abs(self.y - vec.y)
+   return math.abs(self.x - vec.x) + math.abs(self.y - vec.y)
 end
 
 --- Chebyshev distance from another point.
 --- @param vec Vector2
 --- @return number distance
 function Vector2:distanceChebyshev(vec)
-    return math.max(math.abs(self.x - vec.x), math.abs(self.y - vec.y))
+   return math.max(math.abs(self.x - vec.x), math.abs(self.y - vec.y))
 end
 
 --- Linearly interpolates between two vectors.
@@ -121,26 +121,26 @@ end
 function Vector2:lerp(vec, t)
    -- Ensure t is clamped between 0 and 1
    t = math.max(0, math.min(t, 1))
-   
+
    local x = self.x + (vec.x - self.x) * t
    local y = self.y + (vec.y - self.y) * t
-   
+
    return Vector2(x, y)
 end
 
 --- @type table<DistanceType, fun(Vector2, Vector2)>
 local rangeCase = {
-    ["8way"] = Vector2.distanceChebyshev,
-    ["chebyshev"] = Vector2.distanceChebyshev,
-    ["4way"] = Vector2.distanceManhattan,
-    ["manhattan"] = Vector2.distanceManhattan,
-    ["euclidean"] = Vector2.distance
+   ["8way"] = Vector2.distanceChebyshev,
+   ["chebyshev"] = Vector2.distanceChebyshev,
+   ["4way"] = Vector2.distanceManhattan,
+   ["manhattan"] = Vector2.distanceManhattan,
+   ["euclidean"] = Vector2.distance
 }
 --- Gets the range, a ciel'd integer representing the number of tiles away the other vector is
 --- @param type DistanceType
 --- @param vec Vector2
 function Vector2:getRange(type, vec)
-    return rangeCase[type](self, vec)
+   return rangeCase[type](self, vec)
 end
 
 --- @return number x The x component of the vector.
@@ -185,22 +185,22 @@ Vector2.DOWN_LEFT = Vector2(-1, 1)
 
 --- @type Neighborhood
 Vector2.neighborhood8 = {
-    Vector2.UP,
-    Vector2.DOWN,
-    Vector2.LEFT,
-    Vector2.RIGHT,
-    Vector2.UP_LEFT,
-    Vector2.UP_RIGHT,
-    Vector2.DOWN_LEFT,
-    Vector2.DOWN_RIGHT,
+   Vector2.UP,
+   Vector2.DOWN,
+   Vector2.LEFT,
+   Vector2.RIGHT,
+   Vector2.UP_LEFT,
+   Vector2.UP_RIGHT,
+   Vector2.DOWN_LEFT,
+   Vector2.DOWN_RIGHT,
 }
 
 --- @type Neighborhood
 Vector2.neighborhood4 = {
-    Vector2.UP,
-    Vector2.DOWN,
-    Vector2.RIGHT,
-    Vector2.DOWN
+   Vector2.UP,
+   Vector2.DOWN,
+   Vector2.RIGHT,
+   Vector2.DOWN
 }
 
 return Vector2
