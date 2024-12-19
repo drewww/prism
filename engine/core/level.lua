@@ -109,6 +109,15 @@ function Level:getSystem(className) self.systemManager:getSystem(className) end
 -- Actor
 --
 
+--- Retrieves the unique ID associated with the specified actor.
+--- Note: IDs are unique to actors within the Level but may be reused 
+--- when indices are freed.
+--- @param actor Actor The actor whose ID is to be retrieved.
+--- @return integer? The unique ID of the actor, or nil if the actor is not found.
+function Level:getID(actor)
+   return self.actorStorage:getID(actor)
+end
+
 --- Adds an actor to the level. Handles updating the component cache and
 --- inserting the actor into the sparse map. It will also add the actor to the
 --- scheduler if it has a controller.

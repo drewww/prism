@@ -3,11 +3,13 @@
 --- You should rarely, if ever, need to instance this class yourself, it's mostly used internally and for
 --- a few returns from Level.
 --- @class ActorStorage : Object
---- @field actors table The list of actors in the storage.
---- @field sparseMap SparseMap The spatial map for storing actor positions.
---- @field componentCache table The cache for storing actor components.
---- @field insertSparseMapCallback function
---- @field removeSparseMapCallback function
+--- @field private actors [Actor] The list of actors in the storage.
+--- @field private ids SparseArray A sparse array of references to the Actors in the storage. The ID is derived from this.
+--- @field private actorToID table<Actor, integer?> A hashmap of actors to ids.
+--- @field private sparseMap SparseMap The spatial map for storing actor positions.
+--- @field private componentCache table The cache for storing actor components.
+--- @field private insertSparseMapCallback function
+--- @field private removeSparseMapCallback function
 --- @overload fun(): ActorStorage
 --- @type ActorStorage
 local ActorStorage = prism.Object:extend("ActorStorage")
@@ -16,7 +18,8 @@ local ActorStorage = prism.Object:extend("ActorStorage")
 --- Initializes the list, spatial map, and component cache.
 function ActorStorage:__new(insertSparseMapCallback, removeSparseMapCallback)
    self.actors = {}
-   self.actorsSet = {}
+   self.ids = prism.SparseArray()
+   self.actorToID = {}
    self.sparseMap = prism.SparseMap()
    self.componentCache = {}
    self.insertSparseMapCallback = insertSparseMapCallback or function() end
@@ -27,35 +30,46 @@ end
 --- @param actor Actor The actor to add.
 function ActorStorage:addActor(actor)
    assert(actor:is(prism.Actor), "Tried to add a non-actor object to actor storage!")
-   if self.actorsSet[actor] then return end
+   if self.actorToID[actor] then return end
 
-   table.insert(self.actors, actor)
-   self:updateComponentCache(actor)
-   self:insertSparseMapEntries(actor)
-   self.actorsSet[actor] = true
+   table.insert(self.actors, actor) -- Main structure
+   local id = self.ids:add(actor) -- Assign IDs
+   self.actorToID[actor] = id
+   self:updateComponentCache(actor) -- Accelerate component queries
+   self:insertSparseMapEntries(actor) -- hashmap<(x,y)> change events through optional callbacks
 end
 
 --- Removes an actor from the storage, updating the spatial map and component cache.
 --- @param actor Actor The actor to remove.
 function ActorStorage:removeActor(actor)
    assert(actor:is(prism.Actor), "Tried to remove a non-actor object from actor storage!")
-   if not self.actorsSet[actor] then return end
+   if not self.actorToID[actor] then return end
 
    self:removeComponentCache(actor)
    self:removeSparseMapEntries(actor)
 
    for k, v in ipairs(self.actors) do
-      if v == actor then return table.remove(self.actors, k) end
+      if v == actor then table.remove(self.actors, k) break end
    end
 
-   self.actorsSet[actor] = nil
+   self.ids:remove(self.actorToID[actor])
+   self.actorToID[actor] = nil
+end
+
+--- Retrieves the unique ID associated with the specified actor.
+--- Note: IDs are unique to actors within the ActorStorage but may be reused 
+--- when indices are freed.
+--- @param actor Actor The actor whose ID is to be retrieved.
+--- @return integer? The unique ID of the actor, or nil if the actor is not found.
+function ActorStorage:getID(actor)
+   return self.actorToID[actor]
 end
 
 --- Returns whether the storage contains the specified actor.
 --- @param actor Actor The actor to check.
 --- @return boolean True if the storage contains the actor, false otherwise.
 function ActorStorage:hasActor(actor)
-   return self.actorsSet[actor]
+   return self.actorToID[actor] ~= nil
 end
 
 --- Returns an iterator over the actors in the storage. If a component is specified, only actors with that

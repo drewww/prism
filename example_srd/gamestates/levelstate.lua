@@ -2,7 +2,6 @@ local GameState = require "example_srd.gamestates.gamestate"
 
 -- Set up our turn logic.
 require "example_srd.turn"
-require "spectrum"
 
 local spriteAtlas = spectrum.SpriteAtlas.fromGrid("example_srd/display/wanderlust_16x16.png", 16, 16)
 local actionHandlers = require "example_srd.display.actionhandlers"
@@ -186,12 +185,16 @@ function LevelState:draw()
    self.display:draw(curActor)
 
    love.graphics.setColor(1, 1, 1, 1)
-   if self.lastActor then
+   if curActor then -- TODO: What was I doing here?
       local SRDStatsComponent = self.lastActor:getComponent(prism.components.SRDStats)
       love.graphics.print("HP: " .. SRDStatsComponent.HP, 10, 20)
    end
    
    love.graphics.print("Frame Time: " .. love.timer.getAverageDelta(), 10, 10)
+
+   if curActor then
+      love.graphics.print("Current Actor ID:" .. self.level:getID(curActor), 10, 20)
+   end
 end
 
 function LevelState:keypressed(key, scancode)
