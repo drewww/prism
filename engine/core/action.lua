@@ -34,6 +34,7 @@ function Action:__new(owner, targets, source)
       .. " got "
       .. #self.targetObjects
    )
+   
    for i, target in ipairs(self.targets) do
       assert(
          target:_validate(owner, self.targetObjects[i], self.targetObjects),

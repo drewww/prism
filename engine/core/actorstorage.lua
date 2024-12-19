@@ -14,7 +14,7 @@ local ActorStorage = prism.Object:extend("ActorStorage")
 
 --- The constructor for the 'ActorStorage' class.
 --- Initializes the list, spatial map, and component cache.
-function ActorStorage:__new(root, insertSparseMapCallback, removeSparseMapCallback)
+function ActorStorage:__new(insertSparseMapCallback, removeSparseMapCallback)
    self.actors = {}
    self.actorsSet = {}
    self.sparseMap = prism.SparseMap()

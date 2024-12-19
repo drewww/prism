@@ -18,7 +18,7 @@ local Level = prism.Object:extend("Level")
 --- @param systems [System]
 function Level:__new(map, actors, systems, scheduler, seed)
    self.systemManager = prism.SystemManager(self)
-   self.actorStorage = prism.ActorStorage(true, self:sparseMapCallback(), self:sparseMapCallback())
+   self.actorStorage = prism.ActorStorage(self:sparseMapCallback(), self:sparseMapCallback())
    self.scheduler = scheduler or prism.SimpleScheduler()
    self.map = map
    self.opacityCache = prism.BooleanBuffer(map.w, map.h)  -- holds a cache of opacity to speed up fov calcs
