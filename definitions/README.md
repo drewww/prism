@@ -1,1 +1,0 @@
-This folder contains auto-generated definition files built from your modules! Running your game and loading the modules will update this!
