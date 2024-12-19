@@ -6,7 +6,6 @@
 --- @field private position Vector2 An actor's position in the game world.
 --- @field name string The string name of the actor, used for display to the user.
 --- @field char string The character to draw for this actor.
---- @field visible boolean Defines the actor's base visibility, used by the sight system.
 --- @field components table<Component> A table containing all of the actor's component instances. Generated at runtime.
 --- @field componentCache table This is a cache for component queries, reducing most queries to a hashmap lookup.
 --- @overload fun(): Actor
@@ -14,8 +13,6 @@
 local Actor = prism.Object:extend("Actor")
 Actor.position = nil
 Actor.name = "actor"
-Actor.char = nil
-Actor.visible = true
 
 --- Constructor for an actor.
 --- Initializes and copies the actor's fields from its prototype.

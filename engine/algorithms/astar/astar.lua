@@ -77,4 +77,33 @@ local function astarSearch(start, goal, passableCallback, costCallback, minDista
    end
 end
 
+--[[
+   while not( openSet:isEmpty() ) do
+        
+        --- @type AStar.Node
+        local currentNode = openSet:dequeue()
+        closedSet:append( tostring( currentNode.position ) )
+
+        if self.abortAtCost and currentNode.fCost and currentNode.fCost >= self.abortAtCost then return Array() end
+
+        for _, direction in ipairs( Vector2.CARDINAL_DIRECTIONS ) do
+            local position = currentNode.position + direction
+
+            -- Found the goal check, return path
+            if position == goal then
+                return makePath( currentNode )
+            end
+
+            if self.isValid( position ) and not( closedSet:has( tostring( position ) ) ) then
+                local node = AStar.Node( position, currentNode )
+                node.gCost = self.getCost( position )
+                node.hCost = self.heuristic( position, goal )
+                node.fCost = node.gCost + node.hCost
+
+                openSet:enqueue( node, node.fCost )
+            end
+        end
+    end
+]]
+
 return astarSearch

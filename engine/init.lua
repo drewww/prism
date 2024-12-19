@@ -17,6 +17,10 @@ prism._defaultRangeType = "8way"
 --- @type Object
 prism.Object = prism.require "core.object"
 
+-- Colors
+--- @type Color4
+prism.Color4 = prism.require "math.color"
+
 -- Math
 --- @type Vector2 
 prism.Vector2 = prism.require "math.vector"

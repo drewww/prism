@@ -1,7 +1,4 @@
-local SensesTracker = require "spectrum.sensestracker"
-local Camera = require "spectrum.camera"
-
----@class Spectrum : Object
+---@class Display : Object
 ---@field level Level
 ---@field spriteAtlas SpriteAtlas
 ---@field sensesTracker SensesTracker
@@ -11,28 +8,29 @@ local Camera = require "spectrum.camera"
 ---@field camera Camera
 ---@field time number
 ---@field dt number
-local Spectrum = prism.Object:extend("Spectrum")
+local Display = prism.Object:extend("Display")
 
 ---@param spriteAtlas SpriteAtlas
 ---@param cellSize Vector2
 ---@param level Level
-function Spectrum:__new(spriteAtlas, cellSize, level)
+function Display:__new(spriteAtlas, cellSize, level)
    self.cellSize = cellSize
    self.level = level
    self.spriteAtlas = spriteAtlas
-   self.sensesTracker = SensesTracker()
-   self.camera = Camera()
+   self.sensesTracker = spectrum.SensesTracker()
+   self.camera = spectrum.Camera()
    self.actionHandlers = {}
    self.messageQueue = prism.Queue()
    self.currentMessage = nil
    self.currentActionHandler = nil
    self.time = 0
    self.dt = 0
+   self.drawnSet = {}
 
    self.sensesTracker:createSensedMaps(level)
 end
 
-function Spectrum:update(dt, curActor)
+function Display:update(dt, curActor)
    self.time = self.time + dt
    self.dt = dt
 
@@ -85,7 +83,7 @@ function Spectrum:update(dt, curActor)
    self.camera:setPosition(lerpedPos.x, lerpedPos.y)
 end
 
-function Spectrum:updateAnimations()
+function Display:updateAnimations()
    if not self.currentMessage then
       self.currentMessage = self.messageQueue:pop()
 
@@ -100,23 +98,23 @@ function Spectrum:updateAnimations()
    end
 end
 
-function Spectrum:isAnimating()
+function Display:isAnimating()
    return self.currentMessage ~= nil
 end
 
 --- @param actionPrototype Action
---- @param handleFunc fun(spectrum: Spectrum, message: ActionMessage)
-function Spectrum:registerActionHandlers(actionPrototype, handleFunc)
+--- @param handleFunc fun(Display: Display, message: ActionMessage)
+function Display:registerActionHandlers(actionPrototype, handleFunc)
    self.actionHandlers[actionPrototype] = handleFunc
 end
 
 --- @param message Message
-function Spectrum:queueMessage(message)
+function Display:queueMessage(message)
    self.messageQueue:push(message)
    self:updateAnimations()
 end
 
-function Spectrum:draw(curActor)
+function Display:draw(curActor)
    self.camera:push()
    self:beforeDrawCells(curActor)
    self:drawCells(curActor)
@@ -125,11 +123,11 @@ function Spectrum:draw(curActor)
    self.camera:pop()
 end
 
-function Spectrum:beforeDrawCells(curActor)
+function Display:beforeDrawCells(curActor)
    -- override this method in your subclass!
 end
 
-function Spectrum:drawCells(curActor)
+function Display:drawCells(curActor)
    local drawnCells = prism.Grid(self.level.map.w, self.level.map.h, false)
 
    local cSx, cSy = self.cellSize.x, self.cellSize.y
@@ -173,28 +171,65 @@ function Spectrum:drawCells(curActor)
    end
 end
 
-function Spectrum:beforeDrawActors(curActor)
+function Display:beforeDrawActors(curActor)
    -- override this method in your subclass!
 end
 
-function Spectrum:drawActor(actor, drawnSet)
-   if drawnSet[actor] then return end
+function Display:getQuad(actor)
+   local drawable = actor:getComponent(prism.components.Drawable)
+   if not drawable then return end
+   --- @cast drawable DrawableComponent
 
-   local cSx, cSy = self.cellSize.x, self.cellSize.y
-   drawnSet[actor] = true
-   local spriteQuad = self.spriteAtlas:getQuadByIndex(string.byte(actor.char) + 1)
-   love.graphics.draw(self.spriteAtlas.image, spriteQuad, actor.position.x * cSx, actor.position.y * cSy)
+   if type(drawable.index) == "number" then
+      local index = drawable.index
+      --- @cast index integer
+      
+      return self.spriteAtlas:getQuadByIndex(index)
+   else
+      local index = drawable.index
+      --- @cast index string
+      
+      return self.spriteAtlas:getQuadByName(index)
+   end
 end
 
-function Spectrum:drawActors(curActor)
-   ---@type table<ActionMessage>
-   local drawnSet = {}
+function Display:getActorColor(actor)
+   local drawable = actor:getComponent(prism.components.Drawable)
+   if not drawable then return end
+   --- @cast drawable DrawableComponent
+   
+   return drawable.color
+end
+
+---@param actor Actor
+---@param alpha number?
+---@param x number?
+---@param y number?
+---@param color Color4?
+function Display:drawActor(actor, alpha, x, y, color)
+   if self.drawnSet[actor] then return end
+
+   local quad = self:getQuad(actor)
+   color = color or self:getActorColor(actor)
+   ---@cast color Color4
+   local r, g, b, a = color:decompose()
+   local cSx, cSy = self.cellSize.x, self.cellSize.y
+   self.drawnSet[actor] = true
+   love.graphics.setColor(r, g, b, a * alpha)
+
+   --- @diagnostic disable-next-line
+   local x, y = x or actor.position.x, y or actor.position.y
+   love.graphics.draw(self.spriteAtlas.image, quad, x * cSx, y * cSy)
+end
+
+function Display:drawActors(curActor)
+   self.drawnSet = {}
 
    love.graphics.setColor(1, 1, 1, 1) -- Color for the main actor's sensed cells
    if self.currentMessage then
       local finished, drawnActors = self.currentActionHandler(self.dt)
       for _, drawn in ipairs(drawnActors) do
-         drawnSet[drawn] = true
+         self.drawnSet[drawn] = true
       end
 
       if finished then 
@@ -205,24 +240,23 @@ function Spectrum:drawActors(curActor)
 
    if curActor then
       local sensesComponent = curActor:getComponent(prism.components.Senses)
-      love.graphics.setColor(1, 1, 1, 1)
       for actor in sensesComponent.actors:eachActor() do
-         self:drawActor(actor, drawnSet)
+         self:drawActor(actor, 1)
       end
    end
    
-   love.graphics.setColor(0.5, 0.5, 0.5, 1) -- Color for the main actor's sensed cells
-   if not curActor then love.graphics.setColor(1, 1, 1, 1) end
+   local alpha = 0.5
+   if not curActor then alpha = 1 end
    for x, y, actor in self.sensesTracker.otherSensedActors:each() do
-      self:drawActor(actor, drawnSet)
+      self:drawActor(actor, alpha)
    end
 end
 
-function Spectrum:afterDrawActors(curActor)
+function Display:afterDrawActors(curActor)
    -- override this method in your subclass!
 end
 
-function Spectrum:getCellUnderMouse()
+function Display:getCellUnderMouse()
    local cSx, cSy = self.cellSize.x, self.cellSize.y
    local mx, my = love.mouse.getPosition()
    local wx, wy = self.camera:toWorldSpace(mx, my)
@@ -231,7 +265,7 @@ function Spectrum:getCellUnderMouse()
    return tileX, tileY
 end
 
-function Spectrum:getActorsSensedByCurActorOnTile(curActor, tileX, tileY)
+function Display:getActorsSensedByCurActorOnTile(curActor, tileX, tileY)
    local actors = {}
    local sensesComponent = curActor:getComponent(prism.components.Senses)
    for actor in sensesComponent.actors:eachActor() do
@@ -242,4 +276,4 @@ function Spectrum:getActorsSensedByCurActorOnTile(curActor, tileX, tileY)
    return actors
 end
 
-return Spectrum
+return Display

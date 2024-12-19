@@ -1,14 +1,11 @@
 local GameState = require "example_srd.gamestates.gamestate"
 
-local SpriteAtlas = require "spectrum.spriteatlas"
-local spriteAtlas = SpriteAtlas.fromGrid("example_srd/display/wanderlust_16x16.png", 16, 16)
-
-local Spectrum = require "spectrum.spectrum"
-local ActionHandlers = require "example_srd.display.actionhandlers"
-
 -- Set up our turn logic.
 require "example_srd.turn"
+require "spectrum"
 
+local spriteAtlas = spectrum.SpriteAtlas.fromGrid("example_srd/display/wanderlust_16x16.png", 16, 16)
+local actionHandlers = require "example_srd.display.actionhandlers"
 local waitPathConstant = 0.2
 
 --- @class LevelState : GameState
@@ -18,7 +15,7 @@ local waitPathConstant = 0.2
 --- @field path Path
 --- @field decidedPath Path
 --- @field targetActor Actor
---- @field spectrum Spectrum
+--- @field display Display
 --- @field lastActor Actor
 local LevelState = GameState:extend("LevelState")
 
@@ -29,13 +26,13 @@ function LevelState:__new(level)
    self.updateCoroutine = coroutine.create(level.run)
    self.decision = nil
    self.waitPathTime = 0
-   self.spectrum = Spectrum(spriteAtlas, prism.Vector2(16, 16), level)
+   self.display = spectrum.Display(spriteAtlas, prism.Vector2(16, 16), level)
    self.lastActor = nil
 
-   self.spectrum.beforeDrawCells = self:drawBeforeCellsCallback()
+   self.display.beforeDrawCells = self:drawBeforeCellsCallback()
    
-   for action, func in pairs(ActionHandlers) do
-      self.spectrum:registerActionHandlers(action, func)   
+   for action, func in pairs(actionHandlers) do
+      self.display:registerActionHandlers(action, func)
    end
 end
 
@@ -45,7 +42,7 @@ end
 
 function LevelState:shouldAdvance()
    local hasDecision = self.decision ~= nil
-   local animating = self.spectrum:isAnimating()
+   local animating = self.display:isAnimating()
    local decisionDone = hasDecision and self.decision:validateResponse()
    
    if animating then return false end
@@ -71,7 +68,7 @@ function LevelState:update(dt)
             self:checkPath(self.decision.actor)
          elseif message:is(prism.messages.ActionMessage) then
             ---@cast message ActionMessage
-            self.spectrum:queueMessage(message)
+            self.display:queueMessage(message)
             self:checkPath(message.action.owner)
          end
       end
@@ -116,15 +113,15 @@ function LevelState:update(dt)
       end
    end
 
-   self.spectrum:update(dt, curActor)
+   self.display:update(dt, curActor)
 end
 
 function LevelState:updatePath()
    local curActor = self.decision.actor
    -- get path
-   local wx, wy = self.spectrum:getCellUnderMouse()
+   local wx, wy = self.display:getCellUnderMouse()
 
-   self.path = prism.astar(curActor:getPosition(), prism.Vector2(wx, wy), self.spectrum.sensesTracker:passableCallback())
+   self.path = prism.astar(curActor:getPosition(), prism.Vector2(wx, wy), self.display.sensesTracker:passableCallback())
 
    local SRDStatsComponent = curActor:getComponent(prism.components.SRDStats)
    if SRDStatsComponent then
@@ -133,7 +130,7 @@ function LevelState:updatePath()
       end
    end
 
-   local actorBucket = self.spectrum:getActorsSensedByCurActorOnTile(curActor, wx, wy)
+   local actorBucket = self.display:getActorsSensedByCurActorOnTile(curActor, wx, wy)
    if #actorBucket > 0 then
       self.targetActor = actorBucket[1]
    else
@@ -143,10 +140,10 @@ end
 
 
 function LevelState:drawBeforeCellsCallback()
-   ---@param spectrum Spectrum
+   ---@param display Display
    ---@param curActor Actor
-   return function(spectrum, curActor)
-      local cSx, cSy = spectrum.cellSize.x, spectrum.cellSize.y
+   return function(display, curActor)
+      local cSx, cSy = display.cellSize.x, display.cellSize.y
       if not curActor then curActor = self.lastActor end
       if not curActor then return end
 
@@ -172,7 +169,7 @@ function LevelState:drawBeforeCellsCallback()
          end
       end
 
-      love.graphics.setColor(1, 1, 0, math.sin(self.spectrum.time * 4) * 0.1 + 0.3)
+      love.graphics.setColor(1, 1, 0, math.sin(self.display.time * 4) * 0.1 + 0.3)
       ---@diagnostic disable-next-line
       love.graphics.rectangle("fill", curActor.position.x * cSx, curActor.position.y * cSy, cSx, cSy)   
    end
@@ -186,7 +183,7 @@ function LevelState:draw()
       curActor = actionDecision.actor
    end
 
-   self.spectrum:draw(curActor)
+   self.display:draw(curActor)
 
    love.graphics.setColor(1, 1, 1, 1)
    if self.lastActor then

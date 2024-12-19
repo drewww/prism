@@ -1,3 +1,5 @@
+require "spectrum"
+prism.loadModule("spectrum")
 prism.loadModule("example_srd")
 
 local mapbuilder = prism.MapBuilder(prism.cells.Wall)

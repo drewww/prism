@@ -7,9 +7,9 @@ local DiceData = require "example_srd.dice.dice"
 --- @class PlayerActor : Actor
 local Player = prism.Actor:extend("PlayerActor")
 Player.name = "Player"
-Player.char = "@"
 
 Player.components = {
+   prism.components.Drawable(string.byte("@") + 1, prism.Color4(0, 1, 0, 1)),
    prism.components.Collider(),
    prism.components.PlayerController(),
    prism.components.Senses(),
