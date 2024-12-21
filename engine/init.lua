@@ -5,6 +5,8 @@ prism.path = ...
 
 function prism.require(p) return require(table.concat({ prism.path, p }, ".")) end
 
+prism.json = prism.require "lib/json"
+
 --- @type boolean
 prism._initialized = false
 
@@ -66,8 +68,6 @@ prism.astar = prism.require "algorithms.astar.astar"
 -- Core
 --- @type Scheduler
 prism.Scheduler = prism.require "core.scheduler.scheduler"
---- @type TimeScheduler
-prism.TimeScheduler = prism.require "core.scheduler.time_scheduler"
 --- @type SimpleScheduler
 prism.SimpleScheduler = prism.require "core.scheduler.simple_scheduler"
 --- @type Action
