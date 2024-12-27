@@ -16,6 +16,7 @@ local waitPathConstant = 0.2
 --- @field targetActor Actor
 --- @field display Display
 --- @field lastActor Actor
+--- @field geometer Geometer
 local LevelState = GameState:extend("LevelState")
 
 --- This state is passed a Level object and sets up the interface and main loop for
@@ -27,9 +28,10 @@ function LevelState:__new(level)
    self.waitPathTime = 0
    self.display = spectrum.Display(spriteAtlas, prism.Vector2(16, 16), level)
    self.lastActor = nil
+   self.geometer = geometer.Geometer(self.level, self.display)
 
    self.display.beforeDrawCells = self:drawBeforeCellsCallback()
-   
+
    for action, func in pairs(actionHandlers) do
       self.display:registerActionHandlers(action, func)
    end
@@ -57,6 +59,11 @@ function LevelState:checkPath(actor)
 end
 
 function LevelState:update(dt)
+   if self.geometer:isActive() then
+      self.geometer:update(dt)
+      return
+   end
+
    self.waitPathTime = self.waitPathTime + dt
    while self:shouldAdvance() do
       local message = prism.advanceCoroutine(self.updateCoroutine, self.level, self.decision)
@@ -175,6 +182,11 @@ function LevelState:drawBeforeCellsCallback()
 end
 
 function LevelState:draw()
+   if self.geometer:isActive() then
+      self.geometer:draw()
+      return
+   end
+
    local curActor
    if self.decision then
       local actionDecision = self.decision
@@ -198,6 +210,11 @@ function LevelState:draw()
 end
 
 function LevelState:keypressed(key, scancode)
+   if self.geometer:isActive() then
+      self.geometer:keypressed(key, scancode)
+      return
+   end
+
    if not self.decision then return end
    if not self.decision:is(prism.decisions.ActionDecision) then return end
 
@@ -208,15 +225,30 @@ function LevelState:keypressed(key, scancode)
       local endturn = curActor:getAction(prism.actions.EndTurn)
       actionDecision.action = endturn(curActor)
    end
+
+   if key == "`" then
+      self.geometer:startEditing()
+   end
 end
 
-function LevelState:mousepressed( x, y, button, istouch, presses )
+function LevelState:mousepressed(x, y, button, istouch, presses)
+   if self.geometer:isActive() then
+      self.geometer:mousepressed(x, y, button, istouch, presses)
+      return
+   end
+
    if self.path then
       self.decidedPath = self.path
    end
 
    if self.targetActor then
       self.decidedTarget = self.targetActor
+   end
+end
+
+function LevelState:mousereleased(x, y, button)
+   if self.geometer:isActive() then
+      self.geometer:mousereleased(x, y, button)
    end
 end
 
