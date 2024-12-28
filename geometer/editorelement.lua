@@ -17,7 +17,6 @@ local EditorGrid = require("geometer.gridelement")
 ---@return function
 local function Editor(self, scene)
 	self.props.gridPosition = prism.Vector2(64, 64)
-	self.props.scale = prism.Vector2(2, 2)
 
 	love.graphics.setDefaultFilter("nearest", "nearest")
 	local image = love.graphics.newImage("geometer/gui.png")
@@ -44,7 +43,6 @@ local function Editor(self, scene)
 	cellButton.props.unpressedQuad = cellButtonUnpressed
 
 	local grid = EditorGrid(scene)
-	grid.props.scale = prism.Vector2(3, 3)
 	self:useEffect(function()
 		grid.props.map = self.props.level.map
 		grid.props.actors = self.props.level.actorStorage
@@ -54,7 +52,6 @@ local function Editor(self, scene)
 	return function(_, x, y, w, h)
 		love.graphics.push()
 		love.graphics.setColor(1, 1, 1, 1)
-		love.graphics.scale(self.props.scale:decompose())
 
 		grid:render(self.props.gridPosition.x, self.props.gridPosition.y, 1600, 900)
 		fileButton:render(24, 0, 72, 36)

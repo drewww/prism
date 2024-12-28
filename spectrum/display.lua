@@ -123,6 +123,25 @@ function Display:draw(curActor)
    self.camera:pop()
 end
 
+function Display:drawWizard()
+   self.camera:push()
+
+   local cSx, cSy = self.cellSize.x, self.cellSize.y
+   local map = self.level.map
+   for x = 1, map.w do
+      for y = 1, map.h do
+         local cell = map:get(x, y)
+         local spriteQuad = self.spriteAtlas:getQuadByIndex(string.byte(cell.char) + 1)
+         love.graphics.draw(self.spriteAtlas.image, spriteQuad, x * cSx, y * cSy)
+      end
+   end
+
+   for actor in self.level:eachActor() do
+      self:drawActor(actor, 1, nil, nil, nil, true)
+   end
+   self.camera:pop()
+end
+
 function Display:beforeDrawCells(curActor)
    -- override this method in your subclass!
 end
@@ -206,15 +225,15 @@ end
 ---@param x number?
 ---@param y number?
 ---@param color Color4?
-function Display:drawActor(actor, alpha, x, y, color)
-   if self.drawnSet[actor] then return end
+function Display:drawActor(actor, alpha, x, y, color, ignoreDrawset)
+   if self.drawnSet[actor] and not ignoreDrawset then return end
 
    local quad = self:getQuad(actor)
    color = color or self:getActorColor(actor)
    ---@cast color Color4
    local r, g, b, a = color:decompose()
    local cSx, cSy = self.cellSize.x, self.cellSize.y
-   self.drawnSet[actor] = true
+   if not ignoreDrawset then self.drawnSet[actor] = true end
    love.graphics.setColor(r, g, b, a * alpha)
 
    --- @diagnostic disable-next-line

@@ -22,8 +22,6 @@ local Editor = require "geometer.editorelement"
 local scene   = Inky.scene()
 local pointer = Inky.pointer(scene)
 
-local scale = 2
-
 function Geometer:isActive()
 	return self.active
 end
@@ -38,7 +36,7 @@ end
 
 function Geometer:update(dt)
 	local mx, my = love.mouse.getX(), love.mouse.getY()
-	pointer:setPosition(mx/scale, my/scale)
+	pointer:setPosition(mx, my)
 end
 
 function Geometer:draw()

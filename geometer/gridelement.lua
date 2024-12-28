@@ -14,11 +14,11 @@ local Inky = require "geometer.inky"
 ---@param scene Inky.Scene
 ---@return function
 local function EditorGrid(self, scene)
-   self.props.offset = prism.Vector2(0, 0)
-
    self:onPointer("drag", function(_, pointer, dx, dy)
-      self.props.offset.x = self.props.offset.x + dx
-      self.props.offset.y = self.props.offset.y + dy
+      local camera = self.props.display.camera
+      local dx, dy = dx * (1/camera.scale.x), dy * (1/camera.scale.y)
+      camera.position.x = camera.position.x - dx
+      camera.position.y = camera.position.y - dy
    end)
 
    self:onPointer("press", function(_, pointer)
@@ -30,26 +30,9 @@ local function EditorGrid(self, scene)
          return
       end
 
-      local map = self.props.map
-      local display = self.props.display
-      local cX, cY = display.cellSize:decompose()
-      local offsetX = self.props.offset.x / self.props.scale.x
-      local offsetY = self.props.offset.y / self.props.scale.y
-
-      for mapX = 1, map.w do
-         for mapY = 1, map.h do
-            local cell = map:getCell(mapX, mapY)
-            local spriteQuad = display.spriteAtlas:getQuadByIndex(string.byte(cell.char) + 1)
-            if spriteQuad then
-               love.graphics.draw(display.spriteAtlas.image, spriteQuad, x + offsetX + mapX * cX, y + offsetY+ mapY * cY)
-	    end
-	 end
-      end
-
-      for actor in self.props.actors:eachActor() do
-         local spriteQuad = display:getQuad(actor)
-         love.graphics.draw(display.spriteAtlas.image, spriteQuad, x + offsetX + actor.position.x * cX, y + offsetY + actor.position.y * cY)
-      end
+      local r, g, b, a = love.graphics.getColor()
+      self.props.display:drawWizard()
+      love.graphics.setColor(r, g, b, a)
    end
 end
 
