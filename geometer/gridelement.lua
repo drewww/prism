@@ -1,4 +1,4 @@
-local Inky = require "geometer.inky"
+local Inky = require("geometer.inky")
 
 ---@class EditorGridProps : Inky.Props
 ---@field offset Vector2
@@ -40,15 +40,25 @@ local function EditorGrid(self, scene)
          for mapY = 1, map.h do
             local cell = map:getCell(mapX, mapY)
             local spriteQuad = display.spriteAtlas:getQuadByIndex(string.byte(cell.char) + 1)
+            local finalX = x + offsetX + mapX * cX
+            local finalY = y + offsetY + mapY * cY
+            love.graphics.setColor(0, 0, 0)
+            love.graphics.rectangle("fill", finalX, finalY, cX, cY)
             if spriteQuad then
-               love.graphics.draw(display.spriteAtlas.image, spriteQuad, x + offsetX + mapX * cX, y + offsetY+ mapY * cY)
-	    end
-	 end
+               love.graphics.setColor(1, 1, 1, 1)
+               love.graphics.draw(display.spriteAtlas.image, spriteQuad, finalX, finalY)
+            end
+         end
       end
 
       for actor in self.props.actors:eachActor() do
          local spriteQuad = display:getQuad(actor)
-         love.graphics.draw(display.spriteAtlas.image, spriteQuad, x + offsetX + actor.position.x * cX, y + offsetY + actor.position.y * cY)
+         love.graphics.draw(
+            display.spriteAtlas.image,
+            spriteQuad,
+            x + offsetX + actor.position.x * cX,
+            y + offsetY + actor.position.y * cY
+         )
       end
    end
 end

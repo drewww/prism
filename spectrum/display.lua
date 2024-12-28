@@ -51,7 +51,6 @@ function Display:update(dt, curActor)
    local cx, cy = self.camera:getPosition()
    local camVec = prism.Vector2(cx, cy)
 
-
    local cSx, cSy = self.cellSize.x, self.cellSize.y
    ---@diagnostic disable-next-line
    local goalVec
@@ -115,6 +114,7 @@ function Display:queueMessage(message)
 end
 
 function Display:draw(curActor)
+   love.graphics.setBackgroundColor(0, 0, 0, 1)
    self.camera:push()
    self:beforeDrawCells(curActor)
    self:drawCells(curActor)
