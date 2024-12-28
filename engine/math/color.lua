@@ -19,6 +19,19 @@ function Color4:__new(r, g, b, a)
    self.a = a or 1  -- Default alpha to 1 (fully opaque)
 end
 
+--- Constructor for Color4 that accepts a hexadecimal number.
+--- @param hex number A hex number representing a color, e.g. 0xFFFFFF. Alpha is optional and defaults to 1.
+function Color4.fromHex(hex)
+   local hasAlpha = #string.format("%x", hex) > 6
+
+   local a = bit.band(bit.rshift(hex, 0), 0xff) / 0xff
+   local b = bit.band(bit.rshift(hex, hasAlpha and 8 or 0), 0xff) / 0xff
+   local g = bit.band(bit.rshift(hex, hasAlpha and 16 or 8), 0xff) / 0xff
+   local r = bit.band(bit.rshift(hex, hasAlpha and 24 or 16), 0xff) / 0xff
+
+   return Color4(r, g, b, hasAlpha and a or 1)
+end
+
 --- Returns a copy of the color.
 ---@return Color4 A copy of the color.
 function Color4:copy()

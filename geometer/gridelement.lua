@@ -1,4 +1,4 @@
-local Inky = require "geometer.inky"
+local Inky = require("geometer.inky")
 
 ---@class EditorGridProps : Inky.Props
 ---@field offset Vector2

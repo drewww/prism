@@ -9,7 +9,8 @@
     "diagnostics.globals": [
         "love",
         "prism",
-        "spectrum"
+        "spectrum",
+        "geometer"
     ],
     "Lua.workspace.library": [
         "${3rd}/love2d/library"
