@@ -67,10 +67,11 @@ local function Editor(self, scene)
    return function(_, x, y, w, h)
       love.graphics.setBackgroundColor(background:decompose())
       love.graphics.push("all")
-      love.graphics.scale(self.props.scale:decompose())
       love.graphics.setColor(1, 1, 1, 1)
 
       grid:render(self.props.gridPosition.x, self.props.gridPosition.y, 1600, 900)
+
+      love.graphics.scale(self.props.scale:decompose())
       fileButton:render(24, 0, 72, 36)
       actorButton:render(24 * 2 + 72, 0, 72, 36)
       cellButton:render(24 * 3 + (72 * 2), 0, 72, 36)
