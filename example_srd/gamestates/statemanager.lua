@@ -58,4 +58,9 @@ function StateManager:mousereleased(x, y, button)
    if topState then topState:mousereleased( x, y, button) end
 end
 
+function StateManager:wheelmoved(dx, dy)
+   local topState = self.stateStack[#self.stateStack]
+   if topState then topState:wheelmoved( dx, dy ) end
+end
+
 return StateManager

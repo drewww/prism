@@ -47,3 +47,7 @@ end
 function love.mousereleased(x, y, button)
    manager:mousereleased(x, y, button)
 end
+
+function love.wheelmoved( x, y )
+   manager:wheelmoved(x, y)
+end

@@ -252,4 +252,11 @@ function LevelState:mousereleased(x, y, button)
    end
 end
 
+function LevelState:wheelmoved(dx, dy)
+   print(dx, dy)
+   if self.geometer:isActive() then
+      self.geometer:wheelmoved(dx, dy)
+   end
+end
+
 return LevelState

@@ -75,3 +75,7 @@ function love.mousemoved(x, y, dx, dy, istouch)
 end
 
 function Geometer:keypressed(key, scancode) end
+
+function Geometer:wheelmoved(dx, dy)
+   pointer:raise("scroll", dx, dy)
+end

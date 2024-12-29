@@ -27,6 +27,26 @@ function Camera:setScale(scaleX, scaleY)
    if scaleX and not scaleY then scaleY = scaleX end
    self.scale.x = scaleX or self.scale.x
    self.scale.y = scaleY or self.scale.y
+
+   self.scale.x = math.max(self.scale.x, 0.1)
+   self.scale.y = math.max(self.scale.y, 0.1)
+end
+
+function Camera:scaleAroundPoint(factorX, factorY, pointX, pointY)
+   factorY = factorY or factorX 
+
+   local scale = self.scale:copy()
+   scale.x = math.max(0.1, scale.x + factorX)
+   scale.y = math.max(0.1, scale.y + factorY)
+
+   local delta = self.scale - scale
+   self:setScale(scale.x, scale.y)
+
+   local offsetX = pointX  * delta.x
+   local offsetY = pointY * delta.y
+
+   self.position.x = self.position.x + offsetX
+   self.position.y = self.position.y + offsetY
 end
 
 function Camera:setRotation(rotation)
