@@ -24,7 +24,7 @@ local Editor = require("geometer.editorelement")
 local scene = Inky.scene()
 local pointer = Inky.pointer(scene)
 
-local scale = prism.Vector2(2, 2)
+local scale = prism.Vector2(love.graphics.getWidth() / 320, love.graphics.getHeight() / 200)
 
 function Geometer:isActive()
    return self.active

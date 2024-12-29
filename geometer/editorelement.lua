@@ -17,19 +17,24 @@ local EditorGrid = require("geometer.gridelement")
 ---@param scene Inky.Scene
 ---@return function
 local function Editor(self, scene)
-	self.props.gridPosition = prism.Vector2(64, 64)
-   self.props.gridPosition = prism.Vector2(64, 64)
+   self.props.gridPosition = prism.Vector2(24, 24)
 
    love.graphics.setDefaultFilter("nearest", "nearest")
    local image = love.graphics.newImage("geometer/gui.png")
-   local fileButtonUnpressed = love.graphics.newQuad(0, 0, 72, 36, image)
-   local fileButtonPressed = love.graphics.newQuad(72, 0, 72, 36, image)
-   local actorButtonUnpressed = love.graphics.newQuad(72 * 2, 0, 72, 36, image)
-   local actorButtonPressed = love.graphics.newQuad(72 * 3, 0, 72, 36, image)
-   local cellButtonUnpressed = love.graphics.newQuad(72 * 4, 0, 72, 36, image)
-   local cellButtonPressed = love.graphics.newQuad(72 * 5, 0, 72, 36, image)
-   local playButtonUnpressed = love.graphics.newQuad(72 * 6, 0, 72, 36, image)
-   local playButtonPressed = love.graphics.newQuad(72 * 7, 0, 72, 36, image)
+   local fileButtonUnpressed = love.graphics.newQuad(0, 0, 24, 12, image)
+   local fileButtonPressed = love.graphics.newQuad(24, 0, 24, 12, image)
+   local actorButtonUnpressed = love.graphics.newQuad(24 * 2, 0, 24, 12, image)
+   local actorButtonPressed = love.graphics.newQuad(24 * 3, 0, 24, 12, image)
+   local cellButtonUnpressed = love.graphics.newQuad(24 * 4, 0, 24, 12, image)
+   local cellButtonPressed = love.graphics.newQuad(24 * 5, 0, 24, 12, image)
+   local playButtonUnpressed = love.graphics.newQuad(24 * 6, 0, 24, 12, image)
+   local playButtonPressed = love.graphics.newQuad(24 * 7, 0, 24, 12, image)
+
+   local canvas = love.graphics.newCanvas(320, 200)
+   local frame = love.graphics.newImage("geometer/frame.png")
+   love.graphics.setCanvas(canvas)
+   love.graphics.draw(frame)
+   love.graphics.setCanvas()
 
    local fileButton = Button(scene)
    fileButton.props.tileset = image
@@ -69,13 +74,15 @@ local function Editor(self, scene)
       love.graphics.push("all")
       love.graphics.setColor(1, 1, 1, 1)
 
-      grid:render(self.props.gridPosition.x, self.props.gridPosition.y, 1600, 900)
+      love.graphics.setCanvas(canvas)
+      fileButton:render(8, 184, 24, 12)
+      playButton:render(8 * 2 + 24, 184, 24, 12)
+      love.graphics.setCanvas()
 
       love.graphics.scale(self.props.scale:decompose())
-      fileButton:render(24, 0, 72, 36)
-      actorButton:render(24 * 2 + 72, 0, 72, 36)
-      cellButton:render(24 * 3 + (72 * 2), 0, 72, 36)
-      playButton:render(24, 402, 72, 36)
+      --grid:render(self.props.gridPosition.x, self.props.gridPosition.y, 648, 528)
+      --local y = (love.graphics.getHeight() - (200 * self.props.scale.y)) / 2
+      love.graphics.draw(canvas, 0, 0)
 
       love.graphics.pop()
    end
