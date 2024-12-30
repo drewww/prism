@@ -10,21 +10,7 @@ local Button = require("geometer.button")
 ---@param scene any
 ---@return function
 local function Tools(self, scene)
-   local image = love.graphics.newImage("geometer/tools.png")
-   local paintButtonUnpressed = love.graphics.newQuad(0, 0, 8, 10, image)
-   local paintButtonPressed = love.graphics.newQuad(8, 0, 8, 10, image)
-   local deleteButtonUnpressed = love.graphics.newQuad(8 * 2, 0, 8, 10, image)
-   local deleteButtonPressed = love.graphics.newQuad(8 * 3, 0, 8, 10, image)
-   local rectButtonUnpressed = love.graphics.newQuad(8 * 4, 0, 8, 10, image)
-   local rectButtonPressed = love.graphics.newQuad(8 * 5, 0, 8, 10, image)
-   local ovalButtonUnpressed = love.graphics.newQuad(8 * 6, 0, 8, 10, image)
-   local ovalButtonPressed = love.graphics.newQuad(8 * 7, 0, 8, 10, image)
-   local lineButtonUnpressed = love.graphics.newQuad(8 * 8, 0, 8, 10, image)
-   local lineButtonPressed = love.graphics.newQuad(8 * 9, 0, 8, 10, image)
-   local fillButtonUnpressed = love.graphics.newQuad(8 * 10, 0, 8, 10, image)
-   local fillButtonPressed = love.graphics.newQuad(8 * 11, 0, 8, 10, image)
-   local selectButtonUnpressed = love.graphics.newQuad(8 * 12, 0, 8, 10, image)
-   local selectButtonPressed = love.graphics.newQuad(8 * 13, 0, 8, 10, image)
+   local atlas = spectrum.SpriteAtlas.fromGrid("geometer/tools.png", 8, 10)
 
    ---@param button Button
    local function onPress(button)
@@ -35,9 +21,9 @@ local function Tools(self, scene)
    end
 
    local paintButton = Button(scene)
-   paintButton.props.unpressedQuad = paintButtonUnpressed
-   paintButton.props.pressedQuad = paintButtonPressed
-   paintButton.props.tileset = image
+   paintButton.props.unpressedQuad = atlas:getQuadByIndex(1)
+   paintButton.props.pressedQuad = atlas:getQuadByIndex(2)
+   paintButton.props.tileset = atlas.image
    paintButton.props.toggle = true
    paintButton.props.onPress = onPress(paintButton)
    paintButton.props.pressed = true
@@ -45,44 +31,44 @@ local function Tools(self, scene)
    self.props.selected = paintButton
 
    local deleteButton = Button(scene)
-   deleteButton.props.unpressedQuad = deleteButtonUnpressed
-   deleteButton.props.pressedQuad = deleteButtonPressed
-   deleteButton.props.tileset = image
+   deleteButton.props.unpressedQuad = atlas:getQuadByIndex(3)
+   deleteButton.props.pressedQuad = atlas:getQuadByIndex(4)
+   deleteButton.props.tileset = atlas.image
    deleteButton.props.toggle = true
    deleteButton.props.onPress = onPress(deleteButton)
 
    local rectButton = Button(scene)
-   rectButton.props.unpressedQuad = rectButtonUnpressed
-   rectButton.props.pressedQuad = rectButtonPressed
-   rectButton.props.tileset = image
+   rectButton.props.unpressedQuad = atlas:getQuadByIndex(5)
+   rectButton.props.pressedQuad = atlas:getQuadByIndex(6)
+   rectButton.props.tileset = atlas.image
    rectButton.props.toggle = true
    rectButton.props.onPress = onPress(rectButton)
 
    local ovalButton = Button(scene)
-   ovalButton.props.unpressedQuad = ovalButtonUnpressed
-   ovalButton.props.pressedQuad = ovalButtonPressed
-   ovalButton.props.tileset = image
+   ovalButton.props.unpressedQuad = atlas:getQuadByIndex(7)
+   ovalButton.props.pressedQuad = atlas:getQuadByIndex(8)
+   ovalButton.props.tileset = atlas.image
    ovalButton.props.toggle = true
    ovalButton.props.onPress = onPress(ovalButton)
 
    local lineButton = Button(scene)
-   lineButton.props.unpressedQuad = lineButtonUnpressed
-   lineButton.props.pressedQuad = lineButtonPressed
-   lineButton.props.tileset = image
+   lineButton.props.unpressedQuad = atlas:getQuadByIndex(9)
+   lineButton.props.pressedQuad = atlas:getQuadByIndex(10)
+   lineButton.props.tileset = atlas.image
    lineButton.props.toggle = true
    lineButton.props.onPress = onPress(lineButton)
 
    local fillButton = Button(scene)
-   fillButton.props.unpressedQuad = fillButtonUnpressed
-   fillButton.props.pressedQuad = fillButtonPressed
-   fillButton.props.tileset = image
+   fillButton.props.unpressedQuad = atlas:getQuadByIndex(11)
+   fillButton.props.pressedQuad = atlas:getQuadByIndex(12)
+   fillButton.props.tileset = atlas.image
    fillButton.props.toggle = true
    fillButton.props.onPress = onPress(fillButton)
 
    local selectButton = Button(scene)
-   selectButton.props.unpressedQuad = selectButtonUnpressed
-   selectButton.props.pressedQuad = selectButtonPressed
-   selectButton.props.tileset = image
+   selectButton.props.unpressedQuad = atlas:getQuadByIndex(13)
+   selectButton.props.pressedQuad = atlas:getQuadByIndex(14)
+   selectButton.props.tileset = atlas.image
    selectButton.props.toggle = true
    selectButton.props.onPress = onPress(selectButton)
 

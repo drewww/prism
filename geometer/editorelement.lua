@@ -20,50 +20,39 @@ local Tools = require("geometer.tools")
 local function Editor(self, scene)
    self.props.gridPosition = prism.Vector2(24, 24)
 
-   -- TODO: Use SpriteSheet!
+   local atlas = spectrum.SpriteAtlas.fromGrid("geometer/gui.png", 24, 12)
    love.graphics.setDefaultFilter("nearest", "nearest")
-   local image = love.graphics.newImage("geometer/gui.png")
-   local fileButtonUnpressed = love.graphics.newQuad(0, 0, 24, 12, image)
-   local fileButtonPressed = love.graphics.newQuad(24, 0, 24, 12, image)
-   local actorButtonUnpressed = love.graphics.newQuad(24 * 2, 0, 24, 12, image)
-   local actorButtonPressed = love.graphics.newQuad(24 * 3, 0, 24, 12, image)
-   local cellButtonUnpressed = love.graphics.newQuad(24 * 4, 0, 24, 12, image)
-   local cellButtonPressed = love.graphics.newQuad(24 * 5, 0, 24, 12, image)
-   local playButtonUnpressed = love.graphics.newQuad(24 * 6, 0, 24, 12, image)
-   local playButtonPressed = love.graphics.newQuad(24 * 7, 0, 24, 12, image)
-   local debugButtonUnpressed = love.graphics.newQuad(24 * 8, 0, 24, 12, image)
-   local debugButtonPressed = love.graphics.newQuad(24 * 9, 0, 24, 12, image)
 
    local canvas = love.graphics.newCanvas(320, 200)
    local frame = love.graphics.newImage("geometer/frame.png")
 
    local fileButton = Button(scene)
-   fileButton.props.tileset = image
-   fileButton.props.pressedQuad = fileButtonPressed
-   fileButton.props.unpressedQuad = fileButtonUnpressed
+   fileButton.props.tileset = atlas.image
+   fileButton.props.unpressedQuad = atlas:getQuadByIndex(1)
+   fileButton.props.pressedQuad = atlas:getQuadByIndex(2)
 
    local playButton = Button(scene)
-   playButton.props.tileset = image
-   playButton.props.pressedQuad = playButtonPressed
-   playButton.props.unpressedQuad = playButtonUnpressed
+   playButton.props.tileset = atlas.image
+   playButton.props.unpressedQuad = atlas:getQuadByIndex(3)
+   playButton.props.pressedQuad = atlas:getQuadByIndex(4)
    playButton.props.onRelease = function()
       self.props.quit = true
    end
 
    local debugButton = Button(scene)
-   debugButton.props.tileset = image
-   debugButton.props.pressedQuad = debugButtonPressed
-   debugButton.props.unpressedQuad = debugButtonUnpressed
-
-   local actorButton = Button(scene)
-   actorButton.props.tileset = image
-   actorButton.props.pressedQuad = actorButtonPressed
-   actorButton.props.unpressedQuad = actorButtonUnpressed
+   debugButton.props.tileset = atlas.image
+   debugButton.props.unpressedQuad = atlas:getQuadByIndex(5)
+   debugButton.props.pressedQuad = atlas:getQuadByIndex(6)
 
    local cellButton = Button(scene)
-   cellButton.props.tileset = image
-   cellButton.props.pressedQuad = cellButtonPressed
-   cellButton.props.unpressedQuad = cellButtonUnpressed
+   cellButton.props.tileset = atlas.image
+   cellButton.props.unpressedQuad = atlas:getQuadByIndex(7)
+   cellButton.props.pressedQuad = atlas:getQuadByIndex(8)
+
+   local actorButton = Button(scene)
+   actorButton.props.tileset = atlas.image
+   actorButton.props.unpressedQuad = atlas:getQuadByIndex(9)
+   actorButton.props.pressedQuad = atlas:getQuadByIndex(10)
 
    local tools = Tools(scene)
 
