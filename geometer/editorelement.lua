@@ -19,6 +19,7 @@ local EditorGrid = require("geometer.gridelement")
 local function Editor(self, scene)
    self.props.gridPosition = prism.Vector2(24, 24)
 
+   -- TODO: Use SpriteSheet!
    love.graphics.setDefaultFilter("nearest", "nearest")
    local image = love.graphics.newImage("geometer/gui.png")
    local fileButtonUnpressed = love.graphics.newQuad(0, 0, 24, 12, image)
@@ -51,7 +52,6 @@ local function Editor(self, scene)
    cellButton.props.pressedQuad = cellButtonPressed
    cellButton.props.unpressedQuad = cellButtonUnpressed
 
-   ---@type Button
    local playButton = Button(scene)
    playButton.props.tileset = image
    playButton.props.pressedQuad = playButtonPressed
@@ -79,8 +79,8 @@ local function Editor(self, scene)
       playButton:render(8 * 2 + 24, 184, 24, 12)
       love.graphics.setCanvas()
 
+      grid:render(self.props.gridPosition.x, self.props.gridPosition.y, 225*self.props.scale.x, 200*self.props.scale.y)
       love.graphics.scale(self.props.scale:decompose())
-      --grid:render(self.props.gridPosition.x, self.props.gridPosition.y, 648, 528)
       --local y = (love.graphics.getHeight() - (200 * self.props.scale.y)) / 2
       love.graphics.draw(canvas, 0, 0)
 

@@ -124,6 +124,7 @@ function Display:draw(curActor)
 end
 
 function Display:drawWizard()
+   love.graphics.push("all")
    self.camera:push()
 
    local cSx, cSy = self.cellSize.x, self.cellSize.y
@@ -140,6 +141,7 @@ function Display:drawWizard()
       self:drawActor(actor, 1, nil, nil, nil, true)
    end
    self.camera:pop()
+   love.graphics.pop()
 end
 
 function Display:beforeDrawCells(curActor)
