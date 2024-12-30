@@ -2,6 +2,7 @@ local Inky = require("geometer.inky")
 
 local Button = require("geometer.button")
 local EditorGrid = require("geometer.gridelement")
+local Tools = require("geometer.tools")
 
 ---@class EditorProps : Inky.Props
 ---@field gridPosition Vector2
@@ -30,17 +31,29 @@ local function Editor(self, scene)
    local cellButtonPressed = love.graphics.newQuad(24 * 5, 0, 24, 12, image)
    local playButtonUnpressed = love.graphics.newQuad(24 * 6, 0, 24, 12, image)
    local playButtonPressed = love.graphics.newQuad(24 * 7, 0, 24, 12, image)
+   local debugButtonUnpressed = love.graphics.newQuad(24 * 8, 0, 24, 12, image)
+   local debugButtonPressed = love.graphics.newQuad(24 * 9, 0, 24, 12, image)
 
    local canvas = love.graphics.newCanvas(320, 200)
    local frame = love.graphics.newImage("geometer/frame.png")
-   love.graphics.setCanvas(canvas)
-   love.graphics.draw(frame)
-   love.graphics.setCanvas()
 
    local fileButton = Button(scene)
    fileButton.props.tileset = image
    fileButton.props.pressedQuad = fileButtonPressed
    fileButton.props.unpressedQuad = fileButtonUnpressed
+
+   local playButton = Button(scene)
+   playButton.props.tileset = image
+   playButton.props.pressedQuad = playButtonPressed
+   playButton.props.unpressedQuad = playButtonUnpressed
+   playButton.props.onRelease = function()
+      self.props.quit = true
+   end
+
+   local debugButton = Button(scene)
+   debugButton.props.tileset = image
+   debugButton.props.pressedQuad = debugButtonPressed
+   debugButton.props.unpressedQuad = debugButtonUnpressed
 
    local actorButton = Button(scene)
    actorButton.props.tileset = image
@@ -52,13 +65,7 @@ local function Editor(self, scene)
    cellButton.props.pressedQuad = cellButtonPressed
    cellButton.props.unpressedQuad = cellButtonUnpressed
 
-   local playButton = Button(scene)
-   playButton.props.tileset = image
-   playButton.props.pressedQuad = playButtonPressed
-   playButton.props.unpressedQuad = playButtonUnpressed
-   playButton.props.onRelease = function()
-      self.props.quit = true
-   end
+   local tools = Tools(scene)
 
    local grid = EditorGrid(scene)
    grid.props.scale = prism.Vector2(2, 2)
@@ -75,11 +82,20 @@ local function Editor(self, scene)
       love.graphics.setColor(1, 1, 1, 1)
 
       love.graphics.setCanvas(canvas)
+      love.graphics.clear()
+      love.graphics.draw(frame)
       fileButton:render(8, 184, 24, 12)
       playButton:render(8 * 2 + 24, 184, 24, 12)
+      debugButton:render(8 * 6 + 24, 184, 24, 12)
+      tools:render(120, 184, 112, 12)
       love.graphics.setCanvas()
 
-      grid:render(self.props.gridPosition.x, self.props.gridPosition.y, 225*self.props.scale.x, 200*self.props.scale.y)
+      grid:render(
+         self.props.gridPosition.x,
+         self.props.gridPosition.y,
+         225 * self.props.scale.x,
+         200 * self.props.scale.y
+      )
       love.graphics.scale(self.props.scale:decompose())
       --local y = (love.graphics.getHeight() - (200 * self.props.scale.y)) / 2
       love.graphics.draw(canvas, 0, 0)
@@ -88,4 +104,6 @@ local function Editor(self, scene)
    end
 end
 
-return Inky.defineElement(Editor)
+---@type fun(scene: Inky.Scene): Editor
+local EditorElement = Inky.defineElement(Editor)
+return EditorElement
