@@ -13,6 +13,7 @@ Released under the **MIT License**, prism2 is free to use for both personal and 
 
 ## Running the example
 
+Download love:
 https://love2d.org/
 
 Navigate to the root of this folder and use the command "love ." or drag this folder onto the love executable.
