@@ -45,6 +45,8 @@ function Geometer:update(dt)
    if self.editor.props.quit then
       self.active = false
    end
+
+   scene:raise("update", dt)
 end
 
 function Geometer:draw()
