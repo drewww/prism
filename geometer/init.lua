@@ -4,11 +4,16 @@ end
 
 geometer = {}
 
+--- @alias Placeable Actor|Cell
+
 ---@class Geometer : Object
 ---@field level Level
 ---@field display Display
 ---@field active boolean
 ---@field editor Editor
+---@field undoStack Modification[]
+---@field redoStack Modification[]
+---@field selected Placeable|nil
 local Geometer = prism.Object:extend("Geometer")
 geometer.Geometer = Geometer
 
@@ -16,6 +21,7 @@ function Geometer:__new(level, display)
    self.level = level
    self.display = display
    self.active = false
+   self.selected = prism.cells.Wall
 end
 
 local Inky = require("geometer.inky")
@@ -36,6 +42,9 @@ function Geometer:startEditing()
    self.editor.props.display = self.display
    self.editor.props.level = self.level
    self.editor.props.scale = scale
+
+   self.undoStack = {}
+   self.redoStack = {}
 end
 
 function Geometer:update(dt)
@@ -47,6 +56,24 @@ function Geometer:update(dt)
    end
 
    scene:raise("update", dt)
+end
+
+--- @param modification Modification
+function Geometer:execute(modification)
+   modification:execute(self.level)
+   table.insert(self.undoStack, modification)
+end
+
+function Geometer:undo()
+   local modification = table.remove(self.undoStack, #self.undoStack)
+   modification:undo(self.level)
+   table.insert(self.redoStack, modification)
+end
+
+function Geometer:redo()
+   local modification = table.remove(self.redoStack, #self.redoStack)
+   modification:undo(self.level)
+   table.insert(self.undoStack, modification)
 end
 
 function Geometer:draw()
