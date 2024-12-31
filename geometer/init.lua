@@ -4,6 +4,10 @@ end
 
 geometer = {}
 
+require "geometer.tool"
+require "geometer.panel"
+require "geometer.modification"
+
 --- @alias Placeable Actor|Cell
 
 ---@class Geometer : Object
@@ -14,6 +18,7 @@ geometer = {}
 ---@field undoStack Modification[]
 ---@field redoStack Modification[]
 ---@field selected Placeable|nil
+---@field tool Tool|nil -- TODO: Default to a tool!
 local Geometer = prism.Object:extend("Geometer")
 geometer.Geometer = Geometer
 
@@ -42,6 +47,7 @@ function Geometer:startEditing()
    self.editor.props.display = self.display
    self.editor.props.level = self.level
    self.editor.props.scale = scale
+   self.editor.props.geometer = self
 
    self.undoStack = {}
    self.redoStack = {}
@@ -56,6 +62,10 @@ function Geometer:update(dt)
    end
 
    scene:raise("update", dt)
+   
+   if self.tool then -- TODO: Remove when default added.
+      self.tool:update(dt)
+   end
 end
 
 --- @param modification Modification

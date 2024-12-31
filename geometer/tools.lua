@@ -1,8 +1,12 @@
 local Inky = require("geometer.inky")
 local Button = require("geometer.button")
 
+
+require "geometer.tools.rect"
+
 ---@class ToolsProps : Inky.Props
 ---@field selected Button
+---@field geometer Geometer
 
 ---@class Tools : Inky.Element
 
@@ -17,6 +21,10 @@ local function Tools(self, scene)
       return function()
          self.props.selected.props.pressed = false
          self.props.selected = button
+         
+         if button.props.unpressedQuad == atlas:getQuadByIndex(5) then
+            self.props.geometer.tool = geometer.RectTool()
+         end
       end
    end
 

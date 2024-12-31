@@ -30,6 +30,7 @@ end
 ---@field actors ActorStorage
 ---@field display Display
 ---@field scale Vector2
+---@field geometer Geometer
 
 ---@class EditorGrid : Inky.Element
 ---@field props EditorGridProps
@@ -49,7 +50,13 @@ local function EditorGrid(self, scene)
    end)
 
    self:onPointer("press", function(_, pointer)
-      local x, y = pointer:getPosition()
+      local display = self.props.display
+      local cx, cy = display:getCellUnderMouse()
+
+      local tool = self.props.geometer.tool
+      if tool then -- TODO: Remove when default added
+         tool:mouseclicked(self.props.geometer, cx, cy)
+      end
    end)
 
    self:onPointer("scroll", function(_, pointer, dx, dy)
@@ -73,6 +80,10 @@ local function EditorGrid(self, scene)
       local r, g, b, a = love.graphics.getColor()
       self.props.display:drawWizard()
       love.graphics.setColor(r, g, b, a)
+
+      if self.props.geometer.tool then -- TODO: Remove when default added.
+         self.props.geometer.tool:draw(self.props.display)
+      end
       love.graphics.setScissor()
    end
 end

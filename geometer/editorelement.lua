@@ -10,6 +10,7 @@ local Tools = require("geometer.tools")
 ---@field level Level
 ---@field scale Vector2
 ---@field quit boolean
+---@field geometer Geometer
 
 ---@class Editor : Inky.Element
 ---@field props EditorProps
@@ -59,9 +60,12 @@ local function Editor(self, scene)
    local grid = EditorGrid(scene)
    grid.props.scale = prism.Vector2(2, 2)
    self:useEffect(function()
+      grid.props.geometer = self.props.geometer
       grid.props.map = self.props.level.map
       grid.props.actors = self.props.level.actorStorage
       grid.props.display = self.props.display
+      
+      tools.props.geometer = self.props.geometer
    end, "level", "display")
 
    local background = prism.Color4.fromHex(0x181425)

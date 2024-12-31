@@ -11,7 +11,8 @@ function Tool:update(dt)
 end
 
 ---Draws the tool visuals.
-function Tool:draw()
+---@param display Display
+function Tool:draw(display)
    -- Draw visuals.
 end
 

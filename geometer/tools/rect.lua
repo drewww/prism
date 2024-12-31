@@ -23,3 +23,14 @@ function RectTool:mouseclicked(geometer, level, x, y)
    local modification = RectModification(prism.cells.Wall, self.topleft, prism.Vector2(x, y))
    geometer:execute(modification)
 end
+
+--- @param display Display
+function RectTool:draw(display)
+   if not self.topleft then return end
+   
+   local x, y = self.topleft.x, self.topleft.y
+   local x2, y2 = display:getCellUnderMouse()
+   local csx, csy = display.cellSize.x, display.cellSize.y
+
+   love.graphics.rectangle("fill", x * csx, y * csy, x2 * csx, y2 * csy)
+end
