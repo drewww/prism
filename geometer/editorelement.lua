@@ -2,6 +2,7 @@ local Inky = require("geometer.inky")
 
 local Button = require("geometer.button")
 local EditorGrid = require("geometer.gridelement")
+local Tools = require("geometer.tools")
 
 ---@class EditorProps : Inky.Props
 ---@field gridPosition Vector2
@@ -19,46 +20,41 @@ local EditorGrid = require("geometer.gridelement")
 local function Editor(self, scene)
    self.props.gridPosition = prism.Vector2(24, 24)
 
-   -- TODO: Use SpriteSheet!
+   local atlas = spectrum.SpriteAtlas.fromGrid("geometer/gui.png", 24, 12)
    love.graphics.setDefaultFilter("nearest", "nearest")
-   local image = love.graphics.newImage("geometer/gui.png")
-   local fileButtonUnpressed = love.graphics.newQuad(0, 0, 24, 12, image)
-   local fileButtonPressed = love.graphics.newQuad(24, 0, 24, 12, image)
-   local actorButtonUnpressed = love.graphics.newQuad(24 * 2, 0, 24, 12, image)
-   local actorButtonPressed = love.graphics.newQuad(24 * 3, 0, 24, 12, image)
-   local cellButtonUnpressed = love.graphics.newQuad(24 * 4, 0, 24, 12, image)
-   local cellButtonPressed = love.graphics.newQuad(24 * 5, 0, 24, 12, image)
-   local playButtonUnpressed = love.graphics.newQuad(24 * 6, 0, 24, 12, image)
-   local playButtonPressed = love.graphics.newQuad(24 * 7, 0, 24, 12, image)
 
    local canvas = love.graphics.newCanvas(320, 200)
    local frame = love.graphics.newImage("geometer/frame.png")
-   love.graphics.setCanvas(canvas)
-   love.graphics.draw(frame)
-   love.graphics.setCanvas()
 
    local fileButton = Button(scene)
-   fileButton.props.tileset = image
-   fileButton.props.pressedQuad = fileButtonPressed
-   fileButton.props.unpressedQuad = fileButtonUnpressed
-
-   local actorButton = Button(scene)
-   actorButton.props.tileset = image
-   actorButton.props.pressedQuad = actorButtonPressed
-   actorButton.props.unpressedQuad = actorButtonUnpressed
-
-   local cellButton = Button(scene)
-   cellButton.props.tileset = image
-   cellButton.props.pressedQuad = cellButtonPressed
-   cellButton.props.unpressedQuad = cellButtonUnpressed
+   fileButton.props.tileset = atlas.image
+   fileButton.props.unpressedQuad = atlas:getQuadByIndex(1)
+   fileButton.props.pressedQuad = atlas:getQuadByIndex(2)
 
    local playButton = Button(scene)
-   playButton.props.tileset = image
-   playButton.props.pressedQuad = playButtonPressed
-   playButton.props.unpressedQuad = playButtonUnpressed
+   playButton.props.tileset = atlas.image
+   playButton.props.unpressedQuad = atlas:getQuadByIndex(3)
+   playButton.props.pressedQuad = atlas:getQuadByIndex(4)
    playButton.props.onRelease = function()
       self.props.quit = true
    end
+
+   local debugButton = Button(scene)
+   debugButton.props.tileset = atlas.image
+   debugButton.props.unpressedQuad = atlas:getQuadByIndex(5)
+   debugButton.props.pressedQuad = atlas:getQuadByIndex(6)
+
+   local cellButton = Button(scene)
+   cellButton.props.tileset = atlas.image
+   cellButton.props.unpressedQuad = atlas:getQuadByIndex(7)
+   cellButton.props.pressedQuad = atlas:getQuadByIndex(8)
+
+   local actorButton = Button(scene)
+   actorButton.props.tileset = atlas.image
+   actorButton.props.unpressedQuad = atlas:getQuadByIndex(9)
+   actorButton.props.pressedQuad = atlas:getQuadByIndex(10)
+
+   local tools = Tools(scene)
 
    local grid = EditorGrid(scene)
    grid.props.scale = prism.Vector2(2, 2)
@@ -75,11 +71,20 @@ local function Editor(self, scene)
       love.graphics.setColor(1, 1, 1, 1)
 
       love.graphics.setCanvas(canvas)
+      love.graphics.clear()
+      love.graphics.draw(frame)
       fileButton:render(8, 184, 24, 12)
       playButton:render(8 * 2 + 24, 184, 24, 12)
+      debugButton:render(8 * 6 + 24, 184, 24, 12)
+      tools:render(120, 184, 112, 12)
       love.graphics.setCanvas()
 
-      grid:render(self.props.gridPosition.x, self.props.gridPosition.y, 225*self.props.scale.x, 200*self.props.scale.y)
+      grid:render(
+         self.props.gridPosition.x,
+         self.props.gridPosition.y,
+         225 * self.props.scale.x,
+         200 * self.props.scale.y
+      )
       love.graphics.scale(self.props.scale:decompose())
       --local y = (love.graphics.getHeight() - (200 * self.props.scale.y)) / 2
       love.graphics.draw(canvas, 0, 0)
@@ -88,4 +93,6 @@ local function Editor(self, scene)
    end
 end
 
-return Inky.defineElement(Editor)
+---@type fun(scene: Inky.Scene): Editor
+local EditorElement = Inky.defineElement(Editor)
+return EditorElement
