@@ -75,12 +75,16 @@ function Geometer:execute(modification)
 end
 
 function Geometer:undo()
+   if #self.undoStack == 0 then return end
+   
    local modification = table.remove(self.undoStack, #self.undoStack)
    modification:undo(self.level)
    table.insert(self.redoStack, modification)
 end
 
 function Geometer:redo()
+   if #self.redoStack == 0 then return end
+
    local modification = table.remove(self.redoStack, #self.redoStack)
    modification:execute(self.level)
    table.insert(self.undoStack, modification)

@@ -19,7 +19,6 @@ function RectModification:execute(level)
    local i, j = self.topleft.x, self.topleft.y
    local k, l = self.bottomright.x, self.bottomright.y
 
-   print(i, j, k, l)
    for x = i, k do
       for y = j, l do
          if self.placeable:is(prism.Actor) then

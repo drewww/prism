@@ -40,7 +40,7 @@ end
 ---@param scene Inky.Scene
 ---@return function
 local function EditorGrid(self, scene)
-   local springSolver = createSpringSolver(1, 50, 5)
+   local springSolver = createSpringSolver(0.5, 110, 12)
    local camDestination = self.props.display.camera.position
    
    self:onPointer("drag", function(_, pointer, dx, dy)
@@ -54,7 +54,6 @@ local function EditorGrid(self, scene)
       local display = self.props.display
       local cx, cy = display:getCellUnderMouse()
 
-      print("press", cx, cy)
       local tool = self.props.geometer.tool
       if tool then -- TODO: Remove when default added
          tool:mouseclicked(self.props.geometer, self.props.level, cx, cy)
