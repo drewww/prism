@@ -82,7 +82,7 @@ end
 
 function Geometer:redo()
    local modification = table.remove(self.redoStack, #self.redoStack)
-   modification:undo(self.level)
+   modification:execute(self.level)
    table.insert(self.undoStack, modification)
 end
 
@@ -113,7 +113,13 @@ function love.mousemoved(x, y, dx, dy, istouch)
    end
 end
 
-function Geometer:keypressed(key, scancode) end
+function Geometer:keypressed(key, scancode)
+   if key == "z" then
+      self:undo()
+   elseif key == "y" then
+      self:redo()
+   end
+end
 
 function Geometer:wheelmoved(dx, dy)
    pointer:raise("scroll", dx, dy)

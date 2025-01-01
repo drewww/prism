@@ -64,6 +64,7 @@ local function Editor(self, scene)
       grid.props.map = self.props.level.map
       grid.props.actors = self.props.level.actorStorage
       grid.props.display = self.props.display
+      grid.props.level = self.props.level
       
       tools.props.geometer = self.props.geometer
    end, "level", "display")

@@ -31,6 +31,7 @@ end
 ---@field display Display
 ---@field scale Vector2
 ---@field geometer Geometer
+---@field level Level
 
 ---@class EditorGrid : Inky.Element
 ---@field props EditorGridProps
@@ -53,9 +54,10 @@ local function EditorGrid(self, scene)
       local display = self.props.display
       local cx, cy = display:getCellUnderMouse()
 
+      print("press", cx, cy)
       local tool = self.props.geometer.tool
       if tool then -- TODO: Remove when default added
-         tool:mouseclicked(self.props.geometer, cx, cy)
+         tool:mouseclicked(self.props.geometer, self.props.level, cx, cy)
       end
    end)
 
