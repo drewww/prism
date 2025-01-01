@@ -21,8 +21,8 @@ end
 --- @param x number The x-coordinate.
 --- @param y number The y-coordinate.
 --- @param cell Cell The cell to set.
-function Map:setCell(x, y, cell)
-   self:set(x, y, cell)
+function Map:set(x, y, cell)
+   prism.Grid.set(self, x, y, cell)
    self:updateCaches(x, y)
 end
 
@@ -30,8 +30,8 @@ end
 --- @param x number The x-coordinate.
 --- @param y number The y-coordinate.
 --- @return Cell cell The cell at the specified coordinates.
-function Map:getCell(x, y)
-   return self:get(x, y)
+function Map:get(x, y)
+   return prism.Grid.get(self, x, y)
 end
 
 --- Updates the opacity cache at the specified coordinates.
@@ -39,6 +39,7 @@ end
 --- @param y number The y-coordinate.
 function Map:updateCaches(x, y)
    local cell = self:get(x, y)
+   print("map", x, y, cell.opaque)
    self.opacityCache:set(x, y, cell.opaque)
    self.passableCache:set(x, y, cell.passable)
 end
