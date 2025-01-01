@@ -51,6 +51,8 @@ function Geometer:startEditing()
 
    self.undoStack = {}
    self.redoStack = {}
+
+   self.level.debug = false
 end
 
 function Geometer:update(dt)

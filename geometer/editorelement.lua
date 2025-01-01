@@ -44,6 +44,10 @@ local function Editor(self, scene)
    debugButton.props.tileset = atlas.image
    debugButton.props.unpressedQuad = atlas:getQuadByIndex(5)
    debugButton.props.pressedQuad = atlas:getQuadByIndex(6)
+   debugButton.props.onRelease = function ()
+      self.props.quit = true
+      self.props.level.debug = true
+   end
 
    local cellButton = Button(scene)
    cellButton.props.tileset = atlas.image

@@ -72,10 +72,13 @@ function LevelState:update(dt)
             ---@cast message Decision
             self.decision = message
             self:checkPath(self.decision.actor)
-         elseif message:is(prism.messages.ActionMessage) then
+         elseif message:is(prism.messages.ActionMessage) and not self.level.debug then
             ---@cast message ActionMessage
             self.display:queueMessage(message)
             self:checkPath(message.action.owner)
+         elseif message:is(prism.messages.DebugMessage) then
+            self.geometer:startEditing()
+            return
          end
       end
    end
@@ -253,7 +256,6 @@ function LevelState:mousereleased(x, y, button)
 end
 
 function LevelState:wheelmoved(dx, dy)
-   print(dx, dy)
    if self.geometer:isActive() then
       self.geometer:wheelmoved(dx, dy)
    end
