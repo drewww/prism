@@ -39,7 +39,6 @@ end
 --- @param y number The y-coordinate.
 function Map:updateCaches(x, y)
    local cell = self:get(x, y)
-   print("map", x, y, cell.opaque)
    self.opacityCache:set(x, y, cell.opaque)
    self.passableCache:set(x, y, cell.passable)
 end
