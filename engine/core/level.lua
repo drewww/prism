@@ -24,7 +24,8 @@ function Level:__new(map, actors, systems, scheduler, seed)
    self.opacityCache = prism.BooleanBuffer(map.w, map.h)  -- holds a cache of opacity to speed up fov calcs
    self.passableCache = prism.BooleanBuffer(map.w, map.h) -- holds a cache of passability to speed up a* calcs
    self.RNG = prism.RNG(seed or love.timer.getTime())
-
+   self.debug = false
+   
    self:initialize(actors, systems)
 end
 
@@ -84,6 +85,12 @@ function Level:yield(message)
    self.systemManager:onYield(self, message)
    local _, ret = coroutine.yield(message)
    return ret
+end
+
+function Level:debugYield(stringMessage)
+   if not self.debug then return end
+
+   self:yield(prism.messages.DebugMessage(stringMessage))
 end
 
 function Level:trigger(eventName, ...)
@@ -222,6 +229,7 @@ function Level:performAction(action, silent)
    assert(action.owner:hasAction(getmetatable(action)))
    local owner = action.owner
 
+   self:debugYield("Actor is about to perform " .. action.name)
    if not silent then
       self.systemManager:beforeAction(self, owner, action)
       local x, y = owner:getPosition():decompose()

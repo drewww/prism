@@ -153,6 +153,9 @@ prism.decisions.ActionDecision = prism.require "core.decisions.actiondecision"
 --- @type ActionMessage
 prism.messages.ActionMessage = prism.require "core.messages.actionmessage"
 
+--- @type DebugMessage
+prism.messages.DebugMessage = prism.require "core.messages.debugmessage"
+
 prism._items = {
    "targets",
    "cells",
