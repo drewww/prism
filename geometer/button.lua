@@ -27,7 +27,7 @@ local function Button(self)
          self.props.onRelease()
       end
 
-      pointer:captureElement(self, true)
+      pointer:captureElement(self, false)
    end)
 
    self:onPointer("press", function(_, pointer)
