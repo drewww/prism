@@ -24,6 +24,13 @@ function Tool:mouseclicked(geometer, level, cellx, celly)
    -- Handle mouse clicks.
 end
 
+---Handles mouse release events.
+---@param geometer Geometer
+---@param cellx number The x-coordinate of the cell release.
+---@param celly number The y-coordinate of the cell release.
+function Tool:mousereleased(geometer, level, cellx, celly)
+end
+
 --- @param geometer Geometer
 ---@param level Level
 ---@param cellx integer

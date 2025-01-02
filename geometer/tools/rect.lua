@@ -15,14 +15,20 @@ end
 ---@param x integer The cell coordinate clicked.
 ---@param y integer The cell coordinate clicked.
 function RectTool:mouseclicked(geometer, level, x, y)
-   if not self.topleft then
-      self.topleft = prism.Vector2(x, y)
-      return
-   end
+   if x < 0 or x > level.map.w then return end
+   if y < 0 or y > level.map.h then return end
+
+   self.topleft = prism.Vector2(x, y)
+end
+
+function RectTool:mousereleased(geometer, level, x, y)
+   local x = math.min(level.map.w, math.max(0, x))
+   local y = math.min(level.map.h, math.max(0, y))
 
    local lx, ly, rx, ry = self:getCurrentRect(x, y)
    local modification = RectModification(prism.cells.Wall, prism.Vector2(lx, ly), prism.Vector2(rx, ry))
    geometer:execute(modification)
+
    self.topleft = nil
 end
 
