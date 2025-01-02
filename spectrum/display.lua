@@ -169,7 +169,9 @@ function Display:drawCells(curActor)
    else
       love.graphics.setColor(1, 1, 1, 1)
    end
-   if not curActor then love.graphics.setColor(1, 1, 1, 1) end
+   if not curActor then
+      love.graphics.setColor(1, 1, 1, 1)
+   end
    for x, y, cell in self.sensesTracker.otherSensedCells:each() do
       if not drawnCells:get(x, y) then
          local spriteQuad = self.spriteAtlas:getQuadByIndex(string.byte(cell.char) + 1)
@@ -196,9 +198,12 @@ function Display:beforeDrawActors(curActor)
    -- override this method in your subclass!
 end
 
+---@return love.Quad
 function Display:getQuad(actor)
    local drawable = actor:getComponent(prism.components.Drawable)
-   if not drawable then return end
+   if not drawable then
+      return
+   end
    --- @cast drawable DrawableComponent
 
    if type(drawable.index) == "number" then
@@ -216,7 +221,9 @@ end
 
 function Display:getActorColor(actor)
    local drawable = actor:getComponent(prism.components.Drawable)
-   if not drawable then return end
+   if not drawable then
+      return
+   end
    --- @cast drawable DrawableComponent
 
    return drawable.color
@@ -228,14 +235,18 @@ end
 ---@param y number?
 ---@param color Color4?
 function Display:drawActor(actor, alpha, x, y, color, ignoreDrawset)
-   if self.drawnSet[actor] and not ignoreDrawset then return end
+   if self.drawnSet[actor] and not ignoreDrawset then
+      return
+   end
 
    local quad = self:getQuad(actor)
    color = color or self:getActorColor(actor)
    ---@cast color Color4
    local r, g, b, a = color:decompose()
    local cSx, cSy = self.cellSize.x, self.cellSize.y
-   if not ignoreDrawset then self.drawnSet[actor] = true end
+   if not ignoreDrawset then
+      self.drawnSet[actor] = true
+   end
    love.graphics.setColor(r, g, b, a * alpha)
 
    --- @diagnostic disable-next-line
@@ -267,7 +278,9 @@ function Display:drawActors(curActor)
    end
 
    local alpha = 0.5
-   if not curActor then alpha = 1 end
+   if not curActor then
+      alpha = 1
+   end
    for x, y, actor in self.sensesTracker.otherSensedActors:each() do
       self:drawActor(actor, alpha)
    end

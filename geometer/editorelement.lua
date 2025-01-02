@@ -1,8 +1,9 @@
-local Inky = require("geometer.inky")
+local Inky = require "geometer.inky"
 
-local Button = require("geometer.button")
-local EditorGrid = require("geometer.gridelement")
-local Tools = require("geometer.tools")
+local Button = require "geometer.button"
+local EditorGrid = require "geometer.gridelement"
+local Tools = require "geometer.tools"
+local Panel = require "geometer.panel"
 
 ---@class EditorProps : Inky.Props
 ---@field gridPosition Vector2
@@ -21,11 +22,11 @@ local Tools = require("geometer.tools")
 local function Editor(self, scene)
    self.props.gridPosition = prism.Vector2(24, 24)
 
-   local atlas = spectrum.SpriteAtlas.fromGrid("geometer/gui.png", 24, 12)
+   local atlas = spectrum.SpriteAtlas.fromGrid("geometer/assets/gui.png", 24, 12)
    love.graphics.setDefaultFilter("nearest", "nearest")
 
    local canvas = love.graphics.newCanvas(320, 200)
-   local frame = love.graphics.newImage("geometer/frame.png")
+   local frame = love.graphics.newImage("geometer/assets/frame.png")
 
    local fileButton = Button(scene)
    fileButton.props.tileset = atlas.image
@@ -44,7 +45,7 @@ local function Editor(self, scene)
    debugButton.props.tileset = atlas.image
    debugButton.props.unpressedQuad = atlas:getQuadByIndex(5)
    debugButton.props.pressedQuad = atlas:getQuadByIndex(6)
-   debugButton.props.onRelease = function ()
+   debugButton.props.onRelease = function()
       self.props.quit = true
       self.props.level.debug = true
    end
@@ -69,9 +70,12 @@ local function Editor(self, scene)
       grid.props.actors = self.props.level.actorStorage
       grid.props.display = self.props.display
       grid.props.level = self.props.level
-      
       tools.props.geometer = self.props.geometer
    end, "level", "display")
+
+   local panel = Panel(scene)
+   panel.props.display = self.props.display
+   panel.props.size = prism.Vector2(self.props.scale.x * 8, self.props.scale.y * 8)
 
    local background = prism.Color4.fromHex(0x181425)
    return function(_, x, y, w, h, depth)
@@ -86,6 +90,7 @@ local function Editor(self, scene)
       playButton:render(8 * 2 + 24, 184, 24, 12)
       debugButton:render(8 * 6 + 24, 184, 24, 12)
       tools:render(120, 184, 112, 12)
+      panel:render(232, 0, 88, 184)
       love.graphics.setCanvas()
 
       grid:render(

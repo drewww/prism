@@ -1,4 +1,4 @@
-local Inky = require("geometer.inky")
+local Inky = require "geometer.inky"
 
 ---@class ButtonProps : Inky.Props
 ---@field pressed boolean whether the button is pressed

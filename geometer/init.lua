@@ -8,7 +8,7 @@ require "geometer.tool"
 require "geometer.panel"
 require "geometer.modification"
 
---- @alias Placeable Actor|Cell
+---@alias Placeable Actor|Cell
 
 ---@class Geometer : Object
 ---@field level Level
@@ -29,11 +29,11 @@ function Geometer:__new(level, display)
    self.selected = prism.cells.Wall
 end
 
-local Inky = require("geometer.inky")
-local Editor = require("geometer.editorelement")
+local Inky = require "geometer.inky"
+local Editor = require "geometer.editorelement"
 
-local scene = Inky.scene()
-local pointer = Inky.pointer(scene)
+local scene
+local pointer
 
 local scale = prism.Vector2(love.graphics.getWidth() / 320, love.graphics.getHeight() / 200)
 
@@ -66,7 +66,7 @@ function Geometer:update(dt)
    end
 
    scene:raise("update", dt)
-   
+
    if self.tool then -- TODO: Remove when default added.
       self.tool:update(dt)
    end
@@ -79,15 +79,19 @@ function Geometer:execute(modification)
 end
 
 function Geometer:undo()
-   if #self.undoStack == 0 then return end
-   
+   if #self.undoStack == 0 then
+      return
+   end
+
    local modification = table.remove(self.undoStack, #self.undoStack)
    modification:undo(self.level)
    table.insert(self.redoStack, modification)
 end
 
 function Geometer:redo()
-   if #self.redoStack == 0 then return end
+   if #self.redoStack == 0 then
+      return
+   end
 
    local modification = table.remove(self.redoStack, #self.redoStack)
    modification:execute(self.level)

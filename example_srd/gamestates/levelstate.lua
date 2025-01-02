@@ -3,6 +3,7 @@ local GameState = require "example_srd.gamestates.gamestate"
 -- Set up our turn logic.
 require "example_srd.turn"
 
+love.graphics.setDefaultFilter("nearest", "nearest")
 local spriteAtlas = spectrum.SpriteAtlas.fromGrid("example_srd/display/wanderlust_16x16.png", 16, 16)
 local actionHandlers = require "example_srd.display.actionhandlers"
 local waitPathConstant = 0.2
@@ -37,18 +38,22 @@ function LevelState:__new(level)
    end
 end
 
-function LevelState:advanceCoroutine()
-
-end
+function LevelState:advanceCoroutine() end
 
 function LevelState:shouldAdvance()
    local hasDecision = self.decision ~= nil
    local animating = self.display:isAnimating()
    local decisionDone = hasDecision and self.decision:validateResponse()
-   
-   if animating then return false end
-   if not hasDecision then return true end
-   if decisionDone then return true end
+
+   if animating then
+      return false
+   end
+   if not hasDecision then
+      return true
+   end
+   if decisionDone then
+      return true
+   end
 end
 
 function LevelState:checkPath(actor)
@@ -87,7 +92,7 @@ function LevelState:update(dt)
    if self.decision and self.decision:instanceOf(prism.decisions.ActionDecision) then
       local decision = self.decision
       ---@cast decision ActionDecision
-      
+
       curActor = self.decision.actor
       self.lastActor = curActor
       self:updatePath()
@@ -112,7 +117,7 @@ function LevelState:update(dt)
             local attackAction = curActor:getAction(prism.actions.Attack)
 
             if attackAction and attackAction:validateTarget(1, curActor, self.decidedTarget, {}) then
-               local attackAction = attackAction(curActor, {self.decidedTarget})
+               local attackAction = attackAction(curActor, { self.decidedTarget })
                if attackAction:canPerform(self.level) then
                   decision:setAction(attackAction)
                end
@@ -147,14 +152,17 @@ function LevelState:updatePath()
    end
 end
 
-
 function LevelState:drawBeforeCellsCallback()
    ---@param display Display
    ---@param curActor Actor
    return function(display, curActor)
       local cSx, cSy = display.cellSize.x, display.cellSize.y
-      if not curActor then curActor = self.lastActor end
-      if not curActor then return end
+      if not curActor then
+         curActor = self.lastActor
+      end
+      if not curActor then
+         return
+      end
 
       local SRDStatsComponent = curActor:getComponent(prism.components.SRDStats)
       if SRDStatsComponent then
@@ -180,7 +188,7 @@ function LevelState:drawBeforeCellsCallback()
 
       love.graphics.setColor(1, 1, 0, math.sin(self.display.time * 4) * 0.1 + 0.3)
       ---@diagnostic disable-next-line
-      love.graphics.rectangle("fill", curActor.position.x * cSx, curActor.position.y * cSy, cSx, cSy)   
+      love.graphics.rectangle("fill", curActor.position.x * cSx, curActor.position.y * cSy, cSx, cSy)
    end
 end
 
@@ -204,7 +212,7 @@ function LevelState:draw()
       local SRDStatsComponent = self.lastActor:getComponent(prism.components.SRDStats)
       love.graphics.print("HP: " .. SRDStatsComponent.HP, 10, 20)
    end
-   
+
    love.graphics.print("Frame Time: " .. love.timer.getAverageDelta(), 10, 10)
 
    if curActor then
@@ -218,8 +226,12 @@ function LevelState:keypressed(key, scancode)
       return
    end
 
-   if not self.decision then return end
-   if not self.decision:is(prism.decisions.ActionDecision) then return end
+   if not self.decision then
+      return
+   end
+   if not self.decision:is(prism.decisions.ActionDecision) then
+      return
+   end
 
    local actionDecision = self.decision
    ---@cast actionDecision ActionDecision

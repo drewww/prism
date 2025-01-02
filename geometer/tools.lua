@@ -1,6 +1,5 @@
-local Inky = require("geometer.inky")
-local Button = require("geometer.button")
-
+local Inky = require "geometer.inky"
+local Button = require "geometer.button"
 
 require "geometer.tools.rect"
 
@@ -14,14 +13,14 @@ require "geometer.tools.rect"
 ---@param scene any
 ---@return function
 local function Tools(self, scene)
-   local atlas = spectrum.SpriteAtlas.fromGrid("geometer/tools.png", 8, 10)
+   local atlas = spectrum.SpriteAtlas.fromGrid("geometer/assets/tools.png", 8, 10)
 
    ---@param button Button
    local function onPress(button)
       return function()
          self.props.selected.props.pressed = false
          self.props.selected = button
-         
+
          if button.props.unpressedQuad == atlas:getQuadByIndex(5) then
             self.props.geometer.tool = geometer.RectTool()
          end
