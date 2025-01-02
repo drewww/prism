@@ -118,7 +118,7 @@ function Geometer:mousepressed(x, y, button)
    end
 end
 
-function love.mousemoved(x, y, dx, dy, istouch)
+function Geometer:mousemoved(x, y, dx, dy, istouch)
    if love.mouse.isDown(2) then
       pointer:setPosition(x, y)
       pointer:raise("drag", dx, dy)
