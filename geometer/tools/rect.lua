@@ -20,18 +20,35 @@ function RectTool:mouseclicked(geometer, level, x, y)
       return
    end
 
-   local modification = RectModification(prism.cells.Wall, self.topleft, prism.Vector2(x, y))
+   local lx, ly, rx, ry = self:getCurrentRect(x, y)
+   local modification = RectModification(prism.cells.Wall, prism.Vector2(lx, ly), prism.Vector2(rx, ry))
    geometer:execute(modification)
    self.topleft = nil
+end
+
+function RectTool:getCurrentRect(x2, y2)
+   if not self.topleft then return nil end
+
+   local x, y = self.topleft.x, self.topleft.y
+
+   local lx, ly = math.min(x, x2), math.min(y, y2)
+   local rx, ry = math.max(x, x2), math.max(y, y2)
+
+   return lx, ly, rx, ry
 end
 
 --- @param display Display
 function RectTool:draw(display)
    if not self.topleft then return end
    
-   local x, y = self.topleft.x, self.topleft.y
-   local x2, y2 = display:getCellUnderMouse()
    local csx, csy = display.cellSize.x, display.cellSize.y
+   local rx, ry = display:getCellUnderMouse()
+   local lx, ly, rx, ry = self:getCurrentRect(rx, ry)
 
-   --love.graphics.rectangle("fill", x, y, x2, y2 )
+   -- Calculate width and height
+   local w = (rx - lx + 1) * csx
+   local h = (ry - ly + 1) * csy
+
+   -- Draw the rectangle
+   love.graphics.rectangle("fill", lx * csx, ly * csy, w, h)
 end

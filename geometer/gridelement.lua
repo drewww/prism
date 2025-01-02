@@ -83,7 +83,9 @@ local function EditorGrid(self, scene)
       love.graphics.setColor(r, g, b, a)
 
       if self.props.geometer.tool then -- TODO: Remove when default added.
+         self.props.display.camera:push()
          self.props.geometer.tool:draw(self.props.display)
+         self.props.display.camera:pop()
       end
       love.graphics.setScissor()
    end
