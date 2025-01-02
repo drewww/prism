@@ -18,7 +18,7 @@ local function Button(self)
    self.props.pressed = self.props.pressed or false
    self.props.toggle = self.props.toggle or false
 
-   self:onPointer("release", function()
+   self:onPointer("release", function(_, pointer)
       if not self.props.toggle then
          self.props.pressed = false
       end
@@ -26,14 +26,17 @@ local function Button(self)
       if self.props.onRelease then
          self.props.onRelease()
       end
+
+      pointer:captureElement(self, true)
    end)
 
-   self:onPointer("press", function()
+   self:onPointer("press", function(_, pointer)
       if self.props.onPress then
          self.props.onPress()
       end
 
       self.props.pressed = true
+      pointer:captureElement(self, true)
    end)
 
    self:onPointerEnter(function()
