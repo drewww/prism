@@ -74,7 +74,7 @@ local function Editor(self, scene)
    end, "level", "display")
 
    local background = prism.Color4.fromHex(0x181425)
-   return function(_, x, y, w, h)
+   return function(_, x, y, w, h, depth)
       love.graphics.setBackgroundColor(background:decompose())
       love.graphics.push("all")
       love.graphics.setColor(1, 1, 1, 1)
@@ -91,9 +91,11 @@ local function Editor(self, scene)
       grid:render(
          self.props.gridPosition.x,
          self.props.gridPosition.y,
-         225 * self.props.scale.x,
-         200 * self.props.scale.y
+         216 * self.props.scale.x,
+         168 * self.props.scale.y,
+         depth + 0.5
       )
+
       love.graphics.scale(self.props.scale:decompose())
       --local y = (love.graphics.getHeight() - (200 * self.props.scale.y)) / 2
       love.graphics.draw(canvas, 0, 0)
