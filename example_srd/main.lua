@@ -17,7 +17,7 @@ local map, actors = mapbuilder:build()
 
 local sensesSystem = prism.systems.Senses()
 local sightSystem = prism.systems.Sight()
-local level = prism.Level(map, actors, {sensesSystem, sightSystem})
+local level = prism.Level(map, actors, { sensesSystem, sightSystem })
 
 local StateManager = require "example_srd.gamestates.statemanager"
 local LevelState = require "example_srd.gamestates.levelstate"
@@ -41,13 +41,18 @@ function love.keypressed(key, scancode)
 end
 
 function love.mousepressed(x, y, button, istouch, presses)
-   manager:mousepressed(x, y, button, istouch, presses )
+   manager:mousepressed(x, y, button, istouch, presses)
 end
 
 function love.mousereleased(x, y, button)
    manager:mousereleased(x, y, button)
 end
 
-function love.wheelmoved( x, y )
+function love.mousemoved(x, y, dx, dy, istouch)
+   manager:mousemoved(x, y, dx, dy, istouch)
+end
+
+function love.wheelmoved(x, y)
    manager:wheelmoved(x, y)
 end
+
