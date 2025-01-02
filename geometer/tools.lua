@@ -1,9 +1,6 @@
 local Inky = require "geometer.inky"
 local Button = require "geometer.button"
 
-require "geometer.tools.rect"
-require "geometer.tools.pen"
-
 ---@class ToolsProps : Inky.Props
 ---@field selected Button
 ---@field geometer Geometer

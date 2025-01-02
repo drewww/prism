@@ -7,6 +7,8 @@ geometer = {}
 require "geometer.tool"
 require "geometer.panel"
 require "geometer.modification"
+require "geometer.tools.rect"
+require "geometer.tools.pen"
 
 ---@alias Placeable Actor|Cell
 
@@ -27,6 +29,8 @@ function Geometer:__new(level, display)
    self.display = display
    self.active = false
    self.selected = prism.cells.Wall
+   self.tool = geometer.PenTool()
+   print("tool", self.tool)
 end
 
 local Inky = require "geometer.inky"
@@ -53,6 +57,8 @@ function Geometer:startEditing()
 
    self.undoStack = {}
    self.redoStack = {}
+
+   self.tool = getmetatable(self.tool)()
 
    self.level.debug = false
 end
