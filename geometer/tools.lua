@@ -2,6 +2,7 @@ local Inky = require "geometer.inky"
 local Button = require "geometer.button"
 
 require "geometer.tools.rect"
+require "geometer.tools.pen"
 
 ---@class ToolsProps : Inky.Props
 ---@field selected Button
@@ -32,7 +33,7 @@ local function Tools(self, scene)
    paintButton.props.pressedQuad = atlas:getQuadByIndex(2)
    paintButton.props.tileset = atlas.image
    paintButton.props.toggle = true
-   paintButton.props.onPress = onPress(paintButton)
+   paintButton.props.onPress = function() onPress(paintButton) self.props.geometer.tool = geometer.PenTool() end
    paintButton.props.pressed = true
 
    self.props.selected = paintButton

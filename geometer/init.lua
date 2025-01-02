@@ -68,7 +68,7 @@ function Geometer:update(dt)
    scene:raise("update", dt)
 
    if self.tool then -- TODO: Remove when default added.
-      self.tool:update(dt)
+      self.tool:update(dt, self)
    end
 end
 
