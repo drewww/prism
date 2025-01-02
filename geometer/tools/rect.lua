@@ -44,7 +44,10 @@ function RectTool:draw(display)
    local csx, csy = display.cellSize.x, display.cellSize.y
    local rx, ry = display:getCellUnderMouse()
    local lx, ly, rx, ry = self:getCurrentRect(rx, ry)
-
+   
+   local mw, mh = display.level.map.w, display.level.map.h
+   lx, ly = math.min(mw, math.max(1, lx)), math.min(mh, math.max(0, ly))
+   rx, ry = math.min(mw, math.max(1, rx)), math.min(mh, math.max(0, ry))
    -- Calculate width and height
    local w = (rx - lx + 1) * csx
    local h = (ry - ly + 1) * csy

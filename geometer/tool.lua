@@ -20,6 +20,13 @@ end
 ---@param geometer Geometer
 ---@param cellx number The x-coordinate of the cell clicked.
 ---@param celly number The y-coordinate of the cell clicked.
-function Tool:mouseclicked(geometer, cellx, celly)
+function Tool:mouseclicked(geometer, level, cellx, celly)
    -- Handle mouse clicks.
+end
+
+--- @param geometer Geometer
+---@param level Level
+---@param cellx integer
+---@param celly integer
+function Tool:overrideCellDraw(geometer, level, cellx, celly)
 end

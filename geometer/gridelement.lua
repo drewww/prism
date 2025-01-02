@@ -55,8 +55,13 @@ local function EditorGrid(self, scene)
       local cx, cy = display:getCellUnderMouse()
 
       local tool = self.props.geometer.tool
-      if tool then -- TODO: Remove when default added
-         tool:mouseclicked(self.props.geometer, self.props.level, cx, cy)
+      -- TODO: Robust bounds setting/checking for prefabs
+      if cx > 0 and cx <= self.props.level.map.w then
+         if cy > 0 and cy <= self.props.level.map.h then
+            if tool then -- TODO: Remove when default added
+               tool:mouseclicked(self.props.geometer, self.props.level, cx, cy)
+            end
+         end
       end
    end)
 
