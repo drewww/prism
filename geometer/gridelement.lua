@@ -58,6 +58,7 @@ local function EditorGrid(self, scene)
 
       if tool then -- TODO: Remove when default added
          tool:mouseclicked(self.props.geometer, self.props.level, cx, cy)
+         pointer:captureElement(self, true)
       end
    end)
 
@@ -69,6 +70,8 @@ local function EditorGrid(self, scene)
       if tool then
          tool:mousereleased(self.props.geometer, self.props.level, cx, cy)
       end
+
+      pointer:captureElement(self, false)
    end)
 
    self:onPointer("scroll", function(_, pointer, dx, dy)
