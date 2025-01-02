@@ -43,6 +43,8 @@ end
 
 function Geometer:startEditing()
    self.active = true
+   scene = Inky.scene()
+   pointer = Inky.pointer(scene)
    self.editor = Editor(scene)
    self.editor.props.display = self.display
    self.editor.props.level = self.level
