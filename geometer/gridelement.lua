@@ -80,6 +80,7 @@ local function EditorGrid(self, scene)
       local dy = -dy
       local x, y = love.mouse.getPosition() -- we should be using events or something here?
       camera:scaleAroundPoint(dy / 8, dy / 8, x, y)
+      camDestination = camera.position
    end)
 
    self:on("update", function(_, dt)
