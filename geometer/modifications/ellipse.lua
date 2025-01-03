@@ -7,8 +7,6 @@
 local EllipseModification = geometer.Modification:extend "EllipseModification"
 
 ---@param placeable Placeable
----@param topleft Vector2
----@param bottomright Vector2
 function EllipseModification:__new(placeable, center, rx, ry)
    self.placeable = placeable
    self.center = center
