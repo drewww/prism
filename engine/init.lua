@@ -30,6 +30,8 @@ prism.BoundingBox = prism.require "math.bounding_box"
 
 prism.Bresenham = prism.require "math.bresenham"
 
+prism.Ellipse = prism.require "algorithms.ellipse"
+
 prism.neighborhood = prism.Vector2.neighborhood8
 
 --- @param neighborhood Neighborhood

@@ -52,7 +52,7 @@ local function Tools(self, scene)
    ovalButton.props.pressedQuad = atlas:getQuadByIndex(8)
    ovalButton.props.tileset = atlas.image
    ovalButton.props.toggle = true
-   ovalButton.props.onPress = onPress(ovalButton)
+   ovalButton.props.onPress = onPress(ovalButton, geometer.EllipseTool)
 
    local lineButton = Button(scene)
    lineButton.props.unpressedQuad = atlas:getQuadByIndex(9)

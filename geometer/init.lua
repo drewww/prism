@@ -11,6 +11,7 @@ require "geometer.tools.rect"
 require "geometer.tools.pen"
 require "geometer.tools.line"
 require "geometer.tools.erase"
+require "geometer.tools.ellipse"
 
 ---@alias Placeable Actor|Cell
 
