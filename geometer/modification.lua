@@ -19,9 +19,17 @@ function Modification:undo(level)
       for _, actor in pairs(self.placed) do
          level:removeActor(actor)
       end
-   else
+   end
+
+   if self.replaced then
       for x, y, cell in self.replaced:each() do
          level:setCell(x, y, cell)
+      end
+   end
+
+   if self.removed then
+      for _, removedActor in ipairs(self.removed) do
+         level:addActor(removedActor)
       end
    end
 end
