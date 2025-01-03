@@ -27,7 +27,7 @@ function RectTool:mousereleased(geometer, level, x, y)
    local y = math.min(level.map.h, math.max(1, y))
 
    local lx, ly, rx, ry = self:getCurrentRect(x, y)
-   local modification = RectModification(prism.cells.Wall, prism.Vector2(lx, ly), prism.Vector2(rx, ry))
+   local modification = RectModification(geometer.placeable, prism.Vector2(lx, ly), prism.Vector2(rx, ry))
    geometer:execute(modification)
 
    self.topleft = nil
