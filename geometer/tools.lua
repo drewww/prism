@@ -14,14 +14,12 @@ local function Tools(self, scene)
    local atlas = spectrum.SpriteAtlas.fromGrid("geometer/assets/tools.png", 8, 10)
 
    ---@param button Button
-   local function onPress(button)
+   ---@param tool Tool
+   local function onPress(button, tool)
       return function()
          self.props.selected.props.pressed = false
          self.props.selected = button
-
-         if button.props.unpressedQuad == atlas:getQuadByIndex(5) then
-            self.props.geometer.tool = geometer.RectTool()
-         end
+         self.props.geometer.tool = tool()
       end
    end
 
@@ -30,7 +28,7 @@ local function Tools(self, scene)
    paintButton.props.pressedQuad = atlas:getQuadByIndex(2)
    paintButton.props.tileset = atlas.image
    paintButton.props.toggle = true
-   paintButton.props.onPress = function() onPress(paintButton) self.props.geometer.tool = geometer.PenTool() end
+   paintButton.props.onPress = onPress(paintButton, geometer.PenTool)
    paintButton.props.pressed = true
 
    self.props.selected = paintButton
@@ -47,7 +45,7 @@ local function Tools(self, scene)
    rectButton.props.pressedQuad = atlas:getQuadByIndex(6)
    rectButton.props.tileset = atlas.image
    rectButton.props.toggle = true
-   rectButton.props.onPress = onPress(rectButton)
+   rectButton.props.onPress = onPress(rectButton, geometer.RectTool)
 
    local ovalButton = Button(scene)
    ovalButton.props.unpressedQuad = atlas:getQuadByIndex(7)

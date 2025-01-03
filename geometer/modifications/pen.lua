@@ -13,11 +13,11 @@ function PenModification:__new(placeable, locations)
 end
 
 function PenModification:execute(level)
-   for x,y in self.locations:each() do
+   for x, y in self.locations:each() do
       if self.placeable:is(prism.Actor) then
-         local actor = self.placeable
-         --- @cast actor Actor
-         self:placeActor(level, x, y, actor)
+         local actorPrototype = getmetatable(self.placeable)
+         --- @cast actorPrototype Actor
+         self:placeActor(level, x, y, actorPrototype)
       else
          local cell = self.placeable
          --- @cast cell Cell
@@ -31,7 +31,9 @@ end
 ---@param y integer
 ---@param actorPrototype Actor
 function PenModification:placeActor(level, x, y, actorPrototype)
-   if not self.placed then self.placed = {} end
+   if not self.placed then
+      self.placed = {}
+   end
 
    local instance = actorPrototype()
 
@@ -47,8 +49,10 @@ end
 ---@param y integer
 ---@param cellPrototype Cell
 function PenModification:placeCell(level, x, y, cellPrototype)
-   if not self.replaced then self.replaced = prism.SparseGrid() end
-   
+   if not self.replaced then
+      self.replaced = prism.SparseGrid()
+   end
+
    self.replaced:set(x, y, level:getCell(x, y))
    level:setCell(x, y, cellPrototype())
 end
@@ -66,3 +70,4 @@ function PenModification:undo(level)
 end
 
 return PenModification
+

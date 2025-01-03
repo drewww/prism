@@ -74,9 +74,9 @@ local function Editor(self, scene)
    end, "level", "display")
 
    local panel = Panel(scene)
-
    panel.props.display = self.props.display
    panel.props.size = prism.Vector2(self.props.scale.x * 8, self.props.scale.y * 8)
+   panel.props.geometer = self.props.geometer
 
    local background = prism.Color4.fromHex(0x181425)
    return function(_, x, y, w, h, depth)

@@ -132,7 +132,7 @@ function Display:drawWizard()
    for x = 1, map.w do
       for y = 1, map.h do
          local cell = map:get(x, y)
-         local spriteQuad = self.spriteAtlas:getQuadByIndex(string.byte(cell.char) + 1)
+         local spriteQuad = self.spriteAtlas:getQuadByIndex(cell.drawable.index)
          love.graphics.draw(self.spriteAtlas.image, spriteQuad, x * cSx, y * cSy)
       end
    end
@@ -158,7 +158,7 @@ function Display:drawCells(curActor)
       -- Collect the main actor's sensed cells
       local sensesComponent = curActor:getComponent(prism.components.Senses)
       for x, y, cell in sensesComponent.cells:each() do
-         local spriteQuad = self.spriteAtlas:getQuadByIndex(string.byte(cell.char) + 1)
+         local spriteQuad = self.spriteAtlas:getQuadByIndex(cell.drawable.index)
          love.graphics.draw(self.spriteAtlas.image, spriteQuad, x * cSx, y * cSy)
          drawnCells:set(x, y, true)
       end
@@ -174,7 +174,7 @@ function Display:drawCells(curActor)
    end
    for x, y, cell in self.sensesTracker.otherSensedCells:each() do
       if not drawnCells:get(x, y) then
-         local spriteQuad = self.spriteAtlas:getQuadByIndex(string.byte(cell.char) + 1)
+         local spriteQuad = self.spriteAtlas:getQuadByIndex(cell.drawable.index)
          if spriteQuad then
             love.graphics.draw(self.spriteAtlas.image, spriteQuad, x * cSx, y * cSy)
             drawnCells:set(x, y, true)
@@ -185,7 +185,7 @@ function Display:drawCells(curActor)
    love.graphics.setColor(1, 1, 1, 0.3) -- Color for explored cells
    for x, y, cell in self.sensesTracker.exploredCells:each() do
       if not drawnCells:get(x, y) then
-         local spriteQuad = self.spriteAtlas:getQuadByIndex(string.byte(cell.char) + 1)
+         local spriteQuad = self.spriteAtlas:getQuadByIndex(cell.drawable.index)
          if spriteQuad then
             love.graphics.draw(self.spriteAtlas.image, spriteQuad, x * cSx, y * cSy)
             drawnCells:set(x, y, true)

@@ -11,18 +11,28 @@ function RectTool:__new()
 end
 
 --- @param geometer Geometer
----@param level Level
----@param x integer The cell coordinate clicked.
----@param y integer The cell coordinate clicked.
+--- @param level Level
+--- @param x integer The cell coordinate clicked.
+--- @param y integer The cell coordinate clicked.
 function RectTool:mouseclicked(geometer, level, x, y)
-   if x < 1 or x > level.map.w then return end
-   if y < 1 or y > level.map.h then return end
+   if x < 1 or x > level.map.w then
+      return
+   end
+   if y < 1 or y > level.map.h then
+      return
+   end
 
    self.topleft = prism.Vector2(x, y)
 end
 
+--- @param geometer Geometer
+--- @param level Level
+--- @param x integer The cell coordinate clicked.
+--- @param y integer The cell coordinate clicked.
 function RectTool:mousereleased(geometer, level, x, y)
-   if not self.topleft then return nil end
+   if not self.topleft then
+      return nil
+   end
    local x = math.min(level.map.w, math.max(1, x))
    local y = math.min(level.map.h, math.max(1, y))
 
@@ -34,7 +44,9 @@ function RectTool:mousereleased(geometer, level, x, y)
 end
 
 function RectTool:getCurrentRect(x2, y2)
-   if not self.topleft then return nil end
+   if not self.topleft then
+      return nil
+   end
 
    local x, y = self.topleft.x, self.topleft.y
 
@@ -46,12 +58,14 @@ end
 
 --- @param display Display
 function RectTool:draw(display)
-   if not self.topleft then return end
-   
+   if not self.topleft then
+      return
+   end
+
    local csx, csy = display.cellSize.x, display.cellSize.y
    local rx, ry = display:getCellUnderMouse()
    local lx, ly, rx, ry = self:getCurrentRect(rx, ry)
-   
+
    local mw, mh = display.level.map.w, display.level.map.h
    lx, ly = math.min(mw, math.max(1, lx)), math.min(mh, math.max(0, ly))
    rx, ry = math.min(mw, math.max(1, rx)), math.min(mh, math.max(0, ry))

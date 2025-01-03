@@ -5,6 +5,7 @@
 --- @field name string Displayed in the user interface.
 --- @field passable boolean Defines whether a cell can moved through.
 --- @field opaque boolean Defines whether a cell can be seen through.
+--- @field drawable DrawableComponent
 --- @overload fun(): Cell
 --- @type Cell
 local Cell = prism.Object:extend("Cell")
