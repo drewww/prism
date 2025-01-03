@@ -59,7 +59,7 @@ local function Tools(self, scene)
    lineButton.props.pressedQuad = atlas:getQuadByIndex(10)
    lineButton.props.tileset = atlas.image
    lineButton.props.toggle = true
-   lineButton.props.onPress = onPress(lineButton)
+   lineButton.props.onPress = onPress(lineButton, geometer.LineTool)
 
    local fillButton = Button(scene)
    fillButton.props.unpressedQuad = atlas:getQuadByIndex(11)
