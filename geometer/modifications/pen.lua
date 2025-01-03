@@ -15,7 +15,7 @@ end
 function PenModification:execute(level)
    for x, y in self.locations:each() do
       if self.placeable:is(prism.Actor) then
-         local actorPrototype = getmetatable(self.placeable)
+         local actorPrototype = self.placeable
          --- @cast actorPrototype Actor
          self:placeActor(level, x, y, actorPrototype)
       else
@@ -62,7 +62,7 @@ function PenModification:undo(level)
       for _, actor in pairs(self.placed) do
          level:removeActor(actor)
       end
-   else
+   elseif self.replaced then
       for x, y, cell in self.replaced:each() do
          level:setCell(x, y, cell)
       end

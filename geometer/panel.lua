@@ -98,6 +98,11 @@ local function Panel(self, scene)
    ---@param placeable Placeable
    local function onSelect(placeable)
       self.props.selected = placeable
+      
+      if placeable:is(prism.Actor) then
+         placeable = getmetatable(placeable)
+      end
+      
       self.props.geometer.placeable = placeable
    end
 
