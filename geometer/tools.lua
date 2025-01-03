@@ -38,7 +38,7 @@ local function Tools(self, scene)
    deleteButton.props.pressedQuad = atlas:getQuadByIndex(4)
    deleteButton.props.tileset = atlas.image
    deleteButton.props.toggle = true
-   deleteButton.props.onPress = onPress(deleteButton)
+   deleteButton.props.onPress = onPress(deleteButton, geometer.EraseTool)
 
    local rectButton = Button(scene)
    rectButton.props.unpressedQuad = atlas:getQuadByIndex(5)

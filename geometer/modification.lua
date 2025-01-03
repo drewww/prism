@@ -26,6 +26,13 @@ function Modification:undo(level)
    end
 end
 
+function Modification:removeActor(level, actor)
+   if not self.removed then self.removed = {} end
+
+   table.insert(self.removed, actor)
+   level:removeActor(actor)
+end
+
 --- @param level Level
 ---@param x integer
 ---@param y integer

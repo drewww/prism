@@ -10,6 +10,7 @@ require "geometer.modification"
 require "geometer.tools.rect"
 require "geometer.tools.pen"
 require "geometer.tools.line"
+require "geometer.tools.erase"
 
 ---@alias Placeable Actor|Cell
 
