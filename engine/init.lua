@@ -28,6 +28,8 @@ prism.Vector2 = prism.require "math.vector"
 --- @type BoundingBox
 prism.BoundingBox = prism.require "math.bounding_box"
 
+prism.Bresenham = prism.require "math.bresenham"
+
 prism.neighborhood = prism.Vector2.neighborhood8
 
 --- @param neighborhood Neighborhood
