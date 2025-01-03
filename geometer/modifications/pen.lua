@@ -26,48 +26,5 @@ function PenModification:execute(level)
    end
 end
 
---- @param level Level
----@param x integer
----@param y integer
----@param actorPrototype Actor
-function PenModification:placeActor(level, x, y, actorPrototype)
-   if not self.placed then
-      self.placed = {}
-   end
-
-   local instance = actorPrototype()
-
-   --- @diagnostic disable-next-line
-   instance.position = prism.Vector2(x, y)
-
-   level:addActor(instance)
-   table.insert(self.placed, instance)
-end
-
----@param level Level
----@param x integer
----@param y integer
----@param cellPrototype Cell
-function PenModification:placeCell(level, x, y, cellPrototype)
-   if not self.replaced then
-      self.replaced = prism.SparseGrid()
-   end
-
-   self.replaced:set(x, y, level:getCell(x, y))
-   level:setCell(x, y, cellPrototype())
-end
-
-function PenModification:undo(level)
-   if self.placed then
-      for _, actor in pairs(self.placed) do
-         level:removeActor(actor)
-      end
-   elseif self.replaced then
-      for x, y, cell in self.replaced:each() do
-         level:setCell(x, y, cell)
-      end
-   end
-end
-
 return PenModification
 
