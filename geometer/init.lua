@@ -19,7 +19,7 @@ require "geometer.tools.pen"
 ---@field editor Editor
 ---@field undoStack Modification[]
 ---@field redoStack Modification[]
----@field selected Placeable|nil
+---@field placeable Placeable|nil
 ---@field tool Tool|nil -- TODO: Default to a tool!
 local Geometer = prism.Object:extend("Geometer")
 geometer.Geometer = Geometer
@@ -28,7 +28,7 @@ function Geometer:__new(level, display)
    self.level = level
    self.display = display
    self.active = false
-   self.selected = prism.cells.Wall
+   self.placeable = prism.cells.Wall
    self.tool = geometer.PenTool()
    print("tool", self.tool)
 end

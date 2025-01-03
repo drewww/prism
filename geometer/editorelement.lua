@@ -73,7 +73,6 @@ local function Editor(self, scene)
       tools.props.geometer = self.props.geometer
    end, "level", "display")
 
-   local panel = Panel(scene)
    panel.props.display = self.props.display
    panel.props.size = prism.Vector2(self.props.scale.x * 8, self.props.scale.y * 8)
 

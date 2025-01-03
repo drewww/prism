@@ -41,7 +41,7 @@ end
 function Pen:mousereleased(geometer, level, x, y)
    if not self.locations then return end
 
-   local modification = PenModification(prism.cells.Wall, self.locations)
+   local modification = PenModification(geometer.placeable, self.locations)
    geometer:execute(modification)
 
    self.locations = nil
