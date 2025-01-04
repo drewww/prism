@@ -60,6 +60,7 @@ end
 ---@param celly number The y-coordinate of the cell release.
 function Bucket:mousereleased(geometer, level, cellx, celly)
    if not self.locations then return end
+
    geometer:execute(PenModification(geometer.placeable, self.locations))
    self.locations = nil
 end

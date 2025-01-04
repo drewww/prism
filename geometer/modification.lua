@@ -65,5 +65,5 @@ function Modification:placeCell(level, x, y, cellPrototype)
    if not self.replaced then self.replaced = prism.SparseGrid() end
    
    self.replaced:set(x, y, level:getCell(x, y))
-   level:setCell(x, y, cellPrototype())
+   level:setCell(x, y, cellPrototype)
 end
