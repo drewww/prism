@@ -12,7 +12,7 @@ require "geometer.tools.pen"
 require "geometer.tools.line"
 require "geometer.tools.erase"
 require "geometer.tools.ellipse"
-
+require "geometer.tools.bucket"
 ---@alias Placeable Actor|Cell
 
 ---@class Geometer : Object

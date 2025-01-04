@@ -32,6 +32,8 @@ prism.Bresenham = prism.require "math.bresenham"
 
 prism.Ellipse = prism.require "algorithms.ellipse"
 
+prism.BredthFirstSearch = prism.require "algorithms.bfs"
+
 prism.neighborhood = prism.Vector2.neighborhood8
 
 --- @param neighborhood Neighborhood

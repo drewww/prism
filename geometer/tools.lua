@@ -66,7 +66,7 @@ local function Tools(self, scene)
    fillButton.props.pressedQuad = atlas:getQuadByIndex(12)
    fillButton.props.tileset = atlas.image
    fillButton.props.toggle = true
-   fillButton.props.onPress = onPress(fillButton)
+   fillButton.props.onPress = onPress(fillButton, geometer.BucketTool)
 
    local selectButton = Button(scene)
    selectButton.props.unpressedQuad = atlas:getQuadByIndex(13)
