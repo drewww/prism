@@ -33,7 +33,7 @@ end
 --- @param x integer The cell coordinate clicked.
 --- @param y integer The cell coordinate clicked.
 function RectTool:mousereleased(geometer, attachable, x, y)
-   local lx, ly, rx, ry = self:getCurrentRect(x, y)
+   local lx, ly, rx, ry = self:getCurrentRect()
    if not lx then return end
 
    local modification = RectModification(geometer.placeable, prism.Vector2(lx, ly), prism.Vector2(rx, ry))
