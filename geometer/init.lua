@@ -23,6 +23,7 @@ require "geometer.tools.bucket"
 ---@field removeActor fun(self, actor: Actor)
 ---@field getActorsAt fun(self, x:integer, y:integer)
 ---@field inBounds fun(self, x: integer, y:integer)
+---@field eachActorAt fun(self, x:integer, y:integer): fun()
 ---@field debug boolean
 
 ---@class Geometer : Object
