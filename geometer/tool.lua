@@ -6,7 +6,7 @@ geometer.Tool = Tool
 
 ---Updates the tool state.
 ---@param dt number The time delta since the last update.
-function Tool:update(geometer, dt)
+function Tool:update(dt, geometer)
    -- Update logic.
 end
 

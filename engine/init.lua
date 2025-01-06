@@ -220,7 +220,10 @@ local function loadItems(path, itemType, recurse, definitions)
    end
 end
 
+prism.modules = {}
 function prism.loadModule(directory)
+   table.insert(prism.modules, directory)
+
    local sourceDir = love.filesystem.getSource() -- Get the source directory
    local definitions = { "---@meta " .. string.lower(directory) }
 
@@ -240,6 +243,9 @@ function prism.loadModule(directory)
 
    file:write(table.concat(definitions, "\n"))
    file:close()
+end
+
+function prism.hotload()
 end
 
 --- This is the core turn logic, and if you need to use a different scheduler or want a different turn structure you should override this.

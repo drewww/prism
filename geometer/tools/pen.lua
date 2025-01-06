@@ -7,12 +7,11 @@ geometer.PenTool = Pen
 
 Pen.dragging = false
 
-function Pen:mouseclicked(_, level, x, y)
+function Pen:mouseclicked(geometer, level, x, y)
    self.dragging = true
    self.locations = prism.SparseGrid()
 
-   if x < 1 or x > level.map.w then return end
-   if y < 1 or y > level.map.h then return end
+   if not geometer.attachable:inBounds(x, y) then return end
    self.locations:set(x, y, true)
 end
 
@@ -22,8 +21,7 @@ function Pen:update(dt, geometer)
    if not self.locations then return end
 
    local x, y = geometer.display:getCellUnderMouse()
-   if x < 1 or x > geometer.level.map.w then return end
-   if y < 1 or y > geometer.level.map.h then return end
+   if not geometer.attachable:inBounds(x, y) then return end
 
    self.locations:set(x, y, true)
 end

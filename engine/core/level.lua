@@ -1,6 +1,6 @@
 --- The 'Level' holds all of the actors and systems, and runs the game loop. Through the ActorStorage and SystemManager
 ---
---- @class Level : Object
+--- @class Level : Object, GeometerAttachable
 --- @field systemManager SystemManager A table containing all of the systems active in the level, set in the constructor.
 --- @field actorStorage ActorStorage The main actor storage containing all of the level's actors.
 --- @field scheduler Scheduler The main scheduler driving the loop of the game.
@@ -308,6 +308,15 @@ end
 --- @param y number The y component of the position to get.
 --- @return Cell The cell at the given position.
 function Level:getCell(x, y) return self.map:get(x, y) end
+
+--- Is there a cell at this x, y? Part of the interface with MapBuilder
+--- @param x integer The x component to check if in bounds.
+---@param y integer
+function Level:inBounds(x, y)
+   return 
+      x >= 1 and x <= self.map.w and
+      y >= 1 and x <= self.map.h
+end
 
 function Level:updateCaches(x, y)
    self:updateOpacityCache(x, y)

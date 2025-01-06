@@ -3,72 +3,71 @@ local RectModification = require "geometer/modifications/rect"
 
 --- @class RectTool : Tool
 --- @field origin Vector2
+--- @field second Vector2
 RectTool = geometer.Tool:extend "RectTool"
 geometer.RectTool = RectTool
 
 function RectTool:__new()
-   self.topleft = nil
+   self.origin = nil
 end
 
 --- @param geometer Geometer
---- @param level Level
+--- @param attachable GeometerAttachable
 --- @param x integer The cell coordinate clicked.
 --- @param y integer The cell coordinate clicked.
-function RectTool:mouseclicked(geometer, level, x, y)
-   if x < 1 or x > level.map.w then
-      return
-   end
-   if y < 1 or y > level.map.h then
-      return
-   end
+function RectTool:mouseclicked(geometer, attachable, x, y)
+   if not attachable:inBounds(x, y) then return end
 
-   self.topleft = prism.Vector2(x, y)
+   self.origin = prism.Vector2(x, y)
+end
+
+function RectTool:update(dt, geometer)
+   local x, y = geometer.display:getCellUnderMouse()
+   if not geometer.attachable:inBounds(x, y) then return end
+
+   self.second = prism.Vector2(x, y)
 end
 
 --- @param geometer Geometer
---- @param level Level
+--- @param attachable GeometerAttachable
 --- @param x integer The cell coordinate clicked.
 --- @param y integer The cell coordinate clicked.
-function RectTool:mousereleased(geometer, level, x, y)
-   if not self.topleft then
-      return nil
-   end
-   local x = math.min(level.map.w, math.max(1, x))
-   local y = math.min(level.map.h, math.max(1, y))
-
+function RectTool:mousereleased(geometer, attachable, x, y)
    local lx, ly, rx, ry = self:getCurrentRect(x, y)
+   if not lx then return end
+
    local modification = RectModification(geometer.placeable, prism.Vector2(lx, ly), prism.Vector2(rx, ry))
    geometer:execute(modification)
 
-   self.topleft = nil
+   self.origin = nil
+   self.second = nil
 end
 
-function RectTool:getCurrentRect(x2, y2)
-   if not self.topleft then
-      return nil
+--- Returns the four corners of the current rect.
+--- @return number? topleftx
+--- @return number? toplefy
+--- @return number? bottomrightx
+--- @return number? bottomrighty
+function RectTool:getCurrentRect()
+   if not self.origin or not self.second then
+      return
    end
 
-   local x, y = self.topleft.x, self.topleft.y
+   local x, y = self.origin.x, self.origin.y
+   local sx, sy = self.second.x, self.second.y
 
-   local lx, ly = math.min(x, x2), math.min(y, y2)
-   local rx, ry = math.max(x, x2), math.max(y, y2)
+   local lx, ly = math.min(x, sx), math.min(y, sy)
+   local rx, ry = math.max(x, sx), math.max(y, sy)
 
    return lx, ly, rx, ry
 end
 
 --- @param display Display
 function RectTool:draw(display)
-   if not self.topleft then
-      return
-   end
-
    local csx, csy = display.cellSize.x, display.cellSize.y
-   local rx, ry = display:getCellUnderMouse()
-   local lx, ly, rx, ry = self:getCurrentRect(rx, ry)
+   local lx, ly, rx, ry = self:getCurrentRect()
+   if not lx then return end
 
-   local mw, mh = display.level.map.w, display.level.map.h
-   lx, ly = math.min(mw, math.max(1, lx)), math.min(mh, math.max(0, ly))
-   rx, ry = math.min(mw, math.max(1, rx)), math.min(mh, math.max(0, ry))
    -- Calculate width and height
    local w = (rx - lx + 1) * csx
    local h = (ry - ly + 1) * csy

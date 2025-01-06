@@ -15,7 +15,8 @@ function LineModification:__new(placeable, topleft, bottomright)
    self.bottomright = bottomright
 end
 
-function LineModification:execute(level)
+--- @param attachable GeometerAttachable
+function LineModification:execute(attachable)
    local i, j = self.topleft.x, self.topleft.y
    local k, l = self.bottomright.x, self.bottomright.y
 
@@ -26,11 +27,11 @@ function LineModification:execute(level)
       if self.placeable:is(prism.Actor) then
          local actor = self.placeable
          --- @cast actor Actor
-         self:placeActor(level, x, y, actor)
+         self:placeActor(attachable, x, y, actor)
       else
          local cell = self.placeable
          --- @cast cell Cell
-         self:placeCell(level, x, y, cell)
+         self:placeCell(attachable, x, y, cell)
       end
    end
 end

@@ -132,7 +132,10 @@ function Display:drawWizard()
    for x = 1, map.w do
       for y = 1, map.h do
          local cell = map:get(x, y)
-         local spriteQuad = self.spriteAtlas:getQuadByIndex(cell.drawable.index)
+         ---@diagnostic disable-next-line
+         local spriteQuad = self.spriteAtlas:getQuadByName(cell.drawable.index)
+         ---@diagnostic disable-next-line
+         spriteQuad = spriteQuad or self.spriteAtlas:getQuadByIndex(cell.drawable.index)
          love.graphics.draw(self.spriteAtlas.image, spriteQuad, x * cSx, y * cSy)
       end
    end
@@ -198,12 +201,13 @@ function Display:beforeDrawActors(curActor)
    -- override this method in your subclass!
 end
 
----@return love.Quad
+---@return love.Quad|nil
 function Display:getQuad(actor)
    local drawable = actor:getComponent(prism.components.Drawable)
    if not drawable then
       return
    end
+
    --- @cast drawable DrawableComponent
 
    if type(drawable.index) == "number" then

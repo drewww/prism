@@ -8,7 +8,7 @@ local Panel = require "geometer.panel"
 ---@class EditorProps : Inky.Props
 ---@field gridPosition Vector2
 ---@field display Display
----@field level Level
+---@field attachable GeometerAttachable
 ---@field scale Vector2
 ---@field quit boolean
 ---@field geometer Geometer
@@ -47,7 +47,7 @@ local function Editor(self, scene)
    debugButton.props.pressedQuad = atlas:getQuadByIndex(6)
    debugButton.props.onRelease = function()
       self.props.quit = true
-      self.props.level.debug = true
+      self.props.attachable.debug = true
    end
 
    local cellButton = Button(scene)
@@ -66,10 +66,8 @@ local function Editor(self, scene)
    grid.props.scale = prism.Vector2(2, 2)
    self:useEffect(function()
       grid.props.geometer = self.props.geometer
-      grid.props.map = self.props.level.map
-      grid.props.actors = self.props.level.actorStorage
       grid.props.display = self.props.display
-      grid.props.level = self.props.level
+      grid.props.attachable = self.props.attachable
       tools.props.geometer = self.props.geometer
    end, "level", "display")
 

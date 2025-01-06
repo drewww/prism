@@ -13,10 +13,20 @@ require "geometer.tools.line"
 require "geometer.tools.erase"
 require "geometer.tools.ellipse"
 require "geometer.tools.bucket"
+
 ---@alias Placeable Actor|Cell
 
+---@class GeometerAttachable
+---@field getCell fun(self, x:integer, y:integer): Cell
+---@field setCell fun(self, x:integer, y:integer, cell: Cell)
+---@field addActor fun(self, actor: Actor)
+---@field removeActor fun(self, actor: Actor)
+---@field getActorsAt fun(self, x:integer, y:integer)
+---@field inBounds fun(self, x: integer, y:integer)
+---@field debug boolean
+
 ---@class Geometer : Object
----@field level Level
+---@field attachable GeometerAttachable
 ---@field display Display
 ---@field active boolean
 ---@field editor Editor
@@ -27,8 +37,8 @@ require "geometer.tools.bucket"
 local Geometer = prism.Object:extend("Geometer")
 geometer.Geometer = Geometer
 
-function Geometer:__new(level, display)
-   self.level = level
+function Geometer:__new(attachable, display)
+   self.attachable = attachable
    self.display = display
    self.active = false
    self.placeable = prism.cells.Wall
@@ -54,7 +64,7 @@ function Geometer:startEditing()
    pointer = Inky.pointer(scene)
    self.editor = Editor(scene)
    self.editor.props.display = self.display
-   self.editor.props.level = self.level
+   self.editor.props.attachable = self.attachable
    self.editor.props.scale = scale
    self.editor.props.geometer = self
 
@@ -63,7 +73,7 @@ function Geometer:startEditing()
 
    self.tool = getmetatable(self.tool)()
 
-   self.level.debug = false
+   self.attachable.debug = false
 end
 
 function Geometer:update(dt)
@@ -83,7 +93,7 @@ end
 
 --- @param modification Modification
 function Geometer:execute(modification)
-   modification:execute(self.level)
+   modification:execute(self.attachable)
    table.insert(self.undoStack, modification)
 end
 
@@ -93,7 +103,7 @@ function Geometer:undo()
    end
 
    local modification = table.remove(self.undoStack, #self.undoStack)
-   modification:undo(self.level)
+   modification:undo(self.attachable)
    table.insert(self.redoStack, modification)
 end
 
@@ -103,7 +113,7 @@ function Geometer:redo()
    end
 
    local modification = table.remove(self.redoStack, #self.redoStack)
-   modification:execute(self.level)
+   modification:execute(self.attachable)
    table.insert(self.undoStack, modification)
 end
 

@@ -26,12 +26,10 @@ end
 
 ---@class EditorGridProps : Inky.Props
 ---@field offset Vector2
----@field map Map
----@field actors ActorStorage
 ---@field display Display
 ---@field scale Vector2
 ---@field geometer Geometer
----@field level Level
+---@field attachable GeometerAttachable
 
 ---@class EditorGrid : Inky.Element
 ---@field props EditorGridProps
@@ -57,7 +55,7 @@ local function EditorGrid(self, scene)
       local tool = self.props.geometer.tool
 
       if tool then -- TODO: Remove when default added
-         tool:mouseclicked(self.props.geometer, self.props.level, cx, cy)
+         tool:mouseclicked(self.props.geometer, self.props.attachable, cx, cy)
          pointer:captureElement(self, true)
       end
    end)
@@ -68,7 +66,7 @@ local function EditorGrid(self, scene)
       local cx, cy = display:getCellUnderMouse()
 
       if tool then
-         tool:mousereleased(self.props.geometer, self.props.level, cx, cy)
+         tool:mousereleased(self.props.geometer, self.props.attachable, cx, cy)
       end
 
       pointer:captureElement(self, false)
@@ -88,10 +86,6 @@ local function EditorGrid(self, scene)
    end)
 
    return function(_, x, y, w, h)
-      if not self.props.map then
-         return
-      end
-
       love.graphics.setScissor(x, y, w, h)
       local r, g, b, a = love.graphics.getColor()
       self.props.display:drawWizard()

@@ -20,11 +20,14 @@ function Bucket:mouseclicked(geometer, level, cellx, celly)
    self:bucket(level, cellx, celly)
 end
 
-function Bucket:bucket(level, x, y)
-   local cellPrototype = level:getCell(x, y)
+--- @param attachable GeometerAttachable
+---@param x any
+---@param y any
+function Bucket:bucket(attachable, x, y)
+   local cellPrototype = attachable:getCell(x, y)
    prism.BredthFirstSearch(prism.Vector2(x, y),
       function(x, y)
-         return level:getCell(x, y) == cellPrototype
+         return attachable:getCell(x, y) == cellPrototype
       end,
       function(x, y)
          self.locations:set(x, y, true)
@@ -34,14 +37,14 @@ end
 
 ---Updates the tool state.
 ---@param dt number The time delta since the last update.
+---@param geometer Geometer
 function Bucket:update(dt, geometer)
    if not self.locations then return end
 
    local x, y = geometer.display:getCellUnderMouse()
-   if x < 1 or x > geometer.level.map.w then return end
-   if y < 1 or y > geometer.level.map.h then return end
+   if not geometer.attachable:inBounds(x, y) then return end
 
-   self:bucket(geometer.level, x, y)
+   self:bucket(geometer.attachable, x, y)
 end
 
 function Bucket:draw(display)

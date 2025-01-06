@@ -12,16 +12,17 @@ function PenModification:__new(placeable, locations)
    self.locations = locations
 end
 
-function PenModification:execute(level)
+--- @param attachable GeometerAttachable
+function PenModification:execute(attachable)
    for x, y in self.locations:each() do
       if self.placeable:is(prism.Actor) then
          local actorPrototype = self.placeable
          --- @cast actorPrototype Actor
-         self:placeActor(level, x, y, actorPrototype)
+         self:placeActor(attachable, x, y, actorPrototype)
       else
          local cell = self.placeable
          --- @cast cell Cell
-         self:placeCell(level, x, y, cell)
+         self:placeCell(attachable, x, y, cell)
       end
    end
 end

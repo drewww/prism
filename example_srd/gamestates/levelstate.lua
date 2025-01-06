@@ -215,7 +215,7 @@ function LevelState:draw()
 
    love.graphics.print("Frame Time: " .. love.timer.getAverageDelta(), 10, 10)
 
-   if curActor then
+   if curActor and self.level:getID(curActor) then
       love.graphics.print("Current Actor ID:" .. self.level:getID(curActor), 10, 20)
    end
 end
@@ -248,7 +248,7 @@ end
 
 function LevelState:mousepressed(x, y, button, istouch, presses)
    if self.geometer:isActive() then
-      self.geometer:mousepressed(x, y, button, istouch, presses)
+      self.geometer:mousepressed(x, y, button)
       return
    end
 
