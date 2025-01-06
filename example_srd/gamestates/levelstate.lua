@@ -1,4 +1,5 @@
 local GameState = require "example_srd.gamestates.gamestate"
+local GeometerState = require "example_srd.gamestates.geometerstate"
 
 -- Set up our turn logic.
 require "example_srd.turn"
@@ -17,7 +18,7 @@ local waitPathConstant = 0.2
 --- @field targetActor Actor
 --- @field display Display
 --- @field lastActor Actor
---- @field geometer Geometer
+--- @field geometer GeometerState
 local LevelState = GameState:extend("LevelState")
 
 --- This state is passed a Level object and sets up the interface and main loop for
@@ -29,7 +30,7 @@ function LevelState:__new(level)
    self.waitPathTime = 0
    self.display = spectrum.Display(spriteAtlas, prism.Vector2(16, 16), level)
    self.lastActor = nil
-   self.geometer = geometer.Geometer(self.level, self.display)
+   self.geometer = GeometerState(self.level, self.display)
 
    self.display.beforeDrawCells = self:drawBeforeCellsCallback()
 
@@ -64,11 +65,6 @@ function LevelState:checkPath(actor)
 end
 
 function LevelState:update(dt)
-   if self.geometer:isActive() then
-      self.geometer:update(dt)
-      return
-   end
-
    self.waitPathTime = self.waitPathTime + dt
    while self:shouldAdvance() do
       local message = prism.advanceCoroutine(self.updateCoroutine, self.level, self.decision)
@@ -82,7 +78,7 @@ function LevelState:update(dt)
             self.display:queueMessage(message)
             self:checkPath(message.action.owner)
          elseif message:is(prism.messages.DebugMessage) then
-            self.geometer:startEditing()
+            self.manager:push(self.geometer)
             return
          end
       end
@@ -193,11 +189,6 @@ function LevelState:drawBeforeCellsCallback()
 end
 
 function LevelState:draw()
-   if self.geometer:isActive() then
-      self.geometer:draw()
-      return
-   end
-
    local curActor
    if self.decision then
       local actionDecision = self.decision
@@ -221,11 +212,6 @@ function LevelState:draw()
 end
 
 function LevelState:keypressed(key, scancode)
-   if self.geometer:isActive() then
-      self.geometer:keypressed(key, scancode)
-      return
-   end
-
    if not self.decision then
       return
    end
@@ -242,40 +228,17 @@ function LevelState:keypressed(key, scancode)
    end
 
    if key == "`" then
-      self.geometer:startEditing()
+      self.manager:push(self.geometer)
    end
 end
 
 function LevelState:mousepressed(x, y, button, istouch, presses)
-   if self.geometer:isActive() then
-      self.geometer:mousepressed(x, y, button)
-      return
-   end
-
    if self.path then
       self.decidedPath = self.path
    end
 
    if self.targetActor then
       self.decidedTarget = self.targetActor
-   end
-end
-
-function LevelState:mousereleased(x, y, button)
-   if self.geometer:isActive() then
-      self.geometer:mousereleased(x, y, button)
-   end
-end
-
-function LevelState:mousemoved(x, y, dx, dy, istouch)
-   if self.geometer:isActive() then
-      self.geometer:mousemoved(x, y, dx, dy, istouch)
-   end
-end
-
-function LevelState:wheelmoved(dx, dy)
-   if self.geometer:isActive() then
-      self.geometer:wheelmoved(dx, dy)
    end
 end
 
