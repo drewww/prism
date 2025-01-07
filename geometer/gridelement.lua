@@ -88,7 +88,7 @@ local function EditorGrid(self, scene)
    return function(_, x, y, w, h)
       love.graphics.setScissor(x, y, w, h)
       local r, g, b, a = love.graphics.getColor()
-      self.props.display:drawWizard()
+      self.props.display:draw()
       love.graphics.setColor(r, g, b, a)
 
       if self.props.geometer.tool then -- TODO: Remove when default added.

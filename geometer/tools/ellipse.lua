@@ -5,9 +5,10 @@ local EllipseModification = require "geometer.modifications.ellipse"
 Ellipse = geometer.Tool:extend "PenTool"
 geometer.EllipseTool = Ellipse
 
-function Ellipse:mouseclicked(_, level, x, y)
+function Ellipse:mouseclicked(geometer, level, x, y)
    if x < 1 or x > level.map.w then return end
    if y < 1 or y > level.map.h then return end
+   self.geometer = geometer
    self.center = prism.Vector2(x, y)
 end
 
@@ -20,9 +21,9 @@ function Ellipse:draw(display)
    local rx, ry = math.abs(self.center.x - mx), math.abs(self.center.y - my)
 
    prism.Ellipse(self.center, rx, ry, function (x, y)
-      x = math.min(display.level.map.w, math.max(1, x))
-      y = math.min(display.level.map.h, math.max(1, y))
-      love.graphics.rectangle("fill", x * csx, y * csy, csx, csy)
+      if self.geometer.attachable:inBounds(x, y) then
+         love.graphics.rectangle("fill", x * csx, y * csy, csx, csy)
+      end
    end)
 end
 

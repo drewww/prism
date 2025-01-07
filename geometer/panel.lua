@@ -1,4 +1,5 @@
 local Inky = require "geometer.inky"
+local Display = require "spectrum.display"
 
 ---@class TileElementProps : Inky.Props
 ---@field placeable Placeable
@@ -30,15 +31,17 @@ local function Tile(self, scene)
    end)
 
    return function(_, x, y, w, h)
-      local color
-      local quad
+      local drawable
       if self.props.placeable:is(prism.Actor) then
-         color = self.props.display:getActorColor(self.props.placeable)
-         quad = self.props.display:getQuad(self.props.placeable)
+         local actor = self.props.placeable
+         ---@cast actor Actor
+         drawable = actor:getComponent(prism.components.Drawable)
       else
-         color = prism.Color4.WHITE
-         quad = self.props.display.spriteAtlas:getQuadByIndex(self.props.placeable.drawable.index)
+         drawable = self.props.placeable.drawable
       end
+
+      local color = drawable.color or prism.Color4.WHITE
+      local quad = Display.getQuad(self.props.display.spriteAtlas, drawable)
 
       love.graphics.push("all")
       love.graphics.setCanvas()

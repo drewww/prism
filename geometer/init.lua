@@ -16,7 +16,7 @@ require "geometer.tools.bucket"
 
 ---@alias Placeable Actor|Cell
 
----@class GeometerAttachable
+---@class GeometerAttachable : Object
 ---@field getCell fun(self, x:integer, y:integer): Cell
 ---@field setCell fun(self, x:integer, y:integer, cell: Cell)
 ---@field addActor fun(self, actor: Actor)
@@ -24,11 +24,13 @@ require "geometer.tools.bucket"
 ---@field getActorsAt fun(self, x:integer, y:integer)
 ---@field inBounds fun(self, x: integer, y:integer)
 ---@field eachActorAt fun(self, x:integer, y:integer): fun()
+---@field eachActor fun(self): fun()
+---@field eachCell fun(self): fun()
 ---@field debug boolean
 
 ---@class Geometer : Object
 ---@field attachable GeometerAttachable
----@field display Display
+---@field camera Camera
 ---@field active boolean
 ---@field editor Editor
 ---@field undoStack Modification[]
