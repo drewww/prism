@@ -314,8 +314,12 @@ function Level:getCell(x, y) return self.map:get(x, y) end
 ---@param y integer
 function Level:inBounds(x, y)
    return 
-      x >= 1 and x <= self.map.w and
-      y >= 1 and x <= self.map.h
+      x > 0 and x <= self.map.w and
+      y > 0 and y <= self.map.h
+end
+
+function Level:eachCell()
+   return self.map:each()
 end
 
 function Level:updateCaches(x, y)

@@ -200,6 +200,7 @@ function MapBuilder:build()
       actor.position = actor.position - prism.Vector2(minX - 1, minY - 1)
    end
 
+   --- @diagnostic disable-next-line
    return map, self.actors.actors
 end
 
