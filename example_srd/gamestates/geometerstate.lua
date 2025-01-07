@@ -17,7 +17,6 @@ end
 
 function GeometerState:update(dt)
    if not self.geometer.active then
-      print "YA"
       self.manager:pop()
    end
 
