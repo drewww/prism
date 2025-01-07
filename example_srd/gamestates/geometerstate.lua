@@ -44,4 +44,8 @@ function GeometerState:mousereleased(x, y, button)
    self.geometer:mousereleased(x, y, button)
 end
 
+function GeometerState:keypressed(key, scancode)
+   self.geometer:keypressed(key, scancode)
+end
+
 return GeometerState

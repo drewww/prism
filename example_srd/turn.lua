@@ -17,6 +17,7 @@ function prism.turn(level, actor, controller)
       if action:is(prism.actions.EndTurn) then break end
       -- we make sure we got an action back from the controller for sanity's sake
       assert(action, "Actor " .. actor.name .. " returned nil from act()")
+      print(action.name, action.owner.name)
       assert(action:canPerform(level))
 
       SRDStatsComponent.curMovePoints = SRDStatsComponent.curMovePoints - action:movePointCost(level, actor)

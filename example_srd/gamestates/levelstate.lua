@@ -7,16 +7,14 @@ require "example_srd.turn"
 love.graphics.setDefaultFilter("nearest", "nearest")
 local spriteAtlas = spectrum.SpriteAtlas.fromGrid("example_srd/display/wanderlust_16x16.png", 16, 16)
 local actionHandlers = require "example_srd.display.actionhandlers"
-local waitPathConstant = 0.2
 
 --- @class LevelState : GameState
 --- @field decision Decision
 --- @field level Level
 --- @field waiting boolean
 --- @field path Path
---- @field decidedPath Path
---- @field targetActor Actor
 --- @field display Display
+--- @field message ActionMessage
 --- @field lastActor Actor
 --- @field geometer GeometerState
 local LevelState = GameState:extend("LevelState")
@@ -27,56 +25,53 @@ function LevelState:__new(level)
    self.level = level
    self.updateCoroutine = coroutine.create(level.run)
    self.decision = nil
-   self.waitPathTime = 0
+   self.message = nil
    self.display = spectrum.Display(spriteAtlas, prism.Vector2(16, 16), level)
-   self.lastActor = nil
    self.geometer = GeometerState(self.level, self.display)
+   self.time = 0
 
    self.display.beforeDrawCells = self:drawBeforeCellsCallback()
-
-   for action, func in pairs(actionHandlers) do
-      self.display:registerActionHandlers(action, func)
-   end
 end
 
-function LevelState:advanceCoroutine() end
-
+--- Checks whether the coroutine should advance.
 function LevelState:shouldAdvance()
    local hasDecision = self.decision ~= nil
-   local animating = self.display:isAnimating()
    local decisionDone = hasDecision and self.decision:validateResponse()
 
-   if animating then
+   if self.display.override then
       return false
    end
-   if not hasDecision then
-      return true
-   end
-   if decisionDone then
-      return true
-   end
-end
 
-function LevelState:checkPath(actor)
-   if self.lastActor ~= actor then
-      self.path = nil
-      self.decidedPath = nil
-   end
+   return not hasDecision or decisionDone
 end
 
 function LevelState:update(dt)
-   self.waitPathTime = self.waitPathTime + dt
+   self.time = self.time + dt
    while self:shouldAdvance() do
       local message = prism.advanceCoroutine(self.updateCoroutine, self.level, self.decision)
+      self.decision = nil
+      self.message = nil
       if message then
          if message:is(prism.Decision) then
             ---@cast message Decision
             self.decision = message
-            self:checkPath(self.decision.actor)
          elseif message:is(prism.messages.ActionMessage) and not self.level.debug then
             ---@cast message ActionMessage
-            self.display:queueMessage(message)
-            self:checkPath(message.action.owner)
+            local actionproto = getmetatable(message.action)
+            local seen = false
+            
+            for _, senses, _ in self.level:eachActor(prism.components.Senses, prism.components.PlayerController) do
+               ---@cast senses SensesComponent
+               if senses.actors:hasActor(message.action.owner) then
+                  seen = true
+               end
+            end
+
+            if seen then
+               self.display:setOverride(actionHandlers[actionproto], message)
+            end
+
+            self.message = message
          elseif message:is(prism.messages.DebugMessage) then
             self.manager:push(self.geometer)
             return
@@ -84,107 +79,90 @@ function LevelState:update(dt)
       end
    end
 
-   local curActor
    if self.decision and self.decision:instanceOf(prism.decisions.ActionDecision) then
       local decision = self.decision
       ---@cast decision ActionDecision
 
-      curActor = self.decision.actor
-      self.lastActor = curActor
-      self:updatePath()
-
       if not self.decision:validateResponse() then
-         if self.decidedPath and self.waitPathTime > waitPathConstant then
-            self.waitPathTime = 0
-
-            ---@type Vector2|nil
-            local nextPos = self.decidedPath:pop()
-
-            ---@type MoveAction
-            local moveAction = curActor:getAction(prism.actions.Move)
-            if nextPos and moveAction then
-               decision:setAction(moveAction(curActor, { nextPos }))
-            else
-               self.decidedPath = nil
-            end
-         end
-
-         if self.decidedTarget then
-            local attackAction = curActor:getAction(prism.actions.Attack)
-
-            if attackAction and attackAction:validateTarget(1, curActor, self.decidedTarget, {}) then
-               local attackAction = attackAction(curActor, { self.decidedTarget })
-               if attackAction:canPerform(self.level) then
-                  decision:setAction(attackAction)
-               end
-            end
-            self.decidedTarget = nil
-         end
+         self:updateDecision(dt, self.decision.actor, decision)
       end
    end
 
-   self.display:update(dt, curActor)
+   self.display:update(dt)
 end
 
-function LevelState:updatePath()
-   local curActor = self.decision.actor
-   -- get path
-   local wx, wy = self.display:getCellUnderMouse()
+--- @param dt number
+---@param actor Actor
+---@param decision ActionDecision
+function LevelState:updateDecision(dt, actor, decision)
+   if self.path then
+      ---@type Vector2|nil
+      local nextPos = self.path:pop()
 
-   self.path = prism.astar(curActor:getPosition(), prism.Vector2(wx, wy), self.display.sensesTracker:passableCallback())
-
-   local SRDStatsComponent = curActor:getComponent(prism.components.SRDStats)
-   if SRDStatsComponent then
-      if SRDStatsComponent.curMovePoints == 0 then
-         self.decidedPath = nil
+      ---@type MoveAction
+      local moveAction = actor:getAction(prism.actions.Move)
+      if nextPos and moveAction then
+         --- @type MoveAction
+         local action = moveAction(actor, { nextPos })
+         if action:canPerform(self.level) then
+            decision:setAction(action)
+         else
+            self.path = nil
+         end
+      else
+         self.path = nil
       end
    end
+end
 
-   local actorBucket = self.display:getActorsSensedByCurActorOnTile(curActor, wx, wy)
-   if #actorBucket > 0 then
-      self.targetActor = actorBucket[1]
-   else
-      self.targetActor = nil
+function LevelState:calculatePath(actor)
+   local passableCallback = function (x, y)
+      local sensesComponent = actor:getComponent(prism.components.Senses)
+      if not sensesComponent then return false end
+
+      return sensesComponent.explored:get(x, y) and self.level:getCellPassable(x, y) or false
    end
+
+   local x, y = self.display:getCellUnderMouse()
+   return prism.astar(actor:getPosition(), prism.Vector2(x, y), passableCallback)
 end
 
 function LevelState:drawBeforeCellsCallback()
    ---@param display Display
-   ---@param curActor Actor
-   return function(display, curActor)
+   return function(display)
       local cSx, cSy = display.cellSize.x, display.cellSize.y
-      if not curActor then
-         curActor = self.lastActor
-      end
-      if not curActor then
+      if not self.decision then
          return
       end
 
-      local SRDStatsComponent = curActor:getComponent(prism.components.SRDStats)
+      local SRDStatsComponent = self.decision.actor:getComponent(prism.components.SRDStats)
       if SRDStatsComponent then
-         if self.decidedPath then
+         if self.path then
             love.graphics.setColor(0, 1, 0, 0.3)
-            for i, v in ipairs(self.decidedPath.path) do
-               if self.decidedPath:totalCostAt(i) <= SRDStatsComponent.curMovePoints then
+            for i, v in ipairs(self.path.path) do
+               if self.path:totalCostAt(i) <= SRDStatsComponent.curMovePoints then
                   love.graphics.rectangle("fill", v.x * cSx, v.y * cSy, cSx, cSy)
                end
             end
-         elseif self.path then
-            for i, v in ipairs(self.path.path) do
-               if self.path:totalCostAt(i) > SRDStatsComponent.curMovePoints then
-                  love.graphics.setColor(1, 0, 0, 0.3)
-               else
-                  love.graphics.setColor(0, 1, 0, 0.3)
-               end
+         else
+            local path = self:calculatePath(self.decision.actor)
+            if path then
+               for i, v in ipairs(path.path) do
+                  if path:totalCostAt(i) > SRDStatsComponent.curMovePoints then
+                     love.graphics.setColor(1, 0, 0, 0.3)
+                  else
+                     love.graphics.setColor(0, 1, 0, 0.3)
+                  end
 
-               love.graphics.rectangle("fill", v.x * cSx, v.y * cSy, cSx, cSy)
+                  love.graphics.rectangle("fill", v.x * cSx, v.y * cSy, cSx, cSy)
+               end
             end
          end
       end
 
-      love.graphics.setColor(1, 1, 0, math.sin(self.display.time * 4) * 0.1 + 0.3)
+      love.graphics.setColor(1, 1, 0, math.sin(self.time * 4) * 0.1 + 0.3)
       ---@diagnostic disable-next-line
-      love.graphics.rectangle("fill", curActor.position.x * cSx, curActor.position.y * cSy, cSx, cSy)
+      love.graphics.rectangle("fill", self.decision.actor.position.x * cSx, self.decision.actor.position.y * cSy, cSx, cSy)
    end
 end
 
@@ -194,21 +172,26 @@ function LevelState:draw()
       local actionDecision = self.decision
       ---@cast actionDecision ActionDecision
       curActor = actionDecision.actor
+   elseif self.message then
+      if self.message.action.owner:hasComponent(prism.components.PlayerController) then
+         curActor = self.message.action.owner
+      end
    end
 
-   self.display:draw(curActor)
+   local sensesComponent = curActor and curActor:getComponent(prism.components.Senses) 
+   local primary = { sensesComponent }
+   local secondary = {}
 
-   love.graphics.setColor(1, 1, 1, 1)
-   if curActor then -- TODO: What was I doing here?
-      local SRDStatsComponent = self.lastActor:getComponent(prism.components.SRDStats)
-      love.graphics.print("HP: " .. SRDStatsComponent.HP, 10, 20)
+   for _, _, senses in self.level:eachActor(prism.components.PlayerController, prism.components.Senses) do
+      table.insert(secondary, senses)
    end
 
-   love.graphics.print("Frame Time: " .. love.timer.getAverageDelta(), 10, 10)
-
-   if curActor and self.level:getID(curActor) then
-      love.graphics.print("Current Actor ID:" .. self.level:getID(curActor), 10, 20)
+   if #primary == 0 then
+      primary = secondary
+      secondary = {}
    end
+
+   self.display:drawPerspective(primary, secondary)
 end
 
 function LevelState:keypressed(key, scancode)
@@ -233,13 +216,9 @@ function LevelState:keypressed(key, scancode)
 end
 
 function LevelState:mousepressed(x, y, button, istouch, presses)
-   if self.path then
-      self.decidedPath = self.path
-   end
+   if not self.decision and self.decision.actor then return end
 
-   if self.targetActor then
-      self.decidedTarget = self.targetActor
-   end
+   self.path = self:calculatePath(self.decision.actor)
 end
 
 return LevelState
