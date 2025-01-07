@@ -5,9 +5,9 @@ local EllipseModification = require "geometer.modifications.ellipse"
 Ellipse = geometer.Tool:extend "PenTool"
 geometer.EllipseTool = Ellipse
 
-function Ellipse:mouseclicked(geometer, level, x, y)
-   if x < 1 or x > level.map.w then return end
-   if y < 1 or y > level.map.h then return end
+function Ellipse:mouseclicked(geometer, attachable, x, y)
+   if not attachable:inBounds(x, y) then return end
+
    self.geometer = geometer
    self.center = prism.Vector2(x, y)
 end

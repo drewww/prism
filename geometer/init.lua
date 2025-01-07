@@ -18,7 +18,7 @@ require "geometer.tools.bucket"
 
 ---@class GeometerAttachable : Object
 ---@field getCell fun(self, x:integer, y:integer): Cell
----@field setCell fun(self, x:integer, y:integer, cell: Cell)
+---@field setCell fun(self, x:integer, y:integer, cell: Cell|nil)
 ---@field addActor fun(self, actor: Actor)
 ---@field removeActor fun(self, actor: Actor)
 ---@field getActorsAt fun(self, x:integer, y:integer)

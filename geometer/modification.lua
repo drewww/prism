@@ -24,7 +24,11 @@ function Modification:undo(attachable)
 
    if self.replaced then
       for x, y, cell in self.replaced:each() do
-         attachable:setCell(x, y, cell)
+         if cell == false then
+            attachable:setCell(x, y, nil)
+         else
+            attachable:setCell(x, y, cell)
+         end
       end
    end
 
@@ -65,6 +69,6 @@ end
 function Modification:placeCell(attachable, x, y, cellPrototype)
    if not self.replaced then self.replaced = prism.SparseGrid() end
    
-   self.replaced:set(x, y, attachable:getCell(x, y))
+   self.replaced:set(x, y, attachable:getCell(x, y) or false)
    attachable:setCell(x, y, cellPrototype)
 end
