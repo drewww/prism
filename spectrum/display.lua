@@ -184,7 +184,6 @@ function Display:beforeDrawActors()
 end
 
 --- Hook for custom behavior after drawing actors.
----@param curActor Actor The current actor being processed.
 function Display:afterDrawActors()
    -- override this method in your subclass!
 end

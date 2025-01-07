@@ -204,6 +204,9 @@ function MapBuilder:build()
    return map, self.actors.actors
 end
 
+function MapBuilder:eachCell()
+   return self:each()
+end
 -- Part of the interface that Level and MapBuilder share
 -- for use with geometer
 
@@ -225,6 +228,10 @@ end
 
 function MapBuilder:eachActorAt(x, y)
    self.actors:eachActorAt(x, y)
+end
+
+function MapBuilder:eachActor(...)
+   return self.actors:eachActor(...)
 end
 
 return MapBuilder
