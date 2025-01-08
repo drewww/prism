@@ -1,11 +1,3 @@
-local function hash(x, y)
-   return x and y * 0x4000000 + x -- 26-bit x and y
-end
-
-local function unhash(hash)
-   return hash % 0x4000000, math.floor(hash / 0x4000000)
-end
-
 local dummy = {}
 
 --- A sparse grid of buckets that objects can be placed into. Used for
@@ -26,7 +18,7 @@ end
 --- @param y number The y-coordinate.
 --- @return table elements A set[actor]=bool of values stored at the specified coordinates, or an empty table if none.
 function SparseMap:get(x, y)
-   return self.map[hash(x, y)] or dummy
+   return self.map[prism.Vector2._hash(x, y)] or dummy
 end
 
 --- Gets the values stored at the specified hash.
@@ -60,7 +52,7 @@ end
 function SparseMap:countCell(x, y)
    local count = 0
 
-   for _, _ in pairs(self.map[hash(x, y)] or dummy) do
+   for _, _ in pairs(self.map[prism.Vector2._hash(x, y)] or dummy) do
       count = count + 1
    end
 
@@ -73,7 +65,7 @@ end
 --- @param value any The value to check.
 --- @return boolean True if the value is stored at the specified coordinates, false otherwise.
 function SparseMap:has(x, y, value)
-   local xyhash = hash(x, y)
+   local xyhash = prism.Vector2._hash(x, y)
    if not self.map[xyhash] then return false end
    return self.map[xyhash][value] or false
 end
@@ -90,7 +82,7 @@ end
 --- @param y number The y-coordinate.
 --- @param val any The value to insert.
 function SparseMap:insert(x, y, val)
-   local xyhash = hash(x, y)
+   local xyhash = prism.Vector2._hash(x, y)
    if not self.map[xyhash] then self.map[xyhash] = {} end
 
    self.__count = self.__count + 1
@@ -104,7 +96,7 @@ end
 --- @param val any The value to remove.
 --- @return boolean True if the value was successfully removed, false otherwise.
 function SparseMap:remove(x, y, val)
-   local xyhash = hash(x, y)
+   local xyhash = prism.Vector2._hash(x, y)
    if not self.map[xyhash] then return false end
 
    self.__count = self.__count - 1
