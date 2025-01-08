@@ -1,6 +1,7 @@
 local Inky = require "geometer.inky"
 
 local Button = require "geometer.button"
+local File = require "geometer.file"
 local EditorGrid = require "geometer.gridelement"
 local Tools = require "geometer.tools"
 local Panel = require "geometer.panel"
@@ -26,12 +27,22 @@ local function Editor(self, scene)
    love.graphics.setDefaultFilter("nearest", "nearest")
 
    local canvas = love.graphics.newCanvas(320, 200)
+   local overlay = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
    local frame = love.graphics.newImage("geometer/assets/frame.png")
+
+   local filePanel = File(scene)
+   filePanel.props.scale = self.props.scale
+   filePanel.props.overlay = overlay
 
    local fileButton = Button(scene)
    fileButton.props.tileset = atlas.image
    fileButton.props.unpressedQuad = atlas:getQuadByIndex(1)
    fileButton.props.pressedQuad = atlas:getQuadByIndex(2)
+   fileButton.props.toggle = true
+   fileButton.props.onPress = function()
+      filePanel.props.open = "true"
+      filePanel.props.justOpen = true
+   end
 
    local playButton = Button(scene)
    playButton.props.tileset = atlas.image
@@ -76,8 +87,26 @@ local function Editor(self, scene)
    panel.props.size = prism.Vector2(self.props.scale.x * 8, self.props.scale.y * 8)
    panel.props.geometer = self.props.geometer
 
+   self:on("closeFile", function()
+      fileButton.props.pressed = false
+   end)
+
+   local function toggleFilePanel(_, pointer)
+      if filePanel.props.open and not filePanel.props.justOpen and not pointer:doesOverlapElement(filePanel) then
+         filePanel.props.open = false
+      end
+   end
+
+   self:onPointer("press", toggleFilePanel)
+   self:onPointerInHierarchy("press", toggleFilePanel)
+
    local background = prism.Color4.fromHex(0x181425)
    return function(_, x, y, w, h, depth)
+      love.graphics.push("all")
+      love.graphics.setCanvas(overlay)
+      love.graphics.clear()
+      love.graphics.pop()
+
       love.graphics.setBackgroundColor(background:decompose())
       love.graphics.push("all")
       love.graphics.setColor(1, 1, 1, 1)
@@ -90,6 +119,9 @@ local function Editor(self, scene)
       debugButton:render(8 * 6 + 24, 184, 24, 12)
       tools:render(120, 184, 112, 12)
       panel:render(232, 0, 88, 184)
+      if filePanel.props.open then
+         filePanel:render(0, 200 - (8 * 10), 8 * 12, 8 * 8, depth + 1)
+      end
       love.graphics.setCanvas()
 
       grid:render(
@@ -103,6 +135,8 @@ local function Editor(self, scene)
       love.graphics.scale(self.props.scale:decompose())
       --local y = (love.graphics.getHeight() - (200 * self.props.scale.y)) / 2
       love.graphics.draw(canvas, 0, 0)
+      love.graphics.origin()
+      love.graphics.draw(overlay, 0, 0)
 
       love.graphics.pop()
    end

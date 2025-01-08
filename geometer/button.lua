@@ -8,6 +8,8 @@ local Inky = require "geometer.inky"
 ---@field onRelease? function a function called after releasing the button
 ---@field onPress? function a function called after pressing the button
 ---@field toggle boolean whether the button stays pressed after clicking
+---@field hovered boolean
+---@field hoveredQuad love.Quad
 
 ---@class Button : Inky.Element
 ---@field props ButtonProps
@@ -41,18 +43,25 @@ local function Button(self)
 
    self:onPointerEnter(function()
       love.mouse.setCursor(love.mouse.getSystemCursor("hand"))
+      self.props.hovered = true
    end)
 
    self:onPointerExit(function()
       love.mouse.setCursor()
+      self.props.hovered = false
    end)
 
    return function(_, x, y, w, h, depth)
       local toDraw = self.props.unpressedQuad
-      if self.props.pressed then
+      if self.props.pressed and self.props.pressedQuad then
          toDraw = self.props.pressedQuad
+      elseif self.props.hovered and self.props.hoveredQuad then
+         toDraw = self.props.hoveredQuad
       end
-      love.graphics.draw(self.props.tileset, toDraw, x, y)
+
+      if toDraw then
+         love.graphics.draw(self.props.tileset, toDraw, x, y)
+      end
    end
 end
 

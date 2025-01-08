@@ -14,3 +14,14 @@ Released under the **MIT License**, prism2 is free to use for both personal and 
 ## Running the example
 
 Navigate to the root of this folder and use the command "love ." or drag this folder onto the love executable.
+
+## Credits
+
+#### Example game
+
+- [Wanderlust CP437 tileset](http://bay12forums.com/smf/index.php?topic=145362.0) by Kynsmer
+
+#### Geometer
+
+- [FROGBLOCK](https://polyducks.itch.io/frogblock) by Polyducks
+- Parts of [MRMOTEXT](https://mrmotarius.itch.io/mrmotext), buy the asset for full use!

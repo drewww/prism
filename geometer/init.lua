@@ -55,7 +55,8 @@ local Editor = require "geometer.editorelement"
 local scene
 local pointer
 
-local scale = prism.Vector2(love.graphics.getWidth() / 320, love.graphics.getHeight() / 200)
+local scaler = math.min(love.graphics.getWidth() / 320, love.graphics.getHeight() / 200)
+local scale = prism.Vector2(scaler, scaler)
 
 function Geometer:isActive()
    return self.active
