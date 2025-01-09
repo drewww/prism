@@ -39,12 +39,23 @@ function Erase:mousereleased(geometer, attached, x, y)
    self.origin = nil
 end
 
-function Erase:getCurrentRect(x2, y2)
+--- Returns the four corners of the current rect.
+--- @return number? topleftx
+--- @return number? toplefy
+--- @return number? bottomrightx
+--- @return number? bottomrighty
+function Erase:getCurrentRect()
    if not self.origin or not self.second then
-      return nil
+      return
    end
 
-   return self.origin.x, self.origin.y, self.second.x, self.second.y
+   local x, y = self.origin.x, self.origin.y
+   local sx, sy = self.second.x, self.second.y
+
+   local lx, ly = math.min(x, sx), math.min(y, sy)
+   local rx, ry = math.max(x, sx), math.max(y, sy)
+
+   return lx, ly, rx, ry
 end
 
 --- @param display Display
