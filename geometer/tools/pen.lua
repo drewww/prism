@@ -2,7 +2,7 @@ local PenModification = require "geometer.modifications.pen"
 
 ---@class PenTool : Tool
 ---@field locations SparseGrid
-Pen = geometer.Tool:extend "PenTool"
+local Pen = geometer.Tool:extend "PenTool"
 geometer.PenTool = Pen
 
 Pen.dragging = false
