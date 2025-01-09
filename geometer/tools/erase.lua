@@ -7,64 +7,55 @@ Erase = geometer.Tool:extend "EraseTool"
 geometer.EraseTool = Erase
 
 function Erase:__new()
-   self.topleft = nil
+   self.origin = nil
 end
 
 --- @param geometer Geometer
---- @param level Level
+--- @param attached GeometerAttachable
 --- @param x integer The cell coordinate clicked.
 --- @param y integer The cell coordinate clicked.
-function Erase:mouseclicked(geometer, level, x, y)
-   if x < 1 or x > level.map.w then
-      return
-   end
-   if y < 1 or y > level.map.h then
+function Erase:mouseclicked(geometer, attached, x, y)
+   if not attached:inBounds(x, y) then
       return
    end
 
-   self.topleft = prism.Vector2(x, y)
+   self.origin = prism.Vector2(x, y)
 end
 
+
 --- @param geometer Geometer
---- @param level Level
+--- @param attached GeometerAttachable
 --- @param x integer The cell coordinate clicked.
 --- @param y integer The cell coordinate clicked.
-function Erase:mousereleased(geometer, level, x, y)
-   if not self.topleft then
+function Erase:mousereleased(geometer, attached, x, y)
+   if not self.origin or not self.second then
       return nil
    end
-   local x = math.min(level.map.w, math.max(1, x))
-   local y = math.min(level.map.h, math.max(1, y))
 
    local lx, ly, rx, ry = self:getCurrentRect(x, y)
    local modification = EraseModification(geometer.placeable, prism.Vector2(lx, ly), prism.Vector2(rx, ry))
    geometer:execute(modification)
 
-   self.topleft = nil
+   self.origin = nil
 end
 
 function Erase:getCurrentRect(x2, y2)
-   if not self.topleft then
+   if not self.origin or not self.second then
       return nil
    end
 
-   local x, y = self.topleft.x, self.topleft.y
-
-   local lx, ly = math.min(x, x2), math.min(y, y2)
-   local rx, ry = math.max(x, x2), math.max(y, y2)
-
-   return lx, ly, rx, ry
+   return self.origin.x, self.origin.y, self.second.x, self.second.y
 end
 
 --- @param display Display
 function Erase:draw(display)
-   if not self.topleft then
+   if not self.origin then
       return
    end
 
    local csx, csy = display.cellSize.x, display.cellSize.y
-   local rx, ry = display:getCellUnderMouse()
-   local lx, ly, rx, ry = self:getCurrentRect(rx, ry)
+   local mx, my = display:getCellUnderMouse()
+   local lx, ly, rx, ry = self:getCurrentRect(mx, my)
 
    -- Calculate width and height
    local w = (rx - lx + 1) * csx
@@ -72,4 +63,11 @@ function Erase:draw(display)
 
    -- Draw the rectangle
    love.graphics.rectangle("fill", lx * csx, ly * csy, w, h)
+end
+
+function Erase:update(dt, geometer)
+   local x, y = geometer.display:getCellUnderMouse()
+   if not geometer.attachable:inBounds(x, y) then return end
+
+   self.second = prism.Vector2(x, y)
 end

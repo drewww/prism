@@ -227,7 +227,7 @@ function MapBuilder:inBounds(x, y)
 end
 
 function MapBuilder:eachActorAt(x, y)
-   self.actors:eachActorAt(x, y)
+   return self.actors:eachActorAt(x, y)
 end
 
 function MapBuilder:eachActor(...)
