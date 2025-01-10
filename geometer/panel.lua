@@ -86,6 +86,10 @@ end
 
 ---@class PanelProps : Inky.Props
 ---@field elements TileElement[]
+---@field startRange number
+---@field endRange number
+---@field filter string
+---@field filtered number[]
 ---@field display Display
 ---@field size Vector2
 ---@field selected Placeable
@@ -98,39 +102,71 @@ end
 ---@param scene Inky.Scene
 ---@return function
 local function Panel(self, scene)
+   self:onPointerEnter(function(_, pointer)
+      pointer:captureElement(self)
+   end)
+
+   self:onPointerExit(function(_, pointer)
+      pointer:captureElement(self, false)
+   end)
+
+   self:onPointer("scroll", function(_, pointer) end)
+
    ---@param placeable Placeable
    local function onSelect(placeable)
       self.props.selected = placeable
-      
+
       if placeable:is(prism.Actor) then
          placeable = getmetatable(placeable)
       end
-      
+
       self.props.geometer.placeable = placeable
    end
 
    self.props.elements = initialElements(scene, self.props.size, self.props.display, onSelect)
+   self.props.startRange = 1
+   self.props.endRange = #self.props.elements <= 15 and #self.props.elements or 15
+   self.props.filtered = {}
+   self.props.filter = ""
    self.props.selected = self.props.elements[1].props.placeable
    self.props.geometer.placeable = self.props.selected
 
    local background = love.graphics.newImage("geometer/assets/panel.png")
    local selector = love.graphics.newImage("geometer/assets/selector.png")
-   local grid = spectrum.SpriteAtlas.fromGrid("geometer/assets/grid.png", 7 * 8, 11 * 8)
+   local gridAtlas = spectrum.SpriteAtlas.fromGrid("geometer/assets/grid.png", 7 * 8, 11 * 8)
 
    return function(_, x, y, w, h)
       love.graphics.draw(background, x, y)
 
-      grid:drawByIndex(2, x + 8, y + (8 * 11))
+      local grid = 2
+      local filtered = self.props.filter ~= ""
+      local max = filtered and #self.props.filtered or #self.props.elements
+      if self.props.startRange > 3 then
+         if self.props.endRange < max then
+            grid = 4
+         else
+            grid = 1
+         end
+      elseif self.props.endRange < max then
+         grid = 3
+      end
+
+      gridAtlas:drawByIndex(grid, x + 8, y + (8 * 11))
       local column = 1
       local row = 1
-      for i, tile in ipairs(self.props.elements) do
+      for i = self.props.startRange, self.props.endRange do
+         local tile = self.props.elements[i]
+         if filtered then
+            tile = self.props.elements[self.props.filtered[i]]
+         end
+
          local tileX, tileY = x + (8 * (2 * column)), y + (8 * (11 + row))
          tile:render(tileX, tileY, 8, 8)
          if tile.props.placeable == self.props.selected then
             love.graphics.draw(selector, tileX - 8, tileY - 8)
          end
          column = column + 1
-         if i % 3 == 0 then
+         if column % 4 == 0 then
             column = 1
             row = row + 2
          end

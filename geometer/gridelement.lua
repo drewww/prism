@@ -60,7 +60,7 @@ local function EditorGrid(self, scene)
       end
    end)
 
-   self:onPointer("release", function (_, pointer)
+   self:onPointer("release", function(_, pointer)
       local tool = self.props.geometer.tool
       local display = self.props.display
       local cx, cy = display:getCellUnderMouse()
@@ -86,7 +86,7 @@ local function EditorGrid(self, scene)
    end)
 
    return function(_, x, y, w, h)
-      love.graphics.setScissor(x, y, w, h)
+      love.graphics.setScissor(x, y, w * self.props.scale.x, h * self.props.scale.y)
       local r, g, b, a = love.graphics.getColor()
       self.props.display:draw()
       love.graphics.setColor(r, g, b, a)
