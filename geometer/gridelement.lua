@@ -86,7 +86,7 @@ local function EditorGrid(self, scene)
    end)
 
    return function(_, x, y, w, h)
-      love.graphics.setScissor(x, y, w * self.props.scale.x, h * self.props.scale.y)
+      love.graphics.setScissor(x, y, w, h)
       local r, g, b, a = love.graphics.getColor()
       self.props.display:draw()
       love.graphics.setColor(r, g, b, a)
