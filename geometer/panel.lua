@@ -131,6 +131,8 @@ local function Panel(self, scene)
       pointer:captureElement(self, false)
    end)
 
+   self:onPointer("press", function() end)
+
    self:onPointer("scroll", function(_, pointer, dx, dy)
       local max = amountShown()
       local startRange = self.props.startRange
@@ -162,7 +164,7 @@ local function Panel(self, scene)
    local gridAtlas = spectrum.SpriteAtlas.fromGrid("geometer/assets/grid.png", 7 * 8, 11 * 8)
    local scrollColor = prism.Color4.fromHex(0x2ce8f5)
 
-   return function(_, x, y, w, h)
+   return function(_, x, y, w, h, depth)
       love.graphics.draw(background, x, y)
 
       local grid = 2
@@ -201,7 +203,7 @@ local function Panel(self, scene)
          end
 
          local tileX, tileY = x + (8 * (2 * column)), y + (8 * (11 + row))
-         tile:render(tileX, tileY, 8, 8)
+         tile:render(tileX, tileY, 8, 8, depth + 1)
          if tile.props.placeable == self.props.selected then
             love.graphics.draw(selector, tileX - 8, tileY - 8)
          end
