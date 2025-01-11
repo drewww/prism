@@ -1,8 +1,7 @@
-local GameState = require "example_srd.gamestates.gamestate"
-
 --- @class GeometerState : GameState
 --- @field geometer Geometer
-local GeometerState = GameState:extend "GeometerState"
+local GeometerState = spectrum.GameState:extend "GeometerState"
+geometer.EditorState = GeometerState
 
 --- Create a new Geometer managing gamestate, attached to a
 --- GeometerAttachable, this is a Level|MapBuilder interface.

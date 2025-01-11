@@ -13,6 +13,9 @@ require "geometer.tools.line"
 require "geometer.tools.erase"
 require "geometer.tools.ellipse"
 require "geometer.tools.bucket"
+require "geometer.gamestates.editorstate"
+require "geometer.gamestates.mapgenerator"
+require "geometer.gamestates.prefabeditor"
 
 ---@alias Placeable Actor|Cell
 

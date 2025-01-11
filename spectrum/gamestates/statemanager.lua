@@ -1,5 +1,3 @@
-local GameState = require "example_srd.gamestates.gamestate"
-
 ---@class GameStateManager : Object
 local StateManager = prism.Object:extend("GameStateManager")
 
@@ -9,7 +7,7 @@ end
 
 --- @param state GameState State to push to the top of the stack.
 function StateManager:push(state)
-   assert(state:is(GameState), "state must be a subclass of GameState")
+   assert(state:is(spectrum.GameState), "state must be a subclass of GameState")
    state.manager = self
    table.insert(self.stateStack, state)
    if state.load then
@@ -23,12 +21,17 @@ function StateManager:pop()
    if topState and topState.unload then
       topState:unload()
    end
+   
+   local newTopState = self.stateStack[#self.stateStack]
+   if newTopState then
+      newTopState:load()
+   end
    return table.remove(self.stateStack, #self.stateStack)
 end
 
 --- @param state GameState Swap the top of the stack with this state.
 function StateManager:replace(state)
-   assert(state:is(GameState), "state must be a subclass of GameState")
+   assert(state:is(spectrum.GameState), "state must be a subclass of GameState")
 
    local state = self:pop()
    state:unload()

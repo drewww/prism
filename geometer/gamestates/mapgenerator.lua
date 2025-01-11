@@ -1,7 +1,6 @@
-local GeometerState = require "example_srd.gamestates.geometerstate"
-
 --- @class MapGeneratorState : GeometerState
-local MapGeneratorState = GeometerState:extend "MapGeneratorState"
+local MapGeneratorState = geometer.EditorState:extend "MapGeneratorState"
+geometer.MapGeneratorState = MapGeneratorState
 
 ---@param generator fun(mapbuilder: MapBuilder): fun()
 function MapGeneratorState:__new(generator)
@@ -11,7 +10,7 @@ function MapGeneratorState:__new(generator)
    local spriteAtlas = spectrum.SpriteAtlas.fromGrid("example_srd/display/wanderlust_16x16.png", 16, 16)
    local display = spectrum.Display(spriteAtlas, prism.Vector2(16, 16), attachable)
    
-   GeometerState.__new(self, attachable, display)
+   geometer.EditorState.__new(self, attachable, display)
 end
 
 function MapGeneratorState:update(dt)

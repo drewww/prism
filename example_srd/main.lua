@@ -1,5 +1,6 @@
 require "spectrum"
 require "geometer"
+
 prism.loadModule("spectrum")
 prism.loadModule("example_srd")
 prism.loadModule("geometer")
@@ -19,13 +20,15 @@ local sensesSystem = prism.systems.Senses()
 local sightSystem = prism.systems.Sight()
 local level = prism.Level(map, actors, { sensesSystem, sightSystem })
 
-local StateManager = require "example_srd.gamestates.statemanager"
-local LevelState = require "example_srd.gamestates.levelstate"
+local TestGenerator = require "example_srd.generators.test"
+local manager = spectrum.StateManager()
 
-local manager = StateManager()
+local SRDLevelState = require "example_srd.gamestates.srdlevelstate"
+local spriteAtlas = spectrum.SpriteAtlas.fromGrid("example_srd/display/wanderlust_16x16.png", 16, 16)
+local actionHandlers = require "example_srd.display.actionhandlers"
 
 function love.load()
-   manager:push(LevelState(level))
+   manager:push(SRDLevelState(level, spectrum.Display(spriteAtlas, prism.Vector2(16, 16), level), actionHandlers))
 end
 
 function love.draw()

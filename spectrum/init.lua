@@ -13,3 +13,15 @@ spectrum.SpriteAtlas = require "spectrum.spriteatlas"
 
 --- @type Display
 spectrum.Display = require "spectrum.display"
+
+--- @type Keybinding
+spectrum.Keybinding = require "spectrum.keybindings"
+
+--- @type GameStateManager
+spectrum.StateManager = require "spectrum.gamestates.statemanager"
+
+--- @type GameState
+spectrum.GameState = require "spectrum.gamestates.gamestate"
+
+--- @type LevelState
+spectrum.LevelState = require "spectrum.gamestates.levelstate"

@@ -65,8 +65,7 @@ function Erase:draw(display)
    end
 
    local csx, csy = display.cellSize.x, display.cellSize.y
-   local mx, my = display:getCellUnderMouse()
-   local lx, ly, rx, ry = self:getCurrentRect(mx, my)
+   local lx, ly, rx, ry = self:getCurrentRect()
 
    -- Calculate width and height
    local w = (rx - lx + 1) * csx
