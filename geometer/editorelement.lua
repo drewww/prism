@@ -118,7 +118,7 @@ local function Editor(self, scene)
       playButton:render(8 * 2 + 24, 184, 24, 12)
       debugButton:render(8 * 6 + 24, 184, 24, 12)
       tools:render(120, 184, 112, 12)
-      panel:render(232, 0, 88, 184)
+      panel:render(232, 0, 88, 184, depth + 1)
       if filePanel.props.open then
          filePanel:render(0, 200 - (8 * 10), 8 * 12, 8 * 8, depth + 1)
       end

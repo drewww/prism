@@ -102,16 +102,6 @@ end
 ---@param scene Inky.Scene
 ---@return function
 local function Panel(self, scene)
-   self:onPointerEnter(function(_, pointer)
-      pointer:captureElement(self)
-   end)
-
-   self:onPointerExit(function(_, pointer)
-      pointer:captureElement(self, false)
-   end)
-
-   self:onPointer("scroll", function(_, pointer) end)
-
    ---@param placeable Placeable
    local function onSelect(placeable)
       self.props.selected = placeable
@@ -122,6 +112,44 @@ local function Panel(self, scene)
 
       self.props.geometer.placeable = placeable
    end
+
+   ---@return boolean
+   local function isFiltered()
+      return self.props.filter ~= ""
+   end
+
+   ---@return number
+   local function amountShown()
+      return isFiltered() and #self.props.filtered or #self.props.elements
+   end
+
+   self:onPointerEnter(function(_, pointer)
+      pointer:captureElement(self)
+   end)
+
+   self:onPointerExit(function(_, pointer)
+      pointer:captureElement(self, false)
+   end)
+
+   self:onPointer("press", function() end)
+
+   self:onPointer("scroll", function(_, pointer, dx, dy)
+      local max = amountShown()
+      local startRange = self.props.startRange
+      local endRange = self.props.endRange
+
+      if dy < 0 and max > endRange then
+         startRange = startRange + 3
+         endRange = math.min(endRange + 3, max)
+      elseif dy > 0 and startRange > 3 then
+         startRange = startRange - 3
+         local sub = endRange % 3 == 0 and 3 or endRange % 3
+         endRange = endRange - sub
+      end
+
+      self.props.startRange = startRange
+      self.props.endRange = endRange
+   end)
 
    self.props.elements = initialElements(scene, self.props.size, self.props.display, onSelect)
    self.props.startRange = 1
@@ -134,13 +162,14 @@ local function Panel(self, scene)
    local background = love.graphics.newImage("geometer/assets/panel.png")
    local selector = love.graphics.newImage("geometer/assets/selector.png")
    local gridAtlas = spectrum.SpriteAtlas.fromGrid("geometer/assets/grid.png", 7 * 8, 11 * 8)
+   local scrollColor = prism.Color4.fromHex(0x2ce8f5)
 
-   return function(_, x, y, w, h)
+   return function(_, x, y, w, h, depth)
       love.graphics.draw(background, x, y)
 
       local grid = 2
-      local filtered = self.props.filter ~= ""
-      local max = filtered and #self.props.filtered or #self.props.elements
+      local filtered = isFiltered()
+      local max = amountShown()
       if self.props.startRange > 3 then
          if self.props.endRange < max then
             grid = 4
@@ -152,6 +181,19 @@ local function Panel(self, scene)
       end
 
       gridAtlas:drawByIndex(grid, x + 8, y + (8 * 11))
+
+      local bucket
+      if self.props.startRange == 1 then
+         bucket = 1
+      elseif self.props.endRange == max then
+         bucket = 9
+      else
+         local perBucket = amountShown() / 9
+         bucket = ((self.props.startRange + self.props.endRange) / 2) / perBucket
+      end
+      love.graphics.setColor(scrollColor:decompose())
+      love.graphics.rectangle("fill", x + (9 * 8) + 2, y + (8 * (11 + bucket)), 4, 8)
+      love.graphics.setColor(1, 1, 1, 1)
       local column = 1
       local row = 1
       for i = self.props.startRange, self.props.endRange do
@@ -161,7 +203,7 @@ local function Panel(self, scene)
          end
 
          local tileX, tileY = x + (8 * (2 * column)), y + (8 * (11 + row))
-         tile:render(tileX, tileY, 8, 8)
+         tile:render(tileX, tileY, 8, 8, depth + 1)
          if tile.props.placeable == self.props.selected then
             love.graphics.draw(selector, tileX - 8, tileY - 8)
          end
