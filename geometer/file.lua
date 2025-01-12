@@ -38,6 +38,13 @@ local function File(self, scene)
    local saveAsButton = Button(scene)
    saveAsButton.props.tileset = image
    saveAsButton.props.hoveredQuad = quad
+   saveAsButton.props.onPress = function ()
+      love.window.showFileDialog("savefile", function(success, result)
+         if not success then return end
+      end, {
+         title = "Save Prefab",
+      })
+   end
 
    local quitButton = Button(scene)
    quitButton.props.tileset = image
