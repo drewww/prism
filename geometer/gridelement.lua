@@ -29,7 +29,7 @@ end
 ---@field display Display
 ---@field scale Vector2
 ---@field geometer Geometer
----@field attachable GeometerAttachable
+---@field attachable SpectrumAttachable
 
 ---@class EditorGrid : Inky.Element
 ---@field props EditorGridProps

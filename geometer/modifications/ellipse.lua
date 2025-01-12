@@ -13,7 +13,7 @@ function EllipseModification:__new(placeable, center, rx, ry)
    self.rx, self.ry = rx, ry
 end
 
---- @param attachable GeometerAttachable
+--- @param attachable SpectrumAttachable
 function EllipseModification:execute(attachable)
    local cellSet = prism.SparseGrid()
 

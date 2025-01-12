@@ -12,7 +12,7 @@ function Line:__new()
 end
 
 --- @param geometer Geometer
---- @param attachable GeometerAttachable
+--- @param attachable SpectrumAttachable
 --- @param x integer The cell coordinate clicked.
 --- @param y integer The cell coordinate clicked.
 function Line:mouseclicked(geometer, attachable, x, y)
@@ -21,7 +21,7 @@ function Line:mouseclicked(geometer, attachable, x, y)
 end
 
 --- @param geometer Geometer
---- @param attachable GeometerAttachable
+--- @param attachable SpectrumAttachable
 --- @param x integer The cell coordinate clicked.
 --- @param y integer The cell coordinate clicked.
 function Line:mousereleased(geometer, attachable, x, y)

@@ -15,7 +15,7 @@ function LineModification:__new(placeable, topleft, bottomright)
    self.bottomright = bottomright
 end
 
---- @param attachable GeometerAttachable
+--- @param attachable SpectrumAttachable
 function LineModification:execute(attachable)
    local i, j = self.topleft.x, self.topleft.y
    local k, l = self.bottomright.x, self.bottomright.y

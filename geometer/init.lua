@@ -23,20 +23,8 @@ local keybinds = require "geometer.keybindingschema"
 
 ---@alias Placeable Actor|Cell
 
----@class GeometerAttachable : Object
----@field getCell fun(self, x:integer, y:integer): Cell
----@field setCell fun(self, x:integer, y:integer, cell: Cell|nil)
----@field addActor fun(self, actor: Actor)
----@field removeActor fun(self, actor: Actor)
----@field getActorsAt fun(self, x:integer, y:integer)
----@field inBounds fun(self, x: integer, y:integer)
----@field eachActorAt fun(self, x:integer, y:integer): fun()
----@field eachActor fun(self): fun()
----@field eachCell fun(self): fun()
----@field debug boolean
-
 ---@class Geometer : Object
----@field attachable GeometerAttachable
+---@field attachable SpectrumAttachable
 ---@field camera Camera
 ---@field active boolean
 ---@field editor Editor

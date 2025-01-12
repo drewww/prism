@@ -1,6 +1,6 @@
 ---@class Display : Object
 --- Display handles rendering the game world, including cells, actors, and perspectives.
----@field attachable GeometerAttachable The current level being displayed.
+---@field attachable SpectrumAttachable The current level being displayed.
 ---@field spriteAtlas SpriteAtlas The sprite atlas used for rendering graphics.
 ---@field camera Camera The camera used to render the display.
 ---@field dt number Delta time for updates.
@@ -8,10 +8,22 @@
 ---@field override fun(dt: integer, drawnSet: table<Actor,boolean>)|nil
 local Display = prism.Object:extend("Display")
 
+---@class SpectrumAttachable : Object
+---@field getCell fun(self, x:integer, y:integer): Cell
+---@field setCell fun(self, x:integer, y:integer, cell: Cell|nil)
+---@field addActor fun(self, actor: Actor)
+---@field removeActor fun(self, actor: Actor)
+---@field getActorsAt fun(self, x:integer, y:integer)
+---@field inBounds fun(self, x: integer, y:integer)
+---@field eachActorAt fun(self, x:integer, y:integer): fun()
+---@field eachActor fun(self): fun()
+---@field eachCell fun(self): fun()
+---@field debug boolean
+
 --- Initializes a new Display instance.
 ---@param spriteAtlas SpriteAtlas The sprite atlas for rendering.
 ---@param cellSize Vector2 Size of each cell in pixels.
----@param attachable GeometerAttachable Object containing cells and actors to render.
+---@param attachable SpectrumAttachable Object containing cells and actors to render.
 function Display:__new(spriteAtlas, cellSize, attachable)
    self.cellSize = cellSize
    self.attachable = attachable

@@ -9,7 +9,7 @@ local Panel = require "geometer.panel"
 ---@class EditorProps : Inky.Props
 ---@field gridPosition Vector2
 ---@field display Display
----@field attachable GeometerAttachable
+---@field attachable SpectrumAttachable
 ---@field scale Vector2
 ---@field quit boolean
 ---@field geometer Geometer

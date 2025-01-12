@@ -12,7 +12,7 @@ function RectTool:__new()
 end
 
 --- @param geometer Geometer
---- @param attachable GeometerAttachable
+--- @param attachable SpectrumAttachable
 --- @param x integer The cell coordinate clicked.
 --- @param y integer The cell coordinate clicked.
 function RectTool:mouseclicked(geometer, attachable, x, y)
@@ -29,7 +29,7 @@ function RectTool:update(dt, geometer)
 end
 
 --- @param geometer Geometer
---- @param attachable GeometerAttachable
+--- @param attachable SpectrumAttachable
 --- @param x integer The cell coordinate clicked.
 --- @param y integer The cell coordinate clicked.
 function RectTool:mousereleased(geometer, attachable, x, y)

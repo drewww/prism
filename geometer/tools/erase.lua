@@ -11,7 +11,7 @@ function Erase:__new()
 end
 
 --- @param geometer Geometer
---- @param attached GeometerAttachable
+--- @param attached SpectrumAttachable
 --- @param x integer The cell coordinate clicked.
 --- @param y integer The cell coordinate clicked.
 function Erase:mouseclicked(geometer, attached, x, y)
@@ -24,7 +24,7 @@ end
 
 
 --- @param geometer Geometer
---- @param attached GeometerAttachable
+--- @param attached SpectrumAttachable
 --- @param x integer The cell coordinate clicked.
 --- @param y integer The cell coordinate clicked.
 function Erase:mousereleased(geometer, attached, x, y)

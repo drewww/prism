@@ -12,7 +12,7 @@ function PenModification:__new(placeable, locations)
    self.locations = locations
 end
 
---- @param attachable GeometerAttachable
+--- @param attachable SpectrumAttachable
 function PenModification:execute(attachable)
    for x, y in self.locations:each() do
       if self.placeable:is(prism.Actor) then

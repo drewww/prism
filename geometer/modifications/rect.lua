@@ -16,7 +16,7 @@ function RectModification:__new(placeable, topleft, bottomright, fillMode)
    self.fillMode = fillMode
 end
 
---- @param attachable GeometerAttachable
+--- @param attachable SpectrumAttachable
 function RectModification:execute(attachable)
    local i, j = self.topleft.x, self.topleft.y
    local k, l = self.bottomright.x, self.bottomright.y
@@ -50,7 +50,7 @@ function RectModification:execute(attachable)
 end
 
 --- Helper function to place a cell on the boundary
----@param attachable GeometerAttachable
+---@param attachable SpectrumAttachable
 ---@param x number
 ---@param y number
 function RectModification:placeBoundaryCell(attachable, x, y)

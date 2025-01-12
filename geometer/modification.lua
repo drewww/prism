@@ -7,14 +7,14 @@ geometer.Modification = Modification
 
 ---Executes the modification.
 ---Override this method in subclasses to define the behavior of the modification.
----@param attachable GeometerAttachable
+---@param attachable SpectrumAttachable
 function Modification:execute(attachable)
    -- Perform the modification.
 end
 
 ---Undoes the modification.
 ---Override this method in subclasses to define how the modification is undone.
----@param attachable GeometerAttachable
+---@param attachable SpectrumAttachable
 function Modification:undo(attachable)
    if self.placed then
       for _, actor in pairs(self.placed) do
@@ -46,7 +46,7 @@ function Modification:removeActor(level, actor)
    level:removeActor(actor)
 end
 
---- @param attachable GeometerAttachable
+--- @param attachable SpectrumAttachable
 ---@param x integer
 ---@param y integer
 ---@param actorPrototype Actor
@@ -62,7 +62,7 @@ function Modification:placeActor(attachable, x, y, actorPrototype)
    table.insert(self.placed, instance)
 end
 
----@param attachable GeometerAttachable
+---@param attachable SpectrumAttachable
 ---@param x integer
 ---@param y integer
 ---@param cellPrototype Cell

@@ -20,7 +20,7 @@ function Bucket:mouseclicked(geometer, level, cellx, celly)
    self:bucket(level, cellx, celly)
 end
 
---- @param attachable GeometerAttachable
+--- @param attachable SpectrumAttachable
 ---@param x any
 ---@param y any
 function Bucket:bucket(attachable, x, y)

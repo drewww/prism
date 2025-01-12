@@ -4,8 +4,8 @@ local GeometerState = spectrum.GameState:extend "GeometerState"
 geometer.EditorState = GeometerState
 
 --- Create a new Geometer managing gamestate, attached to a
---- GeometerAttachable, this is a Level|MapBuilder interface.
---- @param attachable GeometerAttachable
+--- SpectrumAttachable, this is a Level|MapBuilder interface.
+--- @param attachable SpectrumAttachable
 function GeometerState:__new(attachable, display)
    self.geometer = geometer.Geometer(attachable, display)
 end
