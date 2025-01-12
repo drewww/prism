@@ -48,7 +48,7 @@ function Line:update(dt, geometer)
 end
 
 --- @param display Display
-function Line:draw(display)
+function Line:draw(geometer, display)
    if not self.origin or not self.to then return end
    local csx, csy = display.cellSize.x, display.cellSize.y
 

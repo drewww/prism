@@ -47,7 +47,7 @@ function Bucket:update(dt, geometer)
    self:bucket(geometer.attachable, x, y)
 end
 
-function Bucket:draw(display)
+function Bucket:draw(geometer, display)
    if not self.locations then return end
 
    local csx, csy = display.cellSize.x, display.cellSize.y

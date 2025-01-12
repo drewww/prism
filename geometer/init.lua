@@ -43,6 +43,8 @@ local keybinds = require "geometer.keybindingschema"
 ---@field redoStack Modification[]
 ---@field placeable Placeable|nil
 ---@field tool Tool|nil -- TODO: Default to a tool!
+---@field selectorMode string
+---@field selectorModes table<string, string>
 local Geometer = prism.Object:extend("Geometer")
 geometer.Geometer = Geometer
 
@@ -52,7 +54,14 @@ function Geometer:__new(attachable, display)
    self.active = false
    self.placeable = prism.cells.Wall
    self.tool = geometer.PenTool()
-   print("tool", self.tool)
+   self.fillMode = true
+   self.selectorMode = "any"
+
+   self.selectorModes = {
+      ["any"] = "actor",
+      ["actor"] = "tile",
+      ["tile"] = "any"
+   }
 end
 
 local Inky = require "geometer.inky"
@@ -161,6 +170,10 @@ function Geometer:keypressed(key, scancode)
       self:undo()
    elseif action == "redo" then
       self:redo()
+   elseif action == "fill" then
+      self.fillMode = not self.fillMode
+   elseif action == "mode" then
+      self.selectorMode = self.selectorModes[self.selectorMode]
    end
 end
 

@@ -12,7 +12,7 @@ function Ellipse:mouseclicked(geometer, attachable, x, y)
    self.center = prism.Vector2(x, y)
 end
 
-function Ellipse:draw(display)
+function Ellipse:draw(geometer, display)
    if not self.center then return end
 
    local csx, csy = display.cellSize.x, display.cellSize.y

@@ -1,4 +1,4 @@
--- TODO: Actually test and use this is an example.
+-- TODO: Actually test and use this as an example.
 local RectModification = require "geometer/modifications/rect"
 
 --- @class RectTool : Tool
@@ -36,7 +36,7 @@ function RectTool:mousereleased(geometer, attachable, x, y)
    local lx, ly, rx, ry = self:getCurrentRect()
    if not lx then return end
 
-   local modification = RectModification(geometer.placeable, prism.Vector2(lx, ly), prism.Vector2(rx, ry))
+   local modification = RectModification(geometer.placeable, prism.Vector2(lx, ly), prism.Vector2(rx, ry), geometer.fillMode)
    geometer:execute(modification)
 
    self.origin = nil
@@ -45,7 +45,7 @@ end
 
 --- Returns the four corners of the current rect.
 --- @return number? topleftx
---- @return number? toplefy
+--- @return number? toplefty
 --- @return number? bottomrightx
 --- @return number? bottomrighty
 function RectTool:getCurrentRect()
@@ -63,15 +63,22 @@ function RectTool:getCurrentRect()
 end
 
 --- @param display Display
-function RectTool:draw(display)
+function RectTool:draw(geometer, display)
    local csx, csy = display.cellSize.x, display.cellSize.y
    local lx, ly, rx, ry = self:getCurrentRect()
    if not lx then return end
 
-   -- Calculate width and height
    local w = (rx - lx + 1) * csx
    local h = (ry - ly + 1) * csy
 
-   -- Draw the rectangle
-   love.graphics.rectangle("fill", lx * csx, ly * csy, w, h)
+   if geometer.fillMode then
+      -- Draw filled rectangle
+      love.graphics.rectangle("fill", lx * csx, ly * csy, w, h)
+   else
+      -- Draw four outlines to mimic an outline inside the rectangle
+      love.graphics.rectangle("fill", lx * csx, ly * csy, csx, h) -- Left edge
+      love.graphics.rectangle("fill", rx * csx, ly * csy, csx, h) -- Right edge
+      love.graphics.rectangle("fill", lx * csx, ly * csy, w, csy) -- Top edge
+      love.graphics.rectangle("fill", lx * csx, ry * csy, w, csy) -- Bottom edge
+   end
 end

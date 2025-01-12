@@ -32,7 +32,7 @@ function Erase:mousereleased(geometer, attached, x, y)
       return nil
    end
 
-   local lx, ly, rx, ry = self:getCurrentRect(x, y)
+   local lx, ly, rx, ry = self:getCurrentRect()
    local modification = EraseModification(geometer.placeable, prism.Vector2(lx, ly), prism.Vector2(rx, ry))
    geometer:execute(modification)
 
@@ -59,7 +59,7 @@ function Erase:getCurrentRect()
 end
 
 --- @param display Display
-function Erase:draw(display)
+function Erase:draw(geometer, display)
    if not self.origin then
       return
    end

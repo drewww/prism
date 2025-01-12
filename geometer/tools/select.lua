@@ -15,7 +15,7 @@ end
 function Pen:update(dt, geometer)
 end
 
-function Pen:draw(display)
+function Pen:draw(geometer, display)
 end
 
 function Pen:mousereleased(geometer, level, x, y)

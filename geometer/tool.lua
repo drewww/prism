@@ -12,7 +12,8 @@ end
 
 ---Draws the tool visuals.
 ---@param display Display
-function Tool:draw(display)
+---@param geometer Geometer
+function Tool:draw(geometer, display)
    -- Draw visuals.
 end
 

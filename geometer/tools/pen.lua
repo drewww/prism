@@ -26,7 +26,7 @@ function Pen:update(dt, geometer)
    self.locations:set(x, y, true)
 end
 
-function Pen:draw(display)
+function Pen:draw(geometer, display)
    if not self.locations then return end
 
    local csx, csy = display.cellSize.x, display.cellSize.y
