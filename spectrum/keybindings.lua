@@ -2,73 +2,67 @@
 local Keybinding = prism.Object:extend("Keybinding")
 
 --- Constructor for the Keybinding class.
---- Initializes the keymap and an optional mode system for contextual bindings.
-function Keybinding:__new()
-   self.keymap = {} -- Maps keys to strings
-   self.modes = {} -- Optional modes for contextual bindings
-   self.currentMode = nil -- Current mode, if any
+--- Initializes the keymap and modes with a predefined schema and defaults.
+--- @param schema table A list of predefined keybindings with their schema and defaults.
+function Keybinding:__new(schema)
+   self.schema = {} -- Holds the schema for all modes, including "default"
+   self.keymap = {} -- Stores modifications
+
+   -- Populate the schema with the provided schema entries
+   for _, entry in ipairs(schema) do
+      assert(type(entry.key) == "string", "Schema entry must include a 'key' field of type string.")
+      assert(type(entry.action) == "string", "Schema entry must include an 'action' field of type string.")
+      assert(entry.description == nil or type(entry.description) == "string", 
+             "Description must be a string or nil.")
+
+      local mode = entry.mode or "default"
+      self.schema[mode] = self.schema[mode] or {}
+      self.schema[mode][entry.key] = {
+         action = entry.action,
+         description = entry.description or "No description provided."
+      }
+   end
 end
 
---- Adds a new keybinding to the keymap.
+--- Sets or updates a keybinding, validating it exists in the schema.
 --- @param key string The key to bind.
---- @param value string The string to map the key to.
---- @param mode string|nil An optional mode for the binding.
-function Keybinding:add(key, value, mode)
+--- @param action string The new action to associate with the key.
+--- @param mode string|nil An optional mode for the binding (defaults to "default").
+function Keybinding:set(key, action, mode)
+   mode = mode or "default"
    assert(type(key) == "string", "Key must be a string.")
-   assert(type(value) == "string", "Value must be a string.")
+   assert(type(action) == "string", "Action must be a string.")
 
-   if mode then
-      self.modes[mode] = self.modes[mode] or {}
-      self.modes[mode][key] = value
-   else
-      self.keymap[key] = value
-   end
+   -- Validate that the key exists in the schema
+   local binding = self.schema[mode] and self.schema[mode][key]
+   assert(binding, ("Key '%s' is not a predefined schema entry in mode '%s'."):format(key, mode))
+
+   -- Update the keymap modification
+   self.keymap[mode] = self.keymap[mode] or {}
+   self.keymap[mode][key] = {
+      action = action,
+      description = binding.description -- Retain the original description
+   }
 end
 
---- Removes a keybinding from the keymap.
---- @param key string The key to unbind.
---- @param mode string|nil An optional mode for the binding.
-function Keybinding:remove(key, mode)
-   if mode and self.modes[mode] then
-      self.modes[mode][key] = nil
-   else
-      self.keymap[key] = nil
-   end
-end
-
---- Sets the current mode for keybindings.
---- @param mode string|nil The mode to set. Use nil to disable modes.
-function Keybinding:setMode(mode)
-   assert(mode == nil or self.modes[mode], "Mode does not exist.")
-   self.currentMode = mode
-end
-
---- Handles key press events and retrieves the associated string if a binding exists.
+--- Handles key press events and retrieves the associated action if a binding exists.
+--- Falls back to the schema if no modification is found.
 --- @param key string The key that was pressed.
---- @return string|nil The string associated with the key, or nil if no binding exists.
-function Keybinding:handleKeyPress(key)
-   local value = nil
-
-   if self.currentMode and self.modes[self.currentMode] then
-      value = self.modes[self.currentMode][key]
-   end
-
-   if not value then
-      value = self.keymap[key]
-   end
-
-   return value
+--- @param mode string|nil The mode to use for the keybinding.
+--- @return string|nil The action associated with the key, or nil if no binding exists.
+function Keybinding:keypressed(key, mode)
+   mode = mode or "default"  -- Default mode if none provided
+   local binding = self.keymap[mode] and self.keymap[mode][key] or self.schema[mode] and self.schema[mode][key]
+   return binding and binding.action
 end
 
---- Clears all keybindings, optionally for a specific mode.
---- @param mode string|nil The mode to clear. If nil, clears all bindings.
+--- Resets keybindings for a specific mode or all modes to their defaults.
+--- @param mode string|nil The mode to reset. If nil, resets all modes.
 function Keybinding:clear(mode)
    if mode then
-      self.modes[mode] = nil
+      self.keymap[mode] = nil
    else
       self.keymap = {}
-      self.modes = {}
-      self.currentMode = nil
    end
 end
 

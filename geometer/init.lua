@@ -17,6 +17,9 @@ require "geometer.gamestates.editorstate"
 require "geometer.gamestates.mapgenerator"
 require "geometer.gamestates.prefabeditor"
 
+--- @type Keybinding
+local keybinds = require "geometer.keybindingschema"
+
 ---@alias Placeable Actor|Cell
 
 ---@class GeometerAttachable : Object
@@ -153,9 +156,10 @@ function Geometer:mousemoved(x, y, dx, dy, istouch)
 end
 
 function Geometer:keypressed(key, scancode)
-   if key == "z" then
+   local action = keybinds:keypressed(key)
+   if action == "undo" then
       self:undo()
-   elseif key == "y" then
+   elseif action == "redo" then
       self:redo()
    end
 end
