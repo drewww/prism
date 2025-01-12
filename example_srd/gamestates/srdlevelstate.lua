@@ -103,6 +103,7 @@ function SRDLevelState:keypressed(key, scancode)
 end
 
 function SRDLevelState:mousepressed(x, y, button, istouch, presses)
+   if self.path then return end
    if not self.decision and self.decision.actor then return end
 
    self.path = self:calculatePath(self.decision.actor)
