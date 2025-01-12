@@ -13,6 +13,7 @@ require "geometer.tools.line"
 require "geometer.tools.erase"
 require "geometer.tools.ellipse"
 require "geometer.tools.bucket"
+require "geometer.tools.select"
 require "geometer.gamestates.editorstate"
 require "geometer.gamestates.mapgenerator"
 require "geometer.gamestates.prefabeditor"
@@ -60,14 +61,16 @@ function Geometer:__new(attachable, display)
    self.selectorModes = {
       ["any"] = "actor",
       ["actor"] = "tile",
-      ["tile"] = "any"
+      ["tile"] = "any",
    }
 end
 
 local Inky = require "geometer.inky"
 local Editor = require "geometer.editorelement"
 
+---@type Inky.Scene
 local scene
+---@type Inky.Pointer
 local pointer
 
 local scaler = math.min(love.graphics.getWidth() / 320, love.graphics.getHeight() / 200)
@@ -166,6 +169,9 @@ end
 
 function Geometer:keypressed(key, scancode)
    local action = keybinds:keypressed(key)
+   if action then
+      scene:raise(action, pointer)
+   end
    if action == "undo" then
       self:undo()
    elseif action == "redo" then

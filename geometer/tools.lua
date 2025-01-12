@@ -8,7 +8,7 @@ local Button = require "geometer.button"
 ---@class Tools : Inky.Element
 
 ---@param self Tools
----@param scene any
+---@param scene Inky.Scene
 ---@return function
 local function Tools(self, scene)
    local atlas = spectrum.SpriteAtlas.fromGrid("geometer/assets/tools.png", 8, 10)
@@ -23,15 +23,15 @@ local function Tools(self, scene)
       end
    end
 
-   local paintButton = Button(scene)
-   paintButton.props.unpressedQuad = atlas:getQuadByIndex(1)
-   paintButton.props.pressedQuad = atlas:getQuadByIndex(2)
-   paintButton.props.tileset = atlas.image
-   paintButton.props.toggle = true
-   paintButton.props.onPress = onPress(paintButton, geometer.PenTool)
-   paintButton.props.pressed = true
+   local penButton = Button(scene)
+   penButton.props.unpressedQuad = atlas:getQuadByIndex(1)
+   penButton.props.pressedQuad = atlas:getQuadByIndex(2)
+   penButton.props.tileset = atlas.image
+   penButton.props.toggle = true
+   penButton.props.onPress = onPress(penButton, geometer.PenTool)
+   penButton.props.pressed = true
 
-   self.props.selected = paintButton
+   self.props.selected = penButton
 
    local deleteButton = Button(scene)
    deleteButton.props.unpressedQuad = atlas:getQuadByIndex(3)
@@ -73,10 +73,46 @@ local function Tools(self, scene)
    selectButton.props.pressedQuad = atlas:getQuadByIndex(14)
    selectButton.props.tileset = atlas.image
    selectButton.props.toggle = true
-   selectButton.props.onPress = onPress(selectButton)
+   selectButton.props.onPress = onPress(selectButton, geometer.SelectTool)
+
+   ---@param pointer Inky.Pointer
+   ---@param button Button
+   local function press(pointer, button)
+      pointer:captureElement(button, true)
+      pointer:raise("press")
+      pointer:captureElement(button, false)
+   end
+
+   self:on("pen", function(_, pointer)
+      press(pointer, penButton)
+   end)
+
+   self:on("delete", function(_, pointer)
+      press(pointer, deleteButton)
+   end)
+
+   self:on("rect", function(_, pointer)
+      press(pointer, rectButton)
+   end)
+
+   self:on("oval", function(_, pointer)
+      press(pointer, ovalButton)
+   end)
+
+   self:on("line", function(_, pointer)
+      press(pointer, lineButton)
+   end)
+
+   self:on("bucket", function(_, pointer)
+      press(pointer, fillButton)
+   end)
+
+   self:on("select", function(_, pointer)
+      press(pointer, selectButton)
+   end)
 
    return function(_, x, y, w, h)
-      paintButton:render(x, y, 8, 10)
+      penButton:render(x, y, 8, 10)
       deleteButton:render(x + 8 * 2, y, 8, 10)
       rectButton:render(x + 8 * 4, y, 8, 10)
       ovalButton:render(x + 8 * 6, y, 8, 10)

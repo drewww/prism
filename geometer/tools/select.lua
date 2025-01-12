@@ -1,22 +1,17 @@
-local PenModification = require "geometer.modifications.pen"
-
 ---@class SelectTool : Tool
 ---@field locations SparseGrid
-local Pen = geometer.Tool:extend "PenTool"
-geometer.PenTool = Pen
+local Select = geometer.Tool:extend "SelectTool"
+geometer.SelectTool = Select
 
-Pen.dragging = false
+Select.dragging = false
 
-function Pen:mouseclicked(geometer, level, x, y)
-end
+function Select:mouseclicked(geometer, level, x, y) end
 
 ---@param dt number
 ---@param geometer Geometer
-function Pen:update(dt, geometer)
-end
+function Select:update(dt, geometer) end
 
-function Pen:draw(geometer, display)
-end
+function Select:draw(geometer, display) end
 
-function Pen:mousereleased(geometer, level, x, y)
-end
+function Select:mousereleased(geometer, level, x, y) end
+
