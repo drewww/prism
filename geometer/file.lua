@@ -39,6 +39,7 @@ local function File(self, scene)
    saveAsButton.props.tileset = image
    saveAsButton.props.hoveredQuad = quad
    saveAsButton.props.onPress = function ()
+      ---@diagnostic disable-next-line
       love.window.showFileDialog("savefile", function(success, result)
          if not success then return end
       end, {
