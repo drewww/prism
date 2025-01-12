@@ -1,16 +1,18 @@
 --- @class LevelState : GameState
---- @field decision Decision
---- @field level Level
---- @field display Display
---- @field message ActionMessage
---- @field geometer GeometerState
+--- Represents the state for running a level, including managing the game loop, 
+--- handling decisions, messages, and drawing the interface.
+--- @field decision Decision The current decision being processed, if any.
+--- @field level Level The level object representing the game environment.
+--- @field display Display The display object used for rendering.
+--- @field message ActionMessage The most recent action message.
+--- @field geometer GeometerState An editor state for debugging or managing geometry.
 local LevelState = spectrum.GameState:extend("LevelState")
 
---- This state is passed a Level object and sets up the interface and main loop for
---- the level.
---- @param level Level
----@param display Display
----@param actionHandlers table<fun():fun()>
+--- Constructs a new LevelState.
+--- Sets up the game loop, initializes decision handlers, and binds custom callbacks for drawing.
+--- @param level Level The level object to be managed by this state.
+--- @param display Display The display object for rendering the level.
+--- @param actionHandlers table<fun():fun()> A table of callback generators for handling actions.
 function LevelState:__new(level, display, actionHandlers)
    self.level = level
    self.updateCoroutine = coroutine.create(level.run)
@@ -30,7 +32,8 @@ function LevelState:__new(level, display, actionHandlers)
    self.display.beforeDrawCells = callbackGenerator(self.drawBeforeCells)
 end
 
---- Checks whether the coroutine should advance.
+--- Determines if the coroutine should proceed to the next step.
+--- @return boolean True if the coroutine should advance; false otherwise.
 function LevelState:shouldAdvance()
    local hasDecision = self.decision ~= nil
    local decisionDone = hasDecision and self.decision:validateResponse()
@@ -42,7 +45,9 @@ function LevelState:shouldAdvance()
    return not hasDecision or decisionDone
 end
 
----@param dt number
+--- Updates the state of the level.
+--- Advances the coroutine and processes decisions or messages if necessary.
+--- @param dt number The time delta since the last update.
 function LevelState:update(dt)
    self.time = self.time + dt
    while self:shouldAdvance() do
@@ -63,7 +68,9 @@ function LevelState:update(dt)
    self.display:update(dt)
 end
 
---- @param message any
+--- Handles incoming messages from the coroutine.
+--- Processes decisions, action messages, and debug messages as appropriate.
+--- @param message any The message to handle.
 function LevelState:handleMessage(message)
    if message:is(prism.Decision) then
       ---@cast message Decision
@@ -75,6 +82,8 @@ function LevelState:handleMessage(message)
    end
 end
 
+--- Handles an action message by determining visibility and setting display overrides.
+--- @param message ActionMessage The action message to handle.
 function LevelState:handleActionMessage(message)
    ---@cast message ActionMessage
    local actionproto = getmetatable(message.action)
@@ -92,6 +101,7 @@ function LevelState:handleActionMessage(message)
    self.message = message
 end
 
+--- Draws the current state of the level, including the perspective of relevant actors.
 function LevelState:draw()
    local curActor
    if self.decision then
@@ -120,14 +130,21 @@ function LevelState:draw()
    self.display:drawPerspective(primary, secondary)
 end
 
---- @param dt number
----@param actor Actor
----@param decision ActionDecision
+--- This method is invoked each update when a decision exists 
+--- and its response is not yet valid.. Override this method in subclasses to implement 
+--- custom decision-handling logic. 
+--- @param dt number The time delta since the last update.
+--- @param actor Actor The actor responsible for making the decision.
+--- @param decision ActionDecision The decision being updated.
 function LevelState:updateDecision(dt, actor, decision)
+   -- override in subclasses
 end
 
---- @param display Display
+
+--- Draws content before rendering cells. Override in subclasses for custom behavior.
+--- @param display Display The display object used for drawing.
 function LevelState:drawBeforeCells(display)
+   -- override in subclasses
 end
 
 return LevelState
