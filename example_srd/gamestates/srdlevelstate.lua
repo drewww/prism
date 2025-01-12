@@ -1,6 +1,8 @@
 -- Set up our turn logic.
 require "example_srd.turn"
 
+local keybindings = require "example_srd.keybindingschema"
+
 --- @class SRDLevelState : LevelState
 --- @field path Path
 local SRDLevelState = spectrum.LevelState:extend "SRDLevelState"
@@ -89,15 +91,17 @@ function SRDLevelState:keypressed(key, scancode)
       return
    end
 
+   local action = keybindings:keypressed(key)
+
    local actionDecision = self.decision
    ---@cast actionDecision ActionDecision
    local curActor = actionDecision.actor
-   if key == "space" then
+   if action == "end turn" then
       local endturn = curActor:getAction(prism.actions.EndTurn)
       actionDecision.action = endturn(curActor)
    end
 
-   if key == "`" then
+   if action == "open editor" then
       self.manager:push(self.geometer)
    end
 end
