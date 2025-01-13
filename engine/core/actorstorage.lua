@@ -204,4 +204,13 @@ function ActorStorage:merge(other)
    end
 end
 
+function ActorStorage:onDeserialize()
+   self.insertSparseMapCallback = function () end
+   self.removeSparseMapCallback = function () end
+   
+   for _, actor in pairs(self.actors) do
+      self:insertSparseMapEntries(actor)
+   end
+end
+
 return ActorStorage

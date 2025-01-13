@@ -20,13 +20,13 @@ Actor.name = "actor"
 function Actor:__new()
    self.position = prism.Vector2(1, 1)
 
-   local components = self.components
+   local components = self:initialize()
    self.components = {}
    self.componentCache = {}
    if components then
       for k, component in ipairs(components) do
          component.owner = self
-         self:__addComponent(component:extend(component.className))
+         self:__addComponent(component)
       end
    end
 end
@@ -35,13 +35,10 @@ end
 --- Components
 --
 
---- Initializes the actor's components. Components shouldn't need a reference to the
---- level so this is called in Actor:__new.
---- @param self Actor
-function Actor:initializeComponents()
-   for _, component in ipairs(self.components) do
-      component:initialize(self)
-   end
+--- Creates the components for the actor. Override this.
+--- @return table<Component>
+function Actor:initialize()
+   return {}
 end
 
 --- Adds a component to the actor. This function will check if the component's
@@ -182,4 +179,17 @@ end
 -- @treturn number Returns the calculated range.
 function Actor:getRangeVec(type, vector) return self.position:getRange(type, vector) end
 
+function Actor:onDeserialize()
+   print "Component Cache:"
+   for k,v in pairs(self.componentCache) do
+      print(k.className, prism._OBJECTREGISTRY[k.className].className)
+      print(k == prism._OBJECTREGISTRY[k.className])
+      print(k == prism.components.Drawable)
+      
+      local component = self:getComponent(prism.components.Drawable)
+      for k, v in pairs(component) do
+         print(k, v)
+      end
+   end
+end
 return Actor

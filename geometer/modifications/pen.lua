@@ -3,7 +3,7 @@
 --- @field placed Placeable[]|nil
 --- @field replaced SparseGrid
 --- @field locations SparseGrid
-local PenModification = geometer.Modification:extend "RectModification"
+local PenModification = geometer.Modification:extend "PenModification"
 
 ---@param placeable Placeable
 ---@param locations SparseGrid

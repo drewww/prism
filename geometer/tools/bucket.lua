@@ -3,7 +3,7 @@ local PenModification = require "geometer.modifications.pen"
 ---@field locations SparseGrid
 ---Represents a tool with update, draw, and mouse interaction functionalities.
 ---Tools can respond to user inputs and render visual elements.
-local Bucket = prism.Object:extend("Tool")
+local Bucket = prism.Object:extend("BucketTool")
 geometer.BucketTool = Bucket
 
 --- Begins a paint drag.

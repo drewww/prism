@@ -2,7 +2,7 @@ local EllipseModification = require "geometer.modifications.ellipse"
 
 ---@class EllipseTool : Tool
 ---@field center Vector2
-Ellipse = geometer.Tool:extend "PenTool"
+Ellipse = geometer.Tool:extend "EllipseTool"
 geometer.EllipseTool = Ellipse
 
 function Ellipse:mouseclicked(geometer, attachable, x, y)

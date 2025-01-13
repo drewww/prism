@@ -7,6 +7,7 @@ local Button = require "geometer.button"
 ---@field overlay love.Canvas
 ---@field open boolean
 ---@field justOpen boolean
+---@field editor Geometer
 
 ---@class File : Inky.Element
 ---@field props FileProps
@@ -35,17 +36,68 @@ local function File(self, scene)
    saveButton.props.tileset = image
    saveButton.props.hoveredQuad = quad
 
+   saveButton.props.onPress = function ()
+      ---@diagnostic disable-next-line
+      love.window.showFileDialog("openfile", function(success)
+         if not success then return end
+         
+         local result = success[1] -- Assuming success contains a list of selected files
+         -- Open the file in read mode and read its content
+         local file, err = io.open(result, "rb") -- Open in binary mode to handle compressed data
+         if file then
+            local compressed = file:read("*a") -- Read the entire file content
+            file:close()
+   
+            -- Decompress the content
+            local ok, json = pcall(function()
+               return love.data.decompress("string", "lz4", compressed)
+            end)
+   
+            if ok and json then
+               -- Deserialize the JSON content and apply it to the editor
+               local data = prism.json.decode(json)
+               self.props.editor.attachable = prism.Object.deserialize(data)
+               self.props.editor.display.attachable = self.props.editor.attachable
+               print("File loaded successfully from: " .. result)
+            else
+               print("Failed to decompress or parse file.")
+            end
+         else
+            print("Failed to open file: " .. err)
+         end
+      end, {
+         title = "Open Prefab",
+      })
+   end
+   
    local saveAsButton = Button(scene)
    saveAsButton.props.tileset = image
    saveAsButton.props.hoveredQuad = quad
    saveAsButton.props.onPress = function ()
+      print(love.filesystem.getSourceBaseDirectory())
       ---@diagnostic disable-next-line
-      love.window.showFileDialog("savefile", function(success, result)
+      love.window.showFileDialog("savefile", function(success)
          if not success then return end
+         
+         local result = success[1]
+         -- Open the file in write mode and write some content
+         local file, err = io.open(result, "w")
+         if file then
+            local json = prism.json.encode(prism.Object.serialize(self.props.editor.attachable))
+            local compressed = love.data.compress("string", "lz4", json)
+
+            ---@diagnostic disable-next-line
+            file:write(compressed)
+            file:close()
+         else
+            print("Failed to save file: " .. err)
+         end
       end, {
          title = "Save Prefab",
+         directory = love.filesystem.getSourceBaseDirectory()
       })
    end
+   
 
    local quitButton = Button(scene)
    quitButton.props.tileset = image

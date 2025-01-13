@@ -41,6 +41,7 @@ local function Editor(self, scene)
    fileButton.props.toggle = true
    fileButton.props.onPress = function()
       filePanel.props.open = "true"
+      filePanel.props.editor = self.props.geometer
       filePanel.props.justOpen = true
    end
 

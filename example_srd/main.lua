@@ -19,6 +19,8 @@ local map, actors = mapbuilder:build()
 local sensesSystem = prism.systems.Senses()
 local sightSystem = prism.systems.Sight()
 local level = prism.Level(map, actors, { sensesSystem, sightSystem })
+level = prism.Object.serialize(level)
+level = prism.Object.deserialize(level)
 
 local TestGenerator = require "example_srd.generators.test"
 local manager = spectrum.StateManager()

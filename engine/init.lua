@@ -5,7 +5,7 @@ prism.path = ...
 
 function prism.require(p) return require(table.concat({ prism.path, p }, ".")) end
 
---prism.json = prism.require "lib/json"
+prism.json = prism.require "lib/json"
 
 --- @type boolean
 prism._initialized = false
@@ -140,9 +140,6 @@ prism.components.Collider = prism.require "core.components.collider"
 
 --- @type ControllerComponent
 prism.components.Controller = prism.require "core.components.controller"
-
---- @type BTControllerComponent
-prism.components.BTController = prism.require "core.components.btcontroller"
 
 --- @type PlayerControllerComponent
 prism.components.PlayerController = prism.require "core.components.player_controller"

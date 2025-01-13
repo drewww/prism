@@ -4,7 +4,7 @@ local LineModification = require "geometer/modifications/line"
 --- @class LineTool : Tool
 --- @field origin Vector2
 --- @field to Vector2
-Line = geometer.Tool:extend "Line"
+Line = geometer.Tool:extend "LineTool"
 geometer.LineTool = Line
 
 function Line:__new()

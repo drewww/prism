@@ -35,7 +35,7 @@ function SRDLevelState:updateDecision(dt, actor, decision)
    end
 end
 
-function  SRDLevelState:calculatePath(actor)
+function SRDLevelState:calculatePath(actor)
    local passableCallback = function (x, y)
       local sensesComponent = actor:getComponent(prism.components.Senses)
       if not sensesComponent then return false end
