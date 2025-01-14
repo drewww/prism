@@ -65,7 +65,7 @@ end
 ---@param attachable SpectrumAttachable
 ---@param x integer
 ---@param y integer
----@param cellPrototype Cell
+---@param cellPrototype Cell|nil
 function Modification:placeCell(attachable, x, y, cellPrototype)
    if not self.replaced then self.replaced = prism.SparseGrid() end
    

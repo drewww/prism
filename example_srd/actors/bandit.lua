@@ -11,7 +11,7 @@ function Bandit:initialize()
    return {
       prism.components.Drawable(string.byte("b") + 1),
       prism.components.Collider(),
-      prism.components.BanditController(BanditBehavior),
+      prism.components.BanditController(),
       prism.components.Senses(),
       prism.components.Sight { range = 64, fov = true },
       prism.components.SRDStats {
