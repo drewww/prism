@@ -26,6 +26,11 @@ function ActorStorage:__new(insertSparseMapCallback, removeSparseMapCallback)
    self.removeSparseMapCallback = removeSparseMapCallback or function() end
 end
 
+function ActorStorage:setCallbacks(insertCallback, removeCallback)
+   self.insertSparseMapCallback = insertCallback or function() end
+   self.removeSparseMapCallback = removeCallback or function() end
+end
+
 --- Adds an actor to the storage, updating the spatial map and component cache.
 --- @param actor Actor The actor to add.
 function ActorStorage:addActor(actor)
@@ -205,9 +210,7 @@ function ActorStorage:merge(other)
 end
 
 function ActorStorage:onDeserialize()
-   self.insertSparseMapCallback = function () end
-   self.removeSparseMapCallback = function () end
-   
+   self:setCallbacks(self.insertSparseMapCallback, self.removeSparseMapCallback)
    for _, actor in pairs(self.actors) do
       self:insertSparseMapEntries(actor)
    end

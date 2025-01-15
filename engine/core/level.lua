@@ -470,4 +470,8 @@ function Level:sparseMapCallback()
    end
 end
 
+function Level:onDeserialize()
+   self.actorStorage:setCallbacks(self:sparseMapCallback(), self:sparseMapCallback())
+end
+
 return Level
