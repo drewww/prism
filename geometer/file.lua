@@ -6,7 +6,6 @@ local Button = require "geometer.button"
 ---@field name string
 ---@field overlay love.Canvas
 ---@field open boolean
----@field justOpen boolean
 ---@field editor Geometer
 
 ---@class File : Inky.Element
@@ -15,12 +14,18 @@ local Button = require "geometer.button"
 ---@param self File
 ---@param scene Inky.Scene
 local function File(self, scene)
-   self.props.name = ""
-   self.props.open = false
-   self.props.justOpen = false
+   self.props.name = self.props.name or ""
+   self.props.open = self.props.open or false
 
-   self:onDisable(function()
+   ---@param pointer Inky.Pointer
+   local function close(pointer)
+      self.props.open = false
+      pointer:captureElement(self, false)
       scene:raise("closeFile")
+   end
+
+   self:onPointer("press", function(_, pointer)
+      if not pointer:doesOverlapElement(self) then close(pointer) end
    end)
 
    local image = love.graphics.newImage("geometer/assets/filebutton.png")
@@ -28,31 +33,30 @@ local function File(self, scene)
    local newButton = Button(scene)
    newButton.props.tileset = image
    newButton.props.hoveredQuad = quad
-   newButton.props.onPress = function()
-      self.props.open = false
+   newButton.props.onPress = function(pointer)
+      close(pointer)
    end
 
-   local saveButton = Button(scene)
-   saveButton.props.tileset = image
-   saveButton.props.hoveredQuad = quad
-
-   saveButton.props.onPress = function ()
+   local openButton = Button(scene)
+   openButton.props.tileset = image
+   openButton.props.hoveredQuad = quad
+   openButton.props.onPress = function(pointer)
       ---@diagnostic disable-next-line
       love.window.showFileDialog("openfile", function(success)
          if not success then return end
-         
+
          local result = success[1] -- Assuming success contains a list of selected files
          -- Open the file in read mode and read its content
          local file, err = io.open(result, "rb") -- Open in binary mode to handle compressed data
          if file then
             local compressed = file:read("*a") -- Read the entire file content
             file:close()
-   
+
             -- Decompress the content
             local ok, json = pcall(function()
                return love.data.decompress("string", "lz4", compressed)
             end)
-   
+
             if ok and json then
                -- Deserialize the JSON content and apply it to the editor
                local data = prism.json.decode(json)
@@ -68,17 +72,26 @@ local function File(self, scene)
       end, {
          title = "Open Prefab",
       })
+
+      close(pointer)
    end
-   
+
+   local saveButton = Button(scene)
+   saveButton.props.tileset = image
+   saveButton.props.hoveredQuad = quad
+   saveButton.props.onPress = function(pointer)
+      close(pointer)
+   end
+
    local saveAsButton = Button(scene)
    saveAsButton.props.tileset = image
    saveAsButton.props.hoveredQuad = quad
-   saveAsButton.props.onPress = function ()
+   saveAsButton.props.onPress = function(pointer)
       print(love.filesystem.getSourceBaseDirectory())
       ---@diagnostic disable-next-line
       love.window.showFileDialog("savefile", function(success)
          if not success then return end
-         
+
          local result = success[1]
          -- Open the file in write mode and write some content
          local file, err = io.open(result, "w")
@@ -94,10 +107,11 @@ local function File(self, scene)
          end
       end, {
          title = "Save Prefab",
-         directory = love.filesystem.getSourceBaseDirectory()
+         directory = love.filesystem.getSourceBaseDirectory(),
       })
+
+      close(pointer)
    end
-   
 
    local quitButton = Button(scene)
    quitButton.props.tileset = image
@@ -106,7 +120,7 @@ local function File(self, scene)
       love.event.quit()
    end
 
-   local image = love.graphics.newImage("geometer/assets/file.png")
+   local background = love.graphics.newImage("geometer/assets/file.png")
    local font =
       love.graphics.newFont("geometer/assets/FROGBLOCK-Polyducks.ttf", 8 * (math.floor(self.props.scale.x) - 1))
    local size = 8 * self.props.scale.x
@@ -114,8 +128,9 @@ local function File(self, scene)
 
    return function(_, x, y, w, h)
       local tileY = y / 8
-      love.graphics.draw(image, x, y)
-      newButton:render(x + 8, y + 8 * 2, 80, 8)
+      love.graphics.draw(background, x, y)
+      newButton:render(x + 8, y + 8, 80, 8)
+      openButton:render(x + 8, y + 8 * 2, 80, 8)
       saveButton:render(x + 8, y + 8 * 3, 80, 8)
       saveAsButton:render(x + 8, y + 8 * 4, 80, 8)
       quitButton:render(x + 8, y + 8 * 6, 80, 8)
@@ -125,14 +140,13 @@ local function File(self, scene)
       love.graphics.setCanvas(self.props.overlay)
       love.graphics.scale(1, 1)
       love.graphics.setColor(1, 1, 1, 1)
-      love.graphics.print("NEW", x + size + pad, (tileY + 2) * size + pad)
+      love.graphics.print("NEW", x + size + pad, (tileY + 1) * size + pad)
+      love.graphics.print("OPEN", x + size + pad, (tileY + 2) * size + pad)
       love.graphics.print("SAVE", x + size + pad, (tileY + 3) * size + pad)
       love.graphics.print("SAVE AS", x + size + pad, (tileY + 4) * size + pad)
       love.graphics.print(self.props.name, x + size + pad, (tileY + 5) * size + pad)
       love.graphics.print("QUIT", x + size + pad, (tileY + 6) * size + pad)
       love.graphics.pop()
-
-      self.props.justOpen = false
    end
 end
 
