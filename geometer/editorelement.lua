@@ -39,10 +39,12 @@ local function Editor(self, scene)
    fileButton.props.unpressedQuad = atlas:getQuadByIndex(1)
    fileButton.props.pressedQuad = atlas:getQuadByIndex(2)
    fileButton.props.toggle = true
-   fileButton.props.onPress = function()
-      filePanel.props.open = "true"
+   fileButton.props.disabled = false
+   fileButton.props.disabledQuad = atlas:getQuadByIndex(11)
+   fileButton.props.onPress = function(pointer)
+      filePanel.props.open = true
       filePanel.props.editor = self.props.geometer
-      filePanel.props.justOpen = true
+      pointer:captureElement(filePanel, true)
    end
 
    local playButton = Button(scene)
@@ -92,15 +94,6 @@ local function Editor(self, scene)
       fileButton.props.pressed = false
    end)
 
-   local function toggleFilePanel(_, pointer)
-      if filePanel.props.open and not filePanel.props.justOpen and not pointer:doesOverlapElement(filePanel) then
-         filePanel.props.open = false
-      end
-   end
-
-   self:onPointer("press", toggleFilePanel)
-   self:onPointerInHierarchy("press", toggleFilePanel)
-
    local background = prism.Color4.fromHex(0x181425)
    return function(_, x, y, w, h, depth)
       love.graphics.push("all")
@@ -120,9 +113,7 @@ local function Editor(self, scene)
       debugButton:render(8 * 6 + 24, 184, 24, 12)
       tools:render(120, 184, 112, 12)
       panel:render(232, 0, 88, 184, depth + 1)
-      if filePanel.props.open then
-         filePanel:render(0, 200 - (8 * 10), 8 * 12, 8 * 8, depth + 1)
-      end
+      if filePanel.props.open then filePanel:render(0, 200 - (8 * 10), 8 * 12, 8 * 8, depth + 1) end
       love.graphics.setCanvas()
 
       grid:render(
