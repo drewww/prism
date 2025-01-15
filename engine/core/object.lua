@@ -4,6 +4,7 @@ prism._ISCLASS = {}
 --- A simple class system for Lua. This is the base class for all other classes in PRISM.
 ---@class Object
 ---@field className string A unique name for this class. By convention this should match the annotation name you use.
+---@field serializationBlacklist table<string, boolean>
 local Object = {}
 Object.className = "Object"
 Object.stripName = true
@@ -242,7 +243,6 @@ function Object.deserialize(data)
    -- Helper function to resolve references
    local function resolveValue(value)
       if type(value) == "table" and value.prototype then
-         print("YER", value.prototype, prism._OBJECTREGISTRY[value.prototype].className)
          return prism._OBJECTREGISTRY[value.prototype]
       end
       if type(value) == "table" and value.ref then

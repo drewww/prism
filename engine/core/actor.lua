@@ -179,17 +179,4 @@ end
 -- @treturn number Returns the calculated range.
 function Actor:getRangeVec(type, vector) return self.position:getRange(type, vector) end
 
-function Actor:onDeserialize()
-   print "Component Cache:"
-   for k,v in pairs(self.componentCache) do
-      print(k.className, prism._OBJECTREGISTRY[k.className].className)
-      print(k == prism._OBJECTREGISTRY[k.className])
-      print(k == prism.components.Drawable)
-      
-      local component = self:getComponent(prism.components.Drawable)
-      for k, v in pairs(component) do
-         print(k, v)
-      end
-   end
-end
 return Actor

@@ -99,12 +99,40 @@ function SRDLevelState:keypressed(key, scancode)
    if action == "end turn" then
       local endturn = curActor:getAction(prism.actions.EndTurn)
       actionDecision.action = endturn(curActor)
-   end
-
-   if action == "open editor" then
+   elseif action == "open editor" then
       self.manager:push(self.geometer)
+   elseif action == "save" then
+      -- Save the serialized level to a file
+      local serialized = prism.json.encode(prism.Object.serialize(self.level))
+      local file, err = love.filesystem.newFile("savefile.sav", "w")
+      if file then
+         file:write(serialized)
+         file:close()
+         print("Game saved successfully.")
+      else
+         print("Failed to save game:", err)
+      end
+   elseif action == "load" then
+      -- Load the serialized level from a file
+      if love.filesystem.getInfo("savefile.sav") then
+         local file = love.filesystem.read("savefile.sav")
+         local deserialized = prism.Object.deserialize(prism.json.decode(file))
+         if deserialized then
+            self.level = deserialized
+            self.display.attachable = deserialized
+            self.geometer.geometer.attachable = deserialized
+            self.updateCoroutine = coroutine.create(self.level.run)
+            self.decision = nil
+            print("Game loaded successfully.")
+         else
+            print("Failed to load game: Deserialization error.")
+         end
+      else
+         print("No save file found to load.")
+      end
    end
 end
+
 
 function SRDLevelState:mousepressed(x, y, button, istouch, presses)
    if self.path then return end

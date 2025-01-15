@@ -6,6 +6,11 @@
 --- @type Map
 local Map = prism.Grid:extend("Map")
 
+Map.serializationBlacklist = {
+   opacityCache = true,
+   passableCache = true,
+}
+
 --- The constructor for the 'Map' class.
 --- Initializes the map with the specified dimensions and initial value, and sets up the opacity caches.
 --- @param w number The width of the map.
@@ -57,6 +62,16 @@ end
 --- @return boolean True if the cell is opaque, false otherwise.
 function Map:getCellOpaque(x, y)
    return self.opacityCache:get(x, y)
+end
+
+function Map:onDeserialize()
+   local w, h = self.w, self.h
+   self.opacityCache = prism.BooleanBuffer(w, h)
+   self.passableCache = prism.BooleanBuffer(w, h)
+
+   for x, y, _ in self:each() do
+      self:updateCaches(x, y)
+   end
 end
 
 return Map

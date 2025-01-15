@@ -33,7 +33,7 @@ function LevelState:__new(level, display, actionHandlers)
 end
 
 --- Determines if the coroutine should proceed to the next step.
---- @return boolean True if the coroutine should advance; false otherwise.
+--- @return boolean|nil shouldAdvance True if the coroutine should advance; false otherwise.
 function LevelState:shouldAdvance()
    local hasDecision = self.decision ~= nil
    local decisionDone = hasDecision and self.decision:validateResponse()

@@ -12,6 +12,11 @@
 --- @type Level
 local Level = prism.Object:extend("Level")
 
+Level.serializationBlacklist = {
+   opacityCache = true,
+   passableCache = true
+}
+
 --- Constructor for the Level class.
 --- @param map Map The map to use for the level.
 --- @param actors [Actor] A list of actors to
@@ -56,6 +61,10 @@ end
 --- back to the main thread when it needs to wait for input from the player.
 --- This function is the heart of the game loop.
 function Level:run()
+   if self.decision then
+      self:yield(self.decision)
+   end
+
    while not self.scheduler:empty() do
       self:step()
    end
@@ -79,11 +88,15 @@ end
 --- Yields to the main 'thread', a coroutine in this case. This is called in run, and a few systems. Any time you want
 --- the interface to update you should call this. Avoid calling coroutine.yield directly,
 --- as this function will call the onYield method on all systems.
---- @param message table<Message>
+--- @param message Message
 --- @return Decision|nil
 function Level:yield(message)
    self.systemManager:onYield(self, message)
+   if message:is(prism.Decision) then
+      self.decision = message
+   end
    local _, ret = coroutine.yield(message)
+   self.decision = nil
    return ret
 end
 
@@ -472,6 +485,15 @@ end
 
 function Level:onDeserialize()
    self.actorStorage:setCallbacks(self:sparseMapCallback(), self:sparseMapCallback())
+
+   local w, h = self.map.w, self.map.h
+   self.opacityCache = prism.BooleanBuffer(w, h)
+   self.passableCache = prism.BooleanBuffer(w, h)
+   
+   self.map:onDeserialize()
+   for x, y, _ in self.map:each() do
+      self:updateCaches(x, y)
+   end
 end
 
 return Level
