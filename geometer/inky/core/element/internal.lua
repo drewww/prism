@@ -200,7 +200,6 @@ end
 ---@param eventName string
 ---@param ... any
 ---@return boolean accepted
----@nodiscard
 function Internal:raiseOn(eventName, ...)
 	local callbacks = self._onCallbacks[eventName]
 	if (callbacks) then
@@ -233,7 +232,6 @@ end
 ---@param pointer Inky.Pointer
 ---@param ... any
 ---@return boolean accepted
----@nodiscard
 function Internal:raiseOnPointerInHierarchy(eventName, pointer, ...)
 	local callbacks = self._onPointerInHierarchyCallbacks[eventName]
 	if (callbacks) then
@@ -247,7 +245,6 @@ end
 
 ---@param pointer Inky.Pointer
 ---@return boolean accepted
----@nodiscard
 function Internal:raisePointerEnter(pointer)
 	for _, callback in ipairs(self._onPointerEnterCallbacks) do
 		callback(self._element, pointer)
@@ -257,7 +254,6 @@ end
 
 ---@param pointer Inky.Pointer
 ---@return boolean accepted
----@nodiscard
 function Internal:raisePointerExit(pointer)
 	for _, callback in ipairs(self._onPointerExitCallbacks) do
 		callback(self._element, pointer)
@@ -266,7 +262,6 @@ function Internal:raisePointerExit(pointer)
 end
 
 ---@return boolean accepted
----@nodiscard
 function Internal:raiseEnable()
 	for _, callback in ipairs(self._onEnableCallbacks) do
 		callback(self._element)
