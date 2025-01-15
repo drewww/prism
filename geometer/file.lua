@@ -42,10 +42,10 @@ local function File(self, scene)
    openButton.props.hoveredQuad = quad
    openButton.props.onPress = function(pointer)
       ---@diagnostic disable-next-line
-      love.window.showFileDialog("openfile", function(success)
-         if not success then return end
+      love.window.showFileDialog("openfile", function(result)
+         if not result[1] then return end
 
-         local result = success[1] -- Assuming success contains a list of selected files
+         result = result[1] -- Assuming success contains a list of selected files
          -- Open the file in read mode and read its content
          local file, err = io.open(result, "rb") -- Open in binary mode to handle compressed data
          if file then
@@ -89,10 +89,10 @@ local function File(self, scene)
    saveAsButton.props.onPress = function(pointer)
       print(love.filesystem.getSourceBaseDirectory())
       ---@diagnostic disable-next-line
-      love.window.showFileDialog("savefile", function(success)
-         if not success then return end
+      love.window.showFileDialog("savefile", function(result)
+         if not result[1] then return end
 
-         local result = success[1]
+         result = result[1]
          -- Open the file in write mode and write some content
          local file, err = io.open(result, "w")
          if file then
