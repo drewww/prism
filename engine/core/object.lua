@@ -158,7 +158,6 @@ function Object.serialize(object)
    -- Helper function to serialize a single value
    local function serializeValue(v)
       if prism._ISCLASS[v] then
-         print(v.className)
          return {prototype = prism._ISCLASS[v]}
       end
       if type(v) == "table" then
