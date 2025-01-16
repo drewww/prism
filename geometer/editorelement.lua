@@ -39,7 +39,7 @@ local function Editor(self, scene)
    fileButton.props.unpressedQuad = atlas:getQuadByIndex(1)
    fileButton.props.pressedQuad = atlas:getQuadByIndex(2)
    fileButton.props.toggle = true
-   fileButton.props.disabled = false
+   fileButton.props.disabled = not self.props.geometer.fileEnabled
    fileButton.props.disabledQuad = atlas:getQuadByIndex(11)
    fileButton.props.onPress = function(pointer)
       filePanel.props.open = true

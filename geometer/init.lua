@@ -34,10 +34,12 @@ local keybinds = require "geometer.keybindingschema"
 ---@field tool Tool|nil -- TODO: Default to a tool!
 ---@field selectorMode string
 ---@field selectorModes table<string, string>
+---@field filepath string|nil
+---@field fileEnabled boolean
 local Geometer = prism.Object:extend("Geometer")
 geometer.Geometer = Geometer
 
-function Geometer:__new(attachable, display)
+function Geometer:__new(attachable, display, fileEnabled)
    self.attachable = attachable
    self.display = display
    self.active = false
@@ -45,7 +47,7 @@ function Geometer:__new(attachable, display)
    self.tool = geometer.PenTool()
    self.fillMode = true
    self.selectorMode = "any"
-
+   self.fileEnabled = fileEnabled or false
    self.selectorModes = {
       ["any"] = "actor",
       ["actor"] = "tile",

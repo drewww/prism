@@ -6,8 +6,8 @@ geometer.EditorState = GeometerState
 --- Create a new Geometer managing gamestate, attached to a
 --- SpectrumAttachable, this is a Level|MapBuilder interface.
 --- @param attachable SpectrumAttachable
-function GeometerState:__new(attachable, display)
-   self.geometer = geometer.Geometer(attachable, display)
+function GeometerState:__new(attachable, display, fileEnabled)
+   self.geometer = geometer.Geometer(attachable, display, fileEnabled)
 end
 
 function GeometerState:load()

@@ -24,6 +24,24 @@ local function File(self, scene)
       scene:raise("closeFile")
    end
 
+   local function savedialog(result)
+      if not result[1] then return end
+
+      result = result[1]
+      -- Open the file in write mode and write some content
+      local file, err = io.open(result, "w")
+      if file then
+         local json = prism.json.encode(prism.Object.serialize(self.props.editor.attachable))
+         local compressed = love.data.compress("string", "lz4", json)
+
+         ---@diagnostic disable-next-line
+         file:write(compressed)
+         file:close()
+      else
+         print("Failed to save file: " .. err)
+      end
+   end
+
    self:onPointer("press", function(_, pointer)
       if not pointer:doesOverlapElement(self) then close(pointer) end
    end)
@@ -62,6 +80,7 @@ local function File(self, scene)
                local data = prism.json.decode(json)
                self.props.editor.attachable = prism.Object.deserialize(data)
                self.props.editor.display.attachable = self.props.editor.attachable
+               self.props.editor.filepath = result
                print("File loaded successfully from: " .. result)
             else
                print("Failed to decompress or parse file.")
@@ -80,6 +99,28 @@ local function File(self, scene)
    saveButton.props.tileset = image
    saveButton.props.hoveredQuad = quad
    saveButton.props.onPress = function(pointer)
+      if not self.props.editor.filepath then
+         if not self.props.editor.filepath then
+            --- @diagnostic disable-next-line
+            love.window.showFileDialog("savefile", savedialog, {
+               title = "Save Prefab",
+               directory = love.filesystem.getSourceBaseDirectory(),
+            })
+         else
+            -- Open the file in write mode and write some content
+            local file, err = io.open(self.props.editor.filepath, "w")
+            if file then
+               local json = prism.json.encode(prism.Object.serialize(self.props.editor.attachable))
+               local compressed = love.data.compress("string", "lz4", json)
+      
+               ---@diagnostic disable-next-line
+               file:write(compressed)
+               file:close()
+            else
+               print("Failed to save file: " .. err)
+            end
+         end
+      end
       close(pointer)
    end
 
@@ -89,23 +130,7 @@ local function File(self, scene)
    saveAsButton.props.onPress = function(pointer)
       print(love.filesystem.getSourceBaseDirectory())
       ---@diagnostic disable-next-line
-      love.window.showFileDialog("savefile", function(result)
-         if not result[1] then return end
-
-         result = result[1]
-         -- Open the file in write mode and write some content
-         local file, err = io.open(result, "w")
-         if file then
-            local json = prism.json.encode(prism.Object.serialize(self.props.editor.attachable))
-            local compressed = love.data.compress("string", "lz4", json)
-
-            ---@diagnostic disable-next-line
-            file:write(compressed)
-            file:close()
-         else
-            print("Failed to save file: " .. err)
-         end
-      end, {
+      love.window.showFileDialog("savefile", savedialog, {
          title = "Save Prefab",
          directory = love.filesystem.getSourceBaseDirectory(),
       })
