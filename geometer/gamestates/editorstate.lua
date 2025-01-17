@@ -46,4 +46,8 @@ function GeometerState:keypressed(key, scancode)
    self.geometer:keypressed(key, scancode)
 end
 
+function GeometerState:textinput(text)
+   self.geometer:textinput(text)
+end
+
 return GeometerState

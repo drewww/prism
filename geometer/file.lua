@@ -112,7 +112,7 @@ local function File(self, scene)
             if file then
                local json = prism.json.encode(prism.Object.serialize(self.props.editor.attachable))
                local compressed = love.data.compress("string", "lz4", json)
-      
+
                ---@diagnostic disable-next-line
                file:write(compressed)
                file:close()

@@ -1,6 +1,4 @@
-if not spectrum then
-   error("Geometer depends on spectrum!")
-end
+if not spectrum then error("Geometer depends on spectrum!") end
 
 geometer = {}
 
@@ -86,6 +84,7 @@ function Geometer:startEditing()
    self.tool = getmetatable(self.tool)()
 
    self.attachable.debug = false
+   love.keyboard.setKeyRepeat(true)
 end
 
 function Geometer:update(dt)
@@ -111,9 +110,7 @@ function Geometer:execute(modification)
 end
 
 function Geometer:undo()
-   if #self.undoStack == 0 then
-      return
-   end
+   if #self.undoStack == 0 then return end
 
    local modification = table.remove(self.undoStack, #self.undoStack)
    modification:undo(self.attachable)
@@ -121,9 +118,7 @@ function Geometer:undo()
 end
 
 function Geometer:redo()
-   if #self.redoStack == 0 then
-      return
-   end
+   if #self.redoStack == 0 then return end
 
    local modification = table.remove(self.redoStack, #self.redoStack)
    modification:execute(self.attachable)
@@ -139,15 +134,11 @@ function Geometer:draw()
 end
 
 function Geometer:mousereleased(x, y, button)
-   if button == 1 then
-      pointer:raise("release")
-   end
+   if button == 1 then pointer:raise("release") end
 end
 
 function Geometer:mousepressed(x, y, button)
-   if button == 1 then
-      pointer:raise("press")
-   end
+   if button == 1 then pointer:raise("press") end
 end
 
 function Geometer:mousemoved(x, y, dx, dy, istouch)
@@ -159,9 +150,7 @@ end
 
 function Geometer:keypressed(key, scancode)
    local action = keybinds:keypressed(key)
-   if action then
-      scene:raise(action, pointer)
-   end
+   if action then scene:raise(action, pointer) end
    if action == "undo" then
       self:undo()
    elseif action == "redo" then
@@ -171,6 +160,10 @@ function Geometer:keypressed(key, scancode)
    elseif action == "mode" then
       self.selectorMode = self.selectorModes[self.selectorMode]
    end
+end
+
+function Geometer:textinput(text)
+   pointer:raise("textinput", text)
 end
 
 function Geometer:wheelmoved(dx, dy)

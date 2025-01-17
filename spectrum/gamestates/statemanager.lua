@@ -63,6 +63,13 @@ function StateManager:keypressed(key, scancode)
    end
 end
 
+function StateManager:textinput(text)
+   local topState = self.stateStack[#self.stateStack]
+   if topState and topState.textinput then
+      topState:textinput(text)
+   end
+end
+
 function StateManager:mousepressed(x, y, button, istouch, presses)
    local topState = self.stateStack[#self.stateStack]
    if topState and topState.mousepressed then

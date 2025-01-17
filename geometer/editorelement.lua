@@ -89,6 +89,7 @@ local function Editor(self, scene)
    panel.props.display = self.props.display
    panel.props.size = prism.Vector2(self.props.scale.x * 8, self.props.scale.y * 8)
    panel.props.geometer = self.props.geometer
+   panel.props.overlay = overlay
 
    self:on("closeFile", function()
       fileButton.props.pressed = false
