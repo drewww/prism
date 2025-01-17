@@ -61,8 +61,11 @@ end
 --- back to the main thread when it needs to wait for input from the player.
 --- This function is the heart of the game loop.
 function Level:run()
+   -- TODO: Fix this
    if self.decision then
-      prism.turn(self, self.decision.actor, self:getActorController(self.decision.actor))
+      local actor = self.decision.actor
+      prism.turn(self, actor, self:getActorController(actor))
+      self.systemManager:onTurnEnd(self, actor)
    end
 
    while not self.scheduler:empty() do
