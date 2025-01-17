@@ -62,7 +62,7 @@ end
 --- This function is the heart of the game loop.
 function Level:run()
    if self.decision then
-      self:yield(self.decision)
+      prism.turn(self, self.decision.actor, self:getActorController(self.decision.actor))
    end
 
    while not self.scheduler:empty() do
