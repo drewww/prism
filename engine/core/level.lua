@@ -7,6 +7,7 @@
 --- @field map Map The level's map.
 --- @field opacityCache BooleanBuffer A cache of cell opacity || actor opacity for each cell. Used to speed up fov/lighting calculations.
 --- @field passableCache BooleanBuffer A cache of cell passability || actor passability for each cell. Used to speed up pathfinding.
+--- @field decision ActionDecision Used during deserialization to resume.
 --- @field RNG RNG The level's local random number generator, use this for randomness within the level like attack rolls.
 --- @overload fun(map: Map, actors: [Actor], systems: [System], scheduler: Scheduler): Level
 --- @type Level
@@ -96,6 +97,7 @@ end
 function Level:yield(message)
    self.systemManager:onYield(self, message)
    if message:is(prism.Decision) then
+      ---@cast message ActionDecision
       self.decision = message
    end
    local _, ret = coroutine.yield(message)
