@@ -1,5 +1,6 @@
 local Inky = require "geometer.inky"
 local Display = require "spectrum.display"
+local TextInput = require "geometer.textinput"
 
 ---@class TileElementProps : Inky.Props
 ---@field placeable Placeable
@@ -88,12 +89,12 @@ end
 ---@field elements TileElement[]
 ---@field startRange number
 ---@field endRange number
----@field filter string
 ---@field filtered number[]
 ---@field display Display
 ---@field size Vector2
 ---@field selected Placeable
 ---@field geometer Geometer
+---@field overlay love.Canvas
 
 ---@class Panel : Inky.Element
 ---@field props PanelProps
@@ -106,21 +107,14 @@ local function Panel(self, scene)
    local function onSelect(placeable)
       self.props.selected = placeable
 
-      if placeable:is(prism.Actor) then
-         placeable = getmetatable(placeable)
-      end
+      if placeable:is(prism.Actor) then placeable = getmetatable(placeable) end
 
       self.props.geometer.placeable = placeable
    end
 
-   ---@return boolean
-   local function isFiltered()
-      return self.props.filter ~= ""
-   end
-
-   ---@return number
-   local function amountShown()
-      return isFiltered() and #self.props.filtered or #self.props.elements
+   local function resetRange()
+      self.props.startRange = 1
+      self.props.endRange = #self.props.filtered <= 15 and #self.props.filtered or 15
    end
 
    self:onPointerEnter(function(_, pointer)
@@ -134,7 +128,7 @@ local function Panel(self, scene)
    self:onPointer("press", function() end)
 
    self:onPointer("scroll", function(_, pointer, dx, dy)
-      local max = amountShown()
+      local max = #self.props.filtered
       local startRange = self.props.startRange
       local endRange = self.props.endRange
 
@@ -152,10 +146,11 @@ local function Panel(self, scene)
    end)
 
    self.props.elements = initialElements(scene, self.props.size, self.props.display, onSelect)
-   self.props.startRange = 1
-   self.props.endRange = #self.props.elements <= 15 and #self.props.elements or 15
    self.props.filtered = {}
-   self.props.filter = ""
+   for i = 1, #self.props.elements do
+      self.props.filtered[i] = i
+   end
+   resetRange()
    self.props.selected = self.props.elements[1].props.placeable
    self.props.geometer.placeable = self.props.selected
 
@@ -164,12 +159,25 @@ local function Panel(self, scene)
    local gridAtlas = spectrum.SpriteAtlas.fromGrid("geometer/assets/grid.png", 7 * 8, 11 * 8)
    local scrollColor = prism.Color4.fromHex(0x2ce8f5)
 
+   local textInput = TextInput(scene)
+   textInput.props.font = love.graphics.newFont("geometer/assets/FROGBLOCK-Polyducks.ttf", 8 * 3)
+   textInput.props.overlay = self.props.overlay
+   textInput.props.size = self.props.size
+   textInput.props.onEdit = function(content)
+      self.props.filtered = {}
+      for i, tile in ipairs(self.props.elements) do
+         local placeable = tile.props.placeable
+         if placeable.name:find(content) then table.insert(self.props.filtered, i) end
+      end
+
+      resetRange()
+   end
+
    return function(_, x, y, w, h, depth)
       love.graphics.draw(background, x, y)
 
       local grid = 2
-      local filtered = isFiltered()
-      local max = amountShown()
+      local max = #self.props.filtered
       if self.props.startRange > 3 then
          if self.props.endRange < max then
             grid = 4
@@ -188,7 +196,7 @@ local function Panel(self, scene)
       elseif self.props.endRange == max then
          bucket = 9
       else
-         local perBucket = amountShown() / 9
+         local perBucket = max / 9
          bucket = ((self.props.startRange + self.props.endRange) / 2) / perBucket
       end
       love.graphics.setColor(scrollColor:decompose())
@@ -197,22 +205,18 @@ local function Panel(self, scene)
       local column = 1
       local row = 1
       for i = self.props.startRange, self.props.endRange do
-         local tile = self.props.elements[i]
-         if filtered then
-            tile = self.props.elements[self.props.filtered[i]]
-         end
+         local tile = self.props.elements[self.props.filtered[i]]
 
          local tileX, tileY = x + (8 * (2 * column)), y + (8 * (11 + row))
          tile:render(tileX, tileY, 8, 8, depth + 1)
-         if tile.props.placeable == self.props.selected then
-            love.graphics.draw(selector, tileX - 8, tileY - 8)
-         end
+         if tile.props.placeable == self.props.selected then love.graphics.draw(selector, tileX - 8, tileY - 8) end
          column = column + 1
          if column % 4 == 0 then
             column = 1
             row = row + 2
          end
       end
+      textInput:render(x + 8, y + 8 * 8, 8 * 8, 8, depth + 1)
    end
 end
 
