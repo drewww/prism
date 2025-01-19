@@ -1,17 +1,17 @@
 ---@class SelectTool : Tool
 ---@field locations SparseGrid
 local Select = geometer.Tool:extend "SelectTool"
-geometer.SelectTool = Select
 
 Select.dragging = false
 
-function Select:mouseclicked(geometer, level, x, y) end
+function Select:mouseclicked(editor, level, x, y) end
 
 ---@param dt number
----@param geometer Geometer
-function Select:update(dt, geometer) end
+---@param editor Editor
+function Select:update(dt, editor) end
 
-function Select:draw(geometer, display) end
+function Select:draw(editor, display) end
 
-function Select:mousereleased(geometer, level, x, y) end
+function Select:mousereleased(editor, level, x, y) end
 
+return Select

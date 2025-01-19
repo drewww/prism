@@ -1,32 +1,31 @@
-local PenModification = require "geometer.modifications.pen"
+local PenModification = geometer.require "modifications.pen"
 
 ---@class PenTool : Tool
 ---@field locations SparseGrid
 local Pen = geometer.Tool:extend "PenTool"
-geometer.PenTool = Pen
 
 Pen.dragging = false
 
-function Pen:mouseclicked(geometer, level, x, y)
+function Pen:mouseclicked(editor, level, x, y)
    self.dragging = true
    self.locations = prism.SparseGrid()
 
-   if not geometer.attachable:inBounds(x, y) then return end
+   if not editor.attachable:inBounds(x, y) then return end
    self.locations:set(x, y, true)
 end
 
 ---@param dt number
----@param geometer Geometer
-function Pen:update(dt, geometer)
+---@param editor Editor
+function Pen:update(dt, editor)
    if not self.locations then return end
 
-   local x, y = geometer.display:getCellUnderMouse()
-   if not geometer.attachable:inBounds(x, y) then return end
+   local x, y = editor.display:getCellUnderMouse()
+   if not editor.attachable:inBounds(x, y) then return end
 
    self.locations:set(x, y, true)
 end
 
-function Pen:draw(geometer, display)
+function Pen:draw(editor, display)
    if not self.locations then return end
 
    local csx, csy = display.cellSize.x, display.cellSize.y
@@ -36,11 +35,13 @@ function Pen:draw(geometer, display)
    end
 end
 
-function Pen:mousereleased(geometer, level, x, y)
+function Pen:mousereleased(editor, level, x, y)
    if not self.locations then return end
 
-   local modification = PenModification(geometer.placeable, self.locations)
-   geometer:execute(modification)
+   local modification = PenModification(editor.placeable, self.locations)
+   editor:execute(modification)
 
    self.locations = nil
 end
+
+return Pen

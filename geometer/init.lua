@@ -1,171 +1,27 @@
 if not spectrum then error("Geometer depends on spectrum!") end
 
+--- @module "geometer"
 geometer = {}
+geometer.path = ...
 
-require "geometer.tool"
-require "geometer.panel"
-require "geometer.modification"
-require "geometer.tools.rect"
-require "geometer.tools.pen"
-require "geometer.tools.line"
-require "geometer.tools.erase"
-require "geometer.tools.ellipse"
-require "geometer.tools.bucket"
-require "geometer.tools.select"
-require "geometer.gamestates.editorstate"
-require "geometer.gamestates.mapgenerator"
-require "geometer.gamestates.prefabeditor"
-
---- @type Keybinding
-local keybinds = require "geometer.keybindingschema"
-
----@alias Placeable Actor|Cell
-
----@class Geometer : Object
----@field attachable SpectrumAttachable
----@field camera Camera
----@field active boolean
----@field editor Editor
----@field undoStack Modification[]
----@field redoStack Modification[]
----@field placeable Placeable|nil
----@field tool Tool|nil -- TODO: Default to a tool!
----@field selectorMode string
----@field selectorModes table<string, string>
----@field filepath string|nil
----@field fileEnabled boolean
-local Geometer = prism.Object:extend("Geometer")
-geometer.Geometer = Geometer
-
-function Geometer:__new(attachable, display, fileEnabled)
-   self.attachable = attachable
-   self.display = display
-   self.active = false
-   self.placeable = prism.cells.Wall
-   self.tool = geometer.PenTool()
-   self.fillMode = true
-   self.selectorMode = "any"
-   self.fileEnabled = fileEnabled or false
-   self.selectorModes = {
-      ["any"] = "actor",
-      ["actor"] = "tile",
-      ["tile"] = "any",
-   }
+function geometer.require(p)
+   return require(table.concat({ geometer.path, p }, "."))
 end
 
-local Inky = require "geometer.inky"
-local Editor = require "geometer.editorelement"
+---@type Modification
+geometer.Modification = geometer.require "modification"
 
----@type Inky.Scene
-local scene
----@type Inky.Pointer
-local pointer
+---@type Tool
+geometer.Tool = geometer.require "tool"
 
-local scaler = math.min(love.graphics.getWidth() / 320, love.graphics.getHeight() / 200)
-local scale = prism.Vector2(scaler, scaler)
+---@type Editor
+geometer.Editor = geometer.require "editor"
 
-function Geometer:isActive()
-   return self.active
-end
+---@type EditorState
+geometer.EditorState = geometer.require "gamestates.editorstate"
 
-function Geometer:startEditing()
-   self.active = true
-   scene = Inky.scene()
-   pointer = Inky.pointer(scene)
-   self.editor = Editor(scene)
-   self.editor.props.display = self.display
-   self.editor.props.attachable = self.attachable
-   self.editor.props.scale = scale
-   self.editor.props.geometer = self
+---@type MapGeneratorState
+geometer.MapGeneratorState = geometer.require "gamestates.mapgenerator"
 
-   self.undoStack = {}
-   self.redoStack = {}
-
-   self.tool = getmetatable(self.tool)()
-
-   self.attachable.debug = false
-   love.keyboard.setKeyRepeat(true)
-end
-
-function Geometer:update(dt)
-   local mx, my = love.mouse.getX(), love.mouse.getY()
-   pointer:setPosition(mx / scale.x, my / scale.y)
-
-   if self.editor.props.quit then
-      self.active = false
-      self.editor.props.quit = false
-   end
-
-   scene:raise("update", dt)
-
-   if self.tool then -- TODO: Remove when default added.
-      self.tool:update(dt, self)
-   end
-end
-
---- @param modification Modification
-function Geometer:execute(modification)
-   modification:execute(self.attachable)
-   table.insert(self.undoStack, modification)
-end
-
-function Geometer:undo()
-   if #self.undoStack == 0 then return end
-
-   local modification = table.remove(self.undoStack, #self.undoStack)
-   modification:undo(self.attachable)
-   table.insert(self.redoStack, modification)
-end
-
-function Geometer:redo()
-   if #self.redoStack == 0 then return end
-
-   local modification = table.remove(self.redoStack, #self.redoStack)
-   modification:execute(self.attachable)
-   table.insert(self.undoStack, modification)
-end
-
-function Geometer:draw()
-   scene:beginFrame()
-
-   self.editor:render(0, 0, love.graphics.getWidth(), love.graphics.getHeight())
-
-   scene:finishFrame()
-end
-
-function Geometer:mousereleased(x, y, button)
-   if button == 1 then pointer:raise("release") end
-end
-
-function Geometer:mousepressed(x, y, button)
-   if button == 1 then pointer:raise("press") end
-end
-
-function Geometer:mousemoved(x, y, dx, dy, istouch)
-   if love.mouse.isDown(2) then
-      pointer:setPosition(x, y)
-      pointer:raise("drag", dx, dy)
-   end
-end
-
-function Geometer:keypressed(key, scancode)
-   local action = keybinds:keypressed(key)
-   if action then scene:raise(action, pointer) end
-   if action == "undo" then
-      self:undo()
-   elseif action == "redo" then
-      self:redo()
-   elseif action == "fill" then
-      self.fillMode = not self.fillMode
-   elseif action == "mode" then
-      self.selectorMode = self.selectorModes[self.selectorMode]
-   end
-end
-
-function Geometer:textinput(text)
-   pointer:raise("textinput", text)
-end
-
-function Geometer:wheelmoved(dx, dy)
-   pointer:raise("scroll", dx, dy)
-end
+---@type PrefabEditorState
+geometer.PrefabEditorState = geometer.require "gamestates.prefabeditor"

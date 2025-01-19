@@ -1,53 +1,50 @@
---- @class GeometerState : GameState
---- @field geometer Geometer
-local GeometerState = spectrum.GameState:extend "GeometerState"
-geometer.EditorState = GeometerState
+--- @class EditorState : GameState
+--- @field editor Editor
+local EditorState = spectrum.GameState:extend "EditorState"
 
---- Create a new Geometer managing gamestate, attached to a
+--- Create a new Editor managing gamestate, attached to a
 --- SpectrumAttachable, this is a Level|MapBuilder interface.
 --- @param attachable SpectrumAttachable
-function GeometerState:__new(attachable, display, fileEnabled)
-   self.geometer = geometer.Geometer(attachable, display, fileEnabled)
+function EditorState:__new(attachable, display, fileEnabled)
+   self.editor = geometer.Editor(attachable, display, fileEnabled)
 end
 
-function GeometerState:load()
-   self.geometer:startEditing()
+function EditorState:load()
+   self.editor:startEditing()
 end
 
-function GeometerState:update(dt)
-   if not self.geometer.active then
-      self.manager:pop()
-   end
+function EditorState:update(dt)
+   if not self.editor.active then self.manager:pop() end
 
-   self.geometer:update(dt)
+   self.editor:update(dt)
 end
 
-function GeometerState:draw()
-   self.geometer:draw()
+function EditorState:draw()
+   self.editor:draw()
 end
 
-function GeometerState:mousemoved(x, y, dx, dy, istouch)
-   self.geometer:mousemoved(x, y, dx, dy, istouch)
+function EditorState:mousemoved(x, y, dx, dy, istouch)
+   self.editor:mousemoved(x, y, dx, dy, istouch)
 end
 
-function GeometerState:wheelmoved(dx, dy)
-   self.geometer:wheelmoved(dx, dy)
+function EditorState:wheelmoved(dx, dy)
+   self.editor:wheelmoved(dx, dy)
 end
 
-function GeometerState:mousepressed(x, y, button)
-   self.geometer:mousepressed(x, y, button)
+function EditorState:mousepressed(x, y, button)
+   self.editor:mousepressed(x, y, button)
 end
 
-function GeometerState:mousereleased(x, y, button)
-   self.geometer:mousereleased(x, y, button)
+function EditorState:mousereleased(x, y, button)
+   self.editor:mousereleased(x, y, button)
 end
 
-function GeometerState:keypressed(key, scancode)
-   self.geometer:keypressed(key, scancode)
+function EditorState:keypressed(key, scancode)
+   self.editor:keypressed(key, scancode)
 end
 
-function GeometerState:textinput(text)
-   self.geometer:textinput(text)
+function EditorState:textinput(text)
+   self.editor:textinput(text)
 end
 
-return GeometerState
+return EditorState

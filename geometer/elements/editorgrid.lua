@@ -1,4 +1,4 @@
-local Inky = require "geometer.inky"
+local Inky = geometer.require "inky"
 
 local function createSpringSolver(mass, k, damping)
    -- Initial conditions
@@ -28,7 +28,7 @@ end
 ---@field offset Vector2
 ---@field display Display
 ---@field scale Vector2
----@field geometer Geometer
+---@field editor Editor
 ---@field attachable SpectrumAttachable
 
 ---@class EditorGrid : Inky.Element
@@ -52,22 +52,18 @@ local function EditorGrid(self, scene)
       local display = self.props.display
       local cx, cy = display:getCellUnderMouse()
 
-      local tool = self.props.geometer.tool
+      local tool = self.props.editor.tool
 
-      if tool then -- TODO: Remove when default added
-         tool:mouseclicked(self.props.geometer, self.props.attachable, cx, cy)
-         pointer:captureElement(self, true)
-      end
+      tool:mouseclicked(self.props.editor, self.props.attachable, cx, cy)
+      pointer:captureElement(self, true)
    end)
 
    self:onPointer("release", function(_, pointer)
-      local tool = self.props.geometer.tool
+      local tool = self.props.editor.tool
       local display = self.props.display
       local cx, cy = display:getCellUnderMouse()
 
-      if tool then
-         tool:mousereleased(self.props.geometer, self.props.attachable, cx, cy)
-      end
+      if tool then tool:mousereleased(self.props.editor, self.props.attachable, cx, cy) end
 
       pointer:captureElement(self, false)
    end)
@@ -91,15 +87,15 @@ local function EditorGrid(self, scene)
       self.props.display:draw()
       love.graphics.setColor(r, g, b, a)
 
-      if self.props.geometer.tool then -- TODO: Remove when default added.
-         self.props.display.camera:push()
-         self.props.geometer.tool:draw(self.props.geometer, self.props.display)
-         self.props.display.camera:pop()
-      end
+      self.props.display.camera:push()
+      self.props.editor.tool:draw(self.props.editor, self.props.display)
+      self.props.display.camera:pop()
+
       love.graphics.setScissor()
    end
 end
 
----@type fun(scene: Inky.Scene): EditorGrid
+---@alias EditorGridInit fun(scene: Inky.Scene): EditorGrid
+---@type EditorGridInit
 local EditorGridElement = Inky.defineElement(EditorGrid)
 return EditorGridElement

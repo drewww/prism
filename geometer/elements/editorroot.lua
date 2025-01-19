@@ -1,36 +1,41 @@
-local Inky = require "geometer.inky"
+local Inky = geometer.require "inky"
 
-local Button = require "geometer.button"
-local File = require "geometer.file"
-local EditorGrid = require "geometer.gridelement"
-local Tools = require "geometer.tools"
-local Panel = require "geometer.panel"
+---@type ButtonInit
+local Button = geometer.require "elements.button"
+---@type FilePanelInit
+local FilePanel = geometer.require "elements.filepanel"
+---@type EditorGridInit
+local EditorGrid = geometer.require "elements.editorgrid"
+---@type ToolsInit
+local Tools = geometer.require "elements.tools"
+---@type SelectionPanelInit
+local SelectionPanel = geometer.require "elements.selectionpanel"
 
----@class EditorProps : Inky.Props
+---@class EditorRootProps : Inky.Props
 ---@field gridPosition Vector2
 ---@field display Display
 ---@field attachable SpectrumAttachable
 ---@field scale Vector2
 ---@field quit boolean
----@field geometer Geometer
+---@field editor Editor
 
----@class Editor : Inky.Element
----@field props EditorProps
+---@class EditorRoot : Inky.Element
+---@field props EditorRootProps
 
----@param self Editor
+---@param self EditorRoot
 ---@param scene Inky.Scene
 ---@return function
-local function Editor(self, scene)
+local function EditorRoot(self, scene)
    self.props.gridPosition = prism.Vector2(24, 24)
 
-   local atlas = spectrum.SpriteAtlas.fromGrid("geometer/assets/gui.png", 24, 12)
+   local atlas = spectrum.SpriteAtlas.fromGrid(geometer.path .. "/assets/gui.png", 24, 12)
    love.graphics.setDefaultFilter("nearest", "nearest")
 
    local canvas = love.graphics.newCanvas(320, 200)
    local overlay = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
-   local frame = love.graphics.newImage("geometer/assets/frame.png")
+   local frame = love.graphics.newImage(geometer.path .. "/assets/frame.png")
 
-   local filePanel = File(scene)
+   local filePanel = FilePanel(scene)
    filePanel.props.scale = self.props.scale
    filePanel.props.overlay = overlay
 
@@ -39,11 +44,11 @@ local function Editor(self, scene)
    fileButton.props.unpressedQuad = atlas:getQuadByIndex(1)
    fileButton.props.pressedQuad = atlas:getQuadByIndex(2)
    fileButton.props.toggle = true
-   fileButton.props.disabled = not self.props.geometer.fileEnabled
+   fileButton.props.disabled = not self.props.editor.fileEnabled
    fileButton.props.disabledQuad = atlas:getQuadByIndex(11)
    fileButton.props.onPress = function(pointer)
       filePanel.props.open = true
-      filePanel.props.editor = self.props.geometer
+      filePanel.props.editor = self.props.editor
       pointer:captureElement(filePanel, true)
    end
 
@@ -79,19 +84,19 @@ local function Editor(self, scene)
    local grid = EditorGrid(scene)
    grid.props.scale = prism.Vector2(2, 2)
    self:useEffect(function()
-      grid.props.geometer = self.props.geometer
+      grid.props.editor = self.props.editor
       grid.props.display = self.props.display
       grid.props.attachable = self.props.attachable
-      tools.props.geometer = self.props.geometer
+      tools.props.editor = self.props.editor
    end, "level", "display")
 
-   local panel = Panel(scene)
-   panel.props.display = self.props.display
-   panel.props.size = prism.Vector2(self.props.scale.x * 8, self.props.scale.y * 8)
-   panel.props.geometer = self.props.geometer
-   panel.props.overlay = overlay
+   local selectionPanel = SelectionPanel(scene)
+   selectionPanel.props.display = self.props.display
+   selectionPanel.props.size = prism.Vector2(self.props.scale.x * 8, self.props.scale.y * 8)
+   selectionPanel.props.editor = self.props.editor
+   selectionPanel.props.overlay = overlay
 
-   self:on("closeFile", function()
+   self:on("closeFilePanel", function()
       fileButton.props.pressed = false
    end)
 
@@ -113,7 +118,7 @@ local function Editor(self, scene)
       playButton:render(8 * 2 + 24, 184, 24, 12)
       debugButton:render(8 * 6 + 24, 184, 24, 12)
       tools:render(120, 184, 112, 12)
-      panel:render(232, 0, 88, 184, depth + 1)
+      selectionPanel:render(232, 0, 88, 184, depth + 1)
       if filePanel.props.open then filePanel:render(0, 200 - (8 * 10), 8 * 12, 8 * 8, depth + 1) end
       love.graphics.setCanvas()
 
@@ -135,6 +140,6 @@ local function Editor(self, scene)
    end
 end
 
----@type fun(scene: Inky.Scene): Editor
-local EditorElement = Inky.defineElement(Editor)
-return EditorElement
+---@type fun(scene: Inky.Scene): EditorRoot
+local EditorRootElement = Inky.defineElement(EditorRoot)
+return EditorRootElement

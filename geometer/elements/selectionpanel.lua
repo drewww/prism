@@ -1,10 +1,10 @@
-local Inky = require "geometer.inky"
-local Display = require "spectrum.display"
-local TextInput = require "geometer.textinput"
+local Inky = geometer.require "inky"
+---@type TextInputInit
+local TextInput = geometer.require "elements.textinput"
 
 ---@class TileElementProps : Inky.Props
 ---@field placeable Placeable
----@field size Vector2 the final size of a tile in geometer
+---@field size Vector2 the final size of a tile in editor
 ---@field display Display
 ---@field onSelect function
 
@@ -42,7 +42,7 @@ local function Tile(self, scene)
       end
 
       local color = drawable.color or prism.Color4.WHITE
-      local quad = Display.getQuad(self.props.display.spriteAtlas, drawable)
+      local quad = spectrum.Display.getQuad(self.props.display.spriteAtlas, drawable)
 
       love.graphics.push("all")
       love.graphics.setCanvas()
@@ -85,7 +85,7 @@ local function initialElements(scene, size, display, onSelect)
    return t
 end
 
----@class PanelProps : Inky.Props
+---@class SelectionPanelProps : Inky.Props
 ---@field elements TileElement[]
 ---@field startRange number
 ---@field endRange number
@@ -93,23 +93,23 @@ end
 ---@field display Display
 ---@field size Vector2
 ---@field selected Placeable
----@field geometer Geometer
+---@field editor Editor
 ---@field overlay love.Canvas
 
----@class Panel : Inky.Element
----@field props PanelProps
+---@class SelectionPanel : Inky.Element
+---@field props SelectionPanelProps
 
----@param self Panel
+---@param self SelectionPanel
 ---@param scene Inky.Scene
 ---@return function
-local function Panel(self, scene)
+local function SelectionPanel(self, scene)
    ---@param placeable Placeable
    local function onSelect(placeable)
       self.props.selected = placeable
 
       if placeable:is(prism.Actor) then placeable = getmetatable(placeable) end
 
-      self.props.geometer.placeable = placeable
+      self.props.editor.placeable = placeable
    end
 
    local function resetRange()
@@ -152,15 +152,15 @@ local function Panel(self, scene)
    end
    resetRange()
    self.props.selected = self.props.elements[1].props.placeable
-   self.props.geometer.placeable = self.props.selected
+   self.props.editor.placeable = self.props.selected
 
-   local background = love.graphics.newImage("geometer/assets/panel.png")
-   local selector = love.graphics.newImage("geometer/assets/selector.png")
-   local gridAtlas = spectrum.SpriteAtlas.fromGrid("geometer/assets/grid.png", 7 * 8, 11 * 8)
+   local background = love.graphics.newImage(geometer.path .. "/assets/panel.png")
+   local selector = love.graphics.newImage(geometer.path .. "/assets/selector.png")
+   local gridAtlas = spectrum.SpriteAtlas.fromGrid(geometer.path .. "/assets/grid.png", 7 * 8, 11 * 8)
    local scrollColor = prism.Color4.fromHex(0x2ce8f5)
 
    local textInput = TextInput(scene)
-   textInput.props.font = love.graphics.newFont("geometer/assets/FROGBLOCK-Polyducks.ttf", 8 * 3)
+   textInput.props.font = love.graphics.newFont(geometer.path .. "/assets/FROGBLOCK-Polyducks.ttf", 8 * 3)
    textInput.props.overlay = self.props.overlay
    textInput.props.size = self.props.size
    textInput.props.onEdit = function(content)
@@ -220,6 +220,7 @@ local function Panel(self, scene)
    end
 end
 
----@type fun(scene: Inky.Scene): Panel
-local PanelElement = Inky.defineElement(Panel)
-return PanelElement
+---@alias SelectionPanelInit fun(scene: Inky.Scene): SelectionPanel
+---@type SelectionPanelInit
+local SelectionPanelElement = Inky.defineElement(SelectionPanel)
+return SelectionPanelElement

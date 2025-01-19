@@ -1,40 +1,34 @@
 -- TODO: Actually test and use this is an example.
-local EraseModification = require "geometer/modifications/erase"
+local EraseModification = geometer.require "modifications.erase"
 
 --- @class EraseTool : Tool
 --- @field origin Vector2
-Erase = geometer.Tool:extend "EraseTool"
-geometer.EraseTool = Erase
+local Erase = geometer.Tool:extend "EraseTool"
 
 function Erase:__new()
    self.origin = nil
 end
 
---- @param geometer Geometer
+--- @param editor Editor
 --- @param attached SpectrumAttachable
 --- @param x integer The cell coordinate clicked.
 --- @param y integer The cell coordinate clicked.
-function Erase:mouseclicked(geometer, attached, x, y)
-   if not attached:inBounds(x, y) then
-      return
-   end
+function Erase:mouseclicked(editor, attached, x, y)
+   if not attached:inBounds(x, y) then return end
 
    self.origin = prism.Vector2(x, y)
 end
 
-
---- @param geometer Geometer
+--- @param editor Editor
 --- @param attached SpectrumAttachable
 --- @param x integer The cell coordinate clicked.
 --- @param y integer The cell coordinate clicked.
-function Erase:mousereleased(geometer, attached, x, y)
-   if not self.origin or not self.second then
-      return nil
-   end
+function Erase:mousereleased(editor, attached, x, y)
+   if not self.origin or not self.second then return nil end
 
    local lx, ly, rx, ry = self:getCurrentRect()
-   local modification = EraseModification(geometer.placeable, prism.Vector2(lx, ly), prism.Vector2(rx, ry))
-   geometer:execute(modification)
+   local modification = EraseModification(editor.placeable, prism.Vector2(lx, ly), prism.Vector2(rx, ry))
+   editor:execute(modification)
 
    self.origin = nil
 end
@@ -45,9 +39,7 @@ end
 --- @return number? bottomrightx
 --- @return number? bottomrighty
 function Erase:getCurrentRect()
-   if not self.origin or not self.second then
-      return
-   end
+   if not self.origin or not self.second then return end
 
    local x, y = self.origin.x, self.origin.y
    local sx, sy = self.second.x, self.second.y
@@ -59,10 +51,8 @@ function Erase:getCurrentRect()
 end
 
 --- @param display Display
-function Erase:draw(geometer, display)
-   if not self.origin then
-      return
-   end
+function Erase:draw(editor, display)
+   if not self.origin then return end
 
    local csx, csy = display.cellSize.x, display.cellSize.y
    local lx, ly, rx, ry = self:getCurrentRect()
@@ -75,9 +65,11 @@ function Erase:draw(geometer, display)
    love.graphics.rectangle("fill", lx * csx, ly * csy, w, h)
 end
 
-function Erase:update(dt, geometer)
-   local x, y = geometer.display:getCellUnderMouse()
-   if not geometer.attachable:inBounds(x, y) then return end
+function Erase:update(dt, editor)
+   local x, y = editor.display:getCellUnderMouse()
+   if not editor.attachable:inBounds(x, y) then return end
 
    self.second = prism.Vector2(x, y)
 end
+
+return Erase

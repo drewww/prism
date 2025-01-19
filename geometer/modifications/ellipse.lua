@@ -17,12 +17,10 @@ end
 function EllipseModification:execute(attachable)
    local cellSet = prism.SparseGrid()
 
-   prism.Ellipse(self.center, self.rx, self.ry, function (x, y)
+   prism.Ellipse(self.center, self.rx, self.ry, function(x, y)
       if not attachable:inBounds(x, y) then return end
 
-      if cellSet:get(x, y) then
-         return
-      end
+      if cellSet:get(x, y) then return end
 
       cellSet:set(x, y, true)
       if self.placeable:is(prism.Actor) then

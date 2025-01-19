@@ -1,4 +1,4 @@
-local Inky = require "geometer.inky"
+local Inky = geometer.require "inky"
 
 ---@class ButtonProps : Inky.Props
 ---@field pressed boolean whether the button is pressed
@@ -70,6 +70,7 @@ local function Button(self)
    end
 end
 
----@type fun(scene: Inky.Scene): Button
+---@alias ButtonInit fun(scene: Inky.Scene): Button
+---@type ButtonInit
 local ButtonElement = Inky.defineElement(Button)
 return ButtonElement

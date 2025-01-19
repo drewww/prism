@@ -28,4 +28,3 @@ function PenModification:execute(attachable)
 end
 
 return PenModification
-

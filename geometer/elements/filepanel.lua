@@ -1,17 +1,18 @@
-local Inky = require "geometer.inky"
-local Button = require "geometer.button"
+local Inky = geometer.require "inky"
+---@type ButtonInit
+local Button = geometer.require "elements.button"
 
----@class FileProps : Inky.Props
+---@class FilePanelProps : Inky.Props
 ---@field scale Vector2
 ---@field name string
 ---@field overlay love.Canvas
 ---@field open boolean
----@field editor Geometer
+---@field editor Editor
 
----@class File : Inky.Element
----@field props FileProps
+---@class FilePanel : Inky.Element
+---@field props FilePanelProps
 
----@param self File
+---@param self FilePanel
 ---@param scene Inky.Scene
 local function File(self, scene)
    self.props.name = self.props.name or ""
@@ -46,7 +47,7 @@ local function File(self, scene)
       if not pointer:doesOverlapElement(self) then close(pointer) end
    end)
 
-   local image = love.graphics.newImage("geometer/assets/filebutton.png")
+   local image = love.graphics.newImage(geometer.path .. "/assets/filebutton.png")
    local quad = love.graphics.newQuad(0, 0, image:getWidth(), image:getHeight(), image)
    local newButton = Button(scene)
    newButton.props.tileset = image
@@ -145,9 +146,9 @@ local function File(self, scene)
       love.event.quit()
    end
 
-   local background = love.graphics.newImage("geometer/assets/file.png")
+   local background = love.graphics.newImage(geometer.path .. "/assets/file.png")
    local font =
-      love.graphics.newFont("geometer/assets/FROGBLOCK-Polyducks.ttf", 8 * (math.floor(self.props.scale.x) - 1))
+      love.graphics.newFont(geometer.path .. "/assets/FROGBLOCK-Polyducks.ttf", 8 * (math.floor(self.props.scale.x) - 1))
    local size = 8 * self.props.scale.x
    local pad = size / 4
 
@@ -175,6 +176,7 @@ local function File(self, scene)
    end
 end
 
----@type fun(scene: Inky.Scene): File
+---@alias FilePanelInit fun(scene: Inky.Scene): FilePanel
+---@type FilePanelInit
 local FileElement = Inky.defineElement(File)
 return FileElement

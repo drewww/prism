@@ -3,7 +3,6 @@
 ---This class provides a base structure for implementing modifications with
 ---custom behavior for execution and undoing actions.
 local Modification = prism.Object:extend "Modification"
-geometer.Modification = Modification
 
 ---Executes the modification.
 ---Override this method in subclasses to define the behavior of the modification.
@@ -68,7 +67,9 @@ end
 ---@param cellPrototype Cell|nil
 function Modification:placeCell(attachable, x, y, cellPrototype)
    if not self.replaced then self.replaced = prism.SparseGrid() end
-   
+
    self.replaced:set(x, y, attachable:getCell(x, y) or false)
    attachable:setCell(x, y, cellPrototype)
 end
+
+return Modification

@@ -1,4 +1,4 @@
-local Inky = require "geometer.inky"
+local Inky = geometer.require "inky"
 
 ---@class TextInputProps : Inky.Props
 ---@field font love.Font
@@ -69,6 +69,7 @@ local function TextInput(self, scene)
    end
 end
 
----@type fun(scene: Inky.Scene): TextInput
+---@alias TextInputInit fun(scene: Inky.Scene): TextInput
+---@type TextInputInit
 local TextInputElement = Inky.defineElement(TextInput)
 return TextInputElement
