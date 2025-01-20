@@ -5,7 +5,7 @@
 --- @field level Level The level object representing the game environment.
 --- @field display Display The display object used for rendering.
 --- @field message ActionMessage The most recent action message.
---- @field geometer GeometerState An editor state for debugging or managing geometry.
+--- @field geometer EditorState An editor state for debugging or managing geometry.
 local LevelState = spectrum.GameState:extend("LevelState")
 
 --- Constructs a new LevelState.
