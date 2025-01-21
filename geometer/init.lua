@@ -1,8 +1,13 @@
 if not spectrum then error("Geometer depends on spectrum!") end
 
---- @module "geometer"
+---@module "geometer"
 geometer = {}
+
+---@type string
 geometer.path = ...
+
+---@type string
+geometer.assetPath = geometer.path:gsub("%.", "/")
 
 function geometer.require(p)
    return require(table.concat({ geometer.path, p }, "."))

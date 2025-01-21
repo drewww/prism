@@ -154,13 +154,13 @@ local function SelectionPanel(self, scene)
    self.props.selected = self.props.elements[1].props.placeable
    self.props.editor.placeable = self.props.selected
 
-   local background = love.graphics.newImage(geometer.path .. "/assets/panel.png")
-   local selector = love.graphics.newImage(geometer.path .. "/assets/selector.png")
-   local gridAtlas = spectrum.SpriteAtlas.fromGrid(geometer.path .. "/assets/grid.png", 7 * 8, 11 * 8)
+   local background = love.graphics.newImage(geometer.assetPath .. "/assets/panel.png")
+   local selector = love.graphics.newImage(geometer.assetPath .. "/assets/selector.png")
+   local gridAtlas = spectrum.SpriteAtlas.fromGrid(geometer.assetPath .. "/assets/grid.png", 7 * 8, 11 * 8)
    local scrollColor = prism.Color4.fromHex(0x2ce8f5)
 
    local textInput = TextInput(scene)
-   textInput.props.font = love.graphics.newFont(geometer.path .. "/assets/FROGBLOCK-Polyducks.ttf", 8 * 3)
+   textInput.props.font = love.graphics.newFont(geometer.assetPath .. "/assets/FROGBLOCK-Polyducks.ttf", 8 * 3)
    textInput.props.overlay = self.props.overlay
    textInput.props.size = self.props.size
    textInput.props.onEdit = function(content)

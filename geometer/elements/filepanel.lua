@@ -47,7 +47,7 @@ local function File(self, scene)
       if not pointer:doesOverlapElement(self) then close(pointer) end
    end)
 
-   local image = love.graphics.newImage(geometer.path .. "/assets/filebutton.png")
+   local image = love.graphics.newImage(geometer.assetPath .. "/assets/filebutton.png")
    local quad = love.graphics.newQuad(0, 0, image:getWidth(), image:getHeight(), image)
    local newButton = Button(scene)
    newButton.props.tileset = image
@@ -146,9 +146,9 @@ local function File(self, scene)
       love.event.quit()
    end
 
-   local background = love.graphics.newImage(geometer.path .. "/assets/file.png")
+   local background = love.graphics.newImage(geometer.assetPath .. "/assets/file.png")
    local font =
-      love.graphics.newFont(geometer.path .. "/assets/FROGBLOCK-Polyducks.ttf", 8 * (math.floor(self.props.scale.x) - 1))
+      love.graphics.newFont(geometer.assetPath .. "/assets/FROGBLOCK-Polyducks.ttf", 8 * (math.floor(self.props.scale.x) - 1))
    local size = 8 * self.props.scale.x
    local pad = size / 4
 

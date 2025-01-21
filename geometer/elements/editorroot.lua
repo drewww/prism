@@ -28,12 +28,12 @@ local SelectionPanel = geometer.require "elements.selectionpanel"
 local function EditorRoot(self, scene)
    self.props.gridPosition = prism.Vector2(24, 24)
 
-   local atlas = spectrum.SpriteAtlas.fromGrid(geometer.path .. "/assets/gui.png", 24, 12)
+   local atlas = spectrum.SpriteAtlas.fromGrid(geometer.assetPath .. "/assets/gui.png", 24, 12)
    love.graphics.setDefaultFilter("nearest", "nearest")
 
    local canvas = love.graphics.newCanvas(320, 200)
    local overlay = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
-   local frame = love.graphics.newImage(geometer.path .. "/assets/frame.png")
+   local frame = love.graphics.newImage(geometer.assetPath .. "/assets/frame.png")
 
    local filePanel = FilePanel(scene)
    filePanel.props.scale = self.props.scale

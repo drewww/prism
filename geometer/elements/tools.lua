@@ -12,7 +12,7 @@ local Button = geometer.require "elements.button"
 ---@param scene Inky.Scene
 ---@return function
 local function Tools(self, scene)
-   local atlas = spectrum.SpriteAtlas.fromGrid(geometer.path .. "/assets/tools.png", 8, 10)
+   local atlas = spectrum.SpriteAtlas.fromGrid(geometer.assetPath .. "/assets/tools.png", 8, 10)
 
    ---@param button Button
    ---@param tool Tool
