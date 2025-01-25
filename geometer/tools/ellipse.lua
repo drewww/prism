@@ -14,13 +14,13 @@ end
 function Ellipse:draw(editor, display)
    if not self.center then return end
 
-   local csx, csy = display.cellSize.x, display.cellSize.y
    local mx, my = display:getCellUnderMouse()
 
    local rx, ry = math.abs(self.center.x - mx), math.abs(self.center.y - my)
 
+   local drawable = self:getDrawable(editor.placeable)
    prism.Ellipse(self.center, rx, ry, function(x, y)
-      if self.editor.attachable:inBounds(x, y) then love.graphics.rectangle("fill", x * csx, y * csy, csx, csy) end
+      if self.editor.attachable:inBounds(x, y) then self:drawCell(display, drawable, x, y) end
    end)
 end
 

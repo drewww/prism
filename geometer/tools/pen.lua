@@ -25,13 +25,18 @@ function Pen:update(dt, editor)
    self.locations:set(x, y, true)
 end
 
+---@param editor Editor
+---@param display Display
 function Pen:draw(editor, display)
+   local x, y = editor.display:getCellUnderMouse()
+   local drawable = self:getDrawable(editor.placeable)
+
+   self:drawCell(display, drawable, x, y)
+
    if not self.locations then return end
 
-   local csx, csy = display.cellSize.x, display.cellSize.y
-
    for x, y in self.locations:each() do
-      love.graphics.rectangle("fill", x * csx, y * csy, csx, csy)
+      self:drawCell(display, drawable, x, y)
    end
 end
 

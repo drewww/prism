@@ -38,4 +38,8 @@ function Cell:beforeAction(level, actor, action) end
 --- @param action Action The action that was taken.
 function Cell:afterAction(level, actor, action) end
 
+function Cell:getComponent(component)
+   if component == prism.components.Drawable then return self.drawable end
+end
+
 return Cell

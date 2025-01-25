@@ -62,22 +62,26 @@ end
 
 --- @param display Display
 function RectTool:draw(editor, display)
-   local csx, csy = display.cellSize.x, display.cellSize.y
    local lx, ly, rx, ry = self:getCurrentRect()
-   if not lx then return end
+   if not (lx and ly and rx and ry) then return end
 
-   local w = (rx - lx + 1) * csx
-   local h = (ry - ly + 1) * csy
-
+   local drawable = self:getDrawable(editor.placeable)
    if editor.fillMode then
-      -- Draw filled rectangle
-      love.graphics.rectangle("fill", lx * csx, ly * csy, w, h)
+      for x = lx, rx do
+         for y = ly, ry do
+            self:drawCell(display, drawable, x, y)
+         end
+      end
    else
-      -- Draw four outlines to mimic an outline inside the rectangle
-      love.graphics.rectangle("fill", lx * csx, ly * csy, csx, h) -- Left edge
-      love.graphics.rectangle("fill", rx * csx, ly * csy, csx, h) -- Right edge
-      love.graphics.rectangle("fill", lx * csx, ly * csy, w, csy) -- Top edge
-      love.graphics.rectangle("fill", lx * csx, ry * csy, w, csy) -- Bottom edge
+      for x = lx, rx do
+         self:drawCell(display, drawable, x, ly)
+         self:drawCell(display, drawable, x, ry)
+      end
+
+      for y = ly, ry do
+         self:drawCell(display, drawable, rx, y)
+         self:drawCell(display, drawable, lx, y)
+      end
    end
 end
 

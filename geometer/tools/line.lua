@@ -20,10 +20,7 @@ function Line:mouseclicked(editor, attachable, x, y)
 end
 
 --- @param editor Editor
---- @param attachable SpectrumAttachable
---- @param x integer The cell coordinate clicked.
---- @param y integer The cell coordinate clicked.
-function Line:mousereleased(editor, attachable, x, y)
+function Line:mousereleased(editor)
    if not self.origin or not self.to then
       self.origin, self.to = nil, nil
       return
@@ -49,11 +46,11 @@ end
 --- @param display Display
 function Line:draw(editor, display)
    if not self.origin or not self.to then return end
-   local csx, csy = display.cellSize.x, display.cellSize.y
 
    local points = prism.Bresenham(self.origin.x, self.origin.y, self.to.x, self.to.y)
+   local drawable = self:getDrawable(editor.placeable)
    for _, point in ipairs(points) do
-      love.graphics.rectangle("fill", point[1] * csx, point[2] * csy, csx, csy)
+      self:drawCell(display, drawable, point[1], point[2])
    end
 end
 

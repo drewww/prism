@@ -3,7 +3,7 @@ local PenModification = geometer.require "modifications.pen"
 ---@field locations SparseGrid
 ---Represents a tool with update, draw, and mouse interaction functionalities.
 ---Tools can respond to user inputs and render visual elements.
-local Fill = prism.Object:extend("FillTool")
+local Fill = geometer.Tool:extend("FillTool")
 
 --- Begins a paint drag.
 ---@param editor Editor
@@ -17,6 +17,7 @@ function Fill:mouseclicked(editor, level, cellx, celly)
 
    self.locations = prism.SparseGrid()
    self:bucket(level, cellx, celly)
+   editor:execute(PenModification(editor.placeable, self.locations))
 end
 
 --- @param attachable SpectrumAttachable
@@ -41,27 +42,6 @@ function Fill:update(dt, editor)
    if not editor.attachable:inBounds(x, y) then return end
 
    self:bucket(editor.attachable, x, y)
-end
-
-function Fill:draw(editor, display)
-   if not self.locations then return end
-
-   local csx, csy = display.cellSize.x, display.cellSize.y
-
-   for x, y in self.locations:each() do
-      love.graphics.rectangle("fill", x * csx, y * csy, csx, csy)
-   end
-end
-
----Handles mouse release events.
----@param editor Editor
----@param cellx number The x-coordinate of the cell release.
----@param celly number The y-coordinate of the cell release.
-function Fill:mousereleased(editor, level, cellx, celly)
-   if not self.locations then return end
-
-   editor:execute(PenModification(editor.placeable, self.locations))
-   self.locations = nil
 end
 
 return Fill

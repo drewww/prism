@@ -231,6 +231,7 @@ function Display.drawDrawable(drawable, spriteAtlas, cellSize, x, y, color, alph
 
    love.graphics.setColor(r, g, b, a * alpha)
    love.graphics.draw(spriteAtlas.image, quad, x * cSx, y * cSy)
+   love.graphics.setColor(1, 1, 1, 1)
 end
 
 --- Gets the cell under the mouse cursor.

@@ -16,6 +16,27 @@ function Tool:draw(editor, display)
    -- Draw visuals.
 end
 
+---Returns the DrawableComponent from placeable
+---@param placeable Placeable
+---@return DrawableComponent
+function Tool:getDrawable(placeable)
+   if placeable:is(prism.Actor) then placeable = placeable() end
+   return placeable:getComponent(prism.components.Drawable)
+end
+
+---Draws a cell at the given coordinates.
+---@param display Display
+---@param drawable DrawableComponent
+---@param x number
+---@param y number
+function Tool:drawCell(display, drawable, x, y)
+   local csx, csy = display.cellSize.x, display.cellSize.y
+
+   love.graphics.setColor(love.graphics.getBackgroundColor())
+   love.graphics.rectangle("fill", x * csx, y * csy, csx, csy)
+   display.drawDrawable(drawable, display.spriteAtlas, display.cellSize, x, y, drawable.color)
+end
+
 ---Handles mouse click events.
 ---@param editor Editor
 ---@param cellx number The x-coordinate of the cell clicked.
