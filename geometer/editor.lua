@@ -43,7 +43,7 @@ local scene
 ---@type Inky.Pointer
 local pointer
 
-local scaler = math.min(love.graphics.getWidth() / 320, love.graphics.getHeight() / 200)
+local scaler = math.floor(math.min(love.graphics.getWidth() / 320, love.graphics.getHeight() / 200))
 local scale = prism.Vector2(scaler, scaler)
 
 function Editor:isActive()

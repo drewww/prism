@@ -26,14 +26,19 @@ local SelectionPanel = geometer.require "elements.selectionpanel"
 ---@param scene Inky.Scene
 ---@return function
 local function EditorRoot(self, scene)
-   self.props.gridPosition = prism.Vector2(24, 24)
+   self.props.gridPosition = prism.Vector2(4, 4)
 
-   local atlas = spectrum.SpriteAtlas.fromGrid(geometer.assetPath .. "/assets/gui.png", 24, 12)
    love.graphics.setDefaultFilter("nearest", "nearest")
+   local atlas = spectrum.SpriteAtlas.fromGrid(geometer.assetPath .. "/assets/gui.png", 24, 12)
 
-   local canvas = love.graphics.newCanvas(320, 200)
+   local width = love.graphics.getWidth() / self.props.scale.x
+   width = width - (width % 8)
+   local height = love.graphics.getHeight() / self.props.scale.y
+   height = height - (height % 8)
+   local canvas = love.graphics.newCanvas(width, height)
    local overlay = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
    local frame = love.graphics.newImage(geometer.assetPath .. "/assets/frame.png")
+   local frameBottom = love.graphics.newImage(geometer.assetPath .. "/assets/frame_bottom.png")
 
    local filePanel = FilePanel(scene)
    filePanel.props.scale = self.props.scale
@@ -101,32 +106,64 @@ local function EditorRoot(self, scene)
    end)
 
    local background = prism.Color4.fromHex(0x181425)
+   local frameBackground = prism.Color4.fromHex(0x193c3e)
+   local panelBackground = prism.Color4.fromHex(0x262b44)
    return function(_, x, y, w, h, depth)
       love.graphics.push("all")
       love.graphics.setCanvas(overlay)
       love.graphics.clear()
+      love.graphics.setColor(frameBackground:decompose())
+      love.graphics.rectangle(
+         "fill",
+         0,
+         canvas:getHeight() * self.props.scale.y,
+         overlay:getWidth(),
+         overlay:getHeight() - canvas:getHeight() * self.props.scale.y
+      )
+      love.graphics.setColor(panelBackground:decompose())
+      love.graphics.rectangle(
+         "fill",
+         canvas:getWidth() * self.props.scale.x,
+         0,
+         overlay:getWidth() - canvas:getWidth() * self.props.scale.x,
+         overlay:getHeight()
+      )
+      love.graphics.rectangle(
+         "fill",
+         (canvas:getWidth() - 88) * self.props.scale.x,
+         canvas:getHeight() * self.props.scale.y,
+         1000,
+         overlay:getHeight() - canvas:getHeight() * self.props.scale.y
+      )
       love.graphics.pop()
 
       love.graphics.setBackgroundColor(background:decompose())
       love.graphics.push("all")
-      love.graphics.setColor(1, 1, 1, 1)
 
+      local bottomEdge = canvas:getHeight() - 16
+      local panelEdge = canvas:getWidth() - 104
       love.graphics.setCanvas(canvas)
       love.graphics.clear()
+      love.graphics.setColor(frameBackground:decompose())
+      love.graphics.rectangle("fill", 0, bottomEdge, panelEdge + 16, love.graphics.getHeight())
+      love.graphics.setColor(1, 1, 1, 1)
+      love.graphics.setScissor(0, 0, panelEdge, bottomEdge)
       love.graphics.draw(frame)
-      fileButton:render(8, 184, 24, 12)
-      playButton:render(8 * 2 + 24, 184, 24, 12)
-      debugButton:render(8 * 6 + 24, 184, 24, 12)
-      tools:render(120, 184, 112, 12)
-      selectionPanel:render(232, 0, 88, 184, depth + 1)
+      love.graphics.draw(frameBottom, 0, bottomEdge - 16)
+      love.graphics.setScissor()
+      fileButton:render(8, bottomEdge, 24, 12)
+      playButton:render(8 * 2 + 24, bottomEdge, 24, 12)
+      debugButton:render(8 * 6 + 24, bottomEdge, 24, 12)
+      tools:render(panelEdge - 13 * 8, canvas:getHeight() - 24, 112, 12)
+      selectionPanel:render(panelEdge, 0, 88, canvas:getHeight(), depth + 1)
       if filePanel.props.open then filePanel:render(0, 200 - (8 * 10), 8 * 12, 8 * 8, depth + 1) end
       love.graphics.setCanvas()
 
       grid:render(
          self.props.gridPosition.x,
          self.props.gridPosition.y,
-         216 * self.props.scale.x,
-         168 * self.props.scale.y,
+         (panelEdge + 16) * self.props.scale.x,
+         bottomEdge * self.props.scale.y,
          depth + 0.5
       )
 

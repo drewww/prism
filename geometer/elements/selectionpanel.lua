@@ -7,6 +7,7 @@ local TextInput = geometer.require "elements.textinput"
 ---@field size Vector2 the final size of a tile in editor
 ---@field display Display
 ---@field onSelect function
+---@field overlay love.Canvas
 
 ---@class TileElement : Inky.Element
 ---@field props TileElementProps
@@ -45,7 +46,7 @@ local function Tile(self, scene)
       local quad = spectrum.Display.getQuad(self.props.display.spriteAtlas, drawable)
 
       love.graphics.push("all")
-      love.graphics.setCanvas()
+      love.graphics.setCanvas(self.props.overlay)
       love.graphics.translate((x / 8) * self.props.size.x, (y / 8) * self.props.size.y)
       love.graphics.scale(scale.x, scale.y)
       love.graphics.setColor(color:decompose())
@@ -60,24 +61,27 @@ local TileElement = Inky.defineElement(Tile)
 ---@param scene Inky.Scene
 ---@param size Vector2
 ---@param display Display
+---@param overlay love.Canvas
 ---@param onSelect function
 ---@return TileElement[]
-local function initialElements(scene, size, display, onSelect)
+local function initialElements(scene, size, display, overlay, onSelect)
    local t = {}
    for _, cell in pairs(prism.cells) do
       local tile = TileElement(scene)
-      tile.props.display = display
-      tile.props.placeable = cell
       tile.props.size = size
+      tile.props.display = display
+      tile.props.overlay = overlay
       tile.props.onSelect = onSelect
+      tile.props.placeable = cell
       table.insert(t, tile)
    end
 
    for _, actor in pairs(prism.actors) do
       local tile = TileElement(scene)
-      tile.props.display = display
-      tile.props.placeable = actor()
       tile.props.size = size
+      tile.props.display = display
+      tile.props.overlay = overlay
+      tile.props.placeable = actor()
       tile.props.onSelect = onSelect
       table.insert(t, tile)
    end
@@ -145,7 +149,7 @@ local function SelectionPanel(self, scene)
       self.props.endRange = endRange
    end)
 
-   self.props.elements = initialElements(scene, self.props.size, self.props.display, onSelect)
+   self.props.elements = initialElements(scene, self.props.size, self.props.display, self.props.overlay, onSelect)
    self.props.filtered = {}
    for i = 1, #self.props.elements do
       self.props.filtered[i] = i
@@ -158,9 +162,12 @@ local function SelectionPanel(self, scene)
    local selector = love.graphics.newImage(geometer.assetPath .. "/assets/selector.png")
    local gridAtlas = spectrum.SpriteAtlas.fromGrid(geometer.assetPath .. "/assets/grid.png", 7 * 8, 11 * 8)
    local scrollColor = prism.Color4.fromHex(0x2ce8f5)
+   -- 4 = 8
+   -- 7 = 16
 
    local textInput = TextInput(scene)
-   textInput.props.font = love.graphics.newFont(geometer.assetPath .. "/assets/FROGBLOCK-Polyducks.ttf", 8 * 3)
+   textInput.props.font =
+      love.graphics.newFont(geometer.assetPath .. "/assets/FROGBLOCK-Polyducks.ttf", self.props.size.x - 8)
    textInput.props.overlay = self.props.overlay
    textInput.props.size = self.props.size
    textInput.props.onEdit = function(content)
@@ -173,8 +180,12 @@ local function SelectionPanel(self, scene)
       resetRange()
    end
 
+   local panelTop = love.graphics.newImage(geometer.assetPath .. "/assets/panel_top.png")
+
    return function(_, x, y, w, h, depth)
-      love.graphics.draw(background, x, y)
+      local offsetY = love.graphics.getCanvas():getHeight() - background:getHeight()
+      love.graphics.draw(background, x, offsetY)
+      love.graphics.draw(panelTop, x)
 
       local grid = 2
       local max = #self.props.filtered
@@ -188,7 +199,9 @@ local function SelectionPanel(self, scene)
          grid = 3
       end
 
-      gridAtlas:drawByIndex(grid, x + 8, y + (8 * 11))
+      local topGridEdge = 5 * 8
+
+      gridAtlas:drawByIndex(grid, x + 24, topGridEdge)
 
       local bucket
       if self.props.startRange == 1 then
@@ -200,14 +213,14 @@ local function SelectionPanel(self, scene)
          bucket = ((self.props.startRange + self.props.endRange) / 2) / perBucket
       end
       love.graphics.setColor(scrollColor:decompose())
-      love.graphics.rectangle("fill", x + (9 * 8) + 2, y + (8 * (11 + bucket)), 4, 8)
+      love.graphics.rectangle("fill", x + (11 * 8) + 2, topGridEdge + (8 * bucket), 4, 8)
       love.graphics.setColor(1, 1, 1, 1)
       local column = 1
       local row = 1
       for i = self.props.startRange, self.props.endRange do
          local tile = self.props.elements[self.props.filtered[i]]
 
-         local tileX, tileY = x + (8 * (2 * column)), y + (8 * (11 + row))
+         local tileX, tileY = x + 16 + (8 * (2 * column)), topGridEdge + (8 * row)
          tile:render(tileX, tileY, 8, 8, depth + 1)
          if tile.props.placeable == self.props.selected then love.graphics.draw(selector, tileX - 8, tileY - 8) end
          column = column + 1
@@ -216,7 +229,7 @@ local function SelectionPanel(self, scene)
             row = row + 2
          end
       end
-      textInput:render(x + 8, y + 8 * 8, 8 * 8, 8, depth + 1)
+      textInput:render(x + 8 * 3, topGridEdge - 8 * 3, 8 * 8, 8, depth + 1)
    end
 end
 

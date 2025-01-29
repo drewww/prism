@@ -7,6 +7,7 @@ local Inky = geometer.require "inky"
 ---@field size Vector2
 ---@field focused boolean
 ---@field onEdit function?
+---@field placeholder string
 
 ---@class TextInput : Inky.Element
 ---@field props TextInputProps
@@ -25,6 +26,14 @@ local function TextInput(self, scene)
       local focused = pointer:doesOverlapElement(self)
       self.props.focused = focused
       pointer:captureElement(self, focused)
+   end)
+
+   self:onPointerEnter(function(element, pointer)
+      love.mouse.setCursor(love.mouse.getSystemCursor("ibeam"))
+   end)
+
+   self:onPointerExit(function(element, pointer)
+      love.mouse.setCursor()
    end)
 
    self:onPointer("textinput", function(_, pointer, text)
@@ -47,6 +56,8 @@ local function TextInput(self, scene)
       self.props.content = content
    end)
 
+   local placeholderColor = prism.Color4.fromHex(0x5a6988)
+
    return function(_, x, y, w, h)
       x = (x / 8) * self.props.size.x
       y = (y / 8) * self.props.size.y
@@ -59,6 +70,10 @@ local function TextInput(self, scene)
       love.graphics.setFont(self.props.font)
       love.graphics.setCanvas(self.props.overlay)
       love.graphics.scale(1, 1)
+      if self.props.content == "" and not self.props.focused then
+         love.graphics.setColor(placeholderColor:decompose())
+         love.graphics.print("SEARCH", x, y + self.props.size.y / 8)
+      end
       love.graphics.setColor(1, 1, 1, 1)
       love.graphics.print(
          self.props.content .. ((blink and self.props.focused) and "Σ" or ""),

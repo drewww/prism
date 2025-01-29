@@ -13,6 +13,7 @@ local Button = geometer.require "elements.button"
 ---@return function
 local function Tools(self, scene)
    local atlas = spectrum.SpriteAtlas.fromGrid(geometer.assetPath .. "/assets/tools.png", 8, 10)
+   local background = love.graphics.newImage(geometer.assetPath .. "/assets/frame_bottomright.png")
 
    ---@param button Button
    ---@param tool Tool
@@ -113,13 +114,14 @@ local function Tools(self, scene)
    end)
 
    return function(_, x, y, w, h)
-      penButton:render(x, y, 8, 10)
-      deleteButton:render(x + 8 * 2, y, 8, 10)
-      rectButton:render(x + 8 * 4, y, 8, 10)
-      ellipseButton:render(x + 8 * 6, y, 8, 10)
-      lineButton:render(x + 8 * 8, y, 8, 10)
-      fillButton:render(x + 8 * 10, y, 8, 10)
-      selectButton:render(x + 8 * 12, y, 8, 10)
+      love.graphics.draw(background, x, y + 8)
+      penButton:render(x + 8, y + 8, 8, 10)
+      deleteButton:render(x + 8 + 8 * 2, y + 8, 8, 10)
+      rectButton:render(x + 8 + 8 * 4, y + 8, 8, 10)
+      ellipseButton:render(x + 8 + 8 * 6, y + 8, 8, 10)
+      lineButton:render(x + 8 + 8 * 8, y + 8, 8, 10)
+      fillButton:render(x + 8 + 8 * 10, y + 8, 8, 10)
+      selectButton:render(x + 8 + 8 * 12, y + 8, 8, 10)
    end
 end
 
