@@ -10,5 +10,4 @@ return spectrum.Keybinding {
    { key = "l", action = "line", description = "Swap to the line tool." },
    { key = "b", action = "bucket", description = "Swap to the bucket fill tool." },
    { key = "s", action = "select", description = "Swap to the select tool." },
-   { key = "backspace", action = "backspace", description = "Backspace in the search bar." },
 }

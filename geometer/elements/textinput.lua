@@ -18,14 +18,20 @@ local function TextInput(self, scene)
    self.props.content = ""
    self.props.focused = false
 
+   ---@param focused boolean
+   ---@param pointer Inky.Pointer
+   local function focus(focused, pointer)
+      self.props.focused = focused
+      pointer:captureElement(self, focused)
+      scene:raise("focus", focused)
+   end
+
    self:useEffect(function()
       self.props.onEdit(self.props.content)
    end, "content")
 
    self:onPointer("press", function(_, pointer)
-      local focused = pointer:doesOverlapElement(self)
-      self.props.focused = focused
-      pointer:captureElement(self, focused)
+      focus(pointer:doesOverlapElement(self), pointer)
    end)
 
    self:onPointerEnter(function(element, pointer)
@@ -50,10 +56,14 @@ local function TextInput(self, scene)
       end
    end)
 
-   self:on("backspace", function()
-      local content = self.props.content
-      if string.len(content) > 0 then content = string.sub(content, 1, string.len(content) - 1) end
-      self.props.content = content
+   self:onPointer("keypressed", function(_, pointer, key)
+      if key == "backspace" then
+         local content = self.props.content
+         if string.len(content) > 0 then content = string.sub(content, 1, string.len(content) - 1) end
+         self.props.content = content
+      elseif key == "return" or key == "escape" then
+         focus(false, pointer)
+      end
    end)
 
    local placeholderColor = prism.Color4.fromHex(0x5a6988)
@@ -62,7 +72,7 @@ local function TextInput(self, scene)
       x = (x / 8) * self.props.size.x
       y = (y / 8) * self.props.size.y
       local length = self.props.content:len()
-      local offset = length > 11 and (length - 11) * self.props.font:getHeight() or 0
+      local offset = length > 10 and (length - 10) * self.props.font:getHeight() or 0
 
       love.graphics.push("all")
       love.graphics.setScissor(x, y, (w / 8) * self.props.size.x, (h / 8) * self.props.size.y)
@@ -72,7 +82,7 @@ local function TextInput(self, scene)
       love.graphics.scale(1, 1)
       if self.props.content == "" and not self.props.focused then
          love.graphics.setColor(placeholderColor:decompose())
-         love.graphics.print("SEARCH", x, y + self.props.size.y / 8)
+         love.graphics.print(self.props.placeholder, x, y + self.props.size.y / 8)
       end
       love.graphics.setColor(1, 1, 1, 1)
       love.graphics.print(

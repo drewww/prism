@@ -105,6 +105,11 @@ local function EditorRoot(self, scene)
       fileButton.props.pressed = false
    end)
 
+   self:on("focus", function(_, focused)
+      print("focusing: ", focused)
+      self.props.editor.keybindsEnabled = not focused
+   end)
+
    local background = prism.Color4.fromHex(0x181425)
    local frameBackground = prism.Color4.fromHex(0x193c3e)
    local panelBackground = prism.Color4.fromHex(0x262b44)
@@ -156,7 +161,7 @@ local function EditorRoot(self, scene)
       debugButton:render(8 * 6 + 24, bottomEdge, 24, 12)
       tools:render(panelEdge - 13 * 8, canvas:getHeight() - 24, 112, 12)
       selectionPanel:render(panelEdge, 0, 88, canvas:getHeight(), depth + 1)
-      if filePanel.props.open then filePanel:render(0, 200 - (8 * 10), 8 * 12, 8 * 8, depth + 1) end
+      if filePanel.props.open then filePanel:render(8, canvas:getHeight() - 8 * 11, 8 * 12, 8 * 8, depth + 1) end
       love.graphics.setCanvas()
 
       grid:render(

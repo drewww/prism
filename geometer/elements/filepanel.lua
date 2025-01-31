@@ -22,7 +22,7 @@ local function File(self, scene)
    local function close(pointer)
       self.props.open = false
       pointer:captureElement(self, false)
-      scene:raise("closeFile")
+      scene:raise("closeFilePanel")
    end
 
    local function savedialog(result)
@@ -147,13 +147,15 @@ local function File(self, scene)
    end
 
    local background = love.graphics.newImage(geometer.assetPath .. "/assets/file.png")
-   local font =
-      love.graphics.newFont(geometer.assetPath .. "/assets/FROGBLOCK-Polyducks.ttf", 8 * (math.floor(self.props.scale.x) - 1))
+   local font = love.graphics.newFont(
+      geometer.assetPath .. "/assets/FROGBLOCK-Polyducks.ttf",
+      8 * (math.floor(self.props.scale.x) - 1)
+   )
    local size = 8 * self.props.scale.x
    local pad = size / 4
 
    return function(_, x, y, w, h)
-      local tileY = y / 8
+      local tileX, tileY = x / 8, y / 8
       love.graphics.draw(background, x, y)
       newButton:render(x + 8, y + 8, 80, 8)
       openButton:render(x + 8, y + 8 * 2, 80, 8)
@@ -161,17 +163,19 @@ local function File(self, scene)
       saveAsButton:render(x + 8, y + 8 * 4, 80, 8)
       quitButton:render(x + 8, y + 8 * 6, 80, 8)
 
+      local textX = (tileX + 1) * size
+
       love.graphics.push("all")
       love.graphics.setFont(font)
       love.graphics.setCanvas(self.props.overlay)
       love.graphics.scale(1, 1)
       love.graphics.setColor(1, 1, 1, 1)
-      love.graphics.print("NEW", x + size + pad, (tileY + 1) * size + pad)
-      love.graphics.print("OPEN", x + size + pad, (tileY + 2) * size + pad)
-      love.graphics.print("SAVE", x + size + pad, (tileY + 3) * size + pad)
-      love.graphics.print("SAVE AS", x + size + pad, (tileY + 4) * size + pad)
-      love.graphics.print(self.props.name, x + size + pad, (tileY + 5) * size + pad)
-      love.graphics.print("QUIT", x + size + pad, (tileY + 6) * size + pad)
+      love.graphics.print("NEW", textX, (tileY + 1) * size + pad)
+      love.graphics.print("OPEN", textX, (tileY + 2) * size + pad)
+      love.graphics.print("SAVE", textX, (tileY + 3) * size + pad)
+      love.graphics.print("SAVE AS", textX, (tileY + 4) * size + pad)
+      love.graphics.print(self.props.name, textX, (tileY + 5) * size + pad)
+      love.graphics.print("QUIT", textX, (tileY + 6) * size + pad)
       love.graphics.pop()
    end
 end

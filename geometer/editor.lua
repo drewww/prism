@@ -17,6 +17,7 @@ local PenTool = geometer.require "tools.pen"
 ---@field selectorModes table<string, string>
 ---@field filepath string|nil
 ---@field fileEnabled boolean
+---@field keybindsEnabled boolean
 local Editor = prism.Object:extend("Geometer")
 
 function Editor:__new(attachable, display, fileEnabled)
@@ -27,7 +28,8 @@ function Editor:__new(attachable, display, fileEnabled)
    self.tool = PenTool()
    self.fillMode = true
    self.selectorMode = "any"
-   self.fileEnabled = fileEnabled or false
+   self.fileEnabled = true --fileEnabled or false
+   self.keybindsEnabled = true
    self.selectorModes = {
       ["any"] = "actor",
       ["actor"] = "tile",
@@ -129,6 +131,9 @@ function Editor:mousemoved(x, y, dx, dy, istouch)
 end
 
 function Editor:keypressed(key, scancode)
+   pointer:raise("keypressed", key)
+   if not self.keybindsEnabled then return end
+
    local action = keybinds:keypressed(key)
    if action then scene:raise(action, pointer) end
    if action == "undo" then
