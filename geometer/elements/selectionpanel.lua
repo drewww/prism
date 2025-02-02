@@ -20,6 +20,8 @@ end
 
 ---@class SelectionPanelProps : Inky.Props
 ---@field placeables Placeable[]
+---@field selected Placeable
+---@field selectedText love.Text
 ---@field filtered number[]
 ---@field display Display
 ---@field size Vector2
@@ -35,6 +37,9 @@ end
 local function SelectionPanel(self, scene)
    ---@param placeable Placeable
    local function onSelect(placeable)
+      self.props.selected = placeable
+      self.props.selectedText:set(placeable.name)
+
       if placeable:is(prism.Actor) then placeable = getmetatable(placeable) end
 
       self.props.editor.placeable = placeable
@@ -85,6 +90,10 @@ local function SelectionPanel(self, scene)
 
    local background = love.graphics.newImage(geometer.assetPath .. "/assets/panel.png")
    local panelTop = love.graphics.newImage(geometer.assetPath .. "/assets/panel_top.png")
+   local highlight = prism.Color4.fromHex(0x2ce8f5)
+   local fontSize = self.props.size.x - (self.props.size.x > 48 and 24 or 8)
+   local selectionFont = love.graphics.newFont(geometer.assetPath .. "/assets/FROGBLOCK-Polyducks.ttf", fontSize)
+   self.props.selectedText = love.graphics.newText(selectionFont, "")
 
    return function(_, x, y, w, h, depth)
       local offsetY = love.graphics.getCanvas():getHeight() - background:getHeight()
@@ -94,13 +103,31 @@ local function SelectionPanel(self, scene)
       textInput:render(x + 8 * 3, y + 2 * 8, 8 * 8, 8, depth + 1)
       grid:render(x, y + 5 * 8, w, 8 * 12, depth + 1)
 
+      local drawable = self.props.selected:getComponent(prism.components.Drawable)
+      local color = drawable.color or prism.Color4.WHITE
+      local quad = spectrum.Display.getQuad(self.props.display.spriteAtlas, drawable)
+      local scale = prism.Vector2(
+         self.props.size.x / self.props.display.cellSize.x,
+         self.props.size.y / self.props.display.cellSize.y
+      )
       love.graphics.push("all")
       love.graphics.setCanvas(self.props.overlay)
-      love.graphics.setFont(font)
-      love.graphics.print(
-         self.props.editor.placeable.name,
-         ((x / 8) + 3) * self.props.size.x,
-         (y / 8 + 17) * self.props.size.y
+      love.graphics.setFont(selectionFont)
+      love.graphics.setColor(highlight:decompose())
+      love.graphics.draw(
+         self.props.selectedText,
+         (x / 8 + 5) * self.props.size.x,
+         (y / 8 + 17) * self.props.size.y + self.props.size.y / 4
+      )
+      love.graphics.setColor(color:decompose())
+      love.graphics.draw(
+         self.props.display.spriteAtlas.image,
+         quad,
+         (x / 8 + 3) * self.props.size.x,
+         (y / 8 + 17) * self.props.size.y,
+         nil,
+         scale.x,
+         scale.y
       )
       love.graphics.pop()
    end

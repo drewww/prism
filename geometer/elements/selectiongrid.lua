@@ -31,24 +31,22 @@ local function Tile(self, scene)
    end)
 
    return function(_, x, y, w, h)
-      local drawable
-      if self.props.placeable:is(prism.Actor) then
-         local actor = self.props.placeable
-         ---@cast actor Actor
-         drawable = actor:getComponent(prism.components.Drawable)
-      else
-         drawable = self.props.placeable.drawable
-      end
-
+      local drawable = self.props.placeable:getComponent(prism.components.Drawable)
       local color = drawable.color or prism.Color4.WHITE
       local quad = spectrum.Display.getQuad(self.props.display.spriteAtlas, drawable)
 
       love.graphics.push("all")
       love.graphics.setCanvas(self.props.overlay)
-      love.graphics.translate((x / 8) * self.props.size.x, (y / 8) * self.props.size.y)
-      love.graphics.scale(scale.x, scale.y)
       love.graphics.setColor(color:decompose())
-      love.graphics.draw(self.props.display.spriteAtlas.image, quad)
+      love.graphics.draw(
+         self.props.display.spriteAtlas.image,
+         quad,
+         (x / 8) * self.props.size.x,
+         (y / 8) * self.props.size.y,
+         nil,
+         scale.x,
+         scale.y
+      )
       love.graphics.pop()
    end
 end
