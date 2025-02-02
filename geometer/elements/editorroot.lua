@@ -101,12 +101,27 @@ local function EditorRoot(self, scene)
    selectionPanel.props.editor = self.props.editor
    selectionPanel.props.overlay = overlay
 
+   local fillModeButton = Button(scene)
+   local toggleAtlas = spectrum.SpriteAtlas.fromGrid(geometer.assetPath .. "/assets/toggle.png", 16, 8)
+   fillModeButton.props.tileset = toggleAtlas.image
+   fillModeButton.props.pressedQuad = toggleAtlas:getQuadByIndex(1)
+   fillModeButton.props.unpressedQuad = toggleAtlas:getQuadByIndex(2)
+   fillModeButton.props.toggle = true
+   fillModeButton.props.untoggle = true
+   fillModeButton.props.pressed = true
+   fillModeButton.props.onPress = function()
+      self.props.editor.fillMode = not self.props.editor.fillMode
+   end
+
+   self:on("fillMode", function(_, fillMode)
+      fillModeButton.props.pressed = fillMode
+   end)
+
    self:on("closeFilePanel", function()
       fileButton.props.pressed = false
    end)
 
    self:on("focus", function(_, focused)
-      print("focusing: ", focused)
       self.props.editor.keybindsEnabled = not focused
    end)
 
@@ -161,6 +176,7 @@ local function EditorRoot(self, scene)
       debugButton:render(8 * 6 + 24, bottomEdge, 24, 12)
       tools:render(panelEdge - 13 * 8, canvas:getHeight() - 24, 112, 12)
       selectionPanel:render(panelEdge, 0, 88, canvas:getHeight(), depth + 1)
+      fillModeButton:render(panelEdge + 80, canvas:getHeight() - 48, 16, 8)
       if filePanel.props.open then filePanel:render(8, canvas:getHeight() - 8 * 11, 8 * 12, 8 * 8, depth + 1) end
       love.graphics.setCanvas()
 
@@ -173,7 +189,6 @@ local function EditorRoot(self, scene)
       )
 
       love.graphics.scale(self.props.scale:decompose())
-      --local y = (love.graphics.getHeight() - (200 * self.props.scale.y)) / 2
       love.graphics.draw(canvas, 0, 0)
       love.graphics.origin()
       love.graphics.draw(overlay, 0, 0)

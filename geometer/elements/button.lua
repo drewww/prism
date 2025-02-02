@@ -8,6 +8,7 @@ local Inky = geometer.require "inky"
 ---@field onRelease? fun(pointer: Inky.Pointer) a function called after releasing the button
 ---@field onPress? fun(pointer: Inky.Pointer) a function called after pressing the button
 ---@field toggle boolean whether the button stays pressed after clicking
+---@field untoggle boolean if the button is toggleable, whether you can untoggle
 ---@field hovered boolean
 ---@field hoveredQuad love.Quad
 ---@field disabled boolean
@@ -37,7 +38,11 @@ local function Button(self)
 
       if self.props.onPress then self.props.onPress(pointer) end
 
-      self.props.pressed = true
+      if self.props.toggle and self.props.untoggle then
+         self.props.pressed = not self.props.pressed
+      else
+         self.props.pressed = true
+      end
       pointer:captureElement(self, true)
    end)
 

@@ -142,6 +142,7 @@ function Editor:keypressed(key, scancode)
       self:redo()
    elseif action == "fill" then
       self.fillMode = not self.fillMode
+      scene:raise("fillMode", self.fillMode)
    elseif action == "mode" then
       self.selectorMode = self.selectorModes[self.selectorMode]
    end
