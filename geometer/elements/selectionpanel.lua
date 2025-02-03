@@ -3,6 +3,8 @@ local Inky = geometer.require "inky"
 local TextInput = geometer.require "elements.textinput"
 ---@type SelectionGridInit
 local SelectionGrid = geometer.require "elements.selectiongrid"
+---@type ButtonInit
+local Button = geometer.require "elements.button"
 
 ---@return Placeable[]
 local function initialElements()
@@ -88,6 +90,11 @@ local function SelectionPanel(self, scene)
       grid.props.filtered = filtered
    end
 
+   local clearButton = Button(scene)
+   clearButton.props.onPress = function()
+      textInput.props.content = ""
+   end
+
    local background = love.graphics.newImage(geometer.assetPath .. "/assets/panel.png")
    local panelTop = love.graphics.newImage(geometer.assetPath .. "/assets/panel_top.png")
    local highlight = prism.Color4.fromHex(0x2ce8f5)
@@ -101,6 +108,7 @@ local function SelectionPanel(self, scene)
       love.graphics.draw(panelTop, x)
 
       textInput:render(x + 8 * 3, y + 2 * 8, 8 * 8, 8, depth + 1)
+      clearButton:render(x + 8 * 11, y + 2 * 8, 8, 8, depth + 2)
       grid:render(x, y + 5 * 8, w, 8 * 12, depth + 1)
 
       local drawable = self.props.selected:getComponent(prism.components.Drawable)
@@ -110,6 +118,7 @@ local function SelectionPanel(self, scene)
          self.props.size.x / self.props.display.cellSize.x,
          self.props.size.y / self.props.display.cellSize.y
       )
+
       love.graphics.push("all")
       love.graphics.setCanvas(self.props.overlay)
       love.graphics.setFont(selectionFont)
