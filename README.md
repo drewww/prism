@@ -12,8 +12,15 @@ Released under the **MIT License**, prism2 is free to use for both personal and 
 - **Lightweight and Modular**: Built in Lua, prism2 is designed to be lean and easy to use.
 
 ## Running the example
+Download love:  
+https://love2d.org/
 
-Navigate to the root of this folder and use the command "love ." or drag this folder onto the love executable.
+Navigate to the root of this folder and use the command \`love .\` or drag this folder onto the love executable.
+
+## Community
+
+Join our community on Discord to discuss, collaborate, and get support:  
+[Discord Server](https://discord.gg/rSmzekJe)
 
 ## Credits
 
