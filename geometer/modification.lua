@@ -7,7 +7,8 @@ local Modification = prism.Object:extend "Modification"
 ---Executes the modification.
 ---Override this method in subclasses to define the behavior of the modification.
 ---@param attachable SpectrumAttachable
-function Modification:execute(attachable)
+---@param editor Editor
+function Modification:execute(attachable, editor)
    -- Perform the modification.
 end
 

@@ -14,10 +14,11 @@ function EllipseModification:__new(placeable, center, rx, ry)
 end
 
 --- @param attachable SpectrumAttachable
-function EllipseModification:execute(attachable)
+--- @param editor Editor
+function EllipseModification:execute(attachable, editor)
    local cellSet = prism.SparseGrid()
 
-   prism.Ellipse(self.center, self.rx, self.ry, function(x, y)
+   prism.Ellipse(editor.fillMode and "fill" or "line", self.center, self.rx, self.ry, function(x, y)
       if not attachable:inBounds(x, y) then return end
 
       if cellSet:get(x, y) then return end

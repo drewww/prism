@@ -87,7 +87,7 @@ end
 
 --- @param modification Modification
 function Editor:execute(modification)
-   modification:execute(self.attachable)
+   modification:execute(self.attachable, self)
    table.insert(self.undoStack, modification)
 end
 

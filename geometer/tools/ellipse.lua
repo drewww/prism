@@ -11,6 +11,7 @@ function Ellipse:mouseclicked(editor, attachable, x, y)
    self.center = prism.Vector2(x, y)
 end
 
+---@param editor Editor
 function Ellipse:draw(editor, display)
    if not self.center then return end
 
@@ -19,7 +20,8 @@ function Ellipse:draw(editor, display)
    local rx, ry = math.abs(self.center.x - mx), math.abs(self.center.y - my)
 
    local drawable = self:getDrawable(editor.placeable)
-   prism.Ellipse(self.center, rx, ry, function(x, y)
+
+   prism.Ellipse(editor.fillMode and "fill" or "line", self.center, rx, ry, function(x, y)
       if self.editor.attachable:inBounds(x, y) then self:drawCell(display, drawable, x, y) end
    end)
 end
