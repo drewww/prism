@@ -8,6 +8,7 @@ local Inky = geometer.require "inky"
 ---@field focused boolean
 ---@field onEdit function?
 ---@field placeholder string
+---@field limit number the number of characters before we start panning
 
 ---@class TextInput : Inky.Element
 ---@field props TextInputProps
@@ -72,7 +73,7 @@ local function TextInput(self, scene)
       x = (x / 8) * self.props.size.x
       y = (y / 8) * self.props.size.y
       local length = self.props.content:len()
-      local offset = length > 10 and (length - 10) * self.props.font:getHeight() or 0
+      local offset = length > self.props.limit and (length - self.props.limit) * self.props.font:getHeight() or 0
 
       love.graphics.push("all")
       love.graphics.setScissor(x, y, (w / 8) * self.props.size.x, (h / 8) * self.props.size.y)
@@ -85,11 +86,7 @@ local function TextInput(self, scene)
          love.graphics.print(self.props.placeholder, x, y + self.props.size.y / 8)
       end
       love.graphics.setColor(1, 1, 1, 1)
-      love.graphics.print(
-         self.props.content .. ((blink and self.props.focused) and "Σ" or ""),
-         x,
-         y + self.props.size.y / 8
-      )
+      love.graphics.print(self.props.content .. ((blink and self.props.focused) and "Σ" or ""), x, y)
       love.graphics.pop()
    end
 end

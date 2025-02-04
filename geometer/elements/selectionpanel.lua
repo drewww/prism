@@ -75,12 +75,13 @@ local function SelectionPanel(self, scene)
    grid.props.onSelect = onSelect
    grid.props.size = self.props.size
 
-   local font = love.graphics.newFont(geometer.assetPath .. "/assets/FROGBLOCK-Polyducks.ttf", self.props.size.x - 8)
+   local font = love.graphics.newFont(geometer.assetPath .. "/assets/FROGBLOCK-Polyducks.ttf", self.props.size.x)
    local textInput = TextInput(scene)
    textInput.props.font = font
    textInput.props.overlay = self.props.overlay
    textInput.props.size = self.props.size
    textInput.props.placeholder = "SEARCH"
+   textInput.props.limit = 7
    textInput.props.onEdit = function(content)
       local filtered = {}
       for i, placeable in ipairs(self.props.placeables) do
