@@ -38,11 +38,8 @@ local actionSlots = {
 }
 
 function SRDStats:__new(options)
-   assert(options.stats)
-   for stat, _ in pairs(statsRequired) do
-      assert(options.stats[stat])
-   end
-   
+   options = options or {}
+
    self.maxHP = options.maxHP or 10
    self.HP = self.maxHP 
    self.naturalAC = (options.naturalAC or 10)

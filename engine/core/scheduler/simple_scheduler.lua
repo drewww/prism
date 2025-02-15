@@ -5,7 +5,7 @@
 --- @class SimpleScheduler : Scheduler
 --- @overload fun(): SimpleScheduler
 --- @type SimpleScheduler
-local SimpleScheduler = prism.Object:extend("Scheduler")
+local SimpleScheduler = prism.Object:extend("SimpleScheduler")
 
 --- Constructor for the SimpleScheduler class.
 --- Initializes an empty queue and sets the round count to 0.

@@ -13,7 +13,7 @@ end
 --- Runs the sequence node.
 --- @param level Level
 --- @param actor Actor
---- @param controller BTControllerComponent
+--- @param controller ControllerComponent
 --- @return boolean|Action
 function BTSequence:run(level, actor, controller)
    for i, child in ipairs(self.children) do

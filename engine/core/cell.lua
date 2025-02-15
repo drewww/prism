@@ -5,6 +5,7 @@
 --- @field name string Displayed in the user interface.
 --- @field passable boolean Defines whether a cell can moved through.
 --- @field opaque boolean Defines whether a cell can be seen through.
+--- @field drawable DrawableComponent
 --- @overload fun(): Cell
 --- @type Cell
 local Cell = prism.Object:extend("Cell")
@@ -36,5 +37,9 @@ function Cell:beforeAction(level, actor, action) end
 --- @param actor Actor The actor that took the action.
 --- @param action Action The action that was taken.
 function Cell:afterAction(level, actor, action) end
+
+function Cell:getComponent(component)
+   if component == prism.components.Drawable then return self.drawable end
+end
 
 return Cell

@@ -1,4 +1,5 @@
 --- @class ControllerComponent : Component
+--- @field blackboard table|nil
 --- @overload fun(): ControllerComponent
 --- @type ControllerComponent
 local Controller = prism.Component:extend("Controller")

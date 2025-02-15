@@ -20,13 +20,13 @@ Actor.name = "actor"
 function Actor:__new()
    self.position = prism.Vector2(1, 1)
 
-   local components = self.components
+   local components = self:initialize()
    self.components = {}
    self.componentCache = {}
    if components then
       for k, component in ipairs(components) do
          component.owner = self
-         self:__addComponent(component:extend(component.className))
+         self:__addComponent(component)
       end
    end
 end
@@ -35,13 +35,10 @@ end
 --- Components
 --
 
---- Initializes the actor's components. Components shouldn't need a reference to the
---- level so this is called in Actor:__new.
---- @param self Actor
-function Actor:initializeComponents()
-   for _, component in ipairs(self.components) do
-      component:initialize(self)
-   end
+--- Creates the components for the actor. Override this.
+--- @return table<Component>
+function Actor:initialize()
+   return {}
 end
 
 --- Adds a component to the actor. This function will check if the component's

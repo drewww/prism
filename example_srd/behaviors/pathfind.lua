@@ -1,9 +1,9 @@
 ---@class PathfindNode : BTNode
 ---@field destinationDistance integer The distance from the goal we should stop pathfinding.
----@field destinationFunc fun(level: Level, actor: Actor, controller: BTControllerComponent): Vector2
+---@field destinationFunc fun(level: Level, actor: Actor, controller: ControllerComponent): Vector2
 local PathfindNode = prism.BehaviorTree.Node:extend("PathfindNode")
 
----@param destinationFunc fun(level: Level, actor: Actor, controller: BTControllerComponent): Vector2
+---@param destinationFunc fun(level: Level, actor: Actor, controller: ControllerComponent): Vector2
 ---@param destinationDist integer
 function PathfindNode:__new(destinationFunc, destinationDist)
    self.destinationFunc = destinationFunc

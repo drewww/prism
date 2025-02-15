@@ -23,7 +23,9 @@ end
 ---@param event Message
 function SensesSystem:onYield(level, event)
    for actor in level:eachActor(prism.components.Senses) do
-      self:triggerRebuild(level, actor)
+      if actor:getComponent(prism.components.PlayerController) then
+         self:triggerRebuild(level, actor)
+      end
    end
 end
 

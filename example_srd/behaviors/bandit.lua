@@ -1,6 +1,9 @@
 local PathfindBehavior = require "example_srd.behaviors.pathfind"
 
-return prism.BehaviorTree.Root {
+--- @class BanditBehavior : BTRoot
+local BanditBehavior = prism.BehaviorTree.Root:extend "BanditBehavior"
+
+BanditBehavior.children = {
    prism.BehaviorTree.Sequence {
       prism.BehaviorTree.Node(function(_, level, actor, controller)
          local senses = actor:getComponent(prism.components.Senses)
@@ -47,3 +50,5 @@ return prism.BehaviorTree.Root {
       return prism.actions.EndTurn()
    end)
 }
+
+return BanditBehavior
