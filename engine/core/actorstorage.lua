@@ -3,7 +3,7 @@
 --- You should rarely, if ever, need to instance this class yourself, it's mostly used internally and for
 --- a few returns from Level.
 --- @class ActorStorage : Object
---- @field private actors [Actor] The list of actors in the storage.
+--- @field private actors Actor[] The list of actors in the storage.
 --- @field private ids SparseArray A sparse array of references to the Actors in the storage. The ID is derived from this.
 --- @field private actorToID table<Actor, integer?> A hashmap of actors to ids.
 --- @field private sparseMap SparseMap The spatial map for storing actor positions.
@@ -24,6 +24,11 @@ function ActorStorage:__new(insertSparseMapCallback, removeSparseMapCallback)
    self.componentCache = {}
    self.insertSparseMapCallback = insertSparseMapCallback or function() end
    self.removeSparseMapCallback = removeSparseMapCallback or function() end
+end
+
+function ActorStorage:setCallbacks(insertCallback, removeCallback)
+   self.insertSparseMapCallback = insertCallback or function() end
+   self.removeSparseMapCallback = removeCallback or function() end
 end
 
 --- Adds an actor to the storage, updating the spatial map and component cache.
@@ -201,6 +206,13 @@ function ActorStorage:merge(other)
 
    for _, actor in ipairs(other.actors) do
       self:addActor(actor)
+   end
+end
+
+function ActorStorage:onDeserialize()
+   self:setCallbacks(self.insertSparseMapCallback, self.removeSparseMapCallback)
+   for _, actor in pairs(self.actors) do
+      self:insertSparseMapEntries(actor)
    end
 end
 

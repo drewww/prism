@@ -31,6 +31,11 @@ function GameState:mousepressed( x, y, button, istouch, presses )
    -- handle mousepress here
 end
 
+--- Called when the mouse wheel is moved.
+function GameState:wheelmoved(dx, dy)
+   -- handle mouse wheel movement here
+end
+
 function GameState:getManager() return self.manager end
 
 return GameState

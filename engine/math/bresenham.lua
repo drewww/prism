@@ -57,4 +57,4 @@ function Bresenham.line(x0, y0, x1, y1, callback)
    return points, result
 end
 
-return Bresenham
+return Bresenham.line

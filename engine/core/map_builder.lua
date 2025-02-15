@@ -1,6 +1,6 @@
 --- A map builder class that extends the SparseGrid class to handle map-specific functionalities.
---- @class MapBuilder : SparseGrid
---- @field actors Actor[] A list of actors present in the map.
+--- @class MapBuilder : SparseGrid, SpectrumAttachable
+--- @field actors ActorStorage A list of actors present in the map.
 --- @field initialValue Cell The initial value to fill the map with.
 --- @overload fun(initialValue: Cell): MapBuilder
 --- @type MapBuilder
@@ -11,28 +11,26 @@ local MapBuilder = prism.SparseGrid:extend("MapBuilder")
 --- @param initialValue Cell The initial value to fill the map with.
 function MapBuilder:__new(initialValue)
    prism.SparseGrid.__new(self)
-   self.actors = {}
+   self.actors = prism.ActorStorage()
    self.initialValue = initialValue
 end
 
 --- Adds an actor to the map at the specified coordinates.
 --- @param actor table The actor to add.
---- @param x number The x-coordinate.
---- @param y number The y-coordinate.
+--- @param x number? The x-coordinate.
+--- @param y number? The y-coordinate.
 function MapBuilder:addActor(actor, x, y)
-   actor.position = prism.Vector2(x, y)
-   table.insert(self.actors, actor)
+   if x and y then
+      actor.position = prism.Vector2(x, y)
+   end
+
+   self.actors:addActor(actor)
 end
 
 --- Removes an actor from the map.
 --- @param actor table The actor to remove.
 function MapBuilder:removeActor(actor)
-   for i, a in ipairs(self.actors) do
-      if a == actor then
-         table.remove(self.actors, i)
-         break
-      end
-   end
+   self.actors:removeActor(actor)
 end
 
 --- Draws a rectangle on the map.
@@ -161,10 +159,10 @@ function MapBuilder:blit(source, destX, destY, maskFn)
    end
 
    -- Adjust actor positions
-   for _, actor in ipairs(source.actors) do
+   for actor in source.actors:eachActor() do
       ---@diagnostic disable-next-line
       actor.position = actor.position + prism.Vector2(destX, destY)
-      table.insert(self.actors, actor)
+      self.actors:addActor(actor)
    end
 end
 
@@ -193,16 +191,47 @@ function MapBuilder:build()
    local map = prism.Map(width, height, self.initialValue)
 
    for x, y, value in self:each() do
-      map:setCell(x - minX + 1, y - minY + 1, self:get(x, y))
+      map:set(x - minX + 1, y - minY + 1, self:get(x, y))
    end
 
    -- Adjust actor positions
-   for _, actor in ipairs(self.actors) do
+   for actor in self.actors:eachActor() do
       ---@diagnostic disable-next-line
       actor.position = actor.position - prism.Vector2(minX - 1, minY - 1)
    end
 
-   return map, self.actors
+   --- @diagnostic disable-next-line
+   return map, self.actors.actors
+end
+
+function MapBuilder:eachCell()
+   return self:each()
+end
+-- Part of the interface that Level and MapBuilder share
+-- for use with geometer
+
+--- Mirror set.
+--- @param x any
+--- @param y any
+--- @param value any
+function MapBuilder:setCell(x, y, value)
+   self:set(x, y, value)
+end
+
+function MapBuilder:getCell(x, y)
+   return self:get(x, y)
+end
+
+function MapBuilder:inBounds(x, y)
+   return true
+end
+
+function MapBuilder:eachActorAt(x, y)
+   return self.actors:eachActorAt(x, y)
+end
+
+function MapBuilder:eachActor(...)
+   return self.actors:eachActor(...)
 end
 
 return MapBuilder

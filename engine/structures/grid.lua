@@ -83,4 +83,19 @@ function Grid:fill(value)
    end
 end
 
+--- Iterates over each cell in the grid, yielding x, y, and the value.
+--- @generic T
+--- @return fun(): number, number, T An iterator returning x, y, and value for each cell.
+function Grid:each()
+   local i = 0
+   local w, h, data = self.w, self.h, self.data
+   return function()
+      i = i + 1
+      if i > #data then return nil end
+      local x = ((i - 1) % w) + 1
+      local y = math.floor((i - 1) / w) + 1
+      return x, y, data[i]
+   end
+end
+
 return Grid

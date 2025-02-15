@@ -3,6 +3,6 @@ local Floor = prism.Cell:extend("FloorCell")
 Floor.name = "Floor"
 Floor.passable = true
 Floor.opaque = false
-Floor.char = "."
+Floor.drawable = prism.components.Drawable(string.byte(".") + 1)
 
 return Floor

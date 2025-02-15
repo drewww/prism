@@ -7,13 +7,13 @@ local BTRoot = prism.BehaviorTree.Node:extend("BTRoot")
 --- Creates a new BTRoot.
 --- @param children BTNode[]
 function BTRoot:__new(children)
-   self.children = children
+   self.children = self.children or children
 end
 
 --- Runs the behavior tree starting from this root node.
 --- @param level Level
 --- @param actor Actor
---- @param controller BTControllerComponent
+--- @param controller ControllerComponent
 --- @return Action
 function BTRoot:run(level, actor, controller)
    for i = 1, #self.children do

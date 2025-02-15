@@ -1,16 +1,22 @@
 --- The 'Level' holds all of the actors and systems, and runs the game loop. Through the ActorStorage and SystemManager
 ---
---- @class Level : Object
+--- @class Level : Object, SpectrumAttachable
 --- @field systemManager SystemManager A table containing all of the systems active in the level, set in the constructor.
 --- @field actorStorage ActorStorage The main actor storage containing all of the level's actors.
 --- @field scheduler Scheduler The main scheduler driving the loop of the game.
 --- @field map Map The level's map.
 --- @field opacityCache BooleanBuffer A cache of cell opacity || actor opacity for each cell. Used to speed up fov/lighting calculations.
 --- @field passableCache BooleanBuffer A cache of cell passability || actor passability for each cell. Used to speed up pathfinding.
+--- @field decision ActionDecision Used during deserialization to resume.
 --- @field RNG RNG The level's local random number generator, use this for randomness within the level like attack rolls.
 --- @overload fun(map: Map, actors: [Actor], systems: [System], scheduler: Scheduler): Level
 --- @type Level
 local Level = prism.Object:extend("Level")
+
+Level.serializationBlacklist = {
+   opacityCache = true,
+   passableCache = true
+}
 
 --- Constructor for the Level class.
 --- @param map Map The map to use for the level.
@@ -24,7 +30,8 @@ function Level:__new(map, actors, systems, scheduler, seed)
    self.opacityCache = prism.BooleanBuffer(map.w, map.h)  -- holds a cache of opacity to speed up fov calcs
    self.passableCache = prism.BooleanBuffer(map.w, map.h) -- holds a cache of passability to speed up a* calcs
    self.RNG = prism.RNG(seed or love.timer.getTime())
-
+   self.debug = false
+   
    self:initialize(actors, systems)
 end
 
@@ -55,6 +62,13 @@ end
 --- back to the main thread when it needs to wait for input from the player.
 --- This function is the heart of the game loop.
 function Level:run()
+   -- TODO: Fix this
+   if self.decision then
+      local actor = self.decision.actor
+      prism.turn(self, actor, self:getActorController(actor))
+      self.systemManager:onTurnEnd(self, actor)
+   end
+
    while not self.scheduler:empty() do
       self:step()
    end
@@ -78,12 +92,23 @@ end
 --- Yields to the main 'thread', a coroutine in this case. This is called in run, and a few systems. Any time you want
 --- the interface to update you should call this. Avoid calling coroutine.yield directly,
 --- as this function will call the onYield method on all systems.
---- @param message table<Message>
+--- @param message Message
 --- @return Decision|nil
 function Level:yield(message)
    self.systemManager:onYield(self, message)
+   if message:is(prism.Decision) then
+      ---@cast message ActionDecision
+      self.decision = message
+   end
    local _, ret = coroutine.yield(message)
+   self.decision = nil
    return ret
+end
+
+function Level:debugYield(stringMessage)
+   if not self.debug then return end
+
+   self:yield(prism.messages.DebugMessage(stringMessage))
 end
 
 function Level:trigger(eventName, ...)
@@ -222,6 +247,7 @@ function Level:performAction(action, silent)
    assert(action.owner:hasAction(getmetatable(action)))
    local owner = action.owner
 
+   self:debugYield("Actor is about to perform " .. action.name)
    if not silent then
       self.systemManager:beforeAction(self, owner, action)
       local x, y = owner:getPosition():decompose()
@@ -300,6 +326,19 @@ end
 --- @param y number The y component of the position to get.
 --- @return Cell The cell at the given position.
 function Level:getCell(x, y) return self.map:get(x, y) end
+
+--- Is there a cell at this x, y? Part of the interface with MapBuilder
+--- @param x integer The x component to check if in bounds.
+---@param y integer
+function Level:inBounds(x, y)
+   return 
+      x > 0 and x <= self.map.w and
+      y > 0 and y <= self.map.h
+end
+
+function Level:eachCell()
+   return self.map:each()
+end
 
 function Level:updateCaches(x, y)
    self:updateOpacityCache(x, y)
@@ -445,6 +484,19 @@ end
 
 function Level:sparseMapCallback()
    return function(x, y, actor)
+      self:updateCaches(x, y)
+   end
+end
+
+function Level:onDeserialize()
+   self.actorStorage:setCallbacks(self:sparseMapCallback(), self:sparseMapCallback())
+
+   local w, h = self.map.w, self.map.h
+   self.opacityCache = prism.BooleanBuffer(w, h)
+   self.passableCache = prism.BooleanBuffer(w, h)
+   
+   self.map:onDeserialize()
+   for x, y, _ in self.map:each() do
       self:updateCaches(x, y)
    end
 end

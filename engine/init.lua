@@ -28,6 +28,12 @@ prism.Vector2 = prism.require "math.vector"
 --- @type BoundingBox
 prism.BoundingBox = prism.require "math.bounding_box"
 
+prism.Bresenham = prism.require "math.bresenham"
+
+prism.Ellipse = prism.require "algorithms.ellipse"
+
+prism.BredthFirstSearch = prism.require "algorithms.bfs"
+
 prism.neighborhood = prism.Vector2.neighborhood8
 
 --- @param neighborhood Neighborhood
@@ -135,9 +141,6 @@ prism.components.Collider = prism.require "core.components.collider"
 --- @type ControllerComponent
 prism.components.Controller = prism.require "core.components.controller"
 
---- @type BTControllerComponent
-prism.components.BTController = prism.require "core.components.btcontroller"
-
 --- @type PlayerControllerComponent
 prism.components.PlayerController = prism.require "core.components.player_controller"
 
@@ -152,6 +155,9 @@ prism.decisions.ActionDecision = prism.require "core.decisions.actiondecision"
 
 --- @type ActionMessage
 prism.messages.ActionMessage = prism.require "core.messages.actionmessage"
+
+--- @type DebugMessage
+prism.messages.DebugMessage = prism.require "core.messages.debugmessage"
 
 prism._items = {
    "targets",
@@ -211,7 +217,10 @@ local function loadItems(path, itemType, recurse, definitions)
    end
 end
 
+prism.modules = {}
 function prism.loadModule(directory)
+   table.insert(prism.modules, directory)
+
    local sourceDir = love.filesystem.getSource() -- Get the source directory
    local definitions = { "---@meta " .. string.lower(directory) }
 
@@ -231,6 +240,9 @@ function prism.loadModule(directory)
 
    file:write(table.concat(definitions, "\n"))
    file:close()
+end
+
+function prism.hotload()
 end
 
 --- This is the core turn logic, and if you need to use a different scheduler or want a different turn structure you should override this.
