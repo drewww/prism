@@ -1,3 +1,4 @@
+---@module 'Vector2''
 --- @alias DistanceType
 --- | "euclidean"
 --- | "chebyshev"
@@ -8,12 +9,11 @@
 --- 4way is an alias for manhattan distance
 --- 8way is an alias for chebyshev distance
 
---- A Vector2 represents a 2D vector with x and y components.
 ---@class Vector2 : Object
+--- A Vector2 represents a 2D vector with x and y components.
+---@overload fun(x: number, y: number): Vector2
 ---@field x number The x component of the vector.
 ---@field y number The y component of the vector.
----@overload fun(x, y): Vector2
----@type Vector2
 local Vector2 = prism.Object:extend("Vector2")
 
 --- Constructor for Vector2 accepts two numbers, x and y.

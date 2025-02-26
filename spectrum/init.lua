@@ -5,26 +5,26 @@ spectrum.path = ...
 
 function spectrum.require(p) return require(table.concat({ spectrum.path, p }, ".")) end
 
---- @type Camera
+--- @module "spectrum.camera"
 spectrum.Camera = spectrum.require "camera"
 
---- @type SensesTracker
+--- @module "spectrum.sensestracker"
 spectrum.SensesTracker = spectrum.require "sensestracker"
 
---- @type SpriteAtlas
+--- @module "spectrum.spriteatlas"
 spectrum.SpriteAtlas = spectrum.require "spriteatlas"
 
---- @type Display
+--- @module "spectrum.display"
 spectrum.Display = spectrum.require "display"
 
---- @type Keybinding
+--- @module "spectrum.keybindings"
 spectrum.Keybinding = spectrum.require "keybindings"
 
---- @type GameStateManager
+--- @module "spectrum.gamestates.statemanager"
 spectrum.StateManager = spectrum.require "gamestates.statemanager"
 
---- @type GameState
+--- @module "spectrum.gamestates.gamestate"
 spectrum.GameState = spectrum.require "gamestates.gamestate"
 
---- @type LevelState
+--- @module "spectrum.gamestates.levelstate"
 spectrum.LevelState = spectrum.require "gamestates.levelstate"

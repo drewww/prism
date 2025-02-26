@@ -6,6 +6,11 @@
 
 local Bresenham = {}
 
+---@param x0 number
+---@param y0 number
+---@param x1 number
+---@param y1 number
+---@param callback function
 function Bresenham.los(x0, y0, x1, y1, callback)
    local sx, sy, dx, dy
 
@@ -45,6 +50,15 @@ function Bresenham.los(x0, y0, x1, y1, callback)
    return true
 end
 
+--- Returns a table of {x, y} pairs representing the bresenham line from {x0, y0} to {x1, y1} 
+--- and whether a line was found or not.
+---@param x0 number
+---@param y0 number
+---@param x1 number
+---@param y1 number
+---@param callback fun(x: number, y: number)? a callback used to determine passability
+---@return {x: number, y: number}[]
+---@return boolean
 function Bresenham.line(x0, y0, x1, y1, callback)
    local points = {}
    local count = 0

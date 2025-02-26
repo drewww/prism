@@ -16,8 +16,8 @@ Object._serializationBlacklist = {
 
 --- Creates a new class and sets its metatable to the extended class.
 --- @generic T
---- @param self T
---- @param className string
+--- @param className string name for the class
+--- @param ignoreclassName? boolean if true, skips the uniqueness check in prism's registry
 --- @return T prototype The new class prototype extended from this one.
 function Object:extend(className, ignoreclassName)
    assert(className, "You must supply a class name when extending Objects!")

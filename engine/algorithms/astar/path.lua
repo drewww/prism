@@ -2,6 +2,8 @@
 ---@class Path : Object
 ---@field path table<Vector2> -- The path as an ordered list of Vector2 nodes
 ---@field cost number -- The total cost to traverse the path
+---@field private costIndex table<integer>
+---@overload fun(path: table<Vector2>, costIndex: table<integer>): Path
 local Path = prism.Object:extend("Path")
 Path.__index = Path
 

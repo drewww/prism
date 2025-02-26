@@ -2,6 +2,9 @@ local ffi = require "ffi"
 
 --- A class representing a 2D boolean buffer implemented as a densely packed C type.
 --- @class BooleanBuffer : Object
+--- @field w integer The width of the buffer.
+--- @field h integer The height of the buffer.
+--- @overload fun(w: integer, h: integer): BooleanBuffer
 local BooleanBuffer = prism.Object:extend("BooleanBuffer")
 
 --- Constructor for the BooleanBuffer class.

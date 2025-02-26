@@ -1,6 +1,7 @@
 --- A sparse grid class that stores data using hashed coordinates. Similar to a SparseMap
 --- except here there is only one entry per grid coordinate. This is suitable for stuff like Cells.
 --- @class SparseGrid<V> : Object, { data : table<V> }
+--- @overload fun(): SparseGrid
 local SparseGrid = prism.Object:extend("SparseGrid")
 
 --- The constructor for the 'SparseGrid' class.
@@ -11,8 +12,8 @@ function SparseGrid:__new()
 end
 
 --- Sets the value at the specified coordinates.
---- @param x number The x-coordinate.
---- @param y number The y-coordinate.
+--- @param x integer The x-coordinate.
+--- @param y integer The y-coordinate.
 --- @param value any The value to set.
 function SparseGrid:set(x, y, value)
    local key = prism.Vector2._hash(x, y)
@@ -21,8 +22,8 @@ end
 
 --- Gets the value at the specified coordinates.
 --- @generic V
---- @param x number The x-coordinate.
---- @param y number The y-coordinate.
+--- @param x integer The x-coordinate.
+--- @param y integer The y-coordinate.
 --- @return any value The value at the specified coordinates, or nil if not set.
 function SparseGrid:get(x, y)
    local key = prism.Vector2._hash(x, y)

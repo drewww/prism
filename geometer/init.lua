@@ -1,32 +1,32 @@
 if not spectrum then error("Geometer depends on spectrum!") end
 
----@module "geometer"
+--- @module "geometer"
 geometer = {}
 
----@type string
+--- @type string
 geometer.path = ...
 
----@type string
+--- @type string
 geometer.assetPath = geometer.path:gsub("%.", "/")
 
 function geometer.require(p)
    return require(table.concat({ geometer.path, p }, "."))
 end
 
----@type Modification
+--- @module "geometer.modification"
 geometer.Modification = geometer.require "modification"
 
----@type Tool
+--- @module "geometer.tool"
 geometer.Tool = geometer.require "tool"
 
----@type Editor
+--- @module "geometer.editor"
 geometer.Editor = geometer.require "editor"
 
----@type EditorState
+--- @module "geometer.gamestates.editorstate"
 geometer.EditorState = geometer.require "gamestates.editorstate"
 
----@type MapGeneratorState
+--- @module "geometer.gamestates.mapgenerator"
 geometer.MapGeneratorState = geometer.require "gamestates.mapgenerator"
 
----@type PrefabEditorState
+--- @module "geometer.gamestates.prefabeditor"
 geometer.PrefabEditorState = geometer.require "gamestates.prefabeditor"
