@@ -3,7 +3,6 @@
 --- @field startSlope Fraction
 --- @field endSlope Fraction
 --- @overload fun(depth: integer, startSlope: Fraction, endSlope: Fraction): Row
---- @type Row
 local Row = prism.Object:extend("Row")
 
 function Row:__new(depth, startSlope, endSlope)

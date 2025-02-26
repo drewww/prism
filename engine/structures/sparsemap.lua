@@ -3,6 +3,7 @@ local dummy = {}
 --- A sparse grid of buckets that objects can be placed into. Used for
 --- tracking actors by x,y position in Level.
 --- @class SparseMap : Object
+--- @overload fun(): SparseMap
 local SparseMap = prism.Object:extend("SparseMap")
 
 --- The constructor for the 'SparseMap' class.
@@ -14,8 +15,8 @@ function SparseMap:__new()
 end
 
 --- Gets the values stored at the specified coordinates.
---- @param x number The x-coordinate.
---- @param y number The y-coordinate.
+--- @param x integer The x-coordinate.
+--- @param y integer The y-coordinate.
 --- @return table elements A set[actor]=bool of values stored at the specified coordinates, or an empty table if none.
 function SparseMap:get(x, y)
    return self.map[prism.Vector2._hash(x, y)] or dummy
@@ -46,8 +47,8 @@ function SparseMap:count()
 end
 
 --- Returns the number of values stored at the specified coordinates.
---- @param x number The x-coordinate.
---- @param y number The y-coordinate.
+--- @param x integer The x-coordinate.
+--- @param y integer The y-coordinate.
 --- @return number The number of values stored at the specified coordinates.
 function SparseMap:countCell(x, y)
    local count = 0
@@ -60,8 +61,8 @@ function SparseMap:countCell(x, y)
 end
 
 --- Checks whether the specified value is stored at the specified coordinates.
---- @param x number The x-coordinate.
---- @param y number The y-coordinate.
+--- @param x integer The x-coordinate.
+--- @param y integer The y-coordinate.
 --- @param value any The value to check.
 --- @return boolean True if the value is stored at the specified coordinates, false otherwise.
 function SparseMap:has(x, y, value)
@@ -78,8 +79,8 @@ function SparseMap:contains(value)
 end
 
 --- Inserts a value at the specified coordinates.
---- @param x number The x-coordinate.
---- @param y number The y-coordinate.
+--- @param x integer The x-coordinate.
+--- @param y integer The y-coordinate.
 --- @param val any The value to insert.
 function SparseMap:insert(x, y, val)
    local xyhash = prism.Vector2._hash(x, y)
@@ -91,8 +92,8 @@ function SparseMap:insert(x, y, val)
 end
 
 --- Removes a value from the specified coordinates.
---- @param x number The x-coordinate.
---- @param y number The y-coordinate.
+--- @param x integer The x-coordinate.
+--- @param y integer The y-coordinate.
 --- @param val any The value to remove.
 --- @return boolean True if the value was successfully removed, false otherwise.
 function SparseMap:remove(x, y, val)
