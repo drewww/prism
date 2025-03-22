@@ -93,7 +93,7 @@ local function EditorRoot(self, scene)
       grid.props.display = self.props.display
       grid.props.attachable = self.props.attachable
       tools.props.editor = self.props.editor
-   end, "level", "display")
+   end, "attachable", "display")
 
    local selectionPanel = SelectionPanel(scene)
    selectionPanel.props.display = self.props.display

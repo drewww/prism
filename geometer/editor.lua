@@ -6,9 +6,10 @@ local PenTool = geometer.require "tools.pen"
 
 ---@class Editor : Object
 ---@field attachable SpectrumAttachable
+---@field display Display
 ---@field camera Camera
 ---@field active boolean
----@field editor Editor
+---@field editorRoot EditorRoot
 ---@field undoStack Modification[]
 ---@field redoStack Modification[]
 ---@field placeable Placeable|nil
@@ -69,6 +70,13 @@ function Editor:startEditing()
 
    self.attachable.debug = false
    love.keyboard.setKeyRepeat(true)
+end
+
+---@param attachable SpectrumAttachable
+function Editor:setAttachable(attachable)
+   self.display.attachable = attachable
+   self.editorRoot.props.attachable = attachable
+   self.editorRoot.props.display = self.display
 end
 
 function Editor:update(dt)
