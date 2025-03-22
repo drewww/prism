@@ -79,8 +79,7 @@ local function File(self, scene)
             if ok and json then
                -- Deserialize the JSON content and apply it to the editor
                local data = prism.json.decode(json)
-               self.props.editor.attachable = prism.Object.deserialize(data)
-               self.props.editor.display.attachable = self.props.editor.attachable
+               self.props.editor:setAttachable(prism.Object.deserialize(data))
                self.props.editor.filepath = result
                print("File loaded successfully from: " .. result)
             else
