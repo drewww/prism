@@ -30,8 +30,8 @@ local function defaultCostCallback(_, _) return 1 end
 ---@param start Vector2
 ---@param goal Vector2
 ---@param passableCallback fun(x: integer, y: integer): boolean
----@param costCallback fun(x: integer, y: integer): integer
----@param minDistance integer
+---@param costCallback? fun(x: integer, y: integer): integer
+---@param minDistance? integer
 local function astarSearch(start, goal, passableCallback, costCallback, minDistance)
    minDistance = minDistance or 0
    costCallback = costCallback or defaultCostCallback

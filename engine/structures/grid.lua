@@ -1,17 +1,16 @@
 --- A simple grid class that stores data in a single contiguous array.
 --- @class Grid<T> : Object
---- @field w number The width of the grid.
---- @field h number The height of the grid.
+--- @field w integer The width of the grid.
+--- @field h integer The height of the grid.
 --- @field data any[] The data stored in the grid.
---- @overload fun(w, h, initialValue): Grid
---- @type Grid
+--- @overload fun(w: integer, h: integer, initialValue): Grid
 local Grid = prism.Object:extend("Grid")
 
 --- The constructor for the 'Grid' class.
 --- Initializes the grid with the specified dimensions and initial value.
 --- @generic T
---- @param w number The width of the grid.
---- @param h number The height of the grid.
+--- @param w integer The width of the grid.
+--- @param h integer The height of the grid.
 --- @param initialValue T The initial value to fill the grid with.
 --- @return Grid<T> The initialized grid.
 function Grid:__new(w, h, initialValue)
@@ -26,8 +25,8 @@ end
 
 --- Initializes the grid with the specified dimensions and data.
 --- @generic T
---- @param w number The width of the grid.
---- @param h number The height of the grid.
+--- @param w integer The width of the grid.
+--- @param h integer The height of the grid.
 --- @param data T[] The data to fill the grid with.
 --- @return Grid<T> The initialized grid.
 function Grid:fromData(w, h, data)
@@ -40,8 +39,8 @@ function Grid:fromData(w, h, data)
 end
 
 --- Gets the index in the data array for the specified coordinates.
---- @param x number The x-coordinate.
---- @param y number The y-coordinate.
+--- @param x integer The x-coordinate.
+--- @param y integer The y-coordinate.
 --- @return number? The index in the data array, or nil if out of bounds.
 function Grid:getIndex(x, y)
    if x < 1 or x > self.w or y < 1 or y > self.h then return nil end
@@ -51,8 +50,8 @@ end
 
 --- Sets the value at the specified coordinates.
 --- @generic T
---- @param x number The x-coordinate.
---- @param y number The y-coordinate.
+--- @param x integer The x-coordinate.
+--- @param y integer The y-coordinate.
 --- @param value T The value to set.
 function Grid:set(x, y, value)
    local index = self:getIndex(x, y)
@@ -65,8 +64,8 @@ end
 
 --- Gets the value at the specified coordinates.
 --- @generic T
---- @param x number The x-coordinate.
---- @param y number The y-coordinate.
+--- @param x integer The x-coordinate.
+--- @param y integer The y-coordinate.
 --- @return T? value The value at the specified coordinates, or nil if out of bounds.
 function Grid:get(x, y)
    local index = self:getIndex(x, y)

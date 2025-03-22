@@ -15,24 +15,28 @@ prism._defaultRangeType = "8way"
 
 -- Root object
 
---- @type Object
+--- @module "engine.core.object"
 prism.Object = prism.require "core.object"
 
 -- Colors
---- @type Color4
+--- @module "engine.math.color"
 prism.Color4 = prism.require "math.color"
 
 -- Math
---- @type Vector2
+--- @module 'engine.math.vector'
 prism.Vector2 = prism.require "math.vector"
---- @type BoundingBox
+
+--- @module "engine.math.bounding_box"
 prism.BoundingBox = prism.require "math.bounding_box"
 
+--- @module "engine.math.bresenham"
 prism.Bresenham = prism.require "math.bresenham"
 
+--- @module "engine.algorithms.ellipse"
 prism.Ellipse = prism.require "algorithms.ellipse"
 
-prism.BredthFirstSearch = prism.require "algorithms.bfs"
+--- @module "engine.algorithms.bfs"
+prism.BreadthFirstSearch = prism.require "algorithms.bfs"
 
 prism.neighborhood = prism.Vector2.neighborhood8
 
@@ -42,82 +46,91 @@ function prism.setDefaultNeighborhood(neighborhood)
 end
 
 -- Structures
---- @type SparseMap
+--- @module "engine.structures.sparsemap"
 prism.SparseMap = prism.require "structures.sparsemap"
---- @type SparseGrid
+
+--- @module "engine.structures.sparsegrid"
 prism.SparseGrid = prism.require "structures.sparsegrid"
---- @type SparseArray
+
+--- @module "engine.structures.sparsearray"
 prism.SparseArray = prism.require "structures.sparsearray"
---- @type Grid
+
+--- @module "engine.structures.grid"
 prism.Grid = prism.require "structures.grid"
---- @type BooleanBuffer
+
+--- @module "engine.structures.booleanbuffer"
 prism.BooleanBuffer = prism.require "structures.booleanbuffer"
---- @type Queue
+
+--- @module "engine.structures.queue"
 prism.Queue = prism.require "structures.queue"
---- @type PriorityQueue
+
+--- @module "engine.structures.priority_queue"
 prism.PriorityQueue = prism.require "structures.priority_queue"
 
 -- Algorithms
 prism.fov = {}
+--- @module "engine.algorithms.fov.row"
 prism.fov.Row = prism.require "algorithms.fov.row"
+--- @module "engine.algorithms.fov.quadrant"
 prism.fov.Quadrant = prism.require "algorithms.fov.quadrant"
+--- @module "engine.algorithms.fov.fraction"
 prism.fov.Fraction = prism.require "algorithms.fov.fraction"
+--- @module "engine.algorithms.fov.fov"
 prism.computeFOV = prism.require "algorithms.fov.fov"
 
+--- @module "engine.algorithms.astar.path"
 prism.Path = prism.require "algorithms.astar.path"
 
---- @alias PassableCallback fun(x: integer, y: integer):boolean
---- @alias CostCallback fun(x: integer, y: integer): integer
---- @type fun(start: Vector2, goal: Vector2, passableCallback: PassableCallback, costCallback: CostCallback?, minDistance: integer?): Path
+--- @module "engine.algorithms.astar.astar"
 prism.astar = prism.require "algorithms.astar.astar"
 
 -- Core
---- @type Scheduler
+--- @module "engine.core.scheduler.scheduler"
 prism.Scheduler = prism.require "core.scheduler.scheduler"
---- @type SimpleScheduler
+--- @module "engine.core.scheduler.simple_scheduler"
 prism.SimpleScheduler = prism.require "core.scheduler.simple_scheduler"
---- @type Action
+--- @module "engine.core.action"
 prism.Action = prism.require "core.action"
---- @type Component
+--- @module "engine.core.component" 
 prism.Component = prism.require "core.component"
---- @type Actor
+--- @module "engine.core.actor"
 prism.Actor = prism.require "core.actor"
---- @type ActorStorage
+--- @module "engine.core.actorstorage" 
 prism.ActorStorage = prism.require "core.actorstorage"
---- @type Cell
+--- @module "engine.core.cell"
 prism.Cell = prism.require "core.cell"
---- @type RNG
+--- @module "engine.core.rng"
 prism.RNG = prism.require "core.rng"
---- @type System
+--- @module "engine.core.system"
 prism.System = prism.require "core.system"
---- @type SystemManager
+--- @module "engine.core.system_manager"
 prism.SystemManager = prism.require "core.system_manager"
---- @type MapBuilder
+--- @module "engine.core.map_builder"
 prism.MapBuilder = prism.require "core.map_builder"
---- @type Map
+--- @module "engine.core.map"
 prism.Map = prism.require "core.map"
---- @type Message
+--- @module "engine.core.message"
 prism.Message = prism.require "core.message"
---- @type Decision
+--- @module "engine.core.decision"
 prism.Decision = prism.require "core.decision"
---- @type Target
+--- @module "engine.core.target"
 prism.Target = prism.require "core.target"
---- @type Level
+--- @module "engine.core.level"
 prism.Level = prism.require "core.level"
 
 -- Behavior Tree
 
 prism.BehaviorTree = {}
 
---- @type BTNode
+--- @module "engine.core.behavior_tree.btnode"
 prism.BehaviorTree.Node = prism.require "core.behavior_tree.btnode"
---- @type BTNode
+--- @module "engine.core.behavior_tree.btroot"
 prism.BehaviorTree.Root = prism.require "core.behavior_tree.btroot"
---- @type BTNode
+--- @module "engine.core.behavior_tree.btselector"
 prism.BehaviorTree.Selector = prism.require "core.behavior_tree.btselector"
---- @type BTSequence
+--- @module "engine.core.behavior_tree.btsequence"
 prism.BehaviorTree.Sequence = prism.require "core.behavior_tree.btsequence"
---- @type BTSucceeder
+--- @module "engine.core.behavior_tree.btsucceeder"
 prism.BehaviorTree.Succeeder = prism.require "core.behavior_tree.btsucceeder"
 
 
@@ -132,31 +145,31 @@ prism.messages = {}
 prism.decisions = {}
 prism.behaviors = {}
 
---- @type SensesSystem
+--- @module "engine.core.systems.senses"
 prism.systems.Senses = prism.require "core.systems.senses"
 
---- @type ColliderComponent
+--- @module "engine.core.components.collider"
 prism.components.Collider = prism.require "core.components.collider"
 
---- @type ControllerComponent
+--- @module "engine.core.components.controller"
 prism.components.Controller = prism.require "core.components.controller"
 
---- @type PlayerControllerComponent
+--- @module "engine.core.components.player_controller"
 prism.components.PlayerController = prism.require "core.components.player_controller"
 
---- @type SensesComponent
+--- @module "engine.core.components.senses"
 prism.components.Senses = prism.require "core.components.senses"
 
---- @type OpaqueComponent
+--- @module "engine.core.components.opaque"
 prism.components.Opaque = prism.require "core.components.opaque"
 
---- @type ActionDecision
+--- @module "engine.core.decisions.actiondecision"
 prism.decisions.ActionDecision = prism.require "core.decisions.actiondecision"
 
---- @type ActionMessage
+--- @module "engine.core.messages.actionmessage"
 prism.messages.ActionMessage = prism.require "core.messages.actionmessage"
 
---- @type DebugMessage
+--- @module "engine.core.messages.debugmessage"
 prism.messages.DebugMessage = prism.require "core.messages.debugmessage"
 
 prism._items = {
@@ -209,7 +222,7 @@ local function loadItems(path, itemType, recurse, definitions)
             "File " .. name .. " contains type " .. itemType .. " with duplicate name!")
          items[strippedClassName] = item
 
-         table.insert(definitions, "--- @type " .. item.className)
+         table.insert(definitions, "--- @module " .. '"' .. fileName .. '"')
          table.insert(definitions, "prism." .. itemType .. "." .. strippedClassName .. " = nil")
       elseif info.type == "directory" and recurse then
          loadItems(fileName, itemType, recurse, definitions)
