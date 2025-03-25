@@ -22,6 +22,13 @@ Navigate to the root of this folder and use the command \`love .\` or drag this 
 Join our community on Discord to discuss, collaborate, and get support:  
 [Discord Server](https://discord.gg/rSmzekJe)
 
+## Gallery
+
+
+https://github.com/user-attachments/assets/6c7042d2-bfa3-4a13-b77c-d0b3b875e89e
+
+
+
 ## Credits
 
 #### Example game
