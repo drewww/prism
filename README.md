@@ -25,6 +25,7 @@ Join our community on Discord to discuss, collaborate, and get support:
 ## Gallery
 
 
+
 https://github.com/user-attachments/assets/6c7042d2-bfa3-4a13-b77c-d0b3b875e89e
 
 
@@ -39,3 +40,6 @@ https://github.com/user-attachments/assets/6c7042d2-bfa3-4a13-b77c-d0b3b875e89e
 
 - [FROGBLOCK](https://polyducks.itch.io/frogblock) by Polyducks
 - Parts of [MRMOTEXT](https://mrmotarius.itch.io/mrmotext), buy the asset for full use!
+
+### Gallery
+- Also [MRMOTEXT](https://mrmotarius.itch.io/mrmotext)!
