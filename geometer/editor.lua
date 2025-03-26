@@ -74,6 +74,7 @@ end
 
 ---@param attachable SpectrumAttachable
 function Editor:setAttachable(attachable)
+   self.attachable = attachable
    self.display.attachable = attachable
    self.editorRoot.props.attachable = attachable
    self.editorRoot.props.display = self.display
