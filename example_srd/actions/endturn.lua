@@ -10,6 +10,10 @@ EndTurn.name = "end turn"
 EndTurn.silent = true
 EndTurn.stripName = true
 
+EndTurn.requiredComponents = {
+   prism.components.Controller,
+}
+
 function EndTurn:perform(level)
 end
 

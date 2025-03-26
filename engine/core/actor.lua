@@ -110,27 +110,13 @@ function Actor:getComponent(prototype) return self.componentCache[prototype] end
 --- Actions
 --
 
---- @generic T
---- @param prototype T The type of the component to return.
---- @return T?
-function Actor:getAction(prototype)
-   ---@cast prototype Actor
-   assert(prototype:is(prism.Action), "Expected argument prototype to be of type Action!")
-
-   for _, component in pairs(self.components) do
-      if component.actions then
-         for _, action in pairs(component.actions) do
-            if action == prototype then return action end
-         end
-      end
-   end
-end
-
 --- Get a list of actions that the actor can perform.
 --- @return Action[] totalActions Returns a table of all actions.
 function Actor:getActions()
    local totalActions = {}
 
+   for _, action in pairs(prism.actions) do
+   end
    for k, component in pairs(self.components) do
       if component.actions then
          for k, action in pairs(component.actions) do
@@ -140,20 +126,6 @@ function Actor:getActions()
    end
 
    return totalActions
-end
-
-function Actor:hasAction(action)
-   for _, component in pairs(self.components) do
-      if component.actions then
-         for _, oaction in pairs(component.actions) do
-            if action == oaction then
-               return true
-            end
-         end
-      end
-   end
-
-   return false
 end
 
 --

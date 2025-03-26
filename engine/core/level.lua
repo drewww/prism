@@ -244,7 +244,7 @@ function Level:performAction(action, silent)
    -- tries to damage it for instance.
    if not self:hasActor(action.owner) then return end
 
-   assert(action.owner:hasAction(getmetatable(action)))
+   assert(action:canPerform(self))
    local owner = action.owner
 
    self:debugYield("Actor is about to perform " .. action.name)

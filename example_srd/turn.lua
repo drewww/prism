@@ -20,13 +20,14 @@ function prism.turn(level, actor, controller)
       assert(action, "Actor " .. actor.name .. " returned nil from act()")
       assert(action:canPerform(level))
 
-      SRDStatsComponent.curMovePoints = SRDStatsComponent.curMovePoints - action:movePointCost(level, actor)
+
+      level:performAction(action)
 
       local slot = action:actionSlot(level, actor)
       if slot then
          SRDStatsComponent.actionSlots[slot] = false
       end
 
-      level:performAction(action)
+      SRDStatsComponent.curMovePoints = SRDStatsComponent.curMovePoints - action:movePointCost(level, actor)
    end
 end

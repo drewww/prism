@@ -8,6 +8,7 @@
 --- @field source Actor? An object granting the owner of the action this action. A wand's zap action is a good example.
 --- @field targets [Target]
 --- @field targetObjects [Object]
+--- @field requiredComponents Component[]
 --- @overload fun(owner: Actor, targets: Target[]): Action
 --- @type Action
 local Action = prism.Object:extend("Action")
@@ -47,9 +48,17 @@ end
 --- sure an action is valid for the actor. This would be useful for
 --- @param level Level
 function Action:canPerform(level)
-   return self.owner:hasAction(self.__index)
+   return self:hasRequisiteComponents(self.owner)
 end
 
+--- @param actor Actor
+function Action:hasRequisiteComponents(actor)
+   for _, component in pairs(self.requiredComponents) do
+      if not actor:hasComponent(component) then return false end
+   end
+
+   return true
+end
 --- Performs the action. This should be overriden on all subclasses
 --- @param level Level The level the action is being performed in.
 function Action:perform(level)

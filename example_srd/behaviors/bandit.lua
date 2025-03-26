@@ -32,18 +32,13 @@ BanditBehavior.children = {
       end),
       PathfindBehavior(function(_, _, controller) return controller.blackboard.meleeTarget:getPosition() end, 1),
       prism.BehaviorTree.Node(function(_, level, actor, controller)
-         local attackAction = actor:getAction(prism.actions.Attack)
-         if not attackAction then return false end
-
          local stats = actor:getComponent(prism.components.SRDStats)
+         if not stats then return false end
+
          local weapon = stats.attacks:get(1)
 
-         local attackInstance = attackAction(actor, {weapon, controller.blackboard.meleeTarget})
-         if attackInstance:canPerform(level) then
-            return attackInstance
-         end
-
-         return false
+         local attackInstance = prism.actions.Attack(actor, {weapon, controller.blackboard.meleeTarget})
+         return attackInstance:canPerform(level) and attackInstance or false
       end)
    },
    prism.BehaviorTree.Node(function ()

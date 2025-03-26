@@ -15,6 +15,10 @@ Move.name = "move"
 Move.silent = true
 Move.targets = { PointTarget }
 Move.stripName = true
+Move.requiredComponents = {
+   prism.components.Controller,
+   prism.components.SRDStats
+}
 
 function Move:movePointCost(level, actor)
    return 1
@@ -36,6 +40,7 @@ function Move:perform(level)
    --- @type Vector2
    local destination = self:getTarget(1)
    local stats = self.owner:getComponent(prism.components.SRDStats)
+   --- @cast stats SRDStatsComponent
 
    assert(self.owner:getPosition():distanceChebyshev(destination) == 1)
    assert(level:getCellPassable(destination.x, destination.y, stats.mask))

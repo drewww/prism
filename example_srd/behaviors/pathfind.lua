@@ -14,29 +14,16 @@ function PathfindNode:run(level, actor, controller)
    local destination = self.destinationFunc(level, actor, controller)
 
    if actor:getRangeVec(prism._defaultDistance, destination) <= self.destinationDistance then return true end
+
    local stats = actor:getComponent(prism.components.SRDStats)
    if not stats then return false end
-
+   
    local path = level:findPath(actor:getPosition(), destination, self.destinationDistance, stats.mask)
    if not path then return false end
 
-   if not stats then return false end
-   if stats.curMovePoints < path:getTotalCost() then
-      return false
-   end
-
-   local moveAction = actor:getAction(prism.actions.Move)
-   if moveAction then
-      local nextCell = path:pop()
-      
-      ---@type MoveAction
-      local actionInstance = moveAction(actor, { nextCell })
-      if actionInstance:canPerform(level) then
-         return actionInstance
-      end
-   end
-
-   return false
+   local nextCell = path:pop()
+   local moveAction = prism.actions.Move(actor, { nextCell })
+   return moveAction:canPerform(level) and moveAction or false
 end
 
 return PathfindNode

@@ -19,20 +19,16 @@ function SRDLevelState:updateDecision(dt, actor, decision)
    if self.path then
       ---@type Vector2|nil
       local nextPos = self.path:pop()
+      if not nextPos then return end
 
       ---@type MoveAction
-      local moveAction = actor:getAction(prism.actions.Move)
-      if nextPos and moveAction then
-         --- @type MoveAction
-         local action = moveAction(actor, { nextPos })
-         if action:canPerform(self.level) then
-            decision:setAction(action)
-         else
-            self.path = nil
-         end
-      else
-         self.path = nil
+      local moveAction = prism.actions.Move(actor, { nextPos })
+      if moveAction:canPerform(self.level) then
+         decision:setAction(moveAction)
+         return
       end
+
+      self.path = nil
    end
 end
 
@@ -102,8 +98,8 @@ function SRDLevelState:keypressed(key, scancode)
    ---@cast actionDecision ActionDecision
    local curActor = actionDecision.actor
    if action == "end turn" then
-      local endturn = curActor:getAction(prism.actions.EndTurn)
-      actionDecision.action = endturn(curActor)
+      local endturn = prism.actions.EndTurn(curActor)
+      actionDecision.action = endturn:canPerform(self.level) and endturn or nil
    elseif action == "open editor" then
       self.manager:push(self.geometer)
    elseif action == "save" then
