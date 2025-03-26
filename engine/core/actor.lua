@@ -116,12 +116,8 @@ function Actor:getActions()
    local totalActions = {}
 
    for _, action in pairs(prism.actions) do
-   end
-   for k, component in pairs(self.components) do
-      if component.actions then
-         for k, action in pairs(component.actions) do
-            table.insert(totalActions, action)
-         end
+      if action:hasRequisiteComponents(self) then
+         table.insert(totalActions, action)
       end
    end
 
