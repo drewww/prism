@@ -5,6 +5,7 @@ local keybindings = require "example_srd.keybindingschema"
 
 --- @class SRDLevelState : LevelState
 --- @field path Path
+--- @field level Level
 local SRDLevelState = spectrum.LevelState:extend "SRDLevelState"
 
 love.graphics.setDefaultFilter("nearest", "nearest")
@@ -36,11 +37,15 @@ function SRDLevelState:updateDecision(dt, actor, decision)
 end
 
 function SRDLevelState:calculatePath(actor)
-   local passableCallback = function (x, y)
-      local sensesComponent = actor:getComponent(prism.components.Senses)
-      if not sensesComponent then return false end
+   local sensesComponent = actor:getComponent(prism.components.Senses)
+   if not sensesComponent then return false end
 
-      return sensesComponent.explored:get(x, y) and self.level:getCellPassable(x, y) or false
+   local stats = actor:getComponent(prism.components.SRDStats)
+   local mask = 0
+   if stats then mask = stats.mask end
+   
+   local passableCallback = function (x, y)
+      return sensesComponent.explored:get(x, y) and self.level:getCellPassable(x, y, mask)
    end
 
    local x, y = self.display:getCellUnderMouse()

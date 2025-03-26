@@ -16,6 +16,7 @@ function Bandit:initialize()
       prism.components.Sight { range = 64, fov = true },
       prism.components.SRDStats {
          movePoints = 6,
+         moveTypes = { "walk" },
          stats = {
             STR = 11,
             DEX = 12,

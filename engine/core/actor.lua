@@ -126,7 +126,7 @@ function Actor:getAction(prototype)
    end
 end
 
---- Get a list of actions from the actor and all of its components.
+--- Get a list of actions that the actor can perform.
 --- @return Action[] totalActions Returns a table of all actions.
 function Actor:getActions()
    local totalActions = {}

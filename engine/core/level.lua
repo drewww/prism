@@ -6,7 +6,7 @@
 --- @field scheduler Scheduler The main scheduler driving the loop of the game.
 --- @field map Map The level's map.
 --- @field opacityCache BooleanBuffer A cache of cell opacity || actor opacity for each cell. Used to speed up fov/lighting calculations.
---- @field passableCache BooleanBuffer A cache of cell passability || actor passability for each cell. Used to speed up pathfinding.
+--- @field passableCache BitmaskBuffer A cache of cell passability || actor passability for each cell. Used to speed up pathfinding.
 --- @field decision ActionDecision Used during deserialization to resume.
 --- @field RNG RNG The level's local random number generator, use this for randomness within the level like attack rolls.
 --- @overload fun(map: Map, actors: [Actor], systems: [System], scheduler: Scheduler): Level
@@ -28,7 +28,7 @@ function Level:__new(map, actors, systems, scheduler, seed)
    self.scheduler = scheduler or prism.SimpleScheduler()
    self.map = map
    self.opacityCache = prism.BooleanBuffer(map.w, map.h)  -- holds a cache of opacity to speed up fov calcs
-   self.passableCache = prism.BooleanBuffer(map.w, map.h) -- holds a cache of passability to speed up a* calcs
+   self.passableCache = prism.BitmaskBuffer(map.w, map.h) -- holds a cache of passability to speed up a* calcs
    self.RNG = prism.RNG(seed or love.timer.getTime())
    self.debug = false
    
@@ -349,9 +349,11 @@ end
 --- actors in the sparse map as well as the cell's passable property.
 --- @param x number The x component of the position to check.
 --- @param y number The y component of the position to check.
+--- @param mask Bitmask
 --- @return boolean True if the cell is passable, false otherwise.
-function Level:getCellPassable(x, y)
-   return self.passableCache:get(x, y)
+function Level:getCellPassable(x, y, mask)
+   local cellMask = self.passableCache:getMask(x, y)
+   return prism.Collision.checkBitmaskOverlap(mask, cellMask)
 end
 
 --- Initialize the passable cache. This should be called after the level is
@@ -361,7 +363,7 @@ end
 function Level:initializePassabilityCache()
    for x = 1, self.map.w do
       for y = 1, self.map.h do
-         self.passableCache:set(x, y, self.map.passableCache:get(x, y))
+         self.passableCache:setMask(x, y, self.map.passableCache:getMask(x, y))
       end
    end
 end
@@ -372,14 +374,17 @@ end
 --- @param x number The x component of the position to update.
 --- @param y number The y component of the position to update.
 function Level:updatePassabilityCache(x, y)
-   self.passableCache:set(x, y, self.map.passableCache:get(x, y))
+   local mask = self.map.passableCache:getMask(x, y)
 
    local passable = true
    for actor, _ in self.actorStorage:eachActorAt(x, y) do
-      if actor:hasComponent(prism.components.Collider) then
-         self.passableCache:set(x, y, false)
+      local collider = actor:getComponent(prism.components.Collider)
+      if collider then
+         mask = bit.band(collider.mask, mask)
       end
    end
+
+   self.passableCache:setMask(x, y, mask)
 end
 
 --- Returns true if the cell at the given position is opaque, false otherwise.
@@ -427,7 +432,7 @@ end
 ---@param startPos Vector2
 ---@param goalPos Vector2
 ---@return Path | nil
-function Level:findPath(startPos, goalPos, minDistance)
+function Level:findPath(startPos, goalPos, minDistance, mask)
    if
        startPos.x < 1 or startPos.x > self.map.w or startPos.y < 1 or startPos.y > self.map.h or
        goalPos.x < 1 or goalPos.x > self.map.w or goalPos.y < 1 or goalPos.y > self.map.h
@@ -436,7 +441,7 @@ function Level:findPath(startPos, goalPos, minDistance)
    end
    -- Define the passability callback (checks if a position is walkable)
    local function passableCallback(x, y)
-      return self:getCellPassable(x, y) -- Assume this is a method in your Level class that checks passability
+      return self:getCellPassable(x, y, mask) -- Assume this is a method in your Level class that checks passability
    end
 
    -- Use the prism.astar function to find the path
@@ -463,7 +468,7 @@ function Level:getAOE(type, position, range)
    if type == "fov" then
       local fov = prism.SparseGrid()
 
-      prism.computeFOV(position, range, function(x, y)
+      prism.computeFOV(self, position, range, function(x, y)
          fov:set(x, y, true)
       end)
 
@@ -493,7 +498,7 @@ function Level:onDeserialize()
 
    local w, h = self.map.w, self.map.h
    self.opacityCache = prism.BooleanBuffer(w, h)
-   self.passableCache = prism.BooleanBuffer(w, h)
+   self.passableCache = prism.BitmaskBuffer(w, h)
    
    self.map:onDeserialize()
    for x, y, _ in self.map:each() do

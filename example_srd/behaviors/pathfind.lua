@@ -15,11 +15,10 @@ function PathfindNode:run(level, actor, controller)
 
    if actor:getRangeVec(prism._defaultDistance, destination) <= self.destinationDistance then return true end
    local stats = actor:getComponent(prism.components.SRDStats)
+   if not stats then return false end
 
-   local path = level:findPath(actor:getPosition(), destination, self.destinationDistance)
+   local path = level:findPath(actor:getPosition(), destination, self.destinationDistance, stats.mask)
    if not path then return false end
-
-   if path:getTotalCost() >= stats.curMovePoints then return false end
 
    if not stats then return false end
    if stats.curMovePoints < path:getTotalCost() then

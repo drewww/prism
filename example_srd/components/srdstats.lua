@@ -13,6 +13,7 @@ end
 --- @field HP integer
 --- @field actionSlots table<string, boolean>
 --- @field attacks SparseArray
+--- @field mask Bitmask
 local SRDStats = prism.Component:extend( "SRDStatsComponent" )
 SRDStats.name = "Move"
 
@@ -51,6 +52,8 @@ function SRDStats:__new(options)
       BonusAction = true,
       ObjectInteraction = true
    }
+
+   self.mask = prism.Collision.createBitmaskFromMovetypes(options.moveTypes)
 
    self.modifiers = {}
 

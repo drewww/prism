@@ -1,7 +1,7 @@
 --- A map manager class that extends the Grid class to handle map-specific functionalities.
 --- @class Map : Grid
 --- @field opacityCache BooleanBuffer Caches the opaciy of the cell + actors in each tile for faster fov calculation.
---- @field passableCache BooleanBuffer
+--- @field passableCache BitmaskBuffer
 --- @overload fun(): Map
 --- @type Map
 local Map = prism.Grid:extend("Map")
@@ -19,7 +19,7 @@ Map.serializationBlacklist = {
 function Map:__new(w, h, initialValue)
    prism.Grid.__new(self, w, h, initialValue)
    self.opacityCache = prism.BooleanBuffer(w, h)
-   self.passableCache = prism.BooleanBuffer(w, h)
+   self.passableCache = prism.BitmaskBuffer(w, h)
 end
 
 --- Sets the cell at the specified coordinates to the given value.
@@ -45,15 +45,15 @@ end
 function Map:updateCaches(x, y)
    local cell = self:get(x, y)
    self.opacityCache:set(x, y, cell.opaque)
-   self.passableCache:set(x, y, cell.passable)
+   self.passableCache:setMask(x, y, cell.collisionMask)
 end
 
 --- Returns true if the cell at the specified coordinates is passable, false otherwise.
 --- @param x number The x-coordinate.
 --- @param y number The y-coordinate.
 --- @return boolean True if the cell is passable, false otherwise.
-function Map:getCellPassable(x, y)
-   return self.passableCache:get(x, y)
+function Map:getCellPassable(x, y, mask)
+   return prism.Collision.checkBitmaskOverlap(self.passableCache:getMask(x, y), mask)
 end
 
 --- Returns true if the cell at the specified coordinates is opaque, false otherwise.
@@ -67,7 +67,7 @@ end
 function Map:onDeserialize()
    local w, h = self.w, self.h
    self.opacityCache = prism.BooleanBuffer(w, h)
-   self.passableCache = prism.BooleanBuffer(w, h)
+   self.passableCache = prism.BitmaskBuffer(w, h)
 
    for x, y, _ in self:each() do
       self:updateCaches(x, y)

@@ -47,7 +47,7 @@ end
 --- sure an action is valid for the actor. This would be useful for
 --- @param level Level
 function Action:canPerform(level)
-   return true
+   return self.owner:hasAction(self.__index)
 end
 
 --- Performs the action. This should be overriden on all subclasses

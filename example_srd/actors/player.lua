@@ -19,6 +19,7 @@ function Player:initialize()
       --- Stat Block
       prism.components.SRDStats {
          movePoints = 6,
+         moveTypes = {"walk"},
          stats = {
             STR = 10,
             DEX = 10,

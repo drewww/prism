@@ -13,7 +13,7 @@ end
 ---@param actor Actor
 function BanditController:act(level, actor)
    self.blackboard = {}
-   return self.root:run(level, actor, actor:getComponent(prism.components.BanditController))
+   return self.root:run(level, actor, self)
 end
 
 return BanditController

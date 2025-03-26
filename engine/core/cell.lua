@@ -3,18 +3,23 @@
 --- Still working on the details there. For now, cells are just a simple way to define the properties of a tile.
 --- @class Cell : Object
 --- @field name string Displayed in the user interface.
---- @field passable boolean Defines whether a cell can moved through.
+--- @field collisionMask Bitmask Defines whether a cell can moved through.
 --- @field opaque boolean Defines whether a cell can be seen through.
 --- @field drawable DrawableComponent
+--- @field allowedMovetypes string[]?
 --- @overload fun(): Cell
 --- @type Cell
 local Cell = prism.Object:extend("Cell")
 Cell.name = nil
 Cell.opaque = false
-Cell.passable = false
+Cell.collisionMask = 0
 
 --- Constructor for the Cell class.
-function Cell:__new() end
+function Cell:__new()
+   if self.allowedMovetypes then
+      self.collisionMask = prism.Collision.createBitmaskFromMovetypes(self.allowedMovetypes)
+   end
+end
 
 --- Called when an actor enters the cell.
 --- @param level Level The level where the actor entered the cell.

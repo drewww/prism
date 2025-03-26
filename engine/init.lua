@@ -61,6 +61,9 @@ prism.Grid = prism.require "structures.grid"
 --- @module "engine.structures.booleanbuffer"
 prism.BooleanBuffer = prism.require "structures.booleanbuffer"
 
+--- @module "engine.structures.bitmaskbuffer"
+prism.BitmaskBuffer = prism.require "structures.bitmaskbuffer"
+
 --- @module "engine.structures.queue"
 prism.Queue = prism.require "structures.queue"
 
@@ -117,7 +120,8 @@ prism.Decision = prism.require "core.decision"
 prism.Target = prism.require "core.target"
 --- @module "engine.core.level"
 prism.Level = prism.require "core.level"
-
+--- @module "engine.core.collision"
+prism.Collision = prism.require "core.collision"
 -- Behavior Tree
 
 prism.BehaviorTree = {}
@@ -233,6 +237,10 @@ end
 prism.modules = {}
 function prism.loadModule(directory)
    table.insert(prism.modules, directory)
+
+   if love.filesystem.read(directory .. "/module.lua") then
+      require(directory .. "." .. "module")
+   end
 
    local sourceDir = love.filesystem.getSource() -- Get the source directory
    local definitions = { "---@meta " .. string.lower(directory) }

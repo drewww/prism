@@ -139,7 +139,6 @@ function Attack:perform(level)
       for _, dieTuple in ipairs(damageDice) do
          ---@cast dieTuple { [1]: Die, [2]: DamageType}
          finalDamage = finalDamage + dieTuple[1].result
-         print(dieTuple[1].sides, dieTuple[1].result)
       end
 
       finalDamage = finalDamage + self:calculateDamageModifiers(attackDataTarget)
