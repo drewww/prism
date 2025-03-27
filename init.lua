@@ -1,3 +1,6 @@
-require "engine"
-require "spectrum"
-require "geometer"
+local p = ... .. "."
+
+print(p)
+require (p .. "engine")
+require (p .. "spectrum")
+require (p .. "geometer")
