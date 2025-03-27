@@ -1,0 +1,3 @@
+--- @class IBehavior : Object
+--- @field run fun(self, level: Level, actor: Actor, controller: ControllerComponent): Action
+--- @field behaviorOwner IBehavior?
