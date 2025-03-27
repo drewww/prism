@@ -1,0 +1,8 @@
+site_name: "PRISM: A ROGUELIKE ENGINE"
+theme:
+  name: terminal
+nav:
+  - Home: index.md
+  - Making a roguelike:
+    - Part 01: making-a-roguelike-part1.md
+
