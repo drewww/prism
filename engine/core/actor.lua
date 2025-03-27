@@ -106,6 +106,15 @@ end
 --- @return T?
 function Actor:getComponent(prototype) return self.componentCache[prototype] end
 
+
+--- Expects a component, returning it or erroring on nil.
+--- @generic T
+--- @param prototype T The type of the component to return.
+--- @return T
+function Actor:expectComponent(prototype) 
+   return self.componentCache[prototype] or error("Expected component " .. prototype.className .. "!")
+end
+
 --
 --- Actions
 --
