@@ -114,7 +114,6 @@ function Actor:getComponent(prototype) return self.componentCache[prototype] end
 function Actor:expectComponent(prototype) 
    return self.componentCache[prototype] or error("Expected component " .. prototype.className .. "!")
 end
-
 --
 --- Actions
 --

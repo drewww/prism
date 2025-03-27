@@ -26,6 +26,9 @@ function Action:__new(owner, targets, source)
    self.targets = self.targets or {}
    self.targetObjects = targets or {}
 
+   assert(Action.canPerform == self.canPerform, "Do not override canPerform! Override _canPerform instead!")
+   assert(Action.perform == self.perform, "Do not override perform! Override _perform instead!")
+
    assert(
       #self.targetObjects == #self.targets,
       "Invalid number of targets for action "
@@ -44,14 +47,27 @@ function Action:__new(owner, targets, source)
    end
 end
 
+--- Call this function to check if the action is valid and can be executed in
+--- the given level. This calls the inner overrideable _canPerform, and
+--- unpacks the target objects.
+--- @param level Level
+--- @return boolean canPerform
+function Action:canPerform(level)
+   if not self:hasRequisiteComponents(self.owner) then return false end
+
+   return self:_canPerform(level, unpack(self.targetObjects)) 
+end
+
 --- This method should be overriden by subclasses. This is called to make
 --- sure an action is valid for the actor. This would be useful for
 --- @param level Level
-function Action:canPerform(level)
-   return self:hasRequisiteComponents(self.owner)
+--- @return boolean canPerform
+function Action:_canPerform(level, ...)
+   error("This is a virtual method and must be overriden on subclasses!")
 end
 
 --- @param actor Actor
+--- @return boolean hasRequisiteComponents
 function Action:hasRequisiteComponents(actor)
    for _, component in pairs(self.requiredComponents) do
       if not actor:hasComponent(component) then return false end
@@ -59,9 +75,14 @@ function Action:hasRequisiteComponents(actor)
 
    return true
 end
+
+function Action:perform(level)
+   self:_perform(level, unpack(self.targetObjects))
+end
+
 --- Performs the action. This should be overriden on all subclasses
 --- @param level Level The level the action is being performed in.
-function Action:perform(level)
+function Action:_perform(level, ...)
    error("This is a virtual method and must be overriden on subclasses!")
 end
 

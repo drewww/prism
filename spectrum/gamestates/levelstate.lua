@@ -21,7 +21,7 @@ function LevelState:__new(level, display, actionHandlers)
    self.display = display
    self.geometer = geometer.EditorState(self.level, self.display)
    self.time = 0
-   self.actionHandlers = actionHandlers
+   self.actionHandlers = actionHandlers or {}
 
    local callbackGenerator = function(callback)
       return function(display)
@@ -95,7 +95,7 @@ function LevelState:handleActionMessage(message)
          break
       end
    end
-   if seen then
+   if seen and self.actionHandlers[actionproto] then
       self.display:setOverride(self.actionHandlers[actionproto], message)
    end
    self.message = message
