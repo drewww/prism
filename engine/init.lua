@@ -251,8 +251,10 @@ function prism.loadModule(directory)
       loadItems(directory .. "/" .. item, item, true, definitions)
    end
 
+   local lastSubdir = directory:match("([^/\\]+)$")
+
    -- Define the output file path
-   local outputFile = sourceDir .. "/definitions/" .. directory .. ".lua"
+   local outputFile = sourceDir .. "/definitions/" .. lastSubdir .. ".lua"
 
    -- Write the concatenated definitions to the file
    local file, err = io.open(outputFile, "w")

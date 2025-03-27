@@ -28,7 +28,7 @@ function Object:extend(className, ignoreclassName)
    o.className = className
 
    --print(className, not ignoreclassName, not prism._OBJECTREGISTRY[className])
-   assert(ignoreclassName or not prism._OBJECTREGISTRY[className], "Every game object must have a unique className!")
+   assert(ignoreclassName or not prism._OBJECTREGISTRY[className], className .. " is already in use by another prototype!")
 
    -- TODO: Remove ignorclassName hack.
    if not ignoreclassName then
