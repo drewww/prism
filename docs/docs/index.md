@@ -9,3 +9,5 @@ are turn-based games set in randomly generated grid levels.
 
 ## Getting started
 
+Download (zipped release here) and unzip it. Drag the folder containing main.lua over the love executable, or run
+it using "love ." in the terminal.
