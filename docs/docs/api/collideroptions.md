@@ -1,0 +1,11 @@
+
+### allowedMovetypes
+
+
+```lua
+string[]
+```
+
+
+---
+
