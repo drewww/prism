@@ -1,6 +1,6 @@
 site_name: "PRISM: A ROGUELIKE ENGINE"
 theme:
-  name: mkdocs
+  name: terminal
 nav:
   - Home: index.md
   - Documentation: doc.md
