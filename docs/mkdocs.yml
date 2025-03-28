@@ -3,6 +3,7 @@ theme:
   name: mkdocs
 nav:
   - Home: index.md
+  - Documentation: doc.md
   - Architecture Primer: architecture-primer.md
   - Making a roguelike:
     - Part 01: making-a-roguelike-part1.md
