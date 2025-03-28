@@ -7,3 +7,10 @@ nav:
   - Making a roguelike:
     - Part 01: making-a-roguelike-part1.md
 
+markdown_extensions:
+  - pymdownx.superfences         # required extension
+  - pymdownx.highlight:
+      use_pygments: true         # use pygments library    
+      pygments_style: sas        # use 'default' style
+      noclasses: true            # update HTML style attr
+  - pymdownx.inlinehilite        # style inline code
