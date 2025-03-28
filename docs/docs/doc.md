@@ -1,13 +1,13 @@
 # Action
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -16,7 +16,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -31,7 +31,7 @@ Object
 
 @*param* `source` — An optional actor indicating the source of that action, for stuff like a wand or scroll.
 
-## _canPerform
+### _canPerform
 
 
 ```lua
@@ -42,7 +42,7 @@ Object
  This method should be overriden by subclasses. This is called to make
  sure an action is valid for the actor. This would be useful for
 
-## _perform
+### _perform
 
 
 ```lua
@@ -53,14 +53,14 @@ Object
 
 @*param* `level` — The level the action is being performed in.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -68,7 +68,7 @@ table
   -> unknown
 ```
 
-## canPerform
+### canPerform
 
 
 ```lua
@@ -80,7 +80,7 @@ table
  the given level. This calls the inner overrideable _canPerform, and
  unpacks the target objects.
 
-## className
+### className
 
 
 ```lua
@@ -89,7 +89,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -97,7 +97,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -113,7 +113,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getNumTargets
+### getNumTargets
 
 
 ```lua
@@ -125,7 +125,7 @@ function Object.deserialize(data: any)
 
 @*return* `numTargets` — The number of targets associated with this action.
 
-## getTarget
+### getTarget
 
 
 ```lua
@@ -139,7 +139,7 @@ function Object.deserialize(data: any)
 
 @*return* `target` — The target actor at the specified index.
 
-## getTargetObject
+### getTargetObject
 
 
 ```lua
@@ -150,7 +150,7 @@ function Object.deserialize(data: any)
  Returns the target object at the specified index.
  @tparam number index The index of the target object to retrieve.
 
-## hasRequisiteComponents
+### hasRequisiteComponents
 
 
 ```lua
@@ -158,7 +158,7 @@ function Object.deserialize(data: any)
   -> hasRequisiteComponents: boolean
 ```
 
-## hasTarget
+### hasTarget
 
 
 ```lua
@@ -170,7 +170,7 @@ function Object.deserialize(data: any)
  @tparam Actor actor The actor to check if they are a target of this action.
  @treturn boolean true if the specified actor is a target of this action, false otherwise.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -184,7 +184,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -198,7 +198,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -211,14 +211,14 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## name
+### name
 
 
 ```lua
 string
 ```
 
-## owner
+### owner
 
 
 ```lua
@@ -227,14 +227,14 @@ Actor
 
 The actor taking the action.
 
-## perform
+### perform
 
 
 ```lua
 (method) Action:perform(level: any)
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -250,21 +250,21 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## requiredComponents
+### requiredComponents
 
 
 ```lua
 Component[]
 ```
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -272,7 +272,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## silent
+### silent
 
 
 ```lua
@@ -281,7 +281,7 @@ boolean
 
 A silent action doesn't generate messages
 
-## source
+### source
 
 
 ```lua
@@ -290,28 +290,28 @@ Actor?
 
 An object granting the owner of the action this action. A wand's zap action is a good example.
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## targetObjects
+### targetObjects
 
 
 ```lua
 [Object]
 ```
 
-## targets
+### targets
 
 
 ```lua
 [Target]
 ```
 
-## time
+### time
 
 
 ```lua
@@ -320,7 +320,7 @@ number
 
 The time it takes to perform this action. Lower is better.
 
-## validateTarget
+### validateTarget
 
 
 ```lua
@@ -345,14 +345,14 @@ The time it takes to perform this action. Lower is better.
 
 # ActionDecision
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -361,21 +361,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) ActionDecision:__new(actor: Actor)
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## action
+### action
 
 
 ```lua
@@ -386,7 +386,7 @@ Action|nil
  An Action consists of an owner, a name, a list of targets, and a list of target objects.
  See Target for more.
 
-## actor
+### actor
 
 
 ```lua
@@ -398,7 +398,7 @@ Actor
  For example, an actor may have a Sight component that determines their field of vision, explored tiles,
  and other related aspects.
 
-## adopt
+### adopt
 
 
 ```lua
@@ -406,7 +406,7 @@ Actor
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -415,7 +415,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -423,7 +423,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -439,7 +439,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -453,7 +453,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -467,7 +467,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -480,7 +480,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -496,14 +496,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -511,21 +511,21 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## setAction
+### setAction
 
 
 ```lua
 (method) ActionDecision:setAction(action: any)
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## validateResponse
+### validateResponse
 
 
 ```lua
@@ -538,14 +538,14 @@ boolean
 
 # ActionMessage
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -554,21 +554,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) ActionMessage:__new(action: Action)
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## action
+### action
 
 
 ```lua
@@ -579,7 +579,7 @@ Action
  An Action consists of an owner, a name, a list of targets, and a list of target objects.
  See Target for more.
 
-## actor
+### actor
 
 
 ```lua
@@ -591,7 +591,7 @@ Actor
  For example, an actor may have a Sight component that determines their field of vision, explored tiles,
  and other related aspects.
 
-## adopt
+### adopt
 
 
 ```lua
@@ -599,7 +599,7 @@ Actor
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -608,7 +608,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -616,7 +616,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -632,7 +632,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -646,7 +646,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -660,7 +660,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -673,7 +673,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -689,14 +689,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -704,7 +704,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -716,7 +716,7 @@ boolean
 
 # Actor
 
-## __addComponent
+### __addComponent
 
 
 ```lua
@@ -728,14 +728,14 @@ boolean
 
 @*param* `component` — The component to add to the actor.
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -744,7 +744,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -754,7 +754,7 @@ Object
  Constructor for an actor.
  Initializes and copies the actor's fields from its prototype.
 
-## __removeComponent
+### __removeComponent
 
 
 ```lua
@@ -767,14 +767,14 @@ Object
 
 @*param* `component` — The component to remove from the actor.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -782,7 +782,7 @@ table
   -> unknown
 ```
 
-## char
+### char
 
 
 ```lua
@@ -791,7 +791,7 @@ string
 
 The character to draw for this actor.
 
-## className
+### className
 
 
 ```lua
@@ -800,7 +800,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## componentCache
+### componentCache
 
 
 ```lua
@@ -809,7 +809,7 @@ table
 
 This is a cache for component queries, reducing most queries to a hashmap lookup.
 
-## components
+### components
 
 
 ```lua
@@ -818,7 +818,7 @@ Component[]
 
 A table containing all of the actor's component instances. Generated at runtime.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -826,7 +826,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## expectComponent
+### expectComponent
 
 
 ```lua
@@ -838,7 +838,7 @@ function Object.deserialize(data: any)
 
 @*param* `prototype` — The type of the component to return.
 
-## extend
+### extend
 
 
 ```lua
@@ -854,7 +854,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getActions
+### getActions
 
 
 ```lua
@@ -866,7 +866,7 @@ function Object.deserialize(data: any)
 
 @*return* `totalActions` — Returns a table of all actions.
 
-## getComponent
+### getComponent
 
 
 ```lua
@@ -878,7 +878,7 @@ function Object.deserialize(data: any)
 
 @*param* `prototype` — The type of the component to return.
 
-## getPosition
+### getPosition
 
 
 ```lua
@@ -890,7 +890,7 @@ function Object.deserialize(data: any)
 
 @*return* `position` — Returns a copy of the actor's current position.
 
-## getRange
+### getRange
 
 
 ```lua
@@ -913,7 +913,7 @@ type:
     | "8way"
 ```
 
-## getRangeVec
+### getRangeVec
 
 
 ```lua
@@ -927,7 +927,7 @@ type:
  @tparam Vector2 vector The vector to get the range to.
  @treturn number Returns the calculated range.
 
-## hasComponent
+### hasComponent
 
 
 ```lua
@@ -939,7 +939,7 @@ type:
 
 @*param* `prototype` — The prototype of the component to check for.
 
-## initialize
+### initialize
 
 
 ```lua
@@ -949,7 +949,7 @@ type:
 
  Creates the components for the actor. Override this.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -963,7 +963,7 @@ type:
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -977,7 +977,7 @@ type:
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -990,7 +990,7 @@ type:
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## name
+### name
 
 
 ```lua
@@ -999,7 +999,7 @@ string
 
 The string name of the actor, used for display to the user.
 
-## position
+### position
 
 
 ```lua
@@ -1008,7 +1008,7 @@ Vector2
 
 An actor's position in the game world.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -1024,14 +1024,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -1039,7 +1039,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -1051,14 +1051,14 @@ boolean
 
 # ActorStorage
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -1067,7 +1067,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -1077,14 +1077,14 @@ Object
  The constructor for the 'ActorStorage' class.
  Initializes the list, spatial map, and component cache.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## actorToID
+### actorToID
 
 
 ```lua
@@ -1093,7 +1093,7 @@ table<Actor, integer?>
 
 A hashmap of actors to ids.
 
-## actors
+### actors
 
 
 ```lua
@@ -1102,7 +1102,7 @@ Actor[]
 
 The list of actors in the storage.
 
-## addActor
+### addActor
 
 
 ```lua
@@ -1113,7 +1113,7 @@ The list of actors in the storage.
 
 @*param* `actor` — The actor to add.
 
-## adopt
+### adopt
 
 
 ```lua
@@ -1121,7 +1121,7 @@ The list of actors in the storage.
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -1130,7 +1130,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## componentCache
+### componentCache
 
 
 ```lua
@@ -1139,7 +1139,7 @@ table
 
 The cache for storing actor components.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -1147,7 +1147,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## eachActor
+### eachActor
 
 
 ```lua
@@ -1162,7 +1162,7 @@ function Object.deserialize(data: any)
 
 @*return* `iter` — An iterator over the actors in the storage.
 
-## eachActorAt
+### eachActorAt
 
 
 ```lua
@@ -1178,7 +1178,7 @@ function Object.deserialize(data: any)
 
 @*return* `iterator` — An iterator over the actors at the given position.
 
-## extend
+### extend
 
 
 ```lua
@@ -1194,7 +1194,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getActorByType
+### getActorByType
 
 
 ```lua
@@ -1208,7 +1208,7 @@ function Object.deserialize(data: any)
 
 @*return* `The` — first actor that matches the prototype, or nil if no actor matches.
 
-## getActorsAt
+### getActorsAt
 
 
 ```lua
@@ -1225,7 +1225,7 @@ function Object.deserialize(data: any)
 
 @*return* `actors` — A table of actors at the given position.
 
-## getID
+### getID
 
 
 ```lua
@@ -1241,7 +1241,7 @@ function Object.deserialize(data: any)
 
 @*return* `The` — unique ID of the actor, or nil if the actor is not found.
 
-## hasActor
+### hasActor
 
 
 ```lua
@@ -1255,7 +1255,7 @@ function Object.deserialize(data: any)
 
 @*return* `True` — if the storage contains the actor, false otherwise.
 
-## ids
+### ids
 
 
 ```lua
@@ -1264,14 +1264,14 @@ SparseArray
 
 A sparse array of references to the Actors in the storage. The ID is derived from this.
 
-## insertSparseMapCallback
+### insertSparseMapCallback
 
 
 ```lua
 function
 ```
 
-## insertSparseMapEntries
+### insertSparseMapEntries
 
 
 ```lua
@@ -1282,7 +1282,7 @@ function
 
 @*param* `actor` — The actor to insert.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -1296,7 +1296,7 @@ function
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -1310,7 +1310,7 @@ function
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## merge
+### merge
 
 
 ```lua
@@ -1321,7 +1321,7 @@ function
 
 @*param* `other` — The other ActorStorage instance to merge with this one.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -1334,14 +1334,14 @@ function
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## onDeserialize
+### onDeserialize
 
 
 ```lua
 (method) ActorStorage:onDeserialize()
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -1357,7 +1357,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## removeActor
+### removeActor
 
 
 ```lua
@@ -1368,7 +1368,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `actor` — The actor to remove.
 
-## removeComponentCache
+### removeComponentCache
 
 
 ```lua
@@ -1379,14 +1379,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `actor` — The actor to remove from the component cache.
 
-## removeSparseMapCallback
+### removeSparseMapCallback
 
 
 ```lua
 function
 ```
 
-## removeSparseMapEntries
+### removeSparseMapEntries
 
 
 ```lua
@@ -1397,14 +1397,14 @@ function
 
 @*param* `actor` — The actor to remove.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -1412,14 +1412,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## setCallbacks
+### setCallbacks
 
 
 ```lua
 (method) ActorStorage:setCallbacks(insertCallback: any, removeCallback: any)
 ```
 
-## sparseMap
+### sparseMap
 
 
 ```lua
@@ -1428,14 +1428,14 @@ SparseMap
 
 The spatial map for storing actor positions.
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## updateComponentCache
+### updateComponentCache
 
 
 ```lua
@@ -1451,14 +1451,14 @@ boolean
 
 # BTConditional
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -1467,7 +1467,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -1476,14 +1476,14 @@ Object
 
  Creates a new BTConditional.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -1491,14 +1491,14 @@ table
   -> unknown
 ```
 
-## behaviorOwner
+### behaviorOwner
 
 
 ```lua
 IBehavior?
 ```
 
-## className
+### className
 
 
 ```lua
@@ -1507,14 +1507,14 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## conditionFunc
+### conditionFunc
 
 
 ```lua
 fun(self: any, level: Level, actor: Actor):boolean
 ```
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -1522,7 +1522,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -1538,7 +1538,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -1552,7 +1552,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -1566,7 +1566,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -1579,7 +1579,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -1595,7 +1595,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## run
+### run
 
 
 ```lua
@@ -1605,14 +1605,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
  Runs the conditional node.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -1620,7 +1620,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -1632,14 +1632,14 @@ boolean
 
 # BTNode
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -1648,7 +1648,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -1660,14 +1660,14 @@ Object
  For this reason simple nodes like succeeders, inverters, failers etc.
  should just be created using these anonymous nodes.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -1675,14 +1675,14 @@ table
   -> unknown
 ```
 
-## behaviorOwner
+### behaviorOwner
 
 
 ```lua
 IBehavior?
 ```
 
-## className
+### className
 
 
 ```lua
@@ -1691,7 +1691,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -1699,7 +1699,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -1715,7 +1715,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -1729,7 +1729,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -1743,7 +1743,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -1756,7 +1756,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -1772,21 +1772,21 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## run
+### run
 
 
 ```lua
 fun(self: BTNode, level: Level, actor: Actor, controller: ControllerComponent):boolean|Action
 ```
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -1794,7 +1794,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -1806,14 +1806,14 @@ boolean
 
 # BTRoot
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -1822,7 +1822,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -1831,14 +1831,14 @@ Object
 
  Creates a new BTRoot.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -1846,21 +1846,21 @@ table
   -> unknown
 ```
 
-## behaviorOwner
+### behaviorOwner
 
 
 ```lua
 IBehavior?
 ```
 
-## children
+### children
 
 
 ```lua
 BTNode[]
 ```
 
-## className
+### className
 
 
 ```lua
@@ -1869,7 +1869,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -1877,7 +1877,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -1893,7 +1893,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -1907,7 +1907,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -1921,7 +1921,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -1934,7 +1934,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -1950,7 +1950,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## run
+### run
 
 
 ```lua
@@ -1960,14 +1960,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
  Runs the behavior tree starting from this root node.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -1975,7 +1975,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -1987,14 +1987,14 @@ boolean
 
 # BTSelector
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -2003,7 +2003,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -2012,14 +2012,14 @@ Object
 
  Creates a new BTSelector.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -2027,21 +2027,21 @@ table
   -> unknown
 ```
 
-## behaviorOwner
+### behaviorOwner
 
 
 ```lua
 IBehavior?
 ```
 
-## children
+### children
 
 
 ```lua
 BTNode[]
 ```
 
-## className
+### className
 
 
 ```lua
@@ -2050,7 +2050,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -2058,7 +2058,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -2074,7 +2074,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -2088,7 +2088,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -2102,7 +2102,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -2115,7 +2115,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -2131,7 +2131,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## run
+### run
 
 
 ```lua
@@ -2141,14 +2141,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
  Runs the selector node.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -2156,7 +2156,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -2168,14 +2168,14 @@ boolean
 
 # BTSequence
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -2184,7 +2184,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -2193,14 +2193,14 @@ Object
 
  Creates a new BTSequence.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -2208,21 +2208,21 @@ table
   -> unknown
 ```
 
-## behaviorOwner
+### behaviorOwner
 
 
 ```lua
 IBehavior?
 ```
 
-## children
+### children
 
 
 ```lua
 BTNode[]
 ```
 
-## className
+### className
 
 
 ```lua
@@ -2231,7 +2231,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -2239,7 +2239,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -2255,7 +2255,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -2269,7 +2269,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -2283,7 +2283,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -2296,7 +2296,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -2312,7 +2312,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## run
+### run
 
 
 ```lua
@@ -2322,14 +2322,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
  Runs the sequence node.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -2337,7 +2337,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -2349,14 +2349,14 @@ boolean
 
 # BTSucceeder
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -2365,7 +2365,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -2374,14 +2374,14 @@ Object
 
  Creates a new BTSucceeder.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -2389,14 +2389,14 @@ table
   -> unknown
 ```
 
-## behaviorOwner
+### behaviorOwner
 
 
 ```lua
 IBehavior?
 ```
 
-## className
+### className
 
 
 ```lua
@@ -2405,7 +2405,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -2413,7 +2413,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -2429,7 +2429,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -2443,7 +2443,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -2457,7 +2457,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -2470,7 +2470,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## node
+### node
 
 
 ```lua
@@ -2479,7 +2479,7 @@ BTNode
 
  The base class for all nodes in the behavior tree.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -2495,7 +2495,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## run
+### run
 
 
 ```lua
@@ -2505,14 +2505,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
  Runs the succeeder node.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -2520,7 +2520,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -2537,14 +2537,14 @@ boolean
 
 # BitmaskBuffer
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -2553,7 +2553,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -2566,14 +2566,14 @@ Object
 
 @*param* `h` — The height of the buffer.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -2581,7 +2581,7 @@ table
   -> unknown
 ```
 
-## buffer
+### buffer
 
 
 ```lua
@@ -2590,7 +2590,7 @@ ffi.cdata*
 
  Initialize the buffer with zeroed 16-bit values
 
-## className
+### className
 
 
 ```lua
@@ -2599,7 +2599,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## clear
+### clear
 
 
 ```lua
@@ -2608,7 +2608,7 @@ A unique name for this class. By convention this should match the annotation nam
 
  Clear the buffer, setting all values to zero.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -2616,7 +2616,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -2632,7 +2632,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getBit
+### getBit
 
 
 ```lua
@@ -2650,7 +2650,7 @@ function Object.deserialize(data: any)
 
 @*return* `value` — The value of the bit (true if set, false if not).
 
-## getIndex
+### getIndex
 
 
 ```lua
@@ -2666,7 +2666,7 @@ function Object.deserialize(data: any)
 
 @*return* `index` — The corresponding index in the buffer array.
 
-## getMask
+### getMask
 
 
 ```lua
@@ -2682,14 +2682,14 @@ function Object.deserialize(data: any)
 
 @*return* `value` — The 16-bit mask value.
 
-## h
+### h
 
 
 ```lua
 integer
 ```
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -2703,7 +2703,7 @@ integer
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -2717,7 +2717,7 @@ integer
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -2730,7 +2730,7 @@ integer
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -2746,14 +2746,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -2761,7 +2761,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## setBit
+### setBit
 
 
 ```lua
@@ -2778,7 +2778,7 @@ function Object.serialize(object: any)
 
 @*param* `v` — The value to set (true to set, false to clear).
 
-## setMask
+### setMask
 
 
 ```lua
@@ -2793,14 +2793,14 @@ function Object.serialize(object: any)
 
 @*param* `value` — The 16-bit value to set.
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## w
+### w
 
 
 ```lua
@@ -2812,14 +2812,14 @@ integer
 
 # BooleanBuffer
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -2828,7 +2828,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -2841,14 +2841,14 @@ Object
 
 @*param* `h` — The height of the buffer.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -2856,7 +2856,7 @@ table
   -> unknown
 ```
 
-## buffer
+### buffer
 
 
 ```lua
@@ -2865,7 +2865,7 @@ ffi.cdata*
 
  Initialize the buffer with false values
 
-## className
+### className
 
 
 ```lua
@@ -2874,7 +2874,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## clear
+### clear
 
 
 ```lua
@@ -2883,7 +2883,7 @@ A unique name for this class. By convention this should match the annotation nam
 
  Clear the buffer, setting all values to false.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -2891,7 +2891,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -2907,7 +2907,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## get
+### get
 
 
 ```lua
@@ -2923,7 +2923,7 @@ function Object.deserialize(data: any)
 
 @*return* `value` — The value at the given coordinates.
 
-## getIndex
+### getIndex
 
 
 ```lua
@@ -2939,7 +2939,7 @@ function Object.deserialize(data: any)
 
 @*return* `index` — The corresponding index in the buffer array.
 
-## h
+### h
 
 
 ```lua
@@ -2948,7 +2948,7 @@ integer
 
 The height of the buffer.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -2962,7 +2962,7 @@ The height of the buffer.
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -2976,7 +2976,7 @@ The height of the buffer.
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -2989,7 +2989,7 @@ The height of the buffer.
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -3005,14 +3005,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -3020,7 +3020,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## set
+### set
 
 
 ```lua
@@ -3035,14 +3035,14 @@ function Object.serialize(object: any)
 
 @*param* `v` — The value to set.
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## w
+### w
 
 
 ```lua
@@ -3056,14 +3056,14 @@ The width of the buffer.
 
 # BoundingBox
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -3072,14 +3072,14 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) BoundingBox:__new(x: any, y: any, i: any, j: any)
 ```
 
-## __tostring
+### __tostring
 
 
 ```lua
@@ -3087,14 +3087,14 @@ Object
   -> string
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -3102,7 +3102,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -3111,7 +3111,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## contains
+### contains
 
 
 ```lua
@@ -3119,7 +3119,7 @@ A unique name for this class. By convention this should match the annotation nam
   -> boolean
 ```
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -3127,7 +3127,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -3143,7 +3143,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getHeight
+### getHeight
 
 
 ```lua
@@ -3151,7 +3151,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## getWidth
+### getWidth
 
 
 ```lua
@@ -3159,14 +3159,14 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## i
+### i
 
 
 ```lua
 any
 ```
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -3180,7 +3180,7 @@ any
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## intersects
+### intersects
 
 
 ```lua
@@ -3188,7 +3188,7 @@ any
   -> boolean
 ```
 
-## is
+### is
 
 
 ```lua
@@ -3202,14 +3202,14 @@ any
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## j
+### j
 
 
 ```lua
 any
 ```
 
-## mixin
+### mixin
 
 
 ```lua
@@ -3222,7 +3222,7 @@ any
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -3238,14 +3238,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -3253,14 +3253,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## union
+### union
 
 
 ```lua
@@ -3268,14 +3268,14 @@ boolean
   -> BoundingBox
 ```
 
-## x
+### x
 
 
 ```lua
 any
 ```
 
-## y
+### y
 
 
 ```lua
@@ -3287,7 +3287,7 @@ any
 
 # Button
 
-## __getInternal
+### __getInternal
 
 
 ```lua
@@ -3300,7 +3300,7 @@ Get the internal representation of the Element
 For internal use\
 Don't touch unless you know what you're doing
 
-## _internal
+### _internal
 
 
 ```lua
@@ -3308,14 +3308,14 @@ Inky.Element.Internal
 ```
 
 
-## constructor
+### constructor
 
 
 ```lua
 (method) Inky.Element:constructor(scene: any, initializer: fun(self: Inky.Element, scene: Inky.Scene):fun(self: Inky.Element, x: number, y: number, w: number, h: number, depth?: number))
 ```
 
-## getView
+### getView
 
 
 ```lua
@@ -3328,7 +3328,7 @@ Inky.Element.Internal
 
 Return the x, y, w, h that the Element was last rendered at
 
-## on
+### on
 
 
 ```lua
@@ -3341,7 +3341,7 @@ Execute callback when Scene event is raised from the parent Scene
 
 See: [Inky.Scene.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/scene/init.lua#59#9)
 
-## onDisable
+### onDisable
 
 
 ```lua
@@ -3351,7 +3351,7 @@ See: [Inky.Scene.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/in
 
 Execute callback when an Element isn't rendered, when it was rendered last frame
 
-## onEnable
+### onEnable
 
 
 ```lua
@@ -3361,7 +3361,7 @@ Execute callback when an Element isn't rendered, when it was rendered last frame
 
 Execute callback when an Element is rendered, when it wasn't rendered last frame
 
-## onPointer
+### onPointer
 
 
 ```lua
@@ -3376,7 +3376,7 @@ See:
   * [Inky.Pointer.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#115#9)
   * [Inky.Pointer.captureElement](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#127#9)
 
-## onPointerEnter
+### onPointerEnter
 
 
 ```lua
@@ -3386,7 +3386,7 @@ See:
 
 Execute callback when a Pointer enters the bounding box of the Element
 
-## onPointerExit
+### onPointerExit
 
 
 ```lua
@@ -3396,7 +3396,7 @@ Execute callback when a Pointer enters the bounding box of the Element
 
 Execute callback when a Pointer exits the bounding box of the Element
 
-## onPointerInHierarchy
+### onPointerInHierarchy
 
 
 ```lua
@@ -3411,14 +3411,14 @@ See:
   * [Inky.Pointer.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#115#9)
   * [Inky.Element.onPointer](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/element/init.lua#71#9)
 
-## props
+### props
 
 
 ```lua
 ButtonProps
 ```
 
-## render
+### render
 
 
 ```lua
@@ -3433,7 +3433,7 @@ Note: The parent Scene's frame must have been begun to be able to render\
 
 See: [Inky.Scene.beginFrame](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/scene/init.lua#30#9)
 
-## useEffect
+### useEffect
 
 
 ```lua
@@ -3445,7 +3445,7 @@ Execute a side effect when any specified Element's prop changes
 
 Note: The effect is ran right before a render
 
-## useOverlapCheck
+### useOverlapCheck
 
 
 ```lua
@@ -3467,7 +3467,7 @@ Note: Check is performed after a bounding box check
 
 # ButtonProps
 
-## _internal
+### _internal
 
 
 ```lua
@@ -3475,14 +3475,14 @@ Inky.Props.Internal
 ```
 
 
-## disabled
+### disabled
 
 
 ```lua
 boolean
 ```
 
-## disabledQuad
+### disabledQuad
 
 
 ```lua
@@ -3498,14 +3498,14 @@ Quads can be used to select part of a texture to draw. In this way, one large te
 [Open in Browser](https://love2d.org/wiki/love.graphics)
 
 
-## hovered
+### hovered
 
 
 ```lua
 boolean
 ```
 
-## hoveredQuad
+### hoveredQuad
 
 
 ```lua
@@ -3521,7 +3521,7 @@ Quads can be used to select part of a texture to draw. In this way, one large te
 [Open in Browser](https://love2d.org/wiki/love.graphics)
 
 
-## onPress
+### onPress
 
 
 ```lua
@@ -3530,7 +3530,7 @@ fun(pointer: Inky.Pointer)?
 
 a function called after pressing the button
 
-## onRelease
+### onRelease
 
 
 ```lua
@@ -3539,7 +3539,7 @@ fun(pointer: Inky.Pointer)?
 
 a function called after releasing the button
 
-## pressed
+### pressed
 
 
 ```lua
@@ -3548,7 +3548,7 @@ boolean
 
 whether the button is pressed
 
-## pressedQuad
+### pressedQuad
 
 
 ```lua
@@ -3564,7 +3564,7 @@ Quads can be used to select part of a texture to draw. In this way, one large te
 [Open in Browser](https://love2d.org/wiki/love.graphics)
 
 
-## tileset
+### tileset
 
 
 ```lua
@@ -3578,7 +3578,7 @@ Drawable image type.
 [Open in Browser](https://love2d.org/wiki/love.graphics)
 
 
-## toggle
+### toggle
 
 
 ```lua
@@ -3587,7 +3587,7 @@ boolean
 
 whether the button stays pressed after clicking
 
-## unpressedQuad
+### unpressedQuad
 
 
 ```lua
@@ -3603,7 +3603,7 @@ Quads can be used to select part of a texture to draw. In this way, one large te
 [Open in Browser](https://love2d.org/wiki/love.graphics)
 
 
-## untoggle
+### untoggle
 
 
 ```lua
@@ -3617,14 +3617,14 @@ if the button is toggleable, whether you can untoggle
 
 # Camera
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -3633,21 +3633,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) Camera:__new(x: any, y: any)
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -3655,7 +3655,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -3664,7 +3664,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -3672,7 +3672,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -3688,7 +3688,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getPosition
+### getPosition
 
 
 ```lua
@@ -3701,7 +3701,7 @@ function Object.deserialize(data: any)
 
 @*return* `y` — The y position.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -3715,7 +3715,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -3729,7 +3729,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -3742,14 +3742,14 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## move
+### move
 
 
 ```lua
 (method) Camera:move(dx: number, dy: number)
 ```
 
-## pop
+### pop
 
 
 ```lua
@@ -3758,14 +3758,14 @@ function Object.deserialize(data: any)
 
  Pops the camera's transform. Call this after drawing.
 
-## position
+### position
 
 
 ```lua
 Vector2
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -3781,7 +3781,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## push
+### push
 
 
 ```lua
@@ -3790,35 +3790,35 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
  Pushes the camera's transform. Call this before drawing.
 
-## rotation
+### rotation
 
 
 ```lua
 number
 ```
 
-## scale
+### scale
 
 
 ```lua
 Vector2
 ```
 
-## scaleAroundPoint
+### scaleAroundPoint
 
 
 ```lua
 (method) Camera:scaleAroundPoint(factorX: number, factorY: number, pointX: number, pointY: number)
 ```
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -3826,35 +3826,35 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## setPosition
+### setPosition
 
 
 ```lua
 (method) Camera:setPosition(x: number, y: number)
 ```
 
-## setRotation
+### setRotation
 
 
 ```lua
 (method) Camera:setRotation(rotation: number)
 ```
 
-## setScale
+### setScale
 
 
 ```lua
 (method) Camera:setScale(scaleX: number, scaleY: number)
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## toWorldSpace
+### toWorldSpace
 
 
 ```lua
@@ -3868,14 +3868,14 @@ boolean
 
 # Cell
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -3884,7 +3884,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -3893,14 +3893,14 @@ Object
 
  Constructor for the Cell class.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -3908,7 +3908,7 @@ table
   -> unknown
 ```
 
-## afterAction
+### afterAction
 
 
 ```lua
@@ -3923,14 +3923,14 @@ table
 
 @*param* `action` — The action that was taken.
 
-## allowedMovetypes
+### allowedMovetypes
 
 
 ```lua
 string[]?
 ```
 
-## beforeAction
+### beforeAction
 
 
 ```lua
@@ -3939,7 +3939,7 @@ string[]?
 
  Called right before an action takes place on this cell.
 
-## className
+### className
 
 
 ```lua
@@ -3948,7 +3948,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## collisionMask
+### collisionMask
 
 
 ```lua
@@ -3957,7 +3957,7 @@ integer
 
 Defines whether a cell can moved through.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -3965,14 +3965,14 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## drawable
+### drawable
 
 
 ```lua
 DrawableComponent
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -3988,7 +3988,7 @@ DrawableComponent
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getComponent
+### getComponent
 
 
 ```lua
@@ -3996,7 +3996,7 @@ DrawableComponent
   -> DrawableComponent
 ```
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -4010,7 +4010,7 @@ DrawableComponent
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -4024,7 +4024,7 @@ DrawableComponent
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -4037,7 +4037,7 @@ DrawableComponent
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## name
+### name
 
 
 ```lua
@@ -4046,7 +4046,7 @@ string
 
 Displayed in the user interface.
 
-## onEnter
+### onEnter
 
 
 ```lua
@@ -4059,7 +4059,7 @@ Displayed in the user interface.
 
 @*param* `actor` — The actor that entered the cell.
 
-## onLeave
+### onLeave
 
 
 ```lua
@@ -4072,7 +4072,7 @@ Displayed in the user interface.
 
 @*param* `actor` — The actor that left the cell.
 
-## opaque
+### opaque
 
 
 ```lua
@@ -4081,7 +4081,7 @@ boolean
 
 Defines whether a cell can be seen through.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -4097,14 +4097,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -4112,7 +4112,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -4124,14 +4124,14 @@ boolean
 
 # ColliderComponent
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -4140,21 +4140,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) ColliderComponent:__new(options: ColliderOptions)
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -4162,7 +4162,7 @@ table
   -> unknown
 ```
 
-## checkRequirements
+### checkRequirements
 
 
 ```lua
@@ -4176,7 +4176,7 @@ table
 
 @*return* `meetsRequirements` — the actor meets all requirements, false otherwise.
 
-## className
+### className
 
 
 ```lua
@@ -4185,7 +4185,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -4193,7 +4193,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -4209,7 +4209,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## initialize
+### initialize
 
 
 ```lua
@@ -4219,7 +4219,7 @@ function Object.deserialize(data: any)
  Called after the actor is loaded and ready, this is where the component should do any initialization requiring
  the actor. This would include stuff like attaching systems, etc.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -4233,7 +4233,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -4247,14 +4247,14 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mask
+### mask
 
 
 ```lua
 integer
 ```
 
-## mixin
+### mixin
 
 
 ```lua
@@ -4267,14 +4267,14 @@ integer
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## name
+### name
 
 
 ```lua
 string
 ```
 
-## owner
+### owner
 
 
 ```lua
@@ -4283,7 +4283,7 @@ Actor
 
 The Actor this component is composing. This is set by Actor when a component is added or removed.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -4299,7 +4299,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## requirements
+### requirements
 
 
 ```lua
@@ -4308,14 +4308,14 @@ table
 
 A list of component prototypes the actor must first have, before this can be applied.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -4323,7 +4323,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -4335,7 +4335,7 @@ boolean
 
 # ColliderOptions
 
-## allowedMovetypes
+### allowedMovetypes
 
 
 ```lua
@@ -4352,7 +4352,7 @@ string[]
 
 # Color4
 
-## BLACK
+### BLACK
 
 
 ```lua
@@ -4361,42 +4361,42 @@ Color4
 
  Predefined colors
 
-## BLUE
+### BLUE
 
 
 ```lua
 Color4
 ```
 
-## GREEN
+### GREEN
 
 
 ```lua
 Color4
 ```
 
-## RED
+### RED
 
 
 ```lua
 Color4
 ```
 
-## TRANSPARENT
+### TRANSPARENT
 
 
 ```lua
 Color4
 ```
 
-## WHITE
+### WHITE
 
 
 ```lua
 Color4
 ```
 
-## __add
+### __add
 
 
 ```lua
@@ -4412,14 +4412,14 @@ function Color4.__add(a: Color4, b: Color4)
 
 @*return* `The` — sum of the two colors.
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __eq
+### __eq
 
 
 ```lua
@@ -4435,7 +4435,7 @@ function Color4.__eq(a: Color4, b: Color4)
 
 @*return* `True` — if the colors are equal, false otherwise.
 
-## __index
+### __index
 
 
 ```lua
@@ -4444,7 +4444,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __mul
+### __mul
 
 
 ```lua
@@ -4458,7 +4458,7 @@ function Color4.__mul(self: Color4, scalar: number)
 
 @*return* `The` — scaled color.
 
-## __new
+### __new
 
 
 ```lua
@@ -4475,7 +4475,7 @@ function Color4.__mul(self: Color4, scalar: number)
 
 @*param* `a` — The alpha component (0-1).
 
-## __sub
+### __sub
 
 
 ```lua
@@ -4491,7 +4491,7 @@ function Color4.__sub(a: Color4, b: Color4)
 
 @*return* `The` — difference of the two colors.
 
-## __tostring
+### __tostring
 
 
 ```lua
@@ -4503,7 +4503,7 @@ function Color4.__sub(a: Color4, b: Color4)
 
 @*return* `The` — string representation.
 
-## __unm
+### __unm
 
 
 ```lua
@@ -4515,14 +4515,14 @@ function Color4.__unm(self: Color4)
 
 @*return* `The` — negated color.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## a
+### a
 
 
 ```lua
@@ -4531,7 +4531,7 @@ number
 
 The alpha component (0-1).
 
-## adopt
+### adopt
 
 
 ```lua
@@ -4539,7 +4539,7 @@ The alpha component (0-1).
   -> unknown
 ```
 
-## b
+### b
 
 
 ```lua
@@ -4548,7 +4548,7 @@ number
 
 The blue component (0-1).
 
-## clamp
+### clamp
 
 
 ```lua
@@ -4560,7 +4560,7 @@ The blue component (0-1).
 
 @*return* `The` — clamped color.
 
-## className
+### className
 
 
 ```lua
@@ -4569,7 +4569,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## copy
+### copy
 
 
 ```lua
@@ -4581,7 +4581,7 @@ A unique name for this class. By convention this should match the annotation nam
 
 @*return* `A` — copy of the color.
 
-## decompose
+### decompose
 
 
 ```lua
@@ -4596,7 +4596,7 @@ A unique name for this class. By convention this should match the annotation nam
 
 @*return* `r,g,b,a` — The components of the color.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -4604,7 +4604,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -4620,7 +4620,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## fromHex
+### fromHex
 
 
 ```lua
@@ -4631,7 +4631,7 @@ function Color4.fromHex(hex: number)
 
 @*param* `hex` — A hex number representing a color, e.g. 0xFFFFFF. Alpha is optional and defaults to 1.
 
-## g
+### g
 
 
 ```lua
@@ -4640,7 +4640,7 @@ number
 
 The green component (0-1).
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -4654,7 +4654,7 @@ The green component (0-1).
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -4668,7 +4668,7 @@ The green component (0-1).
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## lerp
+### lerp
 
 
 ```lua
@@ -4684,7 +4684,7 @@ The green component (0-1).
 
 @*return* `The` — interpolated color.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -4697,7 +4697,7 @@ The green component (0-1).
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -4713,7 +4713,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## r
+### r
 
 
 ```lua
@@ -4722,14 +4722,14 @@ number
 
 The red component (0-1).
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -4737,7 +4737,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -4749,14 +4749,14 @@ boolean
 
 # Component
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -4765,7 +4765,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -4774,14 +4774,14 @@ Object
 
  The default constructor for the class. Subclasses should override this.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -4789,7 +4789,7 @@ table
   -> unknown
 ```
 
-## checkRequirements
+### checkRequirements
 
 
 ```lua
@@ -4803,7 +4803,7 @@ table
 
 @*return* `meetsRequirements` — the actor meets all requirements, false otherwise.
 
-## className
+### className
 
 
 ```lua
@@ -4812,7 +4812,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -4820,7 +4820,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -4836,7 +4836,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## initialize
+### initialize
 
 
 ```lua
@@ -4846,7 +4846,7 @@ function Object.deserialize(data: any)
  Called after the actor is loaded and ready, this is where the component should do any initialization requiring
  the actor. This would include stuff like attaching systems, etc.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -4860,7 +4860,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -4874,7 +4874,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -4887,7 +4887,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## name
+### name
 
 
 ```lua
@@ -4896,7 +4896,7 @@ string
 
 Each component prototype MUST have a unique name!
 
-## owner
+### owner
 
 
 ```lua
@@ -4905,7 +4905,7 @@ Actor
 
 The Actor this component is composing. This is set by Actor when a component is added or removed.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -4921,7 +4921,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## requirements
+### requirements
 
 
 ```lua
@@ -4930,14 +4930,14 @@ table
 
 A list of component prototypes the actor must first have, before this can be applied.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -4945,7 +4945,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -4957,14 +4957,14 @@ boolean
 
 # ControllerComponent
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -4973,7 +4973,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -4982,14 +4982,14 @@ Object
 
  The default constructor for the class. Subclasses should override this.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## act
+### act
 
 
 ```lua
@@ -4997,7 +4997,7 @@ table
   -> Action
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -5005,14 +5005,14 @@ table
   -> unknown
 ```
 
-## blackboard
+### blackboard
 
 
 ```lua
 table|nil
 ```
 
-## checkRequirements
+### checkRequirements
 
 
 ```lua
@@ -5026,7 +5026,7 @@ table|nil
 
 @*return* `meetsRequirements` — the actor meets all requirements, false otherwise.
 
-## className
+### className
 
 
 ```lua
@@ -5035,7 +5035,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -5043,7 +5043,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -5059,7 +5059,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## initialize
+### initialize
 
 
 ```lua
@@ -5069,7 +5069,7 @@ function Object.deserialize(data: any)
  Called after the actor is loaded and ready, this is where the component should do any initialization requiring
  the actor. This would include stuff like attaching systems, etc.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -5083,7 +5083,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -5097,7 +5097,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -5110,14 +5110,14 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## name
+### name
 
 
 ```lua
 string
 ```
 
-## owner
+### owner
 
 
 ```lua
@@ -5126,7 +5126,7 @@ Actor
 
 The Actor this component is composing. This is set by Actor when a component is added or removed.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -5142,7 +5142,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## requirements
+### requirements
 
 
 ```lua
@@ -5151,14 +5151,14 @@ table
 
 A list of component prototypes the actor must first have, before this can be applied.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -5166,7 +5166,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -5178,14 +5178,14 @@ boolean
 
 # DebugMessage
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -5194,21 +5194,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) DebugMessage:__new(message: string)
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -5216,7 +5216,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -5225,7 +5225,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -5233,7 +5233,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -5249,7 +5249,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -5263,7 +5263,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -5277,7 +5277,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## message
+### message
 
 
 ```lua
@@ -5286,7 +5286,7 @@ string
 
 A human readable message for why we stopped her.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -5299,7 +5299,7 @@ A human readable message for why we stopped her.
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -5315,14 +5315,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -5330,7 +5330,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -5342,14 +5342,14 @@ boolean
 
 # Decision
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -5358,7 +5358,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -5367,14 +5367,14 @@ Object
 
  The default constructor for the class. Subclasses should override this.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## actor
+### actor
 
 
 ```lua
@@ -5386,7 +5386,7 @@ Actor
  For example, an actor may have a Sight component that determines their field of vision, explored tiles,
  and other related aspects.
 
-## adopt
+### adopt
 
 
 ```lua
@@ -5394,7 +5394,7 @@ Actor
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -5403,7 +5403,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -5411,7 +5411,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -5427,7 +5427,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -5441,7 +5441,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -5455,7 +5455,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -5468,7 +5468,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -5484,14 +5484,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -5499,14 +5499,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## validateResponse
+### validateResponse
 
 
 ```lua
@@ -5518,14 +5518,14 @@ boolean
 
 # Display
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -5534,7 +5534,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -5549,14 +5549,14 @@ Object
 
 @*param* `attachable` — Object containing cells and actors to render.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -5564,7 +5564,7 @@ table
   -> unknown
 ```
 
-## afterDrawActors
+### afterDrawActors
 
 
 ```lua
@@ -5573,7 +5573,7 @@ table
 
  Hook for custom behavior after drawing actors.
 
-## attachable
+### attachable
 
 
 ```lua
@@ -5582,7 +5582,7 @@ SpectrumAttachable
 
 The current level being displayed.
 
-## beforeDrawActors
+### beforeDrawActors
 
 
 ```lua
@@ -5591,7 +5591,7 @@ The current level being displayed.
 
  Hook for custom behavior before drawing actors.
 
-## beforeDrawCells
+### beforeDrawCells
 
 
 ```lua
@@ -5600,7 +5600,7 @@ The current level being displayed.
 
  Hook for custom behavior before drawing cells.
 
-## buildSenseInfo
+### buildSenseInfo
 
 
 ```lua
@@ -5616,7 +5616,7 @@ function Display.buildSenseInfo(primary: SensesComponent[], secondary: SensesCom
 
 @*param* `secondary` — List of secondary senses.
 
-## camera
+### camera
 
 
 ```lua
@@ -5625,14 +5625,14 @@ Camera
 
 The camera used to render the display.
 
-## cellSize
+### cellSize
 
 
 ```lua
 Vector2
 ```
 
-## className
+### className
 
 
 ```lua
@@ -5641,7 +5641,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -5649,7 +5649,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## draw
+### draw
 
 
 ```lua
@@ -5658,7 +5658,7 @@ function Object.deserialize(data: any)
 
  Renders the display.
 
-## drawActor
+### drawActor
 
 
 ```lua
@@ -5675,7 +5675,7 @@ function Object.deserialize(data: any)
 
 @*param* `drawnSet` — Optional set to track drawn actors.
 
-## drawDrawable
+### drawDrawable
 
 
 ```lua
@@ -5698,7 +5698,7 @@ function Display.drawDrawable(drawable: DrawableComponent, spriteAtlas: SpriteAt
 
 @*param* `alpha` — Optional alpha transparency.
 
-## drawPerspective
+### drawPerspective
 
 
 ```lua
@@ -5711,7 +5711,7 @@ function Display.drawDrawable(drawable: DrawableComponent, spriteAtlas: SpriteAt
 
 @*param* `secondary` — List of secondary senses.
 
-## dt
+### dt
 
 
 ```lua
@@ -5720,7 +5720,7 @@ number
 
 Delta time for updates.
 
-## extend
+### extend
 
 
 ```lua
@@ -5736,7 +5736,7 @@ Delta time for updates.
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getCellUnderMouse
+### getCellUnderMouse
 
 
 ```lua
@@ -5749,7 +5749,7 @@ Delta time for updates.
 
 @*return* `The` — X and Y coordinates of the cell.
 
-## getQuad
+### getQuad
 
 
 ```lua
@@ -5765,7 +5765,7 @@ function Display.getQuad(spriteAtlas: SpriteAtlas, drawable: DrawableComponent)
 
 @*return* `The` — quad used for rendering.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -5779,7 +5779,7 @@ function Display.getQuad(spriteAtlas: SpriteAtlas, drawable: DrawableComponent)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -5793,14 +5793,14 @@ function Display.getQuad(spriteAtlas: SpriteAtlas, drawable: DrawableComponent)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## message
+### message
 
 
 ```lua
 nil
 ```
 
-## mixin
+### mixin
 
 
 ```lua
@@ -5813,14 +5813,14 @@ nil
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## override
+### override
 
 
 ```lua
 fun(dt: integer, drawnSet: table<Actor, boolean>)|nil
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -5836,14 +5836,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -5851,7 +5851,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## setOverride
+### setOverride
 
 
 ```lua
@@ -5864,7 +5864,7 @@ function Object.serialize(object: any)
 
 @*param* `message` — Optional message to pass to the function.
 
-## spriteAtlas
+### spriteAtlas
 
 
 ```lua
@@ -5873,14 +5873,14 @@ SpriteAtlas
 
 The sprite atlas used for rendering graphics.
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## update
+### update
 
 
 ```lua
@@ -5901,14 +5901,14 @@ boolean
 
 # DrawableComponent
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -5917,7 +5917,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -5927,14 +5927,14 @@ Object
  Index needs to be a string associated with a sprite in the SpriteAtlas, or
  an integer index associated with a sprite.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -5942,7 +5942,7 @@ table
   -> unknown
 ```
 
-## checkRequirements
+### checkRequirements
 
 
 ```lua
@@ -5956,7 +5956,7 @@ table
 
 @*return* `meetsRequirements` — the actor meets all requirements, false otherwise.
 
-## className
+### className
 
 
 ```lua
@@ -5965,14 +5965,14 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## color
+### color
 
 
 ```lua
 Color4
 ```
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -5980,7 +5980,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -5996,14 +5996,14 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## index
+### index
 
 
 ```lua
 string|integer
 ```
 
-## initialize
+### initialize
 
 
 ```lua
@@ -6013,7 +6013,7 @@ string|integer
  Called after the actor is loaded and ready, this is where the component should do any initialization requiring
  the actor. This would include stuff like attaching systems, etc.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -6027,7 +6027,7 @@ string|integer
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -6041,7 +6041,7 @@ string|integer
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -6054,7 +6054,7 @@ string|integer
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## name
+### name
 
 
 ```lua
@@ -6063,7 +6063,7 @@ string
 
 Each component prototype MUST have a unique name!
 
-## owner
+### owner
 
 
 ```lua
@@ -6072,7 +6072,7 @@ Actor
 
 The Actor this component is composing. This is set by Actor when a component is added or removed.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -6088,7 +6088,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## requirements
+### requirements
 
 
 ```lua
@@ -6097,14 +6097,14 @@ table
 
 A list of component prototypes the actor must first have, before this can be applied.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -6112,7 +6112,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -6124,14 +6124,14 @@ boolean
 
 # Editor
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -6140,28 +6140,28 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) Editor:__new(attachable: any, display: any, fileEnabled: any)
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## active
+### active
 
 
 ```lua
 boolean
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -6169,21 +6169,21 @@ boolean
   -> unknown
 ```
 
-## attachable
+### attachable
 
 
 ```lua
 SpectrumAttachable
 ```
 
-## camera
+### camera
 
 
 ```lua
 Camera
 ```
 
-## className
+### className
 
 
 ```lua
@@ -6192,7 +6192,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -6200,35 +6200,35 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## display
+### display
 
 
 ```lua
 Display
 ```
 
-## draw
+### draw
 
 
 ```lua
 (method) Editor:draw()
 ```
 
-## editorRoot
+### editorRoot
 
 
 ```lua
 EditorRoot
 ```
 
-## execute
+### execute
 
 
 ```lua
 (method) Editor:execute(modification: Modification)
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -6244,28 +6244,28 @@ EditorRoot
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## fileEnabled
+### fileEnabled
 
 
 ```lua
 boolean
 ```
 
-## filepath
+### filepath
 
 
 ```lua
 string|nil
 ```
 
-## fillMode
+### fillMode
 
 
 ```lua
 boolean
 ```
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -6279,7 +6279,7 @@ boolean
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -6293,7 +6293,7 @@ boolean
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## isActive
+### isActive
 
 
 ```lua
@@ -6301,21 +6301,21 @@ boolean
   -> boolean
 ```
 
-## keybindsEnabled
+### keybindsEnabled
 
 
 ```lua
 boolean
 ```
 
-## keypressed
+### keypressed
 
 
 ```lua
 (method) Editor:keypressed(key: any, scancode: any)
 ```
 
-## mixin
+### mixin
 
 
 ```lua
@@ -6328,28 +6328,28 @@ boolean
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## mousemoved
+### mousemoved
 
 
 ```lua
 (method) Editor:mousemoved(x: any, y: any, dx: any, dy: any, istouch: any)
 ```
 
-## mousepressed
+### mousepressed
 
 
 ```lua
 (method) Editor:mousepressed(x: any, y: any, button: any)
 ```
 
-## mousereleased
+### mousereleased
 
 
 ```lua
 (method) Editor:mousereleased(x: any, y: any, button: any)
 ```
 
-## placeable
+### placeable
 
 
 ```lua
@@ -6361,7 +6361,7 @@ Actor|Cell|nil
  For example, an actor may have a Sight component that determines their field of vision, explored tiles,
  and other related aspects.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -6377,42 +6377,42 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## redo
+### redo
 
 
 ```lua
 (method) Editor:redo()
 ```
 
-## redoStack
+### redoStack
 
 
 ```lua
 Modification[]
 ```
 
-## selectorMode
+### selectorMode
 
 
 ```lua
 string
 ```
 
-## selectorModes
+### selectorModes
 
 
 ```lua
 table<string, string>
 ```
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -6420,63 +6420,63 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## setAttachable
+### setAttachable
 
 
 ```lua
 (method) Editor:setAttachable(attachable: SpectrumAttachable)
 ```
 
-## startEditing
+### startEditing
 
 
 ```lua
 (method) Editor:startEditing()
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## textinput
+### textinput
 
 
 ```lua
 (method) Editor:textinput(text: any)
 ```
 
-## tool
+### tool
 
 
 ```lua
 Tool
 ```
 
-## undo
+### undo
 
 
 ```lua
 (method) Editor:undo()
 ```
 
-## undoStack
+### undoStack
 
 
 ```lua
 Modification[]
 ```
 
-## update
+### update
 
 
 ```lua
 (method) Editor:update(dt: any)
 ```
 
-## wheelmoved
+### wheelmoved
 
 
 ```lua
@@ -6488,7 +6488,7 @@ Modification[]
 
 # EditorGrid
 
-## __getInternal
+### __getInternal
 
 
 ```lua
@@ -6501,7 +6501,7 @@ Get the internal representation of the Element
 For internal use\
 Don't touch unless you know what you're doing
 
-## _internal
+### _internal
 
 
 ```lua
@@ -6509,14 +6509,14 @@ Inky.Element.Internal
 ```
 
 
-## constructor
+### constructor
 
 
 ```lua
 (method) Inky.Element:constructor(scene: any, initializer: fun(self: Inky.Element, scene: Inky.Scene):fun(self: Inky.Element, x: number, y: number, w: number, h: number, depth?: number))
 ```
 
-## getView
+### getView
 
 
 ```lua
@@ -6529,7 +6529,7 @@ Inky.Element.Internal
 
 Return the x, y, w, h that the Element was last rendered at
 
-## on
+### on
 
 
 ```lua
@@ -6542,7 +6542,7 @@ Execute callback when Scene event is raised from the parent Scene
 
 See: [Inky.Scene.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/scene/init.lua#59#9)
 
-## onDisable
+### onDisable
 
 
 ```lua
@@ -6552,7 +6552,7 @@ See: [Inky.Scene.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/in
 
 Execute callback when an Element isn't rendered, when it was rendered last frame
 
-## onEnable
+### onEnable
 
 
 ```lua
@@ -6562,7 +6562,7 @@ Execute callback when an Element isn't rendered, when it was rendered last frame
 
 Execute callback when an Element is rendered, when it wasn't rendered last frame
 
-## onPointer
+### onPointer
 
 
 ```lua
@@ -6577,7 +6577,7 @@ See:
   * [Inky.Pointer.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#115#9)
   * [Inky.Pointer.captureElement](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#127#9)
 
-## onPointerEnter
+### onPointerEnter
 
 
 ```lua
@@ -6587,7 +6587,7 @@ See:
 
 Execute callback when a Pointer enters the bounding box of the Element
 
-## onPointerExit
+### onPointerExit
 
 
 ```lua
@@ -6597,7 +6597,7 @@ Execute callback when a Pointer enters the bounding box of the Element
 
 Execute callback when a Pointer exits the bounding box of the Element
 
-## onPointerInHierarchy
+### onPointerInHierarchy
 
 
 ```lua
@@ -6612,14 +6612,14 @@ See:
   * [Inky.Pointer.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#115#9)
   * [Inky.Element.onPointer](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/element/init.lua#71#9)
 
-## props
+### props
 
 
 ```lua
 EditorGridProps
 ```
 
-## render
+### render
 
 
 ```lua
@@ -6634,7 +6634,7 @@ Note: The parent Scene's frame must have been begun to be able to render\
 
 See: [Inky.Scene.beginFrame](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/scene/init.lua#30#9)
 
-## useEffect
+### useEffect
 
 
 ```lua
@@ -6646,7 +6646,7 @@ Execute a side effect when any specified Element's prop changes
 
 Note: The effect is ran right before a render
 
-## useOverlapCheck
+### useOverlapCheck
 
 
 ```lua
@@ -6668,7 +6668,7 @@ Note: Check is performed after a bounding box check
 
 # EditorGridProps
 
-## _internal
+### _internal
 
 
 ```lua
@@ -6676,35 +6676,35 @@ Inky.Props.Internal
 ```
 
 
-## attachable
+### attachable
 
 
 ```lua
 SpectrumAttachable
 ```
 
-## display
+### display
 
 
 ```lua
 Display
 ```
 
-## editor
+### editor
 
 
 ```lua
 Editor
 ```
 
-## offset
+### offset
 
 
 ```lua
 Vector2
 ```
 
-## scale
+### scale
 
 
 ```lua
@@ -6716,7 +6716,7 @@ Vector2
 
 # EditorRoot
 
-## __getInternal
+### __getInternal
 
 
 ```lua
@@ -6729,7 +6729,7 @@ Get the internal representation of the Element
 For internal use\
 Don't touch unless you know what you're doing
 
-## _internal
+### _internal
 
 
 ```lua
@@ -6737,14 +6737,14 @@ Inky.Element.Internal
 ```
 
 
-## constructor
+### constructor
 
 
 ```lua
 (method) Inky.Element:constructor(scene: any, initializer: fun(self: Inky.Element, scene: Inky.Scene):fun(self: Inky.Element, x: number, y: number, w: number, h: number, depth?: number))
 ```
 
-## getView
+### getView
 
 
 ```lua
@@ -6757,7 +6757,7 @@ Inky.Element.Internal
 
 Return the x, y, w, h that the Element was last rendered at
 
-## on
+### on
 
 
 ```lua
@@ -6770,7 +6770,7 @@ Execute callback when Scene event is raised from the parent Scene
 
 See: [Inky.Scene.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/scene/init.lua#59#9)
 
-## onDisable
+### onDisable
 
 
 ```lua
@@ -6780,7 +6780,7 @@ See: [Inky.Scene.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/in
 
 Execute callback when an Element isn't rendered, when it was rendered last frame
 
-## onEnable
+### onEnable
 
 
 ```lua
@@ -6790,7 +6790,7 @@ Execute callback when an Element isn't rendered, when it was rendered last frame
 
 Execute callback when an Element is rendered, when it wasn't rendered last frame
 
-## onPointer
+### onPointer
 
 
 ```lua
@@ -6805,7 +6805,7 @@ See:
   * [Inky.Pointer.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#115#9)
   * [Inky.Pointer.captureElement](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#127#9)
 
-## onPointerEnter
+### onPointerEnter
 
 
 ```lua
@@ -6815,7 +6815,7 @@ See:
 
 Execute callback when a Pointer enters the bounding box of the Element
 
-## onPointerExit
+### onPointerExit
 
 
 ```lua
@@ -6825,7 +6825,7 @@ Execute callback when a Pointer enters the bounding box of the Element
 
 Execute callback when a Pointer exits the bounding box of the Element
 
-## onPointerInHierarchy
+### onPointerInHierarchy
 
 
 ```lua
@@ -6840,14 +6840,14 @@ See:
   * [Inky.Pointer.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#115#9)
   * [Inky.Element.onPointer](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/element/init.lua#71#9)
 
-## props
+### props
 
 
 ```lua
 EditorRootProps
 ```
 
-## render
+### render
 
 
 ```lua
@@ -6862,7 +6862,7 @@ Note: The parent Scene's frame must have been begun to be able to render\
 
 See: [Inky.Scene.beginFrame](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/scene/init.lua#30#9)
 
-## useEffect
+### useEffect
 
 
 ```lua
@@ -6874,7 +6874,7 @@ Execute a side effect when any specified Element's prop changes
 
 Note: The effect is ran right before a render
 
-## useOverlapCheck
+### useOverlapCheck
 
 
 ```lua
@@ -6891,7 +6891,7 @@ Note: Check is performed after a bounding box check
 
 # EditorRootProps
 
-## _internal
+### _internal
 
 
 ```lua
@@ -6899,42 +6899,42 @@ Inky.Props.Internal
 ```
 
 
-## attachable
+### attachable
 
 
 ```lua
 SpectrumAttachable
 ```
 
-## display
+### display
 
 
 ```lua
 Display
 ```
 
-## editor
+### editor
 
 
 ```lua
 Editor
 ```
 
-## gridPosition
+### gridPosition
 
 
 ```lua
 Vector2
 ```
 
-## quit
+### quit
 
 
 ```lua
 boolean
 ```
 
-## scale
+### scale
 
 
 ```lua
@@ -6946,14 +6946,14 @@ Vector2
 
 # EditorState
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -6962,7 +6962,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -6972,14 +6972,14 @@ Object
  Create a new Editor managing gamestate, attached to a
  SpectrumAttachable, this is a Level|MapBuilder interface.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -6987,7 +6987,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -6996,7 +6996,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -7004,21 +7004,21 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## draw
+### draw
 
 
 ```lua
 (method) EditorState:draw()
 ```
 
-## editor
+### editor
 
 
 ```lua
 Editor
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -7034,7 +7034,7 @@ Editor
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getManager
+### getManager
 
 
 ```lua
@@ -7042,7 +7042,7 @@ Editor
   -> GameStateManager
 ```
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -7056,7 +7056,7 @@ Editor
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -7070,28 +7070,28 @@ Editor
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## keypressed
+### keypressed
 
 
 ```lua
 (method) EditorState:keypressed(key: any, scancode: any)
 ```
 
-## load
+### load
 
 
 ```lua
 (method) EditorState:load()
 ```
 
-## manager
+### manager
 
 
 ```lua
 GameStateManager
 ```
 
-## mixin
+### mixin
 
 
 ```lua
@@ -7104,28 +7104,28 @@ GameStateManager
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## mousemoved
+### mousemoved
 
 
 ```lua
 (method) EditorState:mousemoved(x: any, y: any, dx: any, dy: any, istouch: any)
 ```
 
-## mousepressed
+### mousepressed
 
 
 ```lua
 (method) EditorState:mousepressed(x: any, y: any, button: any)
 ```
 
-## mousereleased
+### mousereleased
 
 
 ```lua
 (method) EditorState:mousereleased(x: any, y: any, button: any)
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -7141,14 +7141,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -7156,21 +7156,21 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## textinput
+### textinput
 
 
 ```lua
 (method) EditorState:textinput(text: any)
 ```
 
-## unload
+### unload
 
 
 ```lua
@@ -7179,14 +7179,14 @@ boolean
 
  Calls when the gamestate is stopped.
 
-## update
+### update
 
 
 ```lua
 (method) EditorState:update(dt: any)
 ```
 
-## wheelmoved
+### wheelmoved
 
 
 ```lua
@@ -7198,14 +7198,14 @@ boolean
 
 # EllipseModification
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -7214,21 +7214,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) EllipseModification:__new(placeable: Actor|Cell, center: any, rx: any, ry: any)
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -7236,21 +7236,21 @@ table
   -> unknown
 ```
 
-## bottomright
+### bottomright
 
 
 ```lua
 Vector2
 ```
 
-## center
+### center
 
 
 ```lua
 any
 ```
 
-## className
+### className
 
 
 ```lua
@@ -7259,7 +7259,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -7267,14 +7267,14 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## execute
+### execute
 
 
 ```lua
 (method) EllipseModification:execute(attachable: SpectrumAttachable, editor: Editor)
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -7290,7 +7290,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -7304,7 +7304,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -7318,7 +7318,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -7331,21 +7331,21 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## placeActor
+### placeActor
 
 
 ```lua
 (method) Modification:placeActor(attachable: SpectrumAttachable, x: integer, y: integer, actorPrototype: Actor)
 ```
 
-## placeCell
+### placeCell
 
 
 ```lua
 (method) Modification:placeCell(attachable: SpectrumAttachable, x: integer, y: integer, cellPrototype: Cell|nil)
 ```
 
-## placeable
+### placeable
 
 
 ```lua
@@ -7357,14 +7357,14 @@ Actor|Cell
  For example, an actor may have a Sight component that determines their field of vision, explored tiles,
  and other related aspects.
 
-## placed
+### placed
 
 
 ```lua
 Actor|Cell[]|nil
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -7380,21 +7380,21 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## removeActor
+### removeActor
 
 
 ```lua
 (method) Modification:removeActor(level: any, actor: any)
 ```
 
-## removed
+### removed
 
 
 ```lua
 table
 ```
 
-## replaced
+### replaced
 
 
 ```lua
@@ -7404,28 +7404,28 @@ SparseGrid
  A sparse grid class that stores data using hashed coordinates. Similar to a SparseMap
  except here there is only one entry per grid coordinate. This is suitable for stuff like Cells.
 
-## rx
+### rx
 
 
 ```lua
 any
 ```
 
-## ry
+### ry
 
 
 ```lua
 any
 ```
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -7433,21 +7433,21 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## topleft
+### topleft
 
 
 ```lua
 Vector2
 ```
 
-## undo
+### undo
 
 
 ```lua
@@ -7462,14 +7462,14 @@ Override this method in subclasses to define how the modification is undone.
 
 # EllipseTool
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -7478,7 +7478,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -7487,14 +7487,14 @@ Object
 
  The default constructor for the class. Subclasses should override this.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -7502,14 +7502,14 @@ table
   -> unknown
 ```
 
-## center
+### center
 
 
 ```lua
 Vector2
 ```
 
-## className
+### className
 
 
 ```lua
@@ -7518,7 +7518,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -7526,14 +7526,14 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## draw
+### draw
 
 
 ```lua
 (method) EllipseTool:draw(editor: Editor, display: Display)
 ```
 
-## drawCell
+### drawCell
 
 
 ```lua
@@ -7542,14 +7542,14 @@ function Object.deserialize(data: any)
 
 Draws a cell at the given coordinates.
 
-## editor
+### editor
 
 
 ```lua
 Editor
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -7565,7 +7565,7 @@ Editor
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getDrawable
+### getDrawable
 
 
 ```lua
@@ -7575,7 +7575,7 @@ Editor
 
 Returns the DrawableComponent from placeable
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -7589,7 +7589,7 @@ Returns the DrawableComponent from placeable
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -7603,7 +7603,7 @@ Returns the DrawableComponent from placeable
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -7616,28 +7616,28 @@ Returns the DrawableComponent from placeable
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## mouseclicked
+### mouseclicked
 
 
 ```lua
 (method) EllipseTool:mouseclicked(editor: Editor, attachable: any, x: number, y: number)
 ```
 
-## mousereleased
+### mousereleased
 
 
 ```lua
 (method) EllipseTool:mousereleased(editor: Editor, level: any, x: number, y: number)
 ```
 
-## overrideCellDraw
+### overrideCellDraw
 
 
 ```lua
 (method) Tool:overrideCellDraw(editor: Editor, level: Level, cellx: integer, celly: integer)
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -7653,14 +7653,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -7668,14 +7668,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## update
+### update
 
 
 ```lua
@@ -7693,14 +7693,14 @@ Updates the tool state.
 
 # EraseModification
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -7709,21 +7709,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) EraseModification:__new(placeable: Actor|Cell, topleft: Vector2, bottomright: Vector2)
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -7731,14 +7731,14 @@ table
   -> unknown
 ```
 
-## bottomright
+### bottomright
 
 
 ```lua
 Vector2
 ```
 
-## className
+### className
 
 
 ```lua
@@ -7747,7 +7747,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -7755,14 +7755,14 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## execute
+### execute
 
 
 ```lua
 (method) EraseModification:execute(attachable: SpectrumAttachable)
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -7778,7 +7778,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -7792,7 +7792,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -7806,7 +7806,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -7819,21 +7819,21 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## placeActor
+### placeActor
 
 
 ```lua
 (method) Modification:placeActor(attachable: SpectrumAttachable, x: integer, y: integer, actorPrototype: Actor)
 ```
 
-## placeCell
+### placeCell
 
 
 ```lua
 (method) Modification:placeCell(attachable: SpectrumAttachable, x: integer, y: integer, cellPrototype: Cell|nil)
 ```
 
-## placeable
+### placeable
 
 
 ```lua
@@ -7845,14 +7845,14 @@ Actor|Cell
  For example, an actor may have a Sight component that determines their field of vision, explored tiles,
  and other related aspects.
 
-## placed
+### placed
 
 
 ```lua
 Actor|Cell[]|nil
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -7868,21 +7868,21 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## removeActor
+### removeActor
 
 
 ```lua
 (method) Modification:removeActor(level: any, actor: any)
 ```
 
-## removed
+### removed
 
 
 ```lua
 table
 ```
 
-## replaced
+### replaced
 
 
 ```lua
@@ -7892,14 +7892,14 @@ SparseGrid
  A sparse grid class that stores data using hashed coordinates. Similar to a SparseMap
  except here there is only one entry per grid coordinate. This is suitable for stuff like Cells.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -7907,21 +7907,21 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## topleft
+### topleft
 
 
 ```lua
 Vector2
 ```
 
-## undo
+### undo
 
 
 ```lua
@@ -7936,14 +7936,14 @@ Override this method in subclasses to define how the modification is undone.
 
 # EraseTool
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -7952,21 +7952,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) EraseTool:__new()
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -7974,7 +7974,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -7983,7 +7983,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -7991,14 +7991,14 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## draw
+### draw
 
 
 ```lua
 (method) EraseTool:draw(editor: Editor, display: Display)
 ```
 
-## drawCell
+### drawCell
 
 
 ```lua
@@ -8007,7 +8007,7 @@ function Object.deserialize(data: any)
 
 Draws a cell at the given coordinates.
 
-## extend
+### extend
 
 
 ```lua
@@ -8023,7 +8023,7 @@ Draws a cell at the given coordinates.
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getCurrentRect
+### getCurrentRect
 
 
 ```lua
@@ -8036,7 +8036,7 @@ Draws a cell at the given coordinates.
 
  Returns the four corners of the current rect.
 
-## getDrawable
+### getDrawable
 
 
 ```lua
@@ -8046,7 +8046,7 @@ Draws a cell at the given coordinates.
 
 Returns the DrawableComponent from placeable
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -8060,7 +8060,7 @@ Returns the DrawableComponent from placeable
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -8074,7 +8074,7 @@ Returns the DrawableComponent from placeable
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -8087,7 +8087,7 @@ Returns the DrawableComponent from placeable
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## mouseclicked
+### mouseclicked
 
 
 ```lua
@@ -8098,7 +8098,7 @@ Returns the DrawableComponent from placeable
 
 @*param* `y` — The cell coordinate clicked.
 
-## mousereleased
+### mousereleased
 
 
 ```lua
@@ -8110,21 +8110,21 @@ Returns the DrawableComponent from placeable
 
 @*param* `y` — The cell coordinate clicked.
 
-## origin
+### origin
 
 
 ```lua
 Vector2
 ```
 
-## overrideCellDraw
+### overrideCellDraw
 
 
 ```lua
 (method) Tool:overrideCellDraw(editor: Editor, level: Level, cellx: integer, celly: integer)
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -8140,21 +8140,21 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## second
+### second
 
 
 ```lua
 Vector2
 ```
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -8162,14 +8162,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## update
+### update
 
 
 ```lua
@@ -8181,7 +8181,7 @@ boolean
 
 # FilePanel
 
-## __getInternal
+### __getInternal
 
 
 ```lua
@@ -8194,7 +8194,7 @@ Get the internal representation of the Element
 For internal use\
 Don't touch unless you know what you're doing
 
-## _internal
+### _internal
 
 
 ```lua
@@ -8202,14 +8202,14 @@ Inky.Element.Internal
 ```
 
 
-## constructor
+### constructor
 
 
 ```lua
 (method) Inky.Element:constructor(scene: any, initializer: fun(self: Inky.Element, scene: Inky.Scene):fun(self: Inky.Element, x: number, y: number, w: number, h: number, depth?: number))
 ```
 
-## getView
+### getView
 
 
 ```lua
@@ -8222,7 +8222,7 @@ Inky.Element.Internal
 
 Return the x, y, w, h that the Element was last rendered at
 
-## on
+### on
 
 
 ```lua
@@ -8235,7 +8235,7 @@ Execute callback when Scene event is raised from the parent Scene
 
 See: [Inky.Scene.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/scene/init.lua#59#9)
 
-## onDisable
+### onDisable
 
 
 ```lua
@@ -8245,7 +8245,7 @@ See: [Inky.Scene.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/in
 
 Execute callback when an Element isn't rendered, when it was rendered last frame
 
-## onEnable
+### onEnable
 
 
 ```lua
@@ -8255,7 +8255,7 @@ Execute callback when an Element isn't rendered, when it was rendered last frame
 
 Execute callback when an Element is rendered, when it wasn't rendered last frame
 
-## onPointer
+### onPointer
 
 
 ```lua
@@ -8270,7 +8270,7 @@ See:
   * [Inky.Pointer.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#115#9)
   * [Inky.Pointer.captureElement](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#127#9)
 
-## onPointerEnter
+### onPointerEnter
 
 
 ```lua
@@ -8280,7 +8280,7 @@ See:
 
 Execute callback when a Pointer enters the bounding box of the Element
 
-## onPointerExit
+### onPointerExit
 
 
 ```lua
@@ -8290,7 +8290,7 @@ Execute callback when a Pointer enters the bounding box of the Element
 
 Execute callback when a Pointer exits the bounding box of the Element
 
-## onPointerInHierarchy
+### onPointerInHierarchy
 
 
 ```lua
@@ -8305,14 +8305,14 @@ See:
   * [Inky.Pointer.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#115#9)
   * [Inky.Element.onPointer](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/element/init.lua#71#9)
 
-## props
+### props
 
 
 ```lua
 FilePanelProps
 ```
 
-## render
+### render
 
 
 ```lua
@@ -8327,7 +8327,7 @@ Note: The parent Scene's frame must have been begun to be able to render\
 
 See: [Inky.Scene.beginFrame](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/scene/init.lua#30#9)
 
-## useEffect
+### useEffect
 
 
 ```lua
@@ -8339,7 +8339,7 @@ Execute a side effect when any specified Element's prop changes
 
 Note: The effect is ran right before a render
 
-## useOverlapCheck
+### useOverlapCheck
 
 
 ```lua
@@ -8361,7 +8361,7 @@ Note: Check is performed after a bounding box check
 
 # FilePanelProps
 
-## _internal
+### _internal
 
 
 ```lua
@@ -8369,28 +8369,28 @@ Inky.Props.Internal
 ```
 
 
-## editor
+### editor
 
 
 ```lua
 Editor
 ```
 
-## name
+### name
 
 
 ```lua
 string
 ```
 
-## open
+### open
 
 
 ```lua
 boolean
 ```
 
-## overlay
+### overlay
 
 
 ```lua
@@ -8408,7 +8408,7 @@ In versions prior to love.graphics.isSupported("canvas") could be used to check 
 [Open in Browser](https://love2d.org/wiki/love.graphics)
 
 
-## scale
+### scale
 
 
 ```lua
@@ -8420,14 +8420,14 @@ Vector2
 
 # Fill
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -8436,7 +8436,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -8445,14 +8445,14 @@ Object
 
  The default constructor for the class. Subclasses should override this.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -8460,14 +8460,14 @@ table
   -> unknown
 ```
 
-## bucket
+### bucket
 
 
 ```lua
 (method) Fill:bucket(attachable: SpectrumAttachable, x: any, y: any)
 ```
 
-## className
+### className
 
 
 ```lua
@@ -8476,7 +8476,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -8484,7 +8484,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## draw
+### draw
 
 
 ```lua
@@ -8493,7 +8493,7 @@ function Object.deserialize(data: any)
 
 Draws the tool visuals.
 
-## drawCell
+### drawCell
 
 
 ```lua
@@ -8502,7 +8502,7 @@ Draws the tool visuals.
 
 Draws a cell at the given coordinates.
 
-## extend
+### extend
 
 
 ```lua
@@ -8518,7 +8518,7 @@ Draws a cell at the given coordinates.
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getDrawable
+### getDrawable
 
 
 ```lua
@@ -8528,7 +8528,7 @@ Draws a cell at the given coordinates.
 
 Returns the DrawableComponent from placeable
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -8542,7 +8542,7 @@ Returns the DrawableComponent from placeable
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -8556,7 +8556,7 @@ Returns the DrawableComponent from placeable
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## locations
+### locations
 
 
 ```lua
@@ -8566,7 +8566,7 @@ SparseGrid
  A sparse grid class that stores data using hashed coordinates. Similar to a SparseMap
  except here there is only one entry per grid coordinate. This is suitable for stuff like Cells.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -8579,7 +8579,7 @@ SparseGrid
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## mouseclicked
+### mouseclicked
 
 
 ```lua
@@ -8592,7 +8592,7 @@ SparseGrid
 
 @*param* `celly` — The y-coordinate of the cell clicked.
 
-## mousereleased
+### mousereleased
 
 
 ```lua
@@ -8605,14 +8605,14 @@ Handles mouse release events.
 
 @*param* `celly` — The y-coordinate of the cell release.
 
-## overrideCellDraw
+### overrideCellDraw
 
 
 ```lua
 (method) Tool:overrideCellDraw(editor: Editor, level: Level, cellx: integer, celly: integer)
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -8628,14 +8628,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -8643,14 +8643,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## update
+### update
 
 
 ```lua
@@ -8666,21 +8666,21 @@ Updates the tool state.
 
 # Fraction
 
-## __add
+### __add
 
 
 ```lua
 function Fraction.__add(lhs: any, rhs: any)
 ```
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __eq
+### __eq
 
 
 ```lua
@@ -8688,7 +8688,7 @@ function Fraction.__eq(lhs: any, rhs: any)
   -> boolean
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -8697,7 +8697,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __le
+### __le
 
 
 ```lua
@@ -8705,7 +8705,7 @@ function Fraction.__le(lhs: any, rhs: any)
   -> boolean
 ```
 
-## __lt
+### __lt
 
 
 ```lua
@@ -8713,28 +8713,28 @@ function Fraction.__lt(lhs: any, rhs: any)
   -> boolean
 ```
 
-## __mul
+### __mul
 
 
 ```lua
 (method) Fraction:__mul(other: any)
 ```
 
-## __new
+### __new
 
 
 ```lua
 (method) Fraction:__new(numerator: any, denominator: any)
 ```
 
-## __sub
+### __sub
 
 
 ```lua
 function Fraction.__sub(lhs: any, rhs: any)
 ```
 
-## __tostring
+### __tostring
 
 
 ```lua
@@ -8742,21 +8742,21 @@ function Fraction.__sub(lhs: any, rhs: any)
   -> unknown
 ```
 
-## __unm
+### __unm
 
 
 ```lua
 (method) Fraction:__unm()
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -8764,7 +8764,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -8773,14 +8773,14 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## denominator
+### denominator
 
 
 ```lua
 any
 ```
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -8788,7 +8788,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -8804,7 +8804,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -8818,7 +8818,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -8832,7 +8832,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -8845,14 +8845,14 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## numerator
+### numerator
 
 
 ```lua
 any
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -8868,14 +8868,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -8883,14 +8883,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## tonumber
+### tonumber
 
 
 ```lua
@@ -8903,14 +8903,14 @@ boolean
 
 # GameState
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -8919,7 +8919,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -8928,14 +8928,14 @@ Object
 
  The default constructor for the class. Subclasses should override this.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -8943,7 +8943,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -8952,7 +8952,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -8960,7 +8960,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## draw
+### draw
 
 
 ```lua
@@ -8969,7 +8969,7 @@ function Object.deserialize(data: any)
 
  Called on each draw.
 
-## extend
+### extend
 
 
 ```lua
@@ -8985,7 +8985,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getManager
+### getManager
 
 
 ```lua
@@ -8993,7 +8993,7 @@ function Object.deserialize(data: any)
   -> GameStateManager
 ```
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -9007,7 +9007,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -9021,7 +9021,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## keypressed
+### keypressed
 
 
 ```lua
@@ -9030,7 +9030,7 @@ function Object.deserialize(data: any)
 
  Called on each keypress.
 
-## load
+### load
 
 
 ```lua
@@ -9039,14 +9039,14 @@ function Object.deserialize(data: any)
 
  Called when the gamestate is started.
 
-## manager
+### manager
 
 
 ```lua
 GameStateManager
 ```
 
-## mixin
+### mixin
 
 
 ```lua
@@ -9059,14 +9059,14 @@ GameStateManager
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## mousepressed
+### mousepressed
 
 
 ```lua
 (method) GameState:mousepressed(x: any, y: any, button: any, istouch: any, presses: any)
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -9082,14 +9082,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -9097,14 +9097,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## unload
+### unload
 
 
 ```lua
@@ -9113,7 +9113,7 @@ boolean
 
  Calls when the gamestate is stopped.
 
-## update
+### update
 
 
 ```lua
@@ -9122,7 +9122,7 @@ boolean
 
  Called on each update.
 
-## wheelmoved
+### wheelmoved
 
 
 ```lua
@@ -9136,14 +9136,14 @@ boolean
 
 # GameStateManager
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -9152,21 +9152,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) GameStateManager:__new()
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -9174,7 +9174,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -9183,7 +9183,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -9191,7 +9191,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## draw
+### draw
 
 
 ```lua
@@ -9200,7 +9200,7 @@ function Object.deserialize(data: any)
 
  Called each draw, calls draw on top state in stack.
 
-## extend
+### extend
 
 
 ```lua
@@ -9216,7 +9216,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -9230,7 +9230,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -9244,7 +9244,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## keypressed
+### keypressed
 
 
 ```lua
@@ -9253,7 +9253,7 @@ function Object.deserialize(data: any)
 
  Called on keypress, calls keypressed on top state in stack
 
-## mixin
+### mixin
 
 
 ```lua
@@ -9266,28 +9266,28 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## mousemoved
+### mousemoved
 
 
 ```lua
 (method) GameStateManager:mousemoved(x: any, y: any, dx: any, dy: any, istouch: any)
 ```
 
-## mousepressed
+### mousepressed
 
 
 ```lua
 (method) GameStateManager:mousepressed(x: any, y: any, button: any, istouch: any, presses: any)
 ```
 
-## mousereleased
+### mousereleased
 
 
 ```lua
 (method) GameStateManager:mousereleased(x: any, y: any, button: any)
 ```
 
-## pop
+### pop
 
 
 ```lua
@@ -9297,7 +9297,7 @@ function Object.deserialize(data: any)
 
  Pops the state from the top of the stack.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -9313,7 +9313,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## push
+### push
 
 
 ```lua
@@ -9322,7 +9322,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `state` — State to push to the top of the stack.
 
-## replace
+### replace
 
 
 ```lua
@@ -9331,14 +9331,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `state` — Swap the top of the stack with this state.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -9346,28 +9346,28 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stateStack
+### stateStack
 
 
 ```lua
 table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## textinput
+### textinput
 
 
 ```lua
 (method) GameStateManager:textinput(text: any)
 ```
 
-## update
+### update
 
 
 ```lua
@@ -9376,7 +9376,7 @@ boolean
 
  Called each update, calls update on top state in stack.
 
-## wheelmoved
+### wheelmoved
 
 
 ```lua
@@ -9388,14 +9388,14 @@ boolean
 
 # Grid
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -9404,7 +9404,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -9423,14 +9423,14 @@ Object
 
 @*return* `The` — initialized grid.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -9438,7 +9438,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -9447,7 +9447,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## data
+### data
 
 
 ```lua
@@ -9456,7 +9456,7 @@ any[]
 
 The data stored in the grid.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -9464,7 +9464,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## each
+### each
 
 
 ```lua
@@ -9476,7 +9476,7 @@ function Object.deserialize(data: any)
 
 @*return* `An` — iterator returning x, y, and value for each cell.
 
-## extend
+### extend
 
 
 ```lua
@@ -9492,7 +9492,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## fill
+### fill
 
 
 ```lua
@@ -9503,7 +9503,7 @@ function Object.deserialize(data: any)
 
 @*param* `value` — The value to fill the grid with.
 
-## fromData
+### fromData
 
 
 ```lua
@@ -9521,7 +9521,7 @@ function Object.deserialize(data: any)
 
 @*return* `The` — initialized grid.
 
-## get
+### get
 
 
 ```lua
@@ -9537,7 +9537,7 @@ function Object.deserialize(data: any)
 
 @*return* `value` — The value at the specified coordinates, or nil if out of bounds.
 
-## getIndex
+### getIndex
 
 
 ```lua
@@ -9553,7 +9553,7 @@ function Object.deserialize(data: any)
 
 @*return* `The` — index in the data array, or nil if out of bounds.
 
-## h
+### h
 
 
 ```lua
@@ -9562,7 +9562,7 @@ integer
 
 The height of the grid.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -9576,7 +9576,7 @@ The height of the grid.
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -9590,7 +9590,7 @@ The height of the grid.
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -9603,7 +9603,7 @@ The height of the grid.
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -9619,14 +9619,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -9634,7 +9634,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## set
+### set
 
 
 ```lua
@@ -9649,14 +9649,14 @@ function Object.serialize(object: any)
 
 @*param* `value` — The value to set.
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## w
+### w
 
 
 ```lua
@@ -9670,14 +9670,14 @@ The width of the grid.
 
 # IBehavior
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -9686,7 +9686,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -9695,14 +9695,14 @@ Object
 
  The default constructor for the class. Subclasses should override this.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -9710,14 +9710,14 @@ table
   -> unknown
 ```
 
-## behaviorOwner
+### behaviorOwner
 
 
 ```lua
 IBehavior?
 ```
 
-## className
+### className
 
 
 ```lua
@@ -9726,7 +9726,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -9734,7 +9734,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -9750,7 +9750,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -9764,7 +9764,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -9778,7 +9778,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -9791,7 +9791,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -9807,21 +9807,21 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## run
+### run
 
 
 ```lua
 fun(self: any, level: Level, actor: Actor, controller: ControllerComponent):Action
 ```
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -9829,7 +9829,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -9841,7 +9841,7 @@ boolean
 
 # Inky.Element
 
-## __getInternal
+### __getInternal
 
 
 ```lua
@@ -9854,7 +9854,7 @@ Get the internal representation of the Element
 For internal use\
 Don't touch unless you know what you're doing
 
-## _internal
+### _internal
 
 
 ```lua
@@ -9862,14 +9862,14 @@ Inky.Element.Internal
 ```
 
 
-## constructor
+### constructor
 
 
 ```lua
 (method) Inky.Element:constructor(scene: any, initializer: fun(self: Inky.Element, scene: Inky.Scene):fun(self: Inky.Element, x: number, y: number, w: number, h: number, depth?: number))
 ```
 
-## getView
+### getView
 
 
 ```lua
@@ -9882,7 +9882,7 @@ Inky.Element.Internal
 
 Return the x, y, w, h that the Element was last rendered at
 
-## on
+### on
 
 
 ```lua
@@ -9895,7 +9895,7 @@ Execute callback when Scene event is raised from the parent Scene
 
 See: [Inky.Scene.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/scene/init.lua#59#9)
 
-## onDisable
+### onDisable
 
 
 ```lua
@@ -9905,7 +9905,7 @@ See: [Inky.Scene.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/in
 
 Execute callback when an Element isn't rendered, when it was rendered last frame
 
-## onEnable
+### onEnable
 
 
 ```lua
@@ -9915,7 +9915,7 @@ Execute callback when an Element isn't rendered, when it was rendered last frame
 
 Execute callback when an Element is rendered, when it wasn't rendered last frame
 
-## onPointer
+### onPointer
 
 
 ```lua
@@ -9930,7 +9930,7 @@ See:
   * [Inky.Pointer.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#115#9)
   * [Inky.Pointer.captureElement](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#127#9)
 
-## onPointerEnter
+### onPointerEnter
 
 
 ```lua
@@ -9940,7 +9940,7 @@ See:
 
 Execute callback when a Pointer enters the bounding box of the Element
 
-## onPointerExit
+### onPointerExit
 
 
 ```lua
@@ -9950,7 +9950,7 @@ Execute callback when a Pointer enters the bounding box of the Element
 
 Execute callback when a Pointer exits the bounding box of the Element
 
-## onPointerInHierarchy
+### onPointerInHierarchy
 
 
 ```lua
@@ -9965,7 +9965,7 @@ See:
   * [Inky.Pointer.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#115#9)
   * [Inky.Element.onPointer](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/element/init.lua#71#9)
 
-## props
+### props
 
 
 ```lua
@@ -9973,7 +9973,7 @@ Inky.Props|{ [string]: any }
 ```
 
 
-## render
+### render
 
 
 ```lua
@@ -9988,7 +9988,7 @@ Note: The parent Scene's frame must have been begun to be able to render\
 
 See: [Inky.Scene.beginFrame](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/scene/init.lua#30#9)
 
-## useEffect
+### useEffect
 
 
 ```lua
@@ -10000,7 +10000,7 @@ Execute a side effect when any specified Element's prop changes
 
 Note: The effect is ran right before a render
 
-## useOverlapCheck
+### useOverlapCheck
 
 
 ```lua
@@ -10032,21 +10032,21 @@ Note: Check is performed after a bounding box check
 
 # Inky.Element.Internal
 
-## _depth
+### _depth
 
 
 ```lua
 number
 ```
 
-## _draw
+### _draw
 
 
 ```lua
 fun(self: Inky.Element, x: number, y: number, w: number, h: number, depth?: number)
 ```
 
-## _effects
+### _effects
 
 
 ```lua
@@ -10054,7 +10054,7 @@ fun(self: Inky.Element, x: number, y: number, w: number, h: number, depth?: numb
 ```
 
 
-## _element
+### _element
 
 
 ```lua
@@ -10062,14 +10062,14 @@ Inky.Element
 ```
 
 
-## _h
+### _h
 
 
 ```lua
 number
 ```
 
-## _initializer
+### _initializer
 
 
 ```lua
@@ -10077,14 +10077,14 @@ fun(self: Inky.Element, scene: Inky.Scene):fun(self: Inky.Element, x: number, y:
 ```
 
 
-## _isInitialized
+### _isInitialized
 
 
 ```lua
 boolean
 ```
 
-## _onCallbacks
+### _onCallbacks
 
 
 ```lua
@@ -10092,14 +10092,14 @@ boolean
 ```
 
 
-## _onDisableCallbacks
+### _onDisableCallbacks
 
 
 ```lua
 fun(element: Inky.Element):nil[]
 ```
 
-## _onEnableCallbacks
+### _onEnableCallbacks
 
 
 ```lua
@@ -10107,7 +10107,7 @@ fun(element: Inky.Element):nil[]
 ```
 
 
-## _onPointerCallbacks
+### _onPointerCallbacks
 
 
 ```lua
@@ -10115,7 +10115,7 @@ fun(element: Inky.Element):nil[]
 ```
 
 
-## _onPointerEnterCallbacks
+### _onPointerEnterCallbacks
 
 
 ```lua
@@ -10123,21 +10123,21 @@ fun(element: Inky.Element, pointer: Inky.Pointer):nil[]
 ```
 
 
-## _onPointerExitCallbacks
+### _onPointerExitCallbacks
 
 
 ```lua
 fun(element: Inky.Element, pointer: Inky.Pointer):nil[]
 ```
 
-## _onPointerInHierarchyCallbacks
+### _onPointerInHierarchyCallbacks
 
 
 ```lua
 { [string]: fun(element: Inky.Element, pointer: Inky.Pointer, ...any):nil[] }
 ```
 
-## _overlapCheck
+### _overlapCheck
 
 
 ```lua
@@ -10145,7 +10145,7 @@ fun(pointerX: number, pointerY: number, x: number, y: number, w: number, h: numb
 ```
 
 
-## _props
+### _props
 
 
 ```lua
@@ -10153,21 +10153,21 @@ Inky.Props|{ [string]: any }
 ```
 
 
-## _scene
+### _scene
 
 
 ```lua
 Inky.Scene
 ```
 
-## _w
+### _w
 
 
 ```lua
 number
 ```
 
-## _x
+### _x
 
 
 ```lua
@@ -10175,21 +10175,21 @@ number
 ```
 
 
-## _y
+### _y
 
 
 ```lua
 number
 ```
 
-## constructor
+### constructor
 
 
 ```lua
 (method) Inky.Element.Internal:constructor(element: Inky.Element, scene: Inky.Scene, initializer: fun(self: Inky.Element, scene: Inky.Scene):fun(self: Inky.Element, x: number, y: number, w: number, h: number, depth?: number))
 ```
 
-## doesPointPassBoundingboxCheck
+### doesPointPassBoundingboxCheck
 
 
 ```lua
@@ -10197,7 +10197,7 @@ number
   -> boolean
 ```
 
-## doesPointPassOverlapCheck
+### doesPointPassOverlapCheck
 
 
 ```lua
@@ -10205,7 +10205,7 @@ number
   -> boolean
 ```
 
-## doesViewDiffer
+### doesViewDiffer
 
 
 ```lua
@@ -10213,7 +10213,7 @@ number
   -> boolean
 ```
 
-## getDepth
+### getDepth
 
 
 ```lua
@@ -10221,7 +10221,7 @@ number
   -> number
 ```
 
-## getProps
+### getProps
 
 
 ```lua
@@ -10229,7 +10229,7 @@ number
   -> Inky.Props|{ [string]: any }
 ```
 
-## getView
+### getView
 
 
 ```lua
@@ -10240,14 +10240,14 @@ number
   4. h: number
 ```
 
-## initialize
+### initialize
 
 
 ```lua
 (method) Inky.Element.Internal:initialize()
 ```
 
-## isInitialized
+### isInitialized
 
 
 ```lua
@@ -10255,7 +10255,7 @@ number
   -> boolean
 ```
 
-## on
+### on
 
 
 ```lua
@@ -10263,7 +10263,7 @@ number
   -> Inky.Element.Internal
 ```
 
-## onDisable
+### onDisable
 
 
 ```lua
@@ -10271,7 +10271,7 @@ number
   -> Inky.Element.Internal
 ```
 
-## onEnable
+### onEnable
 
 
 ```lua
@@ -10279,7 +10279,7 @@ number
   -> Inky.Element.Internal
 ```
 
-## onPointer
+### onPointer
 
 
 ```lua
@@ -10287,7 +10287,7 @@ number
   -> Inky.Element.Internal
 ```
 
-## onPointerEnter
+### onPointerEnter
 
 
 ```lua
@@ -10295,7 +10295,7 @@ number
   -> Inky.Element.Internal
 ```
 
-## onPointerExit
+### onPointerExit
 
 
 ```lua
@@ -10303,7 +10303,7 @@ number
   -> Inky.Element.Internal
 ```
 
-## onPointerInHierarchy
+### onPointerInHierarchy
 
 
 ```lua
@@ -10311,7 +10311,7 @@ number
   -> Inky.Element.Internal
 ```
 
-## raiseDisable
+### raiseDisable
 
 
 ```lua
@@ -10319,7 +10319,7 @@ number
   -> accepted: boolean
 ```
 
-## raiseEnable
+### raiseEnable
 
 
 ```lua
@@ -10327,7 +10327,7 @@ number
   -> accepted: boolean
 ```
 
-## raiseOn
+### raiseOn
 
 
 ```lua
@@ -10335,7 +10335,7 @@ number
   -> accepted: boolean
 ```
 
-## raiseOnPointer
+### raiseOnPointer
 
 
 ```lua
@@ -10344,7 +10344,7 @@ number
   2. consumed: boolean
 ```
 
-## raiseOnPointerInHierarchy
+### raiseOnPointerInHierarchy
 
 
 ```lua
@@ -10352,7 +10352,7 @@ number
   -> accepted: boolean
 ```
 
-## raisePointerEnter
+### raisePointerEnter
 
 
 ```lua
@@ -10360,7 +10360,7 @@ number
   -> accepted: boolean
 ```
 
-## raisePointerExit
+### raisePointerExit
 
 
 ```lua
@@ -10368,7 +10368,7 @@ number
   -> accepted: boolean
 ```
 
-## render
+### render
 
 
 ```lua
@@ -10376,14 +10376,14 @@ number
   -> Inky.Element.Internal
 ```
 
-## renderIntoScene
+### renderIntoScene
 
 
 ```lua
 (method) Inky.Element.Internal:renderIntoScene(scene: Inky.Scene, x: number, y: number, w: number, h: number, depth: number)
 ```
 
-## setView
+### setView
 
 
 ```lua
@@ -10391,7 +10391,7 @@ number
   -> Inky.Element.Internal
 ```
 
-## useEffect
+### useEffect
 
 
 ```lua
@@ -10399,7 +10399,7 @@ number
   -> Inky.Element.Internal
 ```
 
-## useOverlapCheck
+### useOverlapCheck
 
 
 ```lua
@@ -10452,7 +10452,7 @@ number
 
 # Inky.Pointer
 
-## __getInternal
+### __getInternal
 
 
 ```lua
@@ -10465,7 +10465,7 @@ Get the internal representation of the Pointer
 For internal use\
 Don't touch unless you know what you're doing
 
-## _internal
+### _internal
 
 
 ```lua
@@ -10473,7 +10473,7 @@ Inky.Pointer.Internal
 ```
 
 
-## captureElement
+### captureElement
 
 
 ```lua
@@ -10488,14 +10488,14 @@ See:
   * [Inky.Element.onPointer](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/element/init.lua#71#9)
   * [Inky.Element.onPointerInHierarchy](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/element/init.lua#84#9)
 
-## constructor
+### constructor
 
 
 ```lua
 (method) Inky.Pointer:constructor(scene: Inky.Scene)
 ```
 
-## doesCaptureElement
+### doesCaptureElement
 
 
 ```lua
@@ -10505,7 +10505,7 @@ See:
 
 Get if the Pointer captures the Element
 
-## doesOverlapAnyElement
+### doesOverlapAnyElement
 
 
 ```lua
@@ -10515,7 +10515,7 @@ Get if the Pointer captures the Element
 
 Get if the Pointer overlaps any Elements
 
-## doesOverlapElement
+### doesOverlapElement
 
 
 ```lua
@@ -10525,7 +10525,7 @@ Get if the Pointer overlaps any Elements
 
 Gets if the Pointer overlaps the Element
 
-## getMode
+### getMode
 
 
 ```lua
@@ -10535,7 +10535,7 @@ Gets if the Pointer overlaps the Element
 
 Gets the mode of the Pointer
 
-## getPosition
+### getPosition
 
 
 ```lua
@@ -10546,7 +10546,7 @@ Gets the mode of the Pointer
 
 Gets the position of the Pointer
 
-## getTarget
+### getTarget
 
 
 ```lua
@@ -10556,7 +10556,7 @@ Gets the position of the Pointer
 
 Gets the target of the Pointer
 
-## isActive
+### isActive
 
 
 ```lua
@@ -10566,7 +10566,7 @@ Gets the target of the Pointer
 
 Gets if the Pointer is active
 
-## raise
+### raise
 
 
 ```lua
@@ -10581,7 +10581,7 @@ See:
   * [Inky.Element.onPointer](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/element/init.lua#71#9)
   * [Inky.Element.onPointerInHierarchy](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/element/init.lua#84#9)
 
-## setActive
+### setActive
 
 
 ```lua
@@ -10596,7 +10596,7 @@ See:
   * [Inky.Element.OnPointerEnterCallback](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/element/init.lua#15#10)
   * [Inky.Element.OnPointerExitCallback](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/element/init.lua#16#10)
 
-## setPosition
+### setPosition
 
 
 ```lua
@@ -10611,7 +10611,7 @@ See:
   * [Inky.Element.OnPointerEnterCallback](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/element/init.lua#15#10)
   * [Inky.Element.OnPointerExitCallback](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/element/init.lua#16#10)
 
-## setTarget
+### setTarget
 
 
 ```lua
@@ -10633,7 +10633,7 @@ See:
 
 # Inky.Pointer.Internal
 
-## _active
+### _active
 
 
 ```lua
@@ -10641,7 +10641,7 @@ boolean
 ```
 
 
-## _capturedElements
+### _capturedElements
 
 
 ```lua
@@ -10649,7 +10649,7 @@ Inky.HashSet
 ```
 
 
-## _mode
+### _mode
 
 
 ```lua
@@ -10657,7 +10657,7 @@ Inky.PointerMode
 ```
 
 
-## _overlappingElements
+### _overlappingElements
 
 
 ```lua
@@ -10665,7 +10665,7 @@ Inky.HashSet
 ```
 
 
-## _pointer
+### _pointer
 
 
 ```lua
@@ -10673,14 +10673,14 @@ Inky.HashSet
 ```
 
 
-## _scene
+### _scene
 
 
 ```lua
 (Inky.Scene)?
 ```
 
-## _target
+### _target
 
 
 ```lua
@@ -10688,7 +10688,7 @@ Inky.HashSet
 ```
 
 
-## _x
+### _x
 
 
 ```lua
@@ -10696,14 +10696,14 @@ number?
 ```
 
 
-## _y
+### _y
 
 
 ```lua
 number?
 ```
 
-## captureElement
+### captureElement
 
 
 ```lua
@@ -10711,14 +10711,14 @@ number?
   -> Inky.Pointer.Internal
 ```
 
-## constructor
+### constructor
 
 
 ```lua
 (method) Inky.Pointer.Internal:constructor(pointer: Inky.Pointer, scene: Inky.Scene)
 ```
 
-## doesCaptureElement
+### doesCaptureElement
 
 
 ```lua
@@ -10726,7 +10726,7 @@ number?
   -> boolean
 ```
 
-## doesOverlapAnyElement
+### doesOverlapAnyElement
 
 
 ```lua
@@ -10734,7 +10734,7 @@ number?
   -> boolean
 ```
 
-## doesOverlapElement
+### doesOverlapElement
 
 
 ```lua
@@ -10742,7 +10742,7 @@ number?
   -> boolean
 ```
 
-## getMode
+### getMode
 
 
 ```lua
@@ -10750,7 +10750,7 @@ number?
   -> Inky.PointerMode
 ```
 
-## getPosition
+### getPosition
 
 
 ```lua
@@ -10759,7 +10759,7 @@ number?
   2. y: number?
 ```
 
-## getTarget
+### getTarget
 
 
 ```lua
@@ -10767,7 +10767,7 @@ number?
   -> (Inky.Element)?
 ```
 
-## isActive
+### isActive
 
 
 ```lua
@@ -10775,7 +10775,7 @@ number?
   -> boolean
 ```
 
-## raise
+### raise
 
 
 ```lua
@@ -10783,7 +10783,7 @@ number?
   -> boolean
 ```
 
-## setActive
+### setActive
 
 
 ```lua
@@ -10791,14 +10791,14 @@ number?
   -> Inky.Pointer.Internal
 ```
 
-## setOverlappingElements
+### setOverlappingElements
 
 
 ```lua
 (method) Inky.Pointer.Internal:setOverlappingElements(overlappingElements?: Inky.HashSet)
 ```
 
-## setPosition
+### setPosition
 
 
 ```lua
@@ -10806,7 +10806,7 @@ number?
   -> Inky.Pointer.Internal
 ```
 
-## setTarget
+### setTarget
 
 
 ```lua
@@ -10819,7 +10819,7 @@ number?
 
 # Inky.Props
 
-## _internal
+### _internal
 
 
 ```lua
@@ -10832,21 +10832,21 @@ Inky.Props.Internal
 
 # Inky.Props.Internal
 
-## changedValues
+### changedValues
 
 
 ```lua
 Inky.HashSet
 ```
 
-## constructor
+### constructor
 
 
 ```lua
 (method) Inky.Props.Internal:constructor()
 ```
 
-## values
+### values
 
 
 ```lua
@@ -10859,7 +10859,7 @@ Inky.HashSet
 
 # Inky.Scene
 
-## __getInternal
+### __getInternal
 
 
 ```lua
@@ -10872,7 +10872,7 @@ Get the internal representation of the Scene
 For internal use\
 Don't touch unless you know what you're doing
 
-## _internal
+### _internal
 
 
 ```lua
@@ -10880,7 +10880,7 @@ Inky.Scene.Internal
 ```
 
 
-## beginFrame
+### beginFrame
 
 
 ```lua
@@ -10895,14 +10895,14 @@ Note: A frame must have been begun before Elements can be drawn
 
 See: [Inky.Element.render](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/element/init.lua#158#9)
 
-## constructor
+### constructor
 
 
 ```lua
 (method) Inky.Scene:constructor(spatialHashSize?: integer)
 ```
 
-## didBeginFrame
+### didBeginFrame
 
 
 ```lua
@@ -10912,7 +10912,7 @@ See: [Inky.Element.render](file:///home/bleezus/Documents/GitHub/prism2/geometer
 
 Get if frame did begin
 
-## finishFrame
+### finishFrame
 
 
 ```lua
@@ -10924,7 +10924,7 @@ End a frame to render Elements in
 
 A frame must have been finished before Elements can be acted on
 
-## raise
+### raise
 
 
 ```lua
@@ -10942,7 +10942,7 @@ See: [Inky.Element.OnCallback](file:///home/bleezus/Documents/GitHub/prism2/geom
 
 # Inky.Scene.Internal
 
-## _beganFrame
+### _beganFrame
 
 
 ```lua
@@ -10950,7 +10950,7 @@ boolean
 ```
 
 
-## _beginElement
+### _beginElement
 
 
 ```lua
@@ -10958,7 +10958,7 @@ boolean
   -> Inky.Scene.Internal
 ```
 
-## _elements
+### _elements
 
 
 ```lua
@@ -10966,7 +10966,7 @@ Inky.HashSet
 ```
 
 
-## _elementsChanged
+### _elementsChanged
 
 
 ```lua
@@ -10974,7 +10974,7 @@ boolean
 ```
 
 
-## _finishElement
+### _finishElement
 
 
 ```lua
@@ -10982,21 +10982,21 @@ boolean
   -> Inky.Scene.Internal
 ```
 
-## _parentStack
+### _parentStack
 
 
 ```lua
 Inky.Element[]
 ```
 
-## _parents
+### _parents
 
 
 ```lua
 { [Inky.Element]: Inky.Element }
 ```
 
-## _pointers
+### _pointers
 
 
 ```lua
@@ -11004,7 +11004,7 @@ Inky.HashSet
 ```
 
 
-## _resolvePointerOverlappingElements
+### _resolvePointerOverlappingElements
 
 
 ```lua
@@ -11012,7 +11012,7 @@ Inky.HashSet
   -> Inky.Scene.Internal|nil
 ```
 
-## _scene
+### _scene
 
 
 ```lua
@@ -11020,7 +11020,7 @@ Inky.Scene
 ```
 
 
-## _spatialHash
+### _spatialHash
 
 
 ```lua
@@ -11028,7 +11028,7 @@ Inky.SpatialHash
 ```
 
 
-## _suppliedElements
+### _suppliedElements
 
 
 ```lua
@@ -11036,7 +11036,7 @@ Inky.HashSet
 ```
 
 
-## addPointer
+### addPointer
 
 
 ```lua
@@ -11044,7 +11044,7 @@ Inky.HashSet
   -> Inky.Scene.Internal
 ```
 
-## beginFrame
+### beginFrame
 
 
 ```lua
@@ -11052,14 +11052,14 @@ Inky.HashSet
   -> Inky.Scene.Internal
 ```
 
-## constructor
+### constructor
 
 
 ```lua
 (method) Inky.Scene.Internal:constructor(scene: Inky.Scene, spatialHashSize?: integer)
 ```
 
-## didBeginFrame
+### didBeginFrame
 
 
 ```lua
@@ -11069,7 +11069,7 @@ Inky.HashSet
 
 Get if frame did begin
 
-## finishFrame
+### finishFrame
 
 
 ```lua
@@ -11077,7 +11077,7 @@ Get if frame did begin
   -> Inky.Scene.Internal
 ```
 
-## getElementParent
+### getElementParent
 
 
 ```lua
@@ -11085,28 +11085,28 @@ Get if frame did begin
   -> (Inky.Element)?
 ```
 
-## onPointerActiveChanged
+### onPointerActiveChanged
 
 
 ```lua
 (method) Inky.Scene.Internal:onPointerActiveChanged(pointer: Inky.Pointer)
 ```
 
-## onPointerPositionChanged
+### onPointerPositionChanged
 
 
 ```lua
 (method) Inky.Scene.Internal:onPointerPositionChanged(pointer: Inky.Pointer)
 ```
 
-## onPointerTargetChanged
+### onPointerTargetChanged
 
 
 ```lua
 (method) Inky.Scene.Internal:onPointerTargetChanged(pointer: Inky.Pointer)
 ```
 
-## raise
+### raise
 
 
 ```lua
@@ -11115,7 +11115,7 @@ Get if frame did begin
 
 Raise an event
 
-## render
+### render
 
 
 ```lua
@@ -11127,7 +11127,7 @@ Raise an event
 
 # Inky.SpatialHash
 
-## _cells
+### _cells
 
 
 ```lua
@@ -11135,14 +11135,14 @@ Inky.HashSet[]
 ```
 
 
-## _elements
+### _elements
 
 
 ```lua
 { [Inky.Scene]: Inky.HashSet[] }
 ```
 
-## _hash
+### _hash
 
 
 ```lua
@@ -11150,7 +11150,7 @@ Inky.HashSet[]
   -> hash: number
 ```
 
-## _inverseHash
+### _inverseHash
 
 
 ```lua
@@ -11159,7 +11159,7 @@ Inky.HashSet[]
   2. y: integer
 ```
 
-## _size
+### _size
 
 
 ```lua
@@ -11167,7 +11167,7 @@ integer
 ```
 
 
-## _toCell
+### _toCell
 
 
 ```lua
@@ -11175,7 +11175,7 @@ integer
   -> cellV: integer
 ```
 
-## _toCellBounds
+### _toCellBounds
 
 
 ```lua
@@ -11186,7 +11186,7 @@ integer
   4. bottomRightCellY: integer
 ```
 
-## add
+### add
 
 
 ```lua
@@ -11194,14 +11194,14 @@ integer
   -> Inky.SpatialHash
 ```
 
-## constructor
+### constructor
 
 
 ```lua
 (method) Inky.SpatialHash:constructor(size: any)
 ```
 
-## getElementsAtPoint
+### getElementsAtPoint
 
 
 ```lua
@@ -11209,7 +11209,7 @@ integer
   -> Inky.HashSet
 ```
 
-## move
+### move
 
 
 ```lua
@@ -11217,7 +11217,7 @@ integer
   -> Inky.SpatialHash
 ```
 
-## remove
+### remove
 
 
 ```lua
@@ -11235,14 +11235,14 @@ integer
 
 # Keybinding
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -11251,7 +11251,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -11263,14 +11263,14 @@ Object
 
 @*param* `schema` — A list of predefined keybindings with their schema and defaults.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -11278,7 +11278,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -11287,7 +11287,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## clear
+### clear
 
 
 ```lua
@@ -11298,7 +11298,7 @@ A unique name for this class. By convention this should match the annotation nam
 
 @*param* `mode` — The mode to reset. If nil, resets all modes.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -11306,7 +11306,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -11322,7 +11322,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -11336,7 +11336,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -11350,7 +11350,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## keymap
+### keymap
 
 
 ```lua
@@ -11359,7 +11359,7 @@ table
 
  Stores modifications
 
-## keypressed
+### keypressed
 
 
 ```lua
@@ -11376,7 +11376,7 @@ table
 
 @*return* `The` — action associated with the key, or nil if no binding exists.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -11389,7 +11389,7 @@ table
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -11405,7 +11405,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## schema
+### schema
 
 
 ```lua
@@ -11414,14 +11414,14 @@ table
 
  Holds the schema for all modes, including "default"
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -11429,7 +11429,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## set
+### set
 
 
 ```lua
@@ -11444,7 +11444,7 @@ function Object.serialize(object: any)
 
 @*param* `mode` — An optional mode for the binding (defaults to "default").
 
-## stripName
+### stripName
 
 
 ```lua
@@ -11456,7 +11456,7 @@ boolean
 
 # Level
 
-## RNG
+### RNG
 
 
 ```lua
@@ -11465,14 +11465,14 @@ RNG
 
 The level's local random number generator, use this for randomness within the level like attack rolls.
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -11481,7 +11481,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -11494,14 +11494,14 @@ Object
 
 @*param* `actors` — A list of actors to
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## actorStorage
+### actorStorage
 
 
 ```lua
@@ -11510,7 +11510,7 @@ ActorStorage
 
 The main actor storage containing all of the level's actors.
 
-## addActor
+### addActor
 
 
 ```lua
@@ -11523,7 +11523,7 @@ The main actor storage containing all of the level's actors.
 
 @*param* `actor` — The actor to add.
 
-## addComponent
+### addComponent
 
 
 ```lua
@@ -11538,7 +11538,7 @@ The main actor storage containing all of the level's actors.
 
 @*param* `component` — The component to add.
 
-## addSystem
+### addSystem
 
 
 ```lua
@@ -11551,7 +11551,7 @@ The main actor storage containing all of the level's actors.
 
 @*param* `system` — The system to add.
 
-## adopt
+### adopt
 
 
 ```lua
@@ -11559,7 +11559,7 @@ The main actor storage containing all of the level's actors.
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -11568,28 +11568,28 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## computeFOV
+### computeFOV
 
 
 ```lua
 (method) Level:computeFOV(origin: any, maxDepth: any, callback: any)
 ```
 
-## debug
+### debug
 
 
 ```lua
 boolean
 ```
 
-## debugYield
+### debugYield
 
 
 ```lua
 (method) Level:debugYield(stringMessage: any)
 ```
 
-## decision
+### decision
 
 
 ```lua
@@ -11598,7 +11598,7 @@ ActionDecision
 
 Used during deserialization to resume.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -11606,7 +11606,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## eachActor
+### eachActor
 
 
 ```lua
@@ -11622,7 +11622,7 @@ function Object.deserialize(data: any)
 
 @*return* `An` — iterator that returns the next actor that matches the given components.
 
-## eachActorAt
+### eachActorAt
 
 
 ```lua
@@ -11638,7 +11638,7 @@ function Object.deserialize(data: any)
 
 @*return* `iter` — An iterator that returns the next actor at the given position.
 
-## eachCell
+### eachCell
 
 
 ```lua
@@ -11646,7 +11646,7 @@ function Object.deserialize(data: any)
   -> fun():number, number, <T>
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -11662,7 +11662,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## findPath
+### findPath
 
 
 ```lua
@@ -11672,7 +11672,7 @@ function Object.deserialize(data: any)
 
  Finds a path from startpos to endpos
 
-## getAOE
+### getAOE
 
 
 ```lua
@@ -11703,7 +11703,7 @@ type:
     | "fov"
 ```
 
-## getActorByType
+### getActorByType
 
 
 ```lua
@@ -11718,7 +11718,7 @@ type:
 
 @*return* `The` — first actor that extends the given prototype, or nil if no actor is found.
 
-## getActorController
+### getActorController
 
 
 ```lua
@@ -11734,7 +11734,7 @@ type:
 
 @*return* `controller` — The actor's controller.
 
-## getActorsAt
+### getActorsAt
 
 
 ```lua
@@ -11751,7 +11751,7 @@ type:
 
 @*return* `A` — list of all actors at the given position.
 
-## getCell
+### getCell
 
 
 ```lua
@@ -11767,7 +11767,7 @@ type:
 
 @*return* `The` — cell at the given position.
 
-## getCellOpaque
+### getCellOpaque
 
 
 ```lua
@@ -11783,7 +11783,7 @@ type:
 
 @*return* `True` — if the cell is opaque, false otherwise.
 
-## getCellPassable
+### getCellPassable
 
 
 ```lua
@@ -11800,7 +11800,7 @@ type:
 
 @*return* `True` — if the cell is passable, false otherwise.
 
-## getID
+### getID
 
 
 ```lua
@@ -11816,7 +11816,7 @@ type:
 
 @*return* `The` — unique ID of the actor, or nil if the actor is not found.
 
-## getOpacityCache
+### getOpacityCache
 
 
 ```lua
@@ -11829,7 +11829,7 @@ type:
 
 @*return* `map` — The opacity cache for the level.
 
-## getSystem
+### getSystem
 
 
 ```lua
@@ -11843,7 +11843,7 @@ type:
 
 @*return* `system` — The system with the given name.
 
-## hasActor
+### hasActor
 
 
 ```lua
@@ -11858,7 +11858,7 @@ type:
 
 @*return* `hasActor` — True if the level contains the given actor, false otherwise.
 
-## inBounds
+### inBounds
 
 
 ```lua
@@ -11870,14 +11870,14 @@ type:
 
 @*param* `x` — The x component to check if in bounds.
 
-## initialize
+### initialize
 
 
 ```lua
 (method) Level:initialize(actors: [Actor], systems: [System])
 ```
 
-## initializeOpacityCache
+### initializeOpacityCache
 
 
 ```lua
@@ -11889,7 +11889,7 @@ type:
  cache with the cell opacity cache. This is handled automatically by the
  Level class.
 
-## initializePassabilityCache
+### initializePassabilityCache
 
 
 ```lua
@@ -11901,7 +11901,7 @@ type:
  cache with the cell passable cache. This is handled automatically by the
  Level class.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -11915,7 +11915,7 @@ type:
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -11929,7 +11929,7 @@ type:
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## map
+### map
 
 
 ```lua
@@ -11938,7 +11938,7 @@ Map
 
 The level's map.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -11951,7 +11951,7 @@ The level's map.
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## moveActor
+### moveActor
 
 
 ```lua
@@ -11968,14 +11968,14 @@ The level's map.
 
 @*param* `skipSparseMap` — If true the sparse map won't be updated.
 
-## onDeserialize
+### onDeserialize
 
 
 ```lua
 (method) Level:onDeserialize()
 ```
 
-## opacityCache
+### opacityCache
 
 
 ```lua
@@ -11984,7 +11984,7 @@ BooleanBuffer
 
 A cache of cell opacity || actor opacity for each cell. Used to speed up fov/lighting calculations.
 
-## passableCache
+### passableCache
 
 
 ```lua
@@ -11993,7 +11993,7 @@ BitmaskBuffer
 
 A cache of cell passability || actor passability for each cell. Used to speed up pathfinding.
 
-## performAction
+### performAction
 
 
 ```lua
@@ -12009,7 +12009,7 @@ A cache of cell passability || actor passability for each cell. Used to speed up
 
 @*param* `silent` — If true this action emits no events.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -12025,7 +12025,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## removeActor
+### removeActor
 
 
 ```lua
@@ -12038,7 +12038,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `actor` — The actor to remove.
 
-## removeComponent
+### removeComponent
 
 
 ```lua
@@ -12052,7 +12052,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `component` — The component to remove.
 
-## run
+### run
 
 
 ```lua
@@ -12064,7 +12064,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
  back to the main thread when it needs to wait for input from the player.
  This function is the heart of the game loop.
 
-## scheduler
+### scheduler
 
 
 ```lua
@@ -12073,14 +12073,14 @@ Scheduler
 
 The main scheduler driving the loop of the game.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -12088,7 +12088,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## setCell
+### setCell
 
 
 ```lua
@@ -12103,7 +12103,7 @@ function Object.serialize(object: any)
 
 @*param* `cell` — The cell to set.
 
-## sparseMapCallback
+### sparseMapCallback
 
 
 ```lua
@@ -12111,21 +12111,21 @@ function Object.serialize(object: any)
   -> function
 ```
 
-## step
+### step
 
 
 ```lua
 (method) Level:step()
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## systemManager
+### systemManager
 
 
 ```lua
@@ -12134,21 +12134,21 @@ SystemManager
 
 A table containing all of the systems active in the level, set in the constructor.
 
-## trigger
+### trigger
 
 
 ```lua
 (method) Level:trigger(eventName: any, ...any)
 ```
 
-## updateCaches
+### updateCaches
 
 
 ```lua
 (method) Level:updateCaches(x: any, y: any)
 ```
 
-## updateOpacityCache
+### updateOpacityCache
 
 
 ```lua
@@ -12163,7 +12163,7 @@ A table containing all of the systems active in the level, set in the constructo
 
 @*param* `y` — The y component of the position to update.
 
-## updatePassabilityCache
+### updatePassabilityCache
 
 
 ```lua
@@ -12178,7 +12178,7 @@ A table containing all of the systems active in the level, set in the constructo
 
 @*param* `y` — The y component of the position to update.
 
-## yield
+### yield
 
 
 ```lua
@@ -12195,14 +12195,14 @@ A table containing all of the systems active in the level, set in the constructo
 
 # LevelState
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -12211,7 +12211,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -12227,21 +12227,21 @@ Object
 
 @*param* `actionHandlers` — A table of callback generators for handling actions.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## actionHandlers
+### actionHandlers
 
 
 ```lua
 table<fun():fun()>
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -12249,7 +12249,7 @@ table<fun():fun()>
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -12258,7 +12258,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## decision
+### decision
 
 
 ```lua
@@ -12267,7 +12267,7 @@ Decision
 
 The current decision being processed, if any.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -12275,7 +12275,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## display
+### display
 
 
 ```lua
@@ -12284,7 +12284,7 @@ Display
 
 The display object used for rendering.
 
-## draw
+### draw
 
 
 ```lua
@@ -12293,7 +12293,7 @@ The display object used for rendering.
 
  Draws the current state of the level, including the perspective of relevant actors.
 
-## drawBeforeCells
+### drawBeforeCells
 
 
 ```lua
@@ -12304,7 +12304,7 @@ The display object used for rendering.
 
 @*param* `display` — The display object used for drawing.
 
-## extend
+### extend
 
 
 ```lua
@@ -12320,7 +12320,7 @@ The display object used for rendering.
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## geometer
+### geometer
 
 
 ```lua
@@ -12329,7 +12329,7 @@ EditorState
 
 An editor state for debugging or managing geometry.
 
-## getManager
+### getManager
 
 
 ```lua
@@ -12337,7 +12337,7 @@ An editor state for debugging or managing geometry.
   -> GameStateManager
 ```
 
-## handleActionMessage
+### handleActionMessage
 
 
 ```lua
@@ -12348,7 +12348,7 @@ An editor state for debugging or managing geometry.
 
 @*param* `message` — The action message to handle.
 
-## handleMessage
+### handleMessage
 
 
 ```lua
@@ -12360,7 +12360,7 @@ An editor state for debugging or managing geometry.
 
 @*param* `message` — The message to handle.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -12374,7 +12374,7 @@ An editor state for debugging or managing geometry.
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -12388,7 +12388,7 @@ An editor state for debugging or managing geometry.
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## keypressed
+### keypressed
 
 
 ```lua
@@ -12397,7 +12397,7 @@ An editor state for debugging or managing geometry.
 
  Called on each keypress.
 
-## level
+### level
 
 
 ```lua
@@ -12406,7 +12406,7 @@ Level
 
 The level object representing the game environment.
 
-## load
+### load
 
 
 ```lua
@@ -12415,14 +12415,14 @@ The level object representing the game environment.
 
  Called when the gamestate is started.
 
-## manager
+### manager
 
 
 ```lua
 GameStateManager
 ```
 
-## message
+### message
 
 
 ```lua
@@ -12431,7 +12431,7 @@ ActionMessage
 
 The most recent action message.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -12444,14 +12444,14 @@ The most recent action message.
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## mousepressed
+### mousepressed
 
 
 ```lua
 (method) GameState:mousepressed(x: any, y: any, button: any, istouch: any, presses: any)
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -12467,14 +12467,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -12482,7 +12482,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## shouldAdvance
+### shouldAdvance
 
 
 ```lua
@@ -12494,21 +12494,21 @@ function Object.serialize(object: any)
 
 @*return* `shouldAdvance` — True if the coroutine should advance; false otherwise.
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## time
+### time
 
 
 ```lua
 integer
 ```
 
-## unload
+### unload
 
 
 ```lua
@@ -12517,7 +12517,7 @@ integer
 
  Calls when the gamestate is stopped.
 
-## update
+### update
 
 
 ```lua
@@ -12529,14 +12529,14 @@ integer
 
 @*param* `dt` — The time delta since the last update.
 
-## updateCoroutine
+### updateCoroutine
 
 
 ```lua
 thread
 ```
 
-## updateDecision
+### updateDecision
 
 
 ```lua
@@ -12553,7 +12553,7 @@ thread
 
 @*param* `decision` — The decision being updated.
 
-## wheelmoved
+### wheelmoved
 
 
 ```lua
@@ -12567,14 +12567,14 @@ thread
 
 # LineModification
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -12583,21 +12583,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) LineModification:__new(placeable: Actor|Cell, topleft: Vector2, bottomright: Vector2)
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -12605,14 +12605,14 @@ table
   -> unknown
 ```
 
-## bottomright
+### bottomright
 
 
 ```lua
 Vector2
 ```
 
-## className
+### className
 
 
 ```lua
@@ -12621,7 +12621,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -12629,14 +12629,14 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## execute
+### execute
 
 
 ```lua
 (method) LineModification:execute(attachable: SpectrumAttachable)
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -12652,7 +12652,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -12666,7 +12666,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -12680,7 +12680,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -12693,21 +12693,21 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## placeActor
+### placeActor
 
 
 ```lua
 (method) Modification:placeActor(attachable: SpectrumAttachable, x: integer, y: integer, actorPrototype: Actor)
 ```
 
-## placeCell
+### placeCell
 
 
 ```lua
 (method) Modification:placeCell(attachable: SpectrumAttachable, x: integer, y: integer, cellPrototype: Cell|nil)
 ```
 
-## placeable
+### placeable
 
 
 ```lua
@@ -12719,14 +12719,14 @@ Actor|Cell
  For example, an actor may have a Sight component that determines their field of vision, explored tiles,
  and other related aspects.
 
-## placed
+### placed
 
 
 ```lua
 Actor|Cell[]|nil
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -12742,21 +12742,21 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## removeActor
+### removeActor
 
 
 ```lua
 (method) Modification:removeActor(level: any, actor: any)
 ```
 
-## removed
+### removed
 
 
 ```lua
 table
 ```
 
-## replaced
+### replaced
 
 
 ```lua
@@ -12766,14 +12766,14 @@ SparseGrid
  A sparse grid class that stores data using hashed coordinates. Similar to a SparseMap
  except here there is only one entry per grid coordinate. This is suitable for stuff like Cells.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -12781,21 +12781,21 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## topleft
+### topleft
 
 
 ```lua
 Vector2
 ```
 
-## undo
+### undo
 
 
 ```lua
@@ -12810,14 +12810,14 @@ Override this method in subclasses to define how the modification is undone.
 
 # LineTool
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -12826,21 +12826,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) LineTool:__new()
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -12848,7 +12848,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -12857,7 +12857,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -12865,14 +12865,14 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## draw
+### draw
 
 
 ```lua
 (method) LineTool:draw(editor: Editor, display: Display)
 ```
 
-## drawCell
+### drawCell
 
 
 ```lua
@@ -12881,7 +12881,7 @@ function Object.deserialize(data: any)
 
 Draws a cell at the given coordinates.
 
-## extend
+### extend
 
 
 ```lua
@@ -12897,7 +12897,7 @@ Draws a cell at the given coordinates.
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getDrawable
+### getDrawable
 
 
 ```lua
@@ -12907,7 +12907,7 @@ Draws a cell at the given coordinates.
 
 Returns the DrawableComponent from placeable
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -12921,7 +12921,7 @@ Returns the DrawableComponent from placeable
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -12935,7 +12935,7 @@ Returns the DrawableComponent from placeable
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -12948,7 +12948,7 @@ Returns the DrawableComponent from placeable
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## mouseclicked
+### mouseclicked
 
 
 ```lua
@@ -12959,28 +12959,28 @@ Returns the DrawableComponent from placeable
 
 @*param* `y` — The cell coordinate clicked.
 
-## mousereleased
+### mousereleased
 
 
 ```lua
 (method) LineTool:mousereleased(editor: Editor)
 ```
 
-## origin
+### origin
 
 
 ```lua
 Vector2
 ```
 
-## overrideCellDraw
+### overrideCellDraw
 
 
 ```lua
 (method) Tool:overrideCellDraw(editor: Editor, level: Level, cellx: integer, celly: integer)
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -12996,14 +12996,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -13011,21 +13011,21 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## to
+### to
 
 
 ```lua
 Vector2
 ```
 
-## update
+### update
 
 
 ```lua
@@ -13042,14 +13042,14 @@ Vector2
 
 # Map
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -13058,7 +13058,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -13074,14 +13074,14 @@ Object
 
 @*param* `initialValue` — The initial value to fill the map with.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -13089,7 +13089,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -13098,7 +13098,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## data
+### data
 
 
 ```lua
@@ -13107,7 +13107,7 @@ any[]
 
 The data stored in the grid.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -13115,7 +13115,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## each
+### each
 
 
 ```lua
@@ -13127,7 +13127,7 @@ function Object.deserialize(data: any)
 
 @*return* `An` — iterator returning x, y, and value for each cell.
 
-## extend
+### extend
 
 
 ```lua
@@ -13143,7 +13143,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## fill
+### fill
 
 
 ```lua
@@ -13154,7 +13154,7 @@ function Object.deserialize(data: any)
 
 @*param* `value` — The value to fill the grid with.
 
-## fromData
+### fromData
 
 
 ```lua
@@ -13172,7 +13172,7 @@ function Object.deserialize(data: any)
 
 @*return* `The` — initialized grid.
 
-## get
+### get
 
 
 ```lua
@@ -13188,7 +13188,7 @@ function Object.deserialize(data: any)
 
 @*return* `cell` — The cell at the specified coordinates.
 
-## getCellOpaque
+### getCellOpaque
 
 
 ```lua
@@ -13204,7 +13204,7 @@ function Object.deserialize(data: any)
 
 @*return* `True` — if the cell is opaque, false otherwise.
 
-## getCellPassable
+### getCellPassable
 
 
 ```lua
@@ -13220,7 +13220,7 @@ function Object.deserialize(data: any)
 
 @*return* `True` — if the cell is passable, false otherwise.
 
-## getIndex
+### getIndex
 
 
 ```lua
@@ -13236,7 +13236,7 @@ function Object.deserialize(data: any)
 
 @*return* `The` — index in the data array, or nil if out of bounds.
 
-## h
+### h
 
 
 ```lua
@@ -13245,7 +13245,7 @@ integer
 
 The height of the grid.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -13259,7 +13259,7 @@ The height of the grid.
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -13273,7 +13273,7 @@ The height of the grid.
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -13286,14 +13286,14 @@ The height of the grid.
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## onDeserialize
+### onDeserialize
 
 
 ```lua
 (method) Map:onDeserialize()
 ```
 
-## opacityCache
+### opacityCache
 
 
 ```lua
@@ -13302,7 +13302,7 @@ BooleanBuffer
 
 Caches the opaciy of the cell + actors in each tile for faster fov calculation.
 
-## passableCache
+### passableCache
 
 
 ```lua
@@ -13311,7 +13311,7 @@ BitmaskBuffer
 
  A class representing a 2D bitmask buffer using 16-bit integers.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -13327,14 +13327,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -13342,7 +13342,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## set
+### set
 
 
 ```lua
@@ -13357,14 +13357,14 @@ function Object.serialize(object: any)
 
 @*param* `cell` — The cell to set.
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## updateCaches
+### updateCaches
 
 
 ```lua
@@ -13377,7 +13377,7 @@ boolean
 
 @*param* `y` — The y-coordinate.
 
-## w
+### w
 
 
 ```lua
@@ -13391,14 +13391,14 @@ The width of the grid.
 
 # MapBuilder
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -13407,7 +13407,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -13419,14 +13419,14 @@ Object
 
 @*param* `initialValue` — The initial value to fill the map with.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## actors
+### actors
 
 
 ```lua
@@ -13435,7 +13435,7 @@ ActorStorage
 
 A list of actors present in the map.
 
-## addActor
+### addActor
 
 
 ```lua
@@ -13450,7 +13450,7 @@ A list of actors present in the map.
 
 @*param* `y` — The y-coordinate.
 
-## addPadding
+### addPadding
 
 
 ```lua
@@ -13463,7 +13463,7 @@ A list of actors present in the map.
 
 @*param* `cell` — The cell value to use for padding.
 
-## adopt
+### adopt
 
 
 ```lua
@@ -13471,7 +13471,7 @@ A list of actors present in the map.
   -> unknown
 ```
 
-## blit
+### blit
 
 
 ```lua
@@ -13488,7 +13488,7 @@ A list of actors present in the map.
 
 @*param* `maskFn` — A callback function for masking. Should return true if the cell should be copied, false otherwise.
 
-## build
+### build
 
 
 ```lua
@@ -13502,7 +13502,7 @@ A list of actors present in the map.
 
 @*return* `actors` — map and the list of actors.
 
-## className
+### className
 
 
 ```lua
@@ -13511,7 +13511,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## clear
+### clear
 
 
 ```lua
@@ -13520,21 +13520,21 @@ A unique name for this class. By convention this should match the annotation nam
 
  Clears all values in the sparse grid.
 
-## data
+### data
 
 
 ```lua
 table
 ```
 
-## debug
+### debug
 
 
 ```lua
 boolean
 ```
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -13542,7 +13542,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## drawEllipse
+### drawEllipse
 
 
 ```lua
@@ -13561,7 +13561,7 @@ function Object.deserialize(data: any)
 
 @*param* `cell` — The cell to fill the ellipse with.
 
-## drawLine
+### drawLine
 
 
 ```lua
@@ -13580,7 +13580,7 @@ function Object.deserialize(data: any)
 
 @*param* `cell` — The cell to draw the line with.
 
-## drawRectangle
+### drawRectangle
 
 
 ```lua
@@ -13599,7 +13599,7 @@ function Object.deserialize(data: any)
 
 @*param* `cell` — The cell to fill the rectangle with.
 
-## each
+### each
 
 
 ```lua
@@ -13612,7 +13612,7 @@ function Object.deserialize(data: any)
 
 @*return* `iter` — An iterator function that returns the x-coordinate, y-coordinate, and value for each entry.
 
-## eachActor
+### eachActor
 
 
 ```lua
@@ -13620,7 +13620,7 @@ function Object.deserialize(data: any)
   -> function
 ```
 
-## eachActorAt
+### eachActorAt
 
 
 ```lua
@@ -13628,7 +13628,7 @@ function Object.deserialize(data: any)
   -> function
 ```
 
-## eachCell
+### eachCell
 
 
 ```lua
@@ -13636,7 +13636,7 @@ function Object.deserialize(data: any)
   -> fun(x: integer, y: integer, V: any)
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -13652,7 +13652,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## get
+### get
 
 
 ```lua
@@ -13668,14 +13668,14 @@ function Object.deserialize(data: any)
 
 @*return* `value` — The value at the specified coordinates, or the initialValue if not set.
 
-## getActorsAt
+### getActorsAt
 
 
 ```lua
 fun(self: any, x: integer, y: integer)
 ```
 
-## getCell
+### getCell
 
 
 ```lua
@@ -13683,7 +13683,7 @@ fun(self: any, x: integer, y: integer)
   -> unknown
 ```
 
-## inBounds
+### inBounds
 
 
 ```lua
@@ -13691,7 +13691,7 @@ fun(self: any, x: integer, y: integer)
   -> boolean
 ```
 
-## initialValue
+### initialValue
 
 
 ```lua
@@ -13700,7 +13700,7 @@ Cell
 
 The initial value to fill the map with.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -13714,7 +13714,7 @@ The initial value to fill the map with.
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -13728,7 +13728,7 @@ The initial value to fill the map with.
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -13741,7 +13741,7 @@ The initial value to fill the map with.
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -13757,7 +13757,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## removeActor
+### removeActor
 
 
 ```lua
@@ -13768,14 +13768,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `actor` — The actor to remove.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -13783,7 +13783,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## set
+### set
 
 
 ```lua
@@ -13798,7 +13798,7 @@ function Object.serialize(object: any)
 
 @*param* `value` — The value to set.
 
-## setCell
+### setCell
 
 
 ```lua
@@ -13807,7 +13807,7 @@ function Object.serialize(object: any)
 
  Mirror set.
 
-## stripName
+### stripName
 
 
 ```lua
@@ -13819,14 +13819,14 @@ boolean
 
 # MapGeneratorState
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -13835,21 +13835,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) MapGeneratorState:__new(generator: fun(mapbuilder: MapBuilder):fun())
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -13857,7 +13857,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -13866,7 +13866,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -13874,21 +13874,21 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## draw
+### draw
 
 
 ```lua
 (method) EditorState:draw()
 ```
 
-## editor
+### editor
 
 
 ```lua
 Editor
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -13904,14 +13904,14 @@ Editor
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## generator
+### generator
 
 
 ```lua
 thread
 ```
 
-## getManager
+### getManager
 
 
 ```lua
@@ -13919,7 +13919,7 @@ thread
   -> GameStateManager
 ```
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -13933,7 +13933,7 @@ thread
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -13947,28 +13947,28 @@ thread
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## keypressed
+### keypressed
 
 
 ```lua
 (method) EditorState:keypressed(key: any, scancode: any)
 ```
 
-## load
+### load
 
 
 ```lua
 (method) EditorState:load()
 ```
 
-## manager
+### manager
 
 
 ```lua
 GameStateManager
 ```
 
-## mixin
+### mixin
 
 
 ```lua
@@ -13981,28 +13981,28 @@ GameStateManager
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## mousemoved
+### mousemoved
 
 
 ```lua
 (method) EditorState:mousemoved(x: any, y: any, dx: any, dy: any, istouch: any)
 ```
 
-## mousepressed
+### mousepressed
 
 
 ```lua
 (method) EditorState:mousepressed(x: any, y: any, button: any)
 ```
 
-## mousereleased
+### mousereleased
 
 
 ```lua
 (method) EditorState:mousereleased(x: any, y: any, button: any)
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -14018,14 +14018,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -14033,21 +14033,21 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## textinput
+### textinput
 
 
 ```lua
 (method) EditorState:textinput(text: any)
 ```
 
-## unload
+### unload
 
 
 ```lua
@@ -14056,14 +14056,14 @@ boolean
 
  Calls when the gamestate is stopped.
 
-## update
+### update
 
 
 ```lua
 (method) MapGeneratorState:update(dt: any)
 ```
 
-## wheelmoved
+### wheelmoved
 
 
 ```lua
@@ -14075,14 +14075,14 @@ boolean
 
 # Message
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -14091,7 +14091,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -14100,14 +14100,14 @@ Object
 
  The default constructor for the class. Subclasses should override this.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -14115,7 +14115,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -14124,7 +14124,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -14132,7 +14132,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -14148,7 +14148,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -14162,7 +14162,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -14176,7 +14176,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -14189,7 +14189,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -14205,14 +14205,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -14220,7 +14220,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -14232,14 +14232,14 @@ boolean
 
 # Modification
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -14248,7 +14248,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -14257,14 +14257,14 @@ Object
 
  The default constructor for the class. Subclasses should override this.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -14272,7 +14272,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -14281,7 +14281,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -14289,7 +14289,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## execute
+### execute
 
 
 ```lua
@@ -14299,7 +14299,7 @@ function Object.deserialize(data: any)
 Executes the modification.
 Override this method in subclasses to define the behavior of the modification.
 
-## extend
+### extend
 
 
 ```lua
@@ -14315,7 +14315,7 @@ Override this method in subclasses to define the behavior of the modification.
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -14329,7 +14329,7 @@ Override this method in subclasses to define the behavior of the modification.
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -14343,7 +14343,7 @@ Override this method in subclasses to define the behavior of the modification.
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -14356,28 +14356,28 @@ Override this method in subclasses to define the behavior of the modification.
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## placeActor
+### placeActor
 
 
 ```lua
 (method) Modification:placeActor(attachable: SpectrumAttachable, x: integer, y: integer, actorPrototype: Actor)
 ```
 
-## placeCell
+### placeCell
 
 
 ```lua
 (method) Modification:placeCell(attachable: SpectrumAttachable, x: integer, y: integer, cellPrototype: Cell|nil)
 ```
 
-## placed
+### placed
 
 
 ```lua
 table
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -14393,21 +14393,21 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## removeActor
+### removeActor
 
 
 ```lua
 (method) Modification:removeActor(level: any, actor: any)
 ```
 
-## removed
+### removed
 
 
 ```lua
 table
 ```
 
-## replaced
+### replaced
 
 
 ```lua
@@ -14417,14 +14417,14 @@ SparseGrid
  A sparse grid class that stores data using hashed coordinates. Similar to a SparseMap
  except here there is only one entry per grid coordinate. This is suitable for stuff like Cells.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -14432,14 +14432,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## undo
+### undo
 
 
 ```lua
@@ -14459,14 +14459,14 @@ Override this method in subclasses to define how the modification is undone.
 
 # Object
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -14475,7 +14475,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -14484,14 +14484,14 @@ Object
 
  The default constructor for the class. Subclasses should override this.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -14499,7 +14499,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -14508,7 +14508,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -14516,7 +14516,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -14532,7 +14532,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -14546,7 +14546,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -14560,7 +14560,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -14573,7 +14573,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -14589,14 +14589,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -14604,7 +14604,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -14616,14 +14616,14 @@ boolean
 
 # OpaqueComponent
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -14632,7 +14632,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -14641,14 +14641,14 @@ Object
 
  The default constructor for the class. Subclasses should override this.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -14656,7 +14656,7 @@ table
   -> unknown
 ```
 
-## checkRequirements
+### checkRequirements
 
 
 ```lua
@@ -14670,7 +14670,7 @@ table
 
 @*return* `meetsRequirements` — the actor meets all requirements, false otherwise.
 
-## className
+### className
 
 
 ```lua
@@ -14679,7 +14679,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -14687,7 +14687,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -14703,7 +14703,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## initialize
+### initialize
 
 
 ```lua
@@ -14713,7 +14713,7 @@ function Object.deserialize(data: any)
  Called after the actor is loaded and ready, this is where the component should do any initialization requiring
  the actor. This would include stuff like attaching systems, etc.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -14727,7 +14727,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -14741,7 +14741,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -14754,14 +14754,14 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## name
+### name
 
 
 ```lua
 string
 ```
 
-## owner
+### owner
 
 
 ```lua
@@ -14770,7 +14770,7 @@ Actor
 
 The Actor this component is composing. This is set by Actor when a component is added or removed.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -14786,7 +14786,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## requirements
+### requirements
 
 
 ```lua
@@ -14795,14 +14795,14 @@ table
 
 A list of component prototypes the actor must first have, before this can be applied.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -14810,7 +14810,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -14822,14 +14822,14 @@ boolean
 
 # PasteModification
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -14838,21 +14838,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) PasteModification:__new(cells: SparseGrid, actors: SparseMap, topLeft: Vector2)
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## actors
+### actors
 
 
 ```lua
@@ -14862,7 +14862,7 @@ SparseMap
  A sparse grid of buckets that objects can be placed into. Used for
  tracking actors by x,y position in Level.
 
-## adopt
+### adopt
 
 
 ```lua
@@ -14870,7 +14870,7 @@ SparseMap
   -> unknown
 ```
 
-## cells
+### cells
 
 
 ```lua
@@ -14880,7 +14880,7 @@ SparseGrid
  A sparse grid class that stores data using hashed coordinates. Similar to a SparseMap
  except here there is only one entry per grid coordinate. This is suitable for stuff like Cells.
 
-## className
+### className
 
 
 ```lua
@@ -14889,7 +14889,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -14897,14 +14897,14 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## execute
+### execute
 
 
 ```lua
 (method) PasteModification:execute(attachable: SpectrumAttachable, editor: Editor)
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -14920,7 +14920,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -14934,7 +14934,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -14948,7 +14948,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -14961,28 +14961,28 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## placeActor
+### placeActor
 
 
 ```lua
 (method) Modification:placeActor(attachable: SpectrumAttachable, x: integer, y: integer, actorPrototype: Actor)
 ```
 
-## placeCell
+### placeCell
 
 
 ```lua
 (method) Modification:placeCell(attachable: SpectrumAttachable, x: integer, y: integer, cellPrototype: Cell|nil)
 ```
 
-## placed
+### placed
 
 
 ```lua
 table
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -14998,21 +14998,21 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## removeActor
+### removeActor
 
 
 ```lua
 (method) Modification:removeActor(level: any, actor: any)
 ```
 
-## removed
+### removed
 
 
 ```lua
 table
 ```
 
-## replaced
+### replaced
 
 
 ```lua
@@ -15022,14 +15022,14 @@ SparseGrid
  A sparse grid class that stores data using hashed coordinates. Similar to a SparseMap
  except here there is only one entry per grid coordinate. This is suitable for stuff like Cells.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -15037,21 +15037,21 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## topLeft
+### topLeft
 
 
 ```lua
 Vector2
 ```
 
-## undo
+### undo
 
 
 ```lua
@@ -15066,14 +15066,14 @@ Override this method in subclasses to define how the modification is undone.
 
 # Path
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -15082,7 +15082,7 @@ Path
 
  A class to represent the A* path and its cost
 
-## __new
+### __new
 
 
 ```lua
@@ -15092,14 +15092,14 @@ Path
 
  Constructor for the Path class
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -15107,7 +15107,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -15116,7 +15116,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## cost
+### cost
 
 
 ```lua
@@ -15125,14 +15125,14 @@ number
 
 The total cost to traverse the path
 
-## costIndex
+### costIndex
 
 
 ```lua
 integer[]
 ```
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -15140,7 +15140,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -15156,7 +15156,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getPath
+### getPath
 
 
 ```lua
@@ -15166,7 +15166,7 @@ function Object.deserialize(data: any)
 
  Get the path as a table of nodes
 
-## getTotalCost
+### getTotalCost
 
 
 ```lua
@@ -15176,7 +15176,7 @@ function Object.deserialize(data: any)
 
  Get the total cost of the path
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -15190,7 +15190,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -15204,7 +15204,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## length
+### length
 
 
 ```lua
@@ -15214,7 +15214,7 @@ function Object.deserialize(data: any)
 
  Get the length of the path (number of nodes)
 
-## mixin
+### mixin
 
 
 ```lua
@@ -15227,7 +15227,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## path
+### path
 
 
 ```lua
@@ -15236,7 +15236,7 @@ Vector2[]
 
 The path as an ordered list of Vector2 nodes
 
-## pop
+### pop
 
 
 ```lua
@@ -15248,7 +15248,7 @@ The path as an ordered list of Vector2 nodes
 
 @*return* — The removed node, or nil if the path is empty
 
-## popBack
+### popBack
 
 
 ```lua
@@ -15256,7 +15256,7 @@ The path as an ordered list of Vector2 nodes
   -> unknown|nil
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -15272,14 +15272,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -15287,14 +15287,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## totalCostAt
+### totalCostAt
 
 
 ```lua
@@ -15308,7 +15308,7 @@ boolean
 
 @*return* — The total cost up to the specified index
 
-## trim
+### trim
 
 
 ```lua
@@ -15327,14 +15327,14 @@ boolean
 
 # PenModification
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -15343,21 +15343,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) PenModification:__new(placeable: Actor|Cell, locations: SparseGrid)
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -15365,7 +15365,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -15374,7 +15374,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -15382,14 +15382,14 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## execute
+### execute
 
 
 ```lua
 (method) PenModification:execute(attachable: SpectrumAttachable)
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -15405,7 +15405,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -15419,7 +15419,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -15433,7 +15433,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## locations
+### locations
 
 
 ```lua
@@ -15443,7 +15443,7 @@ SparseGrid
  A sparse grid class that stores data using hashed coordinates. Similar to a SparseMap
  except here there is only one entry per grid coordinate. This is suitable for stuff like Cells.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -15456,21 +15456,21 @@ SparseGrid
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## placeActor
+### placeActor
 
 
 ```lua
 (method) Modification:placeActor(attachable: SpectrumAttachable, x: integer, y: integer, actorPrototype: Actor)
 ```
 
-## placeCell
+### placeCell
 
 
 ```lua
 (method) Modification:placeCell(attachable: SpectrumAttachable, x: integer, y: integer, cellPrototype: Cell|nil)
 ```
 
-## placeable
+### placeable
 
 
 ```lua
@@ -15482,14 +15482,14 @@ Actor|Cell
  For example, an actor may have a Sight component that determines their field of vision, explored tiles,
  and other related aspects.
 
-## placed
+### placed
 
 
 ```lua
 Actor|Cell[]|nil
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -15505,21 +15505,21 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## removeActor
+### removeActor
 
 
 ```lua
 (method) Modification:removeActor(level: any, actor: any)
 ```
 
-## removed
+### removed
 
 
 ```lua
 table
 ```
 
-## replaced
+### replaced
 
 
 ```lua
@@ -15529,14 +15529,14 @@ SparseGrid
  A sparse grid class that stores data using hashed coordinates. Similar to a SparseMap
  except here there is only one entry per grid coordinate. This is suitable for stuff like Cells.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -15544,14 +15544,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## undo
+### undo
 
 
 ```lua
@@ -15566,14 +15566,14 @@ Override this method in subclasses to define how the modification is undone.
 
 # PenTool
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -15582,7 +15582,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -15591,14 +15591,14 @@ Object
 
  The default constructor for the class. Subclasses should override this.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -15606,7 +15606,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -15615,7 +15615,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -15623,21 +15623,21 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## dragging
+### dragging
 
 
 ```lua
 boolean
 ```
 
-## draw
+### draw
 
 
 ```lua
 (method) PenTool:draw(editor: Editor, display: Display)
 ```
 
-## drawCell
+### drawCell
 
 
 ```lua
@@ -15646,7 +15646,7 @@ boolean
 
 Draws a cell at the given coordinates.
 
-## extend
+### extend
 
 
 ```lua
@@ -15662,7 +15662,7 @@ Draws a cell at the given coordinates.
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getDrawable
+### getDrawable
 
 
 ```lua
@@ -15672,7 +15672,7 @@ Draws a cell at the given coordinates.
 
 Returns the DrawableComponent from placeable
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -15686,7 +15686,7 @@ Returns the DrawableComponent from placeable
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -15700,7 +15700,7 @@ Returns the DrawableComponent from placeable
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## locations
+### locations
 
 
 ```lua
@@ -15710,7 +15710,7 @@ SparseGrid
  A sparse grid class that stores data using hashed coordinates. Similar to a SparseMap
  except here there is only one entry per grid coordinate. This is suitable for stuff like Cells.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -15723,28 +15723,28 @@ SparseGrid
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## mouseclicked
+### mouseclicked
 
 
 ```lua
 (method) PenTool:mouseclicked(editor: Editor, level: any, x: number, y: number)
 ```
 
-## mousereleased
+### mousereleased
 
 
 ```lua
 (method) PenTool:mousereleased(editor: Editor, level: any, x: number, y: number)
 ```
 
-## overrideCellDraw
+### overrideCellDraw
 
 
 ```lua
 (method) Tool:overrideCellDraw(editor: Editor, level: Level, cellx: integer, celly: integer)
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -15760,14 +15760,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -15775,14 +15775,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## update
+### update
 
 
 ```lua
@@ -15799,14 +15799,14 @@ boolean
 
 # PlayerControllerComponent
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -15815,7 +15815,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -15824,14 +15824,14 @@ Object
 
  The default constructor for the class. Subclasses should override this.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## act
+### act
 
 
 ```lua
@@ -15839,7 +15839,7 @@ table
   -> Action|nil
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -15847,14 +15847,14 @@ table
   -> unknown
 ```
 
-## blackboard
+### blackboard
 
 
 ```lua
 table|nil
 ```
 
-## checkRequirements
+### checkRequirements
 
 
 ```lua
@@ -15868,7 +15868,7 @@ table|nil
 
 @*return* `meetsRequirements` — the actor meets all requirements, false otherwise.
 
-## className
+### className
 
 
 ```lua
@@ -15877,7 +15877,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -15885,7 +15885,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -15901,7 +15901,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## initialize
+### initialize
 
 
 ```lua
@@ -15911,7 +15911,7 @@ function Object.deserialize(data: any)
  Called after the actor is loaded and ready, this is where the component should do any initialization requiring
  the actor. This would include stuff like attaching systems, etc.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -15925,7 +15925,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -15939,7 +15939,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -15952,14 +15952,14 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## name
+### name
 
 
 ```lua
 string
 ```
 
-## owner
+### owner
 
 
 ```lua
@@ -15968,7 +15968,7 @@ Actor
 
 The Actor this component is composing. This is set by Actor when a component is added or removed.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -15984,7 +15984,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## requirements
+### requirements
 
 
 ```lua
@@ -15993,14 +15993,14 @@ table
 
 A list of component prototypes the actor must first have, before this can be applied.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -16008,7 +16008,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -16020,14 +16020,14 @@ boolean
 
 # PrefabEditorState
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -16036,21 +16036,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) PrefabEditorState:__new(mb: SpectrumAttachable)
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -16058,7 +16058,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -16067,7 +16067,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -16075,21 +16075,21 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## draw
+### draw
 
 
 ```lua
 (method) EditorState:draw()
 ```
 
-## editor
+### editor
 
 
 ```lua
 Editor
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -16105,7 +16105,7 @@ Editor
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getManager
+### getManager
 
 
 ```lua
@@ -16113,7 +16113,7 @@ Editor
   -> GameStateManager
 ```
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -16127,7 +16127,7 @@ Editor
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -16141,28 +16141,28 @@ Editor
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## keypressed
+### keypressed
 
 
 ```lua
 (method) EditorState:keypressed(key: any, scancode: any)
 ```
 
-## load
+### load
 
 
 ```lua
 (method) EditorState:load()
 ```
 
-## manager
+### manager
 
 
 ```lua
 GameStateManager
 ```
 
-## mixin
+### mixin
 
 
 ```lua
@@ -16175,28 +16175,28 @@ GameStateManager
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## mousemoved
+### mousemoved
 
 
 ```lua
 (method) EditorState:mousemoved(x: any, y: any, dx: any, dy: any, istouch: any)
 ```
 
-## mousepressed
+### mousepressed
 
 
 ```lua
 (method) EditorState:mousepressed(x: any, y: any, button: any)
 ```
 
-## mousereleased
+### mousereleased
 
 
 ```lua
 (method) EditorState:mousereleased(x: any, y: any, button: any)
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -16212,14 +16212,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -16227,21 +16227,21 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## textinput
+### textinput
 
 
 ```lua
 (method) EditorState:textinput(text: any)
 ```
 
-## unload
+### unload
 
 
 ```lua
@@ -16250,14 +16250,14 @@ boolean
 
  Calls when the gamestate is stopped.
 
-## update
+### update
 
 
 ```lua
 (method) PrefabEditorState:update(dt: any)
 ```
 
-## wheelmoved
+### wheelmoved
 
 
 ```lua
@@ -16269,14 +16269,14 @@ boolean
 
 # PriorityQueue
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -16285,14 +16285,14 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) PriorityQueue:__new()
 ```
 
-## _bubbleDown
+### _bubbleDown
 
 
 ```lua
@@ -16301,7 +16301,7 @@ Object
 
  Bubble down the element at index i to its proper place in the heap
 
-## _bubbleUp
+### _bubbleUp
 
 
 ```lua
@@ -16310,21 +16310,21 @@ Object
 
  Bubble up the element at index i to its proper place in the heap
 
-## _heap
+### _heap
 
 
 ```lua
 table
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## _swap
+### _swap
 
 
 ```lua
@@ -16333,7 +16333,7 @@ table
 
  Swap elements at indices i and j in the heap
 
-## adopt
+### adopt
 
 
 ```lua
@@ -16341,7 +16341,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -16350,7 +16350,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -16358,7 +16358,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -16374,7 +16374,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -16388,7 +16388,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -16402,7 +16402,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## isEmpty
+### isEmpty
 
 
 ```lua
@@ -16410,7 +16410,7 @@ function Object.deserialize(data: any)
   -> boolean
 ```
 
-## mixin
+### mixin
 
 
 ```lua
@@ -16423,7 +16423,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## pop
+### pop
 
 
 ```lua
@@ -16431,7 +16431,7 @@ function Object.deserialize(data: any)
   -> <T>|nil
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -16447,7 +16447,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## push
+### push
 
 
 ```lua
@@ -16456,14 +16456,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
  Push a new element to the PriorityQueue.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -16471,7 +16471,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## size
+### size
 
 
 ```lua
@@ -16479,7 +16479,7 @@ function Object.serialize(object: any)
   -> integer
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -16496,14 +16496,14 @@ boolean
 
 # Quadrant
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -16512,21 +16512,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) Quadrant:__new(cardinal: any, origin: any)
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -16534,14 +16534,14 @@ table
   -> unknown
 ```
 
-## cardinal
+### cardinal
 
 
 ```lua
 any
 ```
 
-## className
+### className
 
 
 ```lua
@@ -16550,7 +16550,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -16558,7 +16558,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -16574,7 +16574,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -16588,7 +16588,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -16602,7 +16602,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -16615,21 +16615,21 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## ox
+### ox
 
 
 ```lua
 unknown
 ```
 
-## oy
+### oy
 
 
 ```lua
 unknown
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -16645,14 +16645,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -16660,14 +16660,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## transform
+### transform
 
 
 ```lua
@@ -16681,14 +16681,14 @@ boolean
 
 # Queue
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -16697,7 +16697,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -16706,14 +16706,14 @@ Object
 
  Initializes a new Queue instance.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -16721,7 +16721,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -16730,7 +16730,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## clear
+### clear
 
 
 ```lua
@@ -16739,7 +16739,7 @@ A unique name for this class. By convention this should match the annotation nam
 
  Removes all elements from the queue.
 
-## contains
+### contains
 
 
 ```lua
@@ -16753,7 +16753,7 @@ A unique name for this class. By convention this should match the annotation nam
 
 @*return* `True` — if the value is in the queue, false otherwise.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -16761,7 +16761,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## empty
+### empty
 
 
 ```lua
@@ -16773,7 +16773,7 @@ function Object.deserialize(data: any)
 
 @*return* `True` — if the queue is empty, false otherwise.
 
-## extend
+### extend
 
 
 ```lua
@@ -16789,14 +16789,14 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## first
+### first
 
 
 ```lua
 integer
 ```
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -16810,7 +16810,7 @@ integer
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -16824,14 +16824,14 @@ integer
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## last
+### last
 
 
 ```lua
 integer
 ```
 
-## mixin
+### mixin
 
 
 ```lua
@@ -16844,7 +16844,7 @@ integer
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## peek
+### peek
 
 
 ```lua
@@ -16856,7 +16856,7 @@ integer
 
 @*return* `The` — value at the start of the queue.
 
-## pop
+### pop
 
 
 ```lua
@@ -16868,7 +16868,7 @@ integer
 
 @*return* `The` — value at the start of the queue.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -16884,7 +16884,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## push
+### push
 
 
 ```lua
@@ -16895,14 +16895,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `value` — The value to be added to the queue.
 
-## queue
+### queue
 
 
 ```lua
 table
 ```
 
-## remove
+### remove
 
 
 ```lua
@@ -16916,14 +16916,14 @@ table
 
 @*return* `True` — if the value was removed, false otherwise.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -16931,7 +16931,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## size
+### size
 
 
 ```lua
@@ -16943,7 +16943,7 @@ function Object.serialize(object: any)
 
 @*return* `The` — size of the queue.
 
-## stripName
+### stripName
 
 
 ```lua
@@ -16955,14 +16955,14 @@ boolean
 
 # RNG
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -16971,7 +16971,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -16982,14 +16982,14 @@ Object
 
 @*param* `seed` — The seed for the RNG (optional).
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -16997,14 +16997,14 @@ table
   -> unknown
 ```
 
-## carrier
+### carrier
 
 
 ```lua
 integer
 ```
 
-## className
+### className
 
 
 ```lua
@@ -17013,7 +17013,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## clone
+### clone
 
 
 ```lua
@@ -17025,7 +17025,7 @@ A unique name for this class. By convention this should match the annotation nam
 
 @*return* `The` — cloned RNG.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -17033,7 +17033,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -17049,7 +17049,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getNormal
+### getNormal
 
 
 ```lua
@@ -17065,7 +17065,7 @@ function Object.deserialize(data: any)
 
 @*return* `normal` — A normally distributed random number.
 
-## getPercentage
+### getPercentage
 
 
 ```lua
@@ -17077,7 +17077,7 @@ function Object.deserialize(data: any)
 
 @*return* `percentage` — A random percentage.
 
-## getSeed
+### getSeed
 
 
 ```lua
@@ -17089,7 +17089,7 @@ function Object.deserialize(data: any)
 
 @*return* `seed` — The current seed.
 
-## getState
+### getState
 
 
 ```lua
@@ -17101,7 +17101,7 @@ function Object.deserialize(data: any)
 
 @*return* `The` — current state.
 
-## getUniform
+### getUniform
 
 
 ```lua
@@ -17113,7 +17113,7 @@ function Object.deserialize(data: any)
 
 @*return* `uniform` — A uniform random number.
 
-## getUniformInt
+### getUniformInt
 
 
 ```lua
@@ -17129,7 +17129,7 @@ function Object.deserialize(data: any)
 
 @*return* `uniformInteger` — A uniform random integer.
 
-## getWeightedValue
+### getWeightedValue
 
 
 ```lua
@@ -17143,7 +17143,7 @@ function Object.deserialize(data: any)
 
 @*return* `value` — The selected value.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -17157,7 +17157,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -17171,7 +17171,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -17184,7 +17184,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -17200,7 +17200,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## random
+### random
 
 
 ```lua
@@ -17216,28 +17216,28 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*return* `A` — random number.
 
-## randomseed
+### randomseed
 
 
 ```lua
 function
 ```
 
-## seed
+### seed
 
 
 ```lua
 string
 ```
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -17245,7 +17245,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## setSeed
+### setSeed
 
 
 ```lua
@@ -17256,7 +17256,7 @@ function Object.serialize(object: any)
 
 @*param* `seed` — The seed to set (optional).
 
-## setState
+### setState
 
 
 ```lua
@@ -17267,28 +17267,28 @@ function Object.serialize(object: any)
 
 @*param* `stateTable` — The state to set.
 
-## state0
+### state0
 
 
 ```lua
 integer
 ```
 
-## state1
+### state1
 
 
 ```lua
 integer
 ```
 
-## state2
+### state2
 
 
 ```lua
 integer
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -17300,14 +17300,14 @@ boolean
 
 # RectModification
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -17316,21 +17316,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) RectModification:__new(placeable: Actor|Cell, topLeft: Vector2, bottomRight: Vector2, fillMode: any)
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -17338,14 +17338,14 @@ table
   -> unknown
 ```
 
-## bottomRight
+### bottomRight
 
 
 ```lua
 Vector2
 ```
 
-## className
+### className
 
 
 ```lua
@@ -17354,7 +17354,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -17362,14 +17362,14 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## execute
+### execute
 
 
 ```lua
 (method) RectModification:execute(attachable: SpectrumAttachable)
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -17385,14 +17385,14 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## fillMode
+### fillMode
 
 
 ```lua
 any
 ```
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -17406,7 +17406,7 @@ any
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -17420,7 +17420,7 @@ any
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -17433,14 +17433,14 @@ any
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## placeActor
+### placeActor
 
 
 ```lua
 (method) Modification:placeActor(attachable: SpectrumAttachable, x: integer, y: integer, actorPrototype: Actor)
 ```
 
-## placeBoundaryCell
+### placeBoundaryCell
 
 
 ```lua
@@ -17449,14 +17449,14 @@ any
 
  Helper function to place a cell on the boundary
 
-## placeCell
+### placeCell
 
 
 ```lua
 (method) Modification:placeCell(attachable: SpectrumAttachable, x: integer, y: integer, cellPrototype: Cell|nil)
 ```
 
-## placeable
+### placeable
 
 
 ```lua
@@ -17468,14 +17468,14 @@ Actor|Cell
  For example, an actor may have a Sight component that determines their field of vision, explored tiles,
  and other related aspects.
 
-## placed
+### placed
 
 
 ```lua
 Actor|Cell[]|nil
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -17491,21 +17491,21 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## removeActor
+### removeActor
 
 
 ```lua
 (method) Modification:removeActor(level: any, actor: any)
 ```
 
-## removed
+### removed
 
 
 ```lua
 table
 ```
 
-## replaced
+### replaced
 
 
 ```lua
@@ -17515,14 +17515,14 @@ SparseGrid
  A sparse grid class that stores data using hashed coordinates. Similar to a SparseMap
  except here there is only one entry per grid coordinate. This is suitable for stuff like Cells.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -17530,21 +17530,21 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## topLeft
+### topLeft
 
 
 ```lua
 Vector2
 ```
 
-## undo
+### undo
 
 
 ```lua
@@ -17559,14 +17559,14 @@ Override this method in subclasses to define how the modification is undone.
 
 # RectTool
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -17575,21 +17575,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) RectTool:__new()
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -17597,7 +17597,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -17606,7 +17606,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -17614,14 +17614,14 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## draw
+### draw
 
 
 ```lua
 (method) RectTool:draw(editor: Editor, display: Display)
 ```
 
-## drawCell
+### drawCell
 
 
 ```lua
@@ -17630,7 +17630,7 @@ function Object.deserialize(data: any)
 
 Draws a cell at the given coordinates.
 
-## extend
+### extend
 
 
 ```lua
@@ -17646,7 +17646,7 @@ Draws a cell at the given coordinates.
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getCurrentRect
+### getCurrentRect
 
 
 ```lua
@@ -17659,7 +17659,7 @@ Draws a cell at the given coordinates.
 
  Returns the four corners of the current rect.
 
-## getDrawable
+### getDrawable
 
 
 ```lua
@@ -17669,7 +17669,7 @@ Draws a cell at the given coordinates.
 
 Returns the DrawableComponent from placeable
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -17683,7 +17683,7 @@ Returns the DrawableComponent from placeable
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -17697,7 +17697,7 @@ Returns the DrawableComponent from placeable
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -17710,7 +17710,7 @@ Returns the DrawableComponent from placeable
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## mouseclicked
+### mouseclicked
 
 
 ```lua
@@ -17721,7 +17721,7 @@ Returns the DrawableComponent from placeable
 
 @*param* `y` — The cell coordinate clicked.
 
-## mousereleased
+### mousereleased
 
 
 ```lua
@@ -17732,21 +17732,21 @@ Returns the DrawableComponent from placeable
 
 @*param* `y` — The cell coordinate clicked.
 
-## origin
+### origin
 
 
 ```lua
 Vector2
 ```
 
-## overrideCellDraw
+### overrideCellDraw
 
 
 ```lua
 (method) Tool:overrideCellDraw(editor: Editor, level: Level, cellx: integer, celly: integer)
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -17762,21 +17762,21 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## second
+### second
 
 
 ```lua
 Vector2
 ```
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -17784,14 +17784,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## update
+### update
 
 
 ```lua
@@ -17803,14 +17803,14 @@ boolean
 
 # Row
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -17819,21 +17819,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) Row:__new(depth: any, startSlope: any, endSlope: any)
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -17841,7 +17841,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -17850,14 +17850,14 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## depth
+### depth
 
 
 ```lua
 integer
 ```
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -17865,7 +17865,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## eachTile
+### eachTile
 
 
 ```lua
@@ -17873,14 +17873,14 @@ function Object.deserialize(data: any)
   -> function
 ```
 
-## endSlope
+### endSlope
 
 
 ```lua
 Fraction
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -17896,7 +17896,7 @@ Fraction
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -17910,7 +17910,7 @@ Fraction
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -17924,7 +17924,7 @@ Fraction
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -17937,7 +17937,7 @@ Fraction
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## next
+### next
 
 
 ```lua
@@ -17945,7 +17945,7 @@ Fraction
   -> Row
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -17961,7 +17961,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## roundTiesDown
+### roundTiesDown
 
 
 ```lua
@@ -17969,7 +17969,7 @@ function Row.roundTiesDown(n: any)
   -> integer
 ```
 
-## roundTiesUp
+### roundTiesUp
 
 
 ```lua
@@ -17977,14 +17977,14 @@ function Row.roundTiesUp(n: any)
   -> integer
 ```
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -17992,14 +17992,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## startSlope
+### startSlope
 
 
 ```lua
 Fraction
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -18011,14 +18011,14 @@ boolean
 
 # Scheduler
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -18027,7 +18027,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -18037,14 +18037,14 @@ Object
  Constructor for the Scheduler class.
  Initializes an empty queue and sets the actCount to 0.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## add
+### add
 
 
 ```lua
@@ -18055,7 +18055,7 @@ table
 
 @*param* `actor` — The actor, or special tick, to add.
 
-## adopt
+### adopt
 
 
 ```lua
@@ -18063,7 +18063,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -18072,7 +18072,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -18080,14 +18080,14 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## empty
+### empty
 
 
 ```lua
 (method) Scheduler:empty()
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -18103,7 +18103,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## has
+### has
 
 
 ```lua
@@ -18117,7 +18117,7 @@ function Object.deserialize(data: any)
 
 @*return* `hasActor` — True if the actor is in the scheduler, false otherwise.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -18131,7 +18131,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -18145,7 +18145,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -18158,7 +18158,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## next
+### next
 
 
 ```lua
@@ -18170,7 +18170,7 @@ function Object.deserialize(data: any)
 
 @*return* `next` — The actor who is next to act.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -18186,7 +18186,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## remove
+### remove
 
 
 ```lua
@@ -18197,14 +18197,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `actor` — The actor to remove.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -18212,14 +18212,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## timestamp
+### timestamp
 
 
 ```lua
@@ -18231,14 +18231,14 @@ boolean
 
 # SelectTool
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -18247,21 +18247,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) SelectTool:__new()
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## actors
+### actors
 
 
 ```lua
@@ -18270,7 +18270,7 @@ SparseMap
 
 the copied actors from the attachable
 
-## adopt
+### adopt
 
 
 ```lua
@@ -18278,7 +18278,7 @@ the copied actors from the attachable
   -> unknown
 ```
 
-## cells
+### cells
 
 
 ```lua
@@ -18287,7 +18287,7 @@ Grid
 
 the copied cells from the attachable
 
-## className
+### className
 
 
 ```lua
@@ -18296,14 +18296,14 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## copy
+### copy
 
 
 ```lua
 (method) SelectTool:copy(attachable: SpectrumAttachable)
 ```
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -18311,7 +18311,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## dragOrigin
+### dragOrigin
 
 
 ```lua
@@ -18320,7 +18320,7 @@ Vector2
 
 where we started dragging from when moving a pasted selection
 
-## dragging
+### dragging
 
 
 ```lua
@@ -18329,14 +18329,14 @@ boolean
 
 whether we're dragging, either actively creating a selection or pasting one
 
-## draw
+### draw
 
 
 ```lua
 (method) SelectTool:draw(editor: Editor, display: Display)
 ```
 
-## drawCell
+### drawCell
 
 
 ```lua
@@ -18345,7 +18345,7 @@ whether we're dragging, either actively creating a selection or pasting one
 
 Draws a cell at the given coordinates.
 
-## extend
+### extend
 
 
 ```lua
@@ -18361,7 +18361,7 @@ Draws a cell at the given coordinates.
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getCurrentRect
+### getCurrentRect
 
 
 ```lua
@@ -18374,7 +18374,7 @@ Draws a cell at the given coordinates.
 
  Returns the four corners of the current rect.
 
-## getDrawable
+### getDrawable
 
 
 ```lua
@@ -18384,7 +18384,7 @@ Draws a cell at the given coordinates.
 
 Returns the DrawableComponent from placeable
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -18398,7 +18398,7 @@ Returns the DrawableComponent from placeable
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -18412,7 +18412,7 @@ Returns the DrawableComponent from placeable
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -18425,7 +18425,7 @@ Returns the DrawableComponent from placeable
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## mouseclicked
+### mouseclicked
 
 
 ```lua
@@ -18436,7 +18436,7 @@ Returns the DrawableComponent from placeable
 
 @*param* `y` — The cell coordinate clicked.
 
-## mousereleased
+### mousereleased
 
 
 ```lua
@@ -18447,7 +18447,7 @@ Returns the DrawableComponent from placeable
 
 @*param* `y` — The cell coordinate clicked.
 
-## origin
+### origin
 
 
 ```lua
@@ -18456,21 +18456,21 @@ Vector2
 
 location of the first point in a selection (creating or pasted)
 
-## overrideCellDraw
+### overrideCellDraw
 
 
 ```lua
 (method) Tool:overrideCellDraw(editor: Editor, level: Level, cellx: integer, celly: integer)
 ```
 
-## paste
+### paste
 
 
 ```lua
 (method) SelectTool:paste()
 ```
 
-## pasted
+### pasted
 
 
 ```lua
@@ -18479,7 +18479,7 @@ boolean
 
 whether a selection is currently pasted/active
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -18495,7 +18495,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## second
+### second
 
 
 ```lua
@@ -18504,14 +18504,14 @@ Vector2
 
 location of the other point in a selection (creating or pasted)
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -18519,14 +18519,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## update
+### update
 
 
 ```lua
@@ -18538,7 +18538,7 @@ boolean
 
 # SelectionGrid
 
-## __getInternal
+### __getInternal
 
 
 ```lua
@@ -18551,7 +18551,7 @@ Get the internal representation of the Element
 For internal use\
 Don't touch unless you know what you're doing
 
-## _internal
+### _internal
 
 
 ```lua
@@ -18559,14 +18559,14 @@ Inky.Element.Internal
 ```
 
 
-## constructor
+### constructor
 
 
 ```lua
 (method) Inky.Element:constructor(scene: any, initializer: fun(self: Inky.Element, scene: Inky.Scene):fun(self: Inky.Element, x: number, y: number, w: number, h: number, depth?: number))
 ```
 
-## getView
+### getView
 
 
 ```lua
@@ -18579,7 +18579,7 @@ Inky.Element.Internal
 
 Return the x, y, w, h that the Element was last rendered at
 
-## on
+### on
 
 
 ```lua
@@ -18592,7 +18592,7 @@ Execute callback when Scene event is raised from the parent Scene
 
 See: [Inky.Scene.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/scene/init.lua#59#9)
 
-## onDisable
+### onDisable
 
 
 ```lua
@@ -18602,7 +18602,7 @@ See: [Inky.Scene.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/in
 
 Execute callback when an Element isn't rendered, when it was rendered last frame
 
-## onEnable
+### onEnable
 
 
 ```lua
@@ -18612,7 +18612,7 @@ Execute callback when an Element isn't rendered, when it was rendered last frame
 
 Execute callback when an Element is rendered, when it wasn't rendered last frame
 
-## onPointer
+### onPointer
 
 
 ```lua
@@ -18627,7 +18627,7 @@ See:
   * [Inky.Pointer.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#115#9)
   * [Inky.Pointer.captureElement](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#127#9)
 
-## onPointerEnter
+### onPointerEnter
 
 
 ```lua
@@ -18637,7 +18637,7 @@ See:
 
 Execute callback when a Pointer enters the bounding box of the Element
 
-## onPointerExit
+### onPointerExit
 
 
 ```lua
@@ -18647,7 +18647,7 @@ Execute callback when a Pointer enters the bounding box of the Element
 
 Execute callback when a Pointer exits the bounding box of the Element
 
-## onPointerInHierarchy
+### onPointerInHierarchy
 
 
 ```lua
@@ -18662,14 +18662,14 @@ See:
   * [Inky.Pointer.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#115#9)
   * [Inky.Element.onPointer](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/element/init.lua#71#9)
 
-## props
+### props
 
 
 ```lua
 SelectionGridProps
 ```
 
-## render
+### render
 
 
 ```lua
@@ -18684,7 +18684,7 @@ Note: The parent Scene's frame must have been begun to be able to render\
 
 See: [Inky.Scene.beginFrame](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/scene/init.lua#30#9)
 
-## useEffect
+### useEffect
 
 
 ```lua
@@ -18696,7 +18696,7 @@ Execute a side effect when any specified Element's prop changes
 
 Note: The effect is ran right before a render
 
-## useOverlapCheck
+### useOverlapCheck
 
 
 ```lua
@@ -18718,7 +18718,7 @@ Note: Check is performed after a bounding box check
 
 # SelectionGridProps
 
-## _internal
+### _internal
 
 
 ```lua
@@ -18726,42 +18726,42 @@ Inky.Props.Internal
 ```
 
 
-## display
+### display
 
 
 ```lua
 Display
 ```
 
-## elements
+### elements
 
 
 ```lua
 TileElement[]
 ```
 
-## endRange
+### endRange
 
 
 ```lua
 number
 ```
 
-## filtered
+### filtered
 
 
 ```lua
 number[]
 ```
 
-## onSelect
+### onSelect
 
 
 ```lua
 function
 ```
 
-## overlay
+### overlay
 
 
 ```lua
@@ -18779,14 +18779,14 @@ In versions prior to love.graphics.isSupported("canvas") could be used to check 
 [Open in Browser](https://love2d.org/wiki/love.graphics)
 
 
-## placeables
+### placeables
 
 
 ```lua
 Actor|Cell[]
 ```
 
-## selected
+### selected
 
 
 ```lua
@@ -18798,7 +18798,7 @@ Actor|Cell
  For example, an actor may have a Sight component that determines their field of vision, explored tiles,
  and other related aspects.
 
-## size
+### size
 
 
 ```lua
@@ -18807,7 +18807,7 @@ Vector2
 
 the final size of a tile in editor
 
-## startRange
+### startRange
 
 
 ```lua
@@ -18819,7 +18819,7 @@ number
 
 # SelectionPanel
 
-## __getInternal
+### __getInternal
 
 
 ```lua
@@ -18832,7 +18832,7 @@ Get the internal representation of the Element
 For internal use\
 Don't touch unless you know what you're doing
 
-## _internal
+### _internal
 
 
 ```lua
@@ -18840,14 +18840,14 @@ Inky.Element.Internal
 ```
 
 
-## constructor
+### constructor
 
 
 ```lua
 (method) Inky.Element:constructor(scene: any, initializer: fun(self: Inky.Element, scene: Inky.Scene):fun(self: Inky.Element, x: number, y: number, w: number, h: number, depth?: number))
 ```
 
-## getView
+### getView
 
 
 ```lua
@@ -18860,7 +18860,7 @@ Inky.Element.Internal
 
 Return the x, y, w, h that the Element was last rendered at
 
-## on
+### on
 
 
 ```lua
@@ -18873,7 +18873,7 @@ Execute callback when Scene event is raised from the parent Scene
 
 See: [Inky.Scene.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/scene/init.lua#59#9)
 
-## onDisable
+### onDisable
 
 
 ```lua
@@ -18883,7 +18883,7 @@ See: [Inky.Scene.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/in
 
 Execute callback when an Element isn't rendered, when it was rendered last frame
 
-## onEnable
+### onEnable
 
 
 ```lua
@@ -18893,7 +18893,7 @@ Execute callback when an Element isn't rendered, when it was rendered last frame
 
 Execute callback when an Element is rendered, when it wasn't rendered last frame
 
-## onPointer
+### onPointer
 
 
 ```lua
@@ -18908,7 +18908,7 @@ See:
   * [Inky.Pointer.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#115#9)
   * [Inky.Pointer.captureElement](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#127#9)
 
-## onPointerEnter
+### onPointerEnter
 
 
 ```lua
@@ -18918,7 +18918,7 @@ See:
 
 Execute callback when a Pointer enters the bounding box of the Element
 
-## onPointerExit
+### onPointerExit
 
 
 ```lua
@@ -18928,7 +18928,7 @@ Execute callback when a Pointer enters the bounding box of the Element
 
 Execute callback when a Pointer exits the bounding box of the Element
 
-## onPointerInHierarchy
+### onPointerInHierarchy
 
 
 ```lua
@@ -18943,14 +18943,14 @@ See:
   * [Inky.Pointer.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#115#9)
   * [Inky.Element.onPointer](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/element/init.lua#71#9)
 
-## props
+### props
 
 
 ```lua
 SelectionPanelProps
 ```
 
-## render
+### render
 
 
 ```lua
@@ -18965,7 +18965,7 @@ Note: The parent Scene's frame must have been begun to be able to render\
 
 See: [Inky.Scene.beginFrame](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/scene/init.lua#30#9)
 
-## useEffect
+### useEffect
 
 
 ```lua
@@ -18977,7 +18977,7 @@ Execute a side effect when any specified Element's prop changes
 
 Note: The effect is ran right before a render
 
-## useOverlapCheck
+### useOverlapCheck
 
 
 ```lua
@@ -18999,7 +18999,7 @@ Note: Check is performed after a bounding box check
 
 # SelectionPanelProps
 
-## _internal
+### _internal
 
 
 ```lua
@@ -19007,28 +19007,28 @@ Inky.Props.Internal
 ```
 
 
-## display
+### display
 
 
 ```lua
 Display
 ```
 
-## editor
+### editor
 
 
 ```lua
 Editor
 ```
 
-## filtered
+### filtered
 
 
 ```lua
 number[]
 ```
 
-## overlay
+### overlay
 
 
 ```lua
@@ -19046,14 +19046,14 @@ In versions prior to love.graphics.isSupported("canvas") could be used to check 
 [Open in Browser](https://love2d.org/wiki/love.graphics)
 
 
-## placeables
+### placeables
 
 
 ```lua
 Actor|Cell[]
 ```
 
-## selected
+### selected
 
 
 ```lua
@@ -19065,7 +19065,7 @@ Actor|Cell
  For example, an actor may have a Sight component that determines their field of vision, explored tiles,
  and other related aspects.
 
-## selectedText
+### selectedText
 
 
 ```lua
@@ -19079,7 +19079,7 @@ Drawable text.
 [Open in Browser](https://love2d.org/wiki/love.graphics)
 
 
-## size
+### size
 
 
 ```lua
@@ -19091,14 +19091,14 @@ Vector2
 
 # SensesComponent
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -19107,7 +19107,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -19116,14 +19116,14 @@ Object
 
  The default constructor for the class. Subclasses should override this.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## actors
+### actors
 
 
 ```lua
@@ -19132,7 +19132,7 @@ ActorStorage
 
 An actor storage with the actors the player is aware of.
 
-## adopt
+### adopt
 
 
 ```lua
@@ -19140,7 +19140,7 @@ An actor storage with the actors the player is aware of.
   -> unknown
 ```
 
-## cells
+### cells
 
 
 ```lua
@@ -19149,7 +19149,7 @@ SparseGrid
 
 A sparse grid of cells representing the portion of the map the actor's senses reveal.
 
-## checkRequirements
+### checkRequirements
 
 
 ```lua
@@ -19163,7 +19163,7 @@ A sparse grid of cells representing the portion of the map the actor's senses re
 
 @*return* `meetsRequirements` — the actor meets all requirements, false otherwise.
 
-## className
+### className
 
 
 ```lua
@@ -19172,7 +19172,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -19180,7 +19180,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## explored
+### explored
 
 
 ```lua
@@ -19189,7 +19189,7 @@ SparseGrid
 
 A sparse grid of cells the actor's senses have previously revealed.
 
-## extend
+### extend
 
 
 ```lua
@@ -19205,14 +19205,14 @@ A sparse grid of cells the actor's senses have previously revealed.
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## initialize
+### initialize
 
 
 ```lua
 (method) SensesComponent:initialize(actor: Actor)
 ```
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -19226,7 +19226,7 @@ A sparse grid of cells the actor's senses have previously revealed.
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -19240,7 +19240,7 @@ A sparse grid of cells the actor's senses have previously revealed.
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -19253,7 +19253,7 @@ A sparse grid of cells the actor's senses have previously revealed.
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## name
+### name
 
 
 ```lua
@@ -19262,7 +19262,7 @@ string
 
 Each component prototype MUST have a unique name!
 
-## owner
+### owner
 
 
 ```lua
@@ -19271,7 +19271,7 @@ Actor
 
 The Actor this component is composing. This is set by Actor when a component is added or removed.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -19287,7 +19287,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## requirements
+### requirements
 
 
 ```lua
@@ -19296,14 +19296,14 @@ table
 
 A list of component prototypes the actor must first have, before this can be applied.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -19311,14 +19311,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## unknown
+### unknown
 
 
 ```lua
@@ -19332,14 +19332,14 @@ Unkown actors are things the player is aware of the location of, but not the com
 
 # SensesSystem
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -19348,7 +19348,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -19357,14 +19357,14 @@ Object
 
  The default constructor for the class. Subclasses should override this.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -19372,7 +19372,7 @@ table
   -> unknown
 ```
 
-## afterAction
+### afterAction
 
 
 ```lua
@@ -19387,7 +19387,7 @@ table
 
 @*param* `action` — The Action object that the Actor has executed.
 
-## afterActions
+### afterActions
 
 
 ```lua
@@ -19396,7 +19396,7 @@ table<Action, fun(level: Level, actor: Actor, action: Action)>
 
 A table mapping specific actions to event hooks.
 
-## afterOpacityChanged
+### afterOpacityChanged
 
 
 ```lua
@@ -19411,7 +19411,7 @@ A table mapping specific actions to event hooks.
 
 @*param* `y` — The y coordinate of the tile.
 
-## beforeAction
+### beforeAction
 
 
 ```lua
@@ -19426,7 +19426,7 @@ A table mapping specific actions to event hooks.
 
 @*param* `action` — The Action object that the Actor has selected to execute.
 
-## beforeActions
+### beforeActions
 
 
 ```lua
@@ -19435,7 +19435,7 @@ table<Action, fun(level: Level, actor: Actor, action: Action)>
 
 A table mapping specific actions to event hooks.
 
-## beforeMove
+### beforeMove
 
 
 ```lua
@@ -19452,7 +19452,7 @@ A table mapping specific actions to event hooks.
 
 @*param* `to` — The position the Actor is moving to.
 
-## className
+### className
 
 
 ```lua
@@ -19461,7 +19461,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -19469,7 +19469,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -19485,7 +19485,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## global
+### global
 
 
 ```lua
@@ -19494,7 +19494,7 @@ boolean
 
 A system defined global can only be attached to the Game object. It will see all events from all levels.
 
-## initialize
+### initialize
 
 
 ```lua
@@ -19505,7 +19505,7 @@ A system defined global can only be attached to the Game object. It will see all
 
 @*param* `level` — The Level object this System is attached to.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -19519,7 +19519,7 @@ A system defined global can only be attached to the Game object. It will see all
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -19533,7 +19533,7 @@ A system defined global can only be attached to the Game object. It will see all
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -19546,14 +19546,14 @@ A system defined global can only be attached to the Game object. It will see all
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## name
+### name
 
 
 ```lua
 string
 ```
 
-## onActorAdded
+### onActorAdded
 
 
 ```lua
@@ -19566,7 +19566,7 @@ string
 
 @*param* `actor` — The Actor object that has been added.
 
-## onActorRemoved
+### onActorRemoved
 
 
 ```lua
@@ -19579,7 +19579,7 @@ string
 
 @*param* `actor` — The Actor object that has been removed.
 
-## onDescend
+### onDescend
 
 
 ```lua
@@ -19590,7 +19590,7 @@ string
 
 @*param* `level` — The Level object this System is attached to.
 
-## onMove
+### onMove
 
 
 ```lua
@@ -19607,7 +19607,7 @@ string
 
 @*param* `to` — The position the Actor moved to.
 
-## onTick
+### onTick
 
 
 ```lua
@@ -19618,14 +19618,14 @@ string
 
 @*param* `level` — The Level object this System is attached to.
 
-## onTurn
+### onTurn
 
 
 ```lua
 (method) SensesSystem:onTurn(level: Level, actor: Actor)
 ```
 
-## onTurnEnd
+### onTurnEnd
 
 
 ```lua
@@ -19638,14 +19638,14 @@ string
 
 @*param* `actor` — The Actor object that is about to take its turn.
 
-## onYield
+### onYield
 
 
 ```lua
 (method) SensesSystem:onYield(level: Level, event: Message)
 ```
 
-## owner
+### owner
 
 
 ```lua
@@ -19654,14 +19654,14 @@ Level?
 
 The level that holds this system.
 
-## postInitialize
+### postInitialize
 
 
 ```lua
 (method) SensesSystem:postInitialize(level: Level)
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -19677,7 +19677,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## requirements
+### requirements
 
 
 ```lua
@@ -19687,14 +19687,14 @@ table
  The message system requires the Senses system. While we don't
  directly reference it here we do grab data off the Senses component
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -19702,7 +19702,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## softRequirements
+### softRequirements
 
 
 ```lua
@@ -19711,14 +19711,14 @@ string[]
 
 A table of optional requirements that ensure proper order if both Systems are attached.
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## triggerRebuild
+### triggerRebuild
 
 
 ```lua
@@ -19730,14 +19730,14 @@ boolean
 
 # SensesTracker
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -19746,21 +19746,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) SensesTracker:__new()
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -19768,7 +19768,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -19777,14 +19777,14 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## createSensedMaps
+### createSensedMaps
 
 
 ```lua
 (method) SensesTracker:createSensedMaps(level: Level, curActor: Actor|nil)
 ```
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -19792,7 +19792,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## exploredCells
+### exploredCells
 
 
 ```lua
@@ -19801,7 +19801,7 @@ SparseGrid
 
 A grid tracking cells that have been explored by any actor with a PlayerController.
 
-## extend
+### extend
 
 
 ```lua
@@ -19817,7 +19817,7 @@ A grid tracking cells that have been explored by any actor with a PlayerControll
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -19831,7 +19831,7 @@ A grid tracking cells that have been explored by any actor with a PlayerControll
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -19845,7 +19845,7 @@ A grid tracking cells that have been explored by any actor with a PlayerControll
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -19858,7 +19858,7 @@ A grid tracking cells that have been explored by any actor with a PlayerControll
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## otherSensedActors
+### otherSensedActors
 
 
 ```lua
@@ -19867,7 +19867,7 @@ SparseMap
 
 A map tracking actors sensed by other actors (excluding the current actor).
 
-## otherSensedCells
+### otherSensedCells
 
 
 ```lua
@@ -19876,7 +19876,7 @@ SparseGrid
 
 A grid tracking cells sensed by other actors (excluding the current actor).
 
-## passableCallback
+### passableCallback
 
 
 ```lua
@@ -19884,7 +19884,7 @@ A grid tracking cells sensed by other actors (excluding the current actor).
   -> function
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -19900,14 +19900,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -19915,14 +19915,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## totalSensedActors
+### totalSensedActors
 
 
 ```lua
@@ -19936,14 +19936,14 @@ A map tracking all actors sensed by the current actor or others.
 
 # SimpleScheduler
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -19952,7 +19952,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -19962,14 +19962,14 @@ Object
  Constructor for the SimpleScheduler class.
  Initializes an empty queue and sets the round count to 0.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## add
+### add
 
 
 ```lua
@@ -19980,7 +19980,7 @@ table
 
 @*param* `actor` — The actor, or special tick, to add.
 
-## adopt
+### adopt
 
 
 ```lua
@@ -19988,7 +19988,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -19997,7 +19997,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## currentQueue
+### currentQueue
 
 
 ```lua
@@ -20006,7 +20006,7 @@ Queue
 
  A basic FIFO (First In, First Out) queue implementation.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -20014,7 +20014,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## empty
+### empty
 
 
 ```lua
@@ -20022,7 +20022,7 @@ function Object.deserialize(data: any)
   -> boolean
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -20038,7 +20038,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## has
+### has
 
 
 ```lua
@@ -20052,7 +20052,7 @@ function Object.deserialize(data: any)
 
 @*return* `True` — if the actor is in the scheduler, false otherwise.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -20066,7 +20066,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -20080,7 +20080,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -20093,7 +20093,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## next
+### next
 
 
 ```lua
@@ -20107,7 +20107,7 @@ function Object.deserialize(data: any)
 
 @*return* `The` — actor who is next to act.
 
-## nextQueue
+### nextQueue
 
 
 ```lua
@@ -20116,7 +20116,7 @@ Queue
 
  A basic FIFO (First In, First Out) queue implementation.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -20132,7 +20132,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## remove
+### remove
 
 
 ```lua
@@ -20143,21 +20143,21 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `actor` — The actor to remove.
 
-## roundCount
+### roundCount
 
 
 ```lua
 integer
 ```
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -20165,14 +20165,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## swapQueues
+### swapQueues
 
 
 ```lua
@@ -20181,7 +20181,7 @@ boolean
 
  Swaps the current and next queues.
 
-## timestamp
+### timestamp
 
 
 ```lua
@@ -20198,14 +20198,14 @@ boolean
 
 # SparseArray
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -20214,7 +20214,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -20223,14 +20223,14 @@ Object
 
  Constructor for SparseArray.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## add
+### add
 
 
 ```lua
@@ -20244,7 +20244,7 @@ table
 
 @*return* `index` — The index where the item was added.
 
-## adopt
+### adopt
 
 
 ```lua
@@ -20252,7 +20252,7 @@ table
   -> unknown
 ```
 
-## bake
+### bake
 
 
 ```lua
@@ -20265,7 +20265,7 @@ table
 
 @*return* `The` — new dense array.
 
-## className
+### className
 
 
 ```lua
@@ -20274,7 +20274,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## clear
+### clear
 
 
 ```lua
@@ -20283,7 +20283,7 @@ A unique name for this class. By convention this should match the annotation nam
 
  Clears the sparse array.
 
-## data
+### data
 
 
 ```lua
@@ -20292,7 +20292,7 @@ table
 
  Holds the actual values
 
-## debugPrint
+### debugPrint
 
 
 ```lua
@@ -20301,7 +20301,7 @@ table
 
  Prints the sparse array for debugging purposes.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -20309,7 +20309,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -20325,7 +20325,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## freeIndices
+### freeIndices
 
 
 ```lua
@@ -20334,7 +20334,7 @@ table
 
  Tracks free indices
 
-## get
+### get
 
 
 ```lua
@@ -20348,7 +20348,7 @@ table
 
 @*return* `The` — item at the specified index, or nil if none exists.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -20362,7 +20362,7 @@ table
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -20376,7 +20376,7 @@ table
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -20389,7 +20389,7 @@ table
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -20405,7 +20405,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## remove
+### remove
 
 
 ```lua
@@ -20416,14 +20416,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `index` — The index to remove the item from.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -20431,7 +20431,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -20443,14 +20443,14 @@ boolean
 
 # SparseGrid
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -20459,7 +20459,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -20470,14 +20470,14 @@ Object
  The constructor for the 'SparseGrid' class.
  Initializes the sparse grid with an empty data table.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -20485,7 +20485,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -20494,7 +20494,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## clear
+### clear
 
 
 ```lua
@@ -20503,14 +20503,14 @@ A unique name for this class. By convention this should match the annotation nam
 
  Clears all values in the sparse grid.
 
-## data
+### data
 
 
 ```lua
 table
 ```
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -20518,7 +20518,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## each
+### each
 
 
 ```lua
@@ -20531,7 +20531,7 @@ function Object.deserialize(data: any)
 
 @*return* `iter` — An iterator function that returns the x-coordinate, y-coordinate, and value for each entry.
 
-## extend
+### extend
 
 
 ```lua
@@ -20547,7 +20547,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## get
+### get
 
 
 ```lua
@@ -20563,7 +20563,7 @@ function Object.deserialize(data: any)
 
 @*return* `value` — The value at the specified coordinates, or nil if not set.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -20577,7 +20577,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -20591,7 +20591,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -20604,7 +20604,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -20620,14 +20620,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -20635,7 +20635,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## set
+### set
 
 
 ```lua
@@ -20650,7 +20650,7 @@ function Object.serialize(object: any)
 
 @*param* `value` — The value to set.
 
-## stripName
+### stripName
 
 
 ```lua
@@ -20662,21 +20662,21 @@ boolean
 
 # SparseMap
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __count
+### __count
 
 
 ```lua
 integer
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -20685,7 +20685,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -20695,14 +20695,14 @@ Object
  The constructor for the 'SparseMap' class.
  Initializes the map and counters.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -20710,7 +20710,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -20719,7 +20719,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## contains
+### contains
 
 
 ```lua
@@ -20729,7 +20729,7 @@ A unique name for this class. By convention this should match the annotation nam
 
  Checks where the specified value exists within the map.
 
-## count
+### count
 
 
 ```lua
@@ -20741,7 +20741,7 @@ A unique name for this class. By convention this should match the annotation nam
 
 @*return* `The` — total number of entries.
 
-## countCell
+### countCell
 
 
 ```lua
@@ -20757,7 +20757,7 @@ A unique name for this class. By convention this should match the annotation nam
 
 @*return* `The` — number of values stored at the specified coordinates.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -20765,7 +20765,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## each
+### each
 
 
 ```lua
@@ -20777,7 +20777,7 @@ function Object.deserialize(data: any)
 
 @*return* `An` — iterator that returns the value, coordinates, and hash for each entry.
 
-## extend
+### extend
 
 
 ```lua
@@ -20793,7 +20793,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## get
+### get
 
 
 ```lua
@@ -20809,7 +20809,7 @@ function Object.deserialize(data: any)
 
 @*return* `elements` — A set[actor]=bool of values stored at the specified coordinates, or an empty table if none.
 
-## getByHash
+### getByHash
 
 
 ```lua
@@ -20823,7 +20823,7 @@ function Object.deserialize(data: any)
 
 @*return* `A` — table of values stored at the specified hash, or an empty table if none.
 
-## has
+### has
 
 
 ```lua
@@ -20841,7 +20841,7 @@ function Object.deserialize(data: any)
 
 @*return* `True` — if the value is stored at the specified coordinates, false otherwise.
 
-## insert
+### insert
 
 
 ```lua
@@ -20856,7 +20856,7 @@ function Object.deserialize(data: any)
 
 @*param* `val` — The value to insert.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -20870,7 +20870,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -20884,21 +20884,21 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## list
+### list
 
 
 ```lua
 table
 ```
 
-## map
+### map
 
 
 ```lua
 table
 ```
 
-## mixin
+### mixin
 
 
 ```lua
@@ -20911,7 +20911,7 @@ table
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -20927,7 +20927,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## remove
+### remove
 
 
 ```lua
@@ -20945,14 +20945,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*return* `True` — if the value was successfully removed, false otherwise.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -20960,7 +20960,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -20972,14 +20972,14 @@ boolean
 
 # SpectrumAttachable
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -20988,7 +20988,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -20997,21 +20997,21 @@ Object
 
  The default constructor for the class. Subclasses should override this.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## addActor
+### addActor
 
 
 ```lua
 fun(self: any, actor: Actor)
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -21019,7 +21019,7 @@ fun(self: any, actor: Actor)
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -21028,14 +21028,14 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## debug
+### debug
 
 
 ```lua
 boolean
 ```
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -21043,28 +21043,28 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## eachActor
+### eachActor
 
 
 ```lua
 fun(self: any):fun()
 ```
 
-## eachActorAt
+### eachActorAt
 
 
 ```lua
 fun(self: any, x: integer, y: integer):fun()
 ```
 
-## eachCell
+### eachCell
 
 
 ```lua
 fun(self: any):fun()
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -21080,28 +21080,28 @@ fun(self: any):fun()
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getActorsAt
+### getActorsAt
 
 
 ```lua
 fun(self: any, x: integer, y: integer)
 ```
 
-## getCell
+### getCell
 
 
 ```lua
 fun(self: any, x: integer, y: integer):Cell
 ```
 
-## inBounds
+### inBounds
 
 
 ```lua
 fun(self: any, x: integer, y: integer)
 ```
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -21115,7 +21115,7 @@ fun(self: any, x: integer, y: integer)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -21129,7 +21129,7 @@ fun(self: any, x: integer, y: integer)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -21142,7 +21142,7 @@ fun(self: any, x: integer, y: integer)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -21158,21 +21158,21 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## removeActor
+### removeActor
 
 
 ```lua
 fun(self: any, actor: Actor)
 ```
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -21180,14 +21180,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## setCell
+### setCell
 
 
 ```lua
 fun(self: any, x: integer, y: integer, cell: Cell|nil)
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -21199,14 +21199,14 @@ boolean
 
 # SpriteAtlas
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -21215,7 +21215,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -21228,14 +21228,14 @@ Object
 
 @*param* `spriteData` — A table containing sprite names and their respective quads
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -21243,7 +21243,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -21252,7 +21252,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -21260,7 +21260,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## drawByIndex
+### drawByIndex
 
 
 ```lua
@@ -21275,7 +21275,7 @@ function Object.deserialize(data: any)
 
 @*param* `y` — The y coordinate to draw the sprite
 
-## drawByName
+### drawByName
 
 
 ```lua
@@ -21290,7 +21290,7 @@ function Object.deserialize(data: any)
 
 @*param* `y` — The y coordinate to draw the sprite
 
-## extend
+### extend
 
 
 ```lua
@@ -21306,7 +21306,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## fromAtlased
+### fromAtlased
 
 
 ```lua
@@ -21322,7 +21322,7 @@ function SpriteAtlas.fromAtlased(imagePath: string, jsonPath: string)
 
 @*return* `The` — created SpriteAtlas instance
 
-## fromGrid
+### fromGrid
 
 
 ```lua
@@ -21342,7 +21342,7 @@ function SpriteAtlas.fromGrid(imagePath: string, cellWidth: number, cellHeight: 
 
 @*return* `The` — created SpriteAtlas instance
 
-## getQuadByIndex
+### getQuadByIndex
 
 
 ```lua
@@ -21356,7 +21356,7 @@ function SpriteAtlas.fromGrid(imagePath: string, cellWidth: number, cellHeight: 
 
 @*return* `quad` — The love quad associated with the sprite index
 
-## getQuadByName
+### getQuadByName
 
 
 ```lua
@@ -21370,7 +21370,7 @@ function SpriteAtlas.fromGrid(imagePath: string, cellWidth: number, cellHeight: 
 
 @*return* `quad` — The love quad associated with the sprite name
 
-## image
+### image
 
 
 ```lua
@@ -21379,7 +21379,7 @@ any
 
 The texture atlas love image
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -21393,7 +21393,7 @@ The texture atlas love image
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -21407,7 +21407,7 @@ The texture atlas love image
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -21420,7 +21420,7 @@ The texture atlas love image
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -21436,7 +21436,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## quadsByIndex
+### quadsByIndex
 
 
 ```lua
@@ -21445,7 +21445,7 @@ table<number, any>
 
 A table of quads indexed by sprite indices
 
-## quadsByName
+### quadsByName
 
 
 ```lua
@@ -21454,14 +21454,14 @@ table<string, any>
 
 A table of quads indexed by sprite names
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -21469,7 +21469,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
@@ -21481,14 +21481,14 @@ boolean
 
 # System
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -21497,7 +21497,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -21506,14 +21506,14 @@ Object
 
  The default constructor for the class. Subclasses should override this.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -21521,7 +21521,7 @@ table
   -> unknown
 ```
 
-## afterAction
+### afterAction
 
 
 ```lua
@@ -21536,7 +21536,7 @@ table
 
 @*param* `action` — The Action object that the Actor has executed.
 
-## afterActions
+### afterActions
 
 
 ```lua
@@ -21545,7 +21545,7 @@ table<Action, fun(level: Level, actor: Actor, action: Action)>
 
 A table mapping specific actions to event hooks.
 
-## afterOpacityChanged
+### afterOpacityChanged
 
 
 ```lua
@@ -21560,7 +21560,7 @@ A table mapping specific actions to event hooks.
 
 @*param* `y` — The y coordinate of the tile.
 
-## beforeAction
+### beforeAction
 
 
 ```lua
@@ -21575,7 +21575,7 @@ A table mapping specific actions to event hooks.
 
 @*param* `action` — The Action object that the Actor has selected to execute.
 
-## beforeActions
+### beforeActions
 
 
 ```lua
@@ -21584,7 +21584,7 @@ table<Action, fun(level: Level, actor: Actor, action: Action)>
 
 A table mapping specific actions to event hooks.
 
-## beforeMove
+### beforeMove
 
 
 ```lua
@@ -21601,7 +21601,7 @@ A table mapping specific actions to event hooks.
 
 @*param* `to` — The position the Actor is moving to.
 
-## className
+### className
 
 
 ```lua
@@ -21610,7 +21610,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -21618,7 +21618,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -21634,7 +21634,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## global
+### global
 
 
 ```lua
@@ -21643,7 +21643,7 @@ boolean
 
 A system defined global can only be attached to the Game object. It will see all events from all levels.
 
-## initialize
+### initialize
 
 
 ```lua
@@ -21654,7 +21654,7 @@ A system defined global can only be attached to the Game object. It will see all
 
 @*param* `level` — The Level object this System is attached to.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -21668,7 +21668,7 @@ A system defined global can only be attached to the Game object. It will see all
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -21682,7 +21682,7 @@ A system defined global can only be attached to the Game object. It will see all
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -21695,7 +21695,7 @@ A system defined global can only be attached to the Game object. It will see all
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## name
+### name
 
 
 ```lua
@@ -21704,7 +21704,7 @@ string
 
 A system must define a name that is unique to the System.
 
-## onActorAdded
+### onActorAdded
 
 
 ```lua
@@ -21717,7 +21717,7 @@ A system must define a name that is unique to the System.
 
 @*param* `actor` — The Actor object that has been added.
 
-## onActorRemoved
+### onActorRemoved
 
 
 ```lua
@@ -21730,7 +21730,7 @@ A system must define a name that is unique to the System.
 
 @*param* `actor` — The Actor object that has been removed.
 
-## onDescend
+### onDescend
 
 
 ```lua
@@ -21741,7 +21741,7 @@ A system must define a name that is unique to the System.
 
 @*param* `level` — The Level object this System is attached to.
 
-## onMove
+### onMove
 
 
 ```lua
@@ -21758,7 +21758,7 @@ A system must define a name that is unique to the System.
 
 @*param* `to` — The position the Actor moved to.
 
-## onTick
+### onTick
 
 
 ```lua
@@ -21769,7 +21769,7 @@ A system must define a name that is unique to the System.
 
 @*param* `level` — The Level object this System is attached to.
 
-## onTurn
+### onTurn
 
 
 ```lua
@@ -21782,7 +21782,7 @@ A system must define a name that is unique to the System.
 
 @*param* `actor` — The Actor object that is about to take its turn.
 
-## onTurnEnd
+### onTurnEnd
 
 
 ```lua
@@ -21795,7 +21795,7 @@ A system must define a name that is unique to the System.
 
 @*param* `actor` — The Actor object that is about to take its turn.
 
-## onYield
+### onYield
 
 
 ```lua
@@ -21810,7 +21810,7 @@ A system must define a name that is unique to the System.
 
 @*param* `event` — The event data that caused the yield.
 
-## owner
+### owner
 
 
 ```lua
@@ -21819,7 +21819,7 @@ Level?
 
 The level that holds this system.
 
-## postInitialize
+### postInitialize
 
 
 ```lua
@@ -21830,7 +21830,7 @@ The level that holds this system.
 
 @*param* `level` — The Level object this System is attached to.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -21846,7 +21846,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## requirements
+### requirements
 
 
 ```lua
@@ -21855,14 +21855,14 @@ string[]
 
 A table of requirements that must be met for the System to be attached to a Level.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -21870,7 +21870,7 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## softRequirements
+### softRequirements
 
 
 ```lua
@@ -21879,7 +21879,7 @@ string[]
 
 A table of optional requirements that ensure proper order if both Systems are attached.
 
-## stripName
+### stripName
 
 
 ```lua
@@ -21891,14 +21891,14 @@ boolean
 
 # SystemManager
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -21907,21 +21907,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) SystemManager:__new(owner: Level)
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## addSystem
+### addSystem
 
 
 ```lua
@@ -21932,7 +21932,7 @@ table
 
 @*param* `system` — The system to add.
 
-## adopt
+### adopt
 
 
 ```lua
@@ -21940,7 +21940,7 @@ table
   -> unknown
 ```
 
-## afterAction
+### afterAction
 
 
 ```lua
@@ -21955,7 +21955,7 @@ table
 
 @*param* `action` — The action the actor has executed.
 
-## afterOpacityChanged
+### afterOpacityChanged
 
 
 ```lua
@@ -21970,7 +21970,7 @@ table
 
 @*param* `y` — The y coordinate of the tile.
 
-## beforeAction
+### beforeAction
 
 
 ```lua
@@ -21985,7 +21985,7 @@ table
 
 @*param* `action` — The action the actor has selected.
 
-## beforeMove
+### beforeMove
 
 
 ```lua
@@ -22002,7 +22002,7 @@ table
 
 @*param* `to` — The position the actor is moving to.
 
-## className
+### className
 
 
 ```lua
@@ -22011,7 +22011,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -22019,7 +22019,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -22035,7 +22035,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getSystem
+### getSystem
 
 
 ```lua
@@ -22049,7 +22049,7 @@ function Object.deserialize(data: any)
 
 @*return* `The` — system with the given name, or nil if not found.
 
-## initialize
+### initialize
 
 
 ```lua
@@ -22060,7 +22060,7 @@ function Object.deserialize(data: any)
 
 @*param* `level` — The level to initialize the systems for.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -22074,7 +22074,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -22088,7 +22088,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -22101,7 +22101,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## onActorAdded
+### onActorAdded
 
 
 ```lua
@@ -22114,7 +22114,7 @@ function Object.deserialize(data: any)
 
 @*param* `actor` — The actor that has been added.
 
-## onActorRemoved
+### onActorRemoved
 
 
 ```lua
@@ -22127,7 +22127,7 @@ function Object.deserialize(data: any)
 
 @*param* `actor` — The actor that has been removed.
 
-## onMove
+### onMove
 
 
 ```lua
@@ -22144,7 +22144,7 @@ function Object.deserialize(data: any)
 
 @*param* `to` — The position the actor moved to.
 
-## onTick
+### onTick
 
 
 ```lua
@@ -22155,7 +22155,7 @@ function Object.deserialize(data: any)
 
 @*param* `level` — The level to call onTick for.
 
-## onTurn
+### onTurn
 
 
 ```lua
@@ -22168,7 +22168,7 @@ function Object.deserialize(data: any)
 
 @*param* `actor` — The actor taking its turn.
 
-## onTurnEnd
+### onTurnEnd
 
 
 ```lua
@@ -22181,7 +22181,7 @@ function Object.deserialize(data: any)
 
 @*param* `actor` — The actor taking its turn.
 
-## onYield
+### onYield
 
 
 ```lua
@@ -22197,7 +22197,7 @@ function Object.deserialize(data: any)
 
 @*param* `event` — The event data that caused the yield.
 
-## owner
+### owner
 
 
 ```lua
@@ -22207,7 +22207,7 @@ Level
  The 'Level' holds all of the actors and systems, and runs the game loop. Through the ActorStorage and SystemManager
 
 
-## postInitialize
+### postInitialize
 
 
 ```lua
@@ -22218,7 +22218,7 @@ Level
 
 @*param* `level` — The level to post-initialize the systems for.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -22234,14 +22234,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -22249,21 +22249,21 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## systems
+### systems
 
 
 ```lua
 System[]
 ```
 
-## trigger
+### trigger
 
 
 ```lua
@@ -22282,14 +22282,14 @@ System[]
 
 # Target
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -22298,7 +22298,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -22307,14 +22307,14 @@ Object
 
  The default constructor for the class. Subclasses should override this.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## _validate
+### _validate
 
 
 ```lua
@@ -22328,7 +22328,7 @@ table
 
 @*param* `targets` — A list of the previous targets.
 
-## adopt
+### adopt
 
 
 ```lua
@@ -22336,7 +22336,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -22345,7 +22345,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -22353,14 +22353,14 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## distanceType
+### distanceType
 
 
 ```lua
 "4way"|"8way"|"chebyshev"|"euclidean"|"manhattan"
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -22376,7 +22376,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -22390,7 +22390,7 @@ function Object.deserialize(data: any)
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -22404,7 +22404,7 @@ function Object.deserialize(data: any)
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -22417,7 +22417,7 @@ function Object.deserialize(data: any)
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -22433,7 +22433,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## range
+### range
 
 
 ```lua
@@ -22442,28 +22442,28 @@ number
 
 The distance in tiles this actor can be away from the Action's owner. If nil this check is skipped.
 
-## rangeLastTarget
+### rangeLastTarget
 
 
 ```lua
 nil
 ```
 
-## rangeType
+### rangeType
 
 
 ```lua
 "chebyshev"|"manhattan"
 ```
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -22471,21 +22471,21 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## typesAllowed
+### typesAllowed
 
 
 ```lua
 table<"Actor"|"Any"|"Cell"|"Point", true>
 ```
 
-## unique
+### unique
 
 
 ```lua
@@ -22494,7 +22494,7 @@ boolean
 
 If true this will make sure this target is unique, and not one of the targets already selected.
 
-## validate
+### validate
 
 
 ```lua
@@ -22519,7 +22519,7 @@ If true this will make sure this target is unique, and not one of the targets al
 
 # TextInput
 
-## __getInternal
+### __getInternal
 
 
 ```lua
@@ -22532,7 +22532,7 @@ Get the internal representation of the Element
 For internal use\
 Don't touch unless you know what you're doing
 
-## _internal
+### _internal
 
 
 ```lua
@@ -22540,14 +22540,14 @@ Inky.Element.Internal
 ```
 
 
-## constructor
+### constructor
 
 
 ```lua
 (method) Inky.Element:constructor(scene: any, initializer: fun(self: Inky.Element, scene: Inky.Scene):fun(self: Inky.Element, x: number, y: number, w: number, h: number, depth?: number))
 ```
 
-## getView
+### getView
 
 
 ```lua
@@ -22560,7 +22560,7 @@ Inky.Element.Internal
 
 Return the x, y, w, h that the Element was last rendered at
 
-## on
+### on
 
 
 ```lua
@@ -22573,7 +22573,7 @@ Execute callback when Scene event is raised from the parent Scene
 
 See: [Inky.Scene.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/scene/init.lua#59#9)
 
-## onDisable
+### onDisable
 
 
 ```lua
@@ -22583,7 +22583,7 @@ See: [Inky.Scene.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/in
 
 Execute callback when an Element isn't rendered, when it was rendered last frame
 
-## onEnable
+### onEnable
 
 
 ```lua
@@ -22593,7 +22593,7 @@ Execute callback when an Element isn't rendered, when it was rendered last frame
 
 Execute callback when an Element is rendered, when it wasn't rendered last frame
 
-## onPointer
+### onPointer
 
 
 ```lua
@@ -22608,7 +22608,7 @@ See:
   * [Inky.Pointer.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#115#9)
   * [Inky.Pointer.captureElement](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#127#9)
 
-## onPointerEnter
+### onPointerEnter
 
 
 ```lua
@@ -22618,7 +22618,7 @@ See:
 
 Execute callback when a Pointer enters the bounding box of the Element
 
-## onPointerExit
+### onPointerExit
 
 
 ```lua
@@ -22628,7 +22628,7 @@ Execute callback when a Pointer enters the bounding box of the Element
 
 Execute callback when a Pointer exits the bounding box of the Element
 
-## onPointerInHierarchy
+### onPointerInHierarchy
 
 
 ```lua
@@ -22643,14 +22643,14 @@ See:
   * [Inky.Pointer.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#115#9)
   * [Inky.Element.onPointer](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/element/init.lua#71#9)
 
-## props
+### props
 
 
 ```lua
 TextInputProps
 ```
 
-## render
+### render
 
 
 ```lua
@@ -22665,7 +22665,7 @@ Note: The parent Scene's frame must have been begun to be able to render\
 
 See: [Inky.Scene.beginFrame](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/scene/init.lua#30#9)
 
-## useEffect
+### useEffect
 
 
 ```lua
@@ -22677,7 +22677,7 @@ Execute a side effect when any specified Element's prop changes
 
 Note: The effect is ran right before a render
 
-## useOverlapCheck
+### useOverlapCheck
 
 
 ```lua
@@ -22699,7 +22699,7 @@ Note: Check is performed after a bounding box check
 
 # TextInputProps
 
-## _internal
+### _internal
 
 
 ```lua
@@ -22707,21 +22707,21 @@ Inky.Props.Internal
 ```
 
 
-## content
+### content
 
 
 ```lua
 string
 ```
 
-## focused
+### focused
 
 
 ```lua
 boolean
 ```
 
-## font
+### font
 
 
 ```lua
@@ -22735,7 +22735,7 @@ Defines the shape of characters that can be drawn onto the screen.
 [Open in Browser](https://love2d.org/wiki/love.graphics)
 
 
-## limit
+### limit
 
 
 ```lua
@@ -22744,14 +22744,14 @@ number
 
 the number of characters before we start panning
 
-## onEdit
+### onEdit
 
 
 ```lua
 function?
 ```
 
-## overlay
+### overlay
 
 
 ```lua
@@ -22769,14 +22769,14 @@ In versions prior to love.graphics.isSupported("canvas") could be used to check 
 [Open in Browser](https://love2d.org/wiki/love.graphics)
 
 
-## placeholder
+### placeholder
 
 
 ```lua
 string
 ```
 
-## size
+### size
 
 
 ```lua
@@ -22788,7 +22788,7 @@ Vector2
 
 # TileElement
 
-## __getInternal
+### __getInternal
 
 
 ```lua
@@ -22801,7 +22801,7 @@ Get the internal representation of the Element
 For internal use\
 Don't touch unless you know what you're doing
 
-## _internal
+### _internal
 
 
 ```lua
@@ -22809,14 +22809,14 @@ Inky.Element.Internal
 ```
 
 
-## constructor
+### constructor
 
 
 ```lua
 (method) Inky.Element:constructor(scene: any, initializer: fun(self: Inky.Element, scene: Inky.Scene):fun(self: Inky.Element, x: number, y: number, w: number, h: number, depth?: number))
 ```
 
-## getView
+### getView
 
 
 ```lua
@@ -22829,7 +22829,7 @@ Inky.Element.Internal
 
 Return the x, y, w, h that the Element was last rendered at
 
-## on
+### on
 
 
 ```lua
@@ -22842,7 +22842,7 @@ Execute callback when Scene event is raised from the parent Scene
 
 See: [Inky.Scene.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/scene/init.lua#59#9)
 
-## onDisable
+### onDisable
 
 
 ```lua
@@ -22852,7 +22852,7 @@ See: [Inky.Scene.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/in
 
 Execute callback when an Element isn't rendered, when it was rendered last frame
 
-## onEnable
+### onEnable
 
 
 ```lua
@@ -22862,7 +22862,7 @@ Execute callback when an Element isn't rendered, when it was rendered last frame
 
 Execute callback when an Element is rendered, when it wasn't rendered last frame
 
-## onPointer
+### onPointer
 
 
 ```lua
@@ -22877,7 +22877,7 @@ See:
   * [Inky.Pointer.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#115#9)
   * [Inky.Pointer.captureElement](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#127#9)
 
-## onPointerEnter
+### onPointerEnter
 
 
 ```lua
@@ -22887,7 +22887,7 @@ See:
 
 Execute callback when a Pointer enters the bounding box of the Element
 
-## onPointerExit
+### onPointerExit
 
 
 ```lua
@@ -22897,7 +22897,7 @@ Execute callback when a Pointer enters the bounding box of the Element
 
 Execute callback when a Pointer exits the bounding box of the Element
 
-## onPointerInHierarchy
+### onPointerInHierarchy
 
 
 ```lua
@@ -22912,14 +22912,14 @@ See:
   * [Inky.Pointer.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#115#9)
   * [Inky.Element.onPointer](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/element/init.lua#71#9)
 
-## props
+### props
 
 
 ```lua
 TileElementProps
 ```
 
-## render
+### render
 
 
 ```lua
@@ -22934,7 +22934,7 @@ Note: The parent Scene's frame must have been begun to be able to render\
 
 See: [Inky.Scene.beginFrame](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/scene/init.lua#30#9)
 
-## useEffect
+### useEffect
 
 
 ```lua
@@ -22946,7 +22946,7 @@ Execute a side effect when any specified Element's prop changes
 
 Note: The effect is ran right before a render
 
-## useOverlapCheck
+### useOverlapCheck
 
 
 ```lua
@@ -22963,7 +22963,7 @@ Note: Check is performed after a bounding box check
 
 # TileElementProps
 
-## _internal
+### _internal
 
 
 ```lua
@@ -22971,21 +22971,21 @@ Inky.Props.Internal
 ```
 
 
-## display
+### display
 
 
 ```lua
 Display
 ```
 
-## onSelect
+### onSelect
 
 
 ```lua
 function
 ```
 
-## overlay
+### overlay
 
 
 ```lua
@@ -23003,7 +23003,7 @@ In versions prior to love.graphics.isSupported("canvas") could be used to check 
 [Open in Browser](https://love2d.org/wiki/love.graphics)
 
 
-## placeable
+### placeable
 
 
 ```lua
@@ -23015,7 +23015,7 @@ Actor|Cell
  For example, an actor may have a Sight component that determines their field of vision, explored tiles,
  and other related aspects.
 
-## size
+### size
 
 
 ```lua
@@ -23029,14 +23029,14 @@ the final size of a tile in editor
 
 # Tool
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -23045,7 +23045,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
@@ -23054,14 +23054,14 @@ Object
 
  The default constructor for the class. Subclasses should override this.
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -23069,7 +23069,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -23078,7 +23078,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -23086,7 +23086,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## draw
+### draw
 
 
 ```lua
@@ -23095,7 +23095,7 @@ function Object.deserialize(data: any)
 
 Draws the tool visuals.
 
-## drawCell
+### drawCell
 
 
 ```lua
@@ -23104,7 +23104,7 @@ Draws the tool visuals.
 
 Draws a cell at the given coordinates.
 
-## extend
+### extend
 
 
 ```lua
@@ -23120,7 +23120,7 @@ Draws a cell at the given coordinates.
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getDrawable
+### getDrawable
 
 
 ```lua
@@ -23130,7 +23130,7 @@ Draws a cell at the given coordinates.
 
 Returns the DrawableComponent from placeable
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -23144,7 +23144,7 @@ Returns the DrawableComponent from placeable
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -23158,7 +23158,7 @@ Returns the DrawableComponent from placeable
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -23171,7 +23171,7 @@ Returns the DrawableComponent from placeable
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## mouseclicked
+### mouseclicked
 
 
 ```lua
@@ -23184,7 +23184,7 @@ Handles mouse click events.
 
 @*param* `celly` — The y-coordinate of the cell clicked.
 
-## mousereleased
+### mousereleased
 
 
 ```lua
@@ -23197,14 +23197,14 @@ Handles mouse release events.
 
 @*param* `celly` — The y-coordinate of the cell release.
 
-## overrideCellDraw
+### overrideCellDraw
 
 
 ```lua
 (method) Tool:overrideCellDraw(editor: Editor, level: Level, cellx: integer, celly: integer)
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -23220,14 +23220,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -23235,14 +23235,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## update
+### update
 
 
 ```lua
@@ -23260,7 +23260,7 @@ Updates the tool state.
 
 # Tools
 
-## __getInternal
+### __getInternal
 
 
 ```lua
@@ -23273,7 +23273,7 @@ Get the internal representation of the Element
 For internal use\
 Don't touch unless you know what you're doing
 
-## _internal
+### _internal
 
 
 ```lua
@@ -23281,14 +23281,14 @@ Inky.Element.Internal
 ```
 
 
-## constructor
+### constructor
 
 
 ```lua
 (method) Inky.Element:constructor(scene: any, initializer: fun(self: Inky.Element, scene: Inky.Scene):fun(self: Inky.Element, x: number, y: number, w: number, h: number, depth?: number))
 ```
 
-## getView
+### getView
 
 
 ```lua
@@ -23301,7 +23301,7 @@ Inky.Element.Internal
 
 Return the x, y, w, h that the Element was last rendered at
 
-## on
+### on
 
 
 ```lua
@@ -23314,7 +23314,7 @@ Execute callback when Scene event is raised from the parent Scene
 
 See: [Inky.Scene.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/scene/init.lua#59#9)
 
-## onDisable
+### onDisable
 
 
 ```lua
@@ -23324,7 +23324,7 @@ See: [Inky.Scene.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/in
 
 Execute callback when an Element isn't rendered, when it was rendered last frame
 
-## onEnable
+### onEnable
 
 
 ```lua
@@ -23334,7 +23334,7 @@ Execute callback when an Element isn't rendered, when it was rendered last frame
 
 Execute callback when an Element is rendered, when it wasn't rendered last frame
 
-## onPointer
+### onPointer
 
 
 ```lua
@@ -23349,7 +23349,7 @@ See:
   * [Inky.Pointer.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#115#9)
   * [Inky.Pointer.captureElement](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#127#9)
 
-## onPointerEnter
+### onPointerEnter
 
 
 ```lua
@@ -23359,7 +23359,7 @@ See:
 
 Execute callback when a Pointer enters the bounding box of the Element
 
-## onPointerExit
+### onPointerExit
 
 
 ```lua
@@ -23369,7 +23369,7 @@ Execute callback when a Pointer enters the bounding box of the Element
 
 Execute callback when a Pointer exits the bounding box of the Element
 
-## onPointerInHierarchy
+### onPointerInHierarchy
 
 
 ```lua
@@ -23384,14 +23384,14 @@ See:
   * [Inky.Pointer.raise](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/pointer/init.lua#115#9)
   * [Inky.Element.onPointer](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/element/init.lua#71#9)
 
-## props
+### props
 
 
 ```lua
 ToolsProps
 ```
 
-## render
+### render
 
 
 ```lua
@@ -23406,7 +23406,7 @@ Note: The parent Scene's frame must have been begun to be able to render\
 
 See: [Inky.Scene.beginFrame](file:///home/bleezus/Documents/GitHub/prism2/geometer/inky/core/scene/init.lua#30#9)
 
-## useEffect
+### useEffect
 
 
 ```lua
@@ -23418,7 +23418,7 @@ Execute a side effect when any specified Element's prop changes
 
 Note: The effect is ran right before a render
 
-## useOverlapCheck
+### useOverlapCheck
 
 
 ```lua
@@ -23440,7 +23440,7 @@ Note: Check is performed after a bounding box check
 
 # ToolsProps
 
-## _internal
+### _internal
 
 
 ```lua
@@ -23448,14 +23448,14 @@ Inky.Props.Internal
 ```
 
 
-## editor
+### editor
 
 
 ```lua
 Editor
 ```
 
-## selected
+### selected
 
 
 ```lua
@@ -23472,14 +23472,14 @@ Button
 
 # UnfloatSelectionModification
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __index
+### __index
 
 
 ```lua
@@ -23488,21 +23488,21 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __new
+### __new
 
 
 ```lua
 (method) UnfloatSelectionModification:__new(placeable: any, position: any, floatingSelection: any)
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -23510,7 +23510,7 @@ table
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -23519,7 +23519,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -23527,14 +23527,14 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## execute
+### execute
 
 
 ```lua
 (method) UnfloatSelectionModification:execute(attachable: SpectrumAttachable)
 ```
 
-## extend
+### extend
 
 
 ```lua
@@ -23550,7 +23550,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## floatingSelection
+### floatingSelection
 
 
 ```lua
@@ -23559,7 +23559,7 @@ MapBuilder
 
  A map builder class that extends the SparseGrid class to handle map-specific functionalities.
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -23573,7 +23573,7 @@ MapBuilder
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -23587,7 +23587,7 @@ MapBuilder
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -23600,21 +23600,21 @@ MapBuilder
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## placeActor
+### placeActor
 
 
 ```lua
 (method) Modification:placeActor(attachable: SpectrumAttachable, x: integer, y: integer, actorPrototype: Actor)
 ```
 
-## placeCell
+### placeCell
 
 
 ```lua
 (method) Modification:placeCell(attachable: SpectrumAttachable, x: integer, y: integer, cellPrototype: Cell|nil)
 ```
 
-## placeable
+### placeable
 
 
 ```lua
@@ -23626,21 +23626,21 @@ Actor|Cell
  For example, an actor may have a Sight component that determines their field of vision, explored tiles,
  and other related aspects.
 
-## placed
+### placed
 
 
 ```lua
 table
 ```
 
-## position
+### position
 
 
 ```lua
 Vector2
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -23656,21 +23656,21 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## removeActor
+### removeActor
 
 
 ```lua
 (method) Modification:removeActor(level: any, actor: any)
 ```
 
-## removed
+### removed
 
 
 ```lua
 table
 ```
 
-## replaced
+### replaced
 
 
 ```lua
@@ -23680,14 +23680,14 @@ SparseGrid
  A sparse grid class that stores data using hashed coordinates. Similar to a SparseMap
  except here there is only one entry per grid coordinate. This is suitable for stuff like Cells.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -23695,14 +23695,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## undo
+### undo
 
 
 ```lua
@@ -23717,7 +23717,7 @@ Override this method in subclasses to define how the modification is undone.
 
 # Vector2
 
-## DOWN
+### DOWN
 
 
 ```lua
@@ -23726,7 +23726,7 @@ Vector2
 
  The static DOWN vector.
 
-## DOWN_LEFT
+### DOWN_LEFT
 
 
 ```lua
@@ -23735,7 +23735,7 @@ Vector2
 
  The static DOWN_LEFT vector.
 
-## DOWN_RIGHT
+### DOWN_RIGHT
 
 
 ```lua
@@ -23744,7 +23744,7 @@ Vector2
 
  The static DOWN_RIGHT vector.
 
-## LEFT
+### LEFT
 
 
 ```lua
@@ -23753,7 +23753,7 @@ Vector2
 
  The static LEFT vector.
 
-## RIGHT
+### RIGHT
 
 
 ```lua
@@ -23762,7 +23762,7 @@ Vector2
 
  The static RIGHT vector.
 
-## UP
+### UP
 
 
 ```lua
@@ -23771,7 +23771,7 @@ Vector2
 
  The static UP vector.
 
-## UP_LEFT
+### UP_LEFT
 
 
 ```lua
@@ -23780,7 +23780,7 @@ Vector2
 
  The static UP_LEFT vector.
 
-## UP_RIGHT
+### UP_RIGHT
 
 
 ```lua
@@ -23789,7 +23789,7 @@ Vector2
 
  The static UP_RIGHT vector.
 
-## __add
+### __add
 
 
 ```lua
@@ -23805,14 +23805,14 @@ function Vector2.__add(a: Vector2, b: Vector2)
 
 @*return* — The sum of the two vectors.
 
-## __call
+### __call
 
 
 ```lua
 function
 ```
 
-## __eq
+### __eq
 
 
 ```lua
@@ -23828,7 +23828,7 @@ function Vector2.__eq(a: Vector2, b: Vector2)
 
 @*return* — True if the vectors are equal, false otherwise.
 
-## __index
+### __index
 
 
 ```lua
@@ -23837,7 +23837,7 @@ Object
 
  A simple class system for Lua. This is the base class for all other classes in PRISM.
 
-## __mul
+### __mul
 
 
 ```lua
@@ -23853,7 +23853,7 @@ function Vector2.__mul(a: Vector2, b: number)
 
 @*return* — The product of the vector and the scalar.
 
-## __new
+### __new
 
 
 ```lua
@@ -23866,7 +23866,7 @@ function Vector2.__mul(a: Vector2, b: number)
 
 @*param* `y` — The y component of the vector.
 
-## __sub
+### __sub
 
 
 ```lua
@@ -23882,7 +23882,7 @@ function Vector2.__sub(a: Vector2, b: Vector2)
 
 @*return* — The difference of the two vectors.
 
-## __tostring
+### __tostring
 
 
 ```lua
@@ -23894,7 +23894,7 @@ function Vector2.__sub(a: Vector2, b: Vector2)
 
 @*return* — The string representation of the vector.
 
-## __unm
+### __unm
 
 
 ```lua
@@ -23908,7 +23908,7 @@ function Vector2.__unm(a: Vector2)
 
 @*return* — The negated vector.
 
-## _hash
+### _hash
 
 
 ```lua
@@ -23916,14 +23916,14 @@ function Vector2._hash(x: integer, y: integer)
   -> integer
 ```
 
-## _serializationBlacklist
+### _serializationBlacklist
 
 
 ```lua
 table
 ```
 
-## _unhash
+### _unhash
 
 
 ```lua
@@ -23932,7 +23932,7 @@ function Vector2._unhash(hash: number)
   2. integer
 ```
 
-## adopt
+### adopt
 
 
 ```lua
@@ -23940,7 +23940,7 @@ function Vector2._unhash(hash: number)
   -> unknown
 ```
 
-## className
+### className
 
 
 ```lua
@@ -23949,7 +23949,7 @@ string
 
 A unique name for this class. By convention this should match the annotation name you use.
 
-## copy
+### copy
 
 
 ```lua
@@ -23961,7 +23961,7 @@ A unique name for this class. By convention this should match the annotation nam
 
 @*return* — A copy of the vector.
 
-## decompose
+### decompose
 
 
 ```lua
@@ -23974,7 +23974,7 @@ A unique name for this class. By convention this should match the annotation nam
 
 @*return* `y` — The y component of the vector.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -23982,7 +23982,7 @@ function Object.deserialize(data: any)
   -> unknown
 ```
 
-## distance
+### distance
 
 
 ```lua
@@ -23992,7 +23992,7 @@ function Object.deserialize(data: any)
 
  Euclidian distance from another point.
 
-## distanceChebyshev
+### distanceChebyshev
 
 
 ```lua
@@ -24002,7 +24002,7 @@ function Object.deserialize(data: any)
 
  Chebyshev distance from another point.
 
-## distanceManhattan
+### distanceManhattan
 
 
 ```lua
@@ -24012,7 +24012,7 @@ function Object.deserialize(data: any)
 
  Manhattan distance from another point.
 
-## extend
+### extend
 
 
 ```lua
@@ -24028,7 +24028,7 @@ function Object.deserialize(data: any)
 
 @*return* `prototype` — The new class prototype extended from this one.
 
-## getRange
+### getRange
 
 
 ```lua
@@ -24047,7 +24047,7 @@ type:
     | "8way"
 ```
 
-## hash
+### hash
 
 
 ```lua
@@ -24055,7 +24055,7 @@ type:
   -> hash: number
 ```
 
-## instanceOf
+### instanceOf
 
 
 ```lua
@@ -24069,7 +24069,7 @@ type:
 
 @*return* `extends` — True if o is the first class in the inheritance chain of self, false otherwise.
 
-## is
+### is
 
 
 ```lua
@@ -24083,7 +24083,7 @@ type:
 
 @*return* `is` — True if o is in the inheritance chain of self, false otherwise.
 
-## length
+### length
 
 
 ```lua
@@ -24095,7 +24095,7 @@ type:
 
 @*return* — The length of the vector.
 
-## lerp
+### lerp
 
 
 ```lua
@@ -24113,7 +24113,7 @@ type:
 
 @*return* — The interpolated vector.
 
-## mixin
+### mixin
 
 
 ```lua
@@ -24126,21 +24126,21 @@ type:
 
 @*param* `mixin` — The table containing methods and properties to mix in.
 
-## neighborhood4
+### neighborhood4
 
 
 ```lua
 Vector2[]
 ```
 
-## neighborhood8
+### neighborhood8
 
 
 ```lua
 Vector2[]
 ```
 
-## prettyprint
+### prettyprint
 
 
 ```lua
@@ -24156,7 +24156,7 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*param* `visited` — A table of visited objects to prevent circular references.
 
-## rotateClockwise
+### rotateClockwise
 
 
 ```lua
@@ -24168,14 +24168,14 @@ function Object.prettyprint(obj: table, indent: string, visited: table)
 
 @*return* `The` — rotated vector.
 
-## serializationBlacklist
+### serializationBlacklist
 
 
 ```lua
 table<string, boolean>
 ```
 
-## serialize
+### serialize
 
 
 ```lua
@@ -24183,14 +24183,14 @@ function Object.serialize(object: any)
   -> table
 ```
 
-## stripName
+### stripName
 
 
 ```lua
 boolean
 ```
 
-## unhash
+### unhash
 
 
 ```lua
@@ -24198,7 +24198,7 @@ function Vector2.unhash(hash: any)
   -> Vector2
 ```
 
-## x
+### x
 
 
 ```lua
@@ -24207,7 +24207,7 @@ number
 
 The x component of the vector.
 
-## y
+### y
 
 
 ```lua
@@ -24415,7 +24415,7 @@ function bit.tohex(x: integer, n?: integer)
 
 # bitlib
 
-## arshift
+### arshift
 
 
 ```lua
@@ -24423,7 +24423,7 @@ function bit.arshift(x: integer, n: integer)
   -> y: integer
 ```
 
-## band
+### band
 
 
 ```lua
@@ -24431,7 +24431,7 @@ function bit.band(x: integer, ...integer)
   -> y: integer
 ```
 
-## bnot
+### bnot
 
 
 ```lua
@@ -24439,7 +24439,7 @@ function bit.bnot(x: integer)
   -> y: integer
 ```
 
-## bor
+### bor
 
 
 ```lua
@@ -24447,7 +24447,7 @@ function bit.bor(x: integer, ...integer)
   -> y: integer
 ```
 
-## bswap
+### bswap
 
 
 ```lua
@@ -24455,7 +24455,7 @@ function bit.bswap(x: integer)
   -> y: integer
 ```
 
-## bxor
+### bxor
 
 
 ```lua
@@ -24463,7 +24463,7 @@ function bit.bxor(x: integer, ...integer)
   -> y: integer
 ```
 
-## lshift
+### lshift
 
 
 ```lua
@@ -24471,7 +24471,7 @@ function bit.lshift(x: integer, n: integer)
   -> y: integer
 ```
 
-## rol
+### rol
 
 
 ```lua
@@ -24479,7 +24479,7 @@ function bit.rol(x: integer, n: integer)
   -> y: integer
 ```
 
-## ror
+### ror
 
 
 ```lua
@@ -24487,7 +24487,7 @@ function bit.ror(x: integer, n: integer)
   -> y: integer
 ```
 
-## rshift
+### rshift
 
 
 ```lua
@@ -24495,7 +24495,7 @@ function bit.rshift(x: integer, n: integer)
   -> y: integer
 ```
 
-## tobit
+### tobit
 
 
 ```lua
@@ -24503,7 +24503,7 @@ function bit.tobit(x: integer)
   -> y: integer
 ```
 
-## tohex
+### tohex
 
 
 ```lua
@@ -24633,7 +24633,7 @@ function coroutine.wrap(f: fun(...any):...unknown)
 
 # coroutinelib
 
-## close
+### close
 
 
 ```lua
@@ -24647,7 +24647,7 @@ Closes coroutine `co` , closing all its pending to-be-closed variables and putti
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-coroutine.close"])
 
-## create
+### create
 
 
 ```lua
@@ -24660,7 +24660,7 @@ Creates a new coroutine, with body `f`. `f` must be a function. Returns this new
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-coroutine.create"])
 
-## isyieldable
+### isyieldable
 
 
 ```lua
@@ -24673,7 +24673,7 @@ Returns true when the running coroutine can yield.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-coroutine.isyieldable"])
 
-## resume
+### resume
 
 
 ```lua
@@ -24687,7 +24687,7 @@ Starts or continues the execution of coroutine `co`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-coroutine.resume"])
 
-## running
+### running
 
 
 ```lua
@@ -24701,7 +24701,7 @@ Returns the running coroutine plus a boolean, true when the running coroutine is
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-coroutine.running"])
 
-## status
+### status
 
 
 ```lua
@@ -24723,7 +24723,7 @@ return #1:
     | "dead" -- Has finished or stopped with an error.
 ```
 
-## wrap
+### wrap
 
 
 ```lua
@@ -24736,7 +24736,7 @@ Creates a new coroutine, with body `f`; `f` must be a function. Returns a functi
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-coroutine.wrap"])
 
-## yield
+### yield
 
 
 ```lua
@@ -24974,98 +24974,98 @@ function debug.upvaluejoin(f1: fun(...any):...unknown, n1: integer, f2: fun(...a
 
 # debuginfo
 
-## activelines
+### activelines
 
 
 ```lua
 table
 ```
 
-## currentline
+### currentline
 
 
 ```lua
 integer
 ```
 
-## func
+### func
 
 
 ```lua
 function
 ```
 
-## istailcall
+### istailcall
 
 
 ```lua
 boolean
 ```
 
-## isvararg
+### isvararg
 
 
 ```lua
 boolean
 ```
 
-## lastlinedefined
+### lastlinedefined
 
 
 ```lua
 integer
 ```
 
-## linedefined
+### linedefined
 
 
 ```lua
 integer
 ```
 
-## name
+### name
 
 
 ```lua
 string
 ```
 
-## namewhat
+### namewhat
 
 
 ```lua
 string
 ```
 
-## nparams
+### nparams
 
 
 ```lua
 integer
 ```
 
-## nups
+### nups
 
 
 ```lua
 integer
 ```
 
-## short_src
+### short_src
 
 
 ```lua
 string
 ```
 
-## source
+### source
 
 
 ```lua
 string
 ```
 
-## what
+### what
 
 
 ```lua
@@ -25077,7 +25077,7 @@ string
 
 # debuglib
 
-## debug
+### debug
 
 
 ```lua
@@ -25089,7 +25089,7 @@ Enters an interactive mode with the user, running each string that the user ente
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.debug"])
 
-## getfenv
+### getfenv
 
 
 ```lua
@@ -25102,7 +25102,7 @@ Returns the environment of object `o` .
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.getfenv"])
 
-## gethook
+### gethook
 
 
 ```lua
@@ -25117,7 +25117,7 @@ Returns the current hook settings of the thread.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.gethook"])
 
-## getinfo
+### getinfo
 
 
 ```lua
@@ -25144,7 +25144,7 @@ what:
    +> "L" -- `activelines`
 ```
 
-## getlocal
+### getlocal
 
 
 ```lua
@@ -25158,7 +25158,7 @@ Returns the name and the value of the local variable with index `local` of the f
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.getlocal"])
 
-## getmetatable
+### getmetatable
 
 
 ```lua
@@ -25171,7 +25171,7 @@ Returns the metatable of the given value.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.getmetatable"])
 
-## getregistry
+### getregistry
 
 
 ```lua
@@ -25184,7 +25184,7 @@ Returns the registry table.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.getregistry"])
 
-## getupvalue
+### getupvalue
 
 
 ```lua
@@ -25198,7 +25198,7 @@ Returns the name and the value of the upvalue with index `up` of the function.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.getupvalue"])
 
-## getuservalue
+### getuservalue
 
 
 ```lua
@@ -25211,7 +25211,7 @@ Returns the Lua value associated to u.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.getuservalue"])
 
-## setcstacklimit
+### setcstacklimit
 
 
 ```lua
@@ -25220,7 +25220,7 @@ function debug.setcstacklimit(limit: integer)
 ```
 
 
-### **Deprecated in `Lua 5.4.2`**
+#### **Deprecated in `Lua 5.4.2`**
 
 Sets a new limit for the C stack. This limit controls how deeply nested calls can go in Lua, with the intent of avoiding a stack overflow.
 
@@ -25229,7 +25229,7 @@ In case of success, this function returns the old limit. In case of error, it re
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.setcstacklimit"])
 
-## setfenv
+### setfenv
 
 
 ```lua
@@ -25242,7 +25242,7 @@ Sets the environment of the given `object` to the given `table` .
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.setfenv"])
 
-## sethook
+### sethook
 
 
 ```lua
@@ -25264,7 +25264,7 @@ mask:
    +> "l" -- Calls hook when Lua enters a new line of code.
 ```
 
-## setlocal
+### setlocal
 
 
 ```lua
@@ -25277,7 +25277,7 @@ Assigns the `value` to the local variable with index `local` of the function at 
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.setlocal"])
 
-## setmetatable
+### setmetatable
 
 
 ```lua
@@ -25290,7 +25290,7 @@ Sets the metatable for the given value to the given table (which can be `nil`).
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.setmetatable"])
 
-## setupvalue
+### setupvalue
 
 
 ```lua
@@ -25303,7 +25303,7 @@ Assigns the `value` to the upvalue with index `up` of the function.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.setupvalue"])
 
-## setuservalue
+### setuservalue
 
 
 ```lua
@@ -25316,7 +25316,7 @@ Sets the given value as the Lua value associated to the given udata.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.setuservalue"])
 
-## traceback
+### traceback
 
 
 ```lua
@@ -25329,7 +25329,7 @@ Returns a string with a traceback of the call stack. The optional message string
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.traceback"])
 
-## upvalueid
+### upvalueid
 
 
 ```lua
@@ -25342,7 +25342,7 @@ Returns a unique identifier (as a light userdata) for the upvalue numbered `n` f
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.upvalueid"])
 
-## upvaluejoin
+### upvaluejoin
 
 
 ```lua
@@ -25400,14 +25400,14 @@ function error(message: any, level?: integer)
 
 # ffi.cb*
 
-## free
+### free
 
 
 ```lua
 (method) ffi.cb*:free()
 ```
 
-## set
+### set
 
 
 ```lua
@@ -25424,7 +25424,7 @@ function error(message: any, level?: integer)
 
 # ffi.cdecl*
 
-## byte
+### byte
 
 
 ```lua
@@ -25437,7 +25437,7 @@ Returns the internal numeric codes of the characters `s[i], s[i+1], ..., s[j]`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.byte"])
 
-## char
+### char
 
 
 ```lua
@@ -25450,7 +25450,7 @@ Returns a string with length equal to the number of arguments, in which each cha
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.char"])
 
-## dump
+### dump
 
 
 ```lua
@@ -25463,7 +25463,7 @@ Returns a string containing a binary representation (a *binary chunk*) of the gi
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.dump"])
 
-## find
+### find
 
 
 ```lua
@@ -25484,7 +25484,7 @@ Miss locale <string.find>
 
 @*return* `...` — captured
 
-## format
+### format
 
 
 ```lua
@@ -25497,7 +25497,7 @@ Returns a formatted version of its variable number of arguments following the de
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.format"])
 
-## gmatch
+### gmatch
 
 
 ```lua
@@ -25510,7 +25510,7 @@ Miss locale <string.gmatch>
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.gmatch"])
 
-## gsub
+### gsub
 
 
 ```lua
@@ -25524,7 +25524,7 @@ Miss locale <string.gsub>
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.gsub"])
 
-## len
+### len
 
 
 ```lua
@@ -25537,7 +25537,7 @@ Returns its length.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.len"])
 
-## lower
+### lower
 
 
 ```lua
@@ -25550,7 +25550,7 @@ Returns a copy of this string with all uppercase letters changed to lowercase.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.lower"])
 
-## match
+### match
 
 
 ```lua
@@ -25563,7 +25563,7 @@ Miss locale <string.match>
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.match"])
 
-## pack
+### pack
 
 
 ```lua
@@ -25576,7 +25576,7 @@ Miss locale <string.pack>
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.pack"])
 
-## packsize
+### packsize
 
 
 ```lua
@@ -25589,7 +25589,7 @@ Miss locale <string.packsize>
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.packsize"])
 
-## rep
+### rep
 
 
 ```lua
@@ -25602,7 +25602,7 @@ Returns a string that is the concatenation of `n` copies of the string `s` separ
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.rep"])
 
-## reverse
+### reverse
 
 
 ```lua
@@ -25615,7 +25615,7 @@ Returns a string that is the string `s` reversed.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.reverse"])
 
-## sub
+### sub
 
 
 ```lua
@@ -25628,7 +25628,7 @@ Returns the substring of the string that starts at `i` and continues until `j`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.sub"])
 
-## unpack
+### unpack
 
 
 ```lua
@@ -25642,7 +25642,7 @@ Returns the values packed in string according to the format string `fmt` (see [�
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.unpack"])
 
-## upper
+### upper
 
 
 ```lua
@@ -25670,7 +25670,7 @@ Returns a copy of this string with all lowercase letters changed to uppercase.
 
 # ffi.namespace*
 
-## [string]
+### [string]
 
 
 ```lua
@@ -25682,14 +25682,14 @@ function
 
 # ffilib
 
-## C
+### C
 
 
 ```lua
 ffi.namespace*
 ```
 
-## abi
+### abi
 
 
 ```lua
@@ -25697,7 +25697,7 @@ function ffilib.abi(param: string)
   -> status: boolean
 ```
 
-## alignof
+### alignof
 
 
 ```lua
@@ -25705,14 +25705,14 @@ function ffilib.alignof(ct: ffi.cdata*|ffi.cdecl*|ffi.ctype*)
   -> align: integer
 ```
 
-## arch
+### arch
 
 
 ```lua
 string
 ```
 
-## cast
+### cast
 
 
 ```lua
@@ -25720,21 +25720,21 @@ function ffilib.cast(ct: ffi.cdata*|ffi.cdecl*|ffi.ctype*, init: any)
   -> cdata: ffi.cdata*
 ```
 
-## cdef
+### cdef
 
 
 ```lua
 function ffilib.cdef(def: string, params?: any, ...any)
 ```
 
-## copy
+### copy
 
 
 ```lua
 function ffilib.copy(dst: any, src: any, len: integer)
 ```
 
-## errno
+### errno
 
 
 ```lua
@@ -25742,14 +25742,14 @@ function ffilib.errno(newerr?: integer)
   -> err: integer
 ```
 
-## fill
+### fill
 
 
 ```lua
 function ffilib.fill(dst: any, len: integer, c?: any)
 ```
 
-## gc
+### gc
 
 
 ```lua
@@ -25757,7 +25757,7 @@ function ffilib.gc(cdata: ffi.cdata*, finalizer?: function)
   -> cdata: ffi.cdata*
 ```
 
-## istype
+### istype
 
 
 ```lua
@@ -25765,7 +25765,7 @@ function ffilib.istype(ct: ffi.cdata*|ffi.cdecl*|ffi.ctype*, obj: any)
   -> status: boolean
 ```
 
-## load
+### load
 
 
 ```lua
@@ -25773,7 +25773,7 @@ function ffilib.load(name: string, global?: boolean)
   -> clib: ffi.namespace*
 ```
 
-## metatype
+### metatype
 
 
 ```lua
@@ -25781,7 +25781,7 @@ function ffilib.metatype(ct: ffi.cdata*|ffi.cdecl*|ffi.ctype*, metatable: table)
   -> ctype: ffi.ctype*
 ```
 
-## new
+### new
 
 
 ```lua
@@ -25789,7 +25789,7 @@ function ffilib.new(ct: ffi.cdata*|ffi.cdecl*|ffi.ctype*, nelem?: integer, init?
   -> cdata: ffi.cdata*
 ```
 
-## offsetof
+### offsetof
 
 
 ```lua
@@ -25799,14 +25799,14 @@ function ffilib.offsetof(ct: ffi.cdata*|ffi.cdecl*|ffi.ctype*, field: string)
   3. bsize: integer?
 ```
 
-## os
+### os
 
 
 ```lua
 string
 ```
 
-## sizeof
+### sizeof
 
 
 ```lua
@@ -25814,7 +25814,7 @@ function ffilib.sizeof(ct: ffi.cdata*|ffi.cdecl*|ffi.ctype*, nelem?: integer)
   -> size: integer|nil
 ```
 
-## string
+### string
 
 
 ```lua
@@ -25822,7 +25822,7 @@ function ffilib.string(ptr: any, len?: integer)
   -> str: string
 ```
 
-## typeof
+### typeof
 
 
 ```lua
@@ -25835,7 +25835,7 @@ function ffilib.typeof(ct: ffi.cdata*|ffi.cdecl*|ffi.ctype*, params?: any, ...an
 
 # file*
 
-## close
+### close
 
 
 ```lua
@@ -25857,7 +25857,7 @@ exitcode:
     | "signal"
 ```
 
-## flush
+### flush
 
 
 ```lua
@@ -25869,7 +25869,7 @@ Saves any written data to `file`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-file:flush"])
 
-## lines
+### lines
 
 
 ```lua
@@ -25897,7 +25897,7 @@ end
     | "*L" -- Reads the next line keeping the end of line.
 ```
 
-## read
+### read
 
 
 ```lua
@@ -25920,7 +25920,7 @@ Reads the `file`, according to the given formats, which specify what to read.
     | "*L" -- Reads the next line keeping the end of line.
 ```
 
-## seek
+### seek
 
 
 ```lua
@@ -25942,7 +25942,7 @@ whence:
     | "end" -- Base is end of file.
 ```
 
-## setvbuf
+### setvbuf
 
 
 ```lua
@@ -25962,7 +25962,7 @@ mode:
     | "line" -- Buffered until a newline is output.
 ```
 
-## write
+### write
 
 
 ```lua
@@ -26269,7 +26269,7 @@ function io.write(...any)
 
 # iolib
 
-## close
+### close
 
 
 ```lua
@@ -26291,7 +26291,7 @@ exitcode:
     | "signal"
 ```
 
-## flush
+### flush
 
 
 ```lua
@@ -26303,7 +26303,7 @@ Saves any written data to default output file.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-io.flush"])
 
-## input
+### input
 
 
 ```lua
@@ -26315,7 +26315,7 @@ Sets `file` as the default input file.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-io.input"])
 
-## lines
+### lines
 
 
 ```lua
@@ -26343,7 +26343,7 @@ end
     | "*L" -- Reads the next line keeping the end of line.
 ```
 
-## open
+### open
 
 
 ```lua
@@ -26374,7 +26374,7 @@ mode:
     | "a+b" -- Append update mode, previous data is preserved, writing is only allowed at the end of file. (in binary mode.)
 ```
 
-## output
+### output
 
 
 ```lua
@@ -26386,7 +26386,7 @@ Sets `file` as the default output file.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-io.output"])
 
-## popen
+### popen
 
 
 ```lua
@@ -26407,7 +26407,7 @@ mode:
     | "w" -- Write data to this program by `file`.
 ```
 
-## read
+### read
 
 
 ```lua
@@ -26430,7 +26430,7 @@ Reads the `file`, according to the given formats, which specify what to read.
     | "*L" -- Reads the next line keeping the end of line.
 ```
 
-## stderr
+### stderr
 
 
 ```lua
@@ -26443,7 +26443,7 @@ standard error.
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-io.stderr"])
 
 
-## stdin
+### stdin
 
 
 ```lua
@@ -26456,7 +26456,7 @@ standard input.
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-io.stdin"])
 
 
-## stdout
+### stdout
 
 
 ```lua
@@ -26469,7 +26469,7 @@ standard output.
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-io.stdout"])
 
 
-## tmpfile
+### tmpfile
 
 
 ```lua
@@ -26482,7 +26482,7 @@ In case of success, returns a handle for a temporary file.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-io.tmpfile"])
 
-## type
+### type
 
 
 ```lua
@@ -26503,7 +26503,7 @@ return #1:
     | `nil` -- Is not a file handle.
 ```
 
-## write
+### write
 
 
 ```lua
@@ -26555,7 +26555,7 @@ function jit.flush(func: boolean|function, recursive?: boolean)
 
 # jit.funcinfo.c
 
-## ffid
+### ffid
 
 
 ```lua
@@ -26634,49 +26634,49 @@ function jit.status()
 
 # jitlib
 
-## arch
+### arch
 
 
 ```lua
 string|'arm'|'arm64'|'arm64be'|'mips'...(+8)
 ```
 
-## flush
+### flush
 
 
 ```lua
 function jit.flush(func: boolean|function, recursive?: boolean)
 ```
 
-## off
+### off
 
 
 ```lua
 function jit.off(func: boolean|function, recursive?: boolean)
 ```
 
-## on
+### on
 
 
 ```lua
 function jit.on(func: boolean|function, recursive?: boolean)
 ```
 
-## opt
+### opt
 
 
 ```lua
 table
 ```
 
-## os
+### os
 
 
 ```lua
 'BSD'|'Linux'|'OSX'|'Other'|'POSIX'...(+1)
 ```
 
-## status
+### status
 
 
 ```lua
@@ -26685,14 +26685,14 @@ function jit.status()
   2. ...string
 ```
 
-## version
+### version
 
 
 ```lua
 string
 ```
 
-## version_num
+### version_num
 
 
 ```lua
@@ -26755,7 +26755,7 @@ function loadstring(text: string, chunkname?: string)
 
 # love
 
-## audio
+### audio
 
 
 ```lua
@@ -26769,14 +26769,14 @@ Provides an interface to create noise with the user's speakers.
 [Open in Browser](https://love2d.org/wiki/love.audio)
 
 
-## conf
+### conf
 
 
 ```lua
 function love.conf(t: any)
 ```
 
-## data
+### data
 
 
 ```lua
@@ -26790,7 +26790,7 @@ Provides functionality for creating and transforming data.
 [Open in Browser](https://love2d.org/wiki/love.data)
 
 
-## event
+### event
 
 
 ```lua
@@ -26804,7 +26804,7 @@ Manages events, like keypresses.
 [Open in Browser](https://love2d.org/wiki/love.event)
 
 
-## filesystem
+### filesystem
 
 
 ```lua
@@ -26818,7 +26818,7 @@ Provides an interface to the user's filesystem.
 [Open in Browser](https://love2d.org/wiki/love.filesystem)
 
 
-## font
+### font
 
 
 ```lua
@@ -26832,7 +26832,7 @@ Allows you to work with fonts.
 [Open in Browser](https://love2d.org/wiki/love.font)
 
 
-## getVersion
+### getVersion
 
 
 ```lua
@@ -26857,7 +26857,7 @@ Gets the current running version of LÖVE.
 
 @*return* `codename` — The codename of the current version, i.e. 'Baby Inspector' for version 0.9.1.
 
-## graphics
+### graphics
 
 
 ```lua
@@ -26877,7 +26877,7 @@ Many of the functions are used to manipulate the graphics coordinate system, whi
 [Open in Browser](https://love2d.org/wiki/love.graphics)
 
 
-## hasDeprecationOutput
+### hasDeprecationOutput
 
 
 ```lua
@@ -26895,7 +26895,7 @@ When deprecation output is enabled, the first use of a formally deprecated LÖVE
 
 @*return* `enabled` — Whether deprecation output is enabled.
 
-## image
+### image
 
 
 ```lua
@@ -26909,7 +26909,7 @@ Provides an interface to decode encoded image data.
 [Open in Browser](https://love2d.org/wiki/love.image)
 
 
-## isVersionCompatible
+### isVersionCompatible
 
 
 ```lua
@@ -26930,7 +26930,7 @@ Gets whether the given version is compatible with the current running version of
 
 @*return* `compatible` — Whether the given version is compatible with the current running version of LÖVE.
 
-## joystick
+### joystick
 
 
 ```lua
@@ -26944,7 +26944,7 @@ Provides an interface to the user's joystick.
 [Open in Browser](https://love2d.org/wiki/love.joystick)
 
 
-## keyboard
+### keyboard
 
 
 ```lua
@@ -26958,7 +26958,7 @@ Provides an interface to the user's keyboard.
 [Open in Browser](https://love2d.org/wiki/love.keyboard)
 
 
-## math
+### math
 
 
 ```lua
@@ -26972,7 +26972,7 @@ Provides system-independent mathematical functions.
 [Open in Browser](https://love2d.org/wiki/love.math)
 
 
-## mouse
+### mouse
 
 
 ```lua
@@ -26986,7 +26986,7 @@ Provides an interface to the user's mouse.
 [Open in Browser](https://love2d.org/wiki/love.mouse)
 
 
-## physics
+### physics
 
 
 ```lua
@@ -27000,7 +27000,7 @@ Can simulate 2D rigid body physics in a realistic manner. This module is based o
 [Open in Browser](https://love2d.org/wiki/love.physics)
 
 
-## setDeprecationOutput
+### setDeprecationOutput
 
 
 ```lua
@@ -27017,7 +27017,7 @@ When deprecation output is enabled, the first use of a formally deprecated LÖVE
 
 @*param* `enable` — Whether to enable or disable deprecation output.
 
-## sound
+### sound
 
 
 ```lua
@@ -27031,7 +27031,7 @@ This module is responsible for decoding sound files. It can't play the sounds, s
 [Open in Browser](https://love2d.org/wiki/love.sound)
 
 
-## system
+### system
 
 
 ```lua
@@ -27045,7 +27045,7 @@ Provides access to information about the user's system.
 [Open in Browser](https://love2d.org/wiki/love.system)
 
 
-## thread
+### thread
 
 
 ```lua
@@ -27065,7 +27065,7 @@ When a Thread is started, it only loads the love.thread module. Every other modu
 [Open in Browser](https://love2d.org/wiki/love.thread)
 
 
-## timer
+### timer
 
 
 ```lua
@@ -27079,7 +27079,7 @@ Provides an interface to the user's clock.
 [Open in Browser](https://love2d.org/wiki/love.timer)
 
 
-## touch
+### touch
 
 
 ```lua
@@ -27093,7 +27093,7 @@ Provides an interface to touch-screen presses.
 [Open in Browser](https://love2d.org/wiki/love.touch)
 
 
-## video
+### video
 
 
 ```lua
@@ -27109,7 +27109,7 @@ It can't draw the videos, see love.graphics.newVideo and Video objects for that.
 [Open in Browser](https://love2d.org/wiki/love.video)
 
 
-## window
+### window
 
 
 ```lua
@@ -27153,7 +27153,7 @@ love
 
 # love.BezierCurve
 
-## evaluate
+### evaluate
 
 
 ```lua
@@ -27176,7 +27176,7 @@ This function can be used to move objects along paths or tween parameters. Howev
 
 @*return* `y` — y coordinate of the curve at parameter t.
 
-## getControlPoint
+### getControlPoint
 
 
 ```lua
@@ -27197,7 +27197,7 @@ Get coordinates of the i-th control point. Indices start with 1.
 
 @*return* `y` — Position of the control point along the y axis.
 
-## getControlPointCount
+### getControlPointCount
 
 
 ```lua
@@ -27213,7 +27213,7 @@ Get the number of control points in the Bézier curve.
 
 @*return* `count` — The number of control points.
 
-## getDegree
+### getDegree
 
 
 ```lua
@@ -27229,7 +27229,7 @@ Get degree of the Bézier curve. The degree is equal to number-of-control-points
 
 @*return* `degree` — Degree of the Bézier curve.
 
-## getDerivative
+### getDerivative
 
 
 ```lua
@@ -27247,7 +27247,7 @@ This function can be used to rotate sprites moving along a curve in the directio
 
 @*return* `derivative` — The derivative curve.
 
-## getSegment
+### getSegment
 
 
 ```lua
@@ -27267,7 +27267,7 @@ Gets a BezierCurve that corresponds to the specified segment of this BezierCurve
 
 @*return* `curve` — A BezierCurve that corresponds to the specified segment.
 
-## insertControlPoint
+### insertControlPoint
 
 
 ```lua
@@ -27286,7 +27286,7 @@ Insert control point as the new i-th control point. Existing control points from
 
 @*param* `i` — Index of the control point.
 
-## release
+### release
 
 
 ```lua
@@ -27304,7 +27304,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## removeControlPoint
+### removeControlPoint
 
 
 ```lua
@@ -27319,7 +27319,7 @@ Removes the specified control point.
 
 @*param* `index` — The index of the control point to remove.
 
-## render
+### render
 
 
 ```lua
@@ -27341,7 +27341,7 @@ If you are just interested to know the position on the curve given a parameter, 
 
 @*return* `coordinates` — List of x,y-coordinate pairs of points on the curve.
 
-## renderSegment
+### renderSegment
 
 
 ```lua
@@ -27367,7 +27367,7 @@ If you are just need to know the position on the curve given a parameter, use Be
 
 @*return* `coordinates` — List of x,y-coordinate pairs of points on the specified part of the curve.
 
-## rotate
+### rotate
 
 
 ```lua
@@ -27386,7 +27386,7 @@ Rotate the Bézier curve by an angle.
 
 @*param* `oy` — Y coordinate of the rotation center.
 
-## scale
+### scale
 
 
 ```lua
@@ -27405,7 +27405,7 @@ Scale the Bézier curve by a factor.
 
 @*param* `oy` — Y coordinate of the scaling center.
 
-## setControlPoint
+### setControlPoint
 
 
 ```lua
@@ -27424,7 +27424,7 @@ Set coordinates of the i-th control point. Indices start with 1.
 
 @*param* `y` — Position of the control point along the y axis.
 
-## translate
+### translate
 
 
 ```lua
@@ -27441,7 +27441,7 @@ Move the Bézier curve by an offset.
 
 @*param* `dy` — Offset along the y axis.
 
-## type
+### type
 
 
 ```lua
@@ -27457,7 +27457,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -27490,7 +27490,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Body
 
-## applyAngularImpulse
+### applyAngularImpulse
 
 
 ```lua
@@ -27507,7 +27507,7 @@ A body with with a larger mass will react less. The reaction does '''not''' depe
 
 @*param* `impulse` — The impulse in kilogram-square meter per second.
 
-## applyForce
+### applyForce
 
 
 ```lua
@@ -27533,7 +27533,7 @@ Note that the force components and position must be given in world coordinates.
 
 @*param* `fy` — The y component of force to apply to the center of mass.
 
-## applyLinearImpulse
+### applyLinearImpulse
 
 
 ```lua
@@ -27561,7 +27561,7 @@ Note that the impulse components and position must be given in world coordinates
 
 @*param* `iy` — The y component of the impulse applied to the center of mass.
 
-## applyTorque
+### applyTorque
 
 
 ```lua
@@ -27578,7 +27578,7 @@ Torque is like a force that will change the angular velocity (spin) of a body. T
 
 @*param* `torque` — The torque to apply.
 
-## destroy
+### destroy
 
 
 ```lua
@@ -27593,7 +27593,7 @@ An error will occur if you attempt to use the object after calling this function
 
 [Open in Browser](https://love2d.org/wiki/Body:destroy)
 
-## getAngle
+### getAngle
 
 
 ```lua
@@ -27613,7 +27613,7 @@ A value of 0 radians will mean 'looking to the right'. Although radians increase
 
 @*return* `angle` — The angle in radians.
 
-## getAngularDamping
+### getAngularDamping
 
 
 ```lua
@@ -27635,7 +27635,7 @@ Damping parameters should be between 0 and infinity, with 0 meaning no damping, 
 
 @*return* `damping` — The value of the angular damping.
 
-## getAngularVelocity
+### getAngularVelocity
 
 
 ```lua
@@ -27657,7 +27657,7 @@ If you need the ''rate of change of position over time'', use Body:getLinearVelo
 
 @*return* `w` — The angular velocity in radians/second.
 
-## getContacts
+### getContacts
 
 
 ```lua
@@ -27673,7 +27673,7 @@ Gets a list of all Contacts attached to the Body.
 
 @*return* `contacts` — A list with all contacts associated with the Body.
 
-## getFixtures
+### getFixtures
 
 
 ```lua
@@ -27689,7 +27689,7 @@ Returns a table with all fixtures.
 
 @*return* `fixtures` — A sequence with all fixtures.
 
-## getGravityScale
+### getGravityScale
 
 
 ```lua
@@ -27705,7 +27705,7 @@ Returns the gravity scale factor.
 
 @*return* `scale` — The gravity scale factor.
 
-## getInertia
+### getInertia
 
 
 ```lua
@@ -27723,7 +27723,7 @@ The rotational inertia is how hard is it to make the body spin.
 
 @*return* `inertia` — The rotational inertial of the body.
 
-## getJoints
+### getJoints
 
 
 ```lua
@@ -27739,7 +27739,7 @@ Returns a table containing the Joints attached to this Body.
 
 @*return* `joints` — A sequence with the Joints attached to the Body.
 
-## getLinearDamping
+### getLinearDamping
 
 
 ```lua
@@ -27759,7 +27759,7 @@ Damping is not the same as friction - they can be modelled together.
 
 @*return* `damping` — The value of the linear damping.
 
-## getLinearVelocity
+### getLinearVelocity
 
 
 ```lua
@@ -27790,7 +27790,7 @@ See page 136 of 'Essential Mathematics for Games and Interactive Applications' f
 
 @*return* `y` — The y-component of the velocity vector
 
-## getLinearVelocityFromLocalPoint
+### getLinearVelocityFromLocalPoint
 
 
 ```lua
@@ -27817,7 +27817,7 @@ The point on the body must given in local coordinates. Use Body:getLinearVelocit
 
 @*return* `vy` — The y component of velocity at point (x,y).
 
-## getLinearVelocityFromWorldPoint
+### getLinearVelocityFromWorldPoint
 
 
 ```lua
@@ -27844,7 +27844,7 @@ The point on the body must given in world coordinates. Use Body:getLinearVelocit
 
 @*return* `vy` — The y component of velocity at point (x,y).
 
-## getLocalCenter
+### getLocalCenter
 
 
 ```lua
@@ -27865,7 +27865,7 @@ Use Body:getWorldCenter to get the center of mass in world coordinates.
 
 @*return* `y` — The y coordinate of the center of mass.
 
-## getLocalPoint
+### getLocalPoint
 
 
 ```lua
@@ -27888,7 +27888,7 @@ Transform a point from world coordinates to local coordinates.
 
 @*return* `localY` — The y position in local coordinates.
 
-## getLocalPoints
+### getLocalPoints
 
 
 ```lua
@@ -27921,7 +27921,7 @@ Transforms multiple points from world coordinates to local coordinates.
 
 @*return* `y2` — (Result) The transformed y position of the second point.
 
-## getLocalVector
+### getLocalVector
 
 
 ```lua
@@ -27944,7 +27944,7 @@ Transform a vector from world coordinates to local coordinates.
 
 @*return* `localY` — The vector y component in local coordinates.
 
-## getMass
+### getMass
 
 
 ```lua
@@ -27962,7 +27962,7 @@ Static bodies always have a mass of 0.
 
 @*return* `mass` — The mass of the body (in kilograms).
 
-## getMassData
+### getMassData
 
 
 ```lua
@@ -27987,7 +27987,7 @@ Returns the mass, its center, and the rotational inertia.
 
 @*return* `inertia` — The rotational inertia.
 
-## getPosition
+### getPosition
 
 
 ```lua
@@ -28008,7 +28008,7 @@ Note that this may not be the center of mass of the body.
 
 @*return* `y` — The y position.
 
-## getTransform
+### getTransform
 
 
 ```lua
@@ -28032,7 +28032,7 @@ Note that the position may not be the center of mass of the body. An angle of 0 
 
 @*return* `angle` — The angle in radians.
 
-## getType
+### getType
 
 
 ```lua
@@ -28061,7 +28061,7 @@ type:
     | "kinematic" -- Kinematic bodies only collide with dynamic bodies.
 ```
 
-## getUserData
+### getUserData
 
 
 ```lua
@@ -28077,7 +28077,7 @@ Returns the Lua value associated with this Body.
 
 @*return* `value` — The Lua value associated with the Body.
 
-## getWorld
+### getWorld
 
 
 ```lua
@@ -28093,7 +28093,7 @@ Gets the World the body lives in.
 
 @*return* `world` — The world the body lives in.
 
-## getWorldCenter
+### getWorldCenter
 
 
 ```lua
@@ -28114,7 +28114,7 @@ Use Body:getLocalCenter to get the center of mass in local coordinates.
 
 @*return* `y` — The y coordinate of the center of mass.
 
-## getWorldPoint
+### getWorldPoint
 
 
 ```lua
@@ -28137,7 +28137,7 @@ Transform a point from local coordinates to world coordinates.
 
 @*return* `worldY` — The y position in world coordinates.
 
-## getWorldPoints
+### getWorldPoints
 
 
 ```lua
@@ -28170,7 +28170,7 @@ Transforms multiple points from local coordinates to world coordinates.
 
 @*return* `y2` — The transformed y position of the second point.
 
-## getWorldVector
+### getWorldVector
 
 
 ```lua
@@ -28193,7 +28193,7 @@ Transform a vector from local coordinates to world coordinates.
 
 @*return* `worldY` — The vector y component in world coordinates.
 
-## getX
+### getX
 
 
 ```lua
@@ -28209,7 +28209,7 @@ Get the x position of the body in world coordinates.
 
 @*return* `x` — The x position in world coordinates.
 
-## getY
+### getY
 
 
 ```lua
@@ -28225,7 +28225,7 @@ Get the y position of the body in world coordinates.
 
 @*return* `y` — The y position in world coordinates.
 
-## isActive
+### isActive
 
 
 ```lua
@@ -28241,7 +28241,7 @@ Returns whether the body is actively used in the simulation.
 
 @*return* `status` — True if the body is active or false if not.
 
-## isAwake
+### isAwake
 
 
 ```lua
@@ -28257,7 +28257,7 @@ Returns the sleep status of the body.
 
 @*return* `status` — True if the body is awake or false if not.
 
-## isBullet
+### isBullet
 
 
 ```lua
@@ -28283,7 +28283,7 @@ Note that static bodies (with zero mass) always use CCD, so your walls will not 
 
 @*return* `status` — The bullet status of the body.
 
-## isDestroyed
+### isDestroyed
 
 
 ```lua
@@ -28299,7 +28299,7 @@ Gets whether the Body is destroyed. Destroyed bodies cannot be used.
 
 @*return* `destroyed` — Whether the Body is destroyed.
 
-## isFixedRotation
+### isFixedRotation
 
 
 ```lua
@@ -28315,7 +28315,7 @@ Returns whether the body rotation is locked.
 
 @*return* `fixed` — True if the body's rotation is locked or false if not.
 
-## isSleepingAllowed
+### isSleepingAllowed
 
 
 ```lua
@@ -28331,7 +28331,7 @@ Returns the sleeping behaviour of the body.
 
 @*return* `allowed` — True if the body is allowed to sleep or false if not.
 
-## isTouching
+### isTouching
 
 
 ```lua
@@ -28349,7 +28349,7 @@ Gets whether the Body is touching the given other Body.
 
 @*return* `touching` — True if this body is touching the other body, false otherwise.
 
-## release
+### release
 
 
 ```lua
@@ -28367,7 +28367,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## resetMassData
+### resetMassData
 
 
 ```lua
@@ -28380,7 +28380,7 @@ Resets the mass of the body by recalculating it from the mass properties of the 
 
 [Open in Browser](https://love2d.org/wiki/Body:resetMassData)
 
-## setActive
+### setActive
 
 
 ```lua
@@ -28397,7 +28397,7 @@ An inactive body does not take part in the simulation. It will not move or cause
 
 @*param* `active` — If the body is active or not.
 
-## setAngle
+### setAngle
 
 
 ```lua
@@ -28418,7 +28418,7 @@ It is possible to cause a collision with another body by changing its angle.
 
 @*param* `angle` — The angle in radians.
 
-## setAngularDamping
+### setAngularDamping
 
 
 ```lua
@@ -28437,7 +28437,7 @@ Angular damping can take any value from 0 to infinity. It is recommended to stay
 
 @*param* `damping` — The new angular damping.
 
-## setAngularVelocity
+### setAngularVelocity
 
 
 ```lua
@@ -28456,7 +28456,7 @@ This function will not accumulate anything; any impulses previously applied sinc
 
 @*param* `w` — The new angular velocity, in radians per second
 
-## setAwake
+### setAwake
 
 
 ```lua
@@ -28471,7 +28471,7 @@ Wakes the body up or puts it to sleep.
 
 @*param* `awake` — The body sleep status.
 
-## setBullet
+### setBullet
 
 
 ```lua
@@ -28496,7 +28496,7 @@ Note that static bodies (with zero mass) always use CCD, so your walls will not 
 
 @*param* `status` — The bullet status of the body.
 
-## setFixedRotation
+### setFixedRotation
 
 
 ```lua
@@ -28513,7 +28513,7 @@ Bodies with fixed rotation don't vary the speed at which they rotate. Calling th
 
 @*param* `isFixed` — Whether the body should have fixed rotation.
 
-## setGravityScale
+### setGravityScale
 
 
 ```lua
@@ -28528,7 +28528,7 @@ Sets a new gravity scale factor for the body.
 
 @*param* `scale` — The new gravity scale factor.
 
-## setInertia
+### setInertia
 
 
 ```lua
@@ -28543,7 +28543,7 @@ Set the inertia of a body.
 
 @*param* `inertia` — The new moment of inertia, in kilograms * pixel squared.
 
-## setLinearDamping
+### setLinearDamping
 
 
 ```lua
@@ -28562,7 +28562,7 @@ Linear damping can take any value from 0 to infinity. It is recommended to stay 
 
 @*param* `ld` — The new linear damping
 
-## setLinearVelocity
+### setLinearVelocity
 
 
 ```lua
@@ -28581,7 +28581,7 @@ This function will not accumulate anything; any impulses previously applied sinc
 
 @*param* `y` — The y-component of the velocity vector.
 
-## setMass
+### setMass
 
 
 ```lua
@@ -28596,7 +28596,7 @@ Sets a new body mass.
 
 @*param* `mass` — The mass, in kilograms.
 
-## setMassData
+### setMassData
 
 
 ```lua
@@ -28617,7 +28617,7 @@ Overrides the calculated mass data.
 
 @*param* `inertia` — The rotational inertia.
 
-## setPosition
+### setPosition
 
 
 ```lua
@@ -28638,7 +28638,7 @@ This function cannot wake up the body.
 
 @*param* `y` — The y position.
 
-## setSleepingAllowed
+### setSleepingAllowed
 
 
 ```lua
@@ -28653,7 +28653,7 @@ Sets the sleeping behaviour of the body. Should sleeping be allowed, a body at r
 
 @*param* `allowed` — True if the body is allowed to sleep or false if not.
 
-## setTransform
+### setTransform
 
 
 ```lua
@@ -28676,7 +28676,7 @@ This function cannot wake up the body.
 
 @*param* `angle` — The angle in radians.
 
-## setType
+### setType
 
 
 ```lua
@@ -28704,7 +28704,7 @@ type:
     | "kinematic" -- Kinematic bodies only collide with dynamic bodies.
 ```
 
-## setUserData
+### setUserData
 
 
 ```lua
@@ -28721,7 +28721,7 @@ To delete the reference, explicitly pass nil.
 
 @*param* `value` — The Lua value to associate with the Body.
 
-## setX
+### setX
 
 
 ```lua
@@ -28738,7 +28738,7 @@ This function cannot wake up the body.
 
 @*param* `x` — The x position.
 
-## setY
+### setY
 
 
 ```lua
@@ -28755,7 +28755,7 @@ This function cannot wake up the body.
 
 @*param* `y` — The y position.
 
-## type
+### type
 
 
 ```lua
@@ -28771,7 +28771,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -28804,7 +28804,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.ByteData
 
-## clone
+### clone
 
 
 ```lua
@@ -28820,7 +28820,7 @@ Creates a new copy of the Data object.
 
 @*return* `clone` — The new copy.
 
-## getFFIPointer
+### getFFIPointer
 
 
 ```lua
@@ -28838,7 +28838,7 @@ This function should be preferred instead of Data:getPointer because the latter 
 
 @*return* `pointer` — A raw void* pointer to the Data, or nil if FFI is unavailable.
 
-## getPointer
+### getPointer
 
 
 ```lua
@@ -28854,7 +28854,7 @@ Gets a pointer to the Data. Can be used with libraries such as LuaJIT's FFI.
 
 @*return* `pointer` — A raw pointer to the Data.
 
-## getSize
+### getSize
 
 
 ```lua
@@ -28870,7 +28870,7 @@ Gets the Data's size in bytes.
 
 @*return* `size` — The size of the Data in bytes.
 
-## getString
+### getString
 
 
 ```lua
@@ -28886,7 +28886,7 @@ Gets the full Data as a string.
 
 @*return* `data` — The raw data.
 
-## release
+### release
 
 
 ```lua
@@ -28904,7 +28904,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## type
+### type
 
 
 ```lua
@@ -28920,7 +28920,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -28943,7 +28943,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Canvas
 
-## generateMipmaps
+### generateMipmaps
 
 
 ```lua
@@ -28960,7 +28960,7 @@ If the mipmap mode is set to 'auto', this function is automatically called insid
 
 [Open in Browser](https://love2d.org/wiki/Canvas:generateMipmaps)
 
-## getDPIScale
+### getDPIScale
 
 
 ```lua
@@ -28980,7 +28980,7 @@ For example, a texture with pixel dimensions of 100x100 with a DPI scale factor 
 
 @*return* `dpiscale` — The DPI scale factor of the Texture.
 
-## getDepth
+### getDepth
 
 
 ```lua
@@ -28996,7 +28996,7 @@ Gets the depth of a Volume Texture. Returns 1 for 2D, Cubemap, and Array texture
 
 @*return* `depth` — The depth of the volume Texture.
 
-## getDepthSampleMode
+### getDepthSampleMode
 
 
 ```lua
@@ -29038,7 +29038,7 @@ compare:
     | "always" -- Objects will always be drawn. Effectively disables the depth or stencil test.
 ```
 
-## getDimensions
+### getDimensions
 
 
 ```lua
@@ -29057,7 +29057,7 @@ Gets the width and height of the Texture.
 
 @*return* `height` — The height of the Texture.
 
-## getFilter
+### getFilter
 
 
 ```lua
@@ -29101,7 +29101,7 @@ mag:
     | "nearest" -- Scale image with nearest neighbor interpolation.
 ```
 
-## getFormat
+### getFormat
 
 
 ```lua
@@ -29191,7 +29191,7 @@ format:
     | "ASTC12x12" -- The 12x12 pixels per block variant of the ASTC format. RGBA data at 0.89 bits per pixel.
 ```
 
-## getHeight
+### getHeight
 
 
 ```lua
@@ -29207,7 +29207,7 @@ Gets the height of the Texture.
 
 @*return* `height` — The height of the Texture.
 
-## getLayerCount
+### getLayerCount
 
 
 ```lua
@@ -29223,7 +29223,7 @@ Gets the number of layers / slices in an Array Texture. Returns 1 for 2D, Cubema
 
 @*return* `layers` — The number of layers in the Array Texture.
 
-## getMSAA
+### getMSAA
 
 
 ```lua
@@ -29241,7 +29241,7 @@ This may be different than the number used as an argument to love.graphics.newCa
 
 @*return* `samples` — The number of multisample antialiasing samples used by the canvas when drawing to it.
 
-## getMipmapCount
+### getMipmapCount
 
 
 ```lua
@@ -29257,7 +29257,7 @@ Gets the number of mipmaps contained in the Texture. If the texture was not crea
 
 @*return* `mipmaps` — The number of mipmaps in the Texture.
 
-## getMipmapFilter
+### getMipmapFilter
 
 
 ```lua
@@ -29288,7 +29288,7 @@ mode:
     | "nearest" -- Scale image with nearest neighbor interpolation.
 ```
 
-## getMipmapMode
+### getMipmapMode
 
 
 ```lua
@@ -29317,7 +29317,7 @@ mode:
     | "manual" -- The Canvas has mipmaps, and all mipmap levels will automatically be recomputed when switching away from the Canvas with love.graphics.setCanvas.
 ```
 
-## getPixelDimensions
+### getPixelDimensions
 
 
 ```lua
@@ -29338,7 +29338,7 @@ Texture:getDimensions gets the dimensions of the texture in units scaled by the 
 
 @*return* `pixelheight` — The height of the Texture, in pixels.
 
-## getPixelHeight
+### getPixelHeight
 
 
 ```lua
@@ -29356,7 +29356,7 @@ DPI scale factor, rather than pixels. Use getHeight for calculations related to 
 
 @*return* `pixelheight` — The height of the Texture, in pixels.
 
-## getPixelWidth
+### getPixelWidth
 
 
 ```lua
@@ -29374,7 +29374,7 @@ DPI scale factor, rather than pixels. Use getWidth for calculations related to d
 
 @*return* `pixelwidth` — The width of the Texture, in pixels.
 
-## getTextureType
+### getTextureType
 
 
 ```lua
@@ -29404,7 +29404,7 @@ texturetype:
     | "volume" -- 3D texture with width, height, and depth. Requires a custom shader to use. Volume textures can have texture filtering applied along the 3rd axis.
 ```
 
-## getWidth
+### getWidth
 
 
 ```lua
@@ -29420,7 +29420,7 @@ Gets the width of the Texture.
 
 @*return* `width` — The width of the Texture.
 
-## getWrap
+### getWrap
 
 
 ```lua
@@ -29482,7 +29482,7 @@ depth:
     | "clampzero" -- Clamp the texture. Fills the area outside the texture's normal range with transparent black (or opaque black for textures with no alpha channel.)
 ```
 
-## isReadable
+### isReadable
 
 
 ```lua
@@ -29502,7 +29502,7 @@ Non-readable Canvases can still be rendered to.
 
 @*return* `readable` — Whether the Texture is readable.
 
-## newImageData
+### newImageData
 
 
 ```lua
@@ -29521,7 +29521,7 @@ Generates ImageData from the contents of the Canvas.
 
 @*return* `data` — The new ImageData made from the Canvas' contents.
 
-## release
+### release
 
 
 ```lua
@@ -29539,7 +29539,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## renderTo
+### renderTo
 
 
 ```lua
@@ -29566,7 +29566,7 @@ love.graphics.setCanvas()
 
 @*param* `func` — A function performing drawing operations.
 
-## setDepthSampleMode
+### setDepthSampleMode
 
 
 ```lua
@@ -29609,7 +29609,7 @@ compare:
     | "always" -- Objects will always be drawn. Effectively disables the depth or stencil test.
 ```
 
-## setFilter
+### setFilter
 
 
 ```lua
@@ -29650,7 +29650,7 @@ mag:
     | "nearest" -- Scale image with nearest neighbor interpolation.
 ```
 
-## setMipmapFilter
+### setMipmapFilter
 
 
 ```lua
@@ -29688,7 +29688,7 @@ filtermode:
     | "nearest" -- Scale image with nearest neighbor interpolation.
 ```
 
-## setWrap
+### setWrap
 
 
 ```lua
@@ -29749,7 +29749,7 @@ depth:
     | "clampzero" -- Clamp the texture. Fills the area outside the texture's normal range with transparent black (or opaque black for textures with no alpha channel.)
 ```
 
-## type
+### type
 
 
 ```lua
@@ -29765,7 +29765,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -29788,7 +29788,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.ChainShape
 
-## computeAABB
+### computeAABB
 
 
 ```lua
@@ -29821,7 +29821,7 @@ Returns the points of the bounding box for the transformed shape.
 
 @*return* `bottomRightY` — The y position of the bottom-right point.
 
-## computeMass
+### computeMass
 
 
 ```lua
@@ -29848,7 +29848,7 @@ Computes the mass properties for the shape with the specified density.
 
 @*return* `inertia` — The rotational inertia.
 
-## getChildCount
+### getChildCount
 
 
 ```lua
@@ -29864,7 +29864,7 @@ Returns the number of children the shape has.
 
 @*return* `count` — The number of children.
 
-## getChildEdge
+### getChildEdge
 
 
 ```lua
@@ -29882,7 +29882,7 @@ Returns a child of the shape as an EdgeShape.
 
 @*return* `shape` — The child as an EdgeShape.
 
-## getNextVertex
+### getNextVertex
 
 
 ```lua
@@ -29903,7 +29903,7 @@ Setting next and previous ChainShape vertices can help prevent unwanted collisio
 
 @*return* `y` — The y-component of the vertex, or nil if ChainShape:setNextVertex hasn't been called.
 
-## getPoint
+### getPoint
 
 
 ```lua
@@ -29924,7 +29924,7 @@ Returns a point of the shape.
 
 @*return* `y` — The y-coordinate of the point.
 
-## getPoints
+### getPoints
 
 
 ```lua
@@ -29949,7 +29949,7 @@ Returns all points of the shape.
 
 @*return* `y2` — The y-coordinate of the second point.
 
-## getPreviousVertex
+### getPreviousVertex
 
 
 ```lua
@@ -29970,7 +29970,7 @@ Setting next and previous ChainShape vertices can help prevent unwanted collisio
 
 @*return* `y` — The y-component of the vertex, or nil if ChainShape:setPreviousVertex hasn't been called.
 
-## getRadius
+### getRadius
 
 
 ```lua
@@ -29986,7 +29986,7 @@ Gets the radius of the shape.
 
 @*return* `radius` — The radius of the shape.
 
-## getType
+### getType
 
 
 ```lua
@@ -30018,7 +30018,7 @@ type:
     | "chain" -- The Shape is a ChainShape.
 ```
 
-## getVertexCount
+### getVertexCount
 
 
 ```lua
@@ -30034,7 +30034,7 @@ Returns the number of vertices the shape has.
 
 @*return* `count` — The number of vertices.
 
-## rayCast
+### rayCast
 
 
 ```lua
@@ -30082,7 +30082,7 @@ hitx, hity = x1 + (x2 - x1) * fraction, y1 + (y2 - y1) * fraction
 
 @*return* `fraction` — The position on the input line where the intersection happened as a factor of the line length.
 
-## release
+### release
 
 
 ```lua
@@ -30100,7 +30100,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setNextVertex
+### setNextVertex
 
 
 ```lua
@@ -30119,7 +30119,7 @@ This can help prevent unwanted collisions when a flat shape slides along the edg
 
 @*param* `y` — The y-component of the vertex.
 
-## setPreviousVertex
+### setPreviousVertex
 
 
 ```lua
@@ -30138,7 +30138,7 @@ This can help prevent unwanted collisions when a flat shape slides along the edg
 
 @*param* `y` — The y-component of the vertex.
 
-## testPoint
+### testPoint
 
 
 ```lua
@@ -30164,7 +30164,7 @@ This is particularly useful for mouse interaction with the shapes. By looping th
 
 @*return* `hit` — True if inside, false if outside
 
-## type
+### type
 
 
 ```lua
@@ -30180,7 +30180,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -30203,7 +30203,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Channel
 
-## clear
+### clear
 
 
 ```lua
@@ -30216,7 +30216,7 @@ Clears all the messages in the Channel queue.
 
 [Open in Browser](https://love2d.org/wiki/Channel:clear)
 
-## demand
+### demand
 
 
 ```lua
@@ -30237,7 +30237,7 @@ It waits until a message is in the queue then returns the message value.
 
 @*return* `value` — The contents of the message.
 
-## getCount
+### getCount
 
 
 ```lua
@@ -30253,7 +30253,7 @@ Retrieves the number of messages in the thread Channel queue.
 
 @*return* `count` — The number of messages in the queue.
 
-## hasRead
+### hasRead
 
 
 ```lua
@@ -30271,7 +30271,7 @@ Gets whether a pushed value has been popped or otherwise removed from the Channe
 
 @*return* `hasread` — Whether the value represented by the id has been removed from the Channel via Channel:pop, Channel:demand, or Channel:clear.
 
-## peek
+### peek
 
 
 ```lua
@@ -30289,7 +30289,7 @@ It returns nil if there's no message in the queue.
 
 @*return* `value` — The contents of the message.
 
-## performAtomic
+### performAtomic
 
 
 ```lua
@@ -30313,7 +30313,7 @@ This method avoids that issue by making sure the Thread calling the method has e
 
 @*return* `ret1` — The first return value of the given function (if any.)
 
-## pop
+### pop
 
 
 ```lua
@@ -30331,7 +30331,7 @@ It returns nil if there are no messages in the queue.
 
 @*return* `value` — The contents of the message.
 
-## push
+### push
 
 
 ```lua
@@ -30351,7 +30351,7 @@ See Variant for the list of supported types.
 
 @*return* `id` — Identifier which can be supplied to Channel:hasRead
 
-## release
+### release
 
 
 ```lua
@@ -30369,7 +30369,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## supply
+### supply
 
 
 ```lua
@@ -30392,7 +30392,7 @@ See Variant for the list of supported types.
 
 @*return* `success` — Whether the message was successfully supplied (always true).
 
-## type
+### type
 
 
 ```lua
@@ -30408,7 +30408,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -30431,7 +30431,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.CircleShape
 
-## computeAABB
+### computeAABB
 
 
 ```lua
@@ -30464,7 +30464,7 @@ Returns the points of the bounding box for the transformed shape.
 
 @*return* `bottomRightY` — The y position of the bottom-right point.
 
-## computeMass
+### computeMass
 
 
 ```lua
@@ -30491,7 +30491,7 @@ Computes the mass properties for the shape with the specified density.
 
 @*return* `inertia` — The rotational inertia.
 
-## getChildCount
+### getChildCount
 
 
 ```lua
@@ -30507,7 +30507,7 @@ Returns the number of children the shape has.
 
 @*return* `count` — The number of children.
 
-## getPoint
+### getPoint
 
 
 ```lua
@@ -30526,7 +30526,7 @@ Gets the center point of the circle shape.
 
 @*return* `y` — The y-component of the center point of the circle.
 
-## getRadius
+### getRadius
 
 
 ```lua
@@ -30542,7 +30542,7 @@ Gets the radius of the circle shape.
 
 @*return* `radius` — The radius of the circle
 
-## getType
+### getType
 
 
 ```lua
@@ -30574,7 +30574,7 @@ type:
     | "chain" -- The Shape is a ChainShape.
 ```
 
-## rayCast
+### rayCast
 
 
 ```lua
@@ -30622,7 +30622,7 @@ hitx, hity = x1 + (x2 - x1) * fraction, y1 + (y2 - y1) * fraction
 
 @*return* `fraction` — The position on the input line where the intersection happened as a factor of the line length.
 
-## release
+### release
 
 
 ```lua
@@ -30640,7 +30640,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setPoint
+### setPoint
 
 
 ```lua
@@ -30657,7 +30657,7 @@ Sets the location of the center of the circle shape.
 
 @*param* `y` — The y-component of the new center point of the circle.
 
-## setRadius
+### setRadius
 
 
 ```lua
@@ -30672,7 +30672,7 @@ Sets the radius of the circle.
 
 @*param* `radius` — The radius of the circle
 
-## testPoint
+### testPoint
 
 
 ```lua
@@ -30698,7 +30698,7 @@ This is particularly useful for mouse interaction with the shapes. By looping th
 
 @*return* `hit` — True if inside, false if outside
 
-## type
+### type
 
 
 ```lua
@@ -30714,7 +30714,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -30742,7 +30742,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.CompressedData
 
-## clone
+### clone
 
 
 ```lua
@@ -30758,7 +30758,7 @@ Creates a new copy of the Data object.
 
 @*return* `clone` — The new copy.
 
-## getFFIPointer
+### getFFIPointer
 
 
 ```lua
@@ -30776,7 +30776,7 @@ This function should be preferred instead of Data:getPointer because the latter 
 
 @*return* `pointer` — A raw void* pointer to the Data, or nil if FFI is unavailable.
 
-## getFormat
+### getFormat
 
 
 ```lua
@@ -30806,7 +30806,7 @@ format:
     | "deflate" -- Raw DEFLATE-compressed data (no header).
 ```
 
-## getPointer
+### getPointer
 
 
 ```lua
@@ -30822,7 +30822,7 @@ Gets a pointer to the Data. Can be used with libraries such as LuaJIT's FFI.
 
 @*return* `pointer` — A raw pointer to the Data.
 
-## getSize
+### getSize
 
 
 ```lua
@@ -30838,7 +30838,7 @@ Gets the Data's size in bytes.
 
 @*return* `size` — The size of the Data in bytes.
 
-## getString
+### getString
 
 
 ```lua
@@ -30854,7 +30854,7 @@ Gets the full Data as a string.
 
 @*return* `data` — The raw data.
 
-## release
+### release
 
 
 ```lua
@@ -30872,7 +30872,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## type
+### type
 
 
 ```lua
@@ -30888,7 +30888,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -30916,7 +30916,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.CompressedImageData
 
-## clone
+### clone
 
 
 ```lua
@@ -30932,7 +30932,7 @@ Creates a new copy of the Data object.
 
 @*return* `clone` — The new copy.
 
-## getDimensions
+### getDimensions
 
 
 ```lua
@@ -30954,7 +30954,7 @@ Gets the width and height of the CompressedImageData.
 
 @*return* `height` — The height of the CompressedImageData.
 
-## getFFIPointer
+### getFFIPointer
 
 
 ```lua
@@ -30972,7 +30972,7 @@ This function should be preferred instead of Data:getPointer because the latter 
 
 @*return* `pointer` — A raw void* pointer to the Data, or nil if FFI is unavailable.
 
-## getFormat
+### getFormat
 
 
 ```lua
@@ -31036,7 +31036,7 @@ format:
     | "ASTC12x12" -- The 12x12 pixels per block variant of the ASTC format. RGBA data at 0.89 bits per pixel.
 ```
 
-## getHeight
+### getHeight
 
 
 ```lua
@@ -31055,7 +31055,7 @@ Gets the height of the CompressedImageData.
 
 @*return* `height` — The height of the CompressedImageData.
 
-## getMipmapCount
+### getMipmapCount
 
 
 ```lua
@@ -31071,7 +31071,7 @@ Gets the number of mipmap levels in the CompressedImageData. The base mipmap lev
 
 @*return* `mipmaps` — The number of mipmap levels stored in the CompressedImageData.
 
-## getPointer
+### getPointer
 
 
 ```lua
@@ -31087,7 +31087,7 @@ Gets a pointer to the Data. Can be used with libraries such as LuaJIT's FFI.
 
 @*return* `pointer` — A raw pointer to the Data.
 
-## getSize
+### getSize
 
 
 ```lua
@@ -31103,7 +31103,7 @@ Gets the Data's size in bytes.
 
 @*return* `size` — The size of the Data in bytes.
 
-## getString
+### getString
 
 
 ```lua
@@ -31119,7 +31119,7 @@ Gets the full Data as a string.
 
 @*return* `data` — The raw data.
 
-## getWidth
+### getWidth
 
 
 ```lua
@@ -31138,7 +31138,7 @@ Gets the width of the CompressedImageData.
 
 @*return* `width` — The width of the CompressedImageData.
 
-## release
+### release
 
 
 ```lua
@@ -31156,7 +31156,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## type
+### type
 
 
 ```lua
@@ -31172,7 +31172,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -31200,7 +31200,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Contact
 
-## getChildren
+### getChildren
 
 
 ```lua
@@ -31220,7 +31220,7 @@ Used together with Fixture:rayCast or ChainShape:getChildEdge.
 
 @*return* `indexB` — The child index of the second fixture's shape.
 
-## getFixtures
+### getFixtures
 
 
 ```lua
@@ -31239,7 +31239,7 @@ Gets the two Fixtures that hold the shapes that are in contact.
 
 @*return* `fixtureB` — The second Fixture.
 
-## getFriction
+### getFriction
 
 
 ```lua
@@ -31255,7 +31255,7 @@ Get the friction between two shapes that are in contact.
 
 @*return* `friction` — The friction of the contact.
 
-## getNormal
+### getNormal
 
 
 ```lua
@@ -31276,7 +31276,7 @@ This function returns the coordinates of a unit vector that points from the firs
 
 @*return* `ny` — The y component of the normal vector.
 
-## getPositions
+### getPositions
 
 
 ```lua
@@ -31301,7 +31301,7 @@ Returns the contact points of the two colliding fixtures. There can be one or tw
 
 @*return* `y2` — The y coordinate of the second contact point.
 
-## getRestitution
+### getRestitution
 
 
 ```lua
@@ -31317,7 +31317,7 @@ Get the restitution between two shapes that are in contact.
 
 @*return* `restitution` — The restitution between the two shapes.
 
-## isEnabled
+### isEnabled
 
 
 ```lua
@@ -31333,7 +31333,7 @@ Returns whether the contact is enabled. The collision will be ignored if a conta
 
 @*return* `enabled` — True if enabled, false otherwise.
 
-## isTouching
+### isTouching
 
 
 ```lua
@@ -31349,7 +31349,7 @@ Returns whether the two colliding fixtures are touching each other.
 
 @*return* `touching` — True if they touch or false if not.
 
-## release
+### release
 
 
 ```lua
@@ -31367,7 +31367,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## resetFriction
+### resetFriction
 
 
 ```lua
@@ -31380,7 +31380,7 @@ Resets the contact friction to the mixture value of both fixtures.
 
 [Open in Browser](https://love2d.org/wiki/Contact:resetFriction)
 
-## resetRestitution
+### resetRestitution
 
 
 ```lua
@@ -31393,7 +31393,7 @@ Resets the contact restitution to the mixture value of both fixtures.
 
 [Open in Browser](https://love2d.org/wiki/Contact:resetRestitution)
 
-## setEnabled
+### setEnabled
 
 
 ```lua
@@ -31408,7 +31408,7 @@ Enables or disables the contact.
 
 @*param* `enabled` — True to enable or false to disable.
 
-## setFriction
+### setFriction
 
 
 ```lua
@@ -31423,7 +31423,7 @@ Sets the contact friction.
 
 @*param* `friction` — The contact friction.
 
-## setRestitution
+### setRestitution
 
 
 ```lua
@@ -31438,7 +31438,7 @@ Sets the contact restitution.
 
 @*param* `restitution` — The contact restitution.
 
-## type
+### type
 
 
 ```lua
@@ -31454,7 +31454,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -31487,7 +31487,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Cursor
 
-## getType
+### getType
 
 
 ```lua
@@ -31526,7 +31526,7 @@ ctype:
     | "hand" -- Hand symbol.
 ```
 
-## release
+### release
 
 
 ```lua
@@ -31544,7 +31544,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## type
+### type
 
 
 ```lua
@@ -31560,7 +31560,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -31588,7 +31588,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Data
 
-## clone
+### clone
 
 
 ```lua
@@ -31604,7 +31604,7 @@ Creates a new copy of the Data object.
 
 @*return* `clone` — The new copy.
 
-## getFFIPointer
+### getFFIPointer
 
 
 ```lua
@@ -31622,7 +31622,7 @@ This function should be preferred instead of Data:getPointer because the latter 
 
 @*return* `pointer` — A raw void* pointer to the Data, or nil if FFI is unavailable.
 
-## getPointer
+### getPointer
 
 
 ```lua
@@ -31638,7 +31638,7 @@ Gets a pointer to the Data. Can be used with libraries such as LuaJIT's FFI.
 
 @*return* `pointer` — A raw pointer to the Data.
 
-## getSize
+### getSize
 
 
 ```lua
@@ -31654,7 +31654,7 @@ Gets the Data's size in bytes.
 
 @*return* `size` — The size of the Data in bytes.
 
-## getString
+### getString
 
 
 ```lua
@@ -31670,7 +31670,7 @@ Gets the full Data as a string.
 
 @*return* `data` — The raw data.
 
-## release
+### release
 
 
 ```lua
@@ -31688,7 +31688,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## type
+### type
 
 
 ```lua
@@ -31704,7 +31704,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -31727,7 +31727,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Decoder
 
-## clone
+### clone
 
 
 ```lua
@@ -31745,7 +31745,7 @@ The new decoder will start decoding from the beginning of the audio stream.
 
 @*return* `decoder` — New copy of the decoder.
 
-## decode
+### decode
 
 
 ```lua
@@ -31761,7 +31761,7 @@ Decodes the audio and returns a SoundData object containing the decoded audio da
 
 @*return* `soundData` — Decoded audio data.
 
-## getBitDepth
+### getBitDepth
 
 
 ```lua
@@ -31777,7 +31777,7 @@ Returns the number of bits per sample.
 
 @*return* `bitDepth` — Either 8, or 16.
 
-## getChannelCount
+### getChannelCount
 
 
 ```lua
@@ -31793,7 +31793,7 @@ Returns the number of channels in the stream.
 
 @*return* `channels` — 1 for mono, 2 for stereo.
 
-## getDuration
+### getDuration
 
 
 ```lua
@@ -31809,7 +31809,7 @@ Gets the duration of the sound file. It may not always be sample-accurate, and i
 
 @*return* `duration` — The duration of the sound file in seconds, or -1 if it cannot be determined.
 
-## getSampleRate
+### getSampleRate
 
 
 ```lua
@@ -31825,7 +31825,7 @@ Returns the sample rate of the Decoder.
 
 @*return* `rate` — Number of samples per second.
 
-## release
+### release
 
 
 ```lua
@@ -31843,7 +31843,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## seek
+### seek
 
 
 ```lua
@@ -31858,7 +31858,7 @@ Sets the currently playing position of the Decoder.
 
 @*param* `offset` — The position to seek to, in seconds.
 
-## type
+### type
 
 
 ```lua
@@ -31874,7 +31874,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -31902,7 +31902,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.DistanceJoint
 
-## destroy
+### destroy
 
 
 ```lua
@@ -31919,7 +31919,7 @@ may be used to free the object immediately.
 
 [Open in Browser](https://love2d.org/wiki/Joint:destroy)
 
-## getAnchors
+### getAnchors
 
 
 ```lua
@@ -31944,7 +31944,7 @@ Get the anchor points of the joint.
 
 @*return* `y2` — The y-component of the anchor on Body 2.
 
-## getBodies
+### getBodies
 
 
 ```lua
@@ -31963,7 +31963,7 @@ Gets the bodies that the Joint is attached to.
 
 @*return* `bodyB` — The second Body.
 
-## getCollideConnected
+### getCollideConnected
 
 
 ```lua
@@ -31979,7 +31979,7 @@ Gets whether the connected Bodies collide.
 
 @*return* `c` — True if they collide, false otherwise.
 
-## getDampingRatio
+### getDampingRatio
 
 
 ```lua
@@ -31995,7 +31995,7 @@ Gets the damping ratio.
 
 @*return* `ratio` — The damping ratio.
 
-## getFrequency
+### getFrequency
 
 
 ```lua
@@ -32011,7 +32011,7 @@ Gets the response speed.
 
 @*return* `Hz` — The response speed.
 
-## getLength
+### getLength
 
 
 ```lua
@@ -32027,7 +32027,7 @@ Gets the equilibrium distance between the two Bodies.
 
 @*return* `l` — The length between the two Bodies.
 
-## getReactionForce
+### getReactionForce
 
 
 ```lua
@@ -32048,7 +32048,7 @@ Returns the reaction force in newtons on the second body
 
 @*return* `y` — The y-component of the force.
 
-## getReactionTorque
+### getReactionTorque
 
 
 ```lua
@@ -32066,7 +32066,7 @@ Returns the reaction torque on the second body.
 
 @*return* `torque` — The reaction torque on the second body.
 
-## getType
+### getType
 
 
 ```lua
@@ -32101,7 +32101,7 @@ type:
     | "weld" -- A WeldJoint.
 ```
 
-## getUserData
+### getUserData
 
 
 ```lua
@@ -32117,7 +32117,7 @@ Returns the Lua value associated with this Joint.
 
 @*return* `value` — The Lua value associated with the Joint.
 
-## isDestroyed
+### isDestroyed
 
 
 ```lua
@@ -32133,7 +32133,7 @@ Gets whether the Joint is destroyed. Destroyed joints cannot be used.
 
 @*return* `destroyed` — Whether the Joint is destroyed.
 
-## release
+### release
 
 
 ```lua
@@ -32151,7 +32151,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setDampingRatio
+### setDampingRatio
 
 
 ```lua
@@ -32166,7 +32166,7 @@ Sets the damping ratio.
 
 @*param* `ratio` — The damping ratio.
 
-## setFrequency
+### setFrequency
 
 
 ```lua
@@ -32181,7 +32181,7 @@ Sets the response speed.
 
 @*param* `Hz` — The response speed.
 
-## setLength
+### setLength
 
 
 ```lua
@@ -32196,7 +32196,7 @@ Sets the equilibrium distance between the two Bodies.
 
 @*param* `l` — The length between the two Bodies.
 
-## setUserData
+### setUserData
 
 
 ```lua
@@ -32213,7 +32213,7 @@ To delete the reference, explicitly pass nil.
 
 @*param* `value` — The Lua value to associate with the Joint.
 
-## type
+### type
 
 
 ```lua
@@ -32229,7 +32229,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -32262,7 +32262,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Drawable
 
-## release
+### release
 
 
 ```lua
@@ -32280,7 +32280,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## type
+### type
 
 
 ```lua
@@ -32296,7 +32296,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -32319,7 +32319,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.DroppedFile
 
-## close
+### close
 
 
 ```lua
@@ -32335,7 +32335,7 @@ Closes a File.
 
 @*return* `success` — Whether closing was successful.
 
-## flush
+### flush
 
 
 ```lua
@@ -32354,7 +32354,7 @@ Flushes any buffered written data in the file to the disk.
 
 @*return* `err` — The error string, if an error occurred and the file could not be flushed.
 
-## getBuffer
+### getBuffer
 
 
 ```lua
@@ -32386,7 +32386,7 @@ mode:
     | "full" -- Full buffering. Write and append operations are always buffered until the buffer size limit is reached.
 ```
 
-## getFilename
+### getFilename
 
 
 ```lua
@@ -32402,7 +32402,7 @@ Gets the filename that the File object was created with. If the file object orig
 
 @*return* `filename` — The filename of the File.
 
-## getMode
+### getMode
 
 
 ```lua
@@ -32432,7 +32432,7 @@ mode:
     | "c" -- Do not open a file (represents a closed file.)
 ```
 
-## getSize
+### getSize
 
 
 ```lua
@@ -32448,7 +32448,7 @@ Returns the file size.
 
 @*return* `size` — The file size in bytes.
 
-## isEOF
+### isEOF
 
 
 ```lua
@@ -32464,7 +32464,7 @@ Gets whether end-of-file has been reached.
 
 @*return* `eof` — Whether EOF has been reached.
 
-## isOpen
+### isOpen
 
 
 ```lua
@@ -32480,7 +32480,7 @@ Gets whether the file is open.
 
 @*return* `open` — True if the file is currently open, false otherwise.
 
-## lines
+### lines
 
 
 ```lua
@@ -32496,7 +32496,7 @@ Iterate over all the lines in a file.
 
 @*return* `iterator` — The iterator (can be used in for loops).
 
-## open
+### open
 
 
 ```lua
@@ -32531,7 +32531,7 @@ mode:
     | "c" -- Do not open a file (represents a closed file.)
 ```
 
-## read
+### read
 
 
 ```lua
@@ -32555,7 +32555,7 @@ Read a number of bytes from a file.
 
 @*return* `size` — How many bytes have been read.
 
-## release
+### release
 
 
 ```lua
@@ -32573,7 +32573,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## seek
+### seek
 
 
 ```lua
@@ -32591,7 +32591,7 @@ Seek to a position in a file
 
 @*return* `success` — Whether the operation was successful
 
-## setBuffer
+### setBuffer
 
 
 ```lua
@@ -32629,7 +32629,7 @@ mode:
     | "full" -- Full buffering. Write and append operations are always buffered until the buffer size limit is reached.
 ```
 
-## tell
+### tell
 
 
 ```lua
@@ -32645,7 +32645,7 @@ Returns the position in the file.
 
 @*return* `pos` — The current position.
 
-## type
+### type
 
 
 ```lua
@@ -32661,7 +32661,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -32679,7 +32679,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 @*return* `b` — True if the object is of the specified type, false otherwise.
 
-## write
+### write
 
 
 ```lua
@@ -32710,7 +32710,7 @@ Write data to a file.
 
 # love.EdgeShape
 
-## computeAABB
+### computeAABB
 
 
 ```lua
@@ -32743,7 +32743,7 @@ Returns the points of the bounding box for the transformed shape.
 
 @*return* `bottomRightY` — The y position of the bottom-right point.
 
-## computeMass
+### computeMass
 
 
 ```lua
@@ -32770,7 +32770,7 @@ Computes the mass properties for the shape with the specified density.
 
 @*return* `inertia` — The rotational inertia.
 
-## getChildCount
+### getChildCount
 
 
 ```lua
@@ -32786,7 +32786,7 @@ Returns the number of children the shape has.
 
 @*return* `count` — The number of children.
 
-## getNextVertex
+### getNextVertex
 
 
 ```lua
@@ -32807,7 +32807,7 @@ Setting next and previous EdgeShape vertices can help prevent unwanted collision
 
 @*return* `y` — The y-component of the vertex, or nil if EdgeShape:setNextVertex hasn't been called.
 
-## getPoints
+### getPoints
 
 
 ```lua
@@ -32832,7 +32832,7 @@ Returns the local coordinates of the edge points.
 
 @*return* `y2` — The y-component of the second vertex.
 
-## getPreviousVertex
+### getPreviousVertex
 
 
 ```lua
@@ -32853,7 +32853,7 @@ Setting next and previous EdgeShape vertices can help prevent unwanted collision
 
 @*return* `y` — The y-component of the vertex, or nil if EdgeShape:setPreviousVertex hasn't been called.
 
-## getRadius
+### getRadius
 
 
 ```lua
@@ -32869,7 +32869,7 @@ Gets the radius of the shape.
 
 @*return* `radius` — The radius of the shape.
 
-## getType
+### getType
 
 
 ```lua
@@ -32901,7 +32901,7 @@ type:
     | "chain" -- The Shape is a ChainShape.
 ```
 
-## rayCast
+### rayCast
 
 
 ```lua
@@ -32949,7 +32949,7 @@ hitx, hity = x1 + (x2 - x1) * fraction, y1 + (y2 - y1) * fraction
 
 @*return* `fraction` — The position on the input line where the intersection happened as a factor of the line length.
 
-## release
+### release
 
 
 ```lua
@@ -32967,7 +32967,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setNextVertex
+### setNextVertex
 
 
 ```lua
@@ -32986,7 +32986,7 @@ This can help prevent unwanted collisions when a flat shape slides along the edg
 
 @*param* `y` — The y-component of the vertex.
 
-## setPreviousVertex
+### setPreviousVertex
 
 
 ```lua
@@ -33005,7 +33005,7 @@ This can help prevent unwanted collisions when a flat shape slides along the edg
 
 @*param* `y` — The y-component of the vertex.
 
-## testPoint
+### testPoint
 
 
 ```lua
@@ -33031,7 +33031,7 @@ This is particularly useful for mouse interaction with the shapes. By looping th
 
 @*return* `hit` — True if inside, false if outside
 
-## type
+### type
 
 
 ```lua
@@ -33047,7 +33047,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -33090,7 +33090,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.File
 
-## close
+### close
 
 
 ```lua
@@ -33106,7 +33106,7 @@ Closes a File.
 
 @*return* `success` — Whether closing was successful.
 
-## flush
+### flush
 
 
 ```lua
@@ -33125,7 +33125,7 @@ Flushes any buffered written data in the file to the disk.
 
 @*return* `err` — The error string, if an error occurred and the file could not be flushed.
 
-## getBuffer
+### getBuffer
 
 
 ```lua
@@ -33157,7 +33157,7 @@ mode:
     | "full" -- Full buffering. Write and append operations are always buffered until the buffer size limit is reached.
 ```
 
-## getFilename
+### getFilename
 
 
 ```lua
@@ -33173,7 +33173,7 @@ Gets the filename that the File object was created with. If the file object orig
 
 @*return* `filename` — The filename of the File.
 
-## getMode
+### getMode
 
 
 ```lua
@@ -33203,7 +33203,7 @@ mode:
     | "c" -- Do not open a file (represents a closed file.)
 ```
 
-## getSize
+### getSize
 
 
 ```lua
@@ -33219,7 +33219,7 @@ Returns the file size.
 
 @*return* `size` — The file size in bytes.
 
-## isEOF
+### isEOF
 
 
 ```lua
@@ -33235,7 +33235,7 @@ Gets whether end-of-file has been reached.
 
 @*return* `eof` — Whether EOF has been reached.
 
-## isOpen
+### isOpen
 
 
 ```lua
@@ -33251,7 +33251,7 @@ Gets whether the file is open.
 
 @*return* `open` — True if the file is currently open, false otherwise.
 
-## lines
+### lines
 
 
 ```lua
@@ -33267,7 +33267,7 @@ Iterate over all the lines in a file.
 
 @*return* `iterator` — The iterator (can be used in for loops).
 
-## open
+### open
 
 
 ```lua
@@ -33302,7 +33302,7 @@ mode:
     | "c" -- Do not open a file (represents a closed file.)
 ```
 
-## read
+### read
 
 
 ```lua
@@ -33326,7 +33326,7 @@ Read a number of bytes from a file.
 
 @*return* `size` — How many bytes have been read.
 
-## release
+### release
 
 
 ```lua
@@ -33344,7 +33344,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## seek
+### seek
 
 
 ```lua
@@ -33362,7 +33362,7 @@ Seek to a position in a file
 
 @*return* `success` — Whether the operation was successful
 
-## setBuffer
+### setBuffer
 
 
 ```lua
@@ -33400,7 +33400,7 @@ mode:
     | "full" -- Full buffering. Write and append operations are always buffered until the buffer size limit is reached.
 ```
 
-## tell
+### tell
 
 
 ```lua
@@ -33416,7 +33416,7 @@ Returns the position in the file.
 
 @*return* `pos` — The current position.
 
-## type
+### type
 
 
 ```lua
@@ -33432,7 +33432,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -33450,7 +33450,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 @*return* `b` — True if the object is of the specified type, false otherwise.
 
-## write
+### write
 
 
 ```lua
@@ -33481,7 +33481,7 @@ Write data to a file.
 
 # love.FileData
 
-## clone
+### clone
 
 
 ```lua
@@ -33497,7 +33497,7 @@ Creates a new copy of the Data object.
 
 @*return* `clone` — The new copy.
 
-## getExtension
+### getExtension
 
 
 ```lua
@@ -33513,7 +33513,7 @@ Gets the extension of the FileData.
 
 @*return* `ext` — The extension of the file the FileData represents.
 
-## getFFIPointer
+### getFFIPointer
 
 
 ```lua
@@ -33531,7 +33531,7 @@ This function should be preferred instead of Data:getPointer because the latter 
 
 @*return* `pointer` — A raw void* pointer to the Data, or nil if FFI is unavailable.
 
-## getFilename
+### getFilename
 
 
 ```lua
@@ -33547,7 +33547,7 @@ Gets the filename of the FileData.
 
 @*return* `name` — The name of the file the FileData represents.
 
-## getPointer
+### getPointer
 
 
 ```lua
@@ -33563,7 +33563,7 @@ Gets a pointer to the Data. Can be used with libraries such as LuaJIT's FFI.
 
 @*return* `pointer` — A raw pointer to the Data.
 
-## getSize
+### getSize
 
 
 ```lua
@@ -33579,7 +33579,7 @@ Gets the Data's size in bytes.
 
 @*return* `size` — The size of the Data in bytes.
 
-## getString
+### getString
 
 
 ```lua
@@ -33595,7 +33595,7 @@ Gets the full Data as a string.
 
 @*return* `data` — The raw data.
 
-## release
+### release
 
 
 ```lua
@@ -33613,7 +33613,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## type
+### type
 
 
 ```lua
@@ -33629,7 +33629,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -33677,7 +33677,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Fixture
 
-## destroy
+### destroy
 
 
 ```lua
@@ -33690,7 +33690,7 @@ Destroys the fixture.
 
 [Open in Browser](https://love2d.org/wiki/Fixture:destroy)
 
-## getBody
+### getBody
 
 
 ```lua
@@ -33706,7 +33706,7 @@ Returns the body to which the fixture is attached.
 
 @*return* `body` — The parent body.
 
-## getBoundingBox
+### getBoundingBox
 
 
 ```lua
@@ -33733,7 +33733,7 @@ Returns the points of the fixture bounding box. In case the fixture has multiple
 
 @*return* `bottomRightY` — The y position of the bottom-right point.
 
-## getCategory
+### getCategory
 
 
 ```lua
@@ -33746,7 +33746,7 @@ Returns the categories the fixture belongs to.
 
 [Open in Browser](https://love2d.org/wiki/Fixture:getCategory)
 
-## getDensity
+### getDensity
 
 
 ```lua
@@ -33762,7 +33762,7 @@ Returns the density of the fixture.
 
 @*return* `density` — The fixture density in kilograms per square meter.
 
-## getFilterData
+### getFilterData
 
 
 ```lua
@@ -33786,7 +33786,7 @@ Categories and masks are encoded as the bits of a 16-bit integer.
 
 @*return* `group` — The group as an integer from -32768 to 32767.
 
-## getFriction
+### getFriction
 
 
 ```lua
@@ -33802,7 +33802,7 @@ Returns the friction of the fixture.
 
 @*return* `friction` — The fixture friction.
 
-## getGroupIndex
+### getGroupIndex
 
 
 ```lua
@@ -33820,7 +33820,7 @@ The groups range from -32768 to 32767.
 
 @*return* `group` — The group of the fixture.
 
-## getMask
+### getMask
 
 
 ```lua
@@ -33833,7 +33833,7 @@ Returns which categories this fixture should '''NOT''' collide with.
 
 [Open in Browser](https://love2d.org/wiki/Fixture:getMask)
 
-## getMassData
+### getMassData
 
 
 ```lua
@@ -33858,7 +33858,7 @@ Returns the mass, its center and the rotational inertia.
 
 @*return* `inertia` — The rotational inertia.
 
-## getRestitution
+### getRestitution
 
 
 ```lua
@@ -33874,7 +33874,7 @@ Returns the restitution of the fixture.
 
 @*return* `restitution` — The fixture restitution.
 
-## getShape
+### getShape
 
 
 ```lua
@@ -33890,7 +33890,7 @@ Returns the shape of the fixture. This shape is a reference to the actual data u
 
 @*return* `shape` — The fixture's shape.
 
-## getUserData
+### getUserData
 
 
 ```lua
@@ -33906,7 +33906,7 @@ Returns the Lua value associated with this fixture.
 
 @*return* `value` — The Lua value associated with the fixture.
 
-## isDestroyed
+### isDestroyed
 
 
 ```lua
@@ -33922,7 +33922,7 @@ Gets whether the Fixture is destroyed. Destroyed fixtures cannot be used.
 
 @*return* `destroyed` — Whether the Fixture is destroyed.
 
-## isSensor
+### isSensor
 
 
 ```lua
@@ -33938,7 +33938,7 @@ Returns whether the fixture is a sensor.
 
 @*return* `sensor` — If the fixture is a sensor.
 
-## rayCast
+### rayCast
 
 
 ```lua
@@ -33980,7 +33980,7 @@ hitx, hity = x1 + (x2 - x1) * fraction, y1 + (y2 - y1) * fraction
 
 @*return* `fraction` — The position on the input line where the intersection happened as a factor of the line length.
 
-## release
+### release
 
 
 ```lua
@@ -33998,7 +33998,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setCategory
+### setCategory
 
 
 ```lua
@@ -34013,7 +34013,7 @@ All fixture's default category is 1.
 
 [Open in Browser](https://love2d.org/wiki/Fixture:setCategory)
 
-## setDensity
+### setDensity
 
 
 ```lua
@@ -34028,7 +34028,7 @@ Sets the density of the fixture. Call Body:resetMassData if this needs to take e
 
 @*param* `density` — The fixture density in kilograms per square meter.
 
-## setFilterData
+### setFilterData
 
 
 ```lua
@@ -34057,7 +34057,7 @@ This function allows setting all filter data for a fixture at once. To set only 
 
 @*param* `group` — The group as an integer from -32768 to 32767.
 
-## setFriction
+### setFriction
 
 
 ```lua
@@ -34074,7 +34074,7 @@ Friction determines how shapes react when they 'slide' along other shapes. Low f
 
 @*param* `friction` — The fixture friction.
 
-## setGroupIndex
+### setGroupIndex
 
 
 ```lua
@@ -34091,7 +34091,7 @@ The groups range from -32768 to 32767.
 
 @*param* `group` — The group as an integer from -32768 to 32767.
 
-## setMask
+### setMask
 
 
 ```lua
@@ -34106,7 +34106,7 @@ This fixture will '''NOT''' collide with the fixtures that are in the selected c
 
 [Open in Browser](https://love2d.org/wiki/Fixture:setMask)
 
-## setRestitution
+### setRestitution
 
 
 ```lua
@@ -34121,7 +34121,7 @@ Sets the restitution of the fixture.
 
 @*param* `restitution` — The fixture restitution.
 
-## setSensor
+### setSensor
 
 
 ```lua
@@ -34138,7 +34138,7 @@ Sensors do not cause collision responses, but the begin-contact and end-contact 
 
 @*param* `sensor` — The sensor status.
 
-## setUserData
+### setUserData
 
 
 ```lua
@@ -34155,7 +34155,7 @@ To delete the reference, explicitly pass nil.
 
 @*param* `value` — The Lua value to associate with the fixture.
 
-## testPoint
+### testPoint
 
 
 ```lua
@@ -34175,7 +34175,7 @@ Checks if a point is inside the shape of the fixture.
 
 @*return* `isInside` — True if the point is inside or false if it is outside.
 
-## type
+### type
 
 
 ```lua
@@ -34191,7 +34191,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -34214,7 +34214,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Font
 
-## getAscent
+### getAscent
 
 
 ```lua
@@ -34232,7 +34232,7 @@ The ascent spans the distance between the baseline and the top of the glyph that
 
 @*return* `ascent` — The ascent of the Font in pixels.
 
-## getBaseline
+### getBaseline
 
 
 ```lua
@@ -34250,7 +34250,7 @@ Most scripts share the notion of a baseline: an imaginary horizontal line on whi
 
 @*return* `baseline` — The baseline of the Font in pixels.
 
-## getDPIScale
+### getDPIScale
 
 
 ```lua
@@ -34270,7 +34270,7 @@ The font size of TrueType fonts is scaled internally by the font's specified DPI
 
 @*return* `dpiscale` — The DPI scale factor of the Font.
 
-## getDescent
+### getDescent
 
 
 ```lua
@@ -34288,7 +34288,7 @@ The descent spans the distance between the baseline and the lowest descending gl
 
 @*return* `descent` — The descent of the Font in pixels.
 
-## getFilter
+### getFilter
 
 
 ```lua
@@ -34332,7 +34332,7 @@ mag:
     | "nearest" -- Scale image with nearest neighbor interpolation.
 ```
 
-## getHeight
+### getHeight
 
 
 ```lua
@@ -34350,7 +34350,7 @@ The height of the font is the size including any spacing; the height which it wi
 
 @*return* `height` — The height of the Font in pixels.
 
-## getKerning
+### getKerning
 
 
 ```lua
@@ -34375,7 +34375,7 @@ Kerning is normally handled automatically in love.graphics.print, Text objects, 
 
 @*return* `kerning` — The kerning amount to add to the spacing between the two characters. May be negative.
 
-## getLineHeight
+### getLineHeight
 
 
 ```lua
@@ -34393,7 +34393,7 @@ This will be the value previously set by Font:setLineHeight, or 1.0 by default.
 
 @*return* `height` — The current line height.
 
-## getWidth
+### getWidth
 
 
 ```lua
@@ -34411,7 +34411,7 @@ Determines the maximum width (accounting for newlines) taken by the given string
 
 @*return* `width` — The width of the text.
 
-## getWrap
+### getWrap
 
 
 ```lua
@@ -34436,7 +34436,7 @@ This function accounts for newlines correctly (i.e. '\n').
 
 @*return* `wrappedtext` — A sequence containing each line of text that was wrapped.
 
-## hasGlyphs
+### hasGlyphs
 
 
 ```lua
@@ -34457,7 +34457,7 @@ Gets whether the Font can render a character or string.
 
 @*return* `hasglyph` — Whether the font can render all the UTF-8 characters in the string.
 
-## release
+### release
 
 
 ```lua
@@ -34475,7 +34475,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setFallbacks
+### setFallbacks
 
 
 ```lua
@@ -34490,7 +34490,7 @@ Sets the fallback fonts. When the Font doesn't contain a glyph, it will substitu
 
 @*param* `fallbackfont1` — The first fallback Font to use.
 
-## setFilter
+### setFilter
 
 
 ```lua
@@ -34531,7 +34531,7 @@ mag:
     | "nearest" -- Scale image with nearest neighbor interpolation.
 ```
 
-## setLineHeight
+### setLineHeight
 
 
 ```lua
@@ -34548,7 +34548,7 @@ When rendering the font in lines the actual height will be determined by the lin
 
 @*param* `height` — The new line height.
 
-## type
+### type
 
 
 ```lua
@@ -34564,7 +34564,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -34587,7 +34587,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.FrictionJoint
 
-## destroy
+### destroy
 
 
 ```lua
@@ -34604,7 +34604,7 @@ may be used to free the object immediately.
 
 [Open in Browser](https://love2d.org/wiki/Joint:destroy)
 
-## getAnchors
+### getAnchors
 
 
 ```lua
@@ -34629,7 +34629,7 @@ Get the anchor points of the joint.
 
 @*return* `y2` — The y-component of the anchor on Body 2.
 
-## getBodies
+### getBodies
 
 
 ```lua
@@ -34648,7 +34648,7 @@ Gets the bodies that the Joint is attached to.
 
 @*return* `bodyB` — The second Body.
 
-## getCollideConnected
+### getCollideConnected
 
 
 ```lua
@@ -34664,7 +34664,7 @@ Gets whether the connected Bodies collide.
 
 @*return* `c` — True if they collide, false otherwise.
 
-## getMaxForce
+### getMaxForce
 
 
 ```lua
@@ -34680,7 +34680,7 @@ Gets the maximum friction force in Newtons.
 
 @*return* `force` — Maximum force in Newtons.
 
-## getMaxTorque
+### getMaxTorque
 
 
 ```lua
@@ -34696,7 +34696,7 @@ Gets the maximum friction torque in Newton-meters.
 
 @*return* `torque` — Maximum torque in Newton-meters.
 
-## getReactionForce
+### getReactionForce
 
 
 ```lua
@@ -34717,7 +34717,7 @@ Returns the reaction force in newtons on the second body
 
 @*return* `y` — The y-component of the force.
 
-## getReactionTorque
+### getReactionTorque
 
 
 ```lua
@@ -34735,7 +34735,7 @@ Returns the reaction torque on the second body.
 
 @*return* `torque` — The reaction torque on the second body.
 
-## getType
+### getType
 
 
 ```lua
@@ -34770,7 +34770,7 @@ type:
     | "weld" -- A WeldJoint.
 ```
 
-## getUserData
+### getUserData
 
 
 ```lua
@@ -34786,7 +34786,7 @@ Returns the Lua value associated with this Joint.
 
 @*return* `value` — The Lua value associated with the Joint.
 
-## isDestroyed
+### isDestroyed
 
 
 ```lua
@@ -34802,7 +34802,7 @@ Gets whether the Joint is destroyed. Destroyed joints cannot be used.
 
 @*return* `destroyed` — Whether the Joint is destroyed.
 
-## release
+### release
 
 
 ```lua
@@ -34820,7 +34820,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setMaxForce
+### setMaxForce
 
 
 ```lua
@@ -34835,7 +34835,7 @@ Sets the maximum friction force in Newtons.
 
 @*param* `maxForce` — Max force in Newtons.
 
-## setMaxTorque
+### setMaxTorque
 
 
 ```lua
@@ -34850,7 +34850,7 @@ Sets the maximum friction torque in Newton-meters.
 
 @*param* `torque` — Maximum torque in Newton-meters.
 
-## setUserData
+### setUserData
 
 
 ```lua
@@ -34867,7 +34867,7 @@ To delete the reference, explicitly pass nil.
 
 @*param* `value` — The Lua value to associate with the Joint.
 
-## type
+### type
 
 
 ```lua
@@ -34883,7 +34883,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -34921,7 +34921,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.GearJoint
 
-## destroy
+### destroy
 
 
 ```lua
@@ -34938,7 +34938,7 @@ may be used to free the object immediately.
 
 [Open in Browser](https://love2d.org/wiki/Joint:destroy)
 
-## getAnchors
+### getAnchors
 
 
 ```lua
@@ -34963,7 +34963,7 @@ Get the anchor points of the joint.
 
 @*return* `y2` — The y-component of the anchor on Body 2.
 
-## getBodies
+### getBodies
 
 
 ```lua
@@ -34982,7 +34982,7 @@ Gets the bodies that the Joint is attached to.
 
 @*return* `bodyB` — The second Body.
 
-## getCollideConnected
+### getCollideConnected
 
 
 ```lua
@@ -34998,7 +34998,7 @@ Gets whether the connected Bodies collide.
 
 @*return* `c` — True if they collide, false otherwise.
 
-## getJoints
+### getJoints
 
 
 ```lua
@@ -35017,7 +35017,7 @@ Get the Joints connected by this GearJoint.
 
 @*return* `joint2` — The second connected Joint.
 
-## getRatio
+### getRatio
 
 
 ```lua
@@ -35033,7 +35033,7 @@ Get the ratio of a gear joint.
 
 @*return* `ratio` — The ratio of the joint.
 
-## getReactionForce
+### getReactionForce
 
 
 ```lua
@@ -35054,7 +35054,7 @@ Returns the reaction force in newtons on the second body
 
 @*return* `y` — The y-component of the force.
 
-## getReactionTorque
+### getReactionTorque
 
 
 ```lua
@@ -35072,7 +35072,7 @@ Returns the reaction torque on the second body.
 
 @*return* `torque` — The reaction torque on the second body.
 
-## getType
+### getType
 
 
 ```lua
@@ -35107,7 +35107,7 @@ type:
     | "weld" -- A WeldJoint.
 ```
 
-## getUserData
+### getUserData
 
 
 ```lua
@@ -35123,7 +35123,7 @@ Returns the Lua value associated with this Joint.
 
 @*return* `value` — The Lua value associated with the Joint.
 
-## isDestroyed
+### isDestroyed
 
 
 ```lua
@@ -35139,7 +35139,7 @@ Gets whether the Joint is destroyed. Destroyed joints cannot be used.
 
 @*return* `destroyed` — Whether the Joint is destroyed.
 
-## release
+### release
 
 
 ```lua
@@ -35157,7 +35157,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setRatio
+### setRatio
 
 
 ```lua
@@ -35172,7 +35172,7 @@ Set the ratio of a gear joint.
 
 @*param* `ratio` — The new ratio of the joint.
 
-## setUserData
+### setUserData
 
 
 ```lua
@@ -35189,7 +35189,7 @@ To delete the reference, explicitly pass nil.
 
 @*param* `value` — The Lua value to associate with the Joint.
 
-## type
+### type
 
 
 ```lua
@@ -35205,7 +35205,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -35228,7 +35228,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.GlyphData
 
-## clone
+### clone
 
 
 ```lua
@@ -35244,7 +35244,7 @@ Creates a new copy of the Data object.
 
 @*return* `clone` — The new copy.
 
-## getAdvance
+### getAdvance
 
 
 ```lua
@@ -35260,7 +35260,7 @@ Gets glyph advance.
 
 @*return* `advance` — Glyph advance.
 
-## getBearing
+### getBearing
 
 
 ```lua
@@ -35279,7 +35279,7 @@ Gets glyph bearing.
 
 @*return* `by` — Glyph bearing Y.
 
-## getBoundingBox
+### getBoundingBox
 
 
 ```lua
@@ -35304,7 +35304,7 @@ Gets glyph bounding box.
 
 @*return* `height` — Glyph height.
 
-## getDimensions
+### getDimensions
 
 
 ```lua
@@ -35323,7 +35323,7 @@ Gets glyph dimensions.
 
 @*return* `height` — Glyph height.
 
-## getFFIPointer
+### getFFIPointer
 
 
 ```lua
@@ -35341,7 +35341,7 @@ This function should be preferred instead of Data:getPointer because the latter 
 
 @*return* `pointer` — A raw void* pointer to the Data, or nil if FFI is unavailable.
 
-## getFormat
+### getFormat
 
 
 ```lua
@@ -35431,7 +35431,7 @@ format:
     | "ASTC12x12" -- The 12x12 pixels per block variant of the ASTC format. RGBA data at 0.89 bits per pixel.
 ```
 
-## getGlyph
+### getGlyph
 
 
 ```lua
@@ -35447,7 +35447,7 @@ Gets glyph number.
 
 @*return* `glyph` — Glyph number.
 
-## getGlyphString
+### getGlyphString
 
 
 ```lua
@@ -35463,7 +35463,7 @@ Gets glyph string.
 
 @*return* `glyph` — Glyph string.
 
-## getHeight
+### getHeight
 
 
 ```lua
@@ -35479,7 +35479,7 @@ Gets glyph height.
 
 @*return* `height` — Glyph height.
 
-## getPointer
+### getPointer
 
 
 ```lua
@@ -35495,7 +35495,7 @@ Gets a pointer to the Data. Can be used with libraries such as LuaJIT's FFI.
 
 @*return* `pointer` — A raw pointer to the Data.
 
-## getSize
+### getSize
 
 
 ```lua
@@ -35511,7 +35511,7 @@ Gets the Data's size in bytes.
 
 @*return* `size` — The size of the Data in bytes.
 
-## getString
+### getString
 
 
 ```lua
@@ -35527,7 +35527,7 @@ Gets the full Data as a string.
 
 @*return* `data` — The raw data.
 
-## getWidth
+### getWidth
 
 
 ```lua
@@ -35543,7 +35543,7 @@ Gets glyph width.
 
 @*return* `width` — Glyph width.
 
-## release
+### release
 
 
 ```lua
@@ -35561,7 +35561,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## type
+### type
 
 
 ```lua
@@ -35577,7 +35577,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -35620,7 +35620,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Image
 
-## getDPIScale
+### getDPIScale
 
 
 ```lua
@@ -35640,7 +35640,7 @@ For example, a texture with pixel dimensions of 100x100 with a DPI scale factor 
 
 @*return* `dpiscale` — The DPI scale factor of the Texture.
 
-## getDepth
+### getDepth
 
 
 ```lua
@@ -35656,7 +35656,7 @@ Gets the depth of a Volume Texture. Returns 1 for 2D, Cubemap, and Array texture
 
 @*return* `depth` — The depth of the volume Texture.
 
-## getDepthSampleMode
+### getDepthSampleMode
 
 
 ```lua
@@ -35698,7 +35698,7 @@ compare:
     | "always" -- Objects will always be drawn. Effectively disables the depth or stencil test.
 ```
 
-## getDimensions
+### getDimensions
 
 
 ```lua
@@ -35717,7 +35717,7 @@ Gets the width and height of the Texture.
 
 @*return* `height` — The height of the Texture.
 
-## getFilter
+### getFilter
 
 
 ```lua
@@ -35761,7 +35761,7 @@ mag:
     | "nearest" -- Scale image with nearest neighbor interpolation.
 ```
 
-## getFormat
+### getFormat
 
 
 ```lua
@@ -35851,7 +35851,7 @@ format:
     | "ASTC12x12" -- The 12x12 pixels per block variant of the ASTC format. RGBA data at 0.89 bits per pixel.
 ```
 
-## getHeight
+### getHeight
 
 
 ```lua
@@ -35867,7 +35867,7 @@ Gets the height of the Texture.
 
 @*return* `height` — The height of the Texture.
 
-## getLayerCount
+### getLayerCount
 
 
 ```lua
@@ -35883,7 +35883,7 @@ Gets the number of layers / slices in an Array Texture. Returns 1 for 2D, Cubema
 
 @*return* `layers` — The number of layers in the Array Texture.
 
-## getMipmapCount
+### getMipmapCount
 
 
 ```lua
@@ -35899,7 +35899,7 @@ Gets the number of mipmaps contained in the Texture. If the texture was not crea
 
 @*return* `mipmaps` — The number of mipmaps in the Texture.
 
-## getMipmapFilter
+### getMipmapFilter
 
 
 ```lua
@@ -35930,7 +35930,7 @@ mode:
     | "nearest" -- Scale image with nearest neighbor interpolation.
 ```
 
-## getPixelDimensions
+### getPixelDimensions
 
 
 ```lua
@@ -35951,7 +35951,7 @@ Texture:getDimensions gets the dimensions of the texture in units scaled by the 
 
 @*return* `pixelheight` — The height of the Texture, in pixels.
 
-## getPixelHeight
+### getPixelHeight
 
 
 ```lua
@@ -35969,7 +35969,7 @@ DPI scale factor, rather than pixels. Use getHeight for calculations related to 
 
 @*return* `pixelheight` — The height of the Texture, in pixels.
 
-## getPixelWidth
+### getPixelWidth
 
 
 ```lua
@@ -35987,7 +35987,7 @@ DPI scale factor, rather than pixels. Use getWidth for calculations related to d
 
 @*return* `pixelwidth` — The width of the Texture, in pixels.
 
-## getTextureType
+### getTextureType
 
 
 ```lua
@@ -36017,7 +36017,7 @@ texturetype:
     | "volume" -- 3D texture with width, height, and depth. Requires a custom shader to use. Volume textures can have texture filtering applied along the 3rd axis.
 ```
 
-## getWidth
+### getWidth
 
 
 ```lua
@@ -36033,7 +36033,7 @@ Gets the width of the Texture.
 
 @*return* `width` — The width of the Texture.
 
-## getWrap
+### getWrap
 
 
 ```lua
@@ -36095,7 +36095,7 @@ depth:
     | "clampzero" -- Clamp the texture. Fills the area outside the texture's normal range with transparent black (or opaque black for textures with no alpha channel.)
 ```
 
-## isCompressed
+### isCompressed
 
 
 ```lua
@@ -36113,7 +36113,7 @@ Compressed images take up less space in VRAM, and drawing a compressed image wil
 
 @*return* `compressed` — Whether the Image is stored as a compressed texture on the GPU.
 
-## isFormatLinear
+### isFormatLinear
 
 
 ```lua
@@ -36131,7 +36131,7 @@ This method always returns false when gamma-correct rendering is not enabled.
 
 @*return* `linear` — Whether the Image's internal pixel format is linear (not gamma corrected), when gamma-correct rendering is enabled.
 
-## isReadable
+### isReadable
 
 
 ```lua
@@ -36151,7 +36151,7 @@ Non-readable Canvases can still be rendered to.
 
 @*return* `readable` — Whether the Texture is readable.
 
-## release
+### release
 
 
 ```lua
@@ -36169,7 +36169,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## replacePixels
+### replacePixels
 
 
 ```lua
@@ -36194,7 +36194,7 @@ Replace the contents of an Image.
 
 @*param* `reloadmipmaps` — Whether to generate new mipmaps after replacing the Image's pixels. True by default if the Image was created with automatically generated mipmaps, false by default otherwise.
 
-## setDepthSampleMode
+### setDepthSampleMode
 
 
 ```lua
@@ -36237,7 +36237,7 @@ compare:
     | "always" -- Objects will always be drawn. Effectively disables the depth or stencil test.
 ```
 
-## setFilter
+### setFilter
 
 
 ```lua
@@ -36278,7 +36278,7 @@ mag:
     | "nearest" -- Scale image with nearest neighbor interpolation.
 ```
 
-## setMipmapFilter
+### setMipmapFilter
 
 
 ```lua
@@ -36316,7 +36316,7 @@ filtermode:
     | "nearest" -- Scale image with nearest neighbor interpolation.
 ```
 
-## setWrap
+### setWrap
 
 
 ```lua
@@ -36377,7 +36377,7 @@ depth:
     | "clampzero" -- Clamp the texture. Fills the area outside the texture's normal range with transparent black (or opaque black for textures with no alpha channel.)
 ```
 
-## type
+### type
 
 
 ```lua
@@ -36393,7 +36393,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -36416,7 +36416,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.ImageData
 
-## clone
+### clone
 
 
 ```lua
@@ -36432,7 +36432,7 @@ Creates a new copy of the Data object.
 
 @*return* `clone` — The new copy.
 
-## encode
+### encode
 
 
 ```lua
@@ -36469,7 +36469,7 @@ format:
     | "bmp" -- BMP image format.
 ```
 
-## getDimensions
+### getDimensions
 
 
 ```lua
@@ -36488,7 +36488,7 @@ Gets the width and height of the ImageData in pixels.
 
 @*return* `height` — The height of the ImageData in pixels.
 
-## getFFIPointer
+### getFFIPointer
 
 
 ```lua
@@ -36506,7 +36506,7 @@ This function should be preferred instead of Data:getPointer because the latter 
 
 @*return* `pointer` — A raw void* pointer to the Data, or nil if FFI is unavailable.
 
-## getFormat
+### getFormat
 
 
 ```lua
@@ -36596,7 +36596,7 @@ format:
     | "ASTC12x12" -- The 12x12 pixels per block variant of the ASTC format. RGBA data at 0.89 bits per pixel.
 ```
 
-## getHeight
+### getHeight
 
 
 ```lua
@@ -36612,7 +36612,7 @@ Gets the height of the ImageData in pixels.
 
 @*return* `height` — The height of the ImageData in pixels.
 
-## getPixel
+### getPixel
 
 
 ```lua
@@ -36645,7 +36645,7 @@ In versions prior to 11.0, color component values were within the range of 0 to 
 
 @*return* `a` — The alpha component (0-1).
 
-## getPointer
+### getPointer
 
 
 ```lua
@@ -36661,7 +36661,7 @@ Gets a pointer to the Data. Can be used with libraries such as LuaJIT's FFI.
 
 @*return* `pointer` — A raw pointer to the Data.
 
-## getSize
+### getSize
 
 
 ```lua
@@ -36677,7 +36677,7 @@ Gets the Data's size in bytes.
 
 @*return* `size` — The size of the Data in bytes.
 
-## getString
+### getString
 
 
 ```lua
@@ -36693,7 +36693,7 @@ Gets the full Data as a string.
 
 @*return* `data` — The raw data.
 
-## getWidth
+### getWidth
 
 
 ```lua
@@ -36709,7 +36709,7 @@ Gets the width of the ImageData in pixels.
 
 @*return* `width` — The width of the ImageData in pixels.
 
-## mapPixel
+### mapPixel
 
 
 ```lua
@@ -36750,7 +36750,7 @@ In versions prior to 11.0, color component values were within the range of 0 to 
 
 @*param* `height` — The height of the area within the ImageData to apply the function to.
 
-## paste
+### paste
 
 
 ```lua
@@ -36777,7 +36777,7 @@ Paste into ImageData from another source ImageData.
 
 @*param* `sh` — Source height.
 
-## release
+### release
 
 
 ```lua
@@ -36795,7 +36795,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setPixel
+### setPixel
 
 
 ```lua
@@ -36827,7 +36827,7 @@ In versions prior to 11.0, color component values were within the range of 0 to 
 
 @*param* `a` — The alpha component (0-1).
 
-## type
+### type
 
 
 ```lua
@@ -36843,7 +36843,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -36876,7 +36876,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Joint
 
-## destroy
+### destroy
 
 
 ```lua
@@ -36893,7 +36893,7 @@ may be used to free the object immediately.
 
 [Open in Browser](https://love2d.org/wiki/Joint:destroy)
 
-## getAnchors
+### getAnchors
 
 
 ```lua
@@ -36918,7 +36918,7 @@ Get the anchor points of the joint.
 
 @*return* `y2` — The y-component of the anchor on Body 2.
 
-## getBodies
+### getBodies
 
 
 ```lua
@@ -36937,7 +36937,7 @@ Gets the bodies that the Joint is attached to.
 
 @*return* `bodyB` — The second Body.
 
-## getCollideConnected
+### getCollideConnected
 
 
 ```lua
@@ -36953,7 +36953,7 @@ Gets whether the connected Bodies collide.
 
 @*return* `c` — True if they collide, false otherwise.
 
-## getReactionForce
+### getReactionForce
 
 
 ```lua
@@ -36974,7 +36974,7 @@ Returns the reaction force in newtons on the second body
 
 @*return* `y` — The y-component of the force.
 
-## getReactionTorque
+### getReactionTorque
 
 
 ```lua
@@ -36992,7 +36992,7 @@ Returns the reaction torque on the second body.
 
 @*return* `torque` — The reaction torque on the second body.
 
-## getType
+### getType
 
 
 ```lua
@@ -37027,7 +37027,7 @@ type:
     | "weld" -- A WeldJoint.
 ```
 
-## getUserData
+### getUserData
 
 
 ```lua
@@ -37043,7 +37043,7 @@ Returns the Lua value associated with this Joint.
 
 @*return* `value` — The Lua value associated with the Joint.
 
-## isDestroyed
+### isDestroyed
 
 
 ```lua
@@ -37059,7 +37059,7 @@ Gets whether the Joint is destroyed. Destroyed joints cannot be used.
 
 @*return* `destroyed` — Whether the Joint is destroyed.
 
-## release
+### release
 
 
 ```lua
@@ -37077,7 +37077,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setUserData
+### setUserData
 
 
 ```lua
@@ -37094,7 +37094,7 @@ To delete the reference, explicitly pass nil.
 
 @*param* `value` — The Lua value to associate with the Joint.
 
-## type
+### type
 
 
 ```lua
@@ -37110,7 +37110,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -37138,7 +37138,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Joystick
 
-## getAxes
+### getAxes
 
 
 ```lua
@@ -37160,7 +37160,7 @@ Gets the direction of each axis.
 
 @*return* `axisDirN` — Direction of axisN.
 
-## getAxis
+### getAxis
 
 
 ```lua
@@ -37178,7 +37178,7 @@ Gets the direction of an axis.
 
 @*return* `direction` — Current value of the axis.
 
-## getAxisCount
+### getAxisCount
 
 
 ```lua
@@ -37194,7 +37194,7 @@ Gets the number of axes on the joystick.
 
 @*return* `axes` — The number of axes available.
 
-## getButtonCount
+### getButtonCount
 
 
 ```lua
@@ -37210,7 +37210,7 @@ Gets the number of buttons on the joystick.
 
 @*return* `buttons` — The number of buttons available.
 
-## getDeviceInfo
+### getDeviceInfo
 
 
 ```lua
@@ -37234,7 +37234,7 @@ Can be used to show different icons, etc. for different gamepads.
 
 @*return* `productVersion` — The product version of the joystick.
 
-## getGUID
+### getGUID
 
 
 ```lua
@@ -37250,7 +37250,7 @@ Gets a stable GUID unique to the type of the physical joystick which does not ch
 
 @*return* `guid` — The Joystick type's OS-dependent unique identifier.
 
-## getGamepadAxis
+### getGamepadAxis
 
 
 ```lua
@@ -37284,7 +37284,7 @@ axis:
     | "triggerright" -- Right analog trigger.
 ```
 
-## getGamepadMapping
+### getGamepadMapping
 
 
 ```lua
@@ -37355,7 +37355,7 @@ hatdirection:
     | "u" -- Up
 ```
 
-## getGamepadMappingString
+### getGamepadMappingString
 
 
 ```lua
@@ -37373,7 +37373,7 @@ The mapping string contains binding information used to map the Joystick's butto
 
 @*return* `mappingstring` — A string containing the Joystick's gamepad mappings, or nil if the Joystick is not recognized as a gamepad.
 
-## getHat
+### getHat
 
 
 ```lua
@@ -37410,7 +37410,7 @@ direction:
     | "u" -- Up
 ```
 
-## getHatCount
+### getHatCount
 
 
 ```lua
@@ -37426,7 +37426,7 @@ Gets the number of hats on the joystick.
 
 @*return* `hats` — How many hats the joystick has.
 
-## getID
+### getID
 
 
 ```lua
@@ -37445,7 +37445,7 @@ Gets the joystick's unique identifier. The identifier will remain the same for t
 
 @*return* `instanceid` — Unique instance identifier. Changes every time the Joystick is reconnected. nil if the Joystick is not connected.
 
-## getName
+### getName
 
 
 ```lua
@@ -37461,7 +37461,7 @@ Gets the name of the joystick.
 
 @*return* `name` — The name of the joystick.
 
-## getVibration
+### getVibration
 
 
 ```lua
@@ -37480,7 +37480,7 @@ Gets the current vibration motor strengths on a Joystick with rumble support.
 
 @*return* `right` — Current strength of the right vibration motor on the Joystick.
 
-## isConnected
+### isConnected
 
 
 ```lua
@@ -37496,7 +37496,7 @@ Gets whether the Joystick is connected.
 
 @*return* `connected` — True if the Joystick is currently connected, false otherwise.
 
-## isDown
+### isDown
 
 
 ```lua
@@ -37516,7 +37516,7 @@ LÖVE 0.9.0 had a bug which required the button indices passed to Joystick:isDow
 
 @*return* `anyDown` — True if any supplied button is down, false if not.
 
-## isGamepad
+### isGamepad
 
 
 ```lua
@@ -37534,7 +37534,7 @@ LÖVE automatically recognizes most popular controllers with a similar layout to
 
 @*return* `isgamepad` — True if the Joystick is recognized as a gamepad, false otherwise.
 
-## isGamepadDown
+### isGamepadDown
 
 
 ```lua
@@ -37577,7 +37577,7 @@ buttonN:
     | "dpright" -- D-pad right.
 ```
 
-## isVibrationSupported
+### isVibrationSupported
 
 
 ```lua
@@ -37593,7 +37593,7 @@ Gets whether the Joystick supports vibration.
 
 @*return* `supported` — True if rumble / force feedback vibration is supported on this Joystick, false if not.
 
-## release
+### release
 
 
 ```lua
@@ -37611,7 +37611,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setVibration
+### setVibration
 
 
 ```lua
@@ -37634,7 +37634,7 @@ Sets the vibration motor speeds on a Joystick with rumble support. Most common g
 
 @*return* `success` — True if the vibration was successfully applied, false if not.
 
-## type
+### type
 
 
 ```lua
@@ -37650,7 +37650,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -37703,7 +37703,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Mesh
 
-## attachAttribute
+### attachAttribute
 
 
 ```lua
@@ -37723,7 +37723,7 @@ Attaches a vertex attribute from a different Mesh onto this Mesh, for use when d
 
 @*param* `mesh` — The Mesh to get the vertex attribute from.
 
-## detachAttribute
+### detachAttribute
 
 
 ```lua
@@ -37741,7 +37741,7 @@ Removes a previously attached vertex attribute from this Mesh.
 
 @*return* `success` — Whether the attribute was successfully detached.
 
-## flush
+### flush
 
 
 ```lua
@@ -37758,7 +37758,7 @@ If this method is used, it generally shouldn't be called more than once (at most
 
 [Open in Browser](https://love2d.org/wiki/Mesh:flush)
 
-## getDrawMode
+### getDrawMode
 
 
 ```lua
@@ -37788,7 +37788,7 @@ mode:
     | "points" -- The vertices are drawn as unconnected points (see love.graphics.setPointSize.)
 ```
 
-## getDrawRange
+### getDrawRange
 
 
 ```lua
@@ -37807,7 +37807,7 @@ Gets the range of vertices used when drawing the Mesh.
 
 @*return* `max` — The index of the last vertex used when drawing, or the index of the last value in the vertex map used if one is set for this Mesh.
 
-## getTexture
+### getTexture
 
 
 ```lua
@@ -37823,7 +37823,7 @@ Gets the texture (Image or Canvas) used when drawing the Mesh.
 
 @*return* `texture` — The Image or Canvas to texture the Mesh with when drawing, or nil if none is set.
 
-## getVertex
+### getVertex
 
 
 ```lua
@@ -37846,7 +37846,7 @@ In versions prior to 11.0, color and byte component values were within the range
 
 @*return* `attributecomponent` — The first component of the first vertex attribute in the specified vertex.
 
-## getVertexAttribute
+### getVertexAttribute
 
 
 ```lua
@@ -37871,7 +37871,7 @@ Meshes without a custom vertex format specified in love.graphics.newMesh have po
 
 @*return* `value2` — The value of the second component of the attribute.
 
-## getVertexCount
+### getVertexCount
 
 
 ```lua
@@ -37887,7 +37887,7 @@ Gets the total number of vertices in the Mesh.
 
 @*return* `count` — The total number of vertices in the mesh.
 
-## getVertexFormat
+### getVertexFormat
 
 
 ```lua
@@ -37903,7 +37903,7 @@ Gets the vertex format that the Mesh was created with.
 
 @*return* `format` — The vertex format of the Mesh, which is a table containing tables for each vertex attribute the Mesh was created with, in the form of {attribute, ...}.
 
-## getVertexMap
+### getVertexMap
 
 
 ```lua
@@ -37921,7 +37921,7 @@ If no vertex map has been set previously via Mesh:setVertexMap, then this functi
 
 @*return* `map` — A table containing the list of vertex indices used when drawing.
 
-## isAttributeEnabled
+### isAttributeEnabled
 
 
 ```lua
@@ -37939,7 +37939,7 @@ Gets whether a specific vertex attribute in the Mesh is enabled. Vertex data fro
 
 @*return* `enabled` — Whether the vertex attribute is used when drawing this Mesh.
 
-## release
+### release
 
 
 ```lua
@@ -37957,7 +37957,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setAttributeEnabled
+### setAttributeEnabled
 
 
 ```lua
@@ -37974,7 +37974,7 @@ Enables or disables a specific vertex attribute in the Mesh. Vertex data from di
 
 @*param* `enable` — Whether the vertex attribute is used when drawing this Mesh.
 
-## setDrawMode
+### setDrawMode
 
 
 ```lua
@@ -38003,7 +38003,7 @@ mode:
     | "points" -- The vertices are drawn as unconnected points (see love.graphics.setPointSize.)
 ```
 
-## setDrawRange
+### setDrawRange
 
 
 ```lua
@@ -38023,7 +38023,7 @@ Restricts the drawn vertices of the Mesh to a subset of the total.
 
 @*param* `count` — The number of vertices to use when drawing, or number of values in the vertex map to use if one is set for this Mesh.
 
-## setTexture
+### setTexture
 
 
 ```lua
@@ -38041,7 +38041,7 @@ Sets the texture (Image or Canvas) used when drawing the Mesh.
 
 @*param* `texture` — The Image or Canvas to texture the Mesh with when drawing.
 
-## setVertex
+### setVertex
 
 
 ```lua
@@ -38063,7 +38063,7 @@ In versions prior to 11.0, color and byte component values were within the range
 
 @*param* `attributecomponent` — The first component of the first vertex attribute in the specified vertex.
 
-## setVertexAttribute
+### setVertexAttribute
 
 
 ```lua
@@ -38086,7 +38086,7 @@ Meshes without a custom vertex format specified in love.graphics.newMesh have po
 
 @*param* `value2` — The new value for the second component of the attribute.
 
-## setVertexMap
+### setVertexMap
 
 
 ```lua
@@ -38106,7 +38106,7 @@ The vertex map allows you to re-order or reuse vertices when drawing without cha
 
 @*param* `map` — A table containing a list of vertex indices to use when drawing. Values must be in the range of Mesh:getVertexCount().
 
-## setVertices
+### setVertices
 
 
 ```lua
@@ -38128,7 +38128,7 @@ Replaces a range of vertices in the Mesh with new ones. The total number of vert
 
 @*param* `count` — Amount of vertices to replace.
 
-## type
+### type
 
 
 ```lua
@@ -38144,7 +38144,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -38182,7 +38182,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.MotorJoint
 
-## destroy
+### destroy
 
 
 ```lua
@@ -38199,7 +38199,7 @@ may be used to free the object immediately.
 
 [Open in Browser](https://love2d.org/wiki/Joint:destroy)
 
-## getAnchors
+### getAnchors
 
 
 ```lua
@@ -38224,7 +38224,7 @@ Get the anchor points of the joint.
 
 @*return* `y2` — The y-component of the anchor on Body 2.
 
-## getAngularOffset
+### getAngularOffset
 
 
 ```lua
@@ -38240,7 +38240,7 @@ Gets the target angular offset between the two Bodies the Joint is attached to.
 
 @*return* `angleoffset` — The target angular offset in radians: the second body's angle minus the first body's angle.
 
-## getBodies
+### getBodies
 
 
 ```lua
@@ -38259,7 +38259,7 @@ Gets the bodies that the Joint is attached to.
 
 @*return* `bodyB` — The second Body.
 
-## getCollideConnected
+### getCollideConnected
 
 
 ```lua
@@ -38275,7 +38275,7 @@ Gets whether the connected Bodies collide.
 
 @*return* `c` — True if they collide, false otherwise.
 
-## getLinearOffset
+### getLinearOffset
 
 
 ```lua
@@ -38294,7 +38294,7 @@ Gets the target linear offset between the two Bodies the Joint is attached to.
 
 @*return* `y` — The y component of the target linear offset, relative to the first Body.
 
-## getReactionForce
+### getReactionForce
 
 
 ```lua
@@ -38315,7 +38315,7 @@ Returns the reaction force in newtons on the second body
 
 @*return* `y` — The y-component of the force.
 
-## getReactionTorque
+### getReactionTorque
 
 
 ```lua
@@ -38333,7 +38333,7 @@ Returns the reaction torque on the second body.
 
 @*return* `torque` — The reaction torque on the second body.
 
-## getType
+### getType
 
 
 ```lua
@@ -38368,7 +38368,7 @@ type:
     | "weld" -- A WeldJoint.
 ```
 
-## getUserData
+### getUserData
 
 
 ```lua
@@ -38384,7 +38384,7 @@ Returns the Lua value associated with this Joint.
 
 @*return* `value` — The Lua value associated with the Joint.
 
-## isDestroyed
+### isDestroyed
 
 
 ```lua
@@ -38400,7 +38400,7 @@ Gets whether the Joint is destroyed. Destroyed joints cannot be used.
 
 @*return* `destroyed` — Whether the Joint is destroyed.
 
-## release
+### release
 
 
 ```lua
@@ -38418,7 +38418,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setAngularOffset
+### setAngularOffset
 
 
 ```lua
@@ -38433,7 +38433,7 @@ Sets the target angluar offset between the two Bodies the Joint is attached to.
 
 @*param* `angleoffset` — The target angular offset in radians: the second body's angle minus the first body's angle.
 
-## setLinearOffset
+### setLinearOffset
 
 
 ```lua
@@ -38450,7 +38450,7 @@ Sets the target linear offset between the two Bodies the Joint is attached to.
 
 @*param* `y` — The y component of the target linear offset, relative to the first Body.
 
-## setUserData
+### setUserData
 
 
 ```lua
@@ -38467,7 +38467,7 @@ To delete the reference, explicitly pass nil.
 
 @*param* `value` — The Lua value to associate with the Joint.
 
-## type
+### type
 
 
 ```lua
@@ -38483,7 +38483,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -38506,7 +38506,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.MouseJoint
 
-## destroy
+### destroy
 
 
 ```lua
@@ -38523,7 +38523,7 @@ may be used to free the object immediately.
 
 [Open in Browser](https://love2d.org/wiki/Joint:destroy)
 
-## getAnchors
+### getAnchors
 
 
 ```lua
@@ -38548,7 +38548,7 @@ Get the anchor points of the joint.
 
 @*return* `y2` — The y-component of the anchor on Body 2.
 
-## getBodies
+### getBodies
 
 
 ```lua
@@ -38567,7 +38567,7 @@ Gets the bodies that the Joint is attached to.
 
 @*return* `bodyB` — The second Body.
 
-## getCollideConnected
+### getCollideConnected
 
 
 ```lua
@@ -38583,7 +38583,7 @@ Gets whether the connected Bodies collide.
 
 @*return* `c` — True if they collide, false otherwise.
 
-## getDampingRatio
+### getDampingRatio
 
 
 ```lua
@@ -38599,7 +38599,7 @@ Returns the damping ratio.
 
 @*return* `ratio` — The new damping ratio.
 
-## getFrequency
+### getFrequency
 
 
 ```lua
@@ -38615,7 +38615,7 @@ Returns the frequency.
 
 @*return* `freq` — The frequency in hertz.
 
-## getMaxForce
+### getMaxForce
 
 
 ```lua
@@ -38631,7 +38631,7 @@ Gets the highest allowed force.
 
 @*return* `f` — The max allowed force.
 
-## getReactionForce
+### getReactionForce
 
 
 ```lua
@@ -38652,7 +38652,7 @@ Returns the reaction force in newtons on the second body
 
 @*return* `y` — The y-component of the force.
 
-## getReactionTorque
+### getReactionTorque
 
 
 ```lua
@@ -38670,7 +38670,7 @@ Returns the reaction torque on the second body.
 
 @*return* `torque` — The reaction torque on the second body.
 
-## getTarget
+### getTarget
 
 
 ```lua
@@ -38689,7 +38689,7 @@ Gets the target point.
 
 @*return* `y` — The x-component of the target.
 
-## getType
+### getType
 
 
 ```lua
@@ -38724,7 +38724,7 @@ type:
     | "weld" -- A WeldJoint.
 ```
 
-## getUserData
+### getUserData
 
 
 ```lua
@@ -38740,7 +38740,7 @@ Returns the Lua value associated with this Joint.
 
 @*return* `value` — The Lua value associated with the Joint.
 
-## isDestroyed
+### isDestroyed
 
 
 ```lua
@@ -38756,7 +38756,7 @@ Gets whether the Joint is destroyed. Destroyed joints cannot be used.
 
 @*return* `destroyed` — Whether the Joint is destroyed.
 
-## release
+### release
 
 
 ```lua
@@ -38774,7 +38774,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setDampingRatio
+### setDampingRatio
 
 
 ```lua
@@ -38789,7 +38789,7 @@ Sets a new damping ratio.
 
 @*param* `ratio` — The new damping ratio.
 
-## setFrequency
+### setFrequency
 
 
 ```lua
@@ -38804,7 +38804,7 @@ Sets a new frequency.
 
 @*param* `freq` — The new frequency in hertz.
 
-## setMaxForce
+### setMaxForce
 
 
 ```lua
@@ -38819,7 +38819,7 @@ Sets the highest allowed force.
 
 @*param* `f` — The max allowed force.
 
-## setTarget
+### setTarget
 
 
 ```lua
@@ -38836,7 +38836,7 @@ Sets the target point.
 
 @*param* `y` — The y-component of the target.
 
-## setUserData
+### setUserData
 
 
 ```lua
@@ -38853,7 +38853,7 @@ To delete the reference, explicitly pass nil.
 
 @*param* `value` — The Lua value to associate with the Joint.
 
-## type
+### type
 
 
 ```lua
@@ -38869,7 +38869,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -38892,7 +38892,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Object
 
-## release
+### release
 
 
 ```lua
@@ -38910,7 +38910,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## type
+### type
 
 
 ```lua
@@ -38926,7 +38926,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -38954,7 +38954,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.ParticleSystem
 
-## clone
+### clone
 
 
 ```lua
@@ -38970,7 +38970,7 @@ Creates an identical copy of the ParticleSystem in the stopped state.
 
 @*return* `particlesystem` — The new identical copy of this ParticleSystem.
 
-## emit
+### emit
 
 
 ```lua
@@ -38985,7 +38985,7 @@ Emits a burst of particles from the particle emitter.
 
 @*param* `numparticles` — The amount of particles to emit. The number of emitted particles will be truncated if the particle system's max buffer size is reached.
 
-## getBufferSize
+### getBufferSize
 
 
 ```lua
@@ -39001,7 +39001,7 @@ Gets the maximum number of particles the ParticleSystem can have at once.
 
 @*return* `size` — The maximum number of particles.
 
-## getColors
+### getColors
 
 
 ```lua
@@ -39052,7 +39052,7 @@ In versions prior to 11.0, color component values were within the range of 0 to 
 
 @*return* `a8` — Eighth color, alpha component (0-1).
 
-## getCount
+### getCount
 
 
 ```lua
@@ -39068,7 +39068,7 @@ Gets the number of particles that are currently in the system.
 
 @*return* `count` — The current number of live particles.
 
-## getDirection
+### getDirection
 
 
 ```lua
@@ -39084,7 +39084,7 @@ Gets the direction of the particle emitter (in radians).
 
 @*return* `direction` — The direction of the emitter (radians).
 
-## getEmissionArea
+### getEmissionArea
 
 
 ```lua
@@ -39128,7 +39128,7 @@ distribution:
     | "none" -- No distribution - area spread is disabled.
 ```
 
-## getEmissionRate
+### getEmissionRate
 
 
 ```lua
@@ -39144,7 +39144,7 @@ Gets the amount of particles emitted per second.
 
 @*return* `rate` — The amount of particles per second.
 
-## getEmitterLifetime
+### getEmitterLifetime
 
 
 ```lua
@@ -39160,7 +39160,7 @@ Gets how long the particle system will emit particles (if -1 then it emits parti
 
 @*return* `life` — The lifetime of the emitter (in seconds).
 
-## getInsertMode
+### getInsertMode
 
 
 ```lua
@@ -39189,7 +39189,7 @@ mode:
     | "random" -- Particles are inserted at random positions in the ParticleSystem's list of particles.
 ```
 
-## getLinearAcceleration
+### getLinearAcceleration
 
 
 ```lua
@@ -39216,7 +39216,7 @@ Every particle created will accelerate along the x and y axes between xmin,ymin 
 
 @*return* `ymax` — The maximum acceleration along the y axis.
 
-## getLinearDamping
+### getLinearDamping
 
 
 ```lua
@@ -39235,7 +39235,7 @@ Gets the amount of linear damping (constant deceleration) for particles.
 
 @*return* `max` — The maximum amount of linear damping applied to particles.
 
-## getOffset
+### getOffset
 
 
 ```lua
@@ -39254,7 +39254,7 @@ Gets the particle image's draw offset.
 
 @*return* `oy` — The y coordinate of the particle image's draw offset.
 
-## getParticleLifetime
+### getParticleLifetime
 
 
 ```lua
@@ -39273,7 +39273,7 @@ Gets the lifetime of the particles.
 
 @*return* `max` — The maximum life of the particles (in seconds).
 
-## getPosition
+### getPosition
 
 
 ```lua
@@ -39292,7 +39292,7 @@ Gets the position of the emitter.
 
 @*return* `y` — Position along y-axis.
 
-## getQuads
+### getQuads
 
 
 ```lua
@@ -39308,7 +39308,7 @@ Gets the series of Quads used for the particle sprites.
 
 @*return* `quads` — A table containing the Quads used.
 
-## getRadialAcceleration
+### getRadialAcceleration
 
 
 ```lua
@@ -39327,7 +39327,7 @@ Gets the radial acceleration (away from the emitter).
 
 @*return* `max` — The maximum acceleration.
 
-## getRotation
+### getRotation
 
 
 ```lua
@@ -39346,7 +39346,7 @@ Gets the rotation of the image upon particle creation (in radians).
 
 @*return* `max` — The maximum initial angle (radians).
 
-## getSizeVariation
+### getSizeVariation
 
 
 ```lua
@@ -39362,7 +39362,7 @@ Gets the amount of size variation (0 meaning no variation and 1 meaning full var
 
 @*return* `variation` — The amount of variation (0 meaning no variation and 1 meaning full variation between start and end).
 
-## getSizes
+### getSizes
 
 
 ```lua
@@ -39384,7 +39384,7 @@ Gets the series of sizes by which the sprite is scaled. 1.0 is normal size. The 
 
 @*return* `size8` — The eighth size.
 
-## getSpeed
+### getSpeed
 
 
 ```lua
@@ -39403,7 +39403,7 @@ Gets the speed of the particles.
 
 @*return* `max` — The maximum linear speed of the particles.
 
-## getSpin
+### getSpin
 
 
 ```lua
@@ -39425,7 +39425,7 @@ Gets the spin of the sprite.
 
 @*return* `variation` — The degree of variation (0 meaning no variation and 1 meaning full variation between start and end).
 
-## getSpinVariation
+### getSpinVariation
 
 
 ```lua
@@ -39441,7 +39441,7 @@ Gets the amount of spin variation (0 meaning no variation and 1 meaning full var
 
 @*return* `variation` — The amount of variation (0 meaning no variation and 1 meaning full variation between start and end).
 
-## getSpread
+### getSpread
 
 
 ```lua
@@ -39457,7 +39457,7 @@ Gets the amount of directional spread of the particle emitter (in radians).
 
 @*return* `spread` — The spread of the emitter (radians).
 
-## getTangentialAcceleration
+### getTangentialAcceleration
 
 
 ```lua
@@ -39476,7 +39476,7 @@ Gets the tangential acceleration (acceleration perpendicular to the particle's d
 
 @*return* `max` — The maximum acceleration.
 
-## getTexture
+### getTexture
 
 
 ```lua
@@ -39492,7 +39492,7 @@ Gets the texture (Image or Canvas) used for the particles.
 
 @*return* `texture` — The Image or Canvas used for the particles.
 
-## hasRelativeRotation
+### hasRelativeRotation
 
 
 ```lua
@@ -39508,7 +39508,7 @@ Gets whether particle angles and rotations are relative to their velocities. If 
 
 @*return* `enable` — True if relative particle rotation is enabled, false if it's disabled.
 
-## isActive
+### isActive
 
 
 ```lua
@@ -39524,7 +39524,7 @@ Checks whether the particle system is actively emitting particles.
 
 @*return* `active` — True if system is active, false otherwise.
 
-## isPaused
+### isPaused
 
 
 ```lua
@@ -39540,7 +39540,7 @@ Checks whether the particle system is paused.
 
 @*return* `paused` — True if system is paused, false otherwise.
 
-## isStopped
+### isStopped
 
 
 ```lua
@@ -39556,7 +39556,7 @@ Checks whether the particle system is stopped.
 
 @*return* `stopped` — True if system is stopped, false otherwise.
 
-## moveTo
+### moveTo
 
 
 ```lua
@@ -39573,7 +39573,7 @@ Moves the position of the emitter. This results in smoother particle spawning be
 
 @*param* `y` — Position along y-axis.
 
-## pause
+### pause
 
 
 ```lua
@@ -39586,7 +39586,7 @@ Pauses the particle emitter.
 
 [Open in Browser](https://love2d.org/wiki/ParticleSystem:pause)
 
-## release
+### release
 
 
 ```lua
@@ -39604,7 +39604,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## reset
+### reset
 
 
 ```lua
@@ -39617,7 +39617,7 @@ Resets the particle emitter, removing any existing particles and resetting the l
 
 [Open in Browser](https://love2d.org/wiki/ParticleSystem:reset)
 
-## setBufferSize
+### setBufferSize
 
 
 ```lua
@@ -39632,7 +39632,7 @@ Sets the size of the buffer (the max allowed amount of particles in the system).
 
 @*param* `size` — The buffer size.
 
-## setColors
+### setColors
 
 
 ```lua
@@ -39676,7 +39676,7 @@ In versions prior to 11.0, color component values were within the range of 0 to 
 
 @*param* `a8` — Eighth color, alpha component (0-1).
 
-## setDirection
+### setDirection
 
 
 ```lua
@@ -39691,7 +39691,7 @@ Sets the direction the particles will be emitted in.
 
 @*param* `direction` — The direction of the particles (in radians).
 
-## setEmissionArea
+### setEmissionArea
 
 
 ```lua
@@ -39730,7 +39730,7 @@ distribution:
     | "none" -- No distribution - area spread is disabled.
 ```
 
-## setEmissionRate
+### setEmissionRate
 
 
 ```lua
@@ -39745,7 +39745,7 @@ Sets the amount of particles emitted per second.
 
 @*param* `rate` — The amount of particles per second.
 
-## setEmitterLifetime
+### setEmitterLifetime
 
 
 ```lua
@@ -39760,7 +39760,7 @@ Sets how long the particle system should emit particles (if -1 then it emits par
 
 @*param* `life` — The lifetime of the emitter (in seconds).
 
-## setInsertMode
+### setInsertMode
 
 
 ```lua
@@ -39788,7 +39788,7 @@ mode:
     | "random" -- Particles are inserted at random positions in the ParticleSystem's list of particles.
 ```
 
-## setLinearAcceleration
+### setLinearAcceleration
 
 
 ```lua
@@ -39811,7 +39811,7 @@ Every particle created will accelerate along the x and y axes between xmin,ymin 
 
 @*param* `ymax` — The maximum acceleration along the y axis.
 
-## setLinearDamping
+### setLinearDamping
 
 
 ```lua
@@ -39828,7 +39828,7 @@ Sets the amount of linear damping (constant deceleration) for particles.
 
 @*param* `max` — The maximum amount of linear damping applied to particles.
 
-## setOffset
+### setOffset
 
 
 ```lua
@@ -39847,7 +39847,7 @@ If this function is not used, the particles rotate around their center.
 
 @*param* `y` — The y coordinate of the rotation offset.
 
-## setParticleLifetime
+### setParticleLifetime
 
 
 ```lua
@@ -39864,7 +39864,7 @@ Sets the lifetime of the particles.
 
 @*param* `max` — The maximum life of the particles (in seconds).
 
-## setPosition
+### setPosition
 
 
 ```lua
@@ -39881,7 +39881,7 @@ Sets the position of the emitter.
 
 @*param* `y` — Position along y-axis.
 
-## setQuads
+### setQuads
 
 
 ```lua
@@ -39901,7 +39901,7 @@ Sets a series of Quads to use for the particle sprites. Particles will choose a 
 
 @*param* `quad2` — The second Quad to use.
 
-## setRadialAcceleration
+### setRadialAcceleration
 
 
 ```lua
@@ -39918,7 +39918,7 @@ Set the radial acceleration (away from the emitter).
 
 @*param* `max` — The maximum acceleration.
 
-## setRelativeRotation
+### setRelativeRotation
 
 
 ```lua
@@ -39933,7 +39933,7 @@ Sets whether particle angles and rotations are relative to their velocities. If 
 
 @*param* `enable` — True to enable relative particle rotation, false to disable it.
 
-## setRotation
+### setRotation
 
 
 ```lua
@@ -39950,7 +39950,7 @@ Sets the rotation of the image upon particle creation (in radians).
 
 @*param* `max` — The maximum initial angle (radians).
 
-## setSizeVariation
+### setSizeVariation
 
 
 ```lua
@@ -39965,7 +39965,7 @@ Sets the amount of size variation (0 meaning no variation and 1 meaning full var
 
 @*param* `variation` — The amount of variation (0 meaning no variation and 1 meaning full variation between start and end).
 
-## setSizes
+### setSizes
 
 
 ```lua
@@ -39986,7 +39986,7 @@ At least one size must be specified. A maximum of eight may be used.
 
 @*param* `size8` — The eighth size.
 
-## setSpeed
+### setSpeed
 
 
 ```lua
@@ -40003,7 +40003,7 @@ Sets the speed of the particles.
 
 @*param* `max` — The maximum linear speed of the particles.
 
-## setSpin
+### setSpin
 
 
 ```lua
@@ -40020,7 +40020,7 @@ Sets the spin of the sprite.
 
 @*param* `max` — The maximum spin (radians per second).
 
-## setSpinVariation
+### setSpinVariation
 
 
 ```lua
@@ -40035,7 +40035,7 @@ Sets the amount of spin variation (0 meaning no variation and 1 meaning full var
 
 @*param* `variation` — The amount of variation (0 meaning no variation and 1 meaning full variation between start and end).
 
-## setSpread
+### setSpread
 
 
 ```lua
@@ -40050,7 +40050,7 @@ Sets the amount of spread for the system.
 
 @*param* `spread` — The amount of spread (radians).
 
-## setTangentialAcceleration
+### setTangentialAcceleration
 
 
 ```lua
@@ -40067,7 +40067,7 @@ Sets the tangential acceleration (acceleration perpendicular to the particle's d
 
 @*param* `max` — The maximum acceleration.
 
-## setTexture
+### setTexture
 
 
 ```lua
@@ -40082,7 +40082,7 @@ Sets the texture (Image or Canvas) to be used for the particles.
 
 @*param* `texture` — An Image or Canvas to use for the particles.
 
-## start
+### start
 
 
 ```lua
@@ -40095,7 +40095,7 @@ Starts the particle emitter.
 
 [Open in Browser](https://love2d.org/wiki/ParticleSystem:start)
 
-## stop
+### stop
 
 
 ```lua
@@ -40108,7 +40108,7 @@ Stops the particle emitter, resetting the lifetime counter.
 
 [Open in Browser](https://love2d.org/wiki/ParticleSystem:stop)
 
-## type
+### type
 
 
 ```lua
@@ -40124,7 +40124,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -40142,7 +40142,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 @*return* `b` — True if the object is of the specified type, false otherwise.
 
-## update
+### update
 
 
 ```lua
@@ -40167,7 +40167,7 @@ Updates the particle system; moving, creating and killing particles.
 
 # love.PolygonShape
 
-## computeAABB
+### computeAABB
 
 
 ```lua
@@ -40200,7 +40200,7 @@ Returns the points of the bounding box for the transformed shape.
 
 @*return* `bottomRightY` — The y position of the bottom-right point.
 
-## computeMass
+### computeMass
 
 
 ```lua
@@ -40227,7 +40227,7 @@ Computes the mass properties for the shape with the specified density.
 
 @*return* `inertia` — The rotational inertia.
 
-## getChildCount
+### getChildCount
 
 
 ```lua
@@ -40243,7 +40243,7 @@ Returns the number of children the shape has.
 
 @*return* `count` — The number of children.
 
-## getPoints
+### getPoints
 
 
 ```lua
@@ -40270,7 +40270,7 @@ This function has a variable number of return values. It can be used in a nested
 
 @*return* `y2` — The y-component of the second vertex.
 
-## getRadius
+### getRadius
 
 
 ```lua
@@ -40286,7 +40286,7 @@ Gets the radius of the shape.
 
 @*return* `radius` — The radius of the shape.
 
-## getType
+### getType
 
 
 ```lua
@@ -40318,7 +40318,7 @@ type:
     | "chain" -- The Shape is a ChainShape.
 ```
 
-## rayCast
+### rayCast
 
 
 ```lua
@@ -40366,7 +40366,7 @@ hitx, hity = x1 + (x2 - x1) * fraction, y1 + (y2 - y1) * fraction
 
 @*return* `fraction` — The position on the input line where the intersection happened as a factor of the line length.
 
-## release
+### release
 
 
 ```lua
@@ -40384,7 +40384,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## testPoint
+### testPoint
 
 
 ```lua
@@ -40410,7 +40410,7 @@ This is particularly useful for mouse interaction with the shapes. By looping th
 
 @*return* `hit` — True if inside, false if outside
 
-## type
+### type
 
 
 ```lua
@@ -40426,7 +40426,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -40454,7 +40454,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.PrismaticJoint
 
-## areLimitsEnabled
+### areLimitsEnabled
 
 
 ```lua
@@ -40470,7 +40470,7 @@ Checks whether the limits are enabled.
 
 @*return* `enabled` — True if enabled, false otherwise.
 
-## destroy
+### destroy
 
 
 ```lua
@@ -40487,7 +40487,7 @@ may be used to free the object immediately.
 
 [Open in Browser](https://love2d.org/wiki/Joint:destroy)
 
-## getAnchors
+### getAnchors
 
 
 ```lua
@@ -40512,7 +40512,7 @@ Get the anchor points of the joint.
 
 @*return* `y2` — The y-component of the anchor on Body 2.
 
-## getAxis
+### getAxis
 
 
 ```lua
@@ -40531,7 +40531,7 @@ Gets the world-space axis vector of the Prismatic Joint.
 
 @*return* `y` — The y-axis coordinate of the world-space axis vector.
 
-## getBodies
+### getBodies
 
 
 ```lua
@@ -40550,7 +40550,7 @@ Gets the bodies that the Joint is attached to.
 
 @*return* `bodyB` — The second Body.
 
-## getCollideConnected
+### getCollideConnected
 
 
 ```lua
@@ -40566,7 +40566,7 @@ Gets whether the connected Bodies collide.
 
 @*return* `c` — True if they collide, false otherwise.
 
-## getJointSpeed
+### getJointSpeed
 
 
 ```lua
@@ -40582,7 +40582,7 @@ Get the current joint angle speed.
 
 @*return* `s` — Joint angle speed in meters/second.
 
-## getJointTranslation
+### getJointTranslation
 
 
 ```lua
@@ -40598,7 +40598,7 @@ Get the current joint translation.
 
 @*return* `t` — Joint translation, usually in meters..
 
-## getLimits
+### getLimits
 
 
 ```lua
@@ -40617,7 +40617,7 @@ Gets the joint limits.
 
 @*return* `upper` — The upper limit, usually in meters.
 
-## getLowerLimit
+### getLowerLimit
 
 
 ```lua
@@ -40633,7 +40633,7 @@ Gets the lower limit.
 
 @*return* `lower` — The lower limit, usually in meters.
 
-## getMaxMotorForce
+### getMaxMotorForce
 
 
 ```lua
@@ -40649,7 +40649,7 @@ Gets the maximum motor force.
 
 @*return* `f` — The maximum motor force, usually in N.
 
-## getMotorForce
+### getMotorForce
 
 
 ```lua
@@ -40667,7 +40667,7 @@ Returns the current motor force.
 
 @*return* `force` — The force on the motor in newtons.
 
-## getMotorSpeed
+### getMotorSpeed
 
 
 ```lua
@@ -40683,7 +40683,7 @@ Gets the motor speed.
 
 @*return* `s` — The motor speed, usually in meters per second.
 
-## getReactionForce
+### getReactionForce
 
 
 ```lua
@@ -40704,7 +40704,7 @@ Returns the reaction force in newtons on the second body
 
 @*return* `y` — The y-component of the force.
 
-## getReactionTorque
+### getReactionTorque
 
 
 ```lua
@@ -40722,7 +40722,7 @@ Returns the reaction torque on the second body.
 
 @*return* `torque` — The reaction torque on the second body.
 
-## getReferenceAngle
+### getReferenceAngle
 
 
 ```lua
@@ -40738,7 +40738,7 @@ Gets the reference angle.
 
 @*return* `angle` — The reference angle in radians.
 
-## getType
+### getType
 
 
 ```lua
@@ -40773,7 +40773,7 @@ type:
     | "weld" -- A WeldJoint.
 ```
 
-## getUpperLimit
+### getUpperLimit
 
 
 ```lua
@@ -40789,7 +40789,7 @@ Gets the upper limit.
 
 @*return* `upper` — The upper limit, usually in meters.
 
-## getUserData
+### getUserData
 
 
 ```lua
@@ -40805,7 +40805,7 @@ Returns the Lua value associated with this Joint.
 
 @*return* `value` — The Lua value associated with the Joint.
 
-## isDestroyed
+### isDestroyed
 
 
 ```lua
@@ -40821,7 +40821,7 @@ Gets whether the Joint is destroyed. Destroyed joints cannot be used.
 
 @*return* `destroyed` — Whether the Joint is destroyed.
 
-## isMotorEnabled
+### isMotorEnabled
 
 
 ```lua
@@ -40837,7 +40837,7 @@ Checks whether the motor is enabled.
 
 @*return* `enabled` — True if enabled, false if disabled.
 
-## release
+### release
 
 
 ```lua
@@ -40855,7 +40855,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setLimits
+### setLimits
 
 
 ```lua
@@ -40872,7 +40872,7 @@ Sets the limits.
 
 @*param* `upper` — The upper limit, usually in meters.
 
-## setLimitsEnabled
+### setLimitsEnabled
 
 
 ```lua
@@ -40888,7 +40888,7 @@ Enables/disables the joint limit.
 
 @*return* `enable` — True if enabled, false if disabled.
 
-## setLowerLimit
+### setLowerLimit
 
 
 ```lua
@@ -40903,7 +40903,7 @@ Sets the lower limit.
 
 @*param* `lower` — The lower limit, usually in meters.
 
-## setMaxMotorForce
+### setMaxMotorForce
 
 
 ```lua
@@ -40918,7 +40918,7 @@ Set the maximum motor force.
 
 @*param* `f` — The maximum motor force, usually in N.
 
-## setMotorEnabled
+### setMotorEnabled
 
 
 ```lua
@@ -40933,7 +40933,7 @@ Enables/disables the joint motor.
 
 @*param* `enable` — True to enable, false to disable.
 
-## setMotorSpeed
+### setMotorSpeed
 
 
 ```lua
@@ -40948,7 +40948,7 @@ Sets the motor speed.
 
 @*param* `s` — The motor speed, usually in meters per second.
 
-## setUpperLimit
+### setUpperLimit
 
 
 ```lua
@@ -40963,7 +40963,7 @@ Sets the upper limit.
 
 @*param* `upper` — The upper limit, usually in meters.
 
-## setUserData
+### setUserData
 
 
 ```lua
@@ -40980,7 +40980,7 @@ To delete the reference, explicitly pass nil.
 
 @*param* `value` — The Lua value to associate with the Joint.
 
-## type
+### type
 
 
 ```lua
@@ -40996,7 +40996,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -41019,7 +41019,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.PulleyJoint
 
-## destroy
+### destroy
 
 
 ```lua
@@ -41036,7 +41036,7 @@ may be used to free the object immediately.
 
 [Open in Browser](https://love2d.org/wiki/Joint:destroy)
 
-## getAnchors
+### getAnchors
 
 
 ```lua
@@ -41061,7 +41061,7 @@ Get the anchor points of the joint.
 
 @*return* `y2` — The y-component of the anchor on Body 2.
 
-## getBodies
+### getBodies
 
 
 ```lua
@@ -41080,7 +41080,7 @@ Gets the bodies that the Joint is attached to.
 
 @*return* `bodyB` — The second Body.
 
-## getCollideConnected
+### getCollideConnected
 
 
 ```lua
@@ -41096,7 +41096,7 @@ Gets whether the connected Bodies collide.
 
 @*return* `c` — True if they collide, false otherwise.
 
-## getConstant
+### getConstant
 
 
 ```lua
@@ -41112,7 +41112,7 @@ Get the total length of the rope.
 
 @*return* `length` — The length of the rope in the joint.
 
-## getGroundAnchors
+### getGroundAnchors
 
 
 ```lua
@@ -41137,7 +41137,7 @@ Get the ground anchor positions in world coordinates.
 
 @*return* `a2y` — The y coordinate of the second anchor.
 
-## getLengthA
+### getLengthA
 
 
 ```lua
@@ -41153,7 +41153,7 @@ Get the current length of the rope segment attached to the first body.
 
 @*return* `length` — The length of the rope segment.
 
-## getLengthB
+### getLengthB
 
 
 ```lua
@@ -41169,7 +41169,7 @@ Get the current length of the rope segment attached to the second body.
 
 @*return* `length` — The length of the rope segment.
 
-## getMaxLengths
+### getMaxLengths
 
 
 ```lua
@@ -41188,7 +41188,7 @@ Get the maximum lengths of the rope segments.
 
 @*return* `len2` — The maximum length of the second rope segment.
 
-## getRatio
+### getRatio
 
 
 ```lua
@@ -41204,7 +41204,7 @@ Get the pulley ratio.
 
 @*return* `ratio` — The pulley ratio of the joint.
 
-## getReactionForce
+### getReactionForce
 
 
 ```lua
@@ -41225,7 +41225,7 @@ Returns the reaction force in newtons on the second body
 
 @*return* `y` — The y-component of the force.
 
-## getReactionTorque
+### getReactionTorque
 
 
 ```lua
@@ -41243,7 +41243,7 @@ Returns the reaction torque on the second body.
 
 @*return* `torque` — The reaction torque on the second body.
 
-## getType
+### getType
 
 
 ```lua
@@ -41278,7 +41278,7 @@ type:
     | "weld" -- A WeldJoint.
 ```
 
-## getUserData
+### getUserData
 
 
 ```lua
@@ -41294,7 +41294,7 @@ Returns the Lua value associated with this Joint.
 
 @*return* `value` — The Lua value associated with the Joint.
 
-## isDestroyed
+### isDestroyed
 
 
 ```lua
@@ -41310,7 +41310,7 @@ Gets whether the Joint is destroyed. Destroyed joints cannot be used.
 
 @*return* `destroyed` — Whether the Joint is destroyed.
 
-## release
+### release
 
 
 ```lua
@@ -41328,7 +41328,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setConstant
+### setConstant
 
 
 ```lua
@@ -41345,7 +41345,7 @@ Setting a new length for the rope updates the maximum length values of the joint
 
 @*param* `length` — The new length of the rope in the joint.
 
-## setMaxLengths
+### setMaxLengths
 
 
 ```lua
@@ -41364,7 +41364,7 @@ The physics module also imposes maximum values for the rope segments. If the par
 
 @*param* `max2` — The new maximum length of the second segment.
 
-## setRatio
+### setRatio
 
 
 ```lua
@@ -41379,7 +41379,7 @@ Set the pulley ratio.
 
 @*param* `ratio` — The new pulley ratio of the joint.
 
-## setUserData
+### setUserData
 
 
 ```lua
@@ -41396,7 +41396,7 @@ To delete the reference, explicitly pass nil.
 
 @*param* `value` — The Lua value to associate with the Joint.
 
-## type
+### type
 
 
 ```lua
@@ -41412,7 +41412,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -41435,7 +41435,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Quad
 
-## getTextureDimensions
+### getTextureDimensions
 
 
 ```lua
@@ -41454,7 +41454,7 @@ Gets reference texture dimensions initially specified in love.graphics.newQuad.
 
 @*return* `sh` — The Texture height used by the Quad.
 
-## getViewport
+### getViewport
 
 
 ```lua
@@ -41479,7 +41479,7 @@ Gets the current viewport of this Quad.
 
 @*return* `h` — The height of the viewport.
 
-## release
+### release
 
 
 ```lua
@@ -41497,7 +41497,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setViewport
+### setViewport
 
 
 ```lua
@@ -41522,7 +41522,7 @@ Sets the texture coordinates according to a viewport.
 
 @*param* `sh` — The reference height, the height of the Image. (Must be greater than 0.)
 
-## type
+### type
 
 
 ```lua
@@ -41538,7 +41538,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -41561,7 +41561,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.RandomGenerator
 
-## getSeed
+### getSeed
 
 
 ```lua
@@ -41582,7 +41582,7 @@ The seed is split into two numbers due to Lua's use of doubles for all number va
 
 @*return* `high` — Integer number representing the higher 32 bits of the RandomGenerator's 64 bit seed value.
 
-## getState
+### getState
 
 
 ```lua
@@ -41600,7 +41600,7 @@ This is different from RandomGenerator:getSeed in that getState gets the RandomG
 
 @*return* `state` — The current state of the RandomGenerator object, represented as a string.
 
-## random
+### random
 
 
 ```lua
@@ -41619,7 +41619,7 @@ Generates a pseudo-random number in a platform independent manner.
 
 @*return* `number` — The pseudo-random number.
 
-## randomNormal
+### randomNormal
 
 
 ```lua
@@ -41639,7 +41639,7 @@ Get a normally distributed pseudo random number.
 
 @*return* `number` — Normally distributed random number with variance (stddev)² and the specified mean.
 
-## release
+### release
 
 
 ```lua
@@ -41657,7 +41657,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setSeed
+### setSeed
 
 
 ```lua
@@ -41675,7 +41675,7 @@ Sets the seed of the random number generator using the specified integer number.
 
 @*param* `seed` — The integer number with which you want to seed the randomization. Must be within the range of 2^53.
 
-## setState
+### setState
 
 
 ```lua
@@ -41692,7 +41692,7 @@ This is different from RandomGenerator:setSeed in that setState directly sets th
 
 @*param* `state` — The new state of the RandomGenerator object, represented as a string. This should originate from a previous call to RandomGenerator:getState.
 
-## type
+### type
 
 
 ```lua
@@ -41708,7 +41708,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -41731,7 +41731,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Rasterizer
 
-## getAdvance
+### getAdvance
 
 
 ```lua
@@ -41747,7 +41747,7 @@ Gets font advance.
 
 @*return* `advance` — Font advance.
 
-## getAscent
+### getAscent
 
 
 ```lua
@@ -41763,7 +41763,7 @@ Gets ascent height.
 
 @*return* `height` — Ascent height.
 
-## getDescent
+### getDescent
 
 
 ```lua
@@ -41779,7 +41779,7 @@ Gets descent height.
 
 @*return* `height` — Descent height.
 
-## getGlyphCount
+### getGlyphCount
 
 
 ```lua
@@ -41795,7 +41795,7 @@ Gets number of glyphs in font.
 
 @*return* `count` — Glyphs count.
 
-## getGlyphData
+### getGlyphData
 
 
 ```lua
@@ -41816,7 +41816,7 @@ Gets glyph data of a specified glyph.
 
 @*return* `glyphData` — Glyph data
 
-## getHeight
+### getHeight
 
 
 ```lua
@@ -41832,7 +41832,7 @@ Gets font height.
 
 @*return* `height` — Font height
 
-## getLineHeight
+### getLineHeight
 
 
 ```lua
@@ -41848,7 +41848,7 @@ Gets line height of a font.
 
 @*return* `height` — Line height of a font.
 
-## hasGlyphs
+### hasGlyphs
 
 
 ```lua
@@ -41868,7 +41868,7 @@ Checks if font contains specified glyphs.
 
 @*return* `hasGlyphs` — Whatever font contains specified glyphs.
 
-## release
+### release
 
 
 ```lua
@@ -41886,7 +41886,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## type
+### type
 
 
 ```lua
@@ -41902,7 +41902,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -41925,7 +41925,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.RecordingDevice
 
-## getBitDepth
+### getBitDepth
 
 
 ```lua
@@ -41941,7 +41941,7 @@ Gets the number of bits per sample in the data currently being recorded.
 
 @*return* `bits` — The number of bits per sample in the data that's currently being recorded.
 
-## getChannelCount
+### getChannelCount
 
 
 ```lua
@@ -41957,7 +41957,7 @@ Gets the number of channels currently being recorded (mono or stereo).
 
 @*return* `channels` — The number of channels being recorded (1 for mono, 2 for stereo).
 
-## getData
+### getData
 
 
 ```lua
@@ -41975,7 +41975,7 @@ The internal ring buffer is cleared when this function is called, so calling it 
 
 @*return* `data` — The recorded audio data, or nil if the device isn't recording.
 
-## getName
+### getName
 
 
 ```lua
@@ -41991,7 +41991,7 @@ Gets the name of the recording device.
 
 @*return* `name` — The name of the device.
 
-## getSampleCount
+### getSampleCount
 
 
 ```lua
@@ -42007,7 +42007,7 @@ Gets the number of currently recorded samples.
 
 @*return* `samples` — The number of samples that have been recorded so far.
 
-## getSampleRate
+### getSampleRate
 
 
 ```lua
@@ -42023,7 +42023,7 @@ Gets the number of samples per second currently being recorded.
 
 @*return* `rate` — The number of samples being recorded per second (sample rate).
 
-## isRecording
+### isRecording
 
 
 ```lua
@@ -42039,7 +42039,7 @@ Gets whether the device is currently recording.
 
 @*return* `recording` — True if the recording, false otherwise.
 
-## release
+### release
 
 
 ```lua
@@ -42057,7 +42057,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## start
+### start
 
 
 ```lua
@@ -42081,7 +42081,7 @@ Begins recording audio using this device.
 
 @*return* `success` — True if the device successfully began recording using the specified parameters, false if not.
 
-## stop
+### stop
 
 
 ```lua
@@ -42097,7 +42097,7 @@ Stops recording audio from this device. Any sound data currently in the device's
 
 @*return* `data` — The sound data currently in the device's buffer, or nil if the device wasn't recording.
 
-## type
+### type
 
 
 ```lua
@@ -42113,7 +42113,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -42136,7 +42136,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.RevoluteJoint
 
-## areLimitsEnabled
+### areLimitsEnabled
 
 
 ```lua
@@ -42152,7 +42152,7 @@ Checks whether limits are enabled.
 
 @*return* `enabled` — True if enabled, false otherwise.
 
-## destroy
+### destroy
 
 
 ```lua
@@ -42169,7 +42169,7 @@ may be used to free the object immediately.
 
 [Open in Browser](https://love2d.org/wiki/Joint:destroy)
 
-## getAnchors
+### getAnchors
 
 
 ```lua
@@ -42194,7 +42194,7 @@ Get the anchor points of the joint.
 
 @*return* `y2` — The y-component of the anchor on Body 2.
 
-## getBodies
+### getBodies
 
 
 ```lua
@@ -42213,7 +42213,7 @@ Gets the bodies that the Joint is attached to.
 
 @*return* `bodyB` — The second Body.
 
-## getCollideConnected
+### getCollideConnected
 
 
 ```lua
@@ -42229,7 +42229,7 @@ Gets whether the connected Bodies collide.
 
 @*return* `c` — True if they collide, false otherwise.
 
-## getJointAngle
+### getJointAngle
 
 
 ```lua
@@ -42245,7 +42245,7 @@ Get the current joint angle.
 
 @*return* `angle` — The joint angle in radians.
 
-## getJointSpeed
+### getJointSpeed
 
 
 ```lua
@@ -42261,7 +42261,7 @@ Get the current joint angle speed.
 
 @*return* `s` — Joint angle speed in radians/second.
 
-## getLimits
+### getLimits
 
 
 ```lua
@@ -42280,7 +42280,7 @@ Gets the joint limits.
 
 @*return* `upper` — The upper limit, in radians.
 
-## getLowerLimit
+### getLowerLimit
 
 
 ```lua
@@ -42296,7 +42296,7 @@ Gets the lower limit.
 
 @*return* `lower` — The lower limit, in radians.
 
-## getMaxMotorTorque
+### getMaxMotorTorque
 
 
 ```lua
@@ -42312,7 +42312,7 @@ Gets the maximum motor force.
 
 @*return* `f` — The maximum motor force, in Nm.
 
-## getMotorSpeed
+### getMotorSpeed
 
 
 ```lua
@@ -42328,7 +42328,7 @@ Gets the motor speed.
 
 @*return* `s` — The motor speed, radians per second.
 
-## getMotorTorque
+### getMotorTorque
 
 
 ```lua
@@ -42344,7 +42344,7 @@ Get the current motor force.
 
 @*return* `f` — The current motor force, in Nm.
 
-## getReactionForce
+### getReactionForce
 
 
 ```lua
@@ -42365,7 +42365,7 @@ Returns the reaction force in newtons on the second body
 
 @*return* `y` — The y-component of the force.
 
-## getReactionTorque
+### getReactionTorque
 
 
 ```lua
@@ -42383,7 +42383,7 @@ Returns the reaction torque on the second body.
 
 @*return* `torque` — The reaction torque on the second body.
 
-## getReferenceAngle
+### getReferenceAngle
 
 
 ```lua
@@ -42399,7 +42399,7 @@ Gets the reference angle.
 
 @*return* `angle` — The reference angle in radians.
 
-## getType
+### getType
 
 
 ```lua
@@ -42434,7 +42434,7 @@ type:
     | "weld" -- A WeldJoint.
 ```
 
-## getUpperLimit
+### getUpperLimit
 
 
 ```lua
@@ -42450,7 +42450,7 @@ Gets the upper limit.
 
 @*return* `upper` — The upper limit, in radians.
 
-## getUserData
+### getUserData
 
 
 ```lua
@@ -42466,7 +42466,7 @@ Returns the Lua value associated with this Joint.
 
 @*return* `value` — The Lua value associated with the Joint.
 
-## hasLimitsEnabled
+### hasLimitsEnabled
 
 
 ```lua
@@ -42482,7 +42482,7 @@ Checks whether limits are enabled.
 
 @*return* `enabled` — True if enabled, false otherwise.
 
-## isDestroyed
+### isDestroyed
 
 
 ```lua
@@ -42498,7 +42498,7 @@ Gets whether the Joint is destroyed. Destroyed joints cannot be used.
 
 @*return* `destroyed` — Whether the Joint is destroyed.
 
-## isMotorEnabled
+### isMotorEnabled
 
 
 ```lua
@@ -42514,7 +42514,7 @@ Checks whether the motor is enabled.
 
 @*return* `enabled` — True if enabled, false if disabled.
 
-## release
+### release
 
 
 ```lua
@@ -42532,7 +42532,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setLimits
+### setLimits
 
 
 ```lua
@@ -42549,7 +42549,7 @@ Sets the limits.
 
 @*param* `upper` — The upper limit, in radians.
 
-## setLimitsEnabled
+### setLimitsEnabled
 
 
 ```lua
@@ -42564,7 +42564,7 @@ Enables/disables the joint limit.
 
 @*param* `enable` — True to enable, false to disable.
 
-## setLowerLimit
+### setLowerLimit
 
 
 ```lua
@@ -42579,7 +42579,7 @@ Sets the lower limit.
 
 @*param* `lower` — The lower limit, in radians.
 
-## setMaxMotorTorque
+### setMaxMotorTorque
 
 
 ```lua
@@ -42594,7 +42594,7 @@ Set the maximum motor force.
 
 @*param* `f` — The maximum motor force, in Nm.
 
-## setMotorEnabled
+### setMotorEnabled
 
 
 ```lua
@@ -42609,7 +42609,7 @@ Enables/disables the joint motor.
 
 @*param* `enable` — True to enable, false to disable.
 
-## setMotorSpeed
+### setMotorSpeed
 
 
 ```lua
@@ -42624,7 +42624,7 @@ Sets the motor speed.
 
 @*param* `s` — The motor speed, radians per second.
 
-## setUpperLimit
+### setUpperLimit
 
 
 ```lua
@@ -42639,7 +42639,7 @@ Sets the upper limit.
 
 @*param* `upper` — The upper limit, in radians.
 
-## setUserData
+### setUserData
 
 
 ```lua
@@ -42656,7 +42656,7 @@ To delete the reference, explicitly pass nil.
 
 @*param* `value` — The Lua value to associate with the Joint.
 
-## type
+### type
 
 
 ```lua
@@ -42672,7 +42672,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -42695,7 +42695,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.RopeJoint
 
-## destroy
+### destroy
 
 
 ```lua
@@ -42712,7 +42712,7 @@ may be used to free the object immediately.
 
 [Open in Browser](https://love2d.org/wiki/Joint:destroy)
 
-## getAnchors
+### getAnchors
 
 
 ```lua
@@ -42737,7 +42737,7 @@ Get the anchor points of the joint.
 
 @*return* `y2` — The y-component of the anchor on Body 2.
 
-## getBodies
+### getBodies
 
 
 ```lua
@@ -42756,7 +42756,7 @@ Gets the bodies that the Joint is attached to.
 
 @*return* `bodyB` — The second Body.
 
-## getCollideConnected
+### getCollideConnected
 
 
 ```lua
@@ -42772,7 +42772,7 @@ Gets whether the connected Bodies collide.
 
 @*return* `c` — True if they collide, false otherwise.
 
-## getMaxLength
+### getMaxLength
 
 
 ```lua
@@ -42788,7 +42788,7 @@ Gets the maximum length of a RopeJoint.
 
 @*return* `maxLength` — The maximum length of the RopeJoint.
 
-## getReactionForce
+### getReactionForce
 
 
 ```lua
@@ -42809,7 +42809,7 @@ Returns the reaction force in newtons on the second body
 
 @*return* `y` — The y-component of the force.
 
-## getReactionTorque
+### getReactionTorque
 
 
 ```lua
@@ -42827,7 +42827,7 @@ Returns the reaction torque on the second body.
 
 @*return* `torque` — The reaction torque on the second body.
 
-## getType
+### getType
 
 
 ```lua
@@ -42862,7 +42862,7 @@ type:
     | "weld" -- A WeldJoint.
 ```
 
-## getUserData
+### getUserData
 
 
 ```lua
@@ -42878,7 +42878,7 @@ Returns the Lua value associated with this Joint.
 
 @*return* `value` — The Lua value associated with the Joint.
 
-## isDestroyed
+### isDestroyed
 
 
 ```lua
@@ -42894,7 +42894,7 @@ Gets whether the Joint is destroyed. Destroyed joints cannot be used.
 
 @*return* `destroyed` — Whether the Joint is destroyed.
 
-## release
+### release
 
 
 ```lua
@@ -42912,7 +42912,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setMaxLength
+### setMaxLength
 
 
 ```lua
@@ -42927,7 +42927,7 @@ Sets the maximum length of a RopeJoint.
 
 @*param* `maxLength` — The new maximum length of the RopeJoint.
 
-## setUserData
+### setUserData
 
 
 ```lua
@@ -42944,7 +42944,7 @@ To delete the reference, explicitly pass nil.
 
 @*param* `value` — The Lua value to associate with the Joint.
 
-## type
+### type
 
 
 ```lua
@@ -42960,7 +42960,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -42988,7 +42988,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Shader
 
-## getWarnings
+### getWarnings
 
 
 ```lua
@@ -43004,7 +43004,7 @@ Returns any warning and error messages from compiling the shader code. This can 
 
 @*return* `warnings` — Warning and error messages (if any).
 
-## hasUniform
+### hasUniform
 
 
 ```lua
@@ -43024,7 +43024,7 @@ If a graphics driver's shader compiler determines that a uniform / extern variab
 
 @*return* `hasuniform` — Whether the uniform exists in the shader and affects its final output.
 
-## release
+### release
 
 
 ```lua
@@ -43042,7 +43042,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## send
+### send
 
 
 ```lua
@@ -43080,7 +43080,7 @@ Uniform / extern variables are read-only in the shader code and remain constant 
 
 @*param* `number` — Number to send to store in the uniform variable.
 
-## sendColor
+### sendColor
 
 
 ```lua
@@ -43109,7 +43109,7 @@ In versions prior to 11.0, color component values were within the range of 0 to 
 
 @*param* `color` — A table with red, green, blue, and optional alpha color components in the range of 1 to send to the extern as a vector.
 
-## type
+### type
 
 
 ```lua
@@ -43125,7 +43125,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -43148,7 +43148,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Shape
 
-## computeAABB
+### computeAABB
 
 
 ```lua
@@ -43181,7 +43181,7 @@ Returns the points of the bounding box for the transformed shape.
 
 @*return* `bottomRightY` — The y position of the bottom-right point.
 
-## computeMass
+### computeMass
 
 
 ```lua
@@ -43208,7 +43208,7 @@ Computes the mass properties for the shape with the specified density.
 
 @*return* `inertia` — The rotational inertia.
 
-## getChildCount
+### getChildCount
 
 
 ```lua
@@ -43224,7 +43224,7 @@ Returns the number of children the shape has.
 
 @*return* `count` — The number of children.
 
-## getRadius
+### getRadius
 
 
 ```lua
@@ -43240,7 +43240,7 @@ Gets the radius of the shape.
 
 @*return* `radius` — The radius of the shape.
 
-## getType
+### getType
 
 
 ```lua
@@ -43272,7 +43272,7 @@ type:
     | "chain" -- The Shape is a ChainShape.
 ```
 
-## rayCast
+### rayCast
 
 
 ```lua
@@ -43320,7 +43320,7 @@ hitx, hity = x1 + (x2 - x1) * fraction, y1 + (y2 - y1) * fraction
 
 @*return* `fraction` — The position on the input line where the intersection happened as a factor of the line length.
 
-## release
+### release
 
 
 ```lua
@@ -43338,7 +43338,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## testPoint
+### testPoint
 
 
 ```lua
@@ -43364,7 +43364,7 @@ This is particularly useful for mouse interaction with the shapes. By looping th
 
 @*return* `hit` — True if inside, false if outside
 
-## type
+### type
 
 
 ```lua
@@ -43380,7 +43380,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -43408,7 +43408,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.SoundData
 
-## clone
+### clone
 
 
 ```lua
@@ -43424,7 +43424,7 @@ Creates a new copy of the Data object.
 
 @*return* `clone` — The new copy.
 
-## getBitDepth
+### getBitDepth
 
 
 ```lua
@@ -43440,7 +43440,7 @@ Returns the number of bits per sample.
 
 @*return* `bitdepth` — Either 8, or 16.
 
-## getChannelCount
+### getChannelCount
 
 
 ```lua
@@ -43456,7 +43456,7 @@ Returns the number of channels in the SoundData.
 
 @*return* `channels` — 1 for mono, 2 for stereo.
 
-## getDuration
+### getDuration
 
 
 ```lua
@@ -43472,7 +43472,7 @@ Gets the duration of the sound data.
 
 @*return* `duration` — The duration of the sound data in seconds.
 
-## getFFIPointer
+### getFFIPointer
 
 
 ```lua
@@ -43490,7 +43490,7 @@ This function should be preferred instead of Data:getPointer because the latter 
 
 @*return* `pointer` — A raw void* pointer to the Data, or nil if FFI is unavailable.
 
-## getPointer
+### getPointer
 
 
 ```lua
@@ -43506,7 +43506,7 @@ Gets a pointer to the Data. Can be used with libraries such as LuaJIT's FFI.
 
 @*return* `pointer` — A raw pointer to the Data.
 
-## getSample
+### getSample
 
 
 ```lua
@@ -43527,7 +43527,7 @@ Gets the value of the sample-point at the specified position. For stereo SoundDa
 
 @*return* `sample` — The normalized samplepoint (range -1.0 to 1.0).
 
-## getSampleCount
+### getSampleCount
 
 
 ```lua
@@ -43543,7 +43543,7 @@ Returns the number of samples per channel of the SoundData.
 
 @*return* `count` — Total number of samples.
 
-## getSampleRate
+### getSampleRate
 
 
 ```lua
@@ -43559,7 +43559,7 @@ Returns the sample rate of the SoundData.
 
 @*return* `rate` — Number of samples per second.
 
-## getSize
+### getSize
 
 
 ```lua
@@ -43575,7 +43575,7 @@ Gets the Data's size in bytes.
 
 @*return* `size` — The size of the Data in bytes.
 
-## getString
+### getString
 
 
 ```lua
@@ -43591,7 +43591,7 @@ Gets the full Data as a string.
 
 @*return* `data` — The raw data.
 
-## release
+### release
 
 
 ```lua
@@ -43609,7 +43609,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setSample
+### setSample
 
 
 ```lua
@@ -43629,7 +43629,7 @@ Sets the value of the sample-point at the specified position. For stereo SoundDa
 
 @*param* `sample` — The normalized samplepoint (range -1.0 to 1.0).
 
-## type
+### type
 
 
 ```lua
@@ -43645,7 +43645,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -43668,7 +43668,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Source
 
-## clone
+### clone
 
 
 ```lua
@@ -43686,7 +43686,7 @@ Static Sources will use significantly less memory and take much less time to be 
 
 @*return* `source` — The new identical copy of this Source.
 
-## getActiveEffects
+### getActiveEffects
 
 
 ```lua
@@ -43702,7 +43702,7 @@ Gets a list of the Source's active effect names.
 
 @*return* `effects` — A list of the source's active effect names.
 
-## getAirAbsorption
+### getAirAbsorption
 
 
 ```lua
@@ -43720,7 +43720,7 @@ By default the value is set to 0 which means that air absorption effects are dis
 
 @*return* `amount` — The amount of air absorption applied to the Source.
 
-## getAttenuationDistances
+### getAttenuationDistances
 
 
 ```lua
@@ -43739,7 +43739,7 @@ Gets the reference and maximum attenuation distances of the Source. The values, 
 
 @*return* `max` — The current maximum attenuation distance.
 
-## getChannelCount
+### getChannelCount
 
 
 ```lua
@@ -43755,7 +43755,7 @@ Gets the number of channels in the Source. Only 1-channel (mono) Sources can use
 
 @*return* `channels` — 1 for mono, 2 for stereo.
 
-## getCone
+### getCone
 
 
 ```lua
@@ -43777,7 +43777,7 @@ Gets the Source's directional volume cones. Together with Source:setDirection, t
 
 @*return* `outerVolume` — The Source's volume when the listener is outside both the inner and outer cone angles.
 
-## getDirection
+### getDirection
 
 
 ```lua
@@ -43799,7 +43799,7 @@ Gets the direction of the Source.
 
 @*return* `z` — The Z part of the direction vector.
 
-## getDuration
+### getDuration
 
 
 ```lua
@@ -43829,7 +43829,7 @@ unit:
     | "samples" -- Audio samples.
 ```
 
-## getEffect
+### getEffect
 
 
 ```lua
@@ -43851,7 +43851,7 @@ This function returns nil if the effect was applied with no filter settings asso
 
 @*return* `filtersettings` — The settings for the filter associated to this effect, or nil if the effect is not present in this Source or has no filter associated. The table has the following fields:
 
-## getFilter
+### getFilter
 
 
 ```lua
@@ -43867,7 +43867,7 @@ Gets the filter settings currently applied to the Source.
 
 @*return* `settings` — The filter settings to use for this Source, or nil if the Source has no active filter. The table has the following fields:
 
-## getFreeBufferCount
+### getFreeBufferCount
 
 
 ```lua
@@ -43883,7 +43883,7 @@ Gets the number of free buffer slots in a queueable Source. If the queueable Sou
 
 @*return* `buffers` — How many more SoundData objects can be queued up.
 
-## getPitch
+### getPitch
 
 
 ```lua
@@ -43899,7 +43899,7 @@ Gets the current pitch of the Source.
 
 @*return* `pitch` — The pitch, where 1.0 is normal.
 
-## getPosition
+### getPosition
 
 
 ```lua
@@ -43921,7 +43921,7 @@ Gets the position of the Source.
 
 @*return* `z` — The Z position of the Source.
 
-## getRolloff
+### getRolloff
 
 
 ```lua
@@ -43937,7 +43937,7 @@ Returns the rolloff factor of the source.
 
 @*return* `rolloff` — The rolloff factor.
 
-## getType
+### getType
 
 
 ```lua
@@ -43968,7 +43968,7 @@ sourcetype:
     | "queue" -- The audio must be manually queued by the user.
 ```
 
-## getVelocity
+### getVelocity
 
 
 ```lua
@@ -43990,7 +43990,7 @@ Gets the velocity of the Source.
 
 @*return* `z` — The Z part of the velocity vector.
 
-## getVolume
+### getVolume
 
 
 ```lua
@@ -44006,7 +44006,7 @@ Gets the current volume of the Source.
 
 @*return* `volume` — The volume of the Source, where 1.0 is normal volume.
 
-## getVolumeLimits
+### getVolumeLimits
 
 
 ```lua
@@ -44025,7 +44025,7 @@ Returns the volume limits of the source.
 
 @*return* `max` — The maximum volume.
 
-## isLooping
+### isLooping
 
 
 ```lua
@@ -44041,7 +44041,7 @@ Returns whether the Source will loop.
 
 @*return* `loop` — True if the Source will loop, false otherwise.
 
-## isPlaying
+### isPlaying
 
 
 ```lua
@@ -44057,7 +44057,7 @@ Returns whether the Source is playing.
 
 @*return* `playing` — True if the Source is playing, false otherwise.
 
-## isRelative
+### isRelative
 
 
 ```lua
@@ -44073,7 +44073,7 @@ Gets whether the Source's position, velocity, direction, and cone angles are rel
 
 @*return* `relative` — True if the position, velocity, direction and cone angles are relative to the listener, false if they're absolute.
 
-## pause
+### pause
 
 
 ```lua
@@ -44086,7 +44086,7 @@ Pauses the Source.
 
 [Open in Browser](https://love2d.org/wiki/Source:pause)
 
-## play
+### play
 
 
 ```lua
@@ -44102,7 +44102,7 @@ Starts playing the Source.
 
 @*return* `success` — Whether the Source was able to successfully start playing.
 
-## queue
+### queue
 
 
 ```lua
@@ -44122,7 +44122,7 @@ This method requires the Source to be created via love.audio.newQueueableSource.
 
 @*return* `success` — True if the data was successfully queued for playback, false if there were no available buffers to use for queueing.
 
-## release
+### release
 
 
 ```lua
@@ -44140,7 +44140,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## seek
+### seek
 
 
 ```lua
@@ -44169,7 +44169,7 @@ unit:
     | "samples" -- Audio samples.
 ```
 
-## setAirAbsorption
+### setAirAbsorption
 
 
 ```lua
@@ -44188,7 +44188,7 @@ Air absorption can simulate sound transmission through foggy air, dry air, smoky
 
 @*param* `amount` — The amount of air absorption applied to the Source. Must be between 0 and 10.
 
-## setAttenuationDistances
+### setAttenuationDistances
 
 
 ```lua
@@ -44207,7 +44207,7 @@ Distance attenuation is only applicable to Sources based on mono (rather than st
 
 @*param* `max` — The new maximum attenuation distance.
 
-## setCone
+### setCone
 
 
 ```lua
@@ -44226,7 +44226,7 @@ Sets the Source's directional volume cones. Together with Source:setDirection, t
 
 @*param* `outerVolume` — The Source's volume when the listener is outside both the inner and outer cone angles.
 
-## setDirection
+### setDirection
 
 
 ```lua
@@ -44245,7 +44245,7 @@ Sets the direction vector of the Source. A zero vector makes the source non-dire
 
 @*param* `z` — The Z part of the direction vector.
 
-## setEffect
+### setEffect
 
 
 ```lua
@@ -44270,7 +44270,7 @@ The effect must have been previously defined using love.audio.setEffect.
 
 @*return* `success` — Whether the effect was successfully applied to this Source.
 
-## setFilter
+### setFilter
 
 
 ```lua
@@ -44291,7 +44291,7 @@ Sets a low-pass, high-pass, or band-pass filter to apply when playing the Source
 
 @*return* `success` — Whether the filter was successfully applied to the Source.
 
-## setLooping
+### setLooping
 
 
 ```lua
@@ -44306,7 +44306,7 @@ Sets whether the Source should loop.
 
 @*param* `loop` — True if the source should loop, false otherwise.
 
-## setPitch
+### setPitch
 
 
 ```lua
@@ -44321,7 +44321,7 @@ Sets the pitch of the Source.
 
 @*param* `pitch` — Calculated with regard to 1 being the base pitch. Each reduction by 50 percent equals a pitch shift of -12 semitones (one octave reduction). Each doubling equals a pitch shift of 12 semitones (one octave increase). Zero is not a legal value.
 
-## setPosition
+### setPosition
 
 
 ```lua
@@ -44340,7 +44340,7 @@ Sets the position of the Source. Please note that this only works for mono (i.e.
 
 @*param* `z` — The Z position of the Source.
 
-## setRelative
+### setRelative
 
 
 ```lua
@@ -44357,7 +44357,7 @@ By default, all sources are absolute and therefore relative to the origin of lov
 
 @*param* `enable` — True to make the position, velocity, direction and cone angles relative to the listener, false to make them absolute.
 
-## setRolloff
+### setRolloff
 
 
 ```lua
@@ -44374,7 +44374,7 @@ Extended information and detailed formulas can be found in the chapter '3.4. Att
 
 @*param* `rolloff` — The new rolloff factor.
 
-## setVelocity
+### setVelocity
 
 
 ```lua
@@ -44395,7 +44395,7 @@ This does '''not''' change the position of the Source, but lets the application 
 
 @*param* `z` — The Z part of the velocity vector.
 
-## setVolume
+### setVolume
 
 
 ```lua
@@ -44410,7 +44410,7 @@ Sets the current volume of the Source.
 
 @*param* `volume` — The volume for a Source, where 1.0 is normal volume. Volume cannot be raised above 1.0.
 
-## setVolumeLimits
+### setVolumeLimits
 
 
 ```lua
@@ -44427,7 +44427,7 @@ Sets the volume limits of the source. The limits have to be numbers from 0 to 1.
 
 @*param* `max` — The maximum volume.
 
-## stop
+### stop
 
 
 ```lua
@@ -44440,7 +44440,7 @@ Stops a Source.
 
 [Open in Browser](https://love2d.org/wiki/Source:stop)
 
-## tell
+### tell
 
 
 ```lua
@@ -44470,7 +44470,7 @@ unit:
     | "samples" -- Audio samples.
 ```
 
-## type
+### type
 
 
 ```lua
@@ -44486,7 +44486,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -44514,7 +44514,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.SpriteBatch
 
-## add
+### add
 
 
 ```lua
@@ -44551,7 +44551,7 @@ Adds a sprite to the batch. Sprites are drawn in the order they are added.
 
 @*return* `id` — An identifier for the added sprite.
 
-## addLayer
+### addLayer
 
 
 ```lua
@@ -44590,7 +44590,7 @@ Adds a sprite to a batch created with an Array Texture.
 
 @*return* `spriteindex` — The index of the added sprite, for use with SpriteBatch:set or SpriteBatch:setLayer.
 
-## attachAttribute
+### attachAttribute
 
 
 ```lua
@@ -44609,7 +44609,7 @@ Each sprite in a SpriteBatch has 4 vertices in the following order: top-left, bo
 
 @*param* `mesh` — The Mesh to get the vertex attribute from.
 
-## clear
+### clear
 
 
 ```lua
@@ -44622,7 +44622,7 @@ Removes all sprites from the buffer.
 
 [Open in Browser](https://love2d.org/wiki/SpriteBatch:clear)
 
-## flush
+### flush
 
 
 ```lua
@@ -44639,7 +44639,7 @@ If this method is used, it generally shouldn't be called more than once (at most
 
 [Open in Browser](https://love2d.org/wiki/SpriteBatch:flush)
 
-## getBufferSize
+### getBufferSize
 
 
 ```lua
@@ -44655,7 +44655,7 @@ Gets the maximum number of sprites the SpriteBatch can hold.
 
 @*return* `size` — The maximum number of sprites the batch can hold.
 
-## getColor
+### getColor
 
 
 ```lua
@@ -44684,7 +44684,7 @@ In versions prior to 11.0, color component values were within the range of 0 to 
 
 @*return* `a` — The alpha component (0-1).
 
-## getCount
+### getCount
 
 
 ```lua
@@ -44700,7 +44700,7 @@ Gets the number of sprites currently in the SpriteBatch.
 
 @*return* `count` — The number of sprites currently in the batch.
 
-## getTexture
+### getTexture
 
 
 ```lua
@@ -44716,7 +44716,7 @@ Gets the texture (Image or Canvas) used by the SpriteBatch.
 
 @*return* `texture` — The Image or Canvas used by the SpriteBatch.
 
-## release
+### release
 
 
 ```lua
@@ -44734,7 +44734,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## set
+### set
 
 
 ```lua
@@ -44770,7 +44770,7 @@ Changes a sprite in the batch. This requires the sprite index returned by Sprite
 
 @*param* `ky` — Shear factor (y-axis).
 
-## setColor
+### setColor
 
 
 ```lua
@@ -44798,7 +44798,7 @@ In version 0.9.2 and older, the global color set with love.graphics.setColor wil
 
 @*param* `a` — The amount of alpha.
 
-## setDrawRange
+### setDrawRange
 
 
 ```lua
@@ -44818,7 +44818,7 @@ Restricts the drawn sprites in the SpriteBatch to a subset of the total.
 
 @*param* `count` — The number of sprites to draw.
 
-## setLayer
+### setLayer
 
 
 ```lua
@@ -44856,7 +44856,7 @@ Changes a sprite previously added with add or addLayer, in a batch created with 
 
 @*param* `ky` — Shearing factor (y-axis).
 
-## setTexture
+### setTexture
 
 
 ```lua
@@ -44871,7 +44871,7 @@ Sets the texture (Image or Canvas) used for the sprites in the batch, when drawi
 
 @*param* `texture` — The new Image or Canvas to use for the sprites in the batch.
 
-## type
+### type
 
 
 ```lua
@@ -44887,7 +44887,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -44925,7 +44925,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Text
 
-## add
+### add
 
 
 ```lua
@@ -44964,7 +44964,7 @@ Adds additional colored text to the Text object at the specified position.
 
 @*return* `index` — An index number that can be used with Text:getWidth or Text:getHeight.
 
-## addf
+### addf
 
 
 ```lua
@@ -45023,7 +45023,7 @@ align:
     | "justify" -- Align text both left and right.
 ```
 
-## clear
+### clear
 
 
 ```lua
@@ -45036,7 +45036,7 @@ Clears the contents of the Text object.
 
 [Open in Browser](https://love2d.org/wiki/Text:clear)
 
-## getDimensions
+### getDimensions
 
 
 ```lua
@@ -45058,7 +45058,7 @@ Gets the width and height of the text in pixels.
 
 @*return* `height` — The height of the text. If multiple sub-strings have been added with Text:add, the height of the last sub-string is returned.
 
-## getFont
+### getFont
 
 
 ```lua
@@ -45074,7 +45074,7 @@ Gets the Font used with the Text object.
 
 @*return* `font` — The font used with this Text object.
 
-## getHeight
+### getHeight
 
 
 ```lua
@@ -45093,7 +45093,7 @@ Gets the height of the text in pixels.
 
 @*return* `height` — The height of the text. If multiple sub-strings have been added with Text:add, the height of the last sub-string is returned.
 
-## getWidth
+### getWidth
 
 
 ```lua
@@ -45112,7 +45112,7 @@ Gets the width of the text in pixels.
 
 @*return* `width` — The width of the text. If multiple sub-strings have been added with Text:add, the width of the last sub-string is returned.
 
-## release
+### release
 
 
 ```lua
@@ -45130,7 +45130,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## set
+### set
 
 
 ```lua
@@ -45148,7 +45148,7 @@ Replaces the contents of the Text object with a new unformatted string.
 
 @*param* `textstring` — The new string of text to use.
 
-## setFont
+### setFont
 
 
 ```lua
@@ -45163,7 +45163,7 @@ Replaces the Font used with the text.
 
 @*param* `font` — The new font to use with this Text object.
 
-## setf
+### setf
 
 
 ```lua
@@ -45199,7 +45199,7 @@ align:
     | "justify" -- Align text both left and right.
 ```
 
-## type
+### type
 
 
 ```lua
@@ -45215,7 +45215,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -45238,7 +45238,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Texture
 
-## getDPIScale
+### getDPIScale
 
 
 ```lua
@@ -45258,7 +45258,7 @@ For example, a texture with pixel dimensions of 100x100 with a DPI scale factor 
 
 @*return* `dpiscale` — The DPI scale factor of the Texture.
 
-## getDepth
+### getDepth
 
 
 ```lua
@@ -45274,7 +45274,7 @@ Gets the depth of a Volume Texture. Returns 1 for 2D, Cubemap, and Array texture
 
 @*return* `depth` — The depth of the volume Texture.
 
-## getDepthSampleMode
+### getDepthSampleMode
 
 
 ```lua
@@ -45316,7 +45316,7 @@ compare:
     | "always" -- Objects will always be drawn. Effectively disables the depth or stencil test.
 ```
 
-## getDimensions
+### getDimensions
 
 
 ```lua
@@ -45335,7 +45335,7 @@ Gets the width and height of the Texture.
 
 @*return* `height` — The height of the Texture.
 
-## getFilter
+### getFilter
 
 
 ```lua
@@ -45379,7 +45379,7 @@ mag:
     | "nearest" -- Scale image with nearest neighbor interpolation.
 ```
 
-## getFormat
+### getFormat
 
 
 ```lua
@@ -45469,7 +45469,7 @@ format:
     | "ASTC12x12" -- The 12x12 pixels per block variant of the ASTC format. RGBA data at 0.89 bits per pixel.
 ```
 
-## getHeight
+### getHeight
 
 
 ```lua
@@ -45485,7 +45485,7 @@ Gets the height of the Texture.
 
 @*return* `height` — The height of the Texture.
 
-## getLayerCount
+### getLayerCount
 
 
 ```lua
@@ -45501,7 +45501,7 @@ Gets the number of layers / slices in an Array Texture. Returns 1 for 2D, Cubema
 
 @*return* `layers` — The number of layers in the Array Texture.
 
-## getMipmapCount
+### getMipmapCount
 
 
 ```lua
@@ -45517,7 +45517,7 @@ Gets the number of mipmaps contained in the Texture. If the texture was not crea
 
 @*return* `mipmaps` — The number of mipmaps in the Texture.
 
-## getMipmapFilter
+### getMipmapFilter
 
 
 ```lua
@@ -45548,7 +45548,7 @@ mode:
     | "nearest" -- Scale image with nearest neighbor interpolation.
 ```
 
-## getPixelDimensions
+### getPixelDimensions
 
 
 ```lua
@@ -45569,7 +45569,7 @@ Texture:getDimensions gets the dimensions of the texture in units scaled by the 
 
 @*return* `pixelheight` — The height of the Texture, in pixels.
 
-## getPixelHeight
+### getPixelHeight
 
 
 ```lua
@@ -45587,7 +45587,7 @@ DPI scale factor, rather than pixels. Use getHeight for calculations related to 
 
 @*return* `pixelheight` — The height of the Texture, in pixels.
 
-## getPixelWidth
+### getPixelWidth
 
 
 ```lua
@@ -45605,7 +45605,7 @@ DPI scale factor, rather than pixels. Use getWidth for calculations related to d
 
 @*return* `pixelwidth` — The width of the Texture, in pixels.
 
-## getTextureType
+### getTextureType
 
 
 ```lua
@@ -45635,7 +45635,7 @@ texturetype:
     | "volume" -- 3D texture with width, height, and depth. Requires a custom shader to use. Volume textures can have texture filtering applied along the 3rd axis.
 ```
 
-## getWidth
+### getWidth
 
 
 ```lua
@@ -45651,7 +45651,7 @@ Gets the width of the Texture.
 
 @*return* `width` — The width of the Texture.
 
-## getWrap
+### getWrap
 
 
 ```lua
@@ -45713,7 +45713,7 @@ depth:
     | "clampzero" -- Clamp the texture. Fills the area outside the texture's normal range with transparent black (or opaque black for textures with no alpha channel.)
 ```
 
-## isReadable
+### isReadable
 
 
 ```lua
@@ -45733,7 +45733,7 @@ Non-readable Canvases can still be rendered to.
 
 @*return* `readable` — Whether the Texture is readable.
 
-## release
+### release
 
 
 ```lua
@@ -45751,7 +45751,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setDepthSampleMode
+### setDepthSampleMode
 
 
 ```lua
@@ -45794,7 +45794,7 @@ compare:
     | "always" -- Objects will always be drawn. Effectively disables the depth or stencil test.
 ```
 
-## setFilter
+### setFilter
 
 
 ```lua
@@ -45835,7 +45835,7 @@ mag:
     | "nearest" -- Scale image with nearest neighbor interpolation.
 ```
 
-## setMipmapFilter
+### setMipmapFilter
 
 
 ```lua
@@ -45873,7 +45873,7 @@ filtermode:
     | "nearest" -- Scale image with nearest neighbor interpolation.
 ```
 
-## setWrap
+### setWrap
 
 
 ```lua
@@ -45934,7 +45934,7 @@ depth:
     | "clampzero" -- Clamp the texture. Fills the area outside the texture's normal range with transparent black (or opaque black for textures with no alpha channel.)
 ```
 
-## type
+### type
 
 
 ```lua
@@ -45950,7 +45950,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -45978,7 +45978,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Thread
 
-## getError
+### getError
 
 
 ```lua
@@ -45994,7 +45994,7 @@ Retrieves the error string from the thread if it produced an error.
 
 @*return* `err` — The error message, or nil if the Thread has not caused an error.
 
-## isRunning
+### isRunning
 
 
 ```lua
@@ -46012,7 +46012,7 @@ Threads which are not running can be (re)started with Thread:start.
 
 @*return* `value` — True if the thread is running, false otherwise.
 
-## release
+### release
 
 
 ```lua
@@ -46030,7 +46030,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## start
+### start
 
 
 ```lua
@@ -46045,7 +46045,7 @@ Beginning with version 0.9.0, threads can be restarted after they have completed
 
 [Open in Browser](https://love2d.org/wiki/Thread:start)
 
-## type
+### type
 
 
 ```lua
@@ -46061,7 +46061,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -46079,7 +46079,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 @*return* `b` — True if the object is of the specified type, false otherwise.
 
-## wait
+### wait
 
 
 ```lua
@@ -46104,7 +46104,7 @@ This call will block until the thread finishes.
 
 # love.Transform
 
-## apply
+### apply
 
 
 ```lua
@@ -46124,7 +46124,7 @@ This effectively multiplies this Transform's internal transformation matrix with
 
 @*return* `transform` — The Transform object the method was called on. Allows easily chaining Transform methods.
 
-## clone
+### clone
 
 
 ```lua
@@ -46140,7 +46140,7 @@ Creates a new copy of this Transform.
 
 @*return* `clone` — The copy of this Transform.
 
-## getMatrix
+### getMatrix
 
 
 ```lua
@@ -46201,7 +46201,7 @@ Gets the internal 4x4 transformation matrix stored by this Transform. The matrix
 
 @*return* `e4_4` — The fourth column of the fourth row of the matrix.
 
-## inverse
+### inverse
 
 
 ```lua
@@ -46217,7 +46217,7 @@ Creates a new Transform containing the inverse of this Transform.
 
 @*return* `inverse` — A new Transform object representing the inverse of this Transform's matrix.
 
-## inverseTransformPoint
+### inverseTransformPoint
 
 
 ```lua
@@ -46244,7 +46244,7 @@ One use of this method can be to convert a screen-space mouse position into glob
 
 @*return* `globalY` — The y component of the position in global coordinates.
 
-## isAffine2DTransform
+### isAffine2DTransform
 
 
 ```lua
@@ -46260,7 +46260,7 @@ Checks whether the Transform is an affine transformation.
 
 @*return* `affine` — true if the transform object is an affine transformation, false otherwise.
 
-## release
+### release
 
 
 ```lua
@@ -46278,7 +46278,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## reset
+### reset
 
 
 ```lua
@@ -46294,7 +46294,7 @@ Resets the Transform to an identity state. All previously applied transformation
 
 @*return* `transform` — The Transform object the method was called on. Allows easily chaining Transform methods.
 
-## rotate
+### rotate
 
 
 ```lua
@@ -46312,7 +46312,7 @@ Applies a rotation to the Transform's coordinate system. This method does not re
 
 @*return* `transform` — The Transform object the method was called on. Allows easily chaining Transform methods.
 
-## scale
+### scale
 
 
 ```lua
@@ -46332,7 +46332,7 @@ Scales the Transform's coordinate system. This method does not reset any previou
 
 @*return* `transform` — The Transform object the method was called on. Allows easily chaining Transform methods.
 
-## setMatrix
+### setMatrix
 
 
 ```lua
@@ -46383,7 +46383,7 @@ Directly sets the Transform's internal 4x4 transformation matrix.
 
 @*return* `transform` — The Transform object the method was called on. Allows easily chaining Transform methods.
 
-## setTransformation
+### setTransformation
 
 
 ```lua
@@ -46417,7 +46417,7 @@ Resets the Transform to the specified transformation parameters.
 
 @*return* `transform` — The Transform object the method was called on. Allows easily chaining Transform methods.
 
-## shear
+### shear
 
 
 ```lua
@@ -46437,7 +46437,7 @@ Applies a shear factor (skew) to the Transform's coordinate system. This method 
 
 @*return* `transform` — The Transform object the method was called on. Allows easily chaining Transform methods.
 
-## transformPoint
+### transformPoint
 
 
 ```lua
@@ -46462,7 +46462,7 @@ This effectively converts the given position from global coordinates into the lo
 
 @*return* `localY` — The y component of the position with the transform applied.
 
-## translate
+### translate
 
 
 ```lua
@@ -46482,7 +46482,7 @@ Applies a translation to the Transform's coordinate system. This method does not
 
 @*return* `transform` — The Transform object the method was called on. Allows easily chaining Transform methods.
 
-## type
+### type
 
 
 ```lua
@@ -46498,7 +46498,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -46531,7 +46531,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.Video
 
-## getDimensions
+### getDimensions
 
 
 ```lua
@@ -46550,7 +46550,7 @@ Gets the width and height of the Video in pixels.
 
 @*return* `height` — The height of the Video.
 
-## getFilter
+### getFilter
 
 
 ```lua
@@ -46594,7 +46594,7 @@ mag:
     | "nearest" -- Scale image with nearest neighbor interpolation.
 ```
 
-## getHeight
+### getHeight
 
 
 ```lua
@@ -46610,7 +46610,7 @@ Gets the height of the Video in pixels.
 
 @*return* `height` — The height of the Video.
 
-## getSource
+### getSource
 
 
 ```lua
@@ -46626,7 +46626,7 @@ Gets the audio Source used for playing back the video's audio. May return nil if
 
 @*return* `source` — The audio Source used for audio playback, or nil if the video has no audio.
 
-## getStream
+### getStream
 
 
 ```lua
@@ -46642,7 +46642,7 @@ Gets the VideoStream object used for decoding and controlling the video.
 
 @*return* `stream` — The VideoStream used for decoding and controlling the video.
 
-## getWidth
+### getWidth
 
 
 ```lua
@@ -46658,7 +46658,7 @@ Gets the width of the Video in pixels.
 
 @*return* `width` — The width of the Video.
 
-## isPlaying
+### isPlaying
 
 
 ```lua
@@ -46674,7 +46674,7 @@ Gets whether the Video is currently playing.
 
 @*return* `playing` — Whether the video is playing.
 
-## pause
+### pause
 
 
 ```lua
@@ -46687,7 +46687,7 @@ Pauses the Video.
 
 [Open in Browser](https://love2d.org/wiki/Video:pause)
 
-## play
+### play
 
 
 ```lua
@@ -46700,7 +46700,7 @@ Starts playing the Video. In order for the video to appear onscreen it must be d
 
 [Open in Browser](https://love2d.org/wiki/Video:play)
 
-## release
+### release
 
 
 ```lua
@@ -46718,7 +46718,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## rewind
+### rewind
 
 
 ```lua
@@ -46731,7 +46731,7 @@ Rewinds the Video to the beginning.
 
 [Open in Browser](https://love2d.org/wiki/Video:rewind)
 
-## seek
+### seek
 
 
 ```lua
@@ -46746,7 +46746,7 @@ Sets the current playback position of the Video.
 
 @*param* `offset` — The time in seconds since the beginning of the Video.
 
-## setFilter
+### setFilter
 
 
 ```lua
@@ -46787,7 +46787,7 @@ mag:
     | "nearest" -- Scale image with nearest neighbor interpolation.
 ```
 
-## setSource
+### setSource
 
 
 ```lua
@@ -46802,7 +46802,7 @@ Sets the audio Source used for playing back the video's audio. The audio Source 
 
 @*param* `source` — The audio Source used for audio playback, or nil to disable audio synchronization.
 
-## tell
+### tell
 
 
 ```lua
@@ -46818,7 +46818,7 @@ Gets the current playback position of the Video.
 
 @*return* `seconds` — The time in seconds since the beginning of the Video.
 
-## type
+### type
 
 
 ```lua
@@ -46834,7 +46834,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -46857,7 +46857,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.VideoStream
 
-## getFilename
+### getFilename
 
 
 ```lua
@@ -46873,7 +46873,7 @@ Gets the filename of the VideoStream.
 
 @*return* `filename` — The filename of the VideoStream
 
-## isPlaying
+### isPlaying
 
 
 ```lua
@@ -46889,7 +46889,7 @@ Gets whether the VideoStream is playing.
 
 @*return* `playing` — Whether the VideoStream is playing.
 
-## pause
+### pause
 
 
 ```lua
@@ -46902,7 +46902,7 @@ Pauses the VideoStream.
 
 [Open in Browser](https://love2d.org/wiki/VideoStream:pause)
 
-## play
+### play
 
 
 ```lua
@@ -46915,7 +46915,7 @@ Plays the VideoStream.
 
 [Open in Browser](https://love2d.org/wiki/VideoStream:play)
 
-## release
+### release
 
 
 ```lua
@@ -46933,7 +46933,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## rewind
+### rewind
 
 
 ```lua
@@ -46946,7 +46946,7 @@ Rewinds the VideoStream. Synonym to VideoStream:seek(0).
 
 [Open in Browser](https://love2d.org/wiki/VideoStream:rewind)
 
-## seek
+### seek
 
 
 ```lua
@@ -46961,7 +46961,7 @@ Sets the current playback position of the VideoStream.
 
 @*param* `offset` — The time in seconds since the beginning of the VideoStream.
 
-## tell
+### tell
 
 
 ```lua
@@ -46977,7 +46977,7 @@ Gets the current playback position of the VideoStream.
 
 @*return* `seconds` — The number of seconds sionce the beginning of the VideoStream.
 
-## type
+### type
 
 
 ```lua
@@ -46993,7 +46993,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -47016,7 +47016,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.WeldJoint
 
-## destroy
+### destroy
 
 
 ```lua
@@ -47033,7 +47033,7 @@ may be used to free the object immediately.
 
 [Open in Browser](https://love2d.org/wiki/Joint:destroy)
 
-## getAnchors
+### getAnchors
 
 
 ```lua
@@ -47058,7 +47058,7 @@ Get the anchor points of the joint.
 
 @*return* `y2` — The y-component of the anchor on Body 2.
 
-## getBodies
+### getBodies
 
 
 ```lua
@@ -47077,7 +47077,7 @@ Gets the bodies that the Joint is attached to.
 
 @*return* `bodyB` — The second Body.
 
-## getCollideConnected
+### getCollideConnected
 
 
 ```lua
@@ -47093,7 +47093,7 @@ Gets whether the connected Bodies collide.
 
 @*return* `c` — True if they collide, false otherwise.
 
-## getDampingRatio
+### getDampingRatio
 
 
 ```lua
@@ -47109,7 +47109,7 @@ Returns the damping ratio of the joint.
 
 @*return* `ratio` — The damping ratio.
 
-## getFrequency
+### getFrequency
 
 
 ```lua
@@ -47125,7 +47125,7 @@ Returns the frequency.
 
 @*return* `freq` — The frequency in hertz.
 
-## getReactionForce
+### getReactionForce
 
 
 ```lua
@@ -47146,7 +47146,7 @@ Returns the reaction force in newtons on the second body
 
 @*return* `y` — The y-component of the force.
 
-## getReactionTorque
+### getReactionTorque
 
 
 ```lua
@@ -47164,7 +47164,7 @@ Returns the reaction torque on the second body.
 
 @*return* `torque` — The reaction torque on the second body.
 
-## getReferenceAngle
+### getReferenceAngle
 
 
 ```lua
@@ -47180,7 +47180,7 @@ Gets the reference angle.
 
 @*return* `angle` — The reference angle in radians.
 
-## getType
+### getType
 
 
 ```lua
@@ -47215,7 +47215,7 @@ type:
     | "weld" -- A WeldJoint.
 ```
 
-## getUserData
+### getUserData
 
 
 ```lua
@@ -47231,7 +47231,7 @@ Returns the Lua value associated with this Joint.
 
 @*return* `value` — The Lua value associated with the Joint.
 
-## isDestroyed
+### isDestroyed
 
 
 ```lua
@@ -47247,7 +47247,7 @@ Gets whether the Joint is destroyed. Destroyed joints cannot be used.
 
 @*return* `destroyed` — Whether the Joint is destroyed.
 
-## release
+### release
 
 
 ```lua
@@ -47265,7 +47265,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setDampingRatio
+### setDampingRatio
 
 
 ```lua
@@ -47280,7 +47280,7 @@ Sets a new damping ratio.
 
 @*param* `ratio` — The new damping ratio.
 
-## setFrequency
+### setFrequency
 
 
 ```lua
@@ -47295,7 +47295,7 @@ Sets a new frequency.
 
 @*param* `freq` — The new frequency in hertz.
 
-## setUserData
+### setUserData
 
 
 ```lua
@@ -47312,7 +47312,7 @@ To delete the reference, explicitly pass nil.
 
 @*param* `value` — The Lua value to associate with the Joint.
 
-## type
+### type
 
 
 ```lua
@@ -47328,7 +47328,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -47351,7 +47351,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.WheelJoint
 
-## destroy
+### destroy
 
 
 ```lua
@@ -47368,7 +47368,7 @@ may be used to free the object immediately.
 
 [Open in Browser](https://love2d.org/wiki/Joint:destroy)
 
-## getAnchors
+### getAnchors
 
 
 ```lua
@@ -47393,7 +47393,7 @@ Get the anchor points of the joint.
 
 @*return* `y2` — The y-component of the anchor on Body 2.
 
-## getAxis
+### getAxis
 
 
 ```lua
@@ -47412,7 +47412,7 @@ Gets the world-space axis vector of the Wheel Joint.
 
 @*return* `y` — The y-axis coordinate of the world-space axis vector.
 
-## getBodies
+### getBodies
 
 
 ```lua
@@ -47431,7 +47431,7 @@ Gets the bodies that the Joint is attached to.
 
 @*return* `bodyB` — The second Body.
 
-## getCollideConnected
+### getCollideConnected
 
 
 ```lua
@@ -47447,7 +47447,7 @@ Gets whether the connected Bodies collide.
 
 @*return* `c` — True if they collide, false otherwise.
 
-## getJointSpeed
+### getJointSpeed
 
 
 ```lua
@@ -47463,7 +47463,7 @@ Returns the current joint translation speed.
 
 @*return* `speed` — The translation speed of the joint in meters per second.
 
-## getJointTranslation
+### getJointTranslation
 
 
 ```lua
@@ -47479,7 +47479,7 @@ Returns the current joint translation.
 
 @*return* `position` — The translation of the joint in meters.
 
-## getMaxMotorTorque
+### getMaxMotorTorque
 
 
 ```lua
@@ -47495,7 +47495,7 @@ Returns the maximum motor torque.
 
 @*return* `maxTorque` — The maximum torque of the joint motor in newton meters.
 
-## getMotorSpeed
+### getMotorSpeed
 
 
 ```lua
@@ -47511,7 +47511,7 @@ Returns the speed of the motor.
 
 @*return* `speed` — The speed of the joint motor in radians per second.
 
-## getMotorTorque
+### getMotorTorque
 
 
 ```lua
@@ -47529,7 +47529,7 @@ Returns the current torque on the motor.
 
 @*return* `torque` — The torque on the motor in newton meters.
 
-## getReactionForce
+### getReactionForce
 
 
 ```lua
@@ -47550,7 +47550,7 @@ Returns the reaction force in newtons on the second body
 
 @*return* `y` — The y-component of the force.
 
-## getReactionTorque
+### getReactionTorque
 
 
 ```lua
@@ -47568,7 +47568,7 @@ Returns the reaction torque on the second body.
 
 @*return* `torque` — The reaction torque on the second body.
 
-## getSpringDampingRatio
+### getSpringDampingRatio
 
 
 ```lua
@@ -47584,7 +47584,7 @@ Returns the damping ratio.
 
 @*return* `ratio` — The damping ratio.
 
-## getSpringFrequency
+### getSpringFrequency
 
 
 ```lua
@@ -47600,7 +47600,7 @@ Returns the spring frequency.
 
 @*return* `freq` — The frequency in hertz.
 
-## getType
+### getType
 
 
 ```lua
@@ -47635,7 +47635,7 @@ type:
     | "weld" -- A WeldJoint.
 ```
 
-## getUserData
+### getUserData
 
 
 ```lua
@@ -47651,7 +47651,7 @@ Returns the Lua value associated with this Joint.
 
 @*return* `value` — The Lua value associated with the Joint.
 
-## isDestroyed
+### isDestroyed
 
 
 ```lua
@@ -47667,7 +47667,7 @@ Gets whether the Joint is destroyed. Destroyed joints cannot be used.
 
 @*return* `destroyed` — Whether the Joint is destroyed.
 
-## isMotorEnabled
+### isMotorEnabled
 
 
 ```lua
@@ -47683,7 +47683,7 @@ Checks if the joint motor is running.
 
 @*return* `on` — The status of the joint motor.
 
-## release
+### release
 
 
 ```lua
@@ -47701,7 +47701,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setMaxMotorTorque
+### setMaxMotorTorque
 
 
 ```lua
@@ -47716,7 +47716,7 @@ Sets a new maximum motor torque.
 
 @*param* `maxTorque` — The new maximum torque for the joint motor in newton meters.
 
-## setMotorEnabled
+### setMotorEnabled
 
 
 ```lua
@@ -47731,7 +47731,7 @@ Starts and stops the joint motor.
 
 @*param* `enable` — True turns the motor on and false turns it off.
 
-## setMotorSpeed
+### setMotorSpeed
 
 
 ```lua
@@ -47746,7 +47746,7 @@ Sets a new speed for the motor.
 
 @*param* `speed` — The new speed for the joint motor in radians per second.
 
-## setSpringDampingRatio
+### setSpringDampingRatio
 
 
 ```lua
@@ -47761,7 +47761,7 @@ Sets a new damping ratio.
 
 @*param* `ratio` — The new damping ratio.
 
-## setSpringFrequency
+### setSpringFrequency
 
 
 ```lua
@@ -47776,7 +47776,7 @@ Sets a new spring frequency.
 
 @*param* `freq` — The new frequency in hertz.
 
-## setUserData
+### setUserData
 
 
 ```lua
@@ -47793,7 +47793,7 @@ To delete the reference, explicitly pass nil.
 
 @*param* `value` — The Lua value to associate with the Joint.
 
-## type
+### type
 
 
 ```lua
@@ -47809,7 +47809,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -47832,7 +47832,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 # love.World
 
-## destroy
+### destroy
 
 
 ```lua
@@ -47847,7 +47847,7 @@ An error will occur if you attempt to use any of the destroyed objects after cal
 
 [Open in Browser](https://love2d.org/wiki/World:destroy)
 
-## getBodies
+### getBodies
 
 
 ```lua
@@ -47863,7 +47863,7 @@ Returns a table with all bodies.
 
 @*return* `bodies` — A sequence with all bodies.
 
-## getBodyCount
+### getBodyCount
 
 
 ```lua
@@ -47879,7 +47879,7 @@ Returns the number of bodies in the world.
 
 @*return* `n` — The number of bodies in the world.
 
-## getCallbacks
+### getCallbacks
 
 
 ```lua
@@ -47904,7 +47904,7 @@ Returns functions for the callbacks during the world update.
 
 @*return* `postSolve` — Gets called after the collision has been resolved.
 
-## getContactCount
+### getContactCount
 
 
 ```lua
@@ -47920,7 +47920,7 @@ Returns the number of contacts in the world.
 
 @*return* `n` — The number of contacts in the world.
 
-## getContactFilter
+### getContactFilter
 
 
 ```lua
@@ -47936,7 +47936,7 @@ Returns the function for collision filtering.
 
 @*return* `contactFilter` — The function that handles the contact filtering.
 
-## getContacts
+### getContacts
 
 
 ```lua
@@ -47952,7 +47952,7 @@ Returns a table with all Contacts.
 
 @*return* `contacts` — A sequence with all Contacts.
 
-## getGravity
+### getGravity
 
 
 ```lua
@@ -47971,7 +47971,7 @@ Get the gravity of the world.
 
 @*return* `y` — The y component of gravity.
 
-## getJointCount
+### getJointCount
 
 
 ```lua
@@ -47987,7 +47987,7 @@ Returns the number of joints in the world.
 
 @*return* `n` — The number of joints in the world.
 
-## getJoints
+### getJoints
 
 
 ```lua
@@ -48003,7 +48003,7 @@ Returns a table with all joints.
 
 @*return* `joints` — A sequence with all joints.
 
-## isDestroyed
+### isDestroyed
 
 
 ```lua
@@ -48019,7 +48019,7 @@ Gets whether the World is destroyed. Destroyed worlds cannot be used.
 
 @*return* `destroyed` — Whether the World is destroyed.
 
-## isLocked
+### isLocked
 
 
 ```lua
@@ -48037,7 +48037,7 @@ This will return true inside the callbacks from World:setCallbacks.
 
 @*return* `locked` — Will be true if the world is in the process of updating its state.
 
-## isSleepingAllowed
+### isSleepingAllowed
 
 
 ```lua
@@ -48053,7 +48053,7 @@ Gets the sleep behaviour of the world.
 
 @*return* `allow` — True if bodies in the world are allowed to sleep, or false if not.
 
-## queryBoundingBox
+### queryBoundingBox
 
 
 ```lua
@@ -48076,7 +48076,7 @@ Calls a function for each fixture inside the specified area by searching for any
 
 @*param* `callback` — This function gets passed one argument, the fixture, and should return a boolean. The search will continue if it is true or stop if it is false.
 
-## rayCast
+### rayCast
 
 
 ```lua
@@ -48099,7 +48099,7 @@ Casts a ray and calls a function for each fixtures it intersects.
 
 @*param* `callback` — A function called for each fixture intersected by the ray. The function gets six arguments and should return a number as a control value. The intersection points fed into the function will be in an arbitrary order. If you wish to find the closest point of intersection, you'll need to do that yourself within the function. The easiest way to do that is by using the fraction value.
 
-## release
+### release
 
 
 ```lua
@@ -48117,7 +48117,7 @@ This method can be used to immediately clean up resources without waiting for Lu
 
 @*return* `success` — True if the object was released by this call, false if it had been previously released.
 
-## setCallbacks
+### setCallbacks
 
 
 ```lua
@@ -48144,7 +48144,7 @@ If you are interested to know when exactly each callback is called, consult a Bo
 
 @*param* `postSolve` — Gets called after the collision has been resolved.
 
-## setContactFilter
+### setContactFilter
 
 
 ```lua
@@ -48161,7 +48161,7 @@ If the group and category filtering doesn't generate a collision decision, this 
 
 @*param* `filter` — The function handling the contact filtering.
 
-## setGravity
+### setGravity
 
 
 ```lua
@@ -48178,7 +48178,7 @@ Set the gravity of the world.
 
 @*param* `y` — The y component of gravity.
 
-## setSleepingAllowed
+### setSleepingAllowed
 
 
 ```lua
@@ -48193,7 +48193,7 @@ Sets the sleep behaviour of the world.
 
 @*param* `allow` — True if bodies in the world are allowed to sleep, or false if not.
 
-## translateOrigin
+### translateOrigin
 
 
 ```lua
@@ -48210,7 +48210,7 @@ Translates the World's origin. Useful in large worlds where floating point preci
 
 @*param* `y` — The y component of the new origin with respect to the old origin.
 
-## type
+### type
 
 
 ```lua
@@ -48226,7 +48226,7 @@ Gets the type of the object as a string.
 
 @*return* `type` — The type as a string.
 
-## typeOf
+### typeOf
 
 
 ```lua
@@ -48244,7 +48244,7 @@ Checks whether an object is of a certain type. If the object has the type with t
 
 @*return* `b` — True if the object is of the specified type, false otherwise.
 
-## update
+### update
 
 
 ```lua
@@ -48283,7 +48283,7 @@ love.audio
 
 # love.audio
 
-## getActiveEffects
+### getActiveEffects
 
 
 ```lua
@@ -48299,7 +48299,7 @@ Gets a list of the names of the currently enabled effects.
 
 @*return* `effects` — The list of the names of the currently enabled effects.
 
-## getActiveSourceCount
+### getActiveSourceCount
 
 
 ```lua
@@ -48315,7 +48315,7 @@ Gets the current number of simultaneously playing sources.
 
 @*return* `count` — The current number of simultaneously playing sources.
 
-## getDistanceModel
+### getDistanceModel
 
 
 ```lua
@@ -48350,7 +48350,7 @@ model:
     | "exponentclamped" -- Exponential attenuation. Gain is clamped. In version 0.9.2 and older this is named '''exponent clamped'''.
 ```
 
-## getDopplerScale
+### getDopplerScale
 
 
 ```lua
@@ -48366,7 +48366,7 @@ Gets the current global scale factor for velocity-based doppler effects.
 
 @*return* `scale` — The current doppler scale factor.
 
-## getEffect
+### getEffect
 
 
 ```lua
@@ -48384,7 +48384,7 @@ Gets the settings associated with an effect.
 
 @*return* `settings` — The settings associated with the effect.
 
-## getMaxSceneEffects
+### getMaxSceneEffects
 
 
 ```lua
@@ -48400,7 +48400,7 @@ Gets the maximum number of active effects supported by the system.
 
 @*return* `maximum` — The maximum number of active effects.
 
-## getMaxSourceEffects
+### getMaxSourceEffects
 
 
 ```lua
@@ -48416,7 +48416,7 @@ Gets the maximum number of active Effects in a single Source object, that the sy
 
 @*return* `maximum` — The maximum number of active Effects per Source.
 
-## getOrientation
+### getOrientation
 
 
 ```lua
@@ -48447,7 +48447,7 @@ Returns the orientation of the listener.
 
 @*return* `uz` — Up vector of the listener orientation.
 
-## getPosition
+### getPosition
 
 
 ```lua
@@ -48469,7 +48469,7 @@ Returns the position of the listener. Please note that positional audio only wor
 
 @*return* `z` — The Z position of the listener.
 
-## getRecordingDevices
+### getRecordingDevices
 
 
 ```lua
@@ -48489,7 +48489,7 @@ Audio recording is currently not supported on iOS.
 
 @*return* `devices` — The list of connected recording devices.
 
-## getVelocity
+### getVelocity
 
 
 ```lua
@@ -48511,7 +48511,7 @@ Returns the velocity of the listener.
 
 @*return* `z` — The Z velocity of the listener.
 
-## getVolume
+### getVolume
 
 
 ```lua
@@ -48527,7 +48527,7 @@ Returns the master volume.
 
 @*return* `volume` — The current master volume
 
-## isEffectsSupported
+### isEffectsSupported
 
 
 ```lua
@@ -48543,7 +48543,7 @@ Gets whether audio effects are supported in the system.
 
 @*return* `supported` — True if effects are supported, false otherwise.
 
-## newQueueableSource
+### newQueueableSource
 
 
 ```lua
@@ -48567,7 +48567,7 @@ Creates a new Source usable for real-time generated sound playback with Source:q
 
 @*return* `source` — The new Source usable with Source:queue.
 
-## newSource
+### newSource
 
 
 ```lua
@@ -48607,7 +48607,7 @@ type:
     | "queue" -- The audio must be manually queued by the user.
 ```
 
-## pause
+### pause
 
 
 ```lua
@@ -48626,7 +48626,7 @@ Pauses specific or all currently played Sources.
 
 @*return* `Sources` — A table containing a list of Sources that were paused by this call.
 
-## play
+### play
 
 
 ```lua
@@ -48644,7 +48644,7 @@ Plays the specified Source.
 
 @*param* `source` — The Source to play.
 
-## setDistanceModel
+### setDistanceModel
 
 
 ```lua
@@ -48678,7 +48678,7 @@ model:
     | "exponentclamped" -- Exponential attenuation. Gain is clamped. In version 0.9.2 and older this is named '''exponent clamped'''.
 ```
 
-## setDopplerScale
+### setDopplerScale
 
 
 ```lua
@@ -48693,7 +48693,7 @@ Sets a global scale factor for velocity-based doppler effects. The default scale
 
 @*param* `scale` — The new doppler scale factor. The scale must be greater than 0.
 
-## setEffect
+### setEffect
 
 
 ```lua
@@ -48718,7 +48718,7 @@ Not all system supports audio effects. Use love.audio.isEffectsSupported to chec
 
 @*return* `success` — Whether the effect was successfully created.
 
-## setMixWithSystem
+### setMixWithSystem
 
 
 ```lua
@@ -48736,7 +48736,7 @@ Sets whether the system should mix the audio with the system's audio.
 
 @*return* `success` — True if the change succeeded, false otherwise.
 
-## setOrientation
+### setOrientation
 
 
 ```lua
@@ -48761,7 +48761,7 @@ Sets the orientation of the listener.
 
 @*param* `uz` — Up vector of the listener orientation.
 
-## setPosition
+### setPosition
 
 
 ```lua
@@ -48780,7 +48780,7 @@ Sets the position of the listener, which determines how sounds play.
 
 @*param* `z` — The z position of the listener.
 
-## setVelocity
+### setVelocity
 
 
 ```lua
@@ -48799,7 +48799,7 @@ Sets the velocity of the listener.
 
 @*param* `z` — The Z velocity of the listener.
 
-## setVolume
+### setVolume
 
 
 ```lua
@@ -48814,7 +48814,7 @@ Sets the master volume.
 
 @*param* `volume` — 1.0 is max and 0.0 is off.
 
-## stop
+### stop
 
 
 ```lua
@@ -49144,7 +49144,7 @@ love.data
 
 # love.data
 
-## compress
+### compress
 
 
 ```lua
@@ -49195,7 +49195,7 @@ format:
     | "deflate" -- Raw DEFLATE-compressed data (no header).
 ```
 
-## decode
+### decode
 
 
 ```lua
@@ -49242,7 +49242,7 @@ format:
     | "hex" -- Encode/decode data as hexadecimal string.
 ```
 
-## decompress
+### decompress
 
 
 ```lua
@@ -49277,7 +49277,7 @@ container:
     | "string" -- Return type is string.
 ```
 
-## encode
+### encode
 
 
 ```lua
@@ -49326,7 +49326,7 @@ format:
     | "hex" -- Encode/decode data as hexadecimal string.
 ```
 
-## getPackedSize
+### getPackedSize
 
 
 ```lua
@@ -49346,7 +49346,7 @@ This function behaves the same as Lua 5.3's string.packsize.
 
 @*return* `size` — The size in bytes that the packed data will use.
 
-## hash
+### hash
 
 
 ```lua
@@ -49385,7 +49385,7 @@ hashFunction:
     | "sha512" -- SHA2 hash algorithm with message digest size of 512 bits (64 bytes).
 ```
 
-## newByteData
+### newByteData
 
 
 ```lua
@@ -49408,7 +49408,7 @@ Data:getPointer along with LuaJIT's FFI can be used to manipulate the contents o
 
 @*return* `bytedata` — The new Data object.
 
-## newDataView
+### newDataView
 
 
 ```lua
@@ -49430,7 +49430,7 @@ Creates a new Data referencing a subsection of an existing Data object.
 
 @*return* `view` — The new Data view.
 
-## pack
+### pack
 
 
 ```lua
@@ -49466,7 +49466,7 @@ container:
     | "string" -- Return type is string.
 ```
 
-## unpack
+### unpack
 
 
 ```lua
@@ -49632,7 +49632,7 @@ function love.data.unpack(format: string, datastring: string, pos?: number)
 
 # love.event
 
-## clear
+### clear
 
 
 ```lua
@@ -49645,7 +49645,7 @@ Clears the event queue.
 
 [Open in Browser](https://love2d.org/wiki/love.event.clear)
 
-## poll
+### poll
 
 
 ```lua
@@ -49661,7 +49661,7 @@ Returns an iterator for messages in the event queue.
 
 @*return* `i` — Iterator function usable in a for loop.
 
-## pump
+### pump
 
 
 ```lua
@@ -49680,7 +49680,7 @@ and if you want to handle OS-generated events at all (think callbacks).
 
 [Open in Browser](https://love2d.org/wiki/love.event.pump)
 
-## push
+### push
 
 
 ```lua
@@ -49758,7 +49758,7 @@ n:
     | "f" -- Window focus gained or lost
 ```
 
-## quit
+### quit
 
 
 ```lua
@@ -49778,7 +49778,7 @@ The quit event is a signal for the event handler to close LÖVE. It's possible t
 
 @*param* `exitstatus` — The program exit status to use when closing the application.
 
-## wait
+### wait
 
 
 ```lua
@@ -49949,7 +49949,7 @@ function love.event.wait()
 
 # love.filesystem
 
-## append
+### append
 
 
 ```lua
@@ -49977,7 +49977,7 @@ Append data to an existing file.
 
 @*return* `errormsg` — The error message on failure.
 
-## areSymlinksEnabled
+### areSymlinksEnabled
 
 
 ```lua
@@ -49993,7 +49993,7 @@ Gets whether love.filesystem follows symbolic links.
 
 @*return* `enable` — Whether love.filesystem follows symbolic links.
 
-## createDirectory
+### createDirectory
 
 
 ```lua
@@ -50013,7 +50013,7 @@ When called with 'a/b' it creates both 'a' and 'a/b', if they don't exist alread
 
 @*return* `success` — True if the directory was created, false if not.
 
-## getAppdataDirectory
+### getAppdataDirectory
 
 
 ```lua
@@ -50029,7 +50029,7 @@ Returns the application data directory (could be the same as getUserDirectory)
 
 @*return* `path` — The path of the application data directory
 
-## getCRequirePath
+### getCRequirePath
 
 
 ```lua
@@ -50049,7 +50049,7 @@ The paths are relative to the game's source and save directories, as well as any
 
 @*return* `paths` — The paths that the ''require'' function will check for c libraries in love's filesystem.
 
-## getDirectoryItems
+### getDirectoryItems
 
 
 ```lua
@@ -50072,7 +50072,7 @@ If the path passed to the function exists in the game and the save directory, it
 
 @*return* `files` — A sequence with the names of all files and subdirectories as strings.
 
-## getIdentity
+### getIdentity
 
 
 ```lua
@@ -50090,7 +50090,7 @@ Note that this only returns the name of the folder to store your files in, not t
 
 @*return* `name` — The identity that is used as write directory.
 
-## getInfo
+### getInfo
 
 
 ```lua
@@ -50127,7 +50127,7 @@ filtertype:
     | "other" -- Something completely different like a device.
 ```
 
-## getRealDirectory
+### getRealDirectory
 
 
 ```lua
@@ -50147,7 +50147,7 @@ This can be used to determine whether a file is inside the save directory or the
 
 @*return* `realdir` — The platform-specific full path of the directory containing the filepath.
 
-## getRequirePath
+### getRequirePath
 
 
 ```lua
@@ -50167,7 +50167,7 @@ The paths are relative to the game's source and save directories, as well as any
 
 @*return* `paths` — The paths that the ''require'' function will check in love's filesystem.
 
-## getSaveDirectory
+### getSaveDirectory
 
 
 ```lua
@@ -50187,7 +50187,7 @@ read or write in the save directory.
 
 @*return* `dir` — The absolute path to the save directory.
 
-## getSource
+### getSource
 
 
 ```lua
@@ -50203,7 +50203,7 @@ Returns the full path to the the .love file or directory. If the game is fused t
 
 @*return* `path` — The full platform-dependent path of the .love file or directory.
 
-## getSourceBaseDirectory
+### getSourceBaseDirectory
 
 
 ```lua
@@ -50221,7 +50221,7 @@ If love.filesystem.isFused is true, the path returned by this function can be pa
 
 @*return* `path` — The full platform-dependent path of the directory containing the .love file.
 
-## getUserDirectory
+### getUserDirectory
 
 
 ```lua
@@ -50237,7 +50237,7 @@ Returns the path of the user's directory
 
 @*return* `path` — The path of the user's directory
 
-## getWorkingDirectory
+### getWorkingDirectory
 
 
 ```lua
@@ -50253,7 +50253,7 @@ Gets the current working directory.
 
 @*return* `cwd` — The current working directory.
 
-## init
+### init
 
 
 ```lua
@@ -50268,7 +50268,7 @@ Initializes love.filesystem, will be called internally, so should not be used ex
 
 @*param* `appname` — The name of the application binary, typically love.
 
-## isFused
+### isFused
 
 
 ```lua
@@ -50288,7 +50288,7 @@ A game is in fused mode if the source .love has been fused to the executable (se
 
 @*return* `fused` — True if the game is in fused mode, false otherwise.
 
-## lines
+### lines
 
 
 ```lua
@@ -50306,7 +50306,7 @@ Iterate over the lines in a file.
 
 @*return* `iterator` — A function that iterates over all the lines in the file
 
-## load
+### load
 
 
 ```lua
@@ -50327,7 +50327,7 @@ Loads a Lua file (but does not run it).
 
 @*return* `errormsg` — The error message if file could not be opened.
 
-## mount
+### mount
 
 
 ```lua
@@ -50354,7 +50354,7 @@ It is also possible to mount love.filesystem.getSourceBaseDirectory if the game 
 
 @*return* `success` — True if the archive was successfully mounted, false otherwise.
 
-## newFile
+### newFile
 
 
 ```lua
@@ -50377,7 +50377,7 @@ It needs to be opened before it can be accessed.
 
 @*return* `file` — The new File object.
 
-## newFileData
+### newFileData
 
 
 ```lua
@@ -50400,7 +50400,7 @@ Creates a new FileData object from a file on disk, or from a string in memory.
 
 @*return* `data` — The new FileData.
 
-## read
+### read
 
 
 ```lua
@@ -50432,7 +50432,7 @@ Read the contents of a file.
 
 @*return* `error` — returns an error message.
 
-## remove
+### remove
 
 
 ```lua
@@ -50450,7 +50450,7 @@ Removes a file or empty directory.
 
 @*return* `success` — True if the file/directory was removed, false otherwise.
 
-## setCRequirePath
+### setCRequirePath
 
 
 ```lua
@@ -50469,7 +50469,7 @@ The paths are relative to the game's source and save directories, as well as any
 
 @*param* `paths` — The paths that the ''require'' function will check in love's filesystem.
 
-## setIdentity
+### setIdentity
 
 
 ```lua
@@ -50489,7 +50489,7 @@ Note that you can only set the name of the folder to store your files in, not th
 
 @*param* `name` — The new identity that will be used as write directory.
 
-## setRequirePath
+### setRequirePath
 
 
 ```lua
@@ -50508,7 +50508,7 @@ The paths are relative to the game's source and save directories, as well as any
 
 @*param* `paths` — The paths that the ''require'' function will check in love's filesystem.
 
-## setSource
+### setSource
 
 
 ```lua
@@ -50523,7 +50523,7 @@ Sets the source of the game, where the code is present. This function can only b
 
 @*param* `path` — Absolute path to the game's source folder.
 
-## setSymlinksEnabled
+### setSymlinksEnabled
 
 
 ```lua
@@ -50538,7 +50538,7 @@ Sets whether love.filesystem follows symbolic links. It is enabled by default in
 
 @*param* `enable` — Whether love.filesystem should follow symbolic links.
 
-## unmount
+### unmount
 
 
 ```lua
@@ -50556,7 +50556,7 @@ Unmounts a zip file or folder previously mounted for reading with love.filesyste
 
 @*return* `success` — True if the archive was successfully unmounted, false otherwise.
 
-## write
+### write
 
 
 ```lua
@@ -50955,7 +50955,7 @@ love.font
 
 # love.font
 
-## newBMFontRasterizer
+### newBMFontRasterizer
 
 
 ```lua
@@ -50980,7 +50980,7 @@ Creates a new BMFont Rasterizer.
 
 @*return* `rasterizer` — The rasterizer.
 
-## newGlyphData
+### newGlyphData
 
 
 ```lua
@@ -50997,7 +50997,7 @@ Creates a new GlyphData.
 
 @*param* `glyph` — The character code of the glyph.
 
-## newImageRasterizer
+### newImageRasterizer
 
 
 ```lua
@@ -51021,7 +51021,7 @@ Creates a new Image Rasterizer.
 
 @*return* `rasterizer` — The rasterizer.
 
-## newRasterizer
+### newRasterizer
 
 
 ```lua
@@ -51042,7 +51042,7 @@ Creates a new Rasterizer.
 
 @*return* `rasterizer` — The rasterizer.
 
-## newTrueTypeRasterizer
+### newTrueTypeRasterizer
 
 
 ```lua
@@ -51169,7 +51169,7 @@ function love.getVersion()
 
 # love.graphics
 
-## applyTransform
+### applyTransform
 
 
 ```lua
@@ -51186,7 +51186,7 @@ This effectively multiplies the existing coordinate transformation's matrix with
 
 @*param* `transform` — The Transform object to apply to the current graphics coordinate transform.
 
-## arc
+### arc
 
 
 ```lua
@@ -51228,7 +51228,7 @@ drawmode:
     | "line" -- Draw outlined shape.
 ```
 
-## captureScreenshot
+### captureScreenshot
 
 
 ```lua
@@ -51248,7 +51248,7 @@ Since this function enqueues a screenshot capture rather than executing it immed
 
 @*param* `filename` — The filename to save the screenshot to. The encoded image type is determined based on the extension of the filename, and must be one of the ImageFormats.
 
-## circle
+### circle
 
 
 ```lua
@@ -51284,7 +51284,7 @@ mode:
     | "line" -- Draw outlined shape.
 ```
 
-## clear
+### clear
 
 
 ```lua
@@ -51305,7 +51305,7 @@ In versions prior to background color instead.
 
 [Open in Browser](https://love2d.org/wiki/love.graphics.clear)
 
-## discard
+### discard
 
 
 ```lua
@@ -51329,7 +51329,7 @@ On some desktop systems this function may do nothing.
 
 @*param* `discardstencil` — Whether to discard the contents of the stencil buffer of the screen / active Canvas.
 
-## draw
+### draw
 
 
 ```lua
@@ -51377,7 +51377,7 @@ Set it to pure white to preserve the object's original colors.
 
 @*param* `ky` — Shearing factor (y-axis).
 
-## drawInstanced
+### drawInstanced
 
 
 ```lua
@@ -51419,7 +51419,7 @@ Instancing is not supported by some older GPUs that are only capable of using Op
 
 @*param* `ky` — Shearing factor (y-axis).
 
-## drawLayer
+### drawLayer
 
 
 ```lua
@@ -51457,7 +51457,7 @@ Draws a layer of an Array Texture.
 
 @*param* `ky` — Shearing factor (y-axis).
 
-## ellipse
+### ellipse
 
 
 ```lua
@@ -51495,7 +51495,7 @@ mode:
     | "line" -- Draw outlined shape.
 ```
 
-## flushBatch
+### flushBatch
 
 
 ```lua
@@ -51514,7 +51514,7 @@ SpriteBatches, ParticleSystems, Meshes, and Text objects do their own batching a
 
 [Open in Browser](https://love2d.org/wiki/love.graphics.flushBatch)
 
-## getBackgroundColor
+### getBackgroundColor
 
 
 ```lua
@@ -51541,7 +51541,7 @@ In versions prior to 11.0, color component values were within the range of 0 to 
 
 @*return* `a` — The alpha component (0-1).
 
-## getBlendMode
+### getBlendMode
 
 
 ```lua
@@ -51592,7 +51592,7 @@ alphamode:
     | "premultiplied" -- The RGB values of what's drawn are '''not''' multiplied by the alpha values of those colors during blending. For most blend modes to work correctly with this alpha mode, the colors of a drawn object need to have had their RGB values multiplied by their alpha values at some point previously ("premultiplied alpha").
 ```
 
-## getCanvas
+### getCanvas
 
 
 ```lua
@@ -51608,7 +51608,7 @@ Gets the current target Canvas.
 
 @*return* `canvas` — The Canvas set by setCanvas. Returns nil if drawing to the real screen.
 
-## getCanvasFormats
+### getCanvasFormats
 
 
 ```lua
@@ -51627,7 +51627,7 @@ Gets the available Canvas formats, and whether each is supported.
 
 @*return* `formats` — A table containing CanvasFormats as keys, and a boolean indicating whether the format is supported as values. Not all systems support all formats.
 
-## getColor
+### getColor
 
 
 ```lua
@@ -51654,7 +51654,7 @@ In versions prior to 11.0, color component values were within the range of 0 to 
 
 @*return* `a` — The alpha component (0-1).
 
-## getColorMask
+### getColorMask
 
 
 ```lua
@@ -51681,7 +51681,7 @@ The color mask determines whether individual components of the colors of drawn o
 
 @*return* `a` — Whether the alpha color component is active when rendering.
 
-## getDPIScale
+### getDPIScale
 
 
 ```lua
@@ -51703,7 +51703,7 @@ The highdpi window flag must be enabled to use the full pixel density of a Retin
 
 @*return* `scale` — The pixel scale factor associated with the window.
 
-## getDefaultFilter
+### getDefaultFilter
 
 
 ```lua
@@ -51747,7 +51747,7 @@ mag:
     | "nearest" -- Scale image with nearest neighbor interpolation.
 ```
 
-## getDepthMode
+### getDepthMode
 
 
 ```lua
@@ -51792,7 +51792,7 @@ comparemode:
     | "always" -- Objects will always be drawn. Effectively disables the depth or stencil test.
 ```
 
-## getDimensions
+### getDimensions
 
 
 ```lua
@@ -51811,7 +51811,7 @@ Gets the width and height in pixels of the window.
 
 @*return* `height` — The height of the window.
 
-## getFont
+### getFont
 
 
 ```lua
@@ -51827,7 +51827,7 @@ Gets the current Font object.
 
 @*return* `font` — The current Font. Automatically creates and sets the default font, if none is set yet.
 
-## getFrontFaceWinding
+### getFrontFaceWinding
 
 
 ```lua
@@ -51857,7 +51857,7 @@ winding:
     | "ccw" -- Counter-clockwise.
 ```
 
-## getHeight
+### getHeight
 
 
 ```lua
@@ -51873,7 +51873,7 @@ Gets the height in pixels of the window.
 
 @*return* `height` — The height of the window.
 
-## getImageFormats
+### getImageFormats
 
 
 ```lua
@@ -51889,7 +51889,7 @@ Gets the raw and compressed pixel formats usable for Images, and whether each is
 
 @*return* `formats` — A table containing PixelFormats as keys, and a boolean indicating whether the format is supported as values. Not all systems support all formats.
 
-## getLineJoin
+### getLineJoin
 
 
 ```lua
@@ -51918,7 +51918,7 @@ join:
     | "bevel" -- Flattens the point where line segments join together.
 ```
 
-## getLineStyle
+### getLineStyle
 
 
 ```lua
@@ -51946,7 +51946,7 @@ style:
     | "smooth" -- Draw smooth lines.
 ```
 
-## getLineWidth
+### getLineWidth
 
 
 ```lua
@@ -51962,7 +51962,7 @@ Gets the current line width.
 
 @*return* `width` — The current line width.
 
-## getMeshCullMode
+### getMeshCullMode
 
 
 ```lua
@@ -51993,7 +51993,7 @@ mode:
     | "none" -- Both back- and front-facing triangles in Meshes are rendered.
 ```
 
-## getPixelDimensions
+### getPixelDimensions
 
 
 ```lua
@@ -52014,7 +52014,7 @@ love.graphics.getDimensions gets the dimensions of the window in units scaled by
 
 @*return* `pixelheight` — The height of the window in pixels.
 
-## getPixelHeight
+### getPixelHeight
 
 
 ```lua
@@ -52032,7 +52032,7 @@ The graphics coordinate system and DPI scale factor, rather than raw pixels. Use
 
 @*return* `pixelheight` — The height of the window in pixels.
 
-## getPixelWidth
+### getPixelWidth
 
 
 ```lua
@@ -52050,7 +52050,7 @@ The graphics coordinate system and DPI scale factor, rather than raw pixels. Use
 
 @*return* `pixelwidth` — The width of the window in pixels.
 
-## getPointSize
+### getPointSize
 
 
 ```lua
@@ -52066,7 +52066,7 @@ Gets the point size.
 
 @*return* `size` — The current point size.
 
-## getRendererInfo
+### getRendererInfo
 
 
 ```lua
@@ -52091,7 +52091,7 @@ Gets information about the system's video card and drivers.
 
 @*return* `device` — The name of the graphics card, e.g. 'Intel HD Graphics 3000 OpenGL Engine'.
 
-## getScissor
+### getScissor
 
 
 ```lua
@@ -52116,7 +52116,7 @@ Gets the current scissor box.
 
 @*return* `height` — The height of the box.
 
-## getShader
+### getShader
 
 
 ```lua
@@ -52132,7 +52132,7 @@ Gets the current Shader. Returns nil if none is set.
 
 @*return* `shader` — The currently active Shader, or nil if none is set.
 
-## getStackDepth
+### getStackDepth
 
 
 ```lua
@@ -52148,7 +52148,7 @@ Gets the current depth of the transform / state stack (the number of pushes with
 
 @*return* `depth` — The current depth of the transform and state love.graphics stack.
 
-## getStats
+### getStats
 
 
 ```lua
@@ -52167,7 +52167,7 @@ Gets performance-related rendering statistics.
 
 @*return* `stats` — A table with the following fields:
 
-## getStencilTest
+### getStencilTest
 
 
 ```lua
@@ -52214,7 +52214,7 @@ comparemode:
     | "always" -- Objects will always be drawn. Effectively disables the depth or stencil test.
 ```
 
-## getSupported
+### getSupported
 
 
 ```lua
@@ -52232,7 +52232,7 @@ Some older or low-end systems don't always support all graphics features.
 
 @*return* `features` — A table containing GraphicsFeature keys, and boolean values indicating whether each feature is supported.
 
-## getSystemLimits
+### getSystemLimits
 
 
 ```lua
@@ -52248,7 +52248,7 @@ Gets the system-dependent maximum values for love.graphics features.
 
 @*return* `limits` — A table containing GraphicsLimit keys, and number values.
 
-## getTextureTypes
+### getTextureTypes
 
 
 ```lua
@@ -52264,7 +52264,7 @@ Gets the available texture types, and whether each is supported.
 
 @*return* `texturetypes` — A table containing TextureTypes as keys, and a boolean indicating whether the type is supported as values. Not all systems support all types.
 
-## getWidth
+### getWidth
 
 
 ```lua
@@ -52280,7 +52280,7 @@ Gets the width in pixels of the window.
 
 @*return* `width` — The width of the window.
 
-## intersectScissor
+### intersectScissor
 
 
 ```lua
@@ -52307,7 +52307,7 @@ The dimensions of the scissor is unaffected by graphical transformations (transl
 
 @*param* `height` — The height of the rectangle to intersect with the existing scissor rectangle.
 
-## inverseTransformPoint
+### inverseTransformPoint
 
 
 ```lua
@@ -52332,7 +52332,7 @@ This effectively applies the reverse of the current graphics transformations to 
 
 @*return* `globalY` — The y component of the position in global coordinates.
 
-## isActive
+### isActive
 
 
 ```lua
@@ -52349,7 +52349,7 @@ The graphics module is inactive if a window is not open, or if the app is in the
 
 @*return* `active` — Whether the graphics module is active and able to be used.
 
-## isGammaCorrect
+### isGammaCorrect
 
 
 ```lua
@@ -52367,7 +52367,7 @@ Not all devices support gamma-correct rendering, in which case it will be automa
 
 @*return* `gammacorrect` — True if gamma-correct rendering is supported and was enabled in love.conf, false otherwise.
 
-## isWireframe
+### isWireframe
 
 
 ```lua
@@ -52383,7 +52383,7 @@ Gets whether wireframe mode is used when drawing.
 
 @*return* `wireframe` — True if wireframe lines are used when drawing, false if it's not.
 
-## line
+### line
 
 
 ```lua
@@ -52407,7 +52407,7 @@ Draws lines between points.
 
 @*param* `y2` — The position of second point on the y-axis.
 
-## newArrayImage
+### newArrayImage
 
 
 ```lua
@@ -52433,7 +52433,7 @@ To use an array image in a Shader, it must be declared as a ArrayImage or sample
 
 @*return* `image` — An Array Image object.
 
-## newCanvas
+### newCanvas
 
 
 ```lua
@@ -52452,7 +52452,7 @@ Creates a new Canvas object for offscreen rendering.
 
 @*return* `canvas` — A new Canvas with dimensions equal to the window's size in pixels.
 
-## newCubeImage
+### newCubeImage
 
 
 ```lua
@@ -52517,7 +52517,7 @@ or:
 
 @*return* `image` — An cubemap Image object.
 
-## newFont
+### newFont
 
 
 ```lua
@@ -52540,7 +52540,7 @@ All variants which accept a filename can also accept a Data object instead.
 
 @*return* `font` — A Font object which can be used to draw text on screen.
 
-## newImage
+### newImage
 
 
 ```lua
@@ -52563,7 +52563,7 @@ Creates a new Image from a filepath, FileData, an ImageData, or a CompressedImag
 
 @*return* `image` — A new Image object which can be drawn on screen.
 
-## newImageFont
+### newImageFont
 
 
 ```lua
@@ -52588,7 +52588,7 @@ In versions prior to 0.9.0, LÖVE expects ISO 8859-1 encoding for the glyphs str
 
 @*return* `font` — A Font object which can be used to draw text on screen.
 
-## newMesh
+### newMesh
 
 
 ```lua
@@ -52642,7 +52642,7 @@ usage:
     | "stream" -- The object data will always change between draws.
 ```
 
-## newParticleSystem
+### newParticleSystem
 
 
 ```lua
@@ -52665,7 +52665,7 @@ Creates a new ParticleSystem.
 
 @*return* `system` — A new ParticleSystem.
 
-## newQuad
+### newQuad
 
 
 ```lua
@@ -52698,7 +52698,7 @@ The purpose of a Quad is to use a fraction of an image to draw objects, as oppos
 
 @*return* `quad` — The new Quad.
 
-## newShader
+### newShader
 
 
 ```lua
@@ -52721,7 +52721,7 @@ Shaders are small programs which are run on the graphics card when drawing. Vert
 
 @*return* `shader` — A Shader object for use in drawing operations.
 
-## newSpriteBatch
+### newSpriteBatch
 
 
 ```lua
@@ -52744,7 +52744,7 @@ Creates a new SpriteBatch object.
 
 @*return* `spriteBatch` — The new SpriteBatch.
 
-## newText
+### newText
 
 
 ```lua
@@ -52767,7 +52767,7 @@ Creates a new drawable Text object.
 
 @*return* `text` — The new drawable Text object.
 
-## newVideo
+### newVideo
 
 
 ```lua
@@ -52788,7 +52788,7 @@ Creates a new drawable Video. Currently only Ogg Theora video files are supporte
 
 @*return* `video` — A new Video.
 
-## newVolumeImage
+### newVolumeImage
 
 
 ```lua
@@ -52816,7 +52816,7 @@ Array images are a much better choice than volume images for storing multiple di
 
 @*return* `image` — A volume Image object.
 
-## origin
+### origin
 
 
 ```lua
@@ -52831,7 +52831,7 @@ This function is always used to reverse any previous calls to love.graphics.rota
 
 [Open in Browser](https://love2d.org/wiki/love.graphics.origin)
 
-## points
+### points
 
 
 ```lua
@@ -52851,7 +52851,7 @@ Draws one or more points.
 
 @*param* `y` — The position of the first point on the y-axis.
 
-## polygon
+### polygon
 
 
 ```lua
@@ -52883,7 +52883,7 @@ mode:
     | "line" -- Draw outlined shape.
 ```
 
-## pop
+### pop
 
 
 ```lua
@@ -52898,7 +52898,7 @@ This function is always used to reverse a previous push operation. It returns th
 
 [Open in Browser](https://love2d.org/wiki/love.graphics.pop)
 
-## present
+### present
 
 
 ```lua
@@ -52913,7 +52913,7 @@ This function is used when writing your own love.run function. It presents all t
 
 [Open in Browser](https://love2d.org/wiki/love.graphics.present)
 
-## print
+### print
 
 
 ```lua
@@ -52957,7 +52957,7 @@ In versions prior to 11.0, color and byte component values were within the range
 
 @*param* `ky` — Shearing factor (y-axis).
 
-## printf
+### printf
 
 
 ```lua
@@ -53019,7 +53019,7 @@ align:
     | "justify" -- Align text both left and right.
 ```
 
-## push
+### push
 
 
 ```lua
@@ -53034,7 +53034,7 @@ This function is always used to prepare for a corresponding pop operation later.
 
 [Open in Browser](https://love2d.org/wiki/love.graphics.push)
 
-## rectangle
+### rectangle
 
 
 ```lua
@@ -53072,7 +53072,7 @@ mode:
     | "line" -- Draw outlined shape.
 ```
 
-## replaceTransform
+### replaceTransform
 
 
 ```lua
@@ -53087,7 +53087,7 @@ Replaces the current coordinate transformation with the given Transform object.
 
 @*param* `transform` — The Transform object to replace the current graphics coordinate transform with.
 
-## reset
+### reset
 
 
 ```lua
@@ -53102,7 +53102,7 @@ Calling reset makes the current drawing color white, the current background colo
 
 [Open in Browser](https://love2d.org/wiki/love.graphics.reset)
 
-## rotate
+### rotate
 
 
 ```lua
@@ -53119,7 +53119,7 @@ Calling this function affects all future drawing operations by rotating the coor
 
 @*param* `angle` — The amount to rotate the coordinate system in radians.
 
-## scale
+### scale
 
 
 ```lua
@@ -53144,7 +53144,7 @@ Scaling lasts until love.draw() exits.
 
 @*param* `sy` — The scaling in the direction of the y-axis. If omitted, it defaults to same as parameter sx.
 
-## setBackgroundColor
+### setBackgroundColor
 
 
 ```lua
@@ -53168,7 +53168,7 @@ Sets the background color.
 
 @*param* `alpha` — The alpha component (0-1).
 
-## setBlendMode
+### setBlendMode
 
 
 ```lua
@@ -53208,7 +53208,7 @@ mode:
     | "premultiplied" -- Premultiplied alpha blend mode.
 ```
 
-## setCanvas
+### setCanvas
 
 
 ```lua
@@ -53228,7 +53228,7 @@ Captures drawing operations to a Canvas.
 
 @*param* `mipmap` — The mipmap level to render to, for Canvases with mipmaps.
 
-## setColor
+### setColor
 
 
 ```lua
@@ -53254,7 +53254,7 @@ In versions prior to 11.0, color component values were within the range of 0 to 
 
 @*param* `alpha` — The amount of alpha.  The alpha value will be applied to all subsequent draw operations, even the drawing of an image.
 
-## setColorMask
+### setColorMask
 
 
 ```lua
@@ -53278,7 +53278,7 @@ Sets the color mask. Enables or disables specific color components when renderin
 
 @*param* `alpha` — Render alpha component.
 
-## setDefaultFilter
+### setDefaultFilter
 
 
 ```lua
@@ -53319,7 +53319,7 @@ mag:
     | "nearest" -- Scale image with nearest neighbor interpolation.
 ```
 
-## setDepthMode
+### setDepthMode
 
 
 ```lua
@@ -53365,7 +53365,7 @@ comparemode:
     | "always" -- Objects will always be drawn. Effectively disables the depth or stencil test.
 ```
 
-## setFont
+### setFont
 
 
 ```lua
@@ -53382,7 +53382,7 @@ It's recommended that Font objects are created with love.graphics.newFont in the
 
 @*param* `font` — The Font object to use.
 
-## setFrontFaceWinding
+### setFrontFaceWinding
 
 
 ```lua
@@ -53411,7 +53411,7 @@ winding:
     | "ccw" -- Counter-clockwise.
 ```
 
-## setLineJoin
+### setLineJoin
 
 
 ```lua
@@ -53439,7 +53439,7 @@ join:
     | "bevel" -- Flattens the point where line segments join together.
 ```
 
-## setLineStyle
+### setLineStyle
 
 
 ```lua
@@ -53466,7 +53466,7 @@ style:
     | "smooth" -- Draw smooth lines.
 ```
 
-## setLineWidth
+### setLineWidth
 
 
 ```lua
@@ -53481,7 +53481,7 @@ Sets the line width.
 
 @*param* `width` — The width of the line.
 
-## setMeshCullMode
+### setMeshCullMode
 
 
 ```lua
@@ -53513,7 +53513,7 @@ mode:
     | "none" -- Both back- and front-facing triangles in Meshes are rendered.
 ```
 
-## setNewFont
+### setNewFont
 
 
 ```lua
@@ -53534,7 +53534,7 @@ Creates and sets a new Font.
 
 @*return* `font` — The new font.
 
-## setPointSize
+### setPointSize
 
 
 ```lua
@@ -53549,7 +53549,7 @@ Sets the point size.
 
 @*param* `size` — The new point size.
 
-## setScissor
+### setScissor
 
 
 ```lua
@@ -53577,7 +53577,7 @@ The dimensions of the scissor is unaffected by graphical transformations (transl
 
 @*param* `height` — height of clipping rectangle.
 
-## setShader
+### setShader
 
 
 ```lua
@@ -53595,7 +53595,7 @@ Sets or resets a Shader as the current pixel effect or vertex shaders. All drawi
 
 @*param* `shader` — The new shader.
 
-## setStencilTest
+### setStencilTest
 
 
 ```lua
@@ -53641,7 +53641,7 @@ comparemode:
     | "always" -- Objects will always be drawn. Effectively disables the depth or stencil test.
 ```
 
-## setWireframe
+### setWireframe
 
 
 ```lua
@@ -53656,7 +53656,7 @@ Sets whether wireframe lines will be used when drawing.
 
 @*param* `enable` — True to enable wireframe mode when drawing, false to disable it.
 
-## shear
+### shear
 
 
 ```lua
@@ -53673,7 +53673,7 @@ Shears the coordinate system.
 
 @*param* `ky` — The shear factor on the y-axis.
 
-## stencil
+### stencil
 
 
 ```lua
@@ -53714,7 +53714,7 @@ action:
     | "invert" -- The stencil value of a pixel will be bitwise-inverted for each object that touches the pixel. If a stencil value of 0 is inverted it will become 255.
 ```
 
-## transformPoint
+### transformPoint
 
 
 ```lua
@@ -53739,7 +53739,7 @@ This effectively applies the current graphics transformations to the given posit
 
 @*return* `screenY` — The y component of the position with graphics transformations applied.
 
-## translate
+### translate
 
 
 ```lua
@@ -53764,7 +53764,7 @@ Translating using whole numbers will prevent tearing/blurring of images and font
 
 @*param* `dy` — The translation relative to the y-axis.
 
-## validateShader
+### validateShader
 
 
 ```lua
@@ -54894,7 +54894,7 @@ function love.hasDeprecationOutput()
 
 # love.image
 
-## isCompressed
+### isCompressed
 
 
 ```lua
@@ -54915,7 +54915,7 @@ Determines whether a file can be loaded as CompressedImageData.
 
 @*return* `compressed` — Whether the file can be loaded as CompressedImageData or not.
 
-## newCompressedData
+### newCompressedData
 
 
 ```lua
@@ -54936,7 +54936,7 @@ Create a new CompressedImageData object from a compressed image file. LÖVE supp
 
 @*return* `compressedImageData` — The new CompressedImageData object.
 
-## newImageData
+### newImageData
 
 
 ```lua
@@ -55018,7 +55018,7 @@ function love.isVersionCompatible(version: string)
 
 # love.joystick
 
-## getGamepadMappingString
+### getGamepadMappingString
 
 
 ```lua
@@ -55038,7 +55038,7 @@ The mapping string contains binding information used to map the Joystick's butto
 
 @*return* `mappingstring` — A string containing the Joystick's gamepad mappings, or nil if the GUID is not recognized as a gamepad.
 
-## getJoystickCount
+### getJoystickCount
 
 
 ```lua
@@ -55054,7 +55054,7 @@ Gets the number of connected joysticks.
 
 @*return* `joystickcount` — The number of connected joysticks.
 
-## getJoysticks
+### getJoysticks
 
 
 ```lua
@@ -55070,7 +55070,7 @@ Gets a list of connected Joysticks.
 
 @*return* `joysticks` — The list of currently connected Joysticks.
 
-## loadGamepadMappings
+### loadGamepadMappings
 
 
 ```lua
@@ -55090,7 +55090,7 @@ It also recognizes any SDL gamecontroller mapping string, such as those created 
 
 @*param* `filename` — The filename to load the mappings string from.
 
-## saveGamepadMappings
+### saveGamepadMappings
 
 
 ```lua
@@ -55113,7 +55113,7 @@ The mappings are stored as a string for use with love.joystick.loadGamepadMappin
 
 @*return* `mappings` — The mappings string that was written to the file.
 
-## setGamepadMapping
+### setGamepadMapping
 
 
 ```lua
@@ -55319,7 +55319,7 @@ love.keyboard
 
 # love.keyboard
 
-## getKeyFromScancode
+### getKeyFromScancode
 
 
 ```lua
@@ -55703,7 +55703,7 @@ key:
     | "appbookmarks" -- Application bookmarks key
 ```
 
-## getScancodeFromKey
+### getScancodeFromKey
 
 
 ```lua
@@ -56087,7 +56087,7 @@ scancode:
     | "unknown" -- An unknown key.
 ```
 
-## hasKeyRepeat
+### hasKeyRepeat
 
 
 ```lua
@@ -56103,7 +56103,7 @@ Gets whether key repeat is enabled.
 
 @*return* `enabled` — Whether key repeat is enabled.
 
-## hasScreenKeyboard
+### hasScreenKeyboard
 
 
 ```lua
@@ -56119,7 +56119,7 @@ Gets whether screen keyboard is supported.
 
 @*return* `supported` — Whether screen keyboard is supported.
 
-## hasTextInput
+### hasTextInput
 
 
 ```lua
@@ -56135,7 +56135,7 @@ Gets whether text input events are enabled.
 
 @*return* `enabled` — Whether text input events are enabled.
 
-## isDown
+### isDown
 
 
 ```lua
@@ -56310,7 +56310,7 @@ key:
     | "appbookmarks" -- Application bookmarks key
 ```
 
-## isScancodeDown
+### isScancodeDown
 
 
 ```lua
@@ -56540,7 +56540,7 @@ scancode:
     | "unknown" -- An unknown key.
 ```
 
-## setKeyRepeat
+### setKeyRepeat
 
 
 ```lua
@@ -56555,7 +56555,7 @@ Enables or disables key repeat for love.keypressed. It is disabled by default.
 
 @*param* `enable` — Whether repeat keypress events should be enabled when a key is held down.
 
-## setTextInput
+### setTextInput
 
 
 ```lua
@@ -56707,7 +56707,7 @@ love.math
 
 # love.math
 
-## colorFromBytes
+### colorFromBytes
 
 
 ```lua
@@ -56740,7 +56740,7 @@ Converts a color from 0..255 to 0..1 range.
 
 @*return* `a` — Alpha color component in 0..1 range or nil if alpha is not specified.
 
-## colorToBytes
+### colorToBytes
 
 
 ```lua
@@ -56773,7 +56773,7 @@ Converts a color from 0..1 to 0..255 range.
 
 @*return* `ab` — Alpha color component in 0..255 range or nil if alpha is not specified.
 
-## gammaToLinear
+### gammaToLinear
 
 
 ```lua
@@ -56808,7 +56808,7 @@ In versions prior to 11.0, color component values were within the range of 0 to 
 
 @*return* `lb` — The blue channel of the converted color in linear RGB space.
 
-## getRandomSeed
+### getRandomSeed
 
 
 ```lua
@@ -56829,7 +56829,7 @@ The seed is split into two numbers due to Lua's use of doubles for all number va
 
 @*return* `high` — Integer number representing the higher 32 bits of the random number generator's 64 bit seed value.
 
-## getRandomState
+### getRandomState
 
 
 ```lua
@@ -56847,7 +56847,7 @@ This is different from love.math.getRandomSeed in that getRandomState gets the r
 
 @*return* `state` — The current state of the random number generator, represented as a string.
 
-## isConvex
+### isConvex
 
 
 ```lua
@@ -56870,7 +56870,7 @@ PolygonShapes in love.physics, some forms of Meshes, and polygons drawn with lov
 
 @*return* `convex` — Whether the given polygon is convex.
 
-## linearToGamma
+### linearToGamma
 
 
 ```lua
@@ -56907,7 +56907,7 @@ In versions prior to 11.0, color component values were within the range of 0 to 
 
 @*return* `cb` — The blue channel of the converted color in gamma sRGB space.
 
-## newBezierCurve
+### newBezierCurve
 
 
 ```lua
@@ -56930,7 +56930,7 @@ The number of vertices in the control polygon determines the degree of the curve
 
 @*return* `curve` — A Bézier curve object.
 
-## newRandomGenerator
+### newRandomGenerator
 
 
 ```lua
@@ -56949,7 +56949,7 @@ Creates a new RandomGenerator object which is completely independent of other Ra
 
 @*return* `rng` — The new Random Number Generator object.
 
-## newTransform
+### newTransform
 
 
 ```lua
@@ -56968,7 +56968,7 @@ Creates a new Transform object.
 
 @*return* `transform` — The new Transform object.
 
-## noise
+### noise
 
 
 ```lua
@@ -56993,7 +56993,7 @@ There are many webpages which discuss Perlin and Simplex noise in detail.
 
 @*return* `value` — The noise value in the range of 1.
 
-## random
+### random
 
 
 ```lua
@@ -57012,7 +57012,7 @@ Generates a pseudo-random number in a platform independent manner. The default l
 
 @*return* `number` — The pseudo-random number.
 
-## randomNormal
+### randomNormal
 
 
 ```lua
@@ -57032,7 +57032,7 @@ Get a normally distributed pseudo random number.
 
 @*return* `number` — Normally distributed random number with variance (stddev)² and the specified mean.
 
-## setRandomSeed
+### setRandomSeed
 
 
 ```lua
@@ -57050,7 +57050,7 @@ Sets the seed of the random number generator using the specified integer number.
 
 @*param* `seed` — The integer number with which you want to seed the randomization. Must be within the range of 2^53 - 1.
 
-## setRandomState
+### setRandomState
 
 
 ```lua
@@ -57067,7 +57067,7 @@ This is different from love.math.setRandomSeed in that setRandomState directly s
 
 @*param* `state` — The new state of the random number generator, represented as a string. This should originate from a previous call to love.math.getRandomState.
 
-## triangulate
+### triangulate
 
 
 ```lua
@@ -57278,7 +57278,7 @@ function love.math.triangulate(polygon: table)
 
 # love.mouse
 
-## getCursor
+### getCursor
 
 
 ```lua
@@ -57294,7 +57294,7 @@ Gets the current Cursor.
 
 @*return* `cursor` — The current cursor, or nil if no cursor is set.
 
-## getPosition
+### getPosition
 
 
 ```lua
@@ -57313,7 +57313,7 @@ Returns the current position of the mouse.
 
 @*return* `y` — The position of the mouse along the y-axis.
 
-## getRelativeMode
+### getRelativeMode
 
 
 ```lua
@@ -57333,7 +57333,7 @@ The reported position of the mouse is not updated while relative mode is enabled
 
 @*return* `enabled` — True if relative mode is enabled, false if it's disabled.
 
-## getSystemCursor
+### getSystemCursor
 
 
 ```lua
@@ -57376,7 +57376,7 @@ ctype:
     | "hand" -- Hand symbol.
 ```
 
-## getX
+### getX
 
 
 ```lua
@@ -57392,7 +57392,7 @@ Returns the current x-position of the mouse.
 
 @*return* `x` — The position of the mouse along the x-axis.
 
-## getY
+### getY
 
 
 ```lua
@@ -57408,7 +57408,7 @@ Returns the current y-position of the mouse.
 
 @*return* `y` — The position of the mouse along the y-axis.
 
-## isCursorSupported
+### isCursorSupported
 
 
 ```lua
@@ -57426,7 +57426,7 @@ If it isn't supported, calling love.mouse.newCursor and love.mouse.getSystemCurs
 
 @*return* `supported` — Whether the system has cursor functionality.
 
-## isDown
+### isDown
 
 
 ```lua
@@ -57446,7 +57446,7 @@ This function does not detect mouse wheel scrolling; you must use the love.wheel
 
 @*return* `down` — True if any specified button is down.
 
-## isGrabbed
+### isGrabbed
 
 
 ```lua
@@ -57462,7 +57462,7 @@ Checks if the mouse is grabbed.
 
 @*return* `grabbed` — True if the cursor is grabbed, false if it is not.
 
-## isVisible
+### isVisible
 
 
 ```lua
@@ -57478,7 +57478,7 @@ Checks if the cursor is visible.
 
 @*return* `visible` — True if the cursor to visible, false if the cursor is hidden.
 
-## newCursor
+### newCursor
 
 
 ```lua
@@ -57507,7 +57507,7 @@ The hot spot is the point the operating system uses to determine what was clicke
 
 @*return* `cursor` — The new Cursor object.
 
-## setCursor
+### setCursor
 
 
 ```lua
@@ -57525,7 +57525,7 @@ Sets the current mouse cursor.
 
 @*param* `cursor` — The Cursor object to use as the current mouse cursor.
 
-## setGrabbed
+### setGrabbed
 
 
 ```lua
@@ -57540,7 +57540,7 @@ Grabs the mouse and confines it to the window.
 
 @*param* `grab` — True to confine the mouse, false to let it leave the window.
 
-## setPosition
+### setPosition
 
 
 ```lua
@@ -57557,7 +57557,7 @@ Sets the current position of the mouse. Non-integer values are floored.
 
 @*param* `y` — The new position of the mouse along the y-axis.
 
-## setRelativeMode
+### setRelativeMode
 
 
 ```lua
@@ -57576,7 +57576,7 @@ The reported position of the mouse may not be updated while relative mode is ena
 
 @*param* `enable` — True to enable relative mode, false to disable it.
 
-## setVisible
+### setVisible
 
 
 ```lua
@@ -57591,7 +57591,7 @@ Sets the current visibility of the cursor.
 
 @*param* `visible` — True to set the cursor to visible, false to hide the cursor.
 
-## setX
+### setX
 
 
 ```lua
@@ -57608,7 +57608,7 @@ Non-integer values are floored.
 
 @*param* `x` — The new position of the mouse along the x-axis.
 
-## setY
+### setY
 
 
 ```lua
@@ -57862,7 +57862,7 @@ love.physics
 
 # love.physics
 
-## getDistance
+### getDistance
 
 
 ```lua
@@ -57894,7 +57894,7 @@ Returns the two closest points between two fixtures and their distance.
 
 @*return* `y2` — The y-coordinate of the second point.
 
-## getMeter
+### getMeter
 
 
 ```lua
@@ -57914,7 +57914,7 @@ It is recommended to create shapes no larger than 10 times the scale. This is im
 
 @*return* `scale` — The scale factor as an integer.
 
-## newBody
+### newBody
 
 
 ```lua
@@ -57961,7 +57961,7 @@ type:
     | "kinematic" -- Kinematic bodies only collide with dynamic bodies.
 ```
 
-## newChainShape
+### newChainShape
 
 
 ```lua
@@ -57990,7 +57990,7 @@ Creates a new ChainShape.
 
 @*return* `shape` — The new shape.
 
-## newCircleShape
+### newCircleShape
 
 
 ```lua
@@ -58011,7 +58011,7 @@ Creates a new CircleShape.
 
 @*return* `shape` — The new shape.
 
-## newDistanceJoint
+### newDistanceJoint
 
 
 ```lua
@@ -58043,7 +58043,7 @@ This joint constrains the distance between two points on two bodies to be consta
 
 @*return* `joint` — The new distance joint.
 
-## newEdgeShape
+### newEdgeShape
 
 
 ```lua
@@ -58067,7 +58067,7 @@ Creates a new EdgeShape.
 
 @*return* `shape` — The new shape.
 
-## newFixture
+### newFixture
 
 
 ```lua
@@ -58091,7 +58091,7 @@ Note that the Shape object is copied rather than kept as a reference when the Fi
 
 @*return* `fixture` — The new fixture.
 
-## newFrictionJoint
+### newFrictionJoint
 
 
 ```lua
@@ -58120,7 +58120,7 @@ Create a friction joint between two bodies. A FrictionJoint applies friction to 
 
 @*return* `joint` — The new FrictionJoint.
 
-## newGearJoint
+### newGearJoint
 
 
 ```lua
@@ -58148,7 +58148,7 @@ The gear joint has a ratio the determines how the angular or distance values of 
 
 @*return* `joint` — The new gear joint.
 
-## newMotorJoint
+### newMotorJoint
 
 
 ```lua
@@ -58175,7 +58175,7 @@ Position and rotation offsets can be specified once the MotorJoint has been crea
 
 @*return* `joint` — The new MotorJoint.
 
-## newMouseJoint
+### newMouseJoint
 
 
 ```lua
@@ -58201,7 +58201,7 @@ The advantage of using a MouseJoint instead of just changing a body position dir
 
 @*return* `joint` — The new mouse joint.
 
-## newPolygonShape
+### newPolygonShape
 
 
 ```lua
@@ -58234,7 +58234,7 @@ This shape can have 8 vertices at most, and must form a convex shape.
 
 @*return* `shape` — A new PolygonShape.
 
-## newPrismaticJoint
+### newPrismaticJoint
 
 
 ```lua
@@ -58269,7 +58269,7 @@ A prismatic joint constrains two bodies to move relatively to each other on a sp
 
 @*return* `joint` — The new prismatic joint.
 
-## newPulleyJoint
+### newPulleyJoint
 
 
 ```lua
@@ -58313,7 +58313,7 @@ Pulley joints can behave unpredictably if one side is fully extended. It is reco
 
 @*return* `joint` — The new pulley joint.
 
-## newRectangleShape
+### newRectangleShape
 
 
 ```lua
@@ -58338,7 +58338,7 @@ By default, the local origin is located at the '''center''' of the rectangle as 
 
 @*return* `shape` — A new PolygonShape.
 
-## newRevoluteJoint
+### newRevoluteJoint
 
 
 ```lua
@@ -58369,7 +58369,7 @@ This joint connects two bodies to a point around which they can pivot.
 
 @*return* `joint` — The new revolute joint.
 
-## newRopeJoint
+### newRopeJoint
 
 
 ```lua
@@ -58401,7 +58401,7 @@ Creates a joint between two bodies. Its only function is enforcing a max distanc
 
 @*return* `joint` — The new RopeJoint.
 
-## newWeldJoint
+### newWeldJoint
 
 
 ```lua
@@ -58430,7 +58430,7 @@ Creates a constraint joint between two bodies. A WeldJoint essentially glues two
 
 @*return* `joint` — The new WeldJoint.
 
-## newWheelJoint
+### newWheelJoint
 
 
 ```lua
@@ -58463,7 +58463,7 @@ Creates a wheel joint.
 
 @*return* `joint` — The new WheelJoint.
 
-## newWorld
+### newWorld
 
 
 ```lua
@@ -58485,7 +58485,7 @@ Creates a new World.
 
 @*return* `world` — A brave new World.
 
-## setMeter
+### setMeter
 
 
 ```lua
@@ -58789,7 +58789,7 @@ love.sound
 
 # love.sound
 
-## newDecoder
+### newDecoder
 
 
 ```lua
@@ -58812,7 +58812,7 @@ Attempts to find a decoder for the encoded sound data in the specified file.
 
 @*return* `decoder` — A new Decoder object.
 
-## newSoundData
+### newSoundData
 
 
 ```lua
@@ -58872,7 +58872,7 @@ love.system
 
 # love.system
 
-## getClipboardText
+### getClipboardText
 
 
 ```lua
@@ -58888,7 +58888,7 @@ Gets text from the clipboard.
 
 @*return* `text` — The text currently held in the system's clipboard.
 
-## getOS
+### getOS
 
 
 ```lua
@@ -58904,7 +58904,7 @@ Gets the current operating system. In general, LÖVE abstracts away the need to 
 
 @*return* `osString` — The current operating system. 'OS X', 'Windows', 'Linux', 'Android' or 'iOS'.
 
-## getPowerInfo
+### getPowerInfo
 
 
 ```lua
@@ -58941,7 +58941,7 @@ state:
     | "charged" -- Plugged in, battery is fully charged.
 ```
 
-## getProcessorCount
+### getProcessorCount
 
 
 ```lua
@@ -58957,7 +58957,7 @@ Gets the amount of logical processor in the system.
 
 @*return* `processorCount` — Amount of logical processors.
 
-## hasBackgroundMusic
+### hasBackgroundMusic
 
 
 ```lua
@@ -58975,7 +58975,7 @@ Currently this is implemented on iOS and Android, and will always return false o
 
 @*return* `backgroundmusic` — True if the user is playing music in the background via another app, false otherwise.
 
-## openURL
+### openURL
 
 
 ```lua
@@ -58993,7 +58993,7 @@ Opens a URL with the user's web or file browser.
 
 @*return* `success` — Whether the URL was opened successfully.
 
-## setClipboardText
+### setClipboardText
 
 
 ```lua
@@ -59008,7 +59008,7 @@ Puts text in the clipboard.
 
 @*param* `text` — The new text to hold in the system's clipboard.
 
-## vibrate
+### vibrate
 
 
 ```lua
@@ -59126,7 +59126,7 @@ function love.system.vibrate(seconds?: number)
 
 # love.thread
 
-## getChannel
+### getChannel
 
 
 ```lua
@@ -59144,7 +59144,7 @@ Creates or retrieves a named thread channel.
 
 @*return* `channel` — The Channel object associated with the name.
 
-## newChannel
+### newChannel
 
 
 ```lua
@@ -59162,7 +59162,7 @@ One use for them is to pass new unnamed channels to other threads via Channel:pu
 
 @*return* `channel` — The new Channel object.
 
-## newThread
+### newThread
 
 
 ```lua
@@ -59246,7 +59246,7 @@ love.timer
 
 # love.timer
 
-## getAverageDelta
+### getAverageDelta
 
 
 ```lua
@@ -59262,7 +59262,7 @@ Returns the average delta time (seconds per frame) over the last second.
 
 @*return* `delta` — The average delta time over the last second.
 
-## getDelta
+### getDelta
 
 
 ```lua
@@ -59278,7 +59278,7 @@ Returns the time between the last two frames.
 
 @*return* `dt` — The time passed (in seconds).
 
-## getFPS
+### getFPS
 
 
 ```lua
@@ -59294,7 +59294,7 @@ Returns the current frames per second.
 
 @*return* `fps` — The current FPS.
 
-## getTime
+### getTime
 
 
 ```lua
@@ -59312,7 +59312,7 @@ This function should only be used to calculate differences between points in tim
 
 @*return* `time` — The time in seconds. Given as a decimal, accurate to the microsecond.
 
-## sleep
+### sleep
 
 
 ```lua
@@ -59327,7 +59327,7 @@ Pauses the current thread for the specified amount of time.
 
 @*param* `s` — Seconds to sleep for.
 
-## step
+### step
 
 
 ```lua
@@ -59415,7 +59415,7 @@ function love.timer.step()
 
 # love.touch
 
-## getPosition
+### getPosition
 
 
 ```lua
@@ -59436,7 +59436,7 @@ Gets the current position of the specified touch-press, in pixels.
 
 @*return* `y` — The position along the y-axis of the touch-press inside the window, in pixels.
 
-## getPressure
+### getPressure
 
 
 ```lua
@@ -59454,7 +59454,7 @@ Gets the current pressure of the specified touch-press.
 
 @*return* `pressure` — The pressure of the touch-press. Most touch screens aren't pressure sensitive, in which case the pressure will be 1.
 
-## getTouches
+### getTouches
 
 
 ```lua
@@ -59539,7 +59539,7 @@ function love.touch.getTouches()
 
 # love.video
 
-## newVideoStream
+### newVideoStream
 
 
 ```lua
@@ -59606,7 +59606,7 @@ love.window
 
 # love.window
 
-## close
+### close
 
 
 ```lua
@@ -59619,7 +59619,7 @@ Closes the window. It can be reopened with love.window.setMode.
 
 [Open in Browser](https://love2d.org/wiki/love.window.close)
 
-## fromPixels
+### fromPixels
 
 
 ```lua
@@ -59646,7 +59646,7 @@ Most LÖVE functions return values and expect arguments in terms of pixels rathe
 
 @*return* `value` — The converted number, in density-independent units.
 
-## getDPIScale
+### getDPIScale
 
 
 ```lua
@@ -59668,7 +59668,7 @@ The highdpi window flag must be enabled to use the full pixel density of a Retin
 
 @*return* `scale` — The pixel scale factor associated with the window.
 
-## getDesktopDimensions
+### getDesktopDimensions
 
 
 ```lua
@@ -59689,7 +59689,7 @@ Gets the width and height of the desktop.
 
 @*return* `height` — The height of the desktop.
 
-## getDisplayCount
+### getDisplayCount
 
 
 ```lua
@@ -59705,7 +59705,7 @@ Gets the number of connected monitors.
 
 @*return* `count` — The number of currently connected displays.
 
-## getDisplayName
+### getDisplayName
 
 
 ```lua
@@ -59723,7 +59723,7 @@ Gets the name of a display.
 
 @*return* `name` — The name of the specified display.
 
-## getDisplayOrientation
+### getDisplayOrientation
 
 
 ```lua
@@ -59756,7 +59756,7 @@ orientation:
     | "portraitflipped" -- Portrait orientation (flipped).
 ```
 
-## getFullscreen
+### getFullscreen
 
 
 ```lua
@@ -59788,7 +59788,7 @@ fstype:
     | "normal" -- Standard exclusive-fullscreen mode. Changes the display mode (actual resolution) of the monitor.
 ```
 
-## getFullscreenModes
+### getFullscreenModes
 
 
 ```lua
@@ -59806,7 +59806,7 @@ Gets a list of supported fullscreen modes.
 
 @*return* `modes` — A table of width/height pairs. (Note that this may not be in order.)
 
-## getIcon
+### getIcon
 
 
 ```lua
@@ -59822,7 +59822,7 @@ Gets the window icon.
 
 @*return* `imagedata` — The window icon imagedata, or nil if no icon has been set with love.window.setIcon.
 
-## getMode
+### getMode
 
 
 ```lua
@@ -59844,7 +59844,7 @@ Gets the display mode and properties of the window.
 
 @*return* `flags` — Table with the window properties:
 
-## getPosition
+### getPosition
 
 
 ```lua
@@ -59868,7 +59868,7 @@ The window position is in the coordinate space of the display it is currently in
 
 @*return* `displayindex` — The index of the display that the window is in.
 
-## getSafeArea
+### getSafeArea
 
 
 ```lua
@@ -59893,7 +59893,7 @@ Gets area inside the window which is known to be unobstructed by a system title 
 
 @*return* `h` — Height of safe area.
 
-## getTitle
+### getTitle
 
 
 ```lua
@@ -59909,7 +59909,7 @@ Gets the window title.
 
 @*return* `title` — The current window title.
 
-## getVSync
+### getVSync
 
 
 ```lua
@@ -59925,7 +59925,7 @@ Gets current vertical synchronization (vsync).
 
 @*return* `vsync` — Current vsync status. 1 if enabled, 0 if disabled, and -1 for adaptive vsync.
 
-## hasFocus
+### hasFocus
 
 
 ```lua
@@ -59941,7 +59941,7 @@ Checks if the game window has keyboard focus.
 
 @*return* `focus` — True if the window has the focus or false if not.
 
-## hasMouseFocus
+### hasMouseFocus
 
 
 ```lua
@@ -59957,7 +59957,7 @@ Checks if the game window has mouse focus.
 
 @*return* `focus` — True if the window has mouse focus or false if not.
 
-## isDisplaySleepEnabled
+### isDisplaySleepEnabled
 
 
 ```lua
@@ -59975,7 +59975,7 @@ Display sleep is disabled by default. Some types of input (e.g. joystick button 
 
 @*return* `enabled` — True if system display sleep is enabled / allowed, false otherwise.
 
-## isMaximized
+### isMaximized
 
 
 ```lua
@@ -59993,7 +59993,7 @@ The window can be maximized if it is not fullscreen and is resizable, and either
 
 @*return* `maximized` — True if the window is currently maximized in windowed mode, false otherwise.
 
-## isMinimized
+### isMinimized
 
 
 ```lua
@@ -60009,7 +60009,7 @@ Gets whether the Window is currently minimized.
 
 @*return* `minimized` — True if the window is currently minimized, false otherwise.
 
-## isOpen
+### isOpen
 
 
 ```lua
@@ -60025,7 +60025,7 @@ Checks if the window is open.
 
 @*return* `open` — True if the window is open, false otherwise.
 
-## isVisible
+### isVisible
 
 
 ```lua
@@ -60043,7 +60043,7 @@ The window is considered visible if it's not minimized and the program isn't hid
 
 @*return* `visible` — True if the window is visible or false if not.
 
-## maximize
+### maximize
 
 
 ```lua
@@ -60058,7 +60058,7 @@ This function has no effect if the window isn't resizable, since it essentially 
 
 [Open in Browser](https://love2d.org/wiki/love.window.maximize)
 
-## minimize
+### minimize
 
 
 ```lua
@@ -60071,7 +60071,7 @@ Minimizes the window to the system's task bar / dock.
 
 [Open in Browser](https://love2d.org/wiki/love.window.minimize)
 
-## requestAttention
+### requestAttention
 
 
 ```lua
@@ -60088,7 +60088,7 @@ In Windows the taskbar icon will flash, and in OS X the dock icon will bounce.
 
 @*param* `continuous` — Whether to continuously request attention until the window becomes active, or to do it only once.
 
-## restore
+### restore
 
 
 ```lua
@@ -60101,7 +60101,7 @@ Restores the size and position of the window if it was minimized or maximized.
 
 [Open in Browser](https://love2d.org/wiki/love.window.restore)
 
-## setDisplaySleepEnabled
+### setDisplaySleepEnabled
 
 
 ```lua
@@ -60118,7 +60118,7 @@ Display sleep is disabled by default. Some types of input (e.g. joystick button 
 
 @*param* `enable` — True to enable system display sleep, false to disable it.
 
-## setFullscreen
+### setFullscreen
 
 
 ```lua
@@ -60139,7 +60139,7 @@ Enters or exits fullscreen. The display to use when entering fullscreen is chose
 
 @*return* `success` — True if an attempt to enter fullscreen was successful, false otherwise.
 
-## setIcon
+### setIcon
 
 
 ```lua
@@ -60157,7 +60157,7 @@ Sets the window icon until the game is quit. Not all operating systems support v
 
 @*return* `success` — Whether the icon has been set successfully.
 
-## setMode
+### setMode
 
 
 ```lua
@@ -60183,7 +60183,7 @@ Changing the display mode may have side effects: for example, canvases will be c
 
 @*return* `success` — True if successful, false otherwise.
 
-## setPosition
+### setPosition
 
 
 ```lua
@@ -60204,7 +60204,7 @@ The window position is in the coordinate space of the specified display.
 
 @*param* `displayindex` — The index of the display that the new window position is relative to.
 
-## setTitle
+### setTitle
 
 
 ```lua
@@ -60219,7 +60219,7 @@ Sets the window title.
 
 @*param* `title` — The new window title.
 
-## setVSync
+### setVSync
 
 
 ```lua
@@ -60234,7 +60234,7 @@ Sets vertical synchronization mode.
 
 @*param* `vsync` — VSync number: 1 to enable, 0 to disable, and -1 for adaptive vsync.
 
-## showMessageBox
+### showMessageBox
 
 
 ```lua
@@ -60274,7 +60274,7 @@ type:
     | "error" -- Error dialog.
 ```
 
-## toPixels
+### toPixels
 
 
 ```lua
@@ -60301,7 +60301,7 @@ Most LÖVE functions return values and expect arguments in terms of pixels rathe
 
 @*return* `pixelvalue` — The converted number, in pixels.
 
-## updateMode
+### updateMode
 
 
 ```lua
@@ -61080,7 +61080,7 @@ function math.ult(m: integer, n: integer)
 
 # mathlib
 
-## abs
+### abs
 
 
 ```lua
@@ -61093,7 +61093,7 @@ Returns the absolute value of `x`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.abs"])
 
-## acos
+### acos
 
 
 ```lua
@@ -61106,7 +61106,7 @@ Returns the arc cosine of `x` (in radians).
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.acos"])
 
-## asin
+### asin
 
 
 ```lua
@@ -61119,7 +61119,7 @@ Returns the arc sine of `x` (in radians).
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.asin"])
 
-## atan
+### atan
 
 
 ```lua
@@ -61132,7 +61132,7 @@ Returns the arc tangent of `x` (in radians).
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.atan"])
 
-## atan2
+### atan2
 
 
 ```lua
@@ -61145,7 +61145,7 @@ Returns the arc tangent of `y/x` (in radians).
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.atan2"])
 
-## ceil
+### ceil
 
 
 ```lua
@@ -61158,7 +61158,7 @@ Returns the smallest integral value larger than or equal to `x`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.ceil"])
 
-## cos
+### cos
 
 
 ```lua
@@ -61171,7 +61171,7 @@ Returns the cosine of `x` (assumed to be in radians).
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.cos"])
 
-## cosh
+### cosh
 
 
 ```lua
@@ -61184,7 +61184,7 @@ Returns the hyperbolic cosine of `x` (assumed to be in radians).
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.cosh"])
 
-## deg
+### deg
 
 
 ```lua
@@ -61197,7 +61197,7 @@ Converts the angle `x` from radians to degrees.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.deg"])
 
-## exp
+### exp
 
 
 ```lua
@@ -61210,7 +61210,7 @@ Returns the value `e^x` (where `e` is the base of natural logarithms).
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.exp"])
 
-## floor
+### floor
 
 
 ```lua
@@ -61223,7 +61223,7 @@ Returns the largest integral value smaller than or equal to `x`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.floor"])
 
-## fmod
+### fmod
 
 
 ```lua
@@ -61236,7 +61236,7 @@ Returns the remainder of the division of `x` by `y` that rounds the quotient tow
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.fmod"])
 
-## frexp
+### frexp
 
 
 ```lua
@@ -61250,7 +61250,7 @@ Decompose `x` into tails and exponents. Returns `m` and `e` such that `x = m * (
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.frexp"])
 
-## huge
+### huge
 
 
 ```lua
@@ -61263,7 +61263,7 @@ A value larger than any other numeric value.
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.huge"])
 
 
-## ldexp
+### ldexp
 
 
 ```lua
@@ -61276,7 +61276,7 @@ Returns `m * (2 ^ e)` .
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.ldexp"])
 
-## log
+### log
 
 
 ```lua
@@ -61289,7 +61289,7 @@ Returns the logarithm of `x` in the given base.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.log"])
 
-## log10
+### log10
 
 
 ```lua
@@ -61302,7 +61302,7 @@ Returns the base-10 logarithm of x.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.log10"])
 
-## max
+### max
 
 
 ```lua
@@ -61315,7 +61315,7 @@ Returns the argument with the maximum value, according to the Lua operator `<`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.max"])
 
-## min
+### min
 
 
 ```lua
@@ -61328,7 +61328,7 @@ Returns the argument with the minimum value, according to the Lua operator `<`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.min"])
 
-## modf
+### modf
 
 
 ```lua
@@ -61342,7 +61342,7 @@ Returns the integral part of `x` and the fractional part of `x`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.modf"])
 
-## pi
+### pi
 
 
 ```lua
@@ -61355,7 +61355,7 @@ The value of *π*.
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.pi"])
 
 
-## pow
+### pow
 
 
 ```lua
@@ -61368,7 +61368,7 @@ Returns `x ^ y` .
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.pow"])
 
-## rad
+### rad
 
 
 ```lua
@@ -61381,7 +61381,7 @@ Converts the angle `x` from degrees to radians.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.rad"])
 
-## random
+### random
 
 
 ```lua
@@ -61397,7 +61397,7 @@ function math.random(m: integer, n: integer)
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.random"])
 
-## randomseed
+### randomseed
 
 
 ```lua
@@ -61409,7 +61409,7 @@ Sets `x` as the "seed" for the pseudo-random generator.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.randomseed"])
 
-## sin
+### sin
 
 
 ```lua
@@ -61422,7 +61422,7 @@ Returns the sine of `x` (assumed to be in radians).
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.sin"])
 
-## sinh
+### sinh
 
 
 ```lua
@@ -61435,7 +61435,7 @@ Returns the hyperbolic sine of `x` (assumed to be in radians).
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.sinh"])
 
-## sqrt
+### sqrt
 
 
 ```lua
@@ -61448,7 +61448,7 @@ Returns the square root of `x`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.sqrt"])
 
-## tan
+### tan
 
 
 ```lua
@@ -61461,7 +61461,7 @@ Returns the tangent of `x` (assumed to be in radians).
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.tan"])
 
-## tanh
+### tanh
 
 
 ```lua
@@ -61474,7 +61474,7 @@ Returns the hyperbolic tangent of `x` (assumed to be in radians).
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.tanh"])
 
-## tointeger
+### tointeger
 
 
 ```lua
@@ -61487,7 +61487,7 @@ Miss locale <math.tointeger>
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-math.tointeger"])
 
-## type
+### type
 
 
 ```lua
@@ -61508,7 +61508,7 @@ return #1:
     | 'nil'
 ```
 
-## ult
+### ult
 
 
 ```lua
@@ -61526,133 +61526,133 @@ Miss locale <math.ult>
 
 # metatable
 
-## __add
+### __add
 
 
 ```lua
 fun(t1: any, t2: any):any|nil
 ```
 
-## __call
+### __call
 
 
 ```lua
 fun(t: any, ...any):...unknown|nil
 ```
 
-## __concat
+### __concat
 
 
 ```lua
 fun(t1: any, t2: any):any|nil
 ```
 
-## __div
+### __div
 
 
 ```lua
 fun(t1: any, t2: any):any|nil
 ```
 
-## __eq
+### __eq
 
 
 ```lua
 fun(t1: any, t2: any):boolean|nil
 ```
 
-## __gc
+### __gc
 
 
 ```lua
 fun(t: any)|nil
 ```
 
-## __index
+### __index
 
 
 ```lua
 table|fun(t: any, k: any):any|nil
 ```
 
-## __le
+### __le
 
 
 ```lua
 fun(t1: any, t2: any):boolean|nil
 ```
 
-## __len
+### __len
 
 
 ```lua
 fun(t: any):integer|nil
 ```
 
-## __lt
+### __lt
 
 
 ```lua
 fun(t1: any, t2: any):boolean|nil
 ```
 
-## __metatable
+### __metatable
 
 
 ```lua
 any
 ```
 
-## __mod
+### __mod
 
 
 ```lua
 fun(t1: any, t2: any):any|nil
 ```
 
-## __mode
+### __mode
 
 
 ```lua
 'k'|'kv'|'v'|nil
 ```
 
-## __mul
+### __mul
 
 
 ```lua
 fun(t1: any, t2: any):any|nil
 ```
 
-## __newindex
+### __newindex
 
 
 ```lua
 table|fun(t: any, k: any, v: any)|nil
 ```
 
-## __pow
+### __pow
 
 
 ```lua
 fun(t1: any, t2: any):any|nil
 ```
 
-## __sub
+### __sub
 
 
 ```lua
 fun(t1: any, t2: any):any|nil
 ```
 
-## __tostring
+### __tostring
 
 
 ```lua
 fun(t: any):string|nil
 ```
 
-## __unm
+### __unm
 
 
 ```lua
@@ -61846,7 +61846,7 @@ function os.tmpname()
 
 # osdate
 
-## day
+### day
 
 
 ```lua
@@ -61859,7 +61859,7 @@ string|integer
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-osdate.day"])
 
 
-## hour
+### hour
 
 
 ```lua
@@ -61872,7 +61872,7 @@ string|integer
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-osdate.hour"])
 
 
-## isdst
+### isdst
 
 
 ```lua
@@ -61885,7 +61885,7 @@ daylight saving flag, a boolean
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-osdate.isdst"])
 
 
-## min
+### min
 
 
 ```lua
@@ -61898,7 +61898,7 @@ string|integer
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-osdate.min"])
 
 
-## month
+### month
 
 
 ```lua
@@ -61911,7 +61911,7 @@ string|integer
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-osdate.month"])
 
 
-## sec
+### sec
 
 
 ```lua
@@ -61924,7 +61924,7 @@ string|integer
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-osdate.sec"])
 
 
-## wday
+### wday
 
 
 ```lua
@@ -61937,7 +61937,7 @@ weekday, 1–7, Sunday is 1
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-osdate.wday"])
 
 
-## yday
+### yday
 
 
 ```lua
@@ -61950,7 +61950,7 @@ day of the year, 1–366
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-osdate.yday"])
 
 
-## year
+### year
 
 
 ```lua
@@ -61968,7 +61968,7 @@ four digits
 
 # osdateparam
 
-## day
+### day
 
 
 ```lua
@@ -61981,7 +61981,7 @@ string|integer
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-osdate.day"])
 
 
-## hour
+### hour
 
 
 ```lua
@@ -61994,7 +61994,7 @@ string|integer
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-osdate.hour"])
 
 
-## isdst
+### isdst
 
 
 ```lua
@@ -62007,7 +62007,7 @@ daylight saving flag, a boolean
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-osdate.isdst"])
 
 
-## min
+### min
 
 
 ```lua
@@ -62020,7 +62020,7 @@ daylight saving flag, a boolean
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-osdate.min"])
 
 
-## month
+### month
 
 
 ```lua
@@ -62033,7 +62033,7 @@ string|integer
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-osdate.month"])
 
 
-## sec
+### sec
 
 
 ```lua
@@ -62046,7 +62046,7 @@ string|integer
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-osdate.sec"])
 
 
-## wday
+### wday
 
 
 ```lua
@@ -62059,7 +62059,7 @@ weekday, 1–7, Sunday is 1
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-osdate.wday"])
 
 
-## yday
+### yday
 
 
 ```lua
@@ -62072,7 +62072,7 @@ day of the year, 1–366
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-osdate.yday"])
 
 
-## year
+### year
 
 
 ```lua
@@ -62090,7 +62090,7 @@ four digits
 
 # oslib
 
-## clock
+### clock
 
 
 ```lua
@@ -62103,7 +62103,7 @@ Returns an approximation of the amount in seconds of CPU time used by the progra
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-os.clock"])
 
-## date
+### date
 
 
 ```lua
@@ -62116,7 +62116,7 @@ Returns a string or a table containing date and time, formatted according to the
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-os.date"])
 
-## difftime
+### difftime
 
 
 ```lua
@@ -62129,7 +62129,7 @@ Returns the difference, in seconds, from time `t1` to time `t2`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-os.difftime"])
 
-## execute
+### execute
 
 
 ```lua
@@ -62151,7 +62151,7 @@ exitcode:
     | "signal"
 ```
 
-## exit
+### exit
 
 
 ```lua
@@ -62163,7 +62163,7 @@ Calls the ISO C function `exit` to terminate the host program.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-os.exit"])
 
-## getenv
+### getenv
 
 
 ```lua
@@ -62176,7 +62176,7 @@ Returns the value of the process environment variable `varname`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-os.getenv"])
 
-## remove
+### remove
 
 
 ```lua
@@ -62190,7 +62190,7 @@ Deletes the file with the given name.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-os.remove"])
 
-## rename
+### rename
 
 
 ```lua
@@ -62204,7 +62204,7 @@ Renames the file or directory named `oldname` to `newname`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-os.rename"])
 
-## setlocale
+### setlocale
 
 
 ```lua
@@ -62228,7 +62228,7 @@ category:
     | "time"
 ```
 
-## time
+### time
 
 
 ```lua
@@ -62241,7 +62241,7 @@ Returns the current time when called without arguments, or a time representing t
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-os.time"])
 
-## tmpname
+### tmpname
 
 
 ```lua
@@ -62332,7 +62332,7 @@ function package.seeall(module: table)
 
 # packagelib
 
-## config
+### config
 
 
 ```lua
@@ -62345,7 +62345,7 @@ A string describing some compile-time configurations for packages.
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-package.config"])
 
 
-## cpath
+### cpath
 
 
 ```lua
@@ -62358,7 +62358,7 @@ The path used by `require` to search for a C loader.
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-package.cpath"])
 
 
-## loaded
+### loaded
 
 
 ```lua
@@ -62371,7 +62371,7 @@ A table used by `require` to control which modules are already loaded.
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-package.loaded"])
 
 
-## loaders
+### loaders
 
 
 ```lua
@@ -62384,7 +62384,7 @@ A table used by `require` to control how to load modules.
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-package.loaders"])
 
 
-## loadlib
+### loadlib
 
 
 ```lua
@@ -62397,7 +62397,7 @@ Dynamically links the host program with the C library `libname`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-package.loadlib"])
 
-## path
+### path
 
 
 ```lua
@@ -62410,7 +62410,7 @@ The path used by `require` to search for a Lua loader.
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-package.path"])
 
 
-## preload
+### preload
 
 
 ```lua
@@ -62423,7 +62423,7 @@ A table to store loaders for specific modules.
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-package.preload"])
 
 
-## searchers
+### searchers
 
 
 ```lua
@@ -62436,7 +62436,7 @@ A table used by `require` to control how to load modules.
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-package.searchers"])
 
 
-## searchpath
+### searchpath
 
 
 ```lua
@@ -62450,7 +62450,7 @@ Searches for the given `name` in the given `path`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-package.searchpath"])
 
-## seeall
+### seeall
 
 
 ```lua
@@ -63550,7 +63550,7 @@ stringlib
 
 # string
 
-## byte
+### byte
 
 
 ```lua
@@ -63563,7 +63563,7 @@ Returns the internal numeric codes of the characters `s[i], s[i+1], ..., s[j]`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.byte"])
 
-## char
+### char
 
 
 ```lua
@@ -63576,7 +63576,7 @@ Returns a string with length equal to the number of arguments, in which each cha
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.char"])
 
-## dump
+### dump
 
 
 ```lua
@@ -63589,7 +63589,7 @@ Returns a string containing a binary representation (a *binary chunk*) of the gi
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.dump"])
 
-## find
+### find
 
 
 ```lua
@@ -63610,7 +63610,7 @@ Miss locale <string.find>
 
 @*return* `...` — captured
 
-## format
+### format
 
 
 ```lua
@@ -63623,7 +63623,7 @@ Returns a formatted version of its variable number of arguments following the de
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.format"])
 
-## gmatch
+### gmatch
 
 
 ```lua
@@ -63636,7 +63636,7 @@ Miss locale <string.gmatch>
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.gmatch"])
 
-## gsub
+### gsub
 
 
 ```lua
@@ -63650,7 +63650,7 @@ Miss locale <string.gsub>
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.gsub"])
 
-## len
+### len
 
 
 ```lua
@@ -63663,7 +63663,7 @@ Returns its length.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.len"])
 
-## lower
+### lower
 
 
 ```lua
@@ -63676,7 +63676,7 @@ Returns a copy of this string with all uppercase letters changed to lowercase.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.lower"])
 
-## match
+### match
 
 
 ```lua
@@ -63689,7 +63689,7 @@ Miss locale <string.match>
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.match"])
 
-## pack
+### pack
 
 
 ```lua
@@ -63702,7 +63702,7 @@ Miss locale <string.pack>
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.pack"])
 
-## packsize
+### packsize
 
 
 ```lua
@@ -63715,7 +63715,7 @@ Miss locale <string.packsize>
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.packsize"])
 
-## rep
+### rep
 
 
 ```lua
@@ -63728,7 +63728,7 @@ Returns a string that is the concatenation of `n` copies of the string `s` separ
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.rep"])
 
-## reverse
+### reverse
 
 
 ```lua
@@ -63741,7 +63741,7 @@ Returns a string that is the string `s` reversed.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.reverse"])
 
-## sub
+### sub
 
 
 ```lua
@@ -63754,7 +63754,7 @@ Returns the substring of the string that starts at `i` and continues until `j`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.sub"])
 
-## unpack
+### unpack
 
 
 ```lua
@@ -63768,7 +63768,7 @@ Returns the values packed in string according to the format string `fmt` (see [�
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.unpack"])
 
-## upper
+### upper
 
 
 ```lua
@@ -63786,7 +63786,7 @@ Returns a copy of this string with all lowercase letters changed to uppercase.
 
 # string.buffer
 
-## commit
+### commit
 
 
 ```lua
@@ -63796,7 +63796,7 @@ Returns a copy of this string with all lowercase letters changed to uppercase.
 
  Appends the used bytes of the previously returned write space to the buffer data.
 
-## decode
+### decode
 
 
 ```lua
@@ -63814,7 +63814,7 @@ Returns a copy of this string with all lowercase letters changed to uppercase.
 
  Attempting to de-serialize an FFI type will throw an error, if the FFI library is not built-in or has not been loaded, yet.
 
-## encode
+### encode
 
 
 ```lua
@@ -63826,7 +63826,7 @@ Returns a copy of this string with all lowercase letters changed to uppercase.
 
  This function may throw an error when attempting to serialize unsupported object types, circular references or deeply nested tables.
 
-## free
+### free
 
 
 ```lua
@@ -63837,7 +63837,7 @@ Returns a copy of this string with all lowercase letters changed to uppercase.
 
  Note: you normally don't need to use this method. The garbage collector automatically frees the buffer space, when the buffer object is collected. Use this method, if you need to free the associated memory immediately.
 
-## get
+### get
 
 
 ```lua
@@ -63849,7 +63849,7 @@ Returns a copy of this string with all lowercase letters changed to uppercase.
 
  Note: a zero length or no remaining buffer data returns an empty string and not `nil`.
 
-## put
+### put
 
 
 ```lua
@@ -63861,7 +63861,7 @@ Returns a copy of this string with all lowercase letters changed to uppercase.
 
  Appending a buffer to a buffer is possible and short-circuited internally. But it still involves a copy. Better combine the buffer writes to use a single buffer.
 
-## putcdata
+### putcdata
 
 
 ```lua
@@ -63871,7 +63871,7 @@ Returns a copy of this string with all lowercase letters changed to uppercase.
 
  Appends the given len number of bytes from the memory pointed to by the FFI cdata object to the buffer. The object needs to be convertible to a (constant) pointer.
 
-## putf
+### putf
 
 
 ```lua
@@ -63881,7 +63881,7 @@ Returns a copy of this string with all lowercase letters changed to uppercase.
 
  Appends the formatted arguments to the buffer. The format string supports the same options as string.format().
 
-## ref
+### ref
 
 
 ```lua
@@ -63912,7 +63912,7 @@ Returns a copy of this string with all lowercase letters changed to uppercase.
 
 @*return* `len` — length of the buffer data in bytes
 
-## reserve
+### reserve
 
 
 ```lua
@@ -63944,7 +63944,7 @@ Returns a copy of this string with all lowercase letters changed to uppercase.
 
 @*return* `len` — available length (bytes)
 
-## reset
+### reset
 
 
 ```lua
@@ -63954,7 +63954,7 @@ Returns a copy of this string with all lowercase letters changed to uppercase.
 
  Reset (empty) the buffer. The allocated buffer space is not freed and may be reused.
 
-## set
+### set
 
 
 ```lua
@@ -63970,7 +63970,7 @@ Returns a copy of this string with all lowercase letters changed to uppercase.
 
  The stored reference is an anchor for the garbage collector and keeps the originally passed string or FFI cdata object alive.
 
-## skip
+### skip
 
 
 ```lua
@@ -63980,7 +63980,7 @@ Returns a copy of this string with all lowercase letters changed to uppercase.
 
  Skips (consumes) len bytes from the buffer up to the current length of the buffer data.
 
-## tostring
+### tostring
 
 
 ```lua
@@ -64002,14 +64002,14 @@ Returns a copy of this string with all lowercase letters changed to uppercase.
 
 # string.buffer.serialization.opts
 
-## dict
+### dict
 
 
 ```lua
 string[]
 ```
 
-## metatable
+### metatable
 
 
 ```lua
@@ -64212,7 +64212,7 @@ function string.upper(s: string|number)
 
 # stringlib
 
-## byte
+### byte
 
 
 ```lua
@@ -64225,7 +64225,7 @@ Returns the internal numeric codes of the characters `s[i], s[i+1], ..., s[j]`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.byte"])
 
-## char
+### char
 
 
 ```lua
@@ -64238,7 +64238,7 @@ Returns a string with length equal to the number of arguments, in which each cha
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.char"])
 
-## dump
+### dump
 
 
 ```lua
@@ -64251,7 +64251,7 @@ Returns a string containing a binary representation (a *binary chunk*) of the gi
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.dump"])
 
-## find
+### find
 
 
 ```lua
@@ -64272,7 +64272,7 @@ Miss locale <string.find>
 
 @*return* `...` — captured
 
-## format
+### format
 
 
 ```lua
@@ -64285,7 +64285,7 @@ Returns a formatted version of its variable number of arguments following the de
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.format"])
 
-## gmatch
+### gmatch
 
 
 ```lua
@@ -64298,7 +64298,7 @@ Miss locale <string.gmatch>
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.gmatch"])
 
-## gsub
+### gsub
 
 
 ```lua
@@ -64312,7 +64312,7 @@ Miss locale <string.gsub>
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.gsub"])
 
-## len
+### len
 
 
 ```lua
@@ -64325,7 +64325,7 @@ Returns its length.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.len"])
 
-## lower
+### lower
 
 
 ```lua
@@ -64338,7 +64338,7 @@ Returns a copy of this string with all uppercase letters changed to lowercase.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.lower"])
 
-## match
+### match
 
 
 ```lua
@@ -64351,7 +64351,7 @@ Miss locale <string.match>
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.match"])
 
-## pack
+### pack
 
 
 ```lua
@@ -64364,7 +64364,7 @@ Miss locale <string.pack>
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.pack"])
 
-## packsize
+### packsize
 
 
 ```lua
@@ -64377,7 +64377,7 @@ Miss locale <string.packsize>
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.packsize"])
 
-## rep
+### rep
 
 
 ```lua
@@ -64390,7 +64390,7 @@ Returns a string that is the concatenation of `n` copies of the string `s` separ
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.rep"])
 
-## reverse
+### reverse
 
 
 ```lua
@@ -64403,7 +64403,7 @@ Returns a string that is the string `s` reversed.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.reverse"])
 
-## sub
+### sub
 
 
 ```lua
@@ -64416,7 +64416,7 @@ Returns the substring of the string that starts at `i` and continues until `j`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.sub"])
 
-## unpack
+### unpack
 
 
 ```lua
@@ -64430,7 +64430,7 @@ Returns the values packed in string according to the format string `fmt` (see [�
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-string.unpack"])
 
-## upper
+### upper
 
 
 ```lua
@@ -64591,7 +64591,7 @@ function table.unpack(list: { [1]: <T1>, [2]: <T2>, [3]: <T3>, [4]: <T4>, [5]: <
 
 # tablelib
 
-## concat
+### concat
 
 
 ```lua
@@ -64604,7 +64604,7 @@ Given a list where all elements are strings or numbers, returns the string `list
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-table.concat"])
 
-## foreach
+### foreach
 
 
 ```lua
@@ -64617,7 +64617,7 @@ Executes the given f over all elements of table. For each element, f is called w
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-table.foreach"])
 
-## foreachi
+### foreachi
 
 
 ```lua
@@ -64630,7 +64630,7 @@ Executes the given f over the numerical indices of table. For each index, f is c
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-table.foreachi"])
 
-## getn
+### getn
 
 
 ```lua
@@ -64643,7 +64643,7 @@ Returns the number of elements in the table. This function is equivalent to `#li
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-table.getn"])
 
-## insert
+### insert
 
 
 ```lua
@@ -64655,7 +64655,7 @@ Inserts element `value` at position `pos` in `list`.
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-table.insert"])
 
-## maxn
+### maxn
 
 
 ```lua
@@ -64668,7 +64668,7 @@ Returns the largest positive numerical index of the given table, or zero if the 
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-table.maxn"])
 
-## move
+### move
 
 
 ```lua
@@ -64687,7 +64687,7 @@ return a2
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-table.move"])
 
-## pack
+### pack
 
 
 ```lua
@@ -64700,7 +64700,7 @@ Returns a new table with all arguments stored into keys `1`, `2`, etc. and with 
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-table.pack"])
 
-## remove
+### remove
 
 
 ```lua
@@ -64713,7 +64713,7 @@ Removes from `list` the element at position `pos`, returning the value of the re
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-table.remove"])
 
-## sort
+### sort
 
 
 ```lua
@@ -64725,7 +64725,7 @@ Sorts list elements in a given order, *in-place*, from `list[1]` to `list[#list]
 
 [View documents](command:extension.lua.doc?["en-us/54/manual.html/pdf-table.sort"])
 
-## unpack
+### unpack
 
 
 ```lua
