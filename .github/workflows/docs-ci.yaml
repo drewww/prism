@@ -25,7 +25,7 @@ jobs:
         working-directory: docs
         run: |
           pip install mkdocs
-          pip install mkdocs-terminal
+          pip install mkdocs-material
           pip install pygments
           pip install pymdown-extensions
           mkdocs gh-deploy --strict --force
