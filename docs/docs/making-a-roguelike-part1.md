@@ -1,8 +1,8 @@
-# Getting Started with LÖVE 2D
+# Getting Started with LÖVE
 
 ## Installation
 
-To begin, download and install LÖVE 2D from [https://love2d.org/](https://love2d.org/). If you are using Linux, LÖVE is often available through your distribution's package manager.
+To begin, download and install LÖVE from [https://love2d.org/](https://love2d.org/). If you are using Linux, LÖVE is often available through your distribution's package manager.
 
 ## Running the Template
 
@@ -22,11 +22,11 @@ These key bindings can be modified in `keymapschema.lua`, included in the templa
 
 ---
 
-# Creating an Enemy
+## Creating an Enemy
 
 To make the game more engaging, let's introduce an enemy: the **Kobold**.
 
-## Adding the Kobold Actor
+### Adding the Kobold Actor
 
 1. Navigate to the `/modules/MyGame/actors/` directory.
 2. Create a new file named `kobold.lua`.
@@ -38,27 +38,28 @@ To make the game more engaging, let's introduce an enemy: the **Kobold**.
    Kobold.name = "Kobold"
 
    function Kobold:initialize()
-       return {
-           -- Defines the drawable appearance of the Kobold.
-           -- Each index corresponds to a character byte + 1 in the spritesheet.
-           -- The second argument specifies the Kobold's color (red).
-           prism.components.Drawable(string.byte("k") + 1, prism.Color4(1, 0, 0)),
+       love.graphics.rectangle("fill", 10, 10, width, height)
+     return {
+       -- Defines the drawable appearance of the Kobold.
+       -- Each index corresponds to a character byte + 1 in the spritesheet.
+       -- The second argument specifies the Kobold's color (red).
+       prism.components.Drawable(string.byte("k") + 1, prism.Color4(1, 0, 0)),
 
-           -- Collider component ensures the Kobold occupies space on the map.
-           -- Custom movement types can be specified for pathing exceptions.
-           prism.components.Collider(),
+       -- Collider component ensures the Kobold occupies space on the map.
+       -- Custom movement types can be specified for pathing exceptions.
+       prism.components.Collider(),
 
-           -- Senses component acts as a hub for implementing perception mechanics,
-           -- such as Sight, Tremorsense, or Sound awareness.
-           prism.components.Senses(),
+       -- Senses component acts as a hub for implementing perception mechanics,
+       -- such as Sight, Tremorsense, or Sound awareness.
+       prism.components.Senses(),
 
-           -- Sight component provides the Kobold with a field of vision.
-           -- Defined in `modules/Sight` and included in the template.
-           prism.components.Sight{ range = 12, fov = true },
+       -- Sight component provides the Kobold with a field of vision.
+       -- Defined in `modules/Sight` and included in the template.
+       prism.components.Sight{ range = 12, fov = true },
 
-           -- Move component enables movement actions, restricted to specified movement types.
-           prism.components.Mover{ "walk" }
-       }
+       -- Move component enables movement actions, restricted to specified movement types.
+       prism.components.Mover{ "walk" }
+     }
    end
 
    return Kobold
@@ -73,7 +74,7 @@ With this, the Kobold is now a simple enemy with:
 
 Let's run the game again, and press "~". This open Geometer, the editor. Click on the k on the right hand side and use the pen tool to draw a kobold in. Press the green button to resume the game.
 
-## The Kobold Controller
+### The Kobold Controller
 
 Now that the kobold exists in the world, you might notice something—it’s not moving! To give it behavior, we need to implement a **Controller** component.
 
@@ -174,7 +175,7 @@ prism.components.PlayerTag()
 
 ---
 
-### Updating the Kobold AI
+## Updating the Kobold AI
 
 Now, we’ll modify `KoboldController` so kobolds only follow actors with the **PlayerTag**.
 
@@ -211,7 +212,7 @@ end
 
 Now, kobolds will **only** track the player!
 
-# Kicking Kobolds
+## Kicking Kobolds
 
 In this section we'll give you something to do to these kobolds. Kick them! We'll need to create our first action. Head over
 to /modules/MyGame/actions and add kick.lua.

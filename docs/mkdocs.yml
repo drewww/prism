@@ -1,13 +1,14 @@
 site_name: "PRISM: A ROGUELIKE ENGINE"
 theme:
-  name: terminal
+  name: material  
+  features:
+    - navigation.tabs
 nav:
   - Home: index.md
-  - Documentation: doc.md
   - Architecture Primer: architecture-primer.md
   - Making a roguelike:
     - Part 01: making-a-roguelike-part1.md
-  - API:
+  - API Reference:
     - action: api/action.md
     - actiondecision: api/actiondecision.md
     - actionmessage: api/actionmessage.md
@@ -135,3 +136,5 @@ markdown_extensions:
       pygments_style: sas        # use 'default' style
       noclasses: true            # update HTML style attr
   - pymdownx.inlinehilite        # style inline code
+extra_css:
+  - assets/extra.css
