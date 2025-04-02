@@ -1,5 +1,5 @@
---- @class PriorityQueue<T> : Object
---- @overload fun(T): PriorityQueue
+--- @class prism.PriorityQueue<T> : prism.Object
+--- @overload fun(T): prism.PriorityQueue
 local PriorityQueue = prism.Object:extend("PriorityQueue")
 
 function PriorityQueue:__new() self._heap = {} end

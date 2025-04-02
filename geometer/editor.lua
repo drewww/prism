@@ -2,9 +2,9 @@
 local keybinds = geometer.require "keybindingschema"
 local PenTool = geometer.require "tools.pen"
 
----@alias Placeable Actor|Cell
+---@alias Placeable prism.Actor|prism.Cell
 
----@class Editor : Object
+---@class Editor : prism.Object
 ---@field attachable SpectrumAttachable
 ---@field display Display
 ---@field camera Camera
@@ -144,6 +144,7 @@ function Editor:keypressed(key, scancode)
    if not self.keybindsEnabled then return end
 
    local mode
+   --- @diagnostic disable-next-line
    if love.keyboard.isDown("lctrl") or love.keyboard.isDown("rctrl") then
       mode = "ctrl"
    end

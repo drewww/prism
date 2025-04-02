@@ -1,5 +1,5 @@
----@class SparseArray : Object
----@overload fun(): SparseArray
+---@class prism.SparseArray : prism.Object
+---@overload fun(): prism.SparseArray
 local SparseArray = prism.Object:extend("SparseArray")
 
 --- Constructor for SparseArray.

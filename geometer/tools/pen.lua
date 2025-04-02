@@ -1,7 +1,7 @@
 local PenModification = geometer.require "modifications.pen"
 
 ---@class PenTool : Tool
----@field locations SparseGrid
+---@field locations prism.SparseGrid
 local Pen = geometer.Tool:extend "PenTool"
 
 Pen.dragging = false
@@ -30,6 +30,7 @@ end
 function Pen:draw(editor, display)
    local x, y = editor.display:getCellUnderMouse()
    local drawable = self:getDrawable(editor.placeable)
+   if not drawable then return end
 
    self:drawCell(display, drawable, x, y)
 

@@ -1,4 +1,4 @@
----@class Keybinding : Object
+---@class Keybinding : prism.Object
 local Keybinding = prism.Object:extend("Keybinding")
 
 --- Constructor for the Keybinding class.

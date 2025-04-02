@@ -1,5 +1,5 @@
 --- SpriteAtlas class
----@class SpriteAtlas : Object
+---@class SpriteAtlas : prism.Object
 ---@field image any The texture atlas love image
 ---@field quadsByName table<string, any> A table of quads indexed by sprite names
 ---@field quadsByIndex table<number, any> A table of quads indexed by sprite indices

@@ -2,13 +2,13 @@
 local PasteModification = geometer.require "modifications.paste"
 
 ---@class SelectTool : Tool
----@field cells Grid the copied cells from the attachable
----@field actors SparseMap the copied actors from the attachable
----@field origin Vector2 location of the first point in a selection (creating or pasted)
----@field second Vector2 location of the other point in a selection (creating or pasted)
+---@field cells prism.Grid the copied cells from the attachable
+---@field actors prism.SparseMap the copied actors from the attachable
+---@field origin prism.Vector2 location of the first point in a selection (creating or pasted)
+---@field second prism.Vector2 location of the other point in a selection (creating or pasted)
 ---@field pasted boolean whether a selection is currently pasted/active
 ---@field dragging boolean whether we're dragging, either actively creating a selection or pasting one
----@field dragOrigin Vector2 where we started dragging from when moving a pasted selection
+---@field dragOrigin prism.Vector2 where we started dragging from when moving a pasted selection
 local Select = geometer.Tool:extend "SelectTool"
 
 function Select:__new()
@@ -107,7 +107,10 @@ function Select:draw(editor, display)
    if self.pasted then
       for x, y, cell in self.cells:each() do
          local drawable = self:getDrawable(cell)
-         self:drawCell(display, drawable, lx + x - 1, ly + y - 1)
+         
+         if drawable then
+            self:drawCell(display, drawable, lx + x - 1, ly + y - 1)
+         end
       end
    end
 
@@ -128,7 +131,7 @@ function Select:copy(attachable)
    local lx, ly, rx, ry = self:getCurrentRect()
    if not (lx and ly and rx and ry) then return end
 
-   ---@type Grid
+   ---@type prism.Grid
    local newCells = prism.Grid(rx - lx + 1, ry - ly + 1)
 
    local copyX, copyY = 1, 1

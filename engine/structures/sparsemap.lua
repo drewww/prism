@@ -2,8 +2,8 @@ local dummy = {}
 
 --- A sparse grid of buckets that objects can be placed into. Used for
 --- tracking actors by x,y position in Level.
---- @class SparseMap : Object
---- @overload fun(): SparseMap
+--- @class prism.SparseMap : prism.Object
+--- @overload fun(): prism.SparseMap
 local SparseMap = prism.Object:extend("SparseMap")
 
 --- The constructor for the 'SparseMap' class.
@@ -35,7 +35,7 @@ function SparseMap:each()
    local key, val
    return function()
       key, val = next(self.list, key)
-      if key then return val[1], val[2], key end
+      if key and val then return val[1], val[2], key end
       return nil
    end
 end

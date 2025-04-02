@@ -1,8 +1,8 @@
 --- @class LevelState : GameState
 --- Represents the state for running a level, including managing the game loop, 
 --- handling decisions, messages, and drawing the interface.
---- @field decision Decision The current decision being processed, if any.
---- @field level Level The level object representing the game environment.
+--- @field decision prism.Decision The current decision being processed, if any.
+--- @field level prism.Level The level object representing the game environment.
 --- @field display Display The display object used for rendering.
 --- @field message ActionMessage The most recent action message.
 --- @field geometer EditorState An editor state for debugging or managing geometry.
@@ -10,7 +10,7 @@ local LevelState = spectrum.GameState:extend("LevelState")
 
 --- Constructs a new LevelState.
 --- Sets up the game loop, initializes decision handlers, and binds custom callbacks for drawing.
---- @param level Level The level object to be managed by this state.
+--- @param level prism.Level The level object to be managed by this state.
 --- @param display Display The display object for rendering the level.
 --- @param actionHandlers table<fun():fun()> A table of callback generators for handling actions.
 function LevelState:__new(level, display, actionHandlers)
@@ -58,7 +58,7 @@ function LevelState:update(dt)
 
    if self.decision and self.decision:instanceOf(prism.decisions.ActionDecision) then
       local decision = self.decision
-      ---@cast decision ActionDecision
+      ---@cast decision prism.decisions.ActionDecision
 
       if not self.decision:validateResponse() then
          self:updateDecision(dt, self.decision.actor, decision)
@@ -73,7 +73,7 @@ end
 --- @param message any The message to handle.
 function LevelState:handleMessage(message)
    if message:is(prism.Decision) then
-      ---@cast message Decision
+      ---@cast message prism.Decision
       self.decision = message
    elseif message:is(prism.messages.ActionMessage) and not self.level.debug then
       self:handleActionMessage(message)
@@ -106,7 +106,7 @@ function LevelState:draw()
    local curActor
    if self.decision then
       local actionDecision = self.decision
-      ---@cast actionDecision ActionDecision
+      ---@cast actionDecision prism.decisions.ActionDecision
       curActor = actionDecision.actor
    elseif self.message then
       if self.message.action.owner:hasComponent(prism.components.PlayerController) then
@@ -134,8 +134,8 @@ end
 --- and its response is not yet valid.. Override this method in subclasses to implement 
 --- custom decision-handling logic. 
 --- @param dt number The time delta since the last update.
---- @param actor Actor The actor responsible for making the decision.
---- @param decision ActionDecision The decision being updated.
+--- @param actor prism.Actor The actor responsible for making the decision.
+--- @param decision prism.decisions.ActionDecision The decision being updated.
 function LevelState:updateDecision(dt, actor, decision)
    -- override in subclasses
 end

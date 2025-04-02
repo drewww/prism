@@ -1,14 +1,14 @@
 --- @class LineModification : Modification
 --- @field placeable Placeable
 --- @field placed Placeable[]|nil
---- @field replaced SparseGrid
---- @field topleft Vector2
---- @field bottomright Vector2
+--- @field replaced prism.SparseGrid
+--- @field topleft prism.Vector2
+--- @field bottomright prism.Vector2
 local LineModification = geometer.Modification:extend "LineModification"
 
 ---@param placeable Placeable
----@param topleft Vector2
----@param bottomright Vector2
+---@param topleft prism.Vector2
+---@param bottomright prism.Vector2
 function LineModification:__new(placeable, topleft, bottomright)
    self.placeable = placeable
    self.topleft = topleft
@@ -26,11 +26,11 @@ function LineModification:execute(attachable)
       local x, y = point[1], point[2]
       if self.placeable:is(prism.Actor) then
          local actor = self.placeable
-         --- @cast actor Actor
+         --- @cast actor prism.Actor
          self:placeActor(attachable, x, y, actor)
       else
          local cell = self.placeable
-         --- @cast cell Cell
+         --- @cast cell prism.Cell
          self:placeCell(attachable, x, y, cell)
       end
    end

@@ -11,10 +11,10 @@ function BTSelector:__new(children)
 end
 
 --- Runs the selector node.
---- @param level Level
---- @param actor Actor
+--- @param level prism.Level
+--- @param actor prism.Actor
 --- @param controller ControllerComponent
---- @return boolean|Action
+--- @return boolean|prism.Action
 function BTSelector:run(level, actor, controller)
    for i = 1, #self.children do
       local child = self.children[i]

@@ -7,9 +7,9 @@
 -- Mirrored at: https://github.com/nquinlan/better-random-numbers-for-javascript-mirror
 
 --- A random number generator using the Mersenne Twister algorithm.
---- @class RNG : Object
---- @overload fun(seed: any): RNG -- Seed must implement tostring!
---- @type RNG
+--- @class prism.RNG : prism.Object
+--- @overload fun(seed: any): prism.RNG -- Seed must implement tostring!
+--- @type prism.RNG
 local RNG = prism.Object:extend("RNG")
 
 local function createMash()
@@ -147,7 +147,7 @@ function RNG:setState(stateTable)
 end
 
 --- Clones the RNG.
---- @return RNG The cloned RNG.
+--- @return prism.RNG The cloned RNG.
 function RNG:clone()
    local clone = RNG()
    clone:setState(self:getState())

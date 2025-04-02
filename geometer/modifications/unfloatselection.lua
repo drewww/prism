@@ -1,8 +1,8 @@
 --- @class UnfloatSelectionModification : Modification
 --- @field placeable Placeable
---- @field position Vector2
---- @field floatingSelection MapBuilder
---- @overload fun(placeable: Placeable, position: Vector2, floatingSelection: MapBuilder)
+--- @field position prism.Vector2
+--- @field floatingSelection prism.MapBuilder
+--- @overload fun(placeable: Placeable, position: prism.Vector2, floatingSelection: prism.MapBuilder)
 --- @type UnfloatSelectionModification
 local UnfloatSelection = geometer.Modification:extend "UnfloatSelectionModification"
 

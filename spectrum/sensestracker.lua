@@ -1,10 +1,10 @@
 --- The SensesTracker class is responsible for managing the sensed cells and actors by Actors with a PlayerController within a level,
 --- distinguishing between explored cells, those sensed by other actors, and the total set of actors and cells sensed.
----@class SensesTracker : Object
----@field exploredCells SparseGrid -- A grid tracking cells that have been explored by any actor with a PlayerController.
----@field otherSensedCells SparseGrid -- A grid tracking cells sensed by other actors (excluding the current actor).
----@field totalSensedActors SparseMap -- A map tracking all actors sensed by the current actor or others.
----@field otherSensedActors SparseMap -- A map tracking actors sensed by other actors (excluding the current actor).
+---@class SensesTracker : prism.Object
+---@field exploredCells prism.SparseGrid -- A grid tracking cells that have been explored by any actor with a PlayerController.
+---@field otherSensedCells prism.SparseGrid -- A grid tracking cells sensed by other actors (excluding the current actor).
+---@field totalSensedActors prism.SparseMap -- A map tracking all actors sensed by the current actor or others.
+---@field otherSensedActors prism.SparseMap -- A map tracking actors sensed by other actors (excluding the current actor).
 local SensesTracker = prism.Object:extend("SensesTracker")
 
 function SensesTracker:__new()
@@ -14,8 +14,8 @@ function SensesTracker:__new()
    self.totalSensedActors = prism.SparseMap()
 end
 
----@param level Level
----@param curActor Actor|nil
+---@param level prism.Level
+---@param curActor prism.Actor|nil
 function SensesTracker:createSensedMaps(level, curActor)
    self.exploredCells = prism.SparseGrid()
    self.otherSensedActors = prism.SparseMap()
@@ -64,26 +64,6 @@ function SensesTracker:createSensedMaps(level, curActor)
 
    for actor, _ in pairs(actorSet) do
       self.totalSensedActors:insert(actor.position.x, actor.position.y, actor)
-   end
-end
-
-function SensesTracker:passableCallback()
-   return function(x, y)
-      local passable = false
-      --- @type Cell
-      local cell = self.exploredCells:get(x, y)
-
-      if cell then
-         passable = cell.passable
-      end
-
-      for actor, _ in pairs(self.totalSensedActors:get(x, y)) do
-         if actor:getComponent(prism.components.Collider) ~= nil then
-            passable = false
-         end
-      end
-
-      return passable
    end
 end
 

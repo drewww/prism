@@ -11,16 +11,16 @@ function BTRoot:__new(children)
 end
 
 --- Runs the behavior tree starting from this root node.
---- @param level Level
---- @param actor Actor
+--- @param level prism.Level
+--- @param actor prism.Actor
 --- @param controller ControllerComponent
---- @return Action
+--- @return prism.Action
 function BTRoot:run(level, actor, controller)
    for i = 1, #self.children do
       local child = self.children[i]
       local result = child:run(level, actor, controller)
       if result and type(result) ~= "boolean" and result:is(prism.Action) then
-         --- @type Action
+         --- @type prism.Action
          return result
       end
    end

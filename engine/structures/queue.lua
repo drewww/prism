@@ -1,6 +1,6 @@
 --- A basic FIFO (First In, First Out) queue implementation.
---- @class Queue : Object
---- @overload fun(): Queue
+--- @class prism.Queue : prism.Object
+--- @overload fun(): prism.Queue
 local Queue = prism.Object:extend("Queue")
 
 --- Initializes a new Queue instance.

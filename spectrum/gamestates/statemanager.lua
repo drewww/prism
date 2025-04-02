@@ -1,4 +1,4 @@
----@class GameStateManager : Object
+---@class GameStateManager : prism.Object
 local StateManager = prism.Object:extend("GameStateManager")
 
 function StateManager:__new()

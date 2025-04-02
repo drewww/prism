@@ -16,7 +16,6 @@
         "${3rd}/love2d/library"
     ],
     "Lua.workspace.ignoreDir": [
-        "lib"
     ],
     "completion.autoRequire": false
 }

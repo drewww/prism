@@ -16,20 +16,20 @@ function SimpleScheduler:__new()
 end
 
 --- Adds an actor to the scheduler.
---- @param actor Actor|string The actor, or special tick, to add.
+--- @param actor prism.Actor|string The actor, or special tick, to add.
 function SimpleScheduler:add(actor)
    self.currentQueue:push(actor)
 end
 
 --- Removes an actor from the scheduler.
---- @param actor Actor The actor to remove.
+--- @param actor prism.Actor The actor to remove.
 function SimpleScheduler:remove(actor)
    self.currentQueue:remove(actor)
    self.nextQueue:remove(actor)
 end
 
 --- Checks if an actor is in the scheduler.
---- @param actor Actor The actor to check.
+--- @param actor prism.Actor The actor to check.
 --- @return boolean True if the actor is in the scheduler, false otherwise.
 function SimpleScheduler:has(actor)
    return self.currentQueue:contains(actor)
@@ -38,7 +38,7 @@ end
 --- Returns the next actor to act.
 --- Moves the actor to the next queue and returns the actor.
 --- If the current queue is empty, it swaps the current and next queues and increments the round count.
---- @return Actor The actor who is next to act.
+--- @return prism.Actor The actor who is next to act.
 function SimpleScheduler:next()
    if self.currentQueue:empty() then
       self:swapQueues()

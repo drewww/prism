@@ -1,7 +1,7 @@
 --- @class ColliderOptions
 --- @field allowedMovetypes string[]
 
---- @class ColliderComponent : Component
+--- @class ColliderComponent : prism.Component
 --- @overload fun(options: ColliderOptions): ColliderComponent
 --- @type ColliderComponent
 local Collider = prism.Component:extend("Collider")

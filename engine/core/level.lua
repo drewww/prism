@@ -1,16 +1,16 @@
 --- The 'Level' holds all of the actors and systems, and runs the game loop. Through the ActorStorage and SystemManager
 ---
---- @class Level : Object, SpectrumAttachable
---- @field systemManager SystemManager A table containing all of the systems active in the level, set in the constructor.
---- @field actorStorage ActorStorage The main actor storage containing all of the level's actors.
+--- @class prism.Level : prism.Object, SpectrumAttachable
+--- @field systemManager prism.SystemManager A table containing all of the systems active in the level, set in the constructor.
+--- @field actorStorage prism.ActorStorage The main actor storage containing all of the level's actors.
 --- @field scheduler Scheduler The main scheduler driving the loop of the game.
---- @field map Map The level's map.
---- @field opacityCache BooleanBuffer A cache of cell opacity || actor opacity for each cell. Used to speed up fov/lighting calculations.
---- @field passableCache BitmaskBuffer A cache of cell passability || actor passability for each cell. Used to speed up pathfinding.
---- @field decision ActionDecision Used during deserialization to resume.
---- @field RNG RNG The level's local random number generator, use this for randomness within the level like attack rolls.
---- @overload fun(map: Map, actors: [Actor], systems: [System], scheduler: Scheduler): Level
---- @type Level
+--- @field map prism.Map The level's map.
+--- @field opacityCache prism.BooleanBuffer A cache of cell opacity || actor opacity for each cell. Used to speed up fov/lighting calculations.
+--- @field passableCache prism.BitmaskBuffer A cache of cell passability || actor passability for each cell. Used to speed up pathfinding.
+--- @field decision prism.decisions.ActionDecision Used during deserialization to resume.
+--- @field RNG prism.RNG The level's local random number generator, use this for randomness within the level like attack rolls.
+--- @overload fun(map: prism.Map, actors: [prism.Actor], systems: [prism.System], scheduler: Scheduler): prism.Level
+--- @type prism.Level
 local Level = prism.Object:extend("Level")
 
 Level.serializationBlacklist = {
@@ -19,9 +19,9 @@ Level.serializationBlacklist = {
 }
 
 --- Constructor for the Level class.
---- @param map Map The map to use for the level.
---- @param actors [Actor] A list of actors to
---- @param systems [System]
+--- @param map prism.Map The map to use for the level.
+--- @param actors [prism.Actor] A list of actors to
+--- @param systems [prism.System]
 function Level:__new(map, actors, systems, scheduler, seed)
    self.systemManager = prism.SystemManager(self)
    self.actorStorage = prism.ActorStorage(self:sparseMapCallback(), self:sparseMapCallback())
@@ -35,8 +35,8 @@ function Level:__new(map, actors, systems, scheduler, seed)
    self:initialize(actors, systems)
 end
 
---- @param actors [Actor]
---- @param systems [System]
+--- @param actors [prism.Actor]
+--- @param systems [prism.System]
 function Level:initialize(actors, systems)
    assert(#actors > 0, "A level must be initialized with at least one actor!")
    self:initializeOpacityCache()
@@ -83,7 +83,7 @@ function Level:step()
    )
 
    local actor = schedNext
-   ---@cast actor Actor
+   ---@cast actor prism.Actor
    self.systemManager:onTurn(self, actor)
    prism.turn(self, actor, self:getActorController(actor))
    self.systemManager:onTurnEnd(self, actor)
@@ -92,12 +92,12 @@ end
 --- Yields to the main 'thread', a coroutine in this case. This is called in run, and a few systems. Any time you want
 --- the interface to update you should call this. Avoid calling coroutine.yield directly,
 --- as this function will call the onYield method on all systems.
---- @param message Message
---- @return Decision|nil
+--- @param message prism.Message
+--- @return prism.Decision|nil
 function Level:yield(message)
    self.systemManager:onYield(self, message)
    if message:is(prism.Decision) then
-      ---@cast message ActionDecision
+      ---@cast message prism.decisions.ActionDecision
       self.decision = message
    end
    local _, ret = coroutine.yield(message)
@@ -122,12 +122,12 @@ end
 --- Attaches a system to the level. This function will error if the system
 --- doesn't have a name or if a system with the same name already exists, or if
 --- the system has a requirement that hasn't been attached yet.
---- @param system System The system to add.
+--- @param system prism.System The system to add.
 function Level:addSystem(system) self.systemManager:addSystem(system) end
 
 --- Gets a system by name.
 --- @param className string The name of the system to get.
---- @return System? system The system with the given name.
+--- @return prism.System? system The system with the given name.
 function Level:getSystem(className) self.systemManager:getSystem(className) end
 
 --
@@ -137,7 +137,7 @@ function Level:getSystem(className) self.systemManager:getSystem(className) end
 --- Retrieves the unique ID associated with the specified actor.
 --- Note: IDs are unique to actors within the Level but may be reused 
 --- when indices are freed.
---- @param actor Actor The actor whose ID is to be retrieved.
+--- @param actor prism.Actor The actor whose ID is to be retrieved.
 --- @return integer? The unique ID of the actor, or nil if the actor is not found.
 function Level:getID(actor)
    return self.actorStorage:getID(actor)
@@ -146,7 +146,7 @@ end
 --- Adds an actor to the level. Handles updating the component cache and
 --- inserting the actor into the sparse map. It will also add the actor to the
 --- scheduler if it has a controller.
---- @param actor Actor The actor to add.
+--- @param actor prism.Actor The actor to add.
 function Level:addActor(actor)
    -- some sanity checks
    assert(actor:is(prism.Actor), "Attemped to add a non-actor object to the level with addActor")
@@ -165,7 +165,7 @@ end
 --- Removes an actor from the level. Handles updating the component cache and
 --- removing the actor from the sparse map. It will also remove the actor from
 --- the scheduler if it has a controller.
---- @param actor Actor The actor to remove.
+--- @param actor prism.Actor The actor to remove.
 function Level:removeActor(actor)
    self.actorStorage:removeActor(actor)
    self.scheduler:remove(actor)
@@ -174,8 +174,8 @@ end
 
 --- Removes a component from an actor. It handles
 --- updating the component cache and the opacity cache.
---- @param actor Actor The actor to remove the component from.
---- @param component Component The component to remove.
+--- @param actor prism.Actor The actor to remove the component from.
+--- @param component prism.Component The component to remove.
 function Level:removeComponent(actor, component)
    actor:__removeComponent(component)
    self.actorStorage:updateComponentCache(actor)
@@ -186,8 +186,8 @@ end
 --- Adds a component to an actor. It handles updating
 --- the component cache and the opacity cache. You can do this manually, but
 --- it's easier to use this function.
---- @param actor Actor The actor to add the component to.
---- @param component Component The component to add.
+--- @param actor prism.Actor The actor to add the component to.
+--- @param component prism.Component The component to add.
 function Level:addComponent(actor, component)
    -- we disable the check on actor's addComponent here because it's not ACTUALLY private, but
    -- we want to discourage it's use outside of Level
@@ -202,8 +202,8 @@ end
 --- Moves an actor to the given position. This function doesn't do any checking
 --- for overlaps or collisions. It's used by the moveActorChecked function, you should
 --- generally not invoke this yourself using moveActorChecked instead.
---- @param actor Actor The actor to move.
---- @param pos Vector2 The position to move the actor to.
+--- @param actor prism.Actor The actor to move.
+--- @param pos prism.Vector2 The position to move the actor to.
 --- @param skipSparseMap boolean If true the sparse map won't be updated.
 function Level:moveActor(actor, pos, skipSparseMap)
    assert(pos.is and pos:is(prism.Vector2), "Expected a Vector2 for pos in Level:moveActor.")
@@ -237,7 +237,7 @@ end
 --- attached to the Actor or Level respectively. It also updates the 'Scheduler' if the action isn't
 --- a reaction or free action. Lastly, it calls the 'onAction' method on the 'Cell' that the 'Actor' is
 --- standing on.
---- @param action Action The action to perform.
+--- @param action prism.Action The action to perform.
 --- @param silent boolean? If true this action emits no events.
 function Level:performAction(action, silent)
    -- this happens sometimes if one effect kills an entity and a second effect
@@ -265,7 +265,7 @@ end
 --- Gets the actor's controller. This is a utility function that checks the
 --- actor's conditions for an override controller and returns it if it exists.
 --- Otherwise it returns the actor's normal controller.
---- @param actor Actor The actor to get the controller for.
+--- @param actor prism.Actor The actor to get the controller for.
 --- @return ControllerComponent controller The actor's controller.
 function Level:getActorController(actor)
    --- @type ControllerComponent Cast to a Controller from the generic Controller component
@@ -278,21 +278,21 @@ end
 
 --- Returns true if the level contains the given actor, false otherwise. A thin wrapper
 --- over the inner ActorStorage.
---- @param actor Actor The actor to check for.
+--- @param actor prism.Actor The actor to check for.
 --- @return boolean hasActor True if the level contains the given actor, false otherwise.
 function Level:hasActor(actor) return self.actorStorage:hasActor(actor) end
 
 --- This method returns an iterator that will return all actors in the level
 --- that have the given components. If no components are given it iterate over
 --- all actors. A thin wrapper over the inner ActorStorage.
---- @param ... Component The components to filter by.
+--- @param ... prism.Component The components to filter by.
 --- @return function An iterator that returns the next actor that matches the given components.
 function Level:eachActor(...) return self.actorStorage:eachActor(...) end
 
 --- Returns the first actor that extends the given prototype, or nil if no actor
 --- is found. Useful for one offs like stairs in some games.
---- @param prototype Actor The prototype to check for.
---- @return Actor|nil The first actor that extends the given prototype, or nil if no actor is found.
+--- @param prototype prism.Actor The prototype to check for.
+--- @return prism.Actor|nil The first actor that extends the given prototype, or nil if no actor is found.
 function Level:getActorByType(prototype) return self.actorStorage:getActorByType(prototype) end
 
 --- Returns a list of all actors at the given position. A thin wrapper over
@@ -315,7 +315,7 @@ end
 --- Sets the cell at the given position to the given cell.
 --- @param x number The x component of the position to set.
 --- @param y number The y component of the position to set.
---- @param cell Cell The cell to set.
+--- @param cell prism.Cell The cell to set.
 function Level:setCell(x, y, cell)
    self.map:set(x, y, cell)
    self:updateCaches(x, y)
@@ -324,7 +324,7 @@ end
 --- Gets the cell at the given position.
 --- @param x number The x component of the position to get.
 --- @param y number The y component of the position to get.
---- @return Cell The cell at the given position.
+--- @return prism.Cell The cell at the given position.
 function Level:getCell(x, y) return self.map:get(x, y) end
 
 --- Is there a cell at this x, y? Part of the interface with MapBuilder
@@ -395,7 +395,7 @@ function Level:getCellOpaque(x, y) return self.opacityCache:get(x, y) end
 
 --- Returns the opacity cache for the level. This generally shouldn't be used
 --- outside of systems that need to know about opacity.
---- @return BooleanBuffer map The opacity cache for the level.
+--- @return prism.BooleanBuffer map The opacity cache for the level.
 function Level:getOpacityCache() return self.opacityCache end
 
 --- Initialize the opacity cache. This should be called after the level is
@@ -429,9 +429,9 @@ function Level:updateOpacityCache(x, y)
 end
 
 --- Finds a path from startpos to endpos
----@param startPos Vector2
----@param goalPos Vector2
----@return Path | nil
+---@param startPos prism.Vector2
+---@param goalPos prism.Vector2
+---@return prism.Path | nil
 function Level:findPath(startPos, goalPos, minDistance, mask)
    if
        startPos.x < 1 or startPos.x > self.map.w or startPos.y < 1 or startPos.y > self.map.h or
@@ -453,9 +453,9 @@ end
 --- only "fov" and "box" are supported. The fov type uses a field of view
 --- algorithm to determine what actors are visible from the given position. The
 --- box type uses a simple box around the given position.
---- @param self Level
+--- @param self prism.Level
 --- @param type "box"|"fov" The type of range to use.
---- @param position Vector2 The position to check from.
+--- @param position prism.Vector2 The position to check from.
 --- @param range number The range to check.
 --- @return table? actors
 --- @return table? fov A list of actors within the given range.

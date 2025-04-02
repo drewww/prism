@@ -1,13 +1,13 @@
 local PenModification = geometer.require "modifications.pen"
 ---@class Fill : Tool
----@field locations SparseGrid
+---@field locations prism.SparseGrid
 ---Represents a tool with update, draw, and mouse interaction functionalities.
 ---Tools can respond to user inputs and render visual elements.
 local Fill = geometer.Tool:extend("FillTool")
 
 --- Begins a paint drag.
 ---@param editor Editor
----@param level Level
+---@param level prism.Level
 ---@param cellx number The x-coordinate of the cell clicked.
 ---@param celly number The y-coordinate of the cell clicked.
 function Fill:mouseclicked(editor, level, cellx, celly)

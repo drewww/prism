@@ -1,7 +1,7 @@
 --- A sparse grid class that stores data using hashed coordinates. Similar to a SparseMap
 --- except here there is only one entry per grid coordinate. This is suitable for stuff like Cells.
---- @class SparseGrid<V> : Object, { data : table<V> }
---- @overload fun(): SparseGrid
+--- @class prism.SparseGrid<V> : prism.Object, { data : table<V> }
+--- @overload fun(): prism.SparseGrid
 local SparseGrid = prism.Object:extend("SparseGrid")
 
 --- The constructor for the 'SparseGrid' class.

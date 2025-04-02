@@ -11,10 +11,10 @@ function BTSequence:__new(children)
 end
 
 --- Runs the sequence node.
---- @param level Level
---- @param actor Actor
+--- @param level prism.Level
+--- @param actor prism.Actor
 --- @param controller ControllerComponent
---- @return boolean|Action
+--- @return boolean|prism.Action
 function BTSequence:run(level, actor, controller)
    for i, child in ipairs(self.children) do
       local result = child:run(level, actor, controller)

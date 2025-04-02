@@ -272,8 +272,8 @@ end
 
 --- This is the core turn logic, and if you need to use a different scheduler or want a different turn structure you should override this.
 --- There is a version of this provided for time-based
----@param level Level
----@param actor Actor
+---@param level prism.Level
+---@param actor prism.Actor
 ---@param controller ControllerComponent
 ---@diagnostic disable-next-line
 function prism.turn(level, actor, controller)
@@ -288,7 +288,7 @@ function prism.turn(level, actor, controller)
 end
 
 --- Runs the level coroutine and returns the next message, or nil if the coroutine has halted.
---- @return Message|nil
+--- @return prism.Message|nil
 function prism.advanceCoroutine(updateCoroutine, level, decision)
    local success, ret = coroutine.resume(updateCoroutine, level, decision)
 

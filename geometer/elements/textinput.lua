@@ -4,7 +4,7 @@ local Inky = geometer.require "inky"
 ---@field font love.Font
 ---@field content string
 ---@field overlay love.Canvas
----@field size Vector2
+---@field size prism.Vector2
 ---@field focused boolean
 ---@field onEdit function?
 ---@field placeholder string

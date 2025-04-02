@@ -1,24 +1,24 @@
 --- An 'Action' is a command that affects a discrete change in the game state.
 --- An Action consists of an owner, a name, a list of targets, and a list of target objects.
 --- See Target for more.
---- @class Action : Object
+--- @class prism.Action : prism.Object
 --- @field time number The time it takes to perform this action. Lower is better.
 --- @field silent boolean A silent action doesn't generate messages
---- @field owner Actor The actor taking the action.
---- @field source Actor? An object granting the owner of the action this action. A wand's zap action is a good example.
---- @field targets [Target]
---- @field targetObjects [Object]
---- @field requiredComponents Component[]
---- @overload fun(owner: Actor, targets: Target[]): Action
---- @type Action
+--- @field owner prism.Actor The actor taking the action.
+--- @field source prism.Actor? An object granting the owner of the action this action. A wand's zap action is a good example.
+--- @field targets [prism.Target]
+--- @field targetObjects [prism.Object]
+--- @field requiredComponents prism.Component[]
+--- @overload fun(owner: prism.Actor, targets: prism.Target[]): prism.Action
+--- @type prism.Action
 local Action = prism.Object:extend("Action")
 Action.time = 100
 Action.silent = false
 
 --- Constructor for the Action class.
----@param owner Actor The actor that is performing the action.
----@param targets [Object]? An optional list of target actors. Not all actions require targets.
----@param source Actor? An optional actor indicating the source of that action, for stuff like a wand or scroll.
+---@param owner prism.Actor The actor that is performing the action.
+---@param targets [prism.Object]? An optional list of target actors. Not all actions require targets.
+---@param source prism.Actor? An optional actor indicating the source of that action, for stuff like a wand or scroll.
 function Action:__new(owner, targets, source)
    self.owner = owner
    self.source = source
@@ -50,7 +50,7 @@ end
 --- Call this function to check if the action is valid and can be executed in
 --- the given level. This calls the inner overrideable _canPerform, and
 --- unpacks the target objects.
---- @param level Level
+--- @param level prism.Level
 --- @return boolean canPerform
 function Action:canPerform(level)
    if not self:hasRequisiteComponents(self.owner) then return false end
@@ -60,13 +60,13 @@ end
 
 --- This method should be overriden by subclasses. This is called to make
 --- sure an action is valid for the actor. This would be useful for
---- @param level Level
+--- @param level prism.Level
 --- @return boolean canPerform
 function Action:_canPerform(level, ...)
    error("This is a virtual method and must be overriden on subclasses!")
 end
 
---- @param actor Actor
+--- @param actor prism.Actor
 --- @return boolean hasRequisiteComponents
 function Action:hasRequisiteComponents(actor)
    for _, component in pairs(self.requiredComponents) do
@@ -81,7 +81,7 @@ function Action:perform(level)
 end
 
 --- Performs the action. This should be overriden on all subclasses
---- @param level Level The level the action is being performed in.
+--- @param level prism.Level The level the action is being performed in.
 function Action:_perform(level, ...)
    error("This is a virtual method and must be overriden on subclasses!")
 end
@@ -102,7 +102,7 @@ end
 
 --- Returns the target object at the specified index.
 --- @tparam number index The index of the target object to retrieve.
---- @return Target|nil targetObject
+--- @return prism.Target|nil targetObject
 function Action:getTargetObject(index) return self.targets[index] end
 
 --- Determines if the specified actor is a target of this action.
@@ -116,8 +116,8 @@ end
 
 --- _validates the specified target for this action.
 --- @param n number The index of the target object to _validate.
---- @param owner Actor The actor that is performing the action.
---- @param toValidate Actor The target actor to _validate.
+--- @param owner prism.Actor The actor that is performing the action.
+--- @param toValidate prism.Actor The target actor to _validate.
 --- @param targets [any] The previously selected targets.
 --- @return boolean true if the specified target actor is valid for this action, false otherwise.
 function Action:validateTarget(n, owner, toValidate, targets)
