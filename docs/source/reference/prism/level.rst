@@ -1,2 +1,0 @@
- .. lua:autoobject:: Level
-  :members:
