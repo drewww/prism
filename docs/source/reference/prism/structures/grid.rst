@@ -1,0 +1,2 @@
+ .. lua:autoobject:: Grid
+  :members:
