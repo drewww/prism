@@ -2,6 +2,16 @@ import os
 import re
 import sys
 
+def write_class(file_path, class_name):
+    with open(file_path, 'a') as f:
+        f.write(f"{class_name}\n")
+        f.write("=" * len(class_name) + "\n\n")
+        f.write(f".. lua:autoobject:: {class_name}\n")
+        f.write("   :members:\n")
+        f.write("   :special-members:\n")
+        f.write("   :undoc-members:\n")
+        f.write("   :inherited-members: __new\n\n")
+
 def process_files(input_dir, output_dir):
     """
     Recursively iterate over a directory, search for the first instance of "@class" in each file,
@@ -30,19 +40,7 @@ def process_files(input_dir, output_dir):
                 match = re.search(r'@class\s+(\w+)', line)
                 if match:
                     class_name = match.group(1)
-                    break
-
-            if class_name:
-                # Write the new RST content
-                with open(output_file_path, 'w') as f:
-                    f.write(f"{class_name}\n")
-                    f.write("=" * len(class_name) + "\n\n")
-                    f.write(f".. lua:autoobject:: {class_name}\n")
-                    f.write("   :members:\n")
-            else:
-                # If no @class is found, copy the original content
-                with open(output_file_path, 'w') as f:
-                    f.writelines(content)
+                    write_class(output_file_path, class_name)
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
