@@ -1,0 +1,9 @@
+SensesTracker
+=============
+
+.. lua:autoobject:: SensesTracker
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

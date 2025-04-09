@@ -1,0 +1,9 @@
+BTSequence
+==========
+
+.. lua:autoobject:: BTSequence
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

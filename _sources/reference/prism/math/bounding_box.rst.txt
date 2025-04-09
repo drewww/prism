@@ -1,0 +1,9 @@
+BoundingBox
+===========
+
+.. lua:autoobject:: BoundingBox
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

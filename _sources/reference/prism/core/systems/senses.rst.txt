@@ -1,0 +1,9 @@
+SensesSystem
+============
+
+.. lua:autoobject:: SensesSystem
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

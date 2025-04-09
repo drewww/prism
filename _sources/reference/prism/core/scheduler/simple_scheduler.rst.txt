@@ -1,0 +1,9 @@
+SimpleScheduler
+===============
+
+.. lua:autoobject:: SimpleScheduler
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

@@ -1,0 +1,9 @@
+Target
+======
+
+.. lua:autoobject:: Target
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

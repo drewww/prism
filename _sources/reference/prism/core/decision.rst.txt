@@ -1,0 +1,9 @@
+Decision
+========
+
+.. lua:autoobject:: Decision
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

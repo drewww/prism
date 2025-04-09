@@ -1,0 +1,9 @@
+Queue
+=====
+
+.. lua:autoobject:: Queue
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

@@ -1,0 +1,9 @@
+Fraction
+========
+
+.. lua:autoobject:: Fraction
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

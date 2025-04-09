@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>BoundingBox &#8212; Prism  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=27fed22d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/lua.css" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Color4" href="color.html" />
+    <link rel="prev" title="SparseMap" href="../structures/sparsemap.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="boundingbox">
+<h1>BoundingBox<a class="headerlink" href="#boundingbox" title="Link to this heading">¶</a></h1>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="lua-BoundingBox">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BoundingBox</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../core/object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><a class="headerlink" href="#lua-BoundingBox" title="Link to this definition">¶</a></dt>
+<dd><dl class="lua method">
+<dt class="sig sig-object lua" id="lua-BoundingBox.__new">
+<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-BoundingBox" title="BoundingBox"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">BoundingBox</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-BoundingBox.__new" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-BoundingBox.x">
+<span class="sig-name descname"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code><a class="headerlink" href="#lua-BoundingBox.x" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-BoundingBox.y">
+<span class="sig-name descname"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code><a class="headerlink" href="#lua-BoundingBox.y" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-BoundingBox.i">
+<span class="sig-name descname"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code><a class="headerlink" href="#lua-BoundingBox.i" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-BoundingBox.j">
+<span class="sig-name descname"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code><a class="headerlink" href="#lua-BoundingBox.j" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-BoundingBox.getWidth">
+<span class="sig-name descname"><span class="pre">getWidth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-BoundingBox" title="BoundingBox"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">BoundingBox</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">unknown</span></code></span></span><a class="headerlink" href="#lua-BoundingBox.getWidth" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-BoundingBox.getHeight">
+<span class="sig-name descname"><span class="pre">getHeight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-BoundingBox" title="BoundingBox"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">BoundingBox</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">unknown</span></code></span></span><a class="headerlink" href="#lua-BoundingBox.getHeight" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-BoundingBox.contains">
+<span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-BoundingBox" title="BoundingBox"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">BoundingBox</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></span></span><a class="headerlink" href="#lua-BoundingBox.contains" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-BoundingBox.intersects">
+<span class="sig-name descname"><span class="pre">intersects</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-BoundingBox" title="BoundingBox"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">BoundingBox</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></span></span><a class="headerlink" href="#lua-BoundingBox.intersects" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-BoundingBox.union">
+<span class="sig-name descname"><span class="pre">union</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-BoundingBox" title="BoundingBox"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">BoundingBox</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-BoundingBox.union" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-BoundingBox.__tostring">
+<span class="sig-name descname"><span class="pre">__tostring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-BoundingBox" title="BoundingBox"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">BoundingBox</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></span></span><a class="headerlink" href="#lua-BoundingBox.__tostring" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Prism</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../architecture-primer.html">Prism’s Architecture: A Primer</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../making-a-roguelike-part1.html">Getting Started with LÖVE</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Prism</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../core/action.html">Action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/actor.html">Actor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/actorstorage.html">ActorStorage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/behavior.html">IBehavior</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/cell.html">Cell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/component.html">Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/decision.html">Decision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/level.html">Level</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/map.html">Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/map_builder.html">MapBuilder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/message.html">Message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/object.html">Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/rng.html">RNG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/system.html">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/system_manager.html">SystemManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/target.html">Target</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/components/collider.html">ColliderComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/components/controller.html">ControllerComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/components/opaque.html">OpaqueComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/components/player_controller.html">PlayerControllerComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/components/senses.html">SensesComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/systems/senses.html">SensesSystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/messages/actionmessage.html">ActionMessage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/messages/debugmessage.html">DebugMessage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/decisions/actiondecision.html">ActionDecision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btconditional.html">BTConditional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btnode.html">BTNode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btroot.html">BTRoot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btselector.html">BTSelector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btsequence.html">BTSequence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btsucceeder.html">BTSucceeder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/bitmaskbuffer.html">BitmaskBuffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/booleanbuffer.html">BooleanBuffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/grid.html">Grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/priority_queue.html">PriorityQueue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/queue.html">Queue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/sparsearray.html">SparseArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/sparsegrid.html">SparseGrid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/sparsemap.html">SparseMap</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">BoundingBox</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lua-BoundingBox"><code class="docutils literal notranslate"><span class="pre">BoundingBox</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#lua-BoundingBox.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-BoundingBox.x"><code class="docutils literal notranslate"><span class="pre">x</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-BoundingBox.y"><code class="docutils literal notranslate"><span class="pre">y</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-BoundingBox.i"><code class="docutils literal notranslate"><span class="pre">i</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-BoundingBox.j"><code class="docutils literal notranslate"><span class="pre">j</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-BoundingBox.getWidth"><code class="docutils literal notranslate"><span class="pre">getWidth()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-BoundingBox.getHeight"><code class="docutils literal notranslate"><span class="pre">getHeight()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-BoundingBox.contains"><code class="docutils literal notranslate"><span class="pre">contains()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-BoundingBox.intersects"><code class="docutils literal notranslate"><span class="pre">intersects()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-BoundingBox.union"><code class="docutils literal notranslate"><span class="pre">union()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-BoundingBox.__tostring"><code class="docutils literal notranslate"><span class="pre">__tostring()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="color.html">Color4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vector.html">Vector2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../spectrum/index.html">Spectrum</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Prism</a><ul>
+      <li>Previous: <a href="../structures/sparsemap.html" title="previous chapter">SparseMap</a></li>
+      <li>Next: <a href="color.html" title="next chapter">Color4</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Matthew Blanchard, LJNIC.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../../_sources/reference/prism/math/bounding_box.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

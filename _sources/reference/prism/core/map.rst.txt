@@ -1,0 +1,9 @@
+Map
+===
+
+.. lua:autoobject:: Map
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

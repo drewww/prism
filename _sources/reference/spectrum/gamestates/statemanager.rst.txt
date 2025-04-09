@@ -1,0 +1,9 @@
+GameStateManager
+================
+
+.. lua:autoobject:: GameStateManager
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

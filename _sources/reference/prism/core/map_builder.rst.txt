@@ -1,0 +1,9 @@
+MapBuilder
+==========
+
+.. lua:autoobject:: MapBuilder
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

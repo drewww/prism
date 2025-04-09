@@ -1,0 +1,9 @@
+PlayerControllerComponent
+=========================
+
+.. lua:autoobject:: PlayerControllerComponent
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

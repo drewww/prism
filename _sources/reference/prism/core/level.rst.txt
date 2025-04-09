@@ -1,0 +1,9 @@
+Level
+=====
+
+.. lua:autoobject:: Level
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

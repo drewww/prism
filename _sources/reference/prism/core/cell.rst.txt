@@ -1,0 +1,9 @@
+Cell
+====
+
+.. lua:autoobject:: Cell
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

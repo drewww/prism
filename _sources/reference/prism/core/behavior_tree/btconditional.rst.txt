@@ -1,0 +1,9 @@
+BTConditional
+=============
+
+.. lua:autoobject:: BTConditional
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

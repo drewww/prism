@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>RNG &#8212; Prism  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=27fed22d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/lua.css" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="System" href="system.html" />
+    <link rel="prev" title="Object" href="object.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="rng">
+<h1>RNG<a class="headerlink" href="#rng" title="Link to this heading">¶</a></h1>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="lua-RNG">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RNG</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><a class="headerlink" href="#lua-RNG" title="Link to this definition">¶</a></dt>
+<dd><p>A random number generator using the Mersenne Twister algorithm.</p>
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-RNG.__new">
+<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-RNG" title="RNG"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">RNG</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-RNG.__new" title="Link to this definition">¶</a></dt>
+<dd><p>Initializes a new RNG instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>seed</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code>) – The seed for the RNG (optional).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-RNG.state0">
+<span class="sig-name descname"><span class="pre">state0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code><a class="headerlink" href="#lua-RNG.state0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-RNG.state1">
+<span class="sig-name descname"><span class="pre">state1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code><a class="headerlink" href="#lua-RNG.state1" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-RNG.state2">
+<span class="sig-name descname"><span class="pre">state2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code><a class="headerlink" href="#lua-RNG.state2" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-RNG.carrier">
+<span class="sig-name descname"><span class="pre">carrier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><a class="headerlink" href="#lua-RNG.carrier" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-RNG.getSeed">
+<span class="sig-name descname"><span class="pre">getSeed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-RNG" title="RNG"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">RNG</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></span></span><a class="headerlink" href="#lua-RNG.getSeed" title="Link to this definition">¶</a></dt>
+<dd><p>Gets the current seed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>seed</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code>) – The current seed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-RNG.setSeed">
+<span class="sig-name descname"><span class="pre">setSeed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-RNG" title="RNG"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">RNG</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-RNG.setSeed" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the seed for the RNG.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>seed</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – The seed to set (optional).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-RNG.seed">
+<span class="sig-name descname"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><a class="headerlink" href="#lua-RNG.seed" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-RNG.getUniform">
+<span class="sig-name descname"><span class="pre">getUniform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-RNG" title="RNG"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">RNG</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">uniform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></span></span><a class="headerlink" href="#lua-RNG.getUniform" title="Link to this definition">¶</a></dt>
+<dd><p>Gets a uniform random number between 0 and 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>uniform</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – A uniform random number.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-RNG.getUniformInt">
+<span class="sig-name descname"><span class="pre">getUniformInt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-RNG" title="RNG"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">RNG</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">lowerBound</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">upperBound</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">uniformInteger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></span></span><a class="headerlink" href="#lua-RNG.getUniformInt" title="Link to this definition">¶</a></dt>
+<dd><p>Gets a uniform random integer between lowerBound and upperBound.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lowerBound</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The lower bound.</p></li>
+<li><p><strong>upperBound</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The upper bound.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>uniformInteger</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – A uniform random integer.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-RNG.getNormal">
+<span class="sig-name descname"><span class="pre">getNormal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-RNG" title="RNG"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">RNG</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">stddev</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">normal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></span></span><a class="headerlink" href="#lua-RNG.getNormal" title="Link to this definition">¶</a></dt>
+<dd><p>Gets a normally distributed random number with the given mean and standard deviation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mean</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The mean (optional, default is 0).</p></li>
+<li><p><strong>stddev</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The standard deviation (optional, default is 1).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>normal</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – A normally distributed random number.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-RNG.getPercentage">
+<span class="sig-name descname"><span class="pre">getPercentage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-RNG" title="RNG"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">RNG</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">percentage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></span></span><a class="headerlink" href="#lua-RNG.getPercentage" title="Link to this definition">¶</a></dt>
+<dd><p>Gets a random percentage between 1 and 100.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>percentage</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – A random percentage.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-RNG.getWeightedValue">
+<span class="sig-name descname"><span class="pre">getWeightedValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-RNG" title="RNG"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">RNG</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">tbl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><span class="p"><span class="pre">&lt;&lt;</span></span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">K</span></code><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">&lt;</span></span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">V</span></code><span class="p"><span class="pre">&gt;&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="p"><span class="pre">&lt;</span></span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">V</span></code><span class="p"><span class="pre">&gt;</span></span></span></span><a class="headerlink" href="#lua-RNG.getWeightedValue" title="Link to this definition">¶</a></dt>
+<dd><p>Gets a random value from a weighted table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tbl</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><span class="p">&lt;&lt;</span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">K</span></code><span class="p">&gt;</span><span class="p">,</span><span class="w"> </span><span class="p">&lt;</span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">V</span></code><span class="p">&gt;&gt;</span>) – The weighted table.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>value</strong> (<span class="p">&lt;</span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">V</span></code><span class="p">&gt;</span>) – The selected value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-RNG.getState">
+<span class="sig-name descname"><span class="pre">getState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-RNG" title="RNG"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">RNG</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">The</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code></span></span><a class="headerlink" href="#lua-RNG.getState" title="Link to this definition">¶</a></dt>
+<dd><p>Gets the current state of the RNG.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>The</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code>) – current state.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-RNG.setState">
+<span class="sig-name descname"><span class="pre">setState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-RNG" title="RNG"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">RNG</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">stateTable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-RNG.setState" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the state of the RNG.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>stateTable</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code>) – The state to set.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-RNG.clone">
+<span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-RNG" title="RNG"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">RNG</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">The</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-RNG" title="RNG"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">RNG</span></code></a></span></span><a class="headerlink" href="#lua-RNG.clone" title="Link to this definition">¶</a></dt>
+<dd><p>Clones the RNG.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>The</strong> (<a class="reference internal" href="#lua-RNG" title="RNG"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">RNG</span></code></a>) – cloned RNG.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-RNG.random">
+<span class="sig-name descname"><span class="pre">random</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-RNG" title="RNG"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">RNG</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></span></span><a class="headerlink" href="#lua-RNG.random" title="Link to this definition">¶</a></dt>
+<dd><p>Gets a random number.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The lower threshold (optional).</p></li>
+<li><p><strong>b</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The upper threshold (optional).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>A</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – random number.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-RNG.randomseed">
+<span class="sig-name descname"><span class="pre">randomseed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">function</span></code><a class="headerlink" href="#lua-RNG.randomseed" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Prism</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../architecture-primer.html">Prism’s Architecture: A Primer</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../making-a-roguelike-part1.html">Getting Started with LÖVE</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Prism</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="action.html">Action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="actor.html">Actor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="actorstorage.html">ActorStorage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="behavior.html">IBehavior</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cell.html">Cell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="component.html">Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decision.html">Decision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="level.html">Level</a></li>
+<li class="toctree-l2"><a class="reference internal" href="map.html">Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="map_builder.html">MapBuilder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="message.html">Message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object.html">Object</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RNG</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lua-RNG"><code class="docutils literal notranslate"><span class="pre">RNG</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#lua-RNG.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-RNG.state0"><code class="docutils literal notranslate"><span class="pre">state0</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-RNG.state1"><code class="docutils literal notranslate"><span class="pre">state1</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-RNG.state2"><code class="docutils literal notranslate"><span class="pre">state2</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-RNG.carrier"><code class="docutils literal notranslate"><span class="pre">carrier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-RNG.getSeed"><code class="docutils literal notranslate"><span class="pre">getSeed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-RNG.setSeed"><code class="docutils literal notranslate"><span class="pre">setSeed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-RNG.seed"><code class="docutils literal notranslate"><span class="pre">seed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-RNG.getUniform"><code class="docutils literal notranslate"><span class="pre">getUniform()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-RNG.getUniformInt"><code class="docutils literal notranslate"><span class="pre">getUniformInt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-RNG.getNormal"><code class="docutils literal notranslate"><span class="pre">getNormal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-RNG.getPercentage"><code class="docutils literal notranslate"><span class="pre">getPercentage()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-RNG.getWeightedValue"><code class="docutils literal notranslate"><span class="pre">getWeightedValue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-RNG.getState"><code class="docutils literal notranslate"><span class="pre">getState()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-RNG.setState"><code class="docutils literal notranslate"><span class="pre">setState()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-RNG.clone"><code class="docutils literal notranslate"><span class="pre">clone()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-RNG.random"><code class="docutils literal notranslate"><span class="pre">random()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-RNG.randomseed"><code class="docutils literal notranslate"><span class="pre">randomseed</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_manager.html">SystemManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="target.html">Target</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/collider.html">ColliderComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/controller.html">ControllerComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/opaque.html">OpaqueComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/player_controller.html">PlayerControllerComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/senses.html">SensesComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems/senses.html">SensesSystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messages/actionmessage.html">ActionMessage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="messages/debugmessage.html">DebugMessage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decisions/actiondecision.html">ActionDecision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="behavior_tree/btconditional.html">BTConditional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="behavior_tree/btnode.html">BTNode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="behavior_tree/btroot.html">BTRoot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="behavior_tree/btselector.html">BTSelector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="behavior_tree/btsequence.html">BTSequence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="behavior_tree/btsucceeder.html">BTSucceeder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/bitmaskbuffer.html">BitmaskBuffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/booleanbuffer.html">BooleanBuffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/grid.html">Grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/priority_queue.html">PriorityQueue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/queue.html">Queue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/sparsearray.html">SparseArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/sparsegrid.html">SparseGrid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/sparsemap.html">SparseMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../math/bounding_box.html">BoundingBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../math/color.html">Color4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../math/vector.html">Vector2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../spectrum/index.html">Spectrum</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Prism</a><ul>
+      <li>Previous: <a href="object.html" title="previous chapter">Object</a></li>
+      <li>Next: <a href="system.html" title="next chapter">System</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Matthew Blanchard, LJNIC.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../../_sources/reference/prism/core/rng.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

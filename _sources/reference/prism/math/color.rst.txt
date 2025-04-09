@@ -1,0 +1,9 @@
+Color4
+======
+
+.. lua:autoobject:: Color4
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

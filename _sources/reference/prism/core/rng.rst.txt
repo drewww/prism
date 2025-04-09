@@ -1,0 +1,9 @@
+RNG
+===
+
+.. lua:autoobject:: RNG
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

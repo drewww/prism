@@ -1,0 +1,9 @@
+IBehavior
+=========
+
+.. lua:autoobject:: IBehavior
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

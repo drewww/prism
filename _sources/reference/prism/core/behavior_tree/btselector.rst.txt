@@ -1,0 +1,9 @@
+BTSelector
+==========
+
+.. lua:autoobject:: BTSelector
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

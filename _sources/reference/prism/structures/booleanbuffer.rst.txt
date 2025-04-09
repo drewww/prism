@@ -1,0 +1,9 @@
+BooleanBuffer
+=============
+
+.. lua:autoobject:: BooleanBuffer
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

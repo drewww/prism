@@ -1,0 +1,9 @@
+Quadrant
+========
+
+.. lua:autoobject:: Quadrant
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

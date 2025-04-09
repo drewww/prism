@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>SensesTracker &#8212; Prism  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/lua.css?v=492dc087" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="SpriteAtlas" href="spriteatlas.html" />
+    <link rel="prev" title="Keybinding" href="keybindings.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="sensestracker">
+<h1>SensesTracker<a class="headerlink" href="#sensestracker" title="Link to this heading">¶</a></h1>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="lua-SensesTracker">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SensesTracker</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/core/object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><a class="headerlink" href="#lua-SensesTracker" title="Link to this definition">¶</a></dt>
+<dd><p>The SensesTracker class is responsible for managing the sensed cells and actors by Actors with a PlayerController within a level,
+distinguishing between explored cells, those sensed by other actors, and the total set of actors and cells sensed.</p>
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-SensesTracker.exploredCells">
+<span class="sig-name descname"><span class="pre">exploredCells</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/structures/sparsegrid.html#lua-SparseGrid" title="SparseGrid"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseGrid</span></code></a><a class="headerlink" href="#lua-SensesTracker.exploredCells" title="Link to this definition">¶</a></dt>
+<dd><p>A grid tracking cells that have been explored by any actor with a PlayerController.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-SensesTracker.otherSensedCells">
+<span class="sig-name descname"><span class="pre">otherSensedCells</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/structures/sparsegrid.html#lua-SparseGrid" title="SparseGrid"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseGrid</span></code></a><a class="headerlink" href="#lua-SensesTracker.otherSensedCells" title="Link to this definition">¶</a></dt>
+<dd><p>A grid tracking cells sensed by other actors (excluding the current actor).</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-SensesTracker.totalSensedActors">
+<span class="sig-name descname"><span class="pre">totalSensedActors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/structures/sparsemap.html#lua-SparseMap" title="SparseMap"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseMap</span></code></a><a class="headerlink" href="#lua-SensesTracker.totalSensedActors" title="Link to this definition">¶</a></dt>
+<dd><p>A map tracking all actors sensed by the current actor or others.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-SensesTracker.otherSensedActors">
+<span class="sig-name descname"><span class="pre">otherSensedActors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/structures/sparsemap.html#lua-SparseMap" title="SparseMap"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseMap</span></code></a><a class="headerlink" href="#lua-SensesTracker.otherSensedActors" title="Link to this definition">¶</a></dt>
+<dd><p>A map tracking actors sensed by other actors (excluding the current actor).</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-SensesTracker.__new">
+<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SensesTracker" title="SensesTracker"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SensesTracker</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-SensesTracker.__new" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-SensesTracker.createSensedMaps">
+<span class="sig-name descname"><span class="pre">createSensedMaps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SensesTracker" title="SensesTracker"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SensesTracker</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/core/level.html#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">curActor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/core/actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">nil</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-SensesTracker.createSensedMaps" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-SensesTracker.passableCallback">
+<span class="sig-name descname"><span class="pre">passableCallback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SensesTracker" title="SensesTracker"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SensesTracker</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">function</span></code></span></span><a class="headerlink" href="#lua-SensesTracker.passableCallback" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Prism</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../architecture-primer.html">Prism’s Architecture: A Primer</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../making-a-roguelike-part1.html">Getting Started with LÖVE</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../prism/index.html">Prism</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Spectrum</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="display.html">Display</a></li>
+<li class="toctree-l2"><a class="reference internal" href="display.html#spectrumattachable">SpectrumAttachable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keybindings.html">Keybinding</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SensesTracker</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lua-SensesTracker"><code class="docutils literal notranslate"><span class="pre">SensesTracker</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#lua-SensesTracker.exploredCells"><code class="docutils literal notranslate"><span class="pre">exploredCells</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-SensesTracker.otherSensedCells"><code class="docutils literal notranslate"><span class="pre">otherSensedCells</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-SensesTracker.totalSensedActors"><code class="docutils literal notranslate"><span class="pre">totalSensedActors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-SensesTracker.otherSensedActors"><code class="docutils literal notranslate"><span class="pre">otherSensedActors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-SensesTracker.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-SensesTracker.createSensedMaps"><code class="docutils literal notranslate"><span class="pre">createSensedMaps()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-SensesTracker.passableCallback"><code class="docutils literal notranslate"><span class="pre">passableCallback()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="spriteatlas.html">SpriteAtlas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/drawable.html">DrawableComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamestates/gamestate.html">GameState</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamestates/levelstate.html">LevelState</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gamestates/statemanager.html">GameStateManager</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Spectrum</a><ul>
+      <li>Previous: <a href="keybindings.html" title="previous chapter">Keybinding</a></li>
+      <li>Next: <a href="spriteatlas.html" title="next chapter">SpriteAtlas</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Matthew Blanchard, LJNIC.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../_sources/reference/spectrum/sensestracker.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

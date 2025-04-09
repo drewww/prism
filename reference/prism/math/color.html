@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Color4 &#8212; Prism  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=27fed22d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/lua.css" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Vector2" href="vector.html" />
+    <link rel="prev" title="BoundingBox" href="bounding_box.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="color4">
+<h1>Color4<a class="headerlink" href="#color4" title="Link to this heading">¶</a></h1>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="lua-Color4">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Color4</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../core/object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><a class="headerlink" href="#lua-Color4" title="Link to this definition">¶</a></dt>
+<dd><dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Color4.__new">
+<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Color4.__new" title="Link to this definition">¶</a></dt>
+<dd><p>Constructor for Color4 accepts red, green, blue, and alpha values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The red component (0-1).</p></li>
+<li><p><strong>g</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The green component (0-1).</p></li>
+<li><p><strong>b</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The blue component (0-1).</p></li>
+<li><p><strong>a</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The alpha component (0-1).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="lua-Color4.fromHex">
+<em class="property"><span class="k"><span class="pre">staticmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fromHex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Color4.fromHex" title="Link to this definition">¶</a></dt>
+<dd><p>Constructor for Color4 that accepts a hexadecimal number.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hex</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – A hex number representing a color, e.g. 0xFFFFFF. Alpha is optional and defaults to 1.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Color4.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></span></span><a class="headerlink" href="#lua-Color4.copy" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a copy of the color.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>A</strong> (<a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a>) – copy of the color.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Color4.lerp">
+<span class="sig-name descname"><span class="pre">lerp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">The</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></span></span><a class="headerlink" href="#lua-Color4.lerp" title="Link to this definition">¶</a></dt>
+<dd><p>Linearly interpolates between two colors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a>) – The target color.</p></li>
+<li><p><strong>t</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – A value between 0 and 1, where 0 is this color and 1 is the target color.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>The</strong> (<a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a>) – interpolated color.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Color4.__mul">
+<span class="sig-name descname"><span class="pre">__mul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">scalar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">The</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></span></span><a class="headerlink" href="#lua-Color4.__mul" title="Link to this definition">¶</a></dt>
+<dd><p>Multiplies the color’s components by a scalar.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scalar</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The scalar value.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>The</strong> (<a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a>) – scaled color.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="lua-Color4.__add">
+<em class="property"><span class="k"><span class="pre">staticmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">__add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">The</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></span></span><a class="headerlink" href="#lua-Color4.__add" title="Link to this definition">¶</a></dt>
+<dd><p>Adds two colors together.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a>) – The first color.</p></li>
+<li><p><strong>b</strong> (<a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a>) – The second color.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>The</strong> (<a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a>) – sum of the two colors.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="lua-Color4.__sub">
+<em class="property"><span class="k"><span class="pre">staticmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">__sub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">The</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></span></span><a class="headerlink" href="#lua-Color4.__sub" title="Link to this definition">¶</a></dt>
+<dd><p>Subtracts one color from another.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a>) – The first color.</p></li>
+<li><p><strong>b</strong> (<a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a>) – The second color.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>The</strong> (<a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a>) – difference of the two colors.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Color4.__unm">
+<span class="sig-name descname"><span class="pre">__unm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">The</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></span></span><a class="headerlink" href="#lua-Color4.__unm" title="Link to this definition">¶</a></dt>
+<dd><p>Negates the color’s components.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>The</strong> (<a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a>) – negated color.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="lua-Color4.__eq">
+<em class="property"><span class="k"><span class="pre">staticmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">__eq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">True</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></span></span><a class="headerlink" href="#lua-Color4.__eq" title="Link to this definition">¶</a></dt>
+<dd><p>Checks equality between two colors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a>) – The first color.</p></li>
+<li><p><strong>b</strong> (<a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a>) – The second color.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>True</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code>) – if the colors are equal, false otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Color4.__tostring">
+<span class="sig-name descname"><span class="pre">__tostring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">The</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></span></span><a class="headerlink" href="#lua-Color4.__tostring" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a string representation of the color.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>The</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – string representation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Color4.decompose">
+<span class="sig-name descname"><span class="pre">decompose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></span></span><a class="headerlink" href="#lua-Color4.decompose" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the components of the color as numbers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The components of the color.</p></li>
+<li><p><strong>g</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The components of the color.</p></li>
+<li><p><strong>b</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The components of the color.</p></li>
+<li><p><strong>a</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The components of the color.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Color4.clamp">
+<span class="sig-name descname"><span class="pre">clamp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">The</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></span></span><a class="headerlink" href="#lua-Color4.clamp" title="Link to this definition">¶</a></dt>
+<dd><p>Clamps the components of the color between 0 and 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>The</strong> (<a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a>) – clamped color.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Color4.BLACK">
+<span class="sig-name descname"><span class="pre">BLACK</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a><a class="headerlink" href="#lua-Color4.BLACK" title="Link to this definition">¶</a></dt>
+<dd><p>Predefined colors</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Color4.WHITE">
+<span class="sig-name descname"><span class="pre">WHITE</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a><a class="headerlink" href="#lua-Color4.WHITE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Color4.RED">
+<span class="sig-name descname"><span class="pre">RED</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a><a class="headerlink" href="#lua-Color4.RED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Color4.GREEN">
+<span class="sig-name descname"><span class="pre">GREEN</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a><a class="headerlink" href="#lua-Color4.GREEN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Color4.BLUE">
+<span class="sig-name descname"><span class="pre">BLUE</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a><a class="headerlink" href="#lua-Color4.BLUE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Color4.TRANSPARENT">
+<span class="sig-name descname"><span class="pre">TRANSPARENT</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a><a class="headerlink" href="#lua-Color4.TRANSPARENT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Prism</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../architecture-primer.html">Prism’s Architecture: A Primer</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../making-a-roguelike-part1.html">Getting Started with LÖVE</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Prism</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../core/action.html">Action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/actor.html">Actor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/actorstorage.html">ActorStorage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/behavior.html">IBehavior</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/cell.html">Cell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/component.html">Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/decision.html">Decision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/level.html">Level</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/map.html">Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/map_builder.html">MapBuilder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/message.html">Message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/object.html">Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/rng.html">RNG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/system.html">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/system_manager.html">SystemManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/target.html">Target</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/components/collider.html">ColliderComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/components/controller.html">ControllerComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/components/opaque.html">OpaqueComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/components/player_controller.html">PlayerControllerComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/components/senses.html">SensesComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/systems/senses.html">SensesSystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/messages/actionmessage.html">ActionMessage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/messages/debugmessage.html">DebugMessage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/decisions/actiondecision.html">ActionDecision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btconditional.html">BTConditional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btnode.html">BTNode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btroot.html">BTRoot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btselector.html">BTSelector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btsequence.html">BTSequence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btsucceeder.html">BTSucceeder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/bitmaskbuffer.html">BitmaskBuffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/booleanbuffer.html">BooleanBuffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/grid.html">Grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/priority_queue.html">PriorityQueue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/queue.html">Queue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/sparsearray.html">SparseArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/sparsegrid.html">SparseGrid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/sparsemap.html">SparseMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bounding_box.html">BoundingBox</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Color4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Color4"><code class="docutils literal notranslate"><span class="pre">Color4</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Color4.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Color4.fromHex"><code class="docutils literal notranslate"><span class="pre">fromHex()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Color4.copy"><code class="docutils literal notranslate"><span class="pre">copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Color4.lerp"><code class="docutils literal notranslate"><span class="pre">lerp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Color4.__mul"><code class="docutils literal notranslate"><span class="pre">__mul()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Color4.__add"><code class="docutils literal notranslate"><span class="pre">__add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Color4.__sub"><code class="docutils literal notranslate"><span class="pre">__sub()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Color4.__unm"><code class="docutils literal notranslate"><span class="pre">__unm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Color4.__eq"><code class="docutils literal notranslate"><span class="pre">__eq()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Color4.__tostring"><code class="docutils literal notranslate"><span class="pre">__tostring()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Color4.decompose"><code class="docutils literal notranslate"><span class="pre">decompose()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Color4.clamp"><code class="docutils literal notranslate"><span class="pre">clamp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Color4.BLACK"><code class="docutils literal notranslate"><span class="pre">BLACK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Color4.WHITE"><code class="docutils literal notranslate"><span class="pre">WHITE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Color4.RED"><code class="docutils literal notranslate"><span class="pre">RED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Color4.GREEN"><code class="docutils literal notranslate"><span class="pre">GREEN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Color4.BLUE"><code class="docutils literal notranslate"><span class="pre">BLUE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Color4.TRANSPARENT"><code class="docutils literal notranslate"><span class="pre">TRANSPARENT</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="vector.html">Vector2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../spectrum/index.html">Spectrum</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Prism</a><ul>
+      <li>Previous: <a href="bounding_box.html" title="previous chapter">BoundingBox</a></li>
+      <li>Next: <a href="vector.html" title="next chapter">Vector2</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Matthew Blanchard, LJNIC.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../../_sources/reference/prism/math/color.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,249 +1,517 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="generator" content="mkdocs-1.6.1, mkdocs-terminal-4.7.0">
-     
-     
-    <link rel="icon" type="image/png" sizes="192x192" href="img/android-chrome-192x192.png" />
-<link rel="icon" type="image/png" sizes="512x512" href="img/android-chrome-512x512.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png" />
-<link rel="shortcut icon" type="image/png" sizes="48x48" href="img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png" />
 
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    
- 
-<title>Home - PRISM: A ROGUELIKE ENGINE</title>
-
-
-<link href="css/fontawesome/css/fontawesome.min.css" rel="stylesheet">
-<link href="css/fontawesome/css/solid.min.css" rel="stylesheet">
-<link href="css/normalize.css" rel="stylesheet">
-<link href="css/terminal.css" rel="stylesheet">
-<link href="css/theme.css" rel="stylesheet">
-<link href="css/theme.tile_grid.css" rel="stylesheet">
-<link href="css/theme.footer.css" rel="stylesheet">
-<!-- default color palette -->
-<link href="css/palettes/default.css" rel="stylesheet">
-
-<!-- page layout -->
-<style>
-/* initially set page layout to a one column grid */
-.terminal-mkdocs-main-grid {
-    display: grid;
-    grid-column-gap: 1.4em;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
-}
-
-/*  
-*   when side navigation is not hidden, use a two column grid.  
-*   if the screen is too narrow, fall back to the initial one column grid layout.
-*   in this case the main content will be placed under the navigation panel. 
-*/
-@media only screen and (min-width: 70em) {
-    .terminal-mkdocs-main-grid {
-        grid-template-columns: 4fr 9fr;
-    }
-}</style>
-
-
-
-     
-    
-    
-
-    
-    <!-- search css support -->
-<link href="css/search/bootstrap-modal.css" rel="stylesheet">
-<!-- search scripts -->
-<script>
-    var base_url = ".",
-    shortcuts = "{}";
-</script>
-<script src="js/jquery/jquery-1.10.1.min.js" defer></script>
-<script src="js/bootstrap/bootstrap.min.js" defer></script>
-<script src="js/mkdocs/base.js" defer></script>
-    
-    
-    
-    
-    <script src="search/main.js"></script>
-    
-
-    
-</head>
-
-<body class="terminal"><div class="container">
-    <div class="terminal-nav">
-        <header class="terminal-logo">
-            <div id="mkdocs-terminal-site-name" class="logo terminal-prompt"><a href="/" class="no-style">PRISM: A ROGUELIKE ENGINE</a></div>
-        </header>
-        
-        <nav class="terminal-menu">
-            
-            <ul vocab="https://schema.org/" typeof="BreadcrumbList">
-                
-                
-                <li property="itemListElement" typeof="ListItem">
-                    <a href="." class="menu-item active" property="item" typeof="WebPage">
-                        <span property="name">Home</span>
-                    </a>
-                    <meta property="position" content="0">
-                </li>
-                
-                
-                
-                    
-                    
-
-
-<li property="itemListElement" typeof="ListItem">
-    <a href="#" class="menu-item" data-toggle="modal" data-target="#mkdocs_search_modal" property="item" typeof="SearchAction">
-        <i aria-hidden="true" class="fa fa-search"></i> <span property="name">Search</span>
-    </a>
-    <meta property="position" content="1">
-</li>
-                    
-            </ul>
-            
-        </nav>
-    </div>
-</div>
-        
-    <div class="container">
-        <div class="terminal-mkdocs-main-grid"><aside id="terminal-mkdocs-side-panel"><nav>
+    <title>Prism &#8212; Prism  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <link rel="stylesheet" type="text/css" href="_static/lua.css?v=492dc087" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Prism’s Architecture: A Primer" href="architecture-primer.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-    <ul class="terminal-mkdocs-side-nav-items">
-        
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
           
 
-
-
-<li class="terminal-mkdocs-side-nav-li">
-    
-    
-    
-        
-        <span class="
-
-    terminal-mkdocs-side-nav-item--active">Home</span>
-    
-    
-    
-  </li>
-        
-          
-
-
-
-<li class="terminal-mkdocs-side-nav-li">
-    
-    
-        
-        
-
-        
+          <div class="body" role="main">
             
-    
-        
-        
-            
-            
-            <span class="
-        
-    
+  <section id="prism">
+<h1>Prism<a class="headerlink" href="#prism" title="Link to this heading">¶</a></h1>
+<p>A comprehensive traditional roguelike engine for <a class="reference external" href="https://love2d.org/">LÖVE</a>.</p>
+<section id="traditional-roguelike">
+<h2>“Traditional” roguelike?<a class="headerlink" href="#traditional-roguelike" title="Link to this heading">¶</a></h2>
+<blockquote>
+<div><p id="lua-prism">We export a global namespace.</p>
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism._ISCLASS">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">_ISCLASS</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-prism._ISCLASS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
-    terminal-mkdocs-side-nav-item terminal-mkdocs-side-nav-section-no-index">Making a roguelike</span>
-        
-    
-    
-        
-      
-        
-            <ul class="terminal-mkdocs-side-nav-li-ul">
-        
-            
-            
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism._OBJECTREGISTRY">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">_OBJECTREGISTRY</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-prism._OBJECTREGISTRY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
-             
-                <li class="terminal-mkdocs-side-nav-li-ul-li">
-    
-        
-        
-            <a class="
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.path">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">unknown</span></code><a class="headerlink" href="#lua-prism.path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
-    terminal-mkdocs-side-nav-item" href="making-a-roguelike-part1/">Part 01</a>
-        
-    
-    </li>
-            
-            
-    </ul>
-        
-    
-  </li>
-        
-    </ul>
-  
-</nav><hr>
-<nav>
-    <ul>
-        <li><a href="#prism">PRISM</a></li>
-        <li><a href="#traditional-roguelike">"Traditional" roguelike?</a></li><li><a href="#getting-started">Getting started</a></li>
-    </ul>
-</nav>
-</aside>
-            <main id="terminal-mkdocs-main-content">
-<section id="mkdocs-terminal-content">
-    <h1 id="prism">PRISM</h1>
-<p>A comprehensive traditional roguelike engine for <a href="https://love2d.org/">LÖVE</a>.</p>
-<h2 id="traditional-roguelike">"Traditional" roguelike?</h2>
+<dl class="lua function">
+<dt class="sig sig-object lua" id="lua-prism.require">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">require</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">unknown</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">nil</span></code></span></span><a class="headerlink" href="#lua-prism.require" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.json">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">json</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">unknown</span></code><a class="headerlink" href="#lua-prism.json" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism._initialized">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">_initialized</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code><a class="headerlink" href="#lua-prism._initialized" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism._defaultDistance">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">_defaultDistance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><a class="headerlink" href="#lua-prism._defaultDistance" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism._defaultRangeType">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">_defaultRangeType</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><a class="headerlink" href="#lua-prism._defaultRangeType" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.Object">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">Object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.Object" title="prism.Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><a class="headerlink" href="#lua-prism.Object" title="Link to this definition">¶</a></dt>
+<dd><p>A simple class system for Lua. This is the base class for all other classes in PRISM.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.Color4">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">Color4</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.Color4" title="prism.Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a><a class="headerlink" href="#lua-prism.Color4" title="Link to this definition">¶</a></dt>
+<dd><p>Colors</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.Vector2">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">Vector2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.Vector2" title="prism.Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a><a class="headerlink" href="#lua-prism.Vector2" title="Link to this definition">¶</a></dt>
+<dd><p>Math</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.BoundingBox">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">BoundingBox</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.BoundingBox" title="prism.BoundingBox"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">BoundingBox</span></code></a><a class="headerlink" href="#lua-prism.BoundingBox" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.Bresenham">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">Bresenham</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">function</span></code><a class="headerlink" href="#lua-prism.Bresenham" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.Ellipse">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">Ellipse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">function</span></code><a class="headerlink" href="#lua-prism.Ellipse" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.BreadthFirstSearch">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">BreadthFirstSearch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">function</span></code><a class="headerlink" href="#lua-prism.BreadthFirstSearch" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.neighborhood">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">neighborhood</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.Vector2" title="prism.Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a><span class="p"><span class="pre">[]</span></span><a class="headerlink" href="#lua-prism.neighborhood" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="lua-prism.setDefaultNeighborhood">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">setDefaultNeighborhood</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">neighborhood</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.Vector2" title="prism.Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a><span class="p"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-prism.setDefaultNeighborhood" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.SparseMap">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">SparseMap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.SparseMap" title="prism.SparseMap"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseMap</span></code></a><a class="headerlink" href="#lua-prism.SparseMap" title="Link to this definition">¶</a></dt>
+<dd><p>Structures</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.SparseGrid">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">SparseGrid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.SparseGrid" title="prism.SparseGrid"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseGrid</span></code></a><a class="headerlink" href="#lua-prism.SparseGrid" title="Link to this definition">¶</a></dt>
+<dd><p>A sparse grid class that stores data using hashed coordinates. Similar to a SparseMap
+except here there is only one entry per grid coordinate. This is suitable for stuff like Cells.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.SparseArray">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">SparseArray</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.SparseArray" title="prism.SparseArray"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseArray</span></code></a><a class="headerlink" href="#lua-prism.SparseArray" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.Grid">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">Grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.Grid" title="prism.Grid"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Grid</span></code></a><a class="headerlink" href="#lua-prism.Grid" title="Link to this definition">¶</a></dt>
+<dd><p>A simple grid class that stores data in a single contiguous array.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.BooleanBuffer">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">BooleanBuffer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.BooleanBuffer" title="prism.BooleanBuffer"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">BooleanBuffer</span></code></a><a class="headerlink" href="#lua-prism.BooleanBuffer" title="Link to this definition">¶</a></dt>
+<dd><p>A class representing a 2D boolean buffer implemented as a densely packed C type.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.BitmaskBuffer">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">BitmaskBuffer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.BitmaskBuffer" title="prism.BitmaskBuffer"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">BitmaskBuffer</span></code></a><a class="headerlink" href="#lua-prism.BitmaskBuffer" title="Link to this definition">¶</a></dt>
+<dd><p>A class representing a 2D bitmask buffer using 16-bit integers.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.Queue">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">Queue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.Queue" title="prism.Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a><a class="headerlink" href="#lua-prism.Queue" title="Link to this definition">¶</a></dt>
+<dd><p>A basic FIFO (First In, First Out) queue implementation.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.PriorityQueue">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">PriorityQueue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.PriorityQueue" title="prism.PriorityQueue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">PriorityQueue</span></code></a><a class="headerlink" href="#lua-prism.PriorityQueue" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.fov">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">fov</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-prism.fov" title="Link to this definition">¶</a></dt>
+<dd><p>Algorithms</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.computeFOV">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">computeFOV</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">function</span></code><a class="headerlink" href="#lua-prism.computeFOV" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.Path">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">Path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.Path" title="prism.Path"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Path</span></code></a><a class="headerlink" href="#lua-prism.Path" title="Link to this definition">¶</a></dt>
+<dd><p>A class to represent the A* path and its cost</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.astar">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">astar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">function</span></code><a class="headerlink" href="#lua-prism.astar" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.Scheduler">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">Scheduler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.Scheduler" title="prism.Scheduler"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Scheduler</span></code></a><a class="headerlink" href="#lua-prism.Scheduler" title="Link to this definition">¶</a></dt>
+<dd><p>Core</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.SimpleScheduler">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">SimpleScheduler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.SimpleScheduler" title="prism.SimpleScheduler"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SimpleScheduler</span></code></a><a class="headerlink" href="#lua-prism.SimpleScheduler" title="Link to this definition">¶</a></dt>
+<dd><p>The ‘SimpleScheduler’ manages a queue of actors and schedules their actions.
+This implementation of the base ‘Scheduler’ class uses a simple round-robin system,
+where each actor takes its turn in order. It tracks the global round count and can be
+customized according to the needs of your game.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.Action">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">Action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.Action" title="prism.Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a><a class="headerlink" href="#lua-prism.Action" title="Link to this definition">¶</a></dt>
+<dd><p>An ‘Action’ is a command that affects a discrete change in the game state.
+An Action consists of an owner, a name, a list of targets, and a list of target objects.
+See Target for more.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.Component">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">Component</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.Component" title="prism.Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a><a class="headerlink" href="#lua-prism.Component" title="Link to this definition">¶</a></dt>
+<dd><p>The <cite>Component</cite> class represents a component that can be attached to actors.
+Components are used to add functionality to actors. For instance, the <cite>Moveable</cite> component
+allows an actor to move around the map. Components are essentially data storage that can
+also grant actions.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.Actor">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">Actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.Actor" title="prism.Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a><a class="headerlink" href="#lua-prism.Actor" title="Link to this definition">¶</a></dt>
+<dd><p>An ‘Actor’ represents entities in the game, including the player, enemies, and items.
+Actors are composed of Components that define their state and behavior.
+For example, an actor may have a Sight component that determines their field of vision, explored tiles,
+and other related aspects.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.ActorStorage">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">ActorStorage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.ActorStorage" title="prism.ActorStorage"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ActorStorage</span></code></a><a class="headerlink" href="#lua-prism.ActorStorage" title="Link to this definition">¶</a></dt>
+<dd><p>The ‘ActorStorage’ is a container for ‘Actors’ that maintains a list, spatial map, and component cache.
+It is used by the ‘Level’ class to store and retrieve actors, and is returned by a few Level methods.
+You should rarely, if ever, need to instance this class yourself, it’s mostly used internally and for
+a few returns from Level.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.Cell">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">Cell</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.Cell" title="prism.Cell"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Cell</span></code></a><a class="headerlink" href="#lua-prism.Cell" title="Link to this definition">¶</a></dt>
+<dd><p>A ‘Cell’ is a single tile on the map. It defines the properties of the tile and has a few callbacks.
+Maybe cells should have components so that they can be extended with custom functionality like the grass?
+Still working on the details there. For now, cells are just a simple way to define the properties of a tile.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.RNG">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">RNG</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.RNG" title="prism.RNG"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">RNG</span></code></a><a class="headerlink" href="#lua-prism.RNG" title="Link to this definition">¶</a></dt>
+<dd><p>A random number generator using the Mersenne Twister algorithm.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.System">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">System</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.System" title="prism.System"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">System</span></code></a><a class="headerlink" href="#lua-prism.System" title="Link to this definition">¶</a></dt>
+<dd><p>A ‘System’ is a class representing a level-wide event handler that can be attached to a Level object.
+It listens to events such as an actor taking an action, moving, or a tick of time.
+This should be used for mechanics that affect the entire level; such as hunger, fov, or lighting.
+For event handlers that apply to a single actor, use a Condition instead. If you want a system that
+receives all messages from all levels, like tracking the player’s favor with a god attach it to
+the game instead. A system’s methods should never be mutated at run time, the SystemManager does
+cacheing on the event handlers here to improve performance.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.SystemManager">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">SystemManager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.SystemManager" title="prism.SystemManager"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SystemManager</span></code></a><a class="headerlink" href="#lua-prism.SystemManager" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.MapBuilder">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">MapBuilder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.MapBuilder" title="prism.MapBuilder"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">MapBuilder</span></code></a><a class="headerlink" href="#lua-prism.MapBuilder" title="Link to this definition">¶</a></dt>
+<dd><p>A map builder class that extends the SparseGrid class to handle map-specific functionalities.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.Map">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">Map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.Map" title="prism.Map"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Map</span></code></a><a class="headerlink" href="#lua-prism.Map" title="Link to this definition">¶</a></dt>
+<dd><p>A map manager class that extends the Grid class to handle map-specific functionalities.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.Message">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">Message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.Decision" title="prism.Decision"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Decision</span></code></a><a class="headerlink" href="#lua-prism.Message" title="Link to this definition">¶</a></dt>
+<dd><p>The decision is the primary way in which the game interacts with the interface.
+The Level will yield Decisions whenever it needs something to be decided by the
+player. The interface will then construct a response with a handler.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.Decision">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">Decision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.Decision" title="prism.Decision"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Decision</span></code></a><a class="headerlink" href="#lua-prism.Decision" title="Link to this definition">¶</a></dt>
+<dd><p>The decision is the primary way in which the game interacts with the interface.
+The Level will yield Decisions whenever it needs something to be decided by the
+player. The interface will then construct a response with a handler.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.Target">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">Target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.Target" title="prism.Target"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Target</span></code></a><a class="headerlink" href="#lua-prism.Target" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.Level">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">Level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.Level" title="prism.Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a><a class="headerlink" href="#lua-prism.Level" title="Link to this definition">¶</a></dt>
+<dd><p>The ‘Level’ holds all of the actors and systems, and runs the game loop. Through the ActorStorage and SystemManager</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.Collision">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">Collision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-prism.Collision" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.BehaviorTree">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">BehaviorTree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-prism.BehaviorTree" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.actors">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">actors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-prism.actors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.actions">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">actions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-prism.actions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.components">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-prism.components" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.cells">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">cells</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-prism.cells" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.targets">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-prism.targets" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.messages">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">messages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-prism.messages" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.systems">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">systems</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-prism.systems" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.decisions">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">decisions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-prism.decisions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.behaviors">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">behaviors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-prism.behaviors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism._items">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">_items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-prism._items" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism._itemPatterns">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">_itemPatterns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-prism._itemPatterns" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-prism.modules">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">modules</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-prism.modules" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="lua-prism.loadModule">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">loadModule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-prism.loadModule" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="lua-prism.hotload">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">hotload</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lua-prism.hotload" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="lua-prism.turn">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">turn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.Level" title="prism.Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-prism.Actor" title="prism.Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="reference/prism/core/components/controller.html#lua-ControllerComponent" title="ControllerComponent"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ControllerComponent</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-prism.turn" title="Link to this definition">¶</a></dt>
+<dd><p>This is the core turn logic, and if you need to use a different scheduler or want a different turn structure you should override this.
+There is a version of this provided for time-based</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua function">
+<dt class="sig sig-object lua" id="lua-prism.advanceCoroutine">
+<span class="sig-prename descclassname"><span class="pre">prism.</span></span><span class="sig-name descname"><span class="pre">advanceCoroutine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">updateCoroutine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">decision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lua-prism.Message" title="prism.Message"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Message</span></code></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">nil</span></code></span></span><a class="headerlink" href="#lua-prism.advanceCoroutine" title="Link to this definition">¶</a></dt>
+<dd><p>Runs the level coroutine and returns the next message, or nil if the coroutine has halted.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</div></blockquote>
 <p>Prism is geared towards classic roguelike games like NetHack or Brogue. These
 are turn-based games set in randomly generated grid levels.</p>
-<h2 id="getting-started">Getting started</h2>
+</section>
+<section id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading">¶</a></h2>
+<p>Download (zipped release here) and unzip it. Drag the folder containing main.lua over the love executable, or run
+it using “love .” in the terminal.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
 </section>
 
-            </main>
-        </div>
-        <hr><footer>
-    <div class="terminal-mkdocs-footer-grid">
-        <div id="terminal-mkdocs-footer-copyright-info">
-             Site built with <a href="http://www.mkdocs.org">MkDocs</a> and <a href="https://github.com/ntno/mkdocs-terminal">Terminal for MkDocs</a>.
-        </div>
-    </div>
-</footer>
-    </div>
 
-    
-    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="alertdialog" aria-modal="true" aria-labelledby="searchModalLabel">
-    <div class="modal-dialog modal-lg" role="search">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="searchModalLabel">Search</h5>
-                <button type="button" class="close btn btn-default btn-ghost" data-dismiss="modal"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
-            </div>
-            <div class="modal-body">
-                <p id="searchInputLabel">Type to start searching</p>
-                <form>
-                    <div class="form-group">
-                        <input type="search" class="form-control" aria-labelledby="searchInputLabel" placeholder="" id="mkdocs-search-query" title="Please enter search terms here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results" data-no-results-text="No document matches found"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
+          </div>
+          
         </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">Prism</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture-primer.html">Prism’s Architecture: A Primer</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="making-a-roguelike-part1.html">Getting Started with LÖVE</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="reference/prism/index.html">Prism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/spectrum/index.html">Spectrum</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="architecture-primer.html" title="next chapter">Prism’s Architecture: A Primer</a></li>
+  </ul></li>
+</ul>
 </div>
-    
-    
-</body>
 
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Matthew Blanchard, LJNIC.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
 </html>

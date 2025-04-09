@@ -1,0 +1,9 @@
+Camera
+======
+
+.. lua:autoobject:: Camera
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

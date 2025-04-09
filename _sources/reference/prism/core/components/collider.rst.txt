@@ -1,0 +1,18 @@
+ColliderComponent
+=================
+
+.. lua:autoobject:: ColliderComponent
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+
+ColliderOptions
+---------------
+
+.. lua:autoobject:: ColliderOptions
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

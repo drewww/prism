@@ -1,0 +1,9 @@
+ActionMessage
+=============
+
+.. lua:autoobject:: ActionMessage
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

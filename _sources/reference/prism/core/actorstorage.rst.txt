@@ -1,0 +1,9 @@
+ActorStorage
+============
+
+.. lua:autoobject:: ActorStorage
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

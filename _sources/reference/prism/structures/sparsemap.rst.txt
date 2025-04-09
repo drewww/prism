@@ -1,0 +1,9 @@
+SparseMap
+=========
+
+.. lua:autoobject:: SparseMap
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

@@ -1,0 +1,9 @@
+Actor
+=====
+
+.. lua:autoobject:: Actor
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

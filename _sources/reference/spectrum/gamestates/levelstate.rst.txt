@@ -1,0 +1,9 @@
+LevelState
+==========
+
+.. lua:autoobject:: LevelState
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

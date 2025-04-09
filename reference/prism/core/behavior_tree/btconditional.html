@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>BTConditional &#8212; Prism  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css?v=27fed22d" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/lua.css" />
+    <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="BTNode" href="btnode.html" />
+    <link rel="prev" title="ActionDecision" href="../decisions/actiondecision.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="btconditional">
+<h1>BTConditional<a class="headerlink" href="#btconditional" title="Link to this heading">¶</a></h1>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="lua-BTConditional">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BTConditional</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="btnode.html#lua-BTNode" title="BTNode"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">BTNode</span></code></a><a class="headerlink" href="#lua-BTConditional" title="Link to this definition">¶</a></dt>
+<dd><p>A conditional node in the behavior tree.</p>
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-BTConditional.__new">
+<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-BTConditional" title="BTConditional"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">BTConditional</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">conditionFunc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">fun</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../level.html#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-BTConditional.__new" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a new BTConditional.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-BTConditional.conditionFunc">
+<span class="sig-name descname"><span class="pre">conditionFunc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">fun</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../level.html#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code><a class="headerlink" href="#lua-BTConditional.conditionFunc" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">Prism</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../architecture-primer.html">Prism’s Architecture: A Primer</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../making-a-roguelike-part1.html">Getting Started with LÖVE</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Prism</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../action.html">Action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../actor.html">Actor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../actorstorage.html">ActorStorage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../behavior.html">IBehavior</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cell.html">Cell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../component.html">Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../decision.html">Decision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../level.html">Level</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../map.html">Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../map_builder.html">MapBuilder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../message.html">Message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object.html">Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rng.html">RNG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system.html">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system_manager.html">SystemManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../target.html">Target</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../components/collider.html">ColliderComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../components/controller.html">ControllerComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../components/opaque.html">OpaqueComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../components/player_controller.html">PlayerControllerComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../components/senses.html">SensesComponent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../systems/senses.html">SensesSystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../messages/actionmessage.html">ActionMessage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../messages/debugmessage.html">DebugMessage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../decisions/actiondecision.html">ActionDecision</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">BTConditional</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lua-BTConditional"><code class="docutils literal notranslate"><span class="pre">BTConditional</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#lua-BTConditional.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-BTConditional.conditionFunc"><code class="docutils literal notranslate"><span class="pre">conditionFunc</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="btnode.html">BTNode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="btroot.html">BTRoot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="btselector.html">BTSelector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="btsequence.html">BTSequence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="btsucceeder.html">BTSucceeder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../structures/bitmaskbuffer.html">BitmaskBuffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../structures/booleanbuffer.html">BooleanBuffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../structures/grid.html">Grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../structures/priority_queue.html">PriorityQueue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../structures/queue.html">Queue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../structures/sparsearray.html">SparseArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../structures/sparsegrid.html">SparseGrid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../structures/sparsemap.html">SparseMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../math/bounding_box.html">BoundingBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../math/color.html">Color4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../math/vector.html">Vector2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../spectrum/index.html">Spectrum</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Prism</a><ul>
+      <li>Previous: <a href="../decisions/actiondecision.html" title="previous chapter">ActionDecision</a></li>
+      <li>Next: <a href="btnode.html" title="next chapter">BTNode</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Matthew Blanchard, LJNIC.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../../../_sources/reference/prism/core/behavior_tree/btconditional.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

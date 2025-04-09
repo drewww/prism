@@ -1,0 +1,9 @@
+Component
+=========
+
+.. lua:autoobject:: Component
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

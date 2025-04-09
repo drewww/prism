@@ -1,0 +1,9 @@
+Row
+===
+
+.. lua:autoobject:: Row
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+

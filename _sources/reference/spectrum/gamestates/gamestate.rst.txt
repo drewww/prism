@@ -1,0 +1,9 @@
+GameState
+=========
+
+.. lua:autoobject:: GameState
+   :members:
+   :special-members:
+   :undoc-members:
+   :inherited-members: __new
+
