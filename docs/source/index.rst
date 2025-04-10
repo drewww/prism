@@ -28,7 +28,7 @@ it using "love ." in the terminal.
    :caption: Making a roguelike
    :hidden:
 
-   making-a-roguelike-part1
+   making-a-roguelike/part1
 
 .. toctree::
    :caption: Reference
