@@ -29,12 +29,14 @@
   color: var(--invert-font-color);
 }
 
-body {
+body,
+.body {
   font-size: var(--global-font-size) !important;
   color: var(--font-color);
   line-height: var(--global-line-height);
   margin: 0;
-  font-family: var(--font-stack);
+  margin-top: 30px;
+  font-family: var(--font-stack) !important;
   word-wrap: break-word;
   background-color: var(--background-color);
 }
