@@ -1,11 +1,11 @@
---- @class ColliderOptions
---- @field allowedMovetypes string[]
-
 --- @class ColliderComponent : Component
 --- @overload fun(options: ColliderOptions): ColliderComponent
 --- @type ColliderComponent
 local Collider = prism.Component:extend("Collider")
 Collider.name = "Collideable"
+
+--- @class ColliderOptions
+--- @field allowedMovetypes string[]
 
 Collider.mask = 0
 --- @param options ColliderOptions
