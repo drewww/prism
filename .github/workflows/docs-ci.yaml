@@ -25,7 +25,6 @@ jobs:
         run: |
           python3 docs/scripts/gen.py spectrum/ docs/source/reference/spectrum
           python3 docs/scripts/gen.py engine/ docs/source/reference/prism
-          pip install sphinx-lua-ls
 
       - name: Build docs
         uses: ammaraskar/sphinx-action@master
