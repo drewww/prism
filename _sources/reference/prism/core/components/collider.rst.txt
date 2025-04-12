@@ -8,7 +8,7 @@ ColliderComponent
    :inherited-members: __new
 
 ColliderOptions
----------------
+===============
 
 .. lua:autoobject:: ColliderOptions
    :members:
