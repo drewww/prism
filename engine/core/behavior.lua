@@ -1,3 +1,3 @@
---- @class IBehavior : prism.Object
---- @field run fun(self, level: prism.Level, actor: prism.Actor, controller: ControllerComponent): prism.Action
+--- @class IBehavior : Object
+--- @field run fun(self, level: Level, actor: Actor, controller: ControllerComponent): Action
 --- @field behaviorOwner IBehavior?

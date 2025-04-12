@@ -4,8 +4,8 @@ local function createSpringSolver(mass, k, damping)
    -- Initial conditions
    local velocity = prism.Vector2()
 
-   ---@param pos prism.Vector2
-   ---@param vel prism.Vector2
+   ---@param pos Vector2
+   ---@param vel Vector2
    local function computeAcceleration(pos, vel)
       local springForce = prism.Vector2(-k * pos.x, -k * pos.y) -- F = -kx
       local dampingForce = prism.Vector2(-damping * vel.x, -damping * vel.y) -- F = -b*v
@@ -25,9 +25,9 @@ local function createSpringSolver(mass, k, damping)
 end
 
 ---@class EditorGridProps : Inky.Props
----@field offset prism.Vector2
+---@field offset Vector2
 ---@field display Display
----@field scale prism.Vector2
+---@field scale Vector2
 ---@field editor Editor
 ---@field attachable SpectrumAttachable
 

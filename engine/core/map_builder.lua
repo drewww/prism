@@ -1,14 +1,14 @@
 --- A map builder class that extends the SparseGrid class to handle map-specific functionalities.
---- @class prism.MapBuilder : prism.SparseGrid, SpectrumAttachable
---- @field actors prism.ActorStorage A list of actors present in the map.
---- @field initialValue prism.Cell The initial value to fill the map with.
---- @overload fun(initialValue: prism.Cell): prism.MapBuilder
---- @type prism.MapBuilder
+--- @class MapBuilder : SparseGrid, SpectrumAttachable
+--- @field actors ActorStorage A list of actors present in the map.
+--- @field initialValue Cell The initial value to fill the map with.
+--- @overload fun(initialValue: Cell): MapBuilder
+--- @type MapBuilder
 local MapBuilder = prism.SparseGrid:extend("MapBuilder")
 
 --- The constructor for the 'MapBuilder' class.
 --- Initializes the map with an empty data table and actors list.
---- @param initialValue prism.Cell The initial value to fill the map with.
+--- @param initialValue Cell The initial value to fill the map with.
 function MapBuilder:__new(initialValue)
    prism.SparseGrid.__new(self)
    self.actors = prism.ActorStorage()
@@ -38,7 +38,7 @@ end
 --- @param y1 number The y-coordinate of the top-left corner.
 --- @param x2 number The x-coordinate of the bottom-right corner.
 --- @param y2 number The y-coordinate of the bottom-right corner.
---- @param cell prism.Cell The cell to fill the rectangle with.
+--- @param cell Cell The cell to fill the rectangle with.
 function MapBuilder:drawRectangle(x1, y1, x2, y2, cell)
    for x = x1, x2 do
       for y = y1, y2 do
@@ -52,7 +52,7 @@ end
 --- @param cy number The y-coordinate of the center.
 --- @param rx number The radius along the x-axis.
 --- @param ry number The radius along the y-axis.
---- @param cell prism.Cell The cell to fill the ellipse with.
+--- @param cell Cell The cell to fill the ellipse with.
 function MapBuilder:drawEllipse(cx, cy, rx, ry, cell)
    for x = -rx, rx do
       for y = -ry, ry do
@@ -68,7 +68,7 @@ end
 --- @param y1 number The y-coordinate of the starting point.
 --- @param x2 number The x-coordinate of the ending point.
 --- @param y2 number The y-coordinate of the ending point.
---- @param cell prism.Cell The cell to draw the line with.
+--- @param cell Cell The cell to draw the line with.
 function MapBuilder:drawLine(x1, y1, x2, y2, cell)
    local dx = math.abs(x2 - x1)
    local dy = math.abs(y2 - y1)
@@ -113,7 +113,7 @@ end
 
 --- Adds padding around the map with a specified width and cell value.
 --- @param width number The width of the padding to add.
---- @param cell prism.Cell The cell value to use for padding.
+--- @param cell Cell The cell value to use for padding.
 function MapBuilder:addPadding(width, cell)
    local minX, minY = math.huge, math.huge
    local maxX, maxY = -math.huge, -math.huge
@@ -145,10 +145,10 @@ function MapBuilder:addPadding(width, cell)
 end
 
 --- Blits the source MapBuilder onto this MapBuilder at the specified coordinates.
---- @param source prism.MapBuilder The source MapBuilder to copy from.
+--- @param source MapBuilder The source MapBuilder to copy from.
 --- @param destX number The x-coordinate of the top-left corner in the destination MapBuilder.
 --- @param destY number The y-coordinate of the top-left corner in the destination MapBuilder.
---- @param maskFn fun(x: integer, y: integer, source: prism.Cell, dest: prism.Cell)|nil A callback function for masking. Should return true if the cell should be copied, false otherwise.
+--- @param maskFn fun(x: integer, y: integer, source: Cell, dest: Cell)|nil A callback function for masking. Should return true if the cell should be copied, false otherwise.
 function MapBuilder:blit(source, destX, destY, maskFn)
    maskFn = maskFn or function() return true end
 
@@ -168,7 +168,7 @@ end
 
 --- Builds the map and returns the map and list of actors.
 --- Converts the sparse grid to a contiguous grid.
---- @return prism.Map, table actors map and the list of actors.
+--- @return Map, table actors map and the list of actors.
 function MapBuilder:build()
    -- Determine the bounding box of the sparse grid
    local minX, minY = math.huge, math.huge

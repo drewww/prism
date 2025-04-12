@@ -2,8 +2,8 @@
 local RectModification = geometer.require "modifications.rect"
 
 --- @class RectTool : Tool
---- @field origin prism.Vector2
---- @field second prism.Vector2
+--- @field origin Vector2
+--- @field second Vector2
 local RectTool = geometer.Tool:extend "RectTool"
 
 function RectTool:__new()
@@ -66,8 +66,6 @@ function RectTool:draw(editor, display)
    if not (lx and ly and rx and ry) then return end
 
    local drawable = self:getDrawable(editor.placeable)
-   if not drawable then return end
-   
    if editor.fillMode then
       for x = lx, rx do
          for y = ly, ry do

@@ -1,7 +1,7 @@
 local EllipseModification = geometer.require "modifications.ellipse"
 
 ---@class EllipseTool : Tool
----@field center prism.Vector2
+---@field center Vector2
 local Ellipse = geometer.Tool:extend "EllipseTool"
 
 function Ellipse:mouseclicked(editor, attachable, x, y)
@@ -20,8 +20,7 @@ function Ellipse:draw(editor, display)
    local rx, ry = math.abs(self.center.x - mx), math.abs(self.center.y - my)
 
    local drawable = self:getDrawable(editor.placeable)
-   if not drawable then return end
-   
+
    prism.Ellipse(editor.fillMode and "fill" or "line", self.center, rx, ry, function(x, y)
       if self.editor.attachable:inBounds(x, y) then self:drawCell(display, drawable, x, y) end
    end)

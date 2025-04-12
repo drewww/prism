@@ -2,8 +2,8 @@
 local LineModification = geometer.require "modifications.line"
 
 --- @class LineTool : Tool
---- @field origin prism.Vector2
---- @field to prism.Vector2
+--- @field origin Vector2
+--- @field to Vector2
 local Line = geometer.Tool:extend "LineTool"
 
 function Line:__new()
@@ -49,8 +49,6 @@ function Line:draw(editor, display)
 
    local points = prism.Bresenham(self.origin.x, self.origin.y, self.to.x, self.to.y)
    local drawable = self:getDrawable(editor.placeable)
-   if not drawable then return end
-   
    for _, point in ipairs(points) do
       self:drawCell(display, drawable, point[1], point[2])
    end

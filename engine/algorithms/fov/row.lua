@@ -1,8 +1,8 @@
---- @class prism.fov.Row : prism.Object
+--- @class Row : Object
 --- @field depth integer
---- @field startSlope prism.fov.Fraction
---- @field endSlope prism.fov.Fraction
---- @overload fun(depth: integer, startSlope: prism.fov.Fraction, endSlope: prism.fov.Fraction): prism.fov.Row
+--- @field startSlope Fraction
+--- @field endSlope Fraction
+--- @overload fun(depth: integer, startSlope: Fraction, endSlope: Fraction): Row
 local Row = prism.Object:extend("Row")
 
 function Row:__new(depth, startSlope, endSlope)
@@ -30,7 +30,7 @@ function Row.roundTiesUp(n) return math.floor(n:tonumber() + 0.5) end
 
 function Row.roundTiesDown(n) return math.ceil(n:tonumber() - 0.5) end
 
---- @return prism.fov.Row
+--- @return Row
 function Row:next() return Row(self.depth + 1, self.startSlope, self.endSlope) end
 
 return Row

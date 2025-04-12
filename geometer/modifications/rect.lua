@@ -1,14 +1,14 @@
 --- @class RectModification : Modification
 --- @field placeable Placeable
 --- @field placed Placeable[]|nil
---- @field replaced prism.SparseGrid
---- @field topLeft prism.Vector2
---- @field bottomRight prism.Vector2
+--- @field replaced SparseGrid
+--- @field topLeft Vector2
+--- @field bottomRight Vector2
 local RectModification = geometer.Modification:extend "RectModification"
 
 ---@param placeable Placeable
----@param topLeft prism.Vector2
----@param bottomRight prism.Vector2
+---@param topLeft Vector2
+---@param bottomRight Vector2
 function RectModification:__new(placeable, topLeft, bottomRight, fillMode)
    self.placeable = placeable
    self.topLeft = topLeft
@@ -27,11 +27,11 @@ function RectModification:execute(attachable)
          for y = j, l do
             if self.placeable:is(prism.Actor) then
                local actor = self.placeable
-               --- @cast actor prism.Actor
+               --- @cast actor Actor
                self:placeActor(attachable, x, y, actor)
             else
                local cell = self.placeable
-               --- @cast cell prism.Cell
+               --- @cast cell Cell
                self:placeCell(attachable, x, y, cell)
             end
          end
@@ -56,11 +56,11 @@ end
 function RectModification:placeBoundaryCell(attachable, x, y)
    if self.placeable:is(prism.Actor) then
       local actor = self.placeable
-      --- @cast actor prism.Actor
+      --- @cast actor Actor
       self:placeActor(attachable, x, y, actor)
    else
       local cell = self.placeable
-      --- @cast cell prism.Cell
+      --- @cast cell Cell
       self:placeCell(attachable, x, y, cell)
    end
 end

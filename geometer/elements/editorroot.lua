@@ -12,10 +12,10 @@ local Tools = geometer.require "elements.tools"
 local SelectionPanel = geometer.require "elements.selectionpanel"
 
 ---@class EditorRootProps : Inky.Props
----@field gridPosition prism.Vector2
+---@field gridPosition Vector2
 ---@field display Display
 ---@field attachable SpectrumAttachable
----@field scale prism.Vector2
+---@field scale Vector2
 ---@field quit boolean
 ---@field editor Editor
 

@@ -1,8 +1,8 @@
----@class ActionMessage : prism.Message
----@field actor prism.Actor
+---@class ActionMessage : Message
+---@field actor Actor
 local ActionMessage = prism.Message:extend("ActionMessage")
 
---- @param action prism.Action
+--- @param action Action
 function ActionMessage:__new(action)
    self.action = action
 end

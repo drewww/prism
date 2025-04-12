@@ -2,7 +2,7 @@ local Inky = geometer.require "inky"
 
 ---@class TileElementProps : Inky.Props
 ---@field placeable Placeable
----@field size prism.Vector2 the final size of a tile in editor
+---@field size Vector2 the final size of a tile in editor
 ---@field display Display
 ---@field onSelect function
 ---@field overlay love.Canvas
@@ -32,8 +32,6 @@ local function Tile(self, scene)
 
    return function(_, x, y, w, h)
       local drawable = self.props.placeable:getComponent(prism.components.Drawable)
-      if not drawable then return end
-      
       local color = drawable.color or prism.Color4.WHITE
       local quad = spectrum.Display.getQuad(self.props.display.spriteAtlas, drawable)
 
@@ -57,7 +55,7 @@ end
 local TileElement = Inky.defineElement(Tile)
 
 ---@class SelectionGridProps : Inky.Props
----@field size prism.Vector2 the final size of a tile in editor
+---@field size Vector2 the final size of a tile in editor
 ---@field display Display
 ---@field onSelect function
 ---@field overlay love.Canvas

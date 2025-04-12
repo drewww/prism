@@ -1,5 +1,5 @@
---- @class prism.BoundingBox : prism.Object
---- @overload fun(x: integer, y: integer, i: integer, j:integer): prism.BoundingBox
+--- @class BoundingBox : Object
+--- @overload fun(x: integer, y: integer, i: integer, j:integer): BoundingBox
 local BoundingBox = prism.Object:extend("BoundingBox")
 
 function BoundingBox:__new(x, y, i, j)

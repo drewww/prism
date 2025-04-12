@@ -1,9 +1,9 @@
----@class prism.decisions.ActionDecision : prism.Decision
----@field actor prism.Actor
----@field action prism.Action|nil
+---@class ActionDecision : Decision
+---@field actor Actor
+---@field action Action|nil
 local ActionDecision = prism.Decision:extend("ActionDecision")
 
---- @param actor prism.Actor
+--- @param actor Actor
 function ActionDecision:__new(actor)
    self.actor = actor
 end

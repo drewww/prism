@@ -11,10 +11,10 @@ function BTSucceeder:__new(node)
 end
 
 --- Runs the succeeder node.
---- @param level prism.Level
---- @param actor prism.Actor
+--- @param level Level
+--- @param actor Actor
 --- @param controller ControllerComponent
---- @return boolean|prism.Action
+--- @return boolean|Action
 function BTSucceeder:run(level, actor, controller)
    local ret = self.node:run(level, actor, controller)
    if ret == false then

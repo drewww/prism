@@ -1,5 +1,5 @@
---- @class prism.fov.Quadrant : prism.Object
---- @overload fun(cardinal: number, origin: prism.Vector2): prism.fov.Quadrant
+--- @class Quadrant : Object
+--- @overload fun(cardinal: number, origin: Vector2): Quadrant
 local Quadrant = prism.Object:extend("Quadrant")
 
 function Quadrant:__new(cardinal, origin)

@@ -1,18 +1,18 @@
----@class Display : prism.Object
+---@class Display : Object
 --- Display handles rendering the game world, including cells, actors, and perspectives.
 ---@field attachable SpectrumAttachable The current level being displayed.
 ---@field spriteAtlas SpriteAtlas The sprite atlas used for rendering graphics.
 ---@field camera Camera The camera used to render the display.
 ---@field dt number Delta time for updates.
----@field cellSize prism.Vector2
----@field override fun(dt: integer, drawnSet: table<prism.Actor,boolean>)|nil
+---@field cellSize Vector2
+---@field override fun(dt: integer, drawnSet: table<Actor,boolean>)|nil
 local Display = prism.Object:extend("Display")
 
----@class SpectrumAttachable : prism.Object
----@field getCell fun(self, x:integer, y:integer): prism.Cell
----@field setCell fun(self, x:integer, y:integer, cell: prism.Cell|nil)
----@field addActor fun(self, actor: prism.Actor)
----@field removeActor fun(self, actor: prism.Actor)
+---@class SpectrumAttachable : Object
+---@field getCell fun(self, x:integer, y:integer): Cell
+---@field setCell fun(self, x:integer, y:integer, cell: Cell|nil)
+---@field addActor fun(self, actor: Actor)
+---@field removeActor fun(self, actor: Actor)
 ---@field getActorsAt fun(self, x:integer, y:integer)
 ---@field inBounds fun(self, x: integer, y:integer)
 ---@field eachActorAt fun(self, x:integer, y:integer): fun()
@@ -22,7 +22,7 @@ local Display = prism.Object:extend("Display")
 
 --- Initializes a new Display instance.
 ---@param spriteAtlas SpriteAtlas The sprite atlas for rendering.
----@param cellSize prism.Vector2 Size of each cell in pixels.
+---@param cellSize Vector2 Size of each cell in pixels.
 ---@param attachable SpectrumAttachable Object containing cells and actors to render.
 function Display:__new(spriteAtlas, cellSize, attachable)
    self.cellSize = cellSize
@@ -168,9 +168,9 @@ function Display:setOverride(functionFactory, message)
 end
 
 --- Draws an actor.
----@param actor prism.Actor The actor to draw.
+---@param actor Actor The actor to draw.
 ---@param alpha number? Optional alpha transparency.
----@param color prism.Color4? Optional color tint.
+---@param color Color4? Optional color tint.
 ---@param drawnSet table? Optional set to track drawn actors.
 function Display:drawActor(actor, alpha, color, drawnSet, x, y)
    if drawnSet and drawnSet[actor] then
@@ -217,16 +217,14 @@ function Display.getQuad(spriteAtlas, drawable)
 end
 
 --- Draws a drawable object.
----@param drawable DrawableComponent? Drawable to render.
+---@param drawable DrawableComponent Drawable to render.
 ---@param spriteAtlas SpriteAtlas Sprite atlas to use.
----@param cellSize prism.Vector2 Size of each cell.
+---@param cellSize Vector2 Size of each cell.
 ---@param x integer X-coordinate.
 ---@param y integer Y-coordinate.
----@param color prism.Color4? Optional color tint.
+---@param color Color4? Optional color tint.
 ---@param alpha number? Optional alpha transparency.
 function Display.drawDrawable(drawable, spriteAtlas, cellSize, x, y, color, alpha)
-   if not drawable then return end
-   
    alpha = alpha or 1
    local quad = Display.getQuad(spriteAtlas, drawable)
    color = color or drawable.color

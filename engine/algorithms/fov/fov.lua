@@ -1,5 +1,5 @@
---- @param level prism.Level The level to take opacity information from.
---- @param origin prism.Vector2 The origin point of the fov.
+--- @param level Level The level to take opacity information from.
+--- @param origin Vector2 The origin point of the fov.
 --- @param maxDepth integer The range in tiles the fov will extend from origin.
 --- @param callback function
 local function fov(level, origin, maxDepth, callback)
@@ -13,7 +13,7 @@ local function fov(level, origin, maxDepth, callback)
          callback(x, y, level:getCell(x, y))
       end
 
-      ---@param row prism.fov.Row
+      ---@param row Row
       ---@param col integer
       local function isSymmetric(row, col)
          local startNum = row.startSlope:tonumber()
@@ -36,10 +36,10 @@ local function fov(level, origin, maxDepth, callback)
       local function slope(x, y) return prism.fov.Fraction(2 * y - 1, 2 * x) end
 
       local function scanIterative(row)
-         --- @type prism.fov.Row[]
+         --- @type Row[]
          local rows = { row }
          while #rows > 0 do
-            ---@type prism.fov.Row
+            ---@type Row
             row = table.remove(rows)
 
             local px, py

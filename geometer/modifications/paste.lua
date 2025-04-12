@@ -1,13 +1,13 @@
 ---@class PasteModification : Modification
----@field cells prism.SparseGrid
----@field actors prism.SparseMap
----@field topLeft prism.Vector2
----@overload fun(cells: prism.SparseGrid, actors: prism.SparseMap, topLeft: prism.Vector2): PasteModification
+---@field cells SparseGrid
+---@field actors SparseMap
+---@field topLeft Vector2
+---@overload fun(cells: SparseGrid, actors: SparseMap, topLeft: Vector2): PasteModification
 local PasteModification = geometer.Modification:extend "PasteModification"
 
----@param cells prism.SparseGrid
----@param actors prism.SparseMap
----@param topLeft prism.Vector2
+---@param cells SparseGrid
+---@param actors SparseMap
+---@param topLeft Vector2
 function PasteModification:__new(cells, actors, topLeft)
    self.cells = cells
    self.actors = actors

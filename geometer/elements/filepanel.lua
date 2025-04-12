@@ -3,7 +3,7 @@ local Inky = geometer.require "inky"
 local Button = geometer.require "elements.button"
 
 ---@class FilePanelProps : Inky.Props
----@field scale prism.Vector2
+---@field scale Vector2
 ---@field name string
 ---@field overlay love.Canvas
 ---@field open boolean

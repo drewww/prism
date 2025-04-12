@@ -1,6 +1,6 @@
 local SensesComponent = prism.components.Senses
 
---- @class SensesSystem : prism.System
+--- @class SensesSystem : System
 local SensesSystem = prism.System:extend("SensesSystem")
 SensesSystem.name = "Senses"
 
@@ -19,8 +19,8 @@ function SensesSystem:postInitialize(level)
    end
 end
 
----@param level prism.Level
----@param event prism.Message
+---@param level Level
+---@param event Message
 function SensesSystem:onYield(level, event)
    for actor in level:eachActor(prism.components.Senses) do
       if actor:getComponent(prism.components.PlayerController) then

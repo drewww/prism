@@ -2,7 +2,7 @@
 local EraseModification = geometer.require "modifications.erase"
 
 --- @class EraseTool : Tool
---- @field origin prism.Vector2
+--- @field origin Vector2
 local Erase = geometer.Tool:extend "EraseTool"
 
 function Erase:__new()

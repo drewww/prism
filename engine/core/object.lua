@@ -2,7 +2,7 @@ prism._OBJECTREGISTRY = {}
 prism._ISCLASS = {}
 
 --- A simple class system for Lua. This is the base class for all other classes in PRISM.
----@class prism.Object
+---@class Object
 ---@field className string A unique name for this class. By convention this should match the annotation name you use.
 ---@field serializationBlacklist table<string, boolean>
 local Object = {}
@@ -67,7 +67,7 @@ function Object:__new(...) end
 
 --- Checks if o is in the inheritance chain of self.
 --- @param self any
---- @param o any The class to check.
+--- @param o table The class to check.
 --- @return boolean is True if o is in the inheritance chain of self, false otherwise.
 function Object:is(o)
    if self == o then return true end
@@ -318,6 +318,6 @@ function Object.prettyprint(obj, indent, visited)
    return result
 end
 
---- @type prism.Object
+--- @type Object
 local ret = Object:__call()
 return ret

@@ -1,9 +1,9 @@
 --- A map manager class that extends the Grid class to handle map-specific functionalities.
---- @class prism.Map : prism.Grid
---- @field opacityCache prism.BooleanBuffer Caches the opaciy of the cell + actors in each tile for faster fov calculation.
---- @field passableCache prism.BitmaskBuffer
---- @overload fun(): prism.Map
---- @type prism.Map
+--- @class Map : Grid
+--- @field opacityCache BooleanBuffer Caches the opaciy of the cell + actors in each tile for faster fov calculation.
+--- @field passableCache BitmaskBuffer
+--- @overload fun(): Map
+--- @type Map
 local Map = prism.Grid:extend("Map")
 
 Map.serializationBlacklist = {
@@ -15,7 +15,7 @@ Map.serializationBlacklist = {
 --- Initializes the map with the specified dimensions and initial value, and sets up the opacity caches.
 --- @param w number The width of the map.
 --- @param h number The height of the map.
---- @param initialValue prism.Cell The initial value to fill the map with.
+--- @param initialValue Cell The initial value to fill the map with.
 function Map:__new(w, h, initialValue)
    prism.Grid.__new(self, w, h, initialValue)
    self.opacityCache = prism.BooleanBuffer(w, h)
@@ -25,7 +25,7 @@ end
 --- Sets the cell at the specified coordinates to the given value.
 --- @param x number The x-coordinate.
 --- @param y number The y-coordinate.
---- @param cell prism.Cell The cell to set.
+--- @param cell Cell The cell to set.
 function Map:set(x, y, cell)
    prism.Grid.set(self, x, y, cell)
    self:updateCaches(x, y)
@@ -34,9 +34,8 @@ end
 --- Gets the cell at the specified coordinates.
 --- @param x number The x-coordinate.
 --- @param y number The y-coordinate.
---- @return prism.Cell cell The cell at the specified coordinates.
+--- @return Cell cell The cell at the specified coordinates.
 function Map:get(x, y)
-   --- @type prism.Cell
    return prism.Grid.get(self, x, y)
 end
 

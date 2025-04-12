@@ -26,7 +26,7 @@ end
 ---@field selectedText love.Text
 ---@field filtered number[]
 ---@field display Display
----@field size prism.Vector2
+---@field size Vector2
 ---@field editor Editor
 ---@field overlay love.Canvas
 
@@ -113,8 +113,6 @@ local function SelectionPanel(self, scene)
       grid:render(x, y + 5 * 8, w, 8 * 12, depth + 1)
 
       local drawable = self.props.selected:getComponent(prism.components.Drawable)
-      if not drawable then return end
-      
       local color = drawable.color or prism.Color4.WHITE
       local quad = spectrum.Display.getQuad(self.props.display.spriteAtlas, drawable)
       local scale = prism.Vector2(

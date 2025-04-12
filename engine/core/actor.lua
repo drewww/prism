@@ -2,21 +2,21 @@
 --- Actors are composed of Components that define their state and behavior.
 --- For example, an actor may have a Sight component that determines their field of vision, explored tiles,
 --- and other related aspects.
---- @class prism.Actor : prism.Object
---- @field private position prism.Vector2 An actor's position in the game world.
+--- @class Actor : Object
+--- @field private position Vector2 An actor's position in the game world.
 --- @field name string The string name of the actor, used for display to the user.
 --- @field char string The character to draw for this actor.
---- @field components prism.Component[] A table containing all of the actor's component instances. Generated at runtime.
+--- @field components Component[] A table containing all of the actor's component instances. Generated at runtime.
 --- @field componentCache table This is a cache for component queries, reducing most queries to a hashmap lookup.
---- @overload fun(): prism.Actor
---- @type prism.Actor
+--- @overload fun(): Actor
+--- @type Actor
 local Actor = prism.Object:extend("Actor")
 Actor.position = nil
 Actor.name = "actor"
 
 --- Constructor for an actor.
 --- Initializes and copies the actor's fields from its prototype.
---- @param self prism.Actor
+--- @param self Actor
 function Actor:__new()
    self.position = prism.Vector2(1, 1)
 
@@ -36,14 +36,14 @@ end
 --
 
 --- Creates the components for the actor. Override this.
---- @return prism.Component[]
+--- @return Component[]
 function Actor:initialize()
    return {}
 end
 
 --- Adds a component to the actor. This function will check if the component's
 --- prerequisites are met and will throw an error if they are not.
---- @param component prism.Component The component to add to the actor.
+--- @param component Component The component to add to the actor.
 --- @private
 function Actor:__addComponent(component)
    assert(component:is(prism.Component), "Expected argument component to be of type Component!")
@@ -66,7 +66,7 @@ end
 
 --- Removes a component from the actor. This function will throw an error if the
 --- component is not present on the actor.
---- @param component prism.Component The component to remove from the actor.
+--- @param component Component The component to remove from the actor.
 function Actor:__removeComponent(component)
    assert(component:is(prism.Component), "Expected argument component to be of type Component!")
 
@@ -92,7 +92,7 @@ function Actor:__removeComponent(component)
 end
 
 --- Returns a bool indicating whether the actor has a component of the given type.
---- @param prototype prism.Component The prototype of the component to check for.
+--- @param prototype Component The prototype of the component to check for.
 --- @return boolean hasComponent
 function Actor:hasComponent(prototype)
    assert(prototype:is(prism.Component), "Expected argument type to be inherited from Component!")
@@ -108,11 +108,10 @@ function Actor:getComponent(prototype) return self.componentCache[prototype] end
 
 
 --- Expects a component, returning it or erroring on nil.
---- @generic T : prism.Object
---- @param prototype T : Object The type of the component to return.
+--- @generic T
+--- @param prototype T The type of the component to return.
 --- @return T
 function Actor:expectComponent(prototype) 
-   --- @diagnostic disable-next-line
    return self.componentCache[prototype] or error("Expected component " .. prototype.className .. "!")
 end
 --
@@ -120,7 +119,7 @@ end
 --
 
 --- Get a list of actions that the actor can perform.
---- @return prism.Action[] totalActions Returns a table of all actions.
+--- @return Action[] totalActions Returns a table of all actions.
 function Actor:getActions()
    local totalActions = {}
 
@@ -138,12 +137,12 @@ end
 --
 
 --- Returns the current position of the actor.
---- @return prism.Vector2 position Returns a copy of the actor's current position.
+--- @return Vector2 position Returns a copy of the actor's current position.
 function Actor:getPosition() return self.position:copy() end
 
 --- Get the range from this actor to another actor.
 --- @param type DistanceType
---- @param actor prism.Actor The other actor to get the range to.
+--- @param actor Actor The other actor to get the range to.
 --- @return number Returns the calculated range.
 function Actor:getRange(type, actor)
    return self.position:getRange(type, actor.position)

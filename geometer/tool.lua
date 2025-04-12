@@ -1,6 +1,4 @@
----@class Tool : prism.Object
----@field copy fun(self: Tool, attachable: SpectrumAttachable)?
----@field paste fun(self: Tool, attachable: SpectrumAttachable)?
+---@class Tool : Object
 ---Represents a tool with update, draw, and mouse interaction functionalities.
 ---Tools can respond to user inputs and render visual elements.
 local Tool = prism.Object:extend("Tool")
@@ -21,7 +19,7 @@ end
 
 ---Returns the DrawableComponent from placeable
 ---@param placeable Placeable
----@return DrawableComponent?
+---@return DrawableComponent
 function Tool:getDrawable(placeable)
    if placeable:is(prism.Actor) then placeable = placeable() end
    return placeable:getComponent(prism.components.Drawable)
@@ -55,7 +53,7 @@ end
 function Tool:mousereleased(editor, level, cellx, celly) end
 
 --- @param editor Editor
----@param level prism.Level
+---@param level Level
 ---@param cellx integer
 ---@param celly integer
 function Tool:overrideCellDraw(editor, level, cellx, celly) end

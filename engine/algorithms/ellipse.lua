@@ -1,6 +1,6 @@
 --- Generates points for an ellipse on a grid using the Vector2 class.
 --- @param mode ("fill" | "line") The mode to use
---- @param center prism.Vector2 The center of the ellipse.
+--- @param center Vector2 The center of the ellipse.
 --- @param rx number The radius along the x-axis.
 --- @param ry number The radius along the y-axis.
 --- @param callback fun(x: number, y: number) Function to call for each ellipse point.

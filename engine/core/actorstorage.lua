@@ -2,16 +2,16 @@
 --- It is used by the 'Level' class to store and retrieve actors, and is returned by a few Level methods.
 --- You should rarely, if ever, need to instance this class yourself, it's mostly used internally and for
 --- a few returns from Level.
---- @class prism.ActorStorage : prism.Object
---- @field private actors prism.Actor[] The list of actors in the storage.
---- @field private ids prism.SparseArray A sparse array of references to the Actors in the storage. The ID is derived from this.
---- @field private actorToID table<prism.Actor, integer?> A hashmap of actors to ids.
---- @field private sparseMap prism.SparseMap The spatial map for storing actor positions.
+--- @class ActorStorage : Object
+--- @field private actors Actor[] The list of actors in the storage.
+--- @field private ids SparseArray A sparse array of references to the Actors in the storage. The ID is derived from this.
+--- @field private actorToID table<Actor, integer?> A hashmap of actors to ids.
+--- @field private sparseMap SparseMap The spatial map for storing actor positions.
 --- @field private componentCache table The cache for storing actor components.
 --- @field private insertSparseMapCallback function
 --- @field private removeSparseMapCallback function
---- @overload fun(): prism.ActorStorage
---- @type prism.ActorStorage
+--- @overload fun(): ActorStorage
+--- @type ActorStorage
 local ActorStorage = prism.Object:extend("ActorStorage")
 
 --- The constructor for the 'ActorStorage' class.
@@ -32,7 +32,7 @@ function ActorStorage:setCallbacks(insertCallback, removeCallback)
 end
 
 --- Adds an actor to the storage, updating the spatial map and component cache.
---- @param actor prism.Actor The actor to add.
+--- @param actor Actor The actor to add.
 function ActorStorage:addActor(actor)
    assert(actor:is(prism.Actor), "Tried to add a non-actor object to actor storage!")
    if self.actorToID[actor] then return end
@@ -45,7 +45,7 @@ function ActorStorage:addActor(actor)
 end
 
 --- Removes an actor from the storage, updating the spatial map and component cache.
---- @param actor prism.Actor The actor to remove.
+--- @param actor Actor The actor to remove.
 function ActorStorage:removeActor(actor)
    assert(actor:is(prism.Actor), "Tried to remove a non-actor object from actor storage!")
    if not self.actorToID[actor] then return end
@@ -64,14 +64,14 @@ end
 --- Retrieves the unique ID associated with the specified actor.
 --- Note: IDs are unique to actors within the ActorStorage but may be reused 
 --- when indices are freed.
---- @param actor prism.Actor The actor whose ID is to be retrieved.
+--- @param actor Actor The actor whose ID is to be retrieved.
 --- @return integer? The unique ID of the actor, or nil if the actor is not found.
 function ActorStorage:getID(actor)
    return self.actorToID[actor]
 end
 
 --- Returns whether the storage contains the specified actor.
---- @param actor prism.Actor The actor to check.
+--- @param actor Actor The actor to check.
 --- @return boolean True if the storage contains the actor, false otherwise.
 function ActorStorage:hasActor(actor)
    return self.actorToID[actor] ~= nil
@@ -79,7 +79,7 @@ end
 
 --- Returns an iterator over the actors in the storage. If a component is specified, only actors with that
 --- component will be returned.
---- @param ... prism.Component? The components to filter by.
+--- @param ... Component? The components to filter by.
 --- @return function iter An iterator over the actors in the storage.
 function ActorStorage:eachActor(...)
    local n = 1
@@ -125,8 +125,8 @@ function ActorStorage:eachActor(...)
 end
 
 --- Returns an iterator over the actors in the storage that have the specified prototype.
---- @param prototype prism.Actor The prototype to filter by.
---- @return prism.Actor|nil The first actor that matches the prototype, or nil if no actor matches.
+--- @param prototype Actor The prototype to filter by.
+--- @return Actor|nil The first actor that matches the prototype, or nil if no actor matches.
 function ActorStorage:getActorByType(prototype)
    for i = 1, #self.actors do
       if self.actors[i]:is(prototype) then return self.actors[i] end
@@ -138,7 +138,7 @@ end
 ---
 --- @param x number The x-coordinate to check.
 --- @param y number The y-coordinate to check.
---- @return prism.Actor[] actors A table of actors at the given position.
+--- @return Actor[] actors A table of actors at the given position.
 function ActorStorage:getActorsAt(x, y)
    local actorsAtPosition = {}
    for actor, _ in pairs(self.sparseMap:get(x, y)) do
@@ -163,7 +163,7 @@ function ActorStorage:eachActorAt(x, y)
 end
 
 --- Removes the specified actor from the spatial map.
---- @param actor prism.Actor The actor to remove.
+--- @param actor Actor The actor to remove.
 function ActorStorage:removeSparseMapEntries(actor)
    local pos = actor:getPosition()
    self.sparseMap:remove(pos.x, pos.y, actor)
@@ -171,7 +171,7 @@ function ActorStorage:removeSparseMapEntries(actor)
 end
 
 --- Inserts the specified actor into the spatial map.
---- @param actor prism.Actor The actor to insert.
+--- @param actor Actor The actor to insert.
 function ActorStorage:insertSparseMapEntries(actor)
    local pos = actor:getPosition()
    self.sparseMap:insert(pos.x, pos.y, actor)
@@ -179,7 +179,7 @@ function ActorStorage:insertSparseMapEntries(actor)
 end
 
 --- Updates the component cache for the specified actor.
---- @param actor prism.Actor The actor to update the component cache for.
+--- @param actor Actor The actor to update the component cache for.
 function ActorStorage:updateComponentCache(actor)
    for _, component in pairs(prism.components) do
       if not self.componentCache[component] then self.componentCache[component] = {} end
@@ -193,7 +193,7 @@ function ActorStorage:updateComponentCache(actor)
 end
 
 --- Removes the specified actor from the component cache.
---- @param actor prism.Actor The actor to remove from the component cache.
+--- @param actor Actor The actor to remove from the component cache.
 function ActorStorage:removeComponentCache(actor)
    for _, component in pairs(prism.components) do
       if self.componentCache[component] then self.componentCache[component][actor] = nil end
@@ -201,7 +201,7 @@ function ActorStorage:removeComponentCache(actor)
 end
 
 --- Merges another ActorStorage instance with this one.
---- @param other prism.ActorStorage The other ActorStorage instance to merge with this one.
+--- @param other ActorStorage The other ActorStorage instance to merge with this one.
 function ActorStorage:merge(other)
    assert(other:is(ActorStorage), "Tried to merge a non-ActorStorage object with actor storage!")
 

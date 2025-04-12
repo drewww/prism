@@ -1,4 +1,4 @@
----@class Modification : prism.Object
+---@class Modification : Object
 ---Represents a reversible modification that can be executed and undone.
 ---This class provides a base structure for implementing modifications with
 ---custom behavior for execution and undoing actions.
@@ -49,7 +49,7 @@ end
 --- @param attachable SpectrumAttachable
 ---@param x integer
 ---@param y integer
----@param actorPrototype prism.Actor
+---@param actorPrototype Actor
 function Modification:placeActor(attachable, x, y, actorPrototype)
    if not self.placed then self.placed = {} end
 
@@ -65,7 +65,7 @@ end
 ---@param attachable SpectrumAttachable
 ---@param x integer
 ---@param y integer
----@param cellPrototype prism.Cell|nil
+---@param cellPrototype Cell|nil
 function Modification:placeCell(attachable, x, y, cellPrototype)
    if not self.replaced then self.replaced = prism.SparseGrid() end
 

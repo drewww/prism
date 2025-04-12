@@ -1,7 +1,7 @@
 --- @class MapGeneratorState : EditorState
 local MapGeneratorState = geometer.EditorState:extend "MapGeneratorState"
 
----@param generator fun(mapbuilder: prism.MapBuilder): fun()
+---@param generator fun(mapbuilder: MapBuilder): fun()
 function MapGeneratorState:__new(generator)
    local attachable = prism.MapBuilder()
    self.generator = coroutine.create(generator(attachable))

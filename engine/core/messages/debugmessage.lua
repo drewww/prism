@@ -1,4 +1,4 @@
----@class DebugMessage : prism.Message
+---@class DebugMessage : Message
 ---@field message string A human readable message for why we stopped her.
 local ActionMessage = prism.Message:extend "DebugMessage"
 

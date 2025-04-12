@@ -1,6 +1,6 @@
----@class Camera : prism.Object
----@field position prism.Vector2
----@field scale prism.Vector2
+---@class Camera : Object
+---@field position Vector2
+---@field scale Vector2
 ---@field rotation number
 ---@overload fun(x?: number, y?: number): Camera
 local Camera = prism.Object:extend("Camera")

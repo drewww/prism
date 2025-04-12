@@ -1,4 +1,4 @@
----@class OpaqueComponent : prism.Component
+---@class OpaqueComponent : Component
 local Opaque = prism.Component:extend("OpaqueComponent")
 Opaque.name = "Opaque"
 

@@ -1,4 +1,4 @@
----@class GameState : prism.Object
+---@class GameState : Object
 ---@field manager GameStateManager
 local GameState = prism.Object:extend("GameState")
 

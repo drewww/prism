@@ -4,14 +4,14 @@
 --- | "Point"
 --- | "Any"
 
---- @class prism.Target : prism.Object
+--- @class Target : Object
 --- @field typesAllowed table<TargetType, true>
 --- @field range number The distance in tiles this actor can be away from the Action's owner. If nil this check is skipped.
 --- @field unique boolean If true this will make sure this target is unique, and not one of the targets already selected.
 --- @field rangeType "chebyshev"|"manhattan"
 --- @field distanceType DistanceType
---- @overload fun(range: integer, distanceType: DistanceType): prism.Target
---- @type prism.Target
+--- @overload fun(range: integer, distanceType: DistanceType): Target
+--- @type Target
 local Target = prism.Object:extend("Target")
 Target.range = nil
 Target.rangeLastTarget = nil
@@ -31,9 +31,9 @@ local typeValidators = {
    Any = function(object) return true end,
 }
 
----@param owner prism.Actor The owner of the action.
+---@param owner Actor The owner of the action.
 ---@param targetObject any The target object of the action.
----@param targets [prism.Object] A list of the previous targets.
+---@param targets [Object] A list of the previous targets.
 function Target:_validate(owner, targetObject, targets)
    assert(targetObject.className, "Target must be a prism Object!")
    local isValid
@@ -57,8 +57,8 @@ end
 
 --- The inner validate for the target. This is what you override with your own
 --- custom logic.
---- @param owner prism.Actor The actor performing the action.
---- @param targetObject prism.Actor|prism.Cell|prism.Vector2 The target to validate.
+--- @param owner Actor The actor performing the action.
+--- @param targetObject Actor|Cell|Vector2 The target to validate.
 function Target:validate(owner, targetObject, targets)
    return true
 end

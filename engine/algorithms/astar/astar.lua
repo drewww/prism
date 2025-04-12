@@ -1,5 +1,5 @@
----@param a prism.Vector2
----@param b prism.Vector2
+---@param a Vector2
+---@param b Vector2
 local function heuristic(a, b) return a:distance(b) end
 
 -- helper function to reconstruct the path
@@ -27,8 +27,8 @@ end
 
 local function defaultCostCallback(_, _) return 1 end
 
----@param start prism.Vector2
----@param goal prism.Vector2
+---@param start Vector2
+---@param goal Vector2
 ---@param passableCallback fun(x: integer, y: integer): boolean
 ---@param costCallback? fun(x: integer, y: integer): integer
 ---@param minDistance? integer
@@ -49,7 +49,7 @@ local function astarSearch(start, goal, passableCallback, costCallback, minDista
    local pathFound = false
    while not frontier:isEmpty() do
       local current = frontier:pop()
-      --- @cast current prism.Vector2
+      --- @cast current Vector2
       if current:getRange(prism._defaultDistance, goal) <= minDistance then
          final = current
          pathFound = true
@@ -58,7 +58,7 @@ local function astarSearch(start, goal, passableCallback, costCallback, minDista
 
       for _, neighborDir in ipairs(prism.neighborhood) do
          local neighbor = current + neighborDir
-         --- @cast neighbor prism.Vector2
+         --- @cast neighbor Vector2
          if passableCallback(neighbor.x, neighbor.y) then
             local moveCost = costCallback(neighbor.x, neighbor.y)
             local newCost = costSoFar[current:hash()] + moveCost

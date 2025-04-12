@@ -1,14 +1,14 @@
 --- @class EraseModification : Modification
 --- @field placeable Placeable
 --- @field placed Placeable[]|nil
---- @field replaced prism.SparseGrid
---- @field topleft prism.Vector2
---- @field bottomright prism.Vector2
+--- @field replaced SparseGrid
+--- @field topleft Vector2
+--- @field bottomright Vector2
 local EraseModification = geometer.Modification:extend "EraseModification"
 
 ---@param placeable Placeable
----@param topleft prism.Vector2
----@param bottomright prism.Vector2
+---@param topleft Vector2
+---@param bottomright Vector2
 function EraseModification:__new(placeable, topleft, bottomright)
    self.placeable = placeable
    self.topleft = topleft

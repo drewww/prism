@@ -1,9 +1,9 @@
 --- @class EllipseModification : Modification
 --- @field placeable Placeable
 --- @field placed Placeable[]|nil
---- @field replaced prism.SparseGrid
---- @field topleft prism.Vector2
---- @field bottomright prism.Vector2
+--- @field replaced SparseGrid
+--- @field topleft Vector2
+--- @field bottomright Vector2
 local EllipseModification = geometer.Modification:extend "EllipseModification"
 
 ---@param placeable Placeable

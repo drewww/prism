@@ -1,16 +1,16 @@
 --- A class to represent the A* path and its cost
----@class prism.Path : prism.Object
----@field path prism.Vector2[] -- The path as an ordered list of Vector2 nodes
+---@class Path : Object
+---@field path Vector2[] -- The path as an ordered list of Vector2 nodes
 ---@field cost number -- The total cost to traverse the path
 ---@field private costIndex integer[]
----@overload fun(path: prism.Vector2[], costIndex: integer[]): prism.Path
+---@overload fun(path: Vector2[], costIndex: integer[]): Path
 local Path = prism.Object:extend("Path")
 Path.__index = Path
 
 --- Constructor for the Path class
----@param path prism.Vector2[]
+---@param path Vector2[]
 ---@param costIndex integer[]
----@return prism.Path
+---@return Path
 function Path:__new(path, costIndex)
    self.path = path
    self.costIndex = costIndex
@@ -34,14 +34,14 @@ function Path:getTotalCost()
 end
 
 --- Get the path as a table of nodes
----@return prism.Vector2[]
+---@return Vector2[]
 function Path:getPath()
    return self.path
 end
 
 --- Trim the path to a given total cost
 ---@param maxCost number -- The maximum allowable cost for the trimmed path
----@return prism.Path -- A new Path object with the trimmed path
+---@return Path -- A new Path object with the trimmed path
 function Path:trim(maxCost)
    local trimmedPath = {}
    local trimmedCost = 0
@@ -64,7 +64,7 @@ function Path:trim(maxCost)
 end
 
 --- Pop the first node from the path
----@return prism.Vector2|nil -- The removed node, or nil if the path is empty
+---@return Vector2|nil -- The removed node, or nil if the path is empty
 function Path:pop()
    if #self.path == 0 then
       return nil

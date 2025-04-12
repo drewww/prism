@@ -1,9 +1,9 @@
 --- A simple grid class that stores data in a single contiguous array.
---- @class prism.Grid<T> : prism.Object
+--- @class Grid<T> : Object
 --- @field w integer The width of the grid.
 --- @field h integer The height of the grid.
 --- @field data any[] The data stored in the grid.
---- @overload fun(w: integer, h: integer, initialValue): prism.Grid
+--- @overload fun(w: integer, h: integer, initialValue): Grid
 local Grid = prism.Object:extend("Grid")
 
 --- The constructor for the 'Grid' class.
@@ -12,7 +12,7 @@ local Grid = prism.Object:extend("Grid")
 --- @param w integer The width of the grid.
 --- @param h integer The height of the grid.
 --- @param initialValue T The initial value to fill the grid with.
---- @return prism.Grid<T> The initialized grid.
+--- @return Grid<T> The initialized grid.
 function Grid:__new(w, h, initialValue)
    self.w = w
    self.h = h
@@ -28,7 +28,7 @@ end
 --- @param w integer The width of the grid.
 --- @param h integer The height of the grid.
 --- @param data T[] The data to fill the grid with.
---- @return prism.Grid<T> The initialized grid.
+--- @return Grid<T> The initialized grid.
 function Grid:fromData(w, h, data)
    assert(#data == w * h, "Data length does not match grid size.")
 
