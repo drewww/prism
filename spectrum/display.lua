@@ -231,6 +231,11 @@ function Display.drawDrawable(drawable, spriteAtlas, cellSize, x, y, color, alph
    local r, g, b, a = color:decompose()
    local cSx, cSy = cellSize.x, cellSize.y
 
+   if drawable.background then
+      love.graphics.setColor(drawable.background:decompose())
+      love.graphics.rectangle("fill", x * cSx, y * cSy, cSx, cSy)
+   end
+
    love.graphics.setColor(r, g, b, a * alpha)
    love.graphics.draw(spriteAtlas.image, quad, x * cSx, y * cSy)
    love.graphics.setColor(1, 1, 1, 1)
