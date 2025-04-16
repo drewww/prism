@@ -178,6 +178,9 @@ function Display:drawActor(actor, alpha, color, drawnSet, x, y)
    end
 
    local drawable = actor:getComponent(prism.components.Drawable)
+   if not drawable then return end
+   ---@cast drawable DrawableComponent
+
    local position = actor:getPosition()
    x, y = x or position.x, y or position.y
    Display.drawDrawable(drawable, self.spriteAtlas, self.cellSize, x, y, color, alpha)
