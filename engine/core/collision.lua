@@ -83,7 +83,7 @@ end
 
 --- Converts a list of collision movetypes names into a combined bitmask.
 --- @param movetypesNames string[] A list of movetypes names to combine.
---- @return integer The combined bitmask.
+--- @return Bitmask The combined bitmask.
 function Collision.createBitmaskFromMovetypes(movetypesNames)
    local bitmask = 0
 

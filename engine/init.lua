@@ -5,6 +5,7 @@ prism.path = ...
 
 function prism.require(p) return require(table.concat({ prism.path, p }, ".")) end
 
+--- @module "engine.lib.json"
 prism.json = prism.require "lib.json"
 
 --- @type boolean

@@ -1,3 +1,4 @@
+--- A controller component that stops to wait for input to receive its action.
 --- @class PlayerControllerComponent : ControllerComponent
 --- @overload fun(): PlayerControllerComponent
 --- @type PlayerControllerComponent

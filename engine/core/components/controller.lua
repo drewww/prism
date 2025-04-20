@@ -1,7 +1,7 @@
+--- Defines what an actor does on its turn.
 --- @class ControllerComponent : Component
 --- @field blackboard table|nil
 --- @overload fun(): ControllerComponent
---- @type ControllerComponent
 local Controller = prism.Component:extend("Controller")
 Controller.name = "Controller"
 
