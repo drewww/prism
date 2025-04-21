@@ -4,11 +4,11 @@
 --- @overload fun(options: ColliderOptions): ColliderComponent
 local Collider = prism.Component:extend("Collider")
 Collider.name = "Collideable"
+Collider.mask = 0
 
 --- @class ColliderOptions
 --- @field allowedMovetypes string[]
 
-Collider.mask = 0
 --- @param options ColliderOptions
 function Collider:__new(options)
    if not options then return end

@@ -1,9 +1,10 @@
 ---@class Keybinding : Object
+---@overload fun(schema: {key: string, action: string, mode?: string, description?: string}[]): Keybinding
 local Keybinding = prism.Object:extend("Keybinding")
 
 --- Constructor for the Keybinding class.
 --- Initializes the keymap and modes with a predefined schema and defaults.
---- @param schema table A list of predefined keybindings with their schema and defaults.
+--- @param schema {key: string, action: string, mode?: string, description?: string}[] A list of predefined keybindings with their schema and defaults.
 function Keybinding:__new(schema)
    self.schema = {} -- Holds the schema for all modes, including "default"
    self.keymap = {} -- Stores modifications
@@ -49,7 +50,7 @@ end
 --- Falls back to the schema if no modification is found.
 --- @param key string The key that was pressed.
 --- @param mode string|nil The mode to use for the keybinding.
---- @return string|nil The action associated with the key, or nil if no binding exists.
+--- @return string|nil -- The action associated with the key, or nil if no binding exists.
 function Keybinding:keypressed(key, mode)
    mode = mode or "default"  -- Default mode if none provided
    local binding = self.keymap[mode] and self.keymap[mode][key] or self.schema[mode] and self.schema[mode][key]

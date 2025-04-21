@@ -11,7 +11,7 @@
 
 ---@class Vector2 : Object
 --- A Vector2 represents a 2D vector with x and y components.
----@overload fun(x: number, y: number): Vector2
+---@overload fun(x?: number, y?: number): Vector2
 ---@operator add(Vector2): Vector2
 ---@operator sub(Vector2): Vector2
 ---@operator mul(Vector2): Vector2
@@ -20,7 +20,7 @@
 ---@field y number The y component of the vector.
 local Vector2 = prism.Object:extend("Vector2")
 
---- Constructor for Vector2 accepts two numbers, x and y.
+--- Constructor for Vector2 accepts two numbers, x and y. Both default to zero.
 ---@param x number The x component of the vector.
 ---@param y number The y component of the vector.
 function Vector2:__new(x, y)

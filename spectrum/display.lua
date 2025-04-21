@@ -91,7 +91,7 @@ function Display.buildSenseInfo(primary, secondary)
    local secondaryActorSet = {}
 
    for _, sensesComponent in ipairs(primary) do
-      for actor in sensesComponent.actors:eachActor() do
+      for actor in sensesComponent.actors:eachActor(prism.components.Drawable) do
          primaryActorSet[actor] = true
       end
    end
@@ -209,7 +209,7 @@ end
 --- Retrieves the quad for a drawable.
 ---@param spriteAtlas SpriteAtlas The sprite atlas.
 ---@param drawable DrawableComponent The drawable component.
----@return love.Quad|nil The quad used for rendering.
+---@return love.Quad|nil -- The quad used for rendering.
 function Display.getQuad(spriteAtlas, drawable)
    if type(drawable.index) == "number" then
       ---@diagnostic disable-next-line
@@ -244,7 +244,8 @@ function Display.drawDrawable(drawable, spriteAtlas, cellSize, x, y, color, alph
 end
 
 --- Gets the cell under the mouse cursor.
----@return integer, integer The X and Y coordinates of the cell.
+---@return integer x The X coordinate of the cell.
+---@return integer y The Y coordinate of the cell.
 function Display:getCellUnderMouse()
    local cSx, cSy = self.cellSize.x, self.cellSize.y
    local mx, my = love.mouse.getPosition()

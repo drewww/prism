@@ -153,6 +153,7 @@ prism.behaviors = {}
 --- @module "engine.core.systems.senses"
 prism.systems.Senses = prism.require "core.systems.senses"
 
+--- @type ColliderComponent
 --- @module "engine.core.components.collider"
 prism.components.Collider = prism.require "core.components.collider"
 

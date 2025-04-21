@@ -53,7 +53,7 @@ end
 
 --- Push a new element to the PriorityQueue.
 --- @param data any
----@param priority integer
+--- @param priority integer
 function PriorityQueue:push(data, priority)
    local newElement = { priority = priority, data = data }
    table.insert(self._heap, newElement)

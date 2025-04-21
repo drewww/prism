@@ -1,3 +1,5 @@
+--- Keeps track of different move types or "layers" in the game for use in collision detection.
+---@class Collision
 local Collision = {}
 
 --- @alias CollisionMask integer
@@ -37,18 +39,18 @@ Collision.movetypeNames = {}
 --- @param name string The name to associate with the movetypes.
 --- @param movetype string The movetypes key from `Collision.movetypes`.
 function Collision.registerMovetype(name, movetype)
-   if Collision.movetypes[movetype] == nil then
+   if Collision.MOVETYPES[movetype] == nil then
       error("Invalid movetypes: " .. tostring(movetype))
    end
    if Collision.registeredMovetypes[name] then
       error("movetypes name already registered: " .. name)
    end
-   if Collision.movetypeNames[Collision.movetypes[movetype]] then
-      error("movetypes already assigned to another name: " .. Collision.movetypesNames[Collision.MOVETYPES[movetype]])
+   if Collision.movetypeNames[Collision.MOVETYPES[movetype]] then
+      error("movetypes already assigned to another name: " .. Collision.movetypeNames[Collision.MOVETYPES[movetype]])
    end
 
-   Collision.registeredMovetypes[name] = Collision.movetypes[movetype]
-   Collision.movetypeNames[Collision.movetypes[movetype]] = name
+   Collision.registeredMovetypes[name] = Collision.MOVETYPES[movetype]
+   Collision.movetypeNames[Collision.MOVETYPES[movetype]] = name
 end
 
 --- Retrieves the bitmask value associated with a registered movetypes name.
@@ -70,10 +72,9 @@ function Collision.assignNextAvailableMovetype(name)
       error("movetypes name already registered: " .. name)
    end
 
-   for _, bitmask in pairs(Collision.MOVETYPES) do
+   for index, bitmask in pairs(Collision.MOVETYPES) do
       if not Collision.movetypeNames[bitmask] then
-         Collision.registeredMovetypes[name] = bitmask
-         Collision.movetypeNames[bitmask] = name
+         Collision.registerMovetype(name, index)
          return bitmask
       end
    end

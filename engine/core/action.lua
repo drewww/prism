@@ -6,11 +6,10 @@
 --- @field silent boolean A silent action doesn't generate messages
 --- @field owner Actor The actor taking the action.
 --- @field source Actor? An object granting the owner of the action this action. A wand's zap action is a good example.
---- @field targets [Target]
---- @field targetObjects [Object]
+--- @field targets Target[]
+--- @field targetObjects Object[]
 --- @field requiredComponents Component[]
 --- @overload fun(owner: Actor, targets: Target[]): Action
---- @type Action
 local Action = prism.Object:extend("Action")
 Action.time = 100
 Action.silent = false
@@ -121,7 +120,7 @@ end
 --- @param owner Actor The actor that is performing the action.
 --- @param toValidate Actor The target actor to _validate.
 --- @param targets [any] The previously selected targets.
---- @return boolean true if the specified target actor is valid for this action, false otherwise.
+--- @return boolean -- true if the specified target actor is valid for this action, false otherwise.
 function Action:validateTarget(n, owner, toValidate, targets)
    return self.targets[n]:_validate(owner, toValidate, targets)
 end

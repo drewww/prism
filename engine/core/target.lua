@@ -11,7 +11,6 @@
 --- @field rangeType "chebyshev"|"manhattan"
 --- @field distanceType DistanceType
 --- @overload fun(range: integer, distanceType: DistanceType): Target
---- @type Target
 local Target = prism.Object:extend("Target")
 Target.range = nil
 Target.rangeLastTarget = nil

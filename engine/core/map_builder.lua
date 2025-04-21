@@ -3,7 +3,6 @@
 --- @field actors ActorStorage A list of actors present in the map.
 --- @field initialValue Cell The initial value to fill the map with.
 --- @overload fun(initialValue: Cell): MapBuilder
---- @type MapBuilder
 local MapBuilder = prism.SparseGrid:extend("MapBuilder")
 
 --- The constructor for the 'MapBuilder' class.
@@ -94,7 +93,7 @@ end
 --- Gets the value at the specified coordinates, or the initialValue if not set.
 --- @param x number The x-coordinate.
 --- @param y number The y-coordinate.
---- @return any value The value at the specified coordinates, or the initialValue if not set.
+--- @return Cell -- The cell at the specified coordinates, or the initialValue if not set.
 function MapBuilder:get(x, y)
    local value = prism.SparseGrid.get(self, x, y)
    if value == nil then
@@ -168,7 +167,7 @@ end
 
 --- Builds the map and returns the map and list of actors.
 --- Converts the sparse grid to a contiguous grid.
---- @return Map, table actors map and the list of actors.
+--- @return Map, table -- actors map and the list of actors.
 function MapBuilder:build()
    -- Determine the bounding box of the sparse grid
    local minX, minY = math.huge, math.huge

@@ -1,7 +1,6 @@
 --- The root node of a behavior tree.
 --- @class BTRoot : BTNode
 --- @overload fun(children: BTNode[]): BTRoot
---- @type BTRoot
 local BTRoot = prism.BehaviorTree.Node:extend("BTRoot")
 
 --- Creates a new BTRoot.

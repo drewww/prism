@@ -1,7 +1,6 @@
 --- A conditional node in the behavior tree.
 --- @class BTConditional : BTNode
 --- @overload fun(conditionFunc: fun(level: Level, actor: Actor)): BTConditional
---- @type BTConditional
 local BTConditional = prism.BehaviorTree.Node:extend("BTConditional")
 
 --- Creates a new BTConditional.

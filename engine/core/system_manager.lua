@@ -58,7 +58,7 @@ end
 
 --- Gets a system by name.
 --- @param systemName string The name of the system to get.
---- @return System? The system with the given name, or nil if not found.
+--- @return System? -- The system with the given name, or nil if not found.
 function SystemManager:getSystem(systemName)
    for _, system in ipairs(self.systems) do
       if system.name == systemName then return system end
@@ -194,7 +194,7 @@ end
 --- This is useful for calling custom events you define in your Actions, Systems, etc.
 --- An example usage of this can be found in the Sight system.
 --- @param eventString string The key of the event handler method into the system.
----@param ... any The arguments to be passed to the event handler method.
+--- @param ... any The arguments to be passed to the event handler method.
 function SystemManager:trigger(eventString, ...)
    for _, system in ipairs(self.systems) do
       if system[eventString] then

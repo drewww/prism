@@ -18,7 +18,7 @@ function Queue:push(value)
 end
 
 --- Removes and returns the element from the start of the queue.
---- @return any The value at the start of the queue.
+--- @return any -- The value at the start of the queue.
 function Queue:pop()
    local value = self.queue[self.first]
    if value then
@@ -30,13 +30,13 @@ function Queue:pop()
 end
 
 --- Checks if the queue is empty.
---- @return boolean True if the queue is empty, false otherwise.
+--- @return boolean -- True if the queue is empty, false otherwise.
 function Queue:empty()
    return self.first > self.last
 end
 
 --- Returns the element at the start of the queue without removing it.
---- @return any The value at the start of the queue.
+--- @return any -- The value at the start of the queue.
 function Queue:peek()
    return self.queue[self.first]
 end
@@ -50,7 +50,7 @@ end
 
 --- Checks if the queue contains a specific value.
 --- @param value any The value to check for.
---- @return boolean True if the value is in the queue, false otherwise.
+--- @return boolean -- True if the value is in the queue, false otherwise.
 function Queue:contains(value)
    for i = self.first, self.last do
       if self.queue[i] == value then
@@ -61,14 +61,14 @@ function Queue:contains(value)
 end
 
 --- Returns the number of elements in the queue.
---- @return number The size of the queue.
+--- @return number -- The size of the queue.
 function Queue:size()
    return self.last - self.first + 1
 end
 
 --- Removes the first occurrence of the specified value from the queue.
 --- @param value any The value to be removed from the queue.
---- @return boolean True if the value was removed, false otherwise.
+--- @return boolean -- True if the value was removed, false otherwise.
 function Queue:remove(value)
    for i = self.first, self.last do
       if self.queue[i] == value then

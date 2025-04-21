@@ -12,7 +12,7 @@ local Grid = prism.Object:extend("Grid")
 --- @param w integer The width of the grid.
 --- @param h integer The height of the grid.
 --- @param initialValue T The initial value to fill the grid with.
---- @return Grid<T> The initialized grid.
+--- @return Grid<T> -- The initialized grid.
 function Grid:__new(w, h, initialValue)
    self.w = w
    self.h = h
@@ -28,7 +28,7 @@ end
 --- @param w integer The width of the grid.
 --- @param h integer The height of the grid.
 --- @param data T[] The data to fill the grid with.
---- @return Grid<T> The initialized grid.
+--- @return Grid<T> -- The initialized grid.
 function Grid:fromData(w, h, data)
    assert(#data == w * h, "Data length does not match grid size.")
 
@@ -41,7 +41,7 @@ end
 --- Gets the index in the data array for the specified coordinates.
 --- @param x integer The x-coordinate.
 --- @param y integer The y-coordinate.
---- @return number? The index in the data array, or nil if out of bounds.
+--- @return number? -- The index in the data array, or nil if out of bounds.
 function Grid:getIndex(x, y)
    if x < 1 or x > self.w or y < 1 or y > self.h then return nil end
 
@@ -84,7 +84,7 @@ end
 
 --- Iterates over each cell in the grid, yielding x, y, and the value.
 --- @generic T
---- @return fun(): number, number, T An iterator returning x, y, and value for each cell.
+--- @return fun(): number, number, T -- An iterator returning x, y, and value for each cell.
 function Grid:each()
    local i = 0
    local w, h, data = self.w, self.h, self.data

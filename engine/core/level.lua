@@ -285,7 +285,7 @@ function Level:hasActor(actor) return self.actorStorage:hasActor(actor) end
 --- This method returns an iterator that will return all actors in the level
 --- that have the given components. If no components are given it iterate over
 --- all actors. A thin wrapper over the inner ActorStorage.
---- @param ... Component The components to filter by.
+--- @param ... any The components to filter by.
 --- @return function An iterator that returns the next actor that matches the given components.
 function Level:eachActor(...) return self.actorStorage:eachActor(...) end
 
@@ -299,13 +299,13 @@ function Level:getActorByType(prototype) return self.actorStorage:getActorByType
 --- the inner ActorStorage.
 --- @param x number The x component of the position to check.
 --- @param y number The y component of the position to check.
---- @return table A list of all actors at the given position.
+--- @return Actor[] -- A list of all actors at the given position.
 function Level:getActorsAt(x, y) return self.actorStorage:getActorsAt(x, y) end
 
 --- Returns an iterator that will return all actors at the given position.
 --- @param x number The x component of the position to check.
 --- @param y number The y component of the position to check.
---- @return function iter An iterator that returns the next actor at the given position.
+--- @return fun(): Actor iter An iterator that returns the next actor at the given position.
 function Level:eachActorAt(x, y) return self.actorStorage:eachActorAt(x, y) end
 
 function Level:computeFOV(origin, maxDepth, callback)
@@ -324,12 +324,13 @@ end
 --- Gets the cell at the given position.
 --- @param x number The x component of the position to get.
 --- @param y number The y component of the position to get.
---- @return Cell The cell at the given position.
+--- @return Cell -- The cell at the given position.
 function Level:getCell(x, y) return self.map:get(x, y) end
 
 --- Is there a cell at this x, y? Part of the interface with MapBuilder
 --- @param x integer The x component to check if in bounds.
----@param y integer
+--- @param y integer The x component to check if in bounds.
+--- @return boolean
 function Level:inBounds(x, y)
    return
       x > 0 and x <= self.map.w and
@@ -389,7 +390,7 @@ end
 --- Returns true if the cell at the given position is opaque, false otherwise.
 --- @param x number The x component of the position to check.
 --- @param y number The y component of the position to check.
---- @return boolean True if the cell is opaque, false otherwise.
+--- @return boolean -- True if the cell is opaque, false otherwise.
 function Level:getCellOpaque(x, y) return self.opacityCache:get(x, y) end
 
 --- Returns the opacity cache for the level. This generally shouldn't be used
@@ -456,8 +457,8 @@ end
 --- @param type "box"|"fov" The type of range to use.
 --- @param position Vector2 The position to check from.
 --- @param range number The range to check.
---- @return table? actors
---- @return table? fov A list of actors within the given range.
+--- @return SparseGrid? fov 
+--- @return Actor[]? actors A list of actors within the given range.
 function Level:getAOE(type, position, range)
    assert(position:is(prism.Vector2), "Position was not a Vector2!")
    local seenActors = {}
@@ -470,7 +471,7 @@ function Level:getAOE(type, position, range)
       end)
 
       for actorInAOE in self.actorStorage:eachActor() do
-         local x, y = actorInAOE.position.x, actorInAOE.position.y
+         local x, y = actorInAOE:getPosition():decompose()
          if fov:get(x, y) then table.insert(seenActors, actorInAOE) end
       end
 

@@ -2,6 +2,5 @@
 --- The Level will yield Decisions whenever it needs something to be decided by
 --- @class Message : Object
 --- @overload fun(): Message
---- @type Decision
 local Message = prism.Object:extend("Message")
 return Message

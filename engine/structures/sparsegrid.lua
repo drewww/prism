@@ -40,7 +40,7 @@ end
 --- Iterator function for the SparseGrid.
 --- Iterates over all entries in the sparse grid, returning the coordinates and value for each entry.
 --- @generic V
---- @return fun(x: integer, y: integer, V) iter An iterator function that returns the x-coordinate, y-coordinate, and value for each entry.
+--- @return fun(): integer, integer, V iter An iterator function that returns the x-coordinate, y-coordinate, and value for each entry.
 function SparseGrid:each()
    local nextIndex, nextValue = next(self.data)
    return function()

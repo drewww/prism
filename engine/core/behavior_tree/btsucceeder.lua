@@ -1,7 +1,6 @@
 --- A succeeder node in the behavior tree.
 --- @class BTSucceeder : BTNode
 --- @overload fun(node: BTNode): BTSucceeder
---- @type BTSucceeder
 local BTSucceeder = prism.BehaviorTree.Node:extend("BTSucceeder")
 
 --- Creates a new BTSucceeder.

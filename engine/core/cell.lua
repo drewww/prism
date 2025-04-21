@@ -43,8 +43,12 @@ function Cell:beforeAction(level, actor, action) end
 --- @param action Action The action that was taken.
 function Cell:afterAction(level, actor, action) end
 
-function Cell:getComponent(component)
-   if component == prism.components.Drawable then return self.drawable end
+--- Returns a component of the cell. Only supports DrawableComponent currently.
+--- @generic T
+--- @param prototype T
+--- @return T?
+function Cell:getComponent(prototype)
+   if prototype == prism.components.Drawable then return self.drawable end
 end
 
 return Cell

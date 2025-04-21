@@ -17,14 +17,14 @@ end
 --- Gets the values stored at the specified coordinates.
 --- @param x integer The x-coordinate.
 --- @param y integer The y-coordinate.
---- @return table elements A set[actor]=bool of values stored at the specified coordinates, or an empty table if none.
+--- @return table<any, boolean?> elements A set[actor]=bool of values stored at the specified coordinates, or an empty table if none.
 function SparseMap:get(x, y)
    return self.map[prism.Vector2._hash(x, y)] or dummy
 end
 
 --- Gets the values stored at the specified hash.
 --- @param hash number The hash value of the coordinates.
---- @return table A table of values stored at the specified hash, or an empty table if none.
+--- @return table<any, boolean?> elements A table of values stored at the specified hash, or an empty table if none.
 function SparseMap:getByHash(hash)
    return self.map[hash] or dummy
 end
@@ -41,7 +41,7 @@ function SparseMap:each()
 end
 
 --- Returns the total number of entries in the sparse map.
---- @return number The total number of entries.
+--- @return number -- The total number of entries.
 function SparseMap:count()
    return self.__count
 end
@@ -49,7 +49,7 @@ end
 --- Returns the number of values stored at the specified coordinates.
 --- @param x integer The x-coordinate.
 --- @param y integer The y-coordinate.
---- @return number The number of values stored at the specified coordinates.
+--- @return number -- The number of values stored at the specified coordinates.
 function SparseMap:countCell(x, y)
    local count = 0
 
@@ -64,7 +64,7 @@ end
 --- @param x integer The x-coordinate.
 --- @param y integer The y-coordinate.
 --- @param value any The value to check.
---- @return boolean True if the value is stored at the specified coordinates, false otherwise.
+--- @return boolean -- True if the value is stored at the specified coordinates, false otherwise.
 function SparseMap:has(x, y, value)
    local xyhash = prism.Vector2._hash(x, y)
    if not self.map[xyhash] then return false end
@@ -72,7 +72,7 @@ function SparseMap:has(x, y, value)
 end
 
 --- Checks where the specified value exists within the map.
---- @param value  any
+--- @param value any
 --- @return boolean containsValue
 function SparseMap:contains(value)
    return self.list[value]
@@ -95,7 +95,7 @@ end
 --- @param x integer The x-coordinate.
 --- @param y integer The y-coordinate.
 --- @param val any The value to remove.
---- @return boolean True if the value was successfully removed, false otherwise.
+--- @return boolean -- True if the value was successfully removed, false otherwise.
 function SparseMap:remove(x, y, val)
    local xyhash = prism.Vector2._hash(x, y)
    if not self.map[xyhash] then return false end

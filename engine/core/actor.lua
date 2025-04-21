@@ -90,7 +90,7 @@ function Actor:__removeComponent(component)
 end
 
 --- Returns a bool indicating whether the actor has a component of the given type.
---- @param prototype Component The prototype of the component to check for.
+--- @param prototype any The prototype of the component to check for.
 --- @return boolean hasComponent
 function Actor:hasComponent(prototype)
    assert(prototype:is(prism.Component), "Expected argument type to be inherited from Component!")
@@ -110,6 +110,7 @@ function Actor:getComponent(prototype) return self.componentCache[prototype] end
 --- @param prototype T The type of the component to return.
 --- @return T
 function Actor:expectComponent(prototype)
+   ---@diagnostic disable-next-line
    return self.componentCache[prototype] or error("Expected component " .. prototype.className .. "!")
 end
 --
@@ -117,7 +118,7 @@ end
 --
 
 --- Get a list of actions that the actor can perform.
---- @return Action[] totalActions Returns a table of all actions.
+--- @return Action[] totalActions A table of all actions.
 function Actor:getActions()
    local totalActions = {}
 
@@ -141,16 +142,15 @@ function Actor:getPosition() return self.position:copy() end
 --- Get the range from this actor to another actor.
 --- @param type DistanceType
 --- @param actor Actor The other actor to get the range to.
---- @return number Returns the calculated range.
+--- @return number -- The calculated range.
 function Actor:getRange(type, actor)
    return self.position:getRange(type, actor.position)
 end
 
 --- Get the range from this actor to a given vector.
--- @function Actor:getRangeVec
--- @tparam string type The type of range calculation to use.
--- @tparam Vector2 vector The vector to get the range to.
--- @treturn number Returns the calculated range.
+--- @param type string The type of range calculation to use.
+--- @param vector Vector2 The vector to get the range to.
+--- @return number -- The calculated range.
 function Actor:getRangeVec(type, vector) return self.position:getRange(type, vector) end
 
 return Actor
