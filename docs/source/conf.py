@@ -14,7 +14,10 @@ author = 'Matthew Blanchard, LJNIC'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    "sphinx_lua_ls"
+    'sphinx_lua_ls',
+    'sphinx_copybutton',
+    'sphinxcontrib.video',
+    'atsphinx.goto_top'
 ]
 
 lua_ls_project_root = '../../'
@@ -32,3 +35,10 @@ html_static_path = ['_static']
 html_css_files = [
     'terminal.css'
 ]
+
+html_theme_options = {
+    'github_user': 'prismrl',
+    'github_repo': 'prism'
+}
+
+pygments_style = 'pastie'
