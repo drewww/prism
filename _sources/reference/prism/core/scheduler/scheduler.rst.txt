@@ -1,9 +1,7 @@
-Scheduler
-=========
-
+.. title:: Scheduler
 .. lua:autoobject:: Scheduler
    :members:
-   :special-members:
+   :special-members: __new
    :undoc-members:
    :inherited-members: __new
 

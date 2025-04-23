@@ -4,16 +4,23 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
+<template id="tmpl_gotoTop"><div id="gotoTop">
+  <button>Back to top</button>
+</div></template>
     <title>Actor &#8212; Prism  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=266695fe" />
     <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=27fed22d" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/lua.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/terminal.css?v=323cbb1e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/lua.css?v=492dc087" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/terminal.css?v=0579dbd4" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/goto-top/style.css?v=c152bd81" />
     <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/goto-top/main.js?v=69fc67a6"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="ActorStorage" href="actorstorage.html" />
@@ -35,9 +42,7 @@
 
           <div class="body" role="main">
             
-  <section id="actor">
-<h1>Actor<a class="headerlink" href="#actor" title="Link to this heading">¶</a></h1>
-<dl class="lua class">
+  <dl class="lua class">
 <dt class="sig sig-object lua" id="lua-Actor">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Actor</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><a class="headerlink" href="#lua-Actor" title="Link to this definition">¶</a></dt>
 <dd><p>An ‘Actor’ represents entities in the game, including the player, enemies, and items.
@@ -82,18 +87,6 @@ Initializes and copies the actor’s fields from its prototype.</p>
 <span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a><span class="p"><span class="pre">[]</span></span></span></span><a class="headerlink" href="#lua-Actor.initialize" title="Link to this definition">¶</a></dt>
 <dd><p>Creates the components for the actor. Override this.</p>
 <dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Actor.__removeComponent">
-<span class="sig-name descname"><span class="pre">__removeComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">component</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">unknown</span></code></span></span><a class="headerlink" href="#lua-Actor.__removeComponent" title="Link to this definition">¶</a></dt>
-<dd><p>Removes a component from the actor. This function will throw an error if the
-component is not present on the actor.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>component</strong> (<a class="reference internal" href="component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a>) – The component to remove from the actor.</p>
-</dd>
 </dl>
 </dd></dl>
 
@@ -180,7 +173,6 @@ component is not present on the actor.</p>
 
 </dd></dl>
 
-</section>
 
 
           </div>
@@ -193,6 +185,13 @@ component is not present on the actor.</p>
 
 
 
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=prismrl&repo=prism&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
 
 
 
@@ -210,76 +209,77 @@ component is not present on the actor.</p>
 <script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../architecture-primer.html">Prism’s Architecture: A Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../how-tos/collision.html">Collision</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../making-a-roguelike/part1.html">Getting Started with LÖVE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../making-a-roguelike/part1.html">Getting started</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Prism</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="action.html">Action</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Actor</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Actor"><code class="docutils literal notranslate"><span class="pre">Actor</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#lua-Actor.name"><code class="docutils literal notranslate"><span class="pre">name</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lua-Actor.char"><code class="docutils literal notranslate"><span class="pre">char</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lua-Actor.components"><code class="docutils literal notranslate"><span class="pre">components</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lua-Actor.componentCache"><code class="docutils literal notranslate"><span class="pre">componentCache</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lua-Actor.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lua-Actor.initialize"><code class="docutils literal notranslate"><span class="pre">initialize()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lua-Actor.__removeComponent"><code class="docutils literal notranslate"><span class="pre">__removeComponent()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lua-Actor.hasComponent"><code class="docutils literal notranslate"><span class="pre">hasComponent()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lua-Actor.getComponent"><code class="docutils literal notranslate"><span class="pre">getComponent()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lua-Actor.expectComponent"><code class="docutils literal notranslate"><span class="pre">expectComponent()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lua-Actor.getActions"><code class="docutils literal notranslate"><span class="pre">getActions()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lua-Actor.getPosition"><code class="docutils literal notranslate"><span class="pre">getPosition()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lua-Actor.getRange"><code class="docutils literal notranslate"><span class="pre">getRange()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lua-Actor.getRangeVec"><code class="docutils literal notranslate"><span class="pre">getRangeVec()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="action.html"><code class="docutils literal notranslate"><span class="pre">Action</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Actor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Actor.name"><code class="docutils literal notranslate"><span class="pre">name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Actor.char"><code class="docutils literal notranslate"><span class="pre">char</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Actor.components"><code class="docutils literal notranslate"><span class="pre">components</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Actor.componentCache"><code class="docutils literal notranslate"><span class="pre">componentCache</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Actor.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Actor.initialize"><code class="docutils literal notranslate"><span class="pre">initialize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Actor.hasComponent"><code class="docutils literal notranslate"><span class="pre">hasComponent()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Actor.getComponent"><code class="docutils literal notranslate"><span class="pre">getComponent()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Actor.expectComponent"><code class="docutils literal notranslate"><span class="pre">expectComponent()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Actor.getActions"><code class="docutils literal notranslate"><span class="pre">getActions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Actor.getPosition"><code class="docutils literal notranslate"><span class="pre">getPosition()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Actor.getRange"><code class="docutils literal notranslate"><span class="pre">getRange()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Actor.getRangeVec"><code class="docutils literal notranslate"><span class="pre">getRangeVec()</span></code></a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="actorstorage.html">ActorStorage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="behavior.html">IBehavior</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cell.html">Cell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="component.html">Component</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decision.html">Decision</a></li>
-<li class="toctree-l2"><a class="reference internal" href="level.html">Level</a></li>
-<li class="toctree-l2"><a class="reference internal" href="map.html">Map</a></li>
-<li class="toctree-l2"><a class="reference internal" href="map_builder.html">MapBuilder</a></li>
-<li class="toctree-l2"><a class="reference internal" href="message.html">Message</a></li>
-<li class="toctree-l2"><a class="reference internal" href="object.html">Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rng.html">RNG</a></li>
-<li class="toctree-l2"><a class="reference internal" href="system.html">System</a></li>
-<li class="toctree-l2"><a class="reference internal" href="system_manager.html">SystemManager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="target.html">Target</a></li>
-<li class="toctree-l2"><a class="reference internal" href="components/collider.html">ColliderComponent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="components/collider.html#collideroptions">ColliderOptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="components/controller.html">ControllerComponent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="components/opaque.html">OpaqueComponent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="components/player_controller.html">PlayerControllerComponent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="components/senses.html">SensesComponent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="systems/senses.html">SensesSystem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="messages/actionmessage.html">ActionMessage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="messages/debugmessage.html">DebugMessage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decisions/actiondecision.html">ActionDecision</a></li>
-<li class="toctree-l2"><a class="reference internal" href="behavior_tree/btconditional.html">BTConditional</a></li>
-<li class="toctree-l2"><a class="reference internal" href="behavior_tree/btnode.html">BTNode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="behavior_tree/btroot.html">BTRoot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="behavior_tree/btselector.html">BTSelector</a></li>
-<li class="toctree-l2"><a class="reference internal" href="behavior_tree/btsequence.html">BTSequence</a></li>
-<li class="toctree-l2"><a class="reference internal" href="behavior_tree/btsucceeder.html">BTSucceeder</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../structures/bitmaskbuffer.html">BitmaskBuffer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../structures/booleanbuffer.html">BooleanBuffer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../structures/grid.html">Grid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../structures/priority_queue.html">PriorityQueue</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../structures/queue.html">Queue</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../structures/sparsearray.html">SparseArray</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../structures/sparsegrid.html">SparseGrid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../structures/sparsemap.html">SparseMap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../math/bounding_box.html">BoundingBox</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../math/color.html">Color4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../math/vector.html">Vector2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="actorstorage.html"><code class="docutils literal notranslate"><span class="pre">ActorStorage</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="behavior.html"><code class="docutils literal notranslate"><span class="pre">IBehavior</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="cell.html"><code class="docutils literal notranslate"><span class="pre">Cell</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="component.html"><code class="docutils literal notranslate"><span class="pre">Component</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="decision.html"><code class="docutils literal notranslate"><span class="pre">Decision</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="level.html"><code class="docutils literal notranslate"><span class="pre">Level</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="map.html"><code class="docutils literal notranslate"><span class="pre">Map</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="map_builder.html"><code class="docutils literal notranslate"><span class="pre">MapBuilder</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="message.html"><code class="docutils literal notranslate"><span class="pre">Message</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="object.html"><code class="docutils literal notranslate"><span class="pre">Object</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="rng.html"><code class="docutils literal notranslate"><span class="pre">RNG</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html"><code class="docutils literal notranslate"><span class="pre">System</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_manager.html"><code class="docutils literal notranslate"><span class="pre">SystemManager</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="target.html"><code class="docutils literal notranslate"><span class="pre">Target</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/collider.html"><code class="docutils literal notranslate"><span class="pre">ColliderComponent</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/collider.html#lua-ColliderOptions"><code class="docutils literal notranslate"><span class="pre">ColliderOptions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/controller.html"><code class="docutils literal notranslate"><span class="pre">ControllerComponent</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/opaque.html"><code class="docutils literal notranslate"><span class="pre">OpaqueComponent</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/player_controller.html"><code class="docutils literal notranslate"><span class="pre">PlayerControllerComponent</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/senses.html"><code class="docutils literal notranslate"><span class="pre">SensesComponent</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems/senses.html"><code class="docutils literal notranslate"><span class="pre">SensesSystem</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="messages/actionmessage.html"><code class="docutils literal notranslate"><span class="pre">ActionMessage</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="messages/debugmessage.html"><code class="docutils literal notranslate"><span class="pre">DebugMessage</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="decisions/actiondecision.html"><code class="docutils literal notranslate"><span class="pre">ActionDecision</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="behavior_tree/btconditional.html"><code class="docutils literal notranslate"><span class="pre">BTConditional</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="behavior_tree/btnode.html"><code class="docutils literal notranslate"><span class="pre">BTNode</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="behavior_tree/btroot.html"><code class="docutils literal notranslate"><span class="pre">BTRoot</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="behavior_tree/btselector.html"><code class="docutils literal notranslate"><span class="pre">BTSelector</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="behavior_tree/btsequence.html"><code class="docutils literal notranslate"><span class="pre">BTSequence</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="behavior_tree/btsucceeder.html"><code class="docutils literal notranslate"><span class="pre">BTSucceeder</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/bitmaskbuffer.html"><code class="docutils literal notranslate"><span class="pre">BitmaskBuffer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/booleanbuffer.html"><code class="docutils literal notranslate"><span class="pre">BooleanBuffer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/grid.html"><code class="docutils literal notranslate"><span class="pre">Grid</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/priority_queue.html"><code class="docutils literal notranslate"><span class="pre">PriorityQueue</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/queue.html"><code class="docutils literal notranslate"><span class="pre">Queue</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/sparsearray.html"><code class="docutils literal notranslate"><span class="pre">SparseArray</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/sparsegrid.html"><code class="docutils literal notranslate"><span class="pre">SparseGrid</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/sparsemap.html"><code class="docutils literal notranslate"><span class="pre">SparseMap</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../math/bounding_box.html"><code class="docutils literal notranslate"><span class="pre">BoundingBox</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../math/color.html"><code class="docutils literal notranslate"><span class="pre">Color4</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../math/vector.html"><code class="docutils literal notranslate"><span class="pre">Vector2</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../spectrum/index.html">Spectrum</a></li>

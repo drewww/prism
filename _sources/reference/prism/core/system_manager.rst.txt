@@ -1,9 +1,7 @@
-SystemManager
-=============
-
+.. title:: SystemManager
 .. lua:autoobject:: SystemManager
    :members:
-   :special-members:
+   :special-members: __new
    :undoc-members:
    :inherited-members: __new
 

@@ -1,9 +1,7 @@
-Vector2
-=======
-
+.. title:: Vector2
 .. lua:autoobject:: Vector2
    :members:
-   :special-members:
+   :special-members: __new
    :undoc-members:
    :inherited-members: __new
 

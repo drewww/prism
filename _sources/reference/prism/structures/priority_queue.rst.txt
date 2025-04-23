@@ -1,9 +1,7 @@
-PriorityQueue
-=============
-
+.. title:: PriorityQueue
 .. lua:autoobject:: PriorityQueue
    :members:
-   :special-members:
+   :special-members: __new
    :undoc-members:
    :inherited-members: __new
 

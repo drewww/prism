@@ -1,9 +1,7 @@
-OpaqueComponent
-===============
-
+.. title:: OpaqueComponent
 .. lua:autoobject:: OpaqueComponent
    :members:
-   :special-members:
+   :special-members: __new
    :undoc-members:
    :inherited-members: __new
 

@@ -10,19 +10,26 @@ A comprehensive traditional roguelike engine for `LÖVE <https://love2d.org/>`_.
 "Traditional" roguelike?
 ------------------------
 
-Prism is geared towards classic roguelike games like NetHack or Brogue. These
-are turn-based games set in randomly generated grid levels.
+Prism is geared towards classic roguelike games like `NetHack <https://www.nethack.org/>`_ or 
+`Brogue <https://sites.google.com/site/broguegame/>`_, turn-based games set in randomly generated grid levels. 
+Other turn-based tactics games might also be a good fit.
 
-Getting started
----------------
+Community
+---------
 
-Download (zipped release here) and unzip it. Drag the folder containing main.lua over the love executable, or run
-it using "love ." in the terminal.
+Our discord can be found `here <https://discord.gg/9YpsH4hYVF>`_.
 
 .. toctree::
    :hidden:
 
    architecture-primer
+   quickstart
+
+.. toctree::
+   :caption: How-tos
+   :hidden:
+
+   how-tos/collision
 
 .. toctree::
    :caption: Making a roguelike

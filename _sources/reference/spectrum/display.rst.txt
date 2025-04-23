@@ -1,18 +1,14 @@
-Display
-=======
-
+.. title:: Display
 .. lua:autoobject:: Display
    :members:
-   :special-members:
+   :special-members: __new
    :undoc-members:
    :inherited-members: __new
 
-SpectrumAttachable
-==================
-
+.. title:: SpectrumAttachable
 .. lua:autoobject:: SpectrumAttachable
    :members:
-   :special-members:
+   :special-members: __new
    :undoc-members:
    :inherited-members: __new
 

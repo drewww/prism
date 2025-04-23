@@ -1,9 +1,7 @@
-Row
-===
-
+.. title:: Row
 .. lua:autoobject:: Row
    :members:
-   :special-members:
+   :special-members: __new
    :undoc-members:
    :inherited-members: __new
 

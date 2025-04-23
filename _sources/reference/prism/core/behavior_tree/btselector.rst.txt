@@ -1,9 +1,7 @@
-BTSelector
-==========
-
+.. title:: BTSelector
 .. lua:autoobject:: BTSelector
    :members:
-   :special-members:
+   :special-members: __new
    :undoc-members:
    :inherited-members: __new
 

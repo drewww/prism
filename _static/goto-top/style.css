@@ -1,0 +1,9 @@
+#gotoTop {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 1000;
+  button {
+    border: solid black 1px;
+  }
+}

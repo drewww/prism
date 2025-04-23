@@ -1,9 +1,7 @@
-System
-======
-
+.. title:: System
 .. lua:autoobject:: System
    :members:
-   :special-members:
+   :special-members: __new
    :undoc-members:
    :inherited-members: __new
 

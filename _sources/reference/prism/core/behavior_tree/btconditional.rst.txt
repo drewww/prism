@@ -1,9 +1,7 @@
-BTConditional
-=============
-
+.. title:: BTConditional
 .. lua:autoobject:: BTConditional
    :members:
-   :special-members:
+   :special-members: __new
    :undoc-members:
    :inherited-members: __new
 

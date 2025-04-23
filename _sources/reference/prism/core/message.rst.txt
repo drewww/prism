@@ -1,9 +1,7 @@
-Message
-=======
-
+.. title:: Message
 .. lua:autoobject:: Message
    :members:
-   :special-members:
+   :special-members: __new
    :undoc-members:
    :inherited-members: __new
 

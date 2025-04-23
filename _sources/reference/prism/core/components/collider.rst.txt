@@ -1,18 +1,14 @@
-ColliderComponent
-=================
-
+.. title:: ColliderComponent
 .. lua:autoobject:: ColliderComponent
    :members:
-   :special-members:
+   :special-members: __new
    :undoc-members:
    :inherited-members: __new
 
-ColliderOptions
-===============
-
+.. title:: ColliderOptions
 .. lua:autoobject:: ColliderOptions
    :members:
-   :special-members:
+   :special-members: __new
    :undoc-members:
    :inherited-members: __new
 

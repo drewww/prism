@@ -1,9 +1,7 @@
-Fraction
-========
-
+.. title:: Fraction
 .. lua:autoobject:: Fraction
    :members:
-   :special-members:
+   :special-members: __new
    :undoc-members:
    :inherited-members: __new
 

@@ -1,9 +1,7 @@
-DrawableComponent
-=================
-
+.. title:: DrawableComponent
 .. lua:autoobject:: DrawableComponent
    :members:
-   :special-members:
+   :special-members: __new
    :undoc-members:
    :inherited-members: __new
 

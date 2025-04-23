@@ -1,9 +1,7 @@
-Cell
-====
-
+.. title:: Cell
 .. lua:autoobject:: Cell
    :members:
-   :special-members:
+   :special-members: __new
    :undoc-members:
    :inherited-members: __new
 

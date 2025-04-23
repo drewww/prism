@@ -4,16 +4,23 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
+<template id="tmpl_gotoTop"><div id="gotoTop">
+  <button>Back to top</button>
+</div></template>
     <title>Prism &#8212; Prism  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=266695fe" />
     <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
-    <link rel="stylesheet" type="text/css" href="_static/lua.css" />
-    <link rel="stylesheet" type="text/css" href="_static/terminal.css?v=323cbb1e" />
+    <link rel="stylesheet" type="text/css" href="_static/lua.css?v=492dc087" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/terminal.css?v=0579dbd4" />
+    <link rel="stylesheet" type="text/css" href="_static/goto-top/style.css?v=c152bd81" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/goto-top/main.js?v=69fc67a6"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Prism’s Architecture: A Primer" href="architecture-primer.html" />
@@ -39,13 +46,15 @@
 <p>A comprehensive traditional roguelike engine for <a class="reference external" href="https://love2d.org/">LÖVE</a>.</p>
 <section id="traditional-roguelike">
 <h2>“Traditional” roguelike?<a class="headerlink" href="#traditional-roguelike" title="Link to this heading">¶</a></h2>
-<p>Prism is geared towards classic roguelike games like NetHack or Brogue. These
-are turn-based games set in randomly generated grid levels.</p>
+<p>Prism is geared towards classic roguelike games like <a class="reference external" href="https://www.nethack.org/">NetHack</a> or
+<a class="reference external" href="https://sites.google.com/site/broguegame/">Brogue</a>, turn-based games set in randomly generated grid levels.
+Other turn-based tactics games might also be a good fit.</p>
 </section>
-<section id="getting-started">
-<h2>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading">¶</a></h2>
-<p>Download (zipped release here) and unzip it. Drag the folder containing main.lua over the love executable, or run
-it using “love .” in the terminal.</p>
+<section id="community">
+<h2>Community<a class="headerlink" href="#community" title="Link to this heading">¶</a></h2>
+<p>Our discord can be found <a class="reference external" href="https://discord.gg/9YpsH4hYVF">here</a>.</p>
+<div class="toctree-wrapper compound">
+</div>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
@@ -69,6 +78,13 @@ it using “love .” in the terminal.</p>
 
 
 
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=prismrl&repo=prism&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
 
 
 
@@ -83,10 +99,15 @@ it using “love .” in the terminal.</p>
 <script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="architecture-primer.html">Prism’s Architecture: A Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="how-tos/collision.html">Collision</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="making-a-roguelike/part1.html">Getting Started with LÖVE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="making-a-roguelike/part1.html">Getting started</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>

@@ -1,9 +1,7 @@
-Keybinding
-==========
-
+.. title:: Keybinding
 .. lua:autoobject:: Keybinding
    :members:
-   :special-members:
+   :special-members: __new
    :undoc-members:
    :inherited-members: __new
 

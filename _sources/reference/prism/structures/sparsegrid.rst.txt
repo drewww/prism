@@ -1,9 +1,7 @@
-SparseGrid
-==========
-
+.. title:: SparseGrid
 .. lua:autoobject:: SparseGrid
    :members:
-   :special-members:
+   :special-members: __new
    :undoc-members:
    :inherited-members: __new
 

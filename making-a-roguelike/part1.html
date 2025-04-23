@@ -4,20 +4,27 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>Getting Started with LÖVE &#8212; Prism  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+<template id="tmpl_gotoTop"><div id="gotoTop">
+  <button>Back to top</button>
+</div></template>
+    <title>Getting started &#8212; Prism  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=266695fe" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
-    <link rel="stylesheet" type="text/css" href="../_static/lua.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/terminal.css?v=323cbb1e" />
+    <link rel="stylesheet" type="text/css" href="../_static/lua.css?v=492dc087" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/terminal.css?v=0579dbd4" />
+    <link rel="stylesheet" type="text/css" href="../_static/goto-top/style.css?v=c152bd81" />
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/goto-top/main.js?v=69fc67a6"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Prism" href="../reference/prism/index.html" />
-    <link rel="prev" title="Prism’s Architecture: A Primer" href="../architecture-primer.html" />
+    <link rel="prev" title="Collision" href="../how-tos/collision.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -35,298 +42,229 @@
 
           <div class="body" role="main">
             
-  <section id="getting-started-with-love">
-<h1>Getting Started with LÖVE<a class="headerlink" href="#getting-started-with-love" title="Link to this heading">¶</a></h1>
-<section id="installation">
+  <section id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading">¶</a></h1>
+<p>In this tutorial, we’ll start with a project template and create an enemy that follows
+the player. We will also be able to kick them.</p>
+<div  class="sphinx-contrib-video-container align-left"><video controls="True" preload="auto"><source src="../_images/output.mp4" type="video/mp4"></video></div><section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
 <p>To begin, download and install LÖVE from <a class="reference external" href="https://love2d.org/">https://love2d.org/</a>. If you are
 using Linux, LÖVE is often available through your distribution’s package
 manager.</p>
-</section>
-<section id="running-the-template">
-<h2>Running the Template<a class="headerlink" href="#running-the-template" title="Link to this heading">¶</a></h2>
-<ol class="arabic">
-<li><p>Download the provided zipped release template and extract its
-contents.</p></li>
-<li><p>Run the project by:</p>
-<ul>
-<li><p>Dragging the folder containing <code class="docutils literal notranslate"><span class="pre">main.lua</span></code> onto the LÖVE
-executable.</p></li>
-<li><p>Navigating to the project folder in a terminal and executing:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>love<span class="w"> </span>.
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Prism makes heavy use of Lua type annotations to improve autocomplete, so we recommend
+installing the <a class="reference external" href="https://luals.github.io/">Lua language server</a> for your editor.</p>
+</div>
+<p>Next, clone the template project:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>--recursive<span class="w"> </span>https://github.com/PrismRL/prism-template.git
 </pre></div>
 </div>
-</li>
-</ul>
-</li>
-</ol>
+<p>You can start the game by running <code class="docutils literal notranslate"><span class="pre">love</span> <span class="pre">.</span></code> in the terminal from the root directory,
+or dragging the root folder onto the LÖVE executable.</p>
 <p>Upon launching, you should see an <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> symbol on the screen. You can
-move this character using the following default keys: - <code class="docutils literal notranslate"><span class="pre">WASD</span></code> for
-movement - <code class="docutils literal notranslate"><span class="pre">QEZC</span></code> for diagonal movement</p>
-<p>These key bindings can be modified in <code class="docutils literal notranslate"><span class="pre">keymapschema.lua</span></code>, included in
-the template.</p>
+move this character using the following default keys:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">WASD</span></code> for movement</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">QEZC</span></code> for diagonal movement</p></li>
+</ul>
 </section>
 <hr class="docutils" />
 <section id="creating-an-enemy">
-<h2>Creating an Enemy<a class="headerlink" href="#creating-an-enemy" title="Link to this heading">¶</a></h2>
+<h2>Creating an enemy<a class="headerlink" href="#creating-an-enemy" title="Link to this heading">¶</a></h2>
 <p>To make the game more engaging, let’s introduce an enemy: the
 <strong>Kobold</strong>.</p>
-<section id="adding-the-kobold-actor">
-<h3>Adding the Kobold Actor<a class="headerlink" href="#adding-the-kobold-actor" title="Link to this heading">¶</a></h3>
-<ol class="arabic">
+<ol class="arabic simple">
 <li><p>Navigate to the <code class="docutils literal notranslate"><span class="pre">/modules/MyGame/actors/</span></code> directory.</p></li>
 <li><p>Create a new file named <code class="docutils literal notranslate"><span class="pre">kobold.lua</span></code>.</p></li>
-<li><p>Add the following code to define the Kobold actor:</p>
+<li><p>Add the following code to define the Kobold actor:</p></li>
+</ol>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class Kobold : Actor</span>
 <span class="kd">local</span> <span class="n">Kobold</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;Kobold&quot;</span><span class="p">)</span>
 <span class="n">Kobold</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Kobold&quot;</span>
 
 <span class="kr">function</span> <span class="nc">Kobold</span><span class="p">:</span><span class="nf">initialize</span><span class="p">()</span>
-    <span class="n">love</span><span class="p">.</span><span class="n">graphics</span><span class="p">.</span><span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
-  <span class="kr">return</span> <span class="p">{</span>
-    <span class="c1">-- Defines the drawable appearance of the Kobold.</span>
-    <span class="c1">-- Each index corresponds to a character byte + 1 in the spritesheet.</span>
-    <span class="c1">-- The second argument specifies the Kobold&#39;s color (red).</span>
-    <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Drawable</span><span class="p">(</span><span class="nb">string.byte</span><span class="p">(</span><span class="s2">&quot;k&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">Color4</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
-
-    <span class="c1">-- Collider component ensures the Kobold occupies space on the map.</span>
-    <span class="c1">-- Custom movement types can be specified for pathing exceptions.</span>
-    <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Collider</span><span class="p">(),</span>
-
-    <span class="c1">-- Senses component acts as a hub for implementing perception mechanics,</span>
-    <span class="c1">-- such as Sight, Tremorsense, or Sound awareness.</span>
-    <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Senses</span><span class="p">(),</span>
-
-    <span class="c1">-- Sight component provides the Kobold with a field of vision.</span>
-    <span class="c1">-- Defined in `modules/Sight` and included in the template.</span>
-    <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Sight</span><span class="p">{</span> <span class="n">range</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span> <span class="n">fov</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">},</span>
-
-    <span class="c1">-- Move component enables movement actions, restricted to specified movement types.</span>
-    <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Mover</span><span class="p">{</span> <span class="s2">&quot;walk&quot;</span> <span class="p">}</span>
-  <span class="p">}</span>
+   <span class="kr">return</span> <span class="p">{</span>
+      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Drawable</span><span class="p">(</span><span class="nb">string.byte</span><span class="p">(</span><span class="s2">&quot;k&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">Color4</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+   <span class="p">}</span>
 <span class="kr">end</span>
 
 <span class="kr">return</span> <span class="n">Kobold</span>
 </pre></div>
 </div>
-</li>
-</ol>
-<p>With this, the Kobold is now a simple enemy with: - A visual
-representation. - A collider preventing overlap with other solid
-objects. - A perception system to detect other actors. - A line-of-sight
-system. - A movement component allowing it to navigate the world.</p>
-<p>Let’s run the game again, and press “~”. This open Geometer, the editor.
+<p>Let’s run the game again, and press <code class="docutils literal notranslate"><span class="pre">~</span></code>. This opens Geometer, the editor.
 Click on the k on the right hand side and use the pen tool to draw a
 kobold in. Press the green button to resume the game.</p>
+<p>You might notice that you can walk right through the kobold. We fix that by giving it a
+<a class="reference internal" href="../reference/prism/core/components/collider.html#lua-ColliderComponent" title="ColliderComponent"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ColliderComponent</span></code></a>:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">ColliderComponent</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>If we restart the game and spawn in another kobold, we shouldn’t be able to walk
+through kobolds anymore. We’re also going to give the kobold a few more core components: a
+<a class="reference internal" href="../reference/prism/core/components/senses.html#lua-SensesComponent" title="SensesComponent"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">SensesComponent</span></code></a>, <code class="docutils literal notranslate"><span class="pre">SightComponent</span></code>, and <code class="docutils literal notranslate"><span class="pre">MoverComponent</span></code>, so it can see and move:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Senses</span><span class="p">(),</span>
+<span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Sight</span><span class="p">{</span> <span class="n">range</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span> <span class="n">fov</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">},</span>
+<span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Mover</span><span class="p">{</span> <span class="s2">&quot;walk&quot;</span> <span class="p">}</span>
+</pre></div>
+</div>
 </section>
 <section id="the-kobold-controller">
-<h3>The Kobold Controller<a class="headerlink" href="#the-kobold-controller" title="Link to this heading">¶</a></h3>
+<h2>The kobold controller<a class="headerlink" href="#the-kobold-controller" title="Link to this heading">¶</a></h2>
 <p>Now that the kobold exists in the world, you might notice something—it’s
-not moving! To give it behavior, we need to implement a <strong>Controller</strong>
-component.</p>
+not moving! To give it behavior, we need to implement a <a class="reference internal" href="../reference/prism/core/components/controller.html#lua-ControllerComponent" title="ControllerComponent"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ControllerComponent</span></code></a>.</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">Controller</span></code> (or one of its derivatives) defines an <code class="docutils literal notranslate"><span class="pre">act</span></code>
-function, which takes the <strong>level</strong> and the <strong>actor</strong> as arguments and
-returns a valid action. Importantly, the <code class="docutils literal notranslate"><span class="pre">act</span></code> function <strong>should not
-modify the level directly</strong>—it should only use it to validate actions.</p>
+function, which takes the <a class="reference internal" href="../reference/prism/core/level.html#lua-Level" title="Level"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Level</span></code></a> and the <a class="reference internal" href="../reference/prism/core/actor.html#lua-Actor" title="Actor"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Actor</span></code></a> as arguments and
+returns a valid action.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">act</span></code> function <strong>should not modify the level directly</strong>–it should only use it to validate actions.</p>
+</div>
 <ol class="arabic simple">
 <li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">modules/MyGame/components/</span></code>.</p></li>
 <li><p>Create a new file named <code class="docutils literal notranslate"><span class="pre">koboldcontroller.lua</span></code>.</p></li>
 <li><p>Add the following code:</p></li>
 </ol>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class KoboldController : Controller</span>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class KoboldControllerComponent : ControllerComponent</span>
 <span class="c1">--- @field blackboard table|nil</span>
-<span class="c1">--- @overload fun(): KoboldController</span>
-<span class="c1">--- @type KoboldController</span>
-<span class="kd">local</span> <span class="n">KoboldController</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Controller</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;KoboldController&quot;</span><span class="p">)</span>
+<span class="c1">--- @overload fun(): KoboldControllerComponent</span>
+<span class="kd">local</span> <span class="n">KoboldController</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Controller</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;KoboldControllerComponent&quot;</span><span class="p">)</span>
 <span class="n">KoboldController</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;KoboldController&quot;</span>
 
 <span class="c1">---@return Action</span>
 <span class="kr">function</span> <span class="nc">KoboldController</span><span class="p">:</span><span class="nf">act</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">actor</span><span class="p">)</span>
-    <span class="c1">-- Retrieve the senses component to detect nearby actors.</span>
-    <span class="kd">local</span> <span class="n">senses</span> <span class="o">=</span> <span class="n">self</span><span class="p">:</span><span class="n">getComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Senses</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">destination</span> <span class="o">=</span> <span class="n">actor</span><span class="p">:</span><span class="n">getPosition</span><span class="p">()</span> <span class="o">+</span> <span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">.</span><span class="n">RIGHT</span>
+   <span class="kd">local</span> <span class="n">move</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Move</span><span class="p">(</span><span class="n">actor</span><span class="p">,</span> <span class="p">{</span> <span class="n">destination</span> <span class="p">})</span>
+   <span class="kr">if</span> <span class="n">move</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span> <span class="kr">then</span>
+      <span class="kr">return</span> <span class="n">move</span>
+   <span class="kr">end</span>
 
-    <span class="c1">-- Identify the closest sensed actor that has a Controller.</span>
-    <span class="kd">local</span> <span class="n">closest</span>
-    <span class="kd">local</span> <span class="n">closestDistance</span>
-    <span class="kr">for</span> <span class="n">sensedActor</span> <span class="kr">in</span> <span class="n">senses</span><span class="p">.</span><span class="n">actors</span><span class="p">:</span><span class="n">eachActor</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Controller</span><span class="p">)</span> <span class="kr">do</span>
-        <span class="kd">local</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">sensedActor</span><span class="p">:</span><span class="n">getRange</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
-        <span class="kr">if</span> <span class="n">dist</span> <span class="o">&lt;</span> <span class="n">closestDistance</span> <span class="kr">then</span>
-            <span class="n">closest</span> <span class="o">=</span> <span class="n">sensedActor</span>
-            <span class="n">closestDistance</span> <span class="o">=</span> <span class="n">dist</span>
-        <span class="kr">end</span>
-    <span class="kr">end</span>
-
-    <span class="c1">-- If no valid target is found, wait.</span>
-    <span class="kr">if</span> <span class="ow">not</span> <span class="n">closest</span> <span class="kr">then</span> <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Wait</span><span class="p">()</span> <span class="kr">end</span>
-
-    <span class="c1">-- Use Prism&#39;s pathfinding to determine a route to the closest actor.</span>
-    <span class="kd">local</span> <span class="n">path</span> <span class="o">=</span> <span class="n">level</span><span class="p">:</span><span class="n">findPath</span><span class="p">(</span><span class="n">actor</span><span class="p">:</span><span class="n">getPosition</span><span class="p">(),</span> <span class="n">closest</span><span class="p">:</span><span class="n">getPosition</span><span class="p">(),</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">stats</span><span class="p">.</span><span class="n">mask</span><span class="p">)</span>
-
-    <span class="c1">-- If a valid path is found, attempt to move along it.</span>
-    <span class="kr">if</span> <span class="n">path</span> <span class="kr">then</span>
-        <span class="kd">local</span> <span class="n">move</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Move</span><span class="p">(</span><span class="n">actor</span><span class="p">,</span> <span class="p">{</span><span class="n">path</span><span class="p">:</span><span class="n">pop</span><span class="p">()})</span>
-        <span class="kr">if</span> <span class="n">move</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span> <span class="kr">then</span>
-            <span class="kr">return</span> <span class="n">move</span>
-        <span class="kr">end</span>
-    <span class="kr">end</span>
-
-    <span class="c1">-- If no action can be taken, wait.</span>
-    <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Wait</span><span class="p">()</span>
+   <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Wait</span><span class="p">()</span>
 <span class="kr">end</span>
 
 <span class="kr">return</span> <span class="n">KoboldController</span>
 </pre></div>
 </div>
-</section>
-<section id="integrating-the-controller">
-<h3>Integrating the Controller<a class="headerlink" href="#integrating-the-controller" title="Link to this heading">¶</a></h3>
-<p>Now, open <code class="docutils literal notranslate"><span class="pre">kobold.lua</span></code> and add the new component:</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Always provide a default action to take in a controller.</p>
+</div>
+<p>Back in <cite>kobold.lua</cite>, give it our new controller component:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">KoboldController</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>Our kobold should move right until they hit a wall now, but this
+behaviour doesn’t make for a great game. Let’s make them follow the player around.</p>
 </section>
-<section id="testing-the-kobold-ai">
-<h3>Testing the Kobold AI<a class="headerlink" href="#testing-the-kobold-ai" title="Link to this heading">¶</a></h3>
-<div class="line-block">
-<div class="line">Run the game and open <strong>Geometer</strong> by pressing <code class="docutils literal notranslate"><span class="pre">~</span></code>.</div>
-<div class="line">1. Click on the <strong>“k”</strong> character.</div>
-<div class="line">2. Click anywhere in the level to <strong>spawn a kobold</strong>.</div>
-<div class="line">3. Resume the game using the <strong>green button</strong>.</div>
-</div>
-<p>The kobold should now follow you when it sees you. However, if you spawn
-a second kobold, you’ll notice an issue—they can get stuck in a loop
-following each other!</p>
-<p>To fix this, we’ll ensure that kobolds only follow the <strong>player</strong>.</p>
-</section>
-</section>
-<hr class="docutils" />
-<section id="adding-a-player-tag">
-<h2>Adding a Player Tag<a class="headerlink" href="#adding-a-player-tag" title="Link to this heading">¶</a></h2>
-<p>To differentiate the player from other actors, we need a way to identify
-it. A full roguelike might implement a faction system, but for now,
-we’ll use a <strong>simple tag component</strong>.</p>
-<section id="creating-the-playertag-component">
-<h3>Creating the PlayerTag Component<a class="headerlink" href="#creating-the-playertag-component" title="Link to this heading">¶</a></h3>
+<section id="pathfinding">
+<h2>Pathfinding<a class="headerlink" href="#pathfinding" title="Link to this heading">¶</a></h2>
+<p>To make our kobold follow the player, we need to do a few things:</p>
 <ol class="arabic simple">
-<li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">modules/MyGame/components/</span></code>.</p></li>
-<li><p>Create a new file named <code class="docutils literal notranslate"><span class="pre">player.lua</span></code>.</p></li>
-<li><p>Add the following code:</p></li>
+<li><p>See if the player is within range of the kobold</p></li>
+<li><p>Find a valid path to the player</p></li>
+<li><p>Move the kobold along that path</p></li>
 </ol>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">PlayerTag</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Component</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;PlayerTagComponent&quot;</span><span class="p">)</span>
-<span class="n">PlayerTag</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;PlayerTag&quot;</span>
+<p>We can find the player by grabbing the <a class="reference internal" href="../reference/prism/core/components/senses.html#lua-SensesComponent" title="SensesComponent"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">SensesComponent</span></code></a> from the kobold and
+seeing if it contains the player.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">senses</span> <span class="o">=</span> <span class="n">actor</span><span class="p">:</span><span class="n">getComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Senses</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">player</span> <span class="o">=</span> <span class="n">senses</span><span class="p">.</span><span class="n">actors</span><span class="p">:</span><span class="n">getActorByType</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">actors</span><span class="p">.</span><span class="n">Player</span><span class="p">)</span>
+<span class="kr">if</span> <span class="ow">not</span> <span class="n">player</span> <span class="kr">then</span> <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Wait</span><span class="p">()</span> <span class="kr">end</span>
 </pre></div>
 </div>
-</section>
-<section id="assigning-the-playertag">
-<h3>Assigning the PlayerTag<a class="headerlink" href="#assigning-the-playertag" title="Link to this heading">¶</a></h3>
-<p>Next, modify <code class="docutils literal notranslate"><span class="pre">modules/MyGame/actors/player.lua</span></code> to add the new
-component:</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">PlayerTag</span><span class="p">()</span>
+<p>We can get a path to the player by using the <a class="reference internal" href="../reference/prism/core/level.html#lua-Level.findPath" title="Level.findPath"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Level:findPath()</span></code></a> method, passing the
+positions and the kobold’s collision mask.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">mover</span> <span class="o">=</span> <span class="n">actor</span><span class="p">:</span><span class="n">getComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Mover</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">path</span> <span class="o">=</span> <span class="n">level</span><span class="p">:</span><span class="n">findPath</span><span class="p">(</span><span class="n">actor</span><span class="p">:</span><span class="n">getPosition</span><span class="p">(),</span> <span class="n">player</span><span class="p">:</span><span class="n">getPosition</span><span class="p">(),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mover</span><span class="p">.</span><span class="n">mask</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-</section>
-<hr class="docutils" />
-<section id="updating-the-kobold-ai">
-<h2>Updating the Kobold AI<a class="headerlink" href="#updating-the-kobold-ai" title="Link to this heading">¶</a></h2>
-<p>Now, we’ll modify <code class="docutils literal notranslate"><span class="pre">KoboldController</span></code> so kobolds only follow actors
-with the <strong>PlayerTag</strong>.</p>
-<p>Replace the <code class="docutils literal notranslate"><span class="pre">act</span></code> function in <code class="docutils literal notranslate"><span class="pre">koboldcontroller.lua</span></code> with the
-following:</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">KoboldController</span><span class="p">:</span><span class="nf">act</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">actor</span><span class="p">)</span>
-    <span class="c1">-- Retrieve the senses component to detect nearby actors.</span>
-    <span class="kd">local</span> <span class="n">senses</span> <span class="o">=</span> <span class="n">self</span><span class="p">:</span><span class="n">getComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Senses</span><span class="p">)</span>
-
-    <span class="c1">-- Identify the player from sensed actors.</span>
-    <span class="kd">local</span> <span class="n">player</span>
-    <span class="kr">for</span> <span class="n">sensedActor</span> <span class="kr">in</span> <span class="n">senses</span><span class="p">.</span><span class="n">actors</span><span class="p">:</span><span class="n">eachActor</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Player</span><span class="p">)</span> <span class="kr">do</span>
-        <span class="n">player</span> <span class="o">=</span> <span class="n">sensedActor</span>
-    <span class="kr">end</span>
-
-    <span class="kr">if</span> <span class="n">player</span> <span class="kr">then</span>
-        <span class="c1">-- Use Prism&#39;s pathfinding to determine a route to the player.</span>
-        <span class="kd">local</span> <span class="n">path</span> <span class="o">=</span> <span class="n">level</span><span class="p">:</span><span class="n">findPath</span><span class="p">(</span><span class="n">actor</span><span class="p">:</span><span class="n">getPosition</span><span class="p">(),</span> <span class="n">player</span><span class="p">:</span><span class="n">getPosition</span><span class="p">(),</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">stats</span><span class="p">.</span><span class="n">mask</span><span class="p">)</span>
-
-        <span class="c1">-- If a valid path is found, attempt to move along it.</span>
-        <span class="kr">if</span> <span class="n">path</span> <span class="kr">then</span>
-            <span class="kd">local</span> <span class="n">move</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Move</span><span class="p">(</span><span class="n">actor</span><span class="p">,</span> <span class="p">{</span><span class="n">path</span><span class="p">:</span><span class="n">pop</span><span class="p">()})</span>
-            <span class="kr">if</span> <span class="n">move</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span> <span class="kr">then</span>
-                <span class="kr">return</span> <span class="n">move</span>
-            <span class="kr">end</span>
-        <span class="kr">end</span>
-    <span class="kr">end</span>
-
-    <span class="c1">-- If no action can be taken, wait.</span>
-    <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Wait</span><span class="p">()</span>
-<span class="kr">end</span>
-</pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See <a class="reference internal" href="../how-tos/collision.html"><span class="doc">Collision</span></a> for more information on the collision system.</p>
 </div>
-<p>Now, kobolds will <strong>only</strong> track the player!</p>
 </section>
 <section id="kicking-kobolds">
-<h2>Kicking Kobolds<a class="headerlink" href="#kicking-kobolds" title="Link to this heading">¶</a></h2>
-<p>In this section we’ll give you something to do to these kobolds. Kick
-them! We’ll need to create our first action. Head over to
-/modules/MyGame/actions and add kick.lua.</p>
+<h2>Kicking kobolds<a class="headerlink" href="#kicking-kobolds" title="Link to this heading">¶</a></h2>
+<p>In this section we’ll give you something to do to these kobolds: kick them!
+We’ll need to create our first action. Head over to <code class="docutils literal notranslate"><span class="pre">/modules/MyGame/actions</span></code> and add kick.lua.</p>
 <p>Let’s first create a target for our kick. Put this at the top of
-kick.lua.</p>
+kick.lua:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">KickTarget</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Target</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;KickTarget&quot;</span><span class="p">)</span>
-<span class="c1">-- This can be Actor, Point, Cell, or Any. You can accept a union of these types and</span>
-<span class="c1">-- differentiate in canPerform/perform</span>
 <span class="n">KickTarget</span><span class="p">.</span><span class="n">typesAllowed</span> <span class="o">=</span> <span class="p">{</span> <span class="n">Actor</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">}</span>
-<span class="c1">-- Targets have built in range checking for brevity, we specify one here.</span>
 <span class="n">KickTarget</span><span class="p">.</span><span class="n">range</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="kr">function</span> <span class="nc">KickTarget</span><span class="p">:</span><span class="nf">validate</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">actor</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
-   <span class="c1">-- check if the actor has a collider</span>
    <span class="kr">return</span> <span class="n">actor</span><span class="p">:</span><span class="n">hasComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Collider</span><span class="p">)</span>
 <span class="kr">end</span>
 </pre></div>
 </div>
-<p>So with this target we’re saying you can only kick actors at range one
-with a collider component.</p>
+<p>With this target we’re saying you can only kick actors at range one with a collider
+component. Then we can define the kick action, including our target. We will also require
+that any actor trying to perform the kick action have a controller.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">---@class KickAction : Action</span>
-<span class="c1">---@field name string</span>
-<span class="c1">---@field targets Target[]</span>
-<span class="c1">---@field previousPosition Vector2</span>
 <span class="kd">local</span> <span class="n">Kick</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Action</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;KickAction&quot;</span><span class="p">)</span>
-<span class="n">Kick</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;move&quot;</span>
+<span class="n">Kick</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Kick&quot;</span>
 <span class="n">Kick</span><span class="p">.</span><span class="n">targets</span> <span class="o">=</span> <span class="p">{</span> <span class="n">KickTarget</span> <span class="p">}</span>
 <span class="n">Kick</span><span class="p">.</span><span class="n">requiredComponents</span> <span class="o">=</span> <span class="p">{</span>
-   <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Controller</span><span class="p">,</span>
-   <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Kicker</span><span class="p">,</span>
+   <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Controller</span>
 <span class="p">}</span>
-
-<span class="c1">--- @param level Level</span>
-<span class="c1">--- @param kicked Actor</span>
-<span class="kr">function</span> <span class="nc">Kick</span><span class="p">:</span><span class="nf">_perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">kicked</span><span class="p">)</span>
-   <span class="kd">local</span> <span class="n">kicker</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">expectComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Kicker</span><span class="p">)</span>
-
-   <span class="kd">local</span> <span class="n">kx</span><span class="p">,</span> <span class="n">ky</span> <span class="o">=</span> <span class="p">(</span><span class="n">kicked</span><span class="p">:</span><span class="n">getPosition</span><span class="p">()</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">getPosition</span><span class="p">()):</span><span class="n">decompose</span><span class="p">()</span>
-
-   <span class="c1">-- &#39;normalize&#39; the kick direction</span>
-   <span class="kr">if</span> <span class="n">kx</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="kr">then</span> <span class="n">kx</span> <span class="o">=</span> <span class="mi">1</span> <span class="kr">elseif</span> <span class="n">kx</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="kr">then</span> <span class="n">kx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="kr">end</span>
-   <span class="kr">if</span> <span class="n">ky</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="kr">then</span> <span class="n">ky</span> <span class="o">=</span> <span class="mi">1</span> <span class="kr">elseif</span> <span class="n">ky</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="kr">then</span> <span class="n">ky</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="kr">end</span>
-
-   <span class="c1">-- recompose back into a vector</span>
-   <span class="kd">local</span> <span class="n">kickdir</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">kx</span><span class="p">,</span> <span class="n">ky</span><span class="p">)</span>
-
-   <span class="c1">-- our movetype mask for the kick, we&#39;ll give them the &#39;fly&#39; movetype</span>
-   <span class="kd">local</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Collision</span><span class="p">.</span><span class="n">createBitmaskFromMovetypes</span><span class="p">{</span> <span class="s2">&quot;fly&quot;</span> <span class="p">}</span>
-
-   <span class="c1">-- now we loop and continue to try to move the kicked in the direction</span>
-   <span class="c1">-- of the kick a number of tiles equal to the kicker&#39;s kick strength.</span>
-   <span class="kr">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">kicker</span><span class="p">.</span><span class="n">strength</span> <span class="kr">do</span>
-      <span class="kd">local</span> <span class="n">nextpos</span> <span class="o">=</span> <span class="n">kicked</span><span class="p">:</span><span class="n">getPosition</span><span class="p">()</span> <span class="o">+</span> <span class="n">kickdir</span>
-      <span class="kr">if</span> <span class="n">level</span><span class="p">:</span><span class="n">getCellPassable</span><span class="p">(</span><span class="n">nextpos</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">nextpos</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span> <span class="kr">then</span>
-         <span class="n">level</span><span class="p">:</span><span class="n">moveActor</span><span class="p">(</span><span class="n">kicked</span><span class="p">,</span> <span class="n">nextpos</span><span class="p">)</span>
-      <span class="kr">end</span>
-   <span class="kr">end</span>
-<span class="kr">end</span>
 
 <span class="kr">return</span> <span class="n">Kick</span>
 </pre></div>
 </div>
+<p>For the logic, we’ll define methods that validate and perform the kick. We don’t have any
+special conditions for kicking, so from <a class="reference internal" href="../reference/prism/core/action.html#lua-Action._canPerform" title="Action._canPerform"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Action:_canPerform()</span></code></a> we’ll just return true.
+For the kick itself, we get the direction from the player to the target (kobold), and check passability
+for three tiles in the direction before finally moving them. We also give the kobold flying movement by
+checking passability with a custom collision mask.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">Kick</span><span class="p">:</span><span class="nf">_canPerform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+   <span class="kr">return</span> <span class="kc">true</span>
+<span class="kr">end</span>
+
+<span class="c1">--- @param level Level</span>
+<span class="c1">--- @param kicked Actor</span>
+<span class="kr">function</span> <span class="nc">Kick</span><span class="p">:</span><span class="nf">_perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">kicked</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">direction</span> <span class="o">=</span> <span class="p">(</span><span class="n">kicked</span><span class="p">:</span><span class="n">getPosition</span><span class="p">()</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">getPosition</span><span class="p">())</span>
+
+   <span class="kd">local</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Collision</span><span class="p">.</span><span class="n">createBitmaskFromMovetypes</span><span class="p">{</span> <span class="s2">&quot;fly&quot;</span> <span class="p">}</span>
+
+   <span class="kd">local</span> <span class="n">nextpos</span> <span class="o">=</span> <span class="n">kicked</span><span class="p">:</span><span class="n">getPosition</span><span class="p">()</span>
+   <span class="kd">local</span> <span class="n">finalpos</span> <span class="o">=</span> <span class="n">nextpos</span>
+   <span class="kr">for</span> <span class="n">_</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span> <span class="kr">do</span>
+      <span class="n">nextpos</span> <span class="o">=</span> <span class="n">finalpos</span> <span class="o">+</span> <span class="n">direction</span>
+      <span class="kr">if</span> <span class="n">level</span><span class="p">:</span><span class="n">getCellPassable</span><span class="p">(</span><span class="n">nextpos</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">nextpos</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span> <span class="kr">then</span>
+         <span class="n">finalpos</span> <span class="o">=</span> <span class="n">nextpos</span>
+      <span class="kr">else</span>
+         <span class="kr">break</span>
+      <span class="kr">end</span>
+   <span class="kr">end</span>
+   <span class="n">level</span><span class="p">:</span><span class="n">moveActor</span><span class="p">(</span><span class="n">kicked</span><span class="p">,</span> <span class="n">nextpos</span><span class="p">)</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+</section>
+<section id="kicking-kobolds-for-real-this-time">
+<h2>Kicking kobolds, for real this time<a class="headerlink" href="#kicking-kobolds-for-real-this-time" title="Link to this heading">¶</a></h2>
+<p>We’ve added the kick action, but we don’t use it anywhere. Let’s fix that by performing the kick
+when we bump into a kobold. Head over to <code class="docutils literal notranslate"><span class="pre">gamestates/MyGamelevelstate.lua</span></code> and find where the move action
+is called. If the player doesn’t move, we want to check if there’s a valid actor to kick in front of us,
+and then perform the kick action on them:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">if</span> <span class="n">move</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">)</span> <span class="kr">then</span>
+<span class="p">...</span>
+
+<span class="kd">local</span> <span class="n">target</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">:</span><span class="n">getActorsAt</span><span class="p">(</span><span class="n">position</span><span class="p">:</span><span class="n">decompose</span><span class="p">())[</span><span class="mi">1</span><span class="p">]</span>
+<span class="kr">if</span> <span class="n">target</span> <span class="ow">and</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Kick</span><span class="p">:</span><span class="n">validateTarget</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">owner</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="p">{})</span> <span class="kr">then</span>
+   <span class="kd">local</span> <span class="n">kick</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Kick</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="p">{</span> <span class="n">target</span> <span class="p">})</span>
+   <span class="kr">if</span> <span class="n">kick</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">)</span> <span class="kr">then</span>
+      <span class="n">decision</span><span class="p">:</span><span class="n">setAction</span><span class="p">(</span><span class="n">kick</span><span class="p">)</span>
+   <span class="kr">end</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+<p>We use <a class="reference internal" href="../reference/prism/core/action.html#lua-Action.validateTarget" title="Action.validateTarget"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Action:validateTarget()</span></code></a> to check our target, where <code class="docutils literal notranslate"><span class="pre">1</span></code> refers to the first target in the
+kick action. <code class="docutils literal notranslate"><span class="pre">{}</span></code></p>
+</section>
+<section id="that-s-all">
+<h2>That’s all<a class="headerlink" href="#that-s-all" title="Link to this heading">¶</a></h2>
 </section>
 </section>
 
@@ -344,6 +282,13 @@ with a collider component.</p>
 
 
 
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=prismrl&repo=prism&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
 
 
 
@@ -358,26 +303,22 @@ with a collider component.</p>
 <script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../architecture-primer.html">Prism’s Architecture: A Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/collision.html">Collision</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started with LÖVE</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#running-the-template">Running the Template</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#creating-an-enemy">Creating an Enemy</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#adding-the-kobold-actor">Adding the Kobold Actor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#the-kobold-controller">The Kobold Controller</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#integrating-the-controller">Integrating the Controller</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#testing-the-kobold-ai">Testing the Kobold AI</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#adding-a-player-tag">Adding a Player Tag</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#creating-the-playertag-component">Creating the PlayerTag Component</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#assigning-the-playertag">Assigning the PlayerTag</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#updating-the-kobold-ai">Updating the Kobold AI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#kicking-kobolds">Kicking Kobolds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-an-enemy">Creating an enemy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-kobold-controller">The kobold controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pathfinding">Pathfinding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kicking-kobolds">Kicking kobolds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kicking-kobolds-for-real-this-time">Kicking kobolds, for real this time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#that-s-all">That’s all</a></li>
 </ul>
 </li>
 </ul>
@@ -391,7 +332,7 @@ with a collider component.</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../architecture-primer.html" title="previous chapter">Prism’s Architecture: A Primer</a></li>
+      <li>Previous: <a href="../how-tos/collision.html" title="previous chapter">Collision</a></li>
       <li>Next: <a href="../reference/prism/index.html" title="next chapter">Prism</a></li>
   </ul></li>
 </ul>
