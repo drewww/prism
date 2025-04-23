@@ -20,8 +20,8 @@ Level.serializationBlacklist = {
 
 --- Constructor for the Level class.
 --- @param map Map The map to use for the level.
---- @param actors [Actor] A list of actors to
---- @param systems [System]
+--- @param actors Actor[] A list of actors to populate the level initially.
+--- @param systems System[] A list of systems to register with the level.
 function Level:__new(map, actors, systems, scheduler, seed)
    self.systemManager = prism.SystemManager(self)
    self.actorStorage = prism.ActorStorage(self:sparseMapCallback(), self:sparseMapCallback())
@@ -31,12 +31,12 @@ function Level:__new(map, actors, systems, scheduler, seed)
    self.passableCache = prism.BitmaskBuffer(map.w, map.h) -- holds a cache of passability to speed up a* calcs
    self.RNG = prism.RNG(seed or love.timer.getTime())
    self.debug = false
-   
+
    self:initialize(actors, systems)
 end
 
---- @param actors [Actor]
---- @param systems [System]
+--- @param actors Actor[]
+--- @param systems System[]
 function Level:initialize(actors, systems)
    assert(#actors > 0, "A level must be initialized with at least one actor!")
    self:initializeOpacityCache()
@@ -337,6 +337,8 @@ function Level:inBounds(x, y)
       y > 0 and y <= self.map.h
 end
 
+--- Iteration wrapper for the map.
+--- @return fun(): number, number, Cell
 function Level:eachCell()
    return self.map:each()
 end
@@ -350,8 +352,8 @@ end
 --- actors in the sparse map as well as the cell's passable property.
 --- @param x number The x component of the position to check.
 --- @param y number The y component of the position to check.
---- @param mask Bitmask
---- @return boolean True if the cell is passable, false otherwise.
+--- @param mask Bitmask The collision mask for checking passability.
+--- @return boolean -- True if the cell is passable, false otherwise.
 function Level:getCellPassable(x, y, mask)
    local cellMask = self.passableCache:getMask(x, y)
    return prism.Collision.checkBitmaskOverlap(mask, cellMask)
@@ -428,10 +430,12 @@ function Level:updateOpacityCache(x, y)
    self.systemManager:afterOpacityChanged(self, x, y)
 end
 
---- Finds a path from startpos to endpos
+--- Finds a path between two positions.
 ---@param startPos Vector2
 ---@param goalPos Vector2
----@return Path | nil
+---@param minDistance integer The minimum distance away to pathfind to.
+---@param mask Bitmask The collision mask to use for passability checks.
+---@return Path | nil -- The path, or nil if none is found.
 function Level:findPath(startPos, goalPos, minDistance, mask)
    if
        startPos.x < 1 or startPos.x > self.map.w or startPos.y < 1 or startPos.y > self.map.h or
@@ -457,7 +461,7 @@ end
 --- @param type "box"|"fov" The type of range to use.
 --- @param position Vector2 The position to check from.
 --- @param range number The range to check.
---- @return SparseGrid? fov 
+--- @return SparseGrid? fov
 --- @return Actor[]? actors A list of actors within the given range.
 function Level:getAOE(type, position, range)
    assert(position:is(prism.Vector2), "Position was not a Vector2!")
