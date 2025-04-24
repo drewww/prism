@@ -16,8 +16,8 @@ Action.silent = false
 
 --- Constructor for the Action class.
 ---@param owner Actor The actor that is performing the action.
----@param targets [Object]? An optional list of target actors. Not all actions require targets.
----@param source Actor? An optional actor indicating the source of that action, for stuff like a wand or scroll.
+---@param targets? Object[] An optional list of target actors. Not all actions require targets.
+---@param source? Actor An optional actor indicating the source of that action, for stuff like a wand or scroll.
 function Action:__new(owner, targets, source)
    self.owner = owner
    self.source = source
@@ -119,7 +119,7 @@ end
 --- @param n number The index of the target object to _validate.
 --- @param owner Actor The actor that is performing the action.
 --- @param toValidate Actor The target actor to _validate.
---- @param targets [any] The previously selected targets.
+--- @param targets? Object[] The previously selected targets.
 --- @return boolean -- true if the specified target actor is valid for this action, false otherwise.
 function Action:validateTarget(n, owner, toValidate, targets)
    return self.targets[n]:_validate(owner, toValidate, targets)
