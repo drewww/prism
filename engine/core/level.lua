@@ -20,8 +20,8 @@ Level.serializationBlacklist = {
 
 --- Constructor for the Level class.
 --- @param map Map The map to use for the level.
---- @param actors [Actor] A list of actors to
---- @param systems [System]
+--- @param actors Actor[] A list of actors to populate the level initially.
+--- @param systems System[] A list of systems to register with the level.
 function Level:__new(map, actors, systems, scheduler, seed)
    self.systemManager = prism.SystemManager(self)
    self.actorStorage = prism.ActorStorage(self:sparseMapCallback(), self:sparseMapCallback())
@@ -31,12 +31,12 @@ function Level:__new(map, actors, systems, scheduler, seed)
    self.passableCache = prism.BitmaskBuffer(map.w, map.h) -- holds a cache of passability to speed up a* calcs
    self.RNG = prism.RNG(seed or love.timer.getTime())
    self.debug = false
-   
+
    self:initialize(actors, systems)
 end
 
---- @param actors [Actor]
---- @param systems [System]
+--- @param actors Actor[]
+--- @param systems System[]
 function Level:initialize(actors, systems)
    assert(#actors > 0, "A level must be initialized with at least one actor!")
    self:initializeOpacityCache()
@@ -285,7 +285,7 @@ function Level:hasActor(actor) return self.actorStorage:hasActor(actor) end
 --- This method returns an iterator that will return all actors in the level
 --- that have the given components. If no components are given it iterate over
 --- all actors. A thin wrapper over the inner ActorStorage.
---- @param ... Component The components to filter by.
+--- @param ... any The components to filter by.
 --- @return function An iterator that returns the next actor that matches the given components.
 function Level:eachActor(...) return self.actorStorage:eachActor(...) end
 
@@ -299,13 +299,13 @@ function Level:getActorByType(prototype) return self.actorStorage:getActorByType
 --- the inner ActorStorage.
 --- @param x number The x component of the position to check.
 --- @param y number The y component of the position to check.
---- @return table A list of all actors at the given position.
+--- @return Actor[] -- A list of all actors at the given position.
 function Level:getActorsAt(x, y) return self.actorStorage:getActorsAt(x, y) end
 
 --- Returns an iterator that will return all actors at the given position.
 --- @param x number The x component of the position to check.
 --- @param y number The y component of the position to check.
---- @return function iter An iterator that returns the next actor at the given position.
+--- @return fun(): Actor iter An iterator that returns the next actor at the given position.
 function Level:eachActorAt(x, y) return self.actorStorage:eachActorAt(x, y) end
 
 function Level:computeFOV(origin, maxDepth, callback)
@@ -324,18 +324,21 @@ end
 --- Gets the cell at the given position.
 --- @param x number The x component of the position to get.
 --- @param y number The y component of the position to get.
---- @return Cell The cell at the given position.
+--- @return Cell -- The cell at the given position.
 function Level:getCell(x, y) return self.map:get(x, y) end
 
 --- Is there a cell at this x, y? Part of the interface with MapBuilder
 --- @param x integer The x component to check if in bounds.
----@param y integer
+--- @param y integer The x component to check if in bounds.
+--- @return boolean
 function Level:inBounds(x, y)
-   return 
+   return
       x > 0 and x <= self.map.w and
       y > 0 and y <= self.map.h
 end
 
+--- Iteration wrapper for the map.
+--- @return fun(): number, number, Cell
 function Level:eachCell()
    return self.map:each()
 end
@@ -349,8 +352,8 @@ end
 --- actors in the sparse map as well as the cell's passable property.
 --- @param x number The x component of the position to check.
 --- @param y number The y component of the position to check.
---- @param mask Bitmask
---- @return boolean True if the cell is passable, false otherwise.
+--- @param mask Bitmask The collision mask for checking passability.
+--- @return boolean -- True if the cell is passable, false otherwise.
 function Level:getCellPassable(x, y, mask)
    local cellMask = self.passableCache:getMask(x, y)
    return prism.Collision.checkBitmaskOverlap(mask, cellMask)
@@ -376,7 +379,6 @@ end
 function Level:updatePassabilityCache(x, y)
    local mask = self.map.passableCache:getMask(x, y)
 
-   local passable = true
    for actor, _ in self.actorStorage:eachActorAt(x, y) do
       local collider = actor:getComponent(prism.components.Collider)
       if collider then
@@ -390,7 +392,7 @@ end
 --- Returns true if the cell at the given position is opaque, false otherwise.
 --- @param x number The x component of the position to check.
 --- @param y number The y component of the position to check.
---- @return boolean True if the cell is opaque, false otherwise.
+--- @return boolean -- True if the cell is opaque, false otherwise.
 function Level:getCellOpaque(x, y) return self.opacityCache:get(x, y) end
 
 --- Returns the opacity cache for the level. This generally shouldn't be used
@@ -428,10 +430,12 @@ function Level:updateOpacityCache(x, y)
    self.systemManager:afterOpacityChanged(self, x, y)
 end
 
---- Finds a path from startpos to endpos
+--- Finds a path between two positions.
 ---@param startPos Vector2
 ---@param goalPos Vector2
----@return Path | nil
+---@param minDistance integer The minimum distance away to pathfind to.
+---@param mask Bitmask The collision mask to use for passability checks.
+---@return Path | nil -- The path, or nil if none is found.
 function Level:findPath(startPos, goalPos, minDistance, mask)
    if
        startPos.x < 1 or startPos.x > self.map.w or startPos.y < 1 or startPos.y > self.map.h or
@@ -457,13 +461,11 @@ end
 --- @param type "box"|"fov" The type of range to use.
 --- @param position Vector2 The position to check from.
 --- @param range number The range to check.
---- @return table? actors
---- @return table? fov A list of actors within the given range.
+--- @return SparseGrid? fov
+--- @return Actor[]? actors A list of actors within the given range.
 function Level:getAOE(type, position, range)
-   assert(position:is(prism.Vector2))
+   assert(position:is(prism.Vector2), "Position was not a Vector2!")
    local seenActors = {}
-
-   local a = prism.Vector2(1, 1)
 
    if type == "fov" then
       local fov = prism.SparseGrid()
@@ -473,7 +475,7 @@ function Level:getAOE(type, position, range)
       end)
 
       for actorInAOE in self.actorStorage:eachActor() do
-         local x, y = actorInAOE.position.x, actorInAOE.position.y
+         local x, y = actorInAOE:getPosition():decompose()
          if fov:get(x, y) then table.insert(seenActors, actorInAOE) end
       end
 
@@ -499,7 +501,7 @@ function Level:onDeserialize()
    local w, h = self.map.w, self.map.h
    self.opacityCache = prism.BooleanBuffer(w, h)
    self.passableCache = prism.BitmaskBuffer(w, h)
-   
+
    self.map:onDeserialize()
    for x, y, _ in self.map:each() do
       self:updateCaches(x, y)

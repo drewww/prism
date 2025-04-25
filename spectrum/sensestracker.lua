@@ -57,6 +57,7 @@ function SensesTracker:createSensedMaps(level, curActor)
       if sensesComponent then
          for actor in sensesComponent.actors:eachActor() do
             actorSet[actor] = true
+            ---@diagnostic disable-next-line
             self.totalSensedActors:insert(actor.position.x, actor.position.y, actor)
          end
       end
@@ -68,18 +69,20 @@ function SensesTracker:createSensedMaps(level, curActor)
 end
 
 function SensesTracker:passableCallback()
-   return function(x, y)
+   return function(x, y, mask)
       local passable = false
       --- @type Cell
       local cell = self.exploredCells:get(x, y)
 
       if cell then
-         passable = cell.passable
+         passable = prism.Collision.checkBitmaskOverlap(mask, cell.collisionMask)
       end
 
       for actor, _ in pairs(self.totalSensedActors:get(x, y)) do
-         if actor:getComponent(prism.components.Collider) ~= nil then
-            passable = false
+         ---@cast actor Actor
+         local collider = actor:getComponent(prism.components.Collider)
+         if collider then
+            passable = prism.Collision.checkBitmaskOverlap(mask, collider.mask)
          end
       end
 

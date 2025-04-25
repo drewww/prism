@@ -4,7 +4,6 @@
 --- customized according to the needs of your game.
 --- @class SimpleScheduler : Scheduler
 --- @overload fun(): SimpleScheduler
---- @type SimpleScheduler
 local SimpleScheduler = prism.Object:extend("SimpleScheduler")
 
 --- Constructor for the SimpleScheduler class.
@@ -63,7 +62,7 @@ function SimpleScheduler:swapQueues()
 end
 
 --- Returns the current round count as a timestamp.
---- @return number The current round count.
+--- @return number -- The current round count.
 function SimpleScheduler:timestamp()
    return self.roundCount
 end

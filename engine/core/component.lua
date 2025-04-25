@@ -7,7 +7,6 @@
 --- @field requirements table A list of component prototypes the actor must first have, before this can be applied.
 --- @field owner Actor The Actor this component is composing. This is set by Actor when a component is added or removed.
 --- @overload fun(): Component
---- @type Component
 local Component = prism.Object:extend("Component")
 Component.requirements = {}
 
@@ -22,8 +21,8 @@ function Component:initialize(owner) end
 function Component:checkRequirements(actor)
    local foundreqs = {}
 
-   for k, component in pairs(actor.components) do
-      for k, req in pairs(self.requirements) do
+   for _, component in pairs(actor.components) do
+      for _, req in pairs(self.requirements) do
          if component:is(req) then table.insert(foundreqs, component) end
       end
    end

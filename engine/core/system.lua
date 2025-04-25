@@ -14,7 +14,6 @@
 --- @field beforeActions table<Action, fun(level: Level, actor: Actor, action: Action)> A table mapping specific actions to event hooks.
 --- @field afterActions table<Action, fun(level: Level, actor: Actor, action: Action)> A table mapping specific actions to event hooks.
 --- @overload fun(): System
---- @type System
 local System = prism.Object:extend("System")
 System.global = false
 System.name = nil

@@ -37,7 +37,7 @@ end
 
 --- Gets an item from the sparse array.
 --- @param index number The index of the item.
---- @return any The item at the specified index, or nil if none exists.
+--- @return any -- The item at the specified index, or nil if none exists.
 function SparseArray:get(index)
    return self.data[index]
 end
@@ -50,7 +50,7 @@ end
 
 --- Bakes the sparse array into a dense array.
 --- This removes all nil values and reassigns indices.
---- @return table The new dense array.
+--- @return any[] -- The new dense array.
 function SparseArray:bake()
    local denseArray = {}
    for _, value in ipairs(self.data) do

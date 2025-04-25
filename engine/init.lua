@@ -5,7 +5,8 @@ prism.path = ...
 
 function prism.require(p) return require(table.concat({ prism.path, p }, ".")) end
 
-prism.json = prism.require "lib/json"
+--- @module "engine.lib.json"
+prism.json = prism.require "lib.json"
 
 --- @type boolean
 prism._initialized = false
@@ -152,6 +153,7 @@ prism.behaviors = {}
 --- @module "engine.core.systems.senses"
 prism.systems.Senses = prism.require "core.systems.senses"
 
+--- @type ColliderComponent
 --- @module "engine.core.components.collider"
 prism.components.Collider = prism.require "core.components.collider"
 

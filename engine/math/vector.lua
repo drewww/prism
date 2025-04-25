@@ -11,7 +11,7 @@
 
 ---@class Vector2 : Object
 --- A Vector2 represents a 2D vector with x and y components.
----@overload fun(x: number, y: number): Vector2
+---@overload fun(x?: number, y?: number): Vector2
 ---@operator add(Vector2): Vector2
 ---@operator sub(Vector2): Vector2
 ---@operator mul(Vector2): Vector2
@@ -20,7 +20,7 @@
 ---@field y number The y component of the vector.
 local Vector2 = prism.Object:extend("Vector2")
 
---- Constructor for Vector2 accepts two numbers, x and y.
+--- Constructor for Vector2 accepts two numbers, x and y. Both default to zero.
 ---@param x number The x component of the vector.
 ---@param y number The y component of the vector.
 function Vector2:__new(x, y)
@@ -177,36 +177,31 @@ function Vector2:decompose()
    return self.x, self.y
 end
 
+--- The statiz ZERO vector.
+Vector2.ZERO = Vector2(0, 0)
+
 --- The static UP vector.
----@type Vector2
 Vector2.UP = Vector2(0, -1)
 
 --- The static RIGHT vector.
----@type Vector2
 Vector2.RIGHT = Vector2(1, 0)
 
 --- The static DOWN vector.
----@type Vector2
 Vector2.DOWN = Vector2(0, 1)
 
 --- The static LEFT vector.
----@type Vector2
 Vector2.LEFT = Vector2(-1, 0)
 
 --- The static UP_RIGHT vector.
----@type Vector2
 Vector2.UP_RIGHT = Vector2(1, -1)
 
 --- The static UP_LEFT vector.
----@type Vector2
 Vector2.UP_LEFT = Vector2(-1, -1)
 
 --- The static DOWN_RIGHT vector.
----@type Vector2
 Vector2.DOWN_RIGHT = Vector2(1, 1)
 
 --- The static DOWN_LEFT vector.
----@type Vector2
 Vector2.DOWN_LEFT = Vector2(-1, 1)
 
 --- @alias Neighborhood Vector2[]

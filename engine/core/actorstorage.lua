@@ -11,7 +11,6 @@
 --- @field private insertSparseMapCallback function
 --- @field private removeSparseMapCallback function
 --- @overload fun(): ActorStorage
---- @type ActorStorage
 local ActorStorage = prism.Object:extend("ActorStorage")
 
 --- The constructor for the 'ActorStorage' class.
@@ -79,8 +78,8 @@ end
 
 --- Returns an iterator over the actors in the storage. If a component is specified, only actors with that
 --- component will be returned.
---- @param ... Component? The components to filter by.
---- @return function iter An iterator over the actors in the storage.
+--- @param ... any The components to filter by.
+--- @return fun(): (Actor, ...:Component) iter An iterator over the actors in the storage.
 function ActorStorage:eachActor(...)
    local n = 1
    local comp = { ... }
@@ -90,6 +89,7 @@ function ActorStorage:eachActor(...)
       local key = next(currentComponentCache, nil)
 
       return function()
+         ---@diagnostic disable-next-line
          if not key then return end
 
          local ractor, rcomp = key, key:getComponent(comp[1])
@@ -120,6 +120,7 @@ function ActorStorage:eachActor(...)
          if hasComponents then return self.actors[i], unpack(components) end
       end
 
+      ---@diagnostic disable-next-line
       return nil
    end
 end
@@ -151,7 +152,7 @@ end
 --- Returns an iterator over the actors in the storage at the given position.
 --- @param x number The x-coordinate to check.
 --- @param y number The y-coordinate to check.
---- @return function iterator An iterator over the actors at the given position.
+--- @return fun(): Actor iterator An iterator over the actors at the given position.
 function ActorStorage:eachActorAt(x, y)
    local key, _
    local actors = self.sparseMap:get(x, y)

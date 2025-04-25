@@ -9,7 +9,6 @@
 --- @field components Component[] A table containing all of the actor's component instances. Generated at runtime.
 --- @field componentCache table This is a cache for component queries, reducing most queries to a hashmap lookup.
 --- @overload fun(): Actor
---- @type Actor
 local Actor = prism.Object:extend("Actor")
 Actor.position = nil
 Actor.name = "actor"
@@ -24,7 +23,7 @@ function Actor:__new()
    self.components = {}
    self.componentCache = {}
    if components then
-      for k, component in ipairs(components) do
+      for _, component in ipairs(components) do
          component.owner = self
          self:__addComponent(component)
       end
@@ -50,14 +49,12 @@ function Actor:__addComponent(component)
    assert(component:checkRequirements(self), "Unsupported component " .. component.className .. " added to actor!")
    assert(not self:hasComponent(component), "Actor already has component " .. component.className .. "!")
 
-
    for _, v in pairs(prism.components) do
       if component:is(v) then
          if self.componentCache[v] then error("Actor already has component " .. v.className .. "!") end
          self.componentCache[v] = component
       end
    end
-
 
    component.owner = self
    table.insert(self.components, component)
@@ -70,7 +67,7 @@ end
 function Actor:__removeComponent(component)
    assert(component:is(prism.Component), "Expected argument component to be of type Component!")
 
-   for k, componentPrototype in pairs(prism.components) do
+   for _, componentPrototype in pairs(prism.components) do
       if component:is(componentPrototype) then
          if not self.componentCache[componentPrototype] then
             error("Actor does not have component " .. componentPrototype.name .. "!")
@@ -92,7 +89,7 @@ function Actor:__removeComponent(component)
 end
 
 --- Returns a bool indicating whether the actor has a component of the given type.
---- @param prototype Component The prototype of the component to check for.
+--- @param prototype any The prototype of the component to check for.
 --- @return boolean hasComponent
 function Actor:hasComponent(prototype)
    assert(prototype:is(prism.Component), "Expected argument type to be inherited from Component!")
@@ -111,7 +108,8 @@ function Actor:getComponent(prototype) return self.componentCache[prototype] end
 --- @generic T
 --- @param prototype T The type of the component to return.
 --- @return T
-function Actor:expectComponent(prototype) 
+function Actor:expectComponent(prototype)
+   ---@diagnostic disable-next-line
    return self.componentCache[prototype] or error("Expected component " .. prototype.className .. "!")
 end
 --
@@ -119,7 +117,7 @@ end
 --
 
 --- Get a list of actions that the actor can perform.
---- @return Action[] totalActions Returns a table of all actions.
+--- @return Action[] totalActions A table of all actions.
 function Actor:getActions()
    local totalActions = {}
 
@@ -143,16 +141,15 @@ function Actor:getPosition() return self.position:copy() end
 --- Get the range from this actor to another actor.
 --- @param type DistanceType
 --- @param actor Actor The other actor to get the range to.
---- @return number Returns the calculated range.
+--- @return number -- The calculated range.
 function Actor:getRange(type, actor)
    return self.position:getRange(type, actor.position)
 end
 
 --- Get the range from this actor to a given vector.
--- @function Actor:getRangeVec
--- @tparam string type The type of range calculation to use.
--- @tparam Vector2 vector The vector to get the range to.
--- @treturn number Returns the calculated range.
+--- @param type string The type of range calculation to use.
+--- @param vector Vector2 The vector to get the range to.
+--- @return number -- The calculated range.
 function Actor:getRangeVec(type, vector) return self.position:getRange(type, vector) end
 
 return Actor

@@ -2,8 +2,7 @@
 --- @class Map : Grid
 --- @field opacityCache BooleanBuffer Caches the opaciy of the cell + actors in each tile for faster fov calculation.
 --- @field passableCache BitmaskBuffer
---- @overload fun(): Map
---- @type Map
+--- @overload fun(width: integer, height: integer, initialValue: Cell): Map
 local Map = prism.Grid:extend("Map")
 
 Map.serializationBlacklist = {

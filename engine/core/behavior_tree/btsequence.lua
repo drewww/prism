@@ -1,7 +1,6 @@
 --- A sequence node in the behavior tree.
 --- @class BTSequence : BTNode
 --- @overload fun(children: BTNode[]): BTSequence
---- @type BTSequence
 local BTSequence = prism.BehaviorTree.Node:extend("BTSequence")
 
 --- Creates a new BTSequence.

@@ -1,7 +1,6 @@
 --- The 'abstract class' that Schedulers should inherit from and implement.
 --- @class Scheduler : Object
 --- @overload fun(): Scheduler
---- @type Scheduler
 local Scheduler = prism.Object:extend("Scheduler")
 
 --- Constructor for the Scheduler class.

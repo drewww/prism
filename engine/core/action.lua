@@ -6,19 +6,18 @@
 --- @field silent boolean A silent action doesn't generate messages
 --- @field owner Actor The actor taking the action.
 --- @field source Actor? An object granting the owner of the action this action. A wand's zap action is a good example.
---- @field targets [Target]
---- @field targetObjects [Object]
+--- @field targets Target[]
+--- @field targetObjects Object[]
 --- @field requiredComponents Component[]
 --- @overload fun(owner: Actor, targets: Target[]): Action
---- @type Action
 local Action = prism.Object:extend("Action")
 Action.time = 100
 Action.silent = false
 
 --- Constructor for the Action class.
 ---@param owner Actor The actor that is performing the action.
----@param targets [Object]? An optional list of target actors. Not all actions require targets.
----@param source Actor? An optional actor indicating the source of that action, for stuff like a wand or scroll.
+---@param targets? Object[] An optional list of target actors. Not all actions require targets.
+---@param source? Actor An optional actor indicating the source of that action, for stuff like a wand or scroll.
 function Action:__new(owner, targets, source)
    self.owner = owner
    self.source = source
@@ -38,7 +37,7 @@ function Action:__new(owner, targets, source)
       .. " got "
       .. #self.targetObjects
    )
-   
+
    for i, target in ipairs(self.targets) do
       assert(
          target:_validate(owner, self.targetObjects[i], self.targetObjects),
@@ -55,7 +54,7 @@ end
 function Action:canPerform(level)
    if not self:hasRequisiteComponents(self.owner) then return false end
 
-   return self:_canPerform(level, unpack(self.targetObjects)) 
+   return self:_canPerform(level, unpack(self.targetObjects))
 end
 
 --- This method should be overriden by subclasses. This is called to make
@@ -69,6 +68,8 @@ end
 --- @param actor Actor
 --- @return boolean hasRequisiteComponents
 function Action:hasRequisiteComponents(actor)
+   if not self.requiredComponents then return true end
+
    for _, component in pairs(self.requiredComponents) do
       if not actor:hasComponent(component) then return false end
    end
@@ -118,8 +119,8 @@ end
 --- @param n number The index of the target object to _validate.
 --- @param owner Actor The actor that is performing the action.
 --- @param toValidate Actor The target actor to _validate.
---- @param targets [any] The previously selected targets.
---- @return boolean true if the specified target actor is valid for this action, false otherwise.
+--- @param targets? Object[] The previously selected targets.
+--- @return boolean -- true if the specified target actor is valid for this action, false otherwise.
 function Action:validateTarget(n, owner, toValidate, targets)
    return self.targets[n]:_validate(owner, toValidate, targets)
 end

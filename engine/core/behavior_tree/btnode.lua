@@ -1,7 +1,6 @@
 --- The base class for all nodes in the behavior tree.
 --- @class BTNode : Object, IBehavior
 --- @overload fun(run: fun(self: BTNode, level: Level, actor: Actor, controller: ControllerComponent): boolean|Action): BTNode
---- @type BTNode
 local BTNode = prism.Object:extend("BTNode")
 
 --- You can also construct an anonymous node like:

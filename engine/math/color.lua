@@ -3,11 +3,10 @@
 ---@field private g number The green component (0-1).
 ---@field private b number The blue component (0-1).
 ---@field private a number The alpha component (0-1).
----@overload fun(r: number, g: number, b: number, a: number): Color4
----@type Color4
+---@overload fun(r?: number, g?: number, b?: number, a?: number): Color4
 local Color4 = prism.Object:extend("Color4")
 
---- Constructor for Color4 accepts red, green, blue, and alpha values.
+--- Constructor for Color4 accepts red, green, blue, and alpha values. All default to 0, alpha to 1.
 ---@param r number The red component (0-1).
 ---@param g number The green component (0-1).
 ---@param b number The blue component (0-1).
