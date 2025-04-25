@@ -9,7 +9,6 @@
 --- @field components Component[] A table containing all of the actor's component instances. Generated at runtime.
 --- @field componentCache table This is a cache for component queries, reducing most queries to a hashmap lookup.
 --- @overload fun(): Actor
---- @type Actor
 local Actor = prism.Object:extend("Actor")
 Actor.position = nil
 Actor.name = "actor"

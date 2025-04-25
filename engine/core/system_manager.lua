@@ -1,7 +1,6 @@
 --- @class SystemManager : Object
 --- @field systems System[]
 --- @overload fun(owner: Level): SystemManager
---- @type SystemManager
 local SystemManager = prism.Object:extend("SystemManager")
 
 --- @param owner Level

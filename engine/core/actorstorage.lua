@@ -11,7 +11,6 @@
 --- @field private insertSparseMapCallback function
 --- @field private removeSparseMapCallback function
 --- @overload fun(): ActorStorage
---- @type ActorStorage
 local ActorStorage = prism.Object:extend("ActorStorage")
 
 --- The constructor for the 'ActorStorage' class.

@@ -1,6 +1,6 @@
 --- Gives an actor collision, preventing other actors from moving into its cell.
 --- @class ColliderComponent : Component
---- @field mask CollisionMask the mask to use when testing collision
+--- @field mask CollisionMask The mask to use when testing collision. Defaults to zero, blocking everything.
 --- @overload fun(options: ColliderOptions): ColliderComponent
 local Collider = prism.Component:extend("Collider")
 Collider.name = "Collideable"

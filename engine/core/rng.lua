@@ -9,7 +9,6 @@
 --- A random number generator using the Mersenne Twister algorithm.
 --- @class RNG : Object
 --- @overload fun(seed: any): RNG -- Seed must implement tostring!
---- @type RNG
 local RNG = prism.Object:extend("RNG")
 
 local function createMash()

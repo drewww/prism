@@ -8,7 +8,6 @@
 --- @field drawable DrawableComponent
 --- @field allowedMovetypes string[]?
 --- @overload fun(): Cell
---- @type Cell
 local Cell = prism.Object:extend("Cell")
 Cell.name = nil
 Cell.opaque = false
