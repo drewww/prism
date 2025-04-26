@@ -149,6 +149,9 @@ end
 function Level:addActor(actor)
    -- some sanity checks
    assert(actor:is(prism.Actor), "Attemped to add a non-actor object to the level with addActor")
+   assert(not actor.level, "Attempted to add an actor that already has a level!")
+
+   actor.level = self
 
    self.actorStorage:addActor(actor)
    if actor:hasComponent(prism.components.Controller) then
@@ -166,6 +169,7 @@ end
 --- the scheduler if it has a controller.
 --- @param actor Actor The actor to remove.
 function Level:removeActor(actor)
+   actor.level = nil
    self.actorStorage:removeActor(actor)
    self.scheduler:remove(actor)
    self.systemManager:onActorRemoved(self, actor)

@@ -4,7 +4,7 @@
 --- and other related aspects.
 --- @class Actor : Entity
 --- @field private position Vector2 An actor's position in the game world.
---- @field level Level The level the actor is on.
+--- @field level? Level The level the actor is on.
 --- @overload fun(): Actor
 local Actor = prism.Entity:extend("Actor")
 Actor.position = nil
