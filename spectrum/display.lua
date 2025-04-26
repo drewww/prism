@@ -17,8 +17,8 @@ local Display = prism.Object:extend("Display")
 ---@field getActorsAt fun(self, x:integer, y:integer)
 ---@field inBounds fun(self, x: integer, y:integer)
 ---@field eachActorAt fun(self, x:integer, y:integer): fun()
----@field eachActor fun(self): fun()
----@field eachCell fun(self): fun()
+---@field eachActor fun(self, ...:Component): fun(): (Actor, ...:Component)
+---@field eachCell fun(self): fun(): integer, integer, Cell
 ---@field debug boolean
 
 --- Initializes a new Display instance.
@@ -47,7 +47,8 @@ function Display:draw()
    self.camera:push()
 
    for x, y, cell in self.attachable:eachCell() do
-      Display.drawDrawable(cell.drawable, self.spriteAtlas, self.cellSize, x, y)
+      local drawable = cell:getComponent(prism.components.Drawable)
+      Display.drawDrawable(drawable, self.spriteAtlas, self.cellSize, x, y)
    end
 
    for actor in self.attachable:eachActor() do
@@ -134,7 +135,8 @@ function Display:drawPerspective(primary, secondary)
          if not secondaryCellSet:get(x, y) then alpha = 0.3 end
       end
       if primaryCellSet:get(x, y) or secondaryCellSet:get(x, y) or exploredCellsSet:get(x, y) then
-         Display.drawDrawable(cell.drawable, self.spriteAtlas, self.cellSize, x, y, nil, alpha)
+         local drawable = cell:getComponent(prism.components.Drawable)
+         Display.drawDrawable(drawable, self.spriteAtlas, self.cellSize, x, y, nil, alpha)
       end
    end
 

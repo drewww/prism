@@ -10,7 +10,7 @@
 --- @field private componentCache table The cache for storing actor components.
 --- @field private insertSparseMapCallback function
 --- @field private removeSparseMapCallback function
---- @overload fun(): ActorStorage
+--- @overload fun(insertSparseMapCallback?: function, removeSparseMapCallback?: function): ActorStorage
 local ActorStorage = prism.Object:extend("ActorStorage")
 
 --- The constructor for the 'ActorStorage' class.

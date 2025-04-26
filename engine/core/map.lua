@@ -43,8 +43,8 @@ end
 --- @param y number The y-coordinate.
 function Map:updateCaches(x, y)
    local cell = self:get(x, y)
-   self.opacityCache:set(x, y, cell.opaque)
-   self.passableCache:setMask(x, y, cell.collisionMask)
+   self.opacityCache:set(x, y, cell:hasComponent(prism.components.Opaque))
+   self.passableCache:setMask(x, y, cell:getCollisionMask())
 end
 
 --- Returns true if the cell at the specified coordinates is passable, false otherwise.

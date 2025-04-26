@@ -1,23 +1,15 @@
---- A 'Cell' is a single tile on the map. It defines the properties of the tile and has a few callbacks.
---- Maybe cells should have components so that they can be extended with custom functionality like the grass?
---- Still working on the details there. For now, cells are just a simple way to define the properties of a tile.
---- @class Cell : Object
+--- A 'Cell' is a single tile on the map.
+--- It defines the properties of the tile and has a few callbacks.
+--- Like actors, they hold components that can be used to modify their behaviour.
+--- Cells are required to have a ColliderComponent.
+--- @class Cell : Entity
 --- @field name string Displayed in the user interface.
---- @field collisionMask Bitmask Defines whether a cell can moved through.
---- @field opaque boolean Defines whether a cell can be seen through.
---- @field drawable DrawableComponent
---- @field allowedMovetypes string[]?
 --- @overload fun(): Cell
-local Cell = prism.Object:extend("Cell")
-Cell.name = nil
-Cell.opaque = false
-Cell.collisionMask = 0
+local Cell = prism.Entity:extend("Cell")
 
 --- Constructor for the Cell class.
 function Cell:__new()
-   if self.allowedMovetypes then
-      self.collisionMask = prism.Collision.createBitmaskFromMovetypes(self.allowedMovetypes)
-   end
+   prism.Entity.__new(self)
 end
 
 --- Called when an actor enters the cell.
@@ -42,12 +34,9 @@ function Cell:beforeAction(level, actor, action) end
 --- @param action Action The action that was taken.
 function Cell:afterAction(level, actor, action) end
 
---- Returns a component of the cell. Only supports DrawableComponent currently.
---- @generic T
---- @param prototype T
---- @return T?
-function Cell:getComponent(prototype)
-   if prototype == prism.components.Drawable then return self.drawable end
+--- @return Bitmask mask The collision mask of the cell.
+function Cell:getCollisionMask()
+   return self:expectComponent(prism.components.Collider).mask
 end
 
 return Cell
