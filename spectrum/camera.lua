@@ -20,14 +20,24 @@ end
 ---@param x number
 ---@param y number
 function Camera:setPosition(x, y)
-   self.position.x = x or self.position.x
-   self.position.y = y or self.position.y
+   local sx, sy = self.position:decompose()
+   self.position:compose(x or sx, y or sy)
 end
 
 ---@param dx number
 ---@param dy number
 function Camera:move(dx, dy)
    self.position = self.position + prism.Vector2(dx or 0, dy or 0)
+end
+
+---@param x number
+---@param y number
+function Camera:centerOn(x, y)
+   local screenW, screenH = love.graphics.getWidth(), love.graphics.getHeight()
+
+   x, y = x or self.position.x, y or self.position.y
+   self.position.x = x - (screenW * 0.5) * (1 / self.scale.x)
+   self.position.y = y - (screenH * 0.5) * (1 / self.scale.y)
 end
 
 ---@param scaleX number
