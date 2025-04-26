@@ -75,7 +75,7 @@ function SensesTracker:passableCallback()
       local cell = self.exploredCells:get(x, y)
 
       if cell then
-         passable = prism.Collision.checkBitmaskOverlap(mask, cell.collisionMask)
+         passable = prism.Collision.checkBitmaskOverlap(mask, cell:getCollisionMask())
       end
 
       for actor, _ in pairs(self.totalSensedActors:get(x, y)) do

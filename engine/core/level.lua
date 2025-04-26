@@ -10,7 +10,6 @@
 --- @field decision ActionDecision Used during deserialization to resume.
 --- @field RNG RNG The level's local random number generator, use this for randomness within the level like attack rolls.
 --- @overload fun(map: Map, actors: [Actor], systems: [System], scheduler: Scheduler): Level
---- @type Level
 local Level = prism.Object:extend("Level")
 
 Level.serializationBlacklist = {
@@ -176,8 +175,8 @@ end
 --- updating the component cache and the opacity cache.
 --- @param actor Actor The actor to remove the component from.
 --- @param component Component The component to remove.
-function Level:removeComponent(actor, component)
-   actor:__removeComponent(component)
+--- @private
+function Level:__removeComponent(actor, component)
    self.actorStorage:updateComponentCache(actor)
    local x, y = actor:getPosition():decompose()
    self:updateCaches(x, y)
@@ -188,11 +187,8 @@ end
 --- it's easier to use this function.
 --- @param actor Actor The actor to add the component to.
 --- @param component Component The component to add.
-function Level:addComponent(actor, component)
-   -- we disable the check on actor's addComponent here because it's not ACTUALLY private, but
-   -- we want to discourage it's use outside of Level
-   ---@diagnostic disable-next-line
-   actor:__addComponent(component)
+--- @private
+function Level:__addComponent(actor, component)
    self.actorStorage:updateComponentCache(actor)
 
    local pos = actor:getPosition()
