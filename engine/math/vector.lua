@@ -171,10 +171,21 @@ function Vector2:getRange(type, vec)
    return rangeCase[type](self, vec)
 end
 
+--- Returns the x and y components of the vector separately.
+--- This allows you to access the individual components of the vector as separate values.
 --- @return number x The x component of the vector.
 --- @return number y The y component of the vector.
 function Vector2:decompose()
    return self.x, self.y
+end
+
+--- Overwrites the vector's x and y components with new values.
+--- This updates the current vector to match the provided x and y values.
+--- @param x number The new x component to set.
+--- @param y number The new y component to set.
+function Vector2:compose(x, y)
+   self.x = x
+   self.y = y
 end
 
 --- The statiz ZERO vector.
