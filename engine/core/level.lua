@@ -204,7 +204,7 @@ end
 --- generally not invoke this yourself using moveActorChecked instead.
 --- @param actor Actor The actor to move.
 --- @param pos Vector2 The position to move the actor to.
---- @param skipSparseMap boolean If true the sparse map won't be updated.
+--- @param skipSparseMap boolean? If true the sparse map won't be updated.
 function Level:moveActor(actor, pos, skipSparseMap)
    assert(pos.is and pos:is(prism.Vector2), "Expected a Vector2 for pos in Level:moveActor.")
    assert(
