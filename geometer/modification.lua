@@ -68,9 +68,11 @@ end
 ---@param cellPrototype Cell|nil
 function Modification:placeCell(attachable, x, y, cellPrototype)
    if not self.replaced then self.replaced = prism.SparseGrid() end
+   local instance = cellPrototype
+   if cellPrototype then instance = cellPrototype() end
 
    self.replaced:set(x, y, attachable:getCell(x, y) or false)
-   attachable:setCell(x, y, cellPrototype)
+   attachable:setCell(x, y, instance)
 end
 
 return Modification

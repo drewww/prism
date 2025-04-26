@@ -10,7 +10,7 @@ local Button = geometer.require "elements.button"
 local function initialElements()
    local t = {}
    for _, cell in pairs(prism.cells) do
-      table.insert(t, cell)
+      table.insert(t, cell())
    end
 
    for _, actor in pairs(prism.actors) do
@@ -42,9 +42,8 @@ local function SelectionPanel(self, scene)
       self.props.selected = placeable
       self.props.selectedText:set(placeable.name)
 
-      if placeable:is(prism.Actor) then placeable = getmetatable(placeable) end
-
-      self.props.editor.placeable = placeable
+      -- We use the prototype so we can instantiate them into the level
+      self.props.editor.placeable = getmetatable(placeable)
    end
 
    -- We capture and consume pointer events to avoid the editor grid consuming them,

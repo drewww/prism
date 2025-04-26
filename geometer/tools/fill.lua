@@ -24,9 +24,13 @@ end
 ---@param x any
 ---@param y any
 function Fill:bucket(attachable, x, y)
-   local cellPrototype = attachable:getCell(x, y)
-   prism.BredthFirstSearch(prism.Vector2(x, y), function(x, y)
-      return attachable:getCell(x, y) == cellPrototype
+   local cell = attachable:getCell(x, y)
+   local cellPrototype = nil
+   if cell then cellPrototype = getmetatable(cell) end
+
+   prism.BreadthFirstSearch(prism.Vector2(x, y), function(x, y)
+      local cellAt = attachable:getCell(x, y)
+      return cellPrototype and cellAt and cellAt:is(cellPrototype)
    end, function(x, y)
       self.locations:set(x, y, true)
    end)

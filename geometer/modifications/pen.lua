@@ -20,9 +20,9 @@ function PenModification:execute(attachable)
          --- @cast actorPrototype Actor
          self:placeActor(attachable, x, y, actorPrototype)
       else
-         local cell = self.placeable
-         --- @cast cell Cell
-         self:placeCell(attachable, x, y, cell)
+         local cellPrototype = self.placeable
+         --- @cast cellPrototype Cell
+         self:placeCell(attachable, x, y, cellPrototype)
       end
    end
 end
