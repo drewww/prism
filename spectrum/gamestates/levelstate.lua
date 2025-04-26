@@ -56,15 +56,6 @@ function LevelState:update(dt)
       if message then self:handleMessage(message) end
    end   
 
-   if self.decision and self.decision:instanceOf(prism.decisions.ActionDecision) then
-      local decision = self.decision
-      ---@cast decision ActionDecision
-
-      if not self.decision:validateResponse() then
-         self:updateDecision(dt, self.decision.actor, decision)
-      end
-   end
-
    self.display:update(dt)
 end
 
