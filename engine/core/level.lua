@@ -9,7 +9,7 @@
 --- @field passableCache BitmaskBuffer A cache of cell passability || actor passability for each cell. Used to speed up pathfinding.
 --- @field decision ActionDecision Used during deserialization to resume.
 --- @field RNG RNG The level's local random number generator, use this for randomness within the level like attack rolls.
---- @overload fun(map: Map, actors: [Actor], systems: [System], scheduler: Scheduler): Level
+--- @overload fun(map: Map, actors: [Actor], systems: [System], scheduler: Scheduler?): Level
 local Level = prism.Object:extend("Level")
 
 Level.serializationBlacklist = {
@@ -21,6 +21,8 @@ Level.serializationBlacklist = {
 --- @param map Map The map to use for the level.
 --- @param actors Actor[] A list of actors to populate the level initially.
 --- @param systems System[] A list of systems to register with the level.
+--- @param scheduler Scheduler?
+--- @param seed string?
 function Level:__new(map, actors, systems, scheduler, seed)
    self.systemManager = prism.SystemManager(self)
    self.actorStorage = prism.ActorStorage(self:sparseMapCallback(), self:sparseMapCallback())
@@ -204,7 +206,7 @@ end
 --- generally not invoke this yourself using moveActorChecked instead.
 --- @param actor Actor The actor to move.
 --- @param pos Vector2 The position to move the actor to.
---- @param skipSparseMap boolean If true the sparse map won't be updated.
+--- @param skipSparseMap boolean? If true the sparse map won't be updated.
 function Level:moveActor(actor, pos, skipSparseMap)
    assert(pos.is and pos:is(prism.Vector2), "Expected a Vector2 for pos in Level:moveActor.")
    assert(
