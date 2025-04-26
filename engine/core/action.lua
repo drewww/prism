@@ -5,11 +5,10 @@
 --- @field time number The time it takes to perform this action. Lower is better.
 --- @field silent boolean A silent action doesn't generate messages
 --- @field owner Actor The actor taking the action.
---- @field source Actor? An object granting the owner of the action this action. A wand's zap action is a good example.
 --- @field targets Target[]
 --- @field targetObjects Object[]
 --- @field requiredComponents Component[]
---- @overload fun(owner: Actor, targets: Target[]): Action
+--- @overload fun(owner: Actor, targets: Object[]): Action
 local Action = prism.Object:extend("Action")
 Action.time = 100
 Action.silent = false
@@ -17,10 +16,8 @@ Action.silent = false
 --- Constructor for the Action class.
 ---@param owner Actor The actor that is performing the action.
 ---@param targets? Object[] An optional list of target actors. Not all actions require targets.
----@param source? Actor An optional actor indicating the source of that action, for stuff like a wand or scroll.
-function Action:__new(owner, targets, source)
+function Action:__new(owner, targets)
    self.owner = owner
-   self.source = source
    self.name = self.name or "ERROR"
    self.targets = self.targets or {}
    self.targetObjects = targets or {}
