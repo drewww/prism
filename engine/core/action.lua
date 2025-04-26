@@ -27,23 +27,26 @@ function Action:__new(owner, targets, source)
 
    assert(Action.canPerform == self.canPerform, "Do not override canPerform! Override _canPerform instead!")
    assert(Action.perform == self.perform, "Do not override perform! Override _perform instead!")
+end
 
-   assert(
-      #self.targetObjects == #self.targets,
-      "Invalid number of targets for action "
-      .. self.name
-      .. " expected "
-      .. #self.targets
-      .. " got "
-      .. #self.targetObjects
-   )
+function Action:__validateTargets()
+   if #self.targetObjects ~= #self.targets then
+      return false,
+         "Invalid number of targets for action "
+         .. self.name
+         .. " expected "
+         .. #self.targets
+         .. " got "
+         .. #self.targetObjects
+   end
 
    for i, target in ipairs(self.targets) do
-      assert(
-         target:_validate(owner, self.targetObjects[i], self.targetObjects),
-         "Invalid target " .. i .. " for action " .. self.name
-      )
+      if not target:validate(self.owner, self.targetObjects[i], self.targetObjects) then
+         return false, "Invalid target " .. i .. " for action " .. self.name
+      end
    end
+
+   return true
 end
 
 --- Call this function to check if the action is valid and can be executed in
@@ -51,8 +54,14 @@ end
 --- unpacks the target objects.
 --- @param level Level
 --- @return boolean canPerform
+--- @return string? error
 function Action:canPerform(level)
-   if not self:hasRequisiteComponents(self.owner) then return false end
+   if not self:hasRequisiteComponents(self.owner) then 
+      return false, "Actor is missing requisite component."
+   end
+
+   local success, err = self:__validateTargets()
+   if not success then return success, err end
 
    return self:_canPerform(level, unpack(self.targetObjects))
 end
@@ -115,14 +124,14 @@ function Action:hasTarget(actor)
    end
 end
 
---- _validates the specified target for this action.
---- @param n number The index of the target object to _validate.
+--- Validates the specified target for this action.
+--- @param n number The index of the target object to validate.
 --- @param owner Actor The actor that is performing the action.
---- @param toValidate Actor The target actor to _validate.
+--- @param toValidate Actor The target actor to validate.
 --- @param targets? Object[] The previously selected targets.
 --- @return boolean -- true if the specified target actor is valid for this action, false otherwise.
 function Action:validateTarget(n, owner, toValidate, targets)
-   return self.targets[n]:_validate(owner, toValidate, targets)
+   return self.targets[n]:validate(owner, toValidate, targets)
 end
 
 return Action
