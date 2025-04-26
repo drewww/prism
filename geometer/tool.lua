@@ -21,7 +21,7 @@ end
 ---@param placeable Placeable
 ---@return DrawableComponent
 function Tool:getDrawable(placeable)
-   if placeable:is(prism.Actor) then placeable = placeable() end
+   placeable = placeable()
    return placeable:getComponent(prism.components.Drawable)
 end
 

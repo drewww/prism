@@ -82,6 +82,9 @@ prism.fov.Fraction = prism.require "algorithms.fov.fraction"
 --- @module "engine.algorithms.fov.fov"
 prism.computeFOV = prism.require "algorithms.fov.fov"
 
+--- @alias PassableCallback fun(x: integer, y: integer): boolean
+--- @alias CostCallback fun(x: integer, y: integer): integer
+
 --- @module "engine.algorithms.astar.path"
 prism.Path = prism.require "algorithms.astar.path"
 
@@ -141,14 +144,23 @@ prism.BehaviorTree.Sequence = prism.require "core.behavior_tree.btsequence"
 prism.BehaviorTree.Succeeder = prism.require "core.behavior_tree.btsucceeder"
 
 
+--- @type table<string, Actor>
 prism.actors = {}
+--- @type table<string, Action>
 prism.actions = {}
+--- @type table<string, Component>
 prism.components = {}
+--- @type table<string, Cell>
 prism.cells = {}
+--- @type table<string, Target>
 prism.targets = {}
+--- @type table<string, Message>
 prism.messages = {}
+--- @type table<string, System>
 prism.systems = {}
+--- @type table<string, Message>
 prism.messages = {}
+--- @type table<string, Decision>
 prism.decisions = {}
 prism.behaviors = {}
 

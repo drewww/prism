@@ -190,7 +190,7 @@ function MapBuilder:build()
    local map = prism.Map(width, height, self.initialValue)
 
    for x, y, _ in self:each() do
-      map:set(x - minX + 1, y - minY + 1, self:get(x, y)())
+      map:set(x - minX + 1, y - minY + 1, self:get(x, y))
    end
 
    -- Adjust actor positions

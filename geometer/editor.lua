@@ -25,7 +25,10 @@ function Editor:__new(attachable, display, fileEnabled)
    self.attachable = attachable
    self.display = display
    self.active = false
-   self.placeable = prism.cells.Wall
+   for _, v in pairs(prism.cells) do
+      self.placeable = v()
+      break
+   end
    self.tool = PenTool()
    self.fillMode = true
    self.selectorMode = "any"
