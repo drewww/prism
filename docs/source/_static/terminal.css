@@ -19,8 +19,24 @@
   --block-background-color: var(--background-color);
 }
 
+button {
+  cursor: pointer;
+}
+
+div.admonition {
+    background: var(--background-color);
+    color: var(--font-color);
+    padding: 1em;
+    border: 1px solid var(--font-color);
+    margin-bottom: var(--global-space);
+}
+
+div.admonition p.admonition-title {
+  font-size: var(--global-font-size);
+  font-family: var(--font-stack);
+}
+
 * {
-  box-sizing: border-box;
   text-rendering: geometricprecision;
 }
 
@@ -29,6 +45,7 @@
   color: var(--invert-font-color);
 }
 
+#gotoTop > button,
 body,
 .body {
   font-size: var(--global-font-size) !important;
@@ -55,21 +72,44 @@ h6,
   line-height: var(--global-line-height);
 }
 
+.caption {
+  font-weight: 600;
+}
+
+div.admonition code.xref,
+a > code > span,
+a > code,
+li > a > code,
+a.reference,
 a {
   cursor: pointer;
   color: var(--primary-color) !important;
   text-decoration: none;
+  border-bottom: none;
+  font-weight: normal;
+  background-color: var(--background-color)
 }
 
+a > code::before,
+a > code::after {
+  content: "";
+}
+
+div.sphinxsidebar a,
 div.sphinxsidebar,
 div.sphinxsidebar ul li.toctree-l2 > a,
 div.sphinxsidebar ul li.toctree-l1 > a {
   font-size: var(--global-font-size) !important;
+  text-decoration: none;
+  border-bottom: none;
 }
 
+a:hover > code > span,
+a:hover code,
 a:hover {
   background-color: var(--primary-color);
   color: var(--invert-font-color) !important;
+  border-bottom: 1px solid black;
 }
 
 em {
@@ -111,6 +151,8 @@ section {
   margin-top: 30px !important;
 }
 
+.sig-name,
+code,
 h1 {
   font-size: var(--global-font-size) !important;
   font-style: normal;
@@ -134,6 +176,10 @@ h1,
   margin: 0;
   overflow: hidden;
   font-weight: 600 !important;
+}
+
+.logo a {
+  font-weight: bold;
 }
 
 h1::after {
@@ -202,13 +248,13 @@ pre {
   display: block;
   word-break: break-all;
   word-wrap: break-word;
-  color: var(--secondary-color);
   background-color: var(--block-background-color);
   border: 1px solid var(--secondary-color);
   padding: var(--global-space);
   white-space: pre-wrap;
   white-space: -moz-pre-wrap;
   white-space: -o-pre-wrap;
+  font-size: var(--global-font-size)
 }
 
 pre code {
@@ -298,7 +344,7 @@ li > ul > li {
   padding-left: calc(var(--global-space) * 2);
 }
 
-nav > ul > li {
+.sphinxsidebarwrapper > ul > li {
   padding-left: 0;
 }
 
@@ -312,8 +358,13 @@ ul > li::after {
   content: "-";
 }
 
-nav ul > li::after {
+
+.sphinxsidebar ul > li::after {
   content: "";
+}
+
+li > p {
+  display: inline-block;
 }
 
 ol li::before {
@@ -333,6 +384,7 @@ ol ol li::before {
 
 ol {
   counter-reset: item;
+  margin-left: calc(var(--global-space) * -2);
 }
 
 ol li:nth-child(n+10)::after {
@@ -682,6 +734,7 @@ select:-webkit-autofill:focus {
   overflow: auto;
 }
 
+.gh-btn,
 .btn {
   border-style: solid;
   border-width: 1px;
@@ -858,6 +911,7 @@ select:-webkit-autofill:focus {
   z-index: 400;
 }
 
+.admonition,
 .terminal-alert {
   color: var(--font-color);
   padding: 1em;
@@ -865,11 +919,18 @@ select:-webkit-autofill:focus {
   margin-bottom: var(--global-space);
 }
 
+div .caution,
 .terminal-alert-error {
   color: var(--error-color);
   border-color: var(--error-color);
 }
 
+video {
+  display: block;
+  margin: 0 auto;
+}
+
+div .tip,
 .terminal-alert-primary {
   color: var(--primary-color);
   border-color: var(--primary-color);

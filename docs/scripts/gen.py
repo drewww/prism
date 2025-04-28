@@ -4,11 +4,10 @@ import sys
 
 def write_class(file_path, class_name):
     with open(file_path, 'a') as f:
-        f.write(f"{class_name}\n")
-        f.write("=" * len(class_name) + "\n\n")
+        f.write(f".. title:: {class_name}\n")
         f.write(f".. lua:autoobject:: {class_name}\n")
         f.write("   :members:\n")
-        f.write("   :special-members:\n")
+        f.write("   :special-members: __new\n")
         f.write("   :undoc-members:\n")
         f.write("   :inherited-members: __new\n\n")
 
