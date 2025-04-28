@@ -36,8 +36,8 @@ function Camera:centerOn(x, y)
    local screenW, screenH = love.graphics.getWidth(), love.graphics.getHeight()
 
    x, y = x or self.position.x, y or self.position.y
-   self.position.x = x - (screenW * 0.5) * (1 / self.scale.x)
-   self.position.y = y - (screenH * 0.5) * (1 / self.scale.y)
+   self.position.x = x - (screenW * 0.5) * (self.scale.x)
+   self.position.y = y - (screenH * 0.5) * (self.scale.y)
 end
 
 ---@param scaleX number
