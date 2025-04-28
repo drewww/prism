@@ -11,9 +11,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=266695fe" />
     <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
-    <link rel="stylesheet" type="text/css" href="../../_static/lua.css?v=492dc087" />
+    <link rel="stylesheet" type="text/css" href="../../_static/lua.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/terminal.css?v=0579dbd4" />
+    <link rel="stylesheet" type="text/css" href="../../_static/terminal.css?v=0b47358f" />
     <link rel="stylesheet" type="text/css" href="../../_static/goto-top/style.css?v=c152bd81" />
     <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
@@ -45,7 +45,7 @@
   <dl class="lua class">
 <dt class="sig sig-object lua" id="lua-SpriteAtlas">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SpriteAtlas</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/core/object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><a class="headerlink" href="#lua-SpriteAtlas" title="Link to this definition">¶</a></dt>
-<dd><p>SpriteAtlas class</p>
+<dd><p>A simple sprite atlas. Used by spectrum.Display to render cells and actors.</p>
 <dl class="lua data">
 <dt class="sig sig-object lua" id="lua-SpriteAtlas.image">
 <span class="sig-name descname"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code><a class="headerlink" href="#lua-SpriteAtlas.image" title="Link to this definition">¶</a></dt>
@@ -54,25 +54,25 @@
 
 <dl class="lua data">
 <dt class="sig sig-object lua" id="lua-SpriteAtlas.quadsByName">
-<span class="sig-name descname"><span class="pre">quadsByName</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><span class="p"><span class="pre">&lt;</span></span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#lua-SpriteAtlas.quadsByName" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">quadsByName</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><span class="p"><span class="pre">&lt;</span></span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">love.Quad</span></code><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#lua-SpriteAtlas.quadsByName" title="Link to this definition">¶</a></dt>
 <dd><p>A table of quads indexed by sprite names</p>
 </dd></dl>
 
 <dl class="lua data">
 <dt class="sig sig-object lua" id="lua-SpriteAtlas.quadsByIndex">
-<span class="sig-name descname"><span class="pre">quadsByIndex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><span class="p"><span class="pre">&lt;</span></span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#lua-SpriteAtlas.quadsByIndex" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">quadsByIndex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><span class="p"><span class="pre">&lt;</span></span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">love.Quad</span></code><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#lua-SpriteAtlas.quadsByIndex" title="Link to this definition">¶</a></dt>
 <dd><p>A table of quads indexed by sprite indices</p>
 </dd></dl>
 
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-SpriteAtlas.__new">
-<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">imagePath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">spriteData</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><span class="p"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-SpriteAtlas.__new" title="Link to this definition">¶</a></dt>
-<dd><p>The constructor for the SpriteAtlas class</p>
+<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">imagePath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">spriteData</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">names?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><span class="p"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-SpriteAtlas.__new" title="Link to this definition">¶</a></dt>
+<dd><p>The constructor for the SpriteAtlas class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>imagePath</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – The path to the texture atlas image</p></li>
-<li><p><strong>spriteData</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code>) – A table containing sprite names and their respective quads</p></li>
+<li><p><strong>imagePath</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – The path to the texture atlas image.</p></li>
+<li><p><strong>spriteData</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code>) – A table containing sprite names and their respective quads.</p></li>
 </ul>
 </dd>
 </dl>
@@ -80,28 +80,28 @@
 
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-SpriteAtlas.getQuadByName">
-<span class="sig-name descname"><span class="pre">getQuadByName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">quad</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></span></span><a class="headerlink" href="#lua-SpriteAtlas.getQuadByName" title="Link to this definition">¶</a></dt>
-<dd><p>Gets a quad by name</p>
+<span class="sig-name descname"><span class="pre">getQuadByName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">quad?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">love.Quad</span></code></span></span><a class="headerlink" href="#lua-SpriteAtlas.getQuadByName" title="Link to this definition">¶</a></dt>
+<dd><p>Gets a quad by name.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – The name of the sprite</p>
+<dd class="field-odd"><p><strong>name</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – The name of the sprite.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>quad</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code>) – The love quad associated with the sprite name</p>
+<dd class="field-even"><p><strong>quad?</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">love.Quad</span></code>) – The love quad associated with the sprite name.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-SpriteAtlas.getQuadByIndex">
-<span class="sig-name descname"><span class="pre">getQuadByIndex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">quad</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></span></span><a class="headerlink" href="#lua-SpriteAtlas.getQuadByIndex" title="Link to this definition">¶</a></dt>
-<dd><p>Gets a quad by index</p>
+<span class="sig-name descname"><span class="pre">getQuadByIndex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">quad?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">love.Quad</span></code></span></span><a class="headerlink" href="#lua-SpriteAtlas.getQuadByIndex" title="Link to this definition">¶</a></dt>
+<dd><p>Gets a quad by index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>index</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The index of the sprite</p>
+<dd class="field-odd"><p><strong>index</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The index of the sprite.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>quad</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code>) – The love quad associated with the sprite index</p>
+<dd class="field-even"><p><strong>quad?</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">love.Quad</span></code>) – The love quad associated with the sprite index.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -109,13 +109,13 @@
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-SpriteAtlas.drawByName">
 <span class="sig-name descname"><span class="pre">drawByName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-SpriteAtlas.drawByName" title="Link to this definition">¶</a></dt>
-<dd><p>Draws a sprite by name at the given position</p>
+<dd><p>Draws a sprite by name at the given position.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – The name of the sprite</p></li>
-<li><p><strong>x</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The x coordinate to draw the sprite</p></li>
-<li><p><strong>y</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The y coordinate to draw the sprite</p></li>
+<li><p><strong>name</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – The name of the sprite.</p></li>
+<li><p><strong>x</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The x coordinate to draw the sprite.</p></li>
+<li><p><strong>y</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The y coordinate to draw the sprite.</p></li>
 </ul>
 </dd>
 </dl>
@@ -124,13 +124,13 @@
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-SpriteAtlas.drawByIndex">
 <span class="sig-name descname"><span class="pre">drawByIndex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-SpriteAtlas.drawByIndex" title="Link to this definition">¶</a></dt>
-<dd><p>Draws a sprite by index at the given position</p>
+<dd><p>Draws a sprite by index at the given position.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The index of the sprite</p></li>
-<li><p><strong>x</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The x coordinate to draw the sprite</p></li>
-<li><p><strong>y</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The y coordinate to draw the sprite</p></li>
+<li><p><strong>index</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The index of the sprite.</p></li>
+<li><p><strong>x</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The x coordinate to draw the sprite.</p></li>
+<li><p><strong>y</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The y coordinate to draw the sprite.</p></li>
 </ul>
 </dd>
 </dl>
@@ -138,36 +138,36 @@
 
 <dl class="lua staticmethod">
 <dt class="sig sig-object lua" id="lua-SpriteAtlas.fromAtlased">
-<em class="property"><span class="k"><span class="pre">staticmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fromAtlased</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imagePath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">jsonPath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">The</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a></span></span><a class="headerlink" href="#lua-SpriteAtlas.fromAtlased" title="Link to this definition">¶</a></dt>
-<dd><p>Creates a SpriteAtlas from an Atlased JSON and PNG file</p>
+<em class="property"><span class="k"><span class="pre">staticmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fromAtlased</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imagePath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">jsonPath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a></span></span><a class="headerlink" href="#lua-SpriteAtlas.fromAtlased" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a SpriteAtlas from an Atlased JSON and PNG file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>imagePath</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – The path to the texture atlas image</p></li>
-<li><p><strong>jsonPath</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – The path to the Atlased JSON file</p></li>
+<li><p><strong>imagePath</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – The path to the texture atlas image.</p></li>
+<li><p><strong>jsonPath</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – The path to the Atlased JSON file.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>The</strong> (<a class="reference internal" href="#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a>) – created SpriteAtlas instance</p>
+<dd class="field-even"><p><strong>_1</strong> (<a class="reference internal" href="#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a>) – The created SpriteAtlas instance.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="lua staticmethod">
 <dt class="sig sig-object lua" id="lua-SpriteAtlas.fromGrid">
-<em class="property"><span class="k"><span class="pre">staticmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fromGrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imagePath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">cellWidth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">cellHeight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">names?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">The</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a></span></span><a class="headerlink" href="#lua-SpriteAtlas.fromGrid" title="Link to this definition">¶</a></dt>
-<dd><p>Creates a SpriteAtlas from a grid of cells</p>
+<em class="property"><span class="k"><span class="pre">staticmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fromGrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imagePath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">cellWidth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">cellHeight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">names?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><span class="p"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a></span></span><a class="headerlink" href="#lua-SpriteAtlas.fromGrid" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a SpriteAtlas from a grid of cells.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>imagePath</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – The path to the texture atlas image</p></li>
-<li><p><strong>cellWidth</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The width of each cell in the grid</p></li>
-<li><p><strong>cellHeight</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The height of each cell in the grid</p></li>
-<li><p><strong>names?</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code>) – The names of the sprites, mapping left to right, top to bottom. If not supplied the quads will be sorted by index not name.</p></li>
+<li><p><strong>imagePath</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – The path to the texture atlas image.</p></li>
+<li><p><strong>cellWidth</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The width of each cell in the grid.</p></li>
+<li><p><strong>cellHeight</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The height of each cell in the grid.</p></li>
+<li><p><strong>names?</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><span class="p">[]</span>) – The names of the sprites, mapping left to right, top to bottom. If not supplied the quads will be sorted by index not name.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>The</strong> (<a class="reference internal" href="#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a>) – created SpriteAtlas instance</p>
+<dd class="field-even"><p><strong>_1</strong> (<a class="reference internal" href="#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a>) – The created SpriteAtlas instance.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -219,6 +219,7 @@
 <p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../making-a-roguelike/part1.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../making-a-roguelike/part2.html">The clash of steel</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="current">

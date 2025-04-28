@@ -76,6 +76,7 @@ h6,
   font-weight: 600;
 }
 
+div.admonition code.xref,
 a > code > span,
 a > code,
 li > a > code,
@@ -108,7 +109,7 @@ a:hover code,
 a:hover {
   background-color: var(--primary-color);
   color: var(--invert-font-color) !important;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid black;
 }
 
 em {
@@ -253,6 +254,7 @@ pre {
   white-space: pre-wrap;
   white-space: -moz-pre-wrap;
   white-space: -o-pre-wrap;
+  font-size: var(--global-font-size)
 }
 
 pre code {

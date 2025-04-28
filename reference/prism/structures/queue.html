@@ -11,9 +11,9 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=266695fe" />
     <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=27fed22d" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/lua.css?v=492dc087" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/lua.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/terminal.css?v=0579dbd4" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/terminal.css?v=0b47358f" />
     <link rel="stylesheet" type="text/css" href="../../../_static/goto-top/style.css?v=c152bd81" />
     <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
@@ -82,33 +82,33 @@
 
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Queue.pop">
-<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">The</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></span></span><a class="headerlink" href="#lua-Queue.pop" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></span></span><a class="headerlink" href="#lua-Queue.pop" title="Link to this definition">¶</a></dt>
 <dd><p>Removes and returns the element from the start of the queue.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>The</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code>) – value at the start of the queue.</p>
+<dd class="field-odd"><p><strong>_1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code>) – The value at the start of the queue.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Queue.empty">
-<span class="sig-name descname"><span class="pre">empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">True</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></span></span><a class="headerlink" href="#lua-Queue.empty" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></span></span><a class="headerlink" href="#lua-Queue.empty" title="Link to this definition">¶</a></dt>
 <dd><p>Checks if the queue is empty.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>True</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code>) – if the queue is empty, false otherwise.</p>
+<dd class="field-odd"><p><strong>_1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code>) – True if the queue is empty, false otherwise.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Queue.peek">
-<span class="sig-name descname"><span class="pre">peek</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">The</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></span></span><a class="headerlink" href="#lua-Queue.peek" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">peek</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></span></span><a class="headerlink" href="#lua-Queue.peek" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the element at the start of the queue without removing it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>The</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code>) – value at the start of the queue.</p>
+<dd class="field-odd"><p><strong>_1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code>) – The value at the start of the queue.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -123,39 +123,39 @@
 
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Queue.contains">
-<span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">True</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></span></span><a class="headerlink" href="#lua-Queue.contains" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></span></span><a class="headerlink" href="#lua-Queue.contains" title="Link to this definition">¶</a></dt>
 <dd><p>Checks if the queue contains a specific value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>value</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code>) – The value to check for.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>True</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code>) – if the value is in the queue, false otherwise.</p>
+<dd class="field-even"><p><strong>_1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code>) – True if the value is in the queue, false otherwise.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Queue.size">
-<span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">The</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></span></span><a class="headerlink" href="#lua-Queue.size" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></span></span><a class="headerlink" href="#lua-Queue.size" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the number of elements in the queue.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>The</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – size of the queue.</p>
+<dd class="field-odd"><p><strong>_1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The size of the queue.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Queue.remove">
-<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">True</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></span></span><a class="headerlink" href="#lua-Queue.remove" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></span></span><a class="headerlink" href="#lua-Queue.remove" title="Link to this definition">¶</a></dt>
 <dd><p>Removes the first occurrence of the specified value from the queue.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>value</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code>) – The value to be removed from the queue.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>True</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code>) – if the value was removed, false otherwise.</p>
+<dd class="field-even"><p><strong>_1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code>) – True if the value was removed, false otherwise.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -207,6 +207,7 @@
 <p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../making-a-roguelike/part1.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../making-a-roguelike/part2.html">The clash of steel</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="current">
@@ -216,8 +217,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../core/actorstorage.html"><code class="docutils literal notranslate"><span class="pre">ActorStorage</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../core/behavior.html"><code class="docutils literal notranslate"><span class="pre">IBehavior</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../core/cell.html"><code class="docutils literal notranslate"><span class="pre">Cell</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/collision.html"><code class="docutils literal notranslate"><span class="pre">Collision</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../core/component.html"><code class="docutils literal notranslate"><span class="pre">Component</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../core/decision.html"><code class="docutils literal notranslate"><span class="pre">Decision</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/entity.html"><code class="docutils literal notranslate"><span class="pre">Entity</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../core/level.html"><code class="docutils literal notranslate"><span class="pre">Level</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../core/map.html"><code class="docutils literal notranslate"><span class="pre">Map</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../core/map_builder.html"><code class="docutils literal notranslate"><span class="pre">MapBuilder</span></code></a></li>

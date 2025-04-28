@@ -53,15 +53,11 @@ To make the game more engaging, let’s introduce an enemy: the
 
    function Kobold:initialize()
       return {
-         prism.components.Drawable(string.byte("k") + 1, prism.Color4(1, 0, 0)),
+         prism.components.Drawable(string.byte("k") + 1, prism.Color4.RED),
       }
    end
 
    return Kobold
-
-.. note::
-
-   Wondering what the @class is? 
 
 Let’s run the game again, and press ``~``. This opens Geometer, the editor.
 Click on the k on the right hand side and use the pen tool to draw a
@@ -178,12 +174,14 @@ kick.lua:
 
 .. code:: lua
 
+   --- @class KickTarget : Target
    local KickTarget = prism.Target:extend("KickTarget")
-   KickTarget.typesAllowed = { Actor = true }
-   KickTarget.range = 1
 
    function KickTarget:validate(owner, actor, targets)
-      return actor:hasComponent(prism.components.Collider)
+      ---@cast actor Actor
+      return actor:is(prism.Actor)
+         and actor:hasComponent(prism.components.Collider)
+         and owner:getRange("8way", actor) == 1
    end
 
 With this target we’re saying you can only kick actors at range one with a collider 
@@ -231,7 +229,8 @@ checking passability with a custom collision mask.
             break
          end
       end
-      level:moveActor(kicked, nextpos)
+
+      level:moveActor(kicked, finalpos)
    end
 
 Kicking kobolds, for real this time
@@ -248,15 +247,23 @@ and then perform the kick action on them:
    ...
 
    local target = self.level:getActorsAt(position:decompose())[1]
-   if target and prism.actions.Kick:validateTarget(1, owner, target, {}) then
-      local kick = prism.actions.Kick(owner, { target })
-      if kick:canPerform(self.level) then
-         decision:setAction(kick)
-      end
+   local kick = prism.actions.Kick(owner, { target })
+   if kick:canPerform(self.level) then
+      decision:setAction(kick)
    end
 
-We use :lua:func:`Action.validateTarget` to check our target, where ``1`` refers to the first target in the
-kick action. ``{}``
+.. note::
 
-That's all
-----------
+   :lua:func:`Action.canPerform` will validate all targets in the action.
+
+That's a wrap
+-------------
+
+That's all for part one. In conclusion, we've accomplished the following:
+
+1. Added a kobold enemy with basic pathfinding.
+2. Implemented a kick action to shove kobolds around.
+3. Integrated the kick by performing it when bumping into a valid target.
+
+You can find the code for this part at https://github.com/prismrl/prism-tutorial on the ``part-1`` branch. In the 
+:doc:`next section <part2>`, we'll do some work with components and systems to flesh out the combat system.
