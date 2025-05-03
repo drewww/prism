@@ -8,12 +8,12 @@
   <button>Back to top</button>
 </div></template>
     <title>Prism’s Architecture: A Primer &#8212; Prism  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=266695fe" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=3ba690ee" />
     <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
     <link rel="stylesheet" type="text/css" href="_static/lua.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/terminal.css?v=0b47358f" />
+    <link rel="stylesheet" type="text/css" href="_static/terminal.css?v=cab5505d" />
     <link rel="stylesheet" type="text/css" href="_static/goto-top/style.css?v=c152bd81" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
@@ -21,6 +21,7 @@
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>
     <script src="_static/goto-top/main.js?v=69fc67a6"></script>
+    <link rel="icon" href="_static/prism.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Quickstart" href="quickstart.html" />
@@ -47,27 +48,36 @@
 <p>This is an overview of how a game made with Prism fits together.</p>
 <section id="actors">
 <h2>Actors<a class="headerlink" href="#actors" title="Link to this heading">¶</a></h2>
-<p>Actors are the entities that populate the game world. They include the player, monsters, items, chests, and any other interactive elements. Each actor consists of components—data structures that define their state and behavior.</p>
+<p>Actors are the entities that populate the game world. They include the player, monsters, items, chests,
+and any other interactive elements. Each actor consists of components—data structures that define their
+state and behavior.</p>
 </section>
 <section id="components">
 <h2>Components<a class="headerlink" href="#components" title="Link to this heading">¶</a></h2>
-<p>Components store the data that define an actor’s properties and abilities. A monster’s health, a poison effect, or a player’s sight range are all represented as components. Components determine what actions an actor can perform.</p>
+<p>Components store the data that define an actor or cell’s properties and abilities. A monster’s health, a poison
+effect, or a cell’s opacity are all represented as components. Components determine what actions
+an actor can perform.</p>
 </section>
 <section id="actions">
 <h2>Actions<a class="headerlink" href="#actions" title="Link to this heading">¶</a></h2>
-<p>Actions are how actors interact with the game world. Moving, attacking, and casting spells are all actions. Actions require actors to have specific components and trigger state changes within the level.</p>
+<p>Actions are how actors interact with the game world. Moving, attacking, and casting spells are all actions.
+Actions require actors to have specific components and trigger state changes within the level.</p>
 </section>
 <section id="systems">
 <h2>Systems<a class="headerlink" href="#systems" title="Link to this heading">¶</a></h2>
-<p>Systems handle game logic based on events. They process changes, such as reducing an actor’s health due to poison at the end of their turn or checking if a floating creature should fall into a pit. Systems operate at the level-wide scale being fed all events from that level.</p>
+<p>Systems handle game logic based on events. They process changes, such as reducing an actor’s health due to
+poison at the end of their turn or checking if a floating creature should fall into a pit. Systems operate
+at the level-wide scale being fed all events from that level.</p>
 </section>
 <section id="level">
 <h2>Level<a class="headerlink" href="#level" title="Link to this heading">¶</a></h2>
-<p>The level manages all actors and maintains the game state. It tracks turns, processes actions, moves actors, and holds the map and various caches for the game world.</p>
+<p>The level manages all actors and maintains the game state. It tracks turns, processes actions, moves actors,
+and holds the map and various caches for the game world.</p>
 </section>
 <section id="cells">
 <h2>Cells<a class="headerlink" href="#cells" title="Link to this heading">¶</a></h2>
-<p>Cells define the physical structure of the level. They represent terrain elements such as walls, floors, water, and lava—determining where actors can move and interact.</p>
+<p>Cells define the physical structure of the level. They represent terrain elements such as walls, floors,
+water, and lava—determining where actors can move and interact.</p>
 </section>
 </section>
 
@@ -78,7 +88,12 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">Prism</a></h1>
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/prism.png" alt="Logo" />
+    
+  </a>
+</p>
 
 
 
