@@ -1,39 +1,30 @@
----@class GameState : Object
----@field manager GameStateManager
+--- A game state used to organize different screens of a game in conjunction with a manager.
+--- @class GameState : Object
+--- @field manager? GameStateManager The state's manager or nil if the state is not in a manager's stack.
 local GameState = prism.Object:extend("GameState")
 
---- Called when the gamestate is started.
-function GameState:load()
-   -- implement your own load logic here
+--- Called when this state is pushed or switched to.
+--- @param previous? GameState
+--- @vararg any Additional parameters passed to the state.
+function GameState:load(previous, ...)
 end
 
---- Calls when the gamestate is stopped.
-function GameState:unload()
-   -- implement your own unload logic here
+--- Called when the manager switches away from or pops this state off.
+--- @param next GameState
+--- @vararg any Additional parameters passed to the state.
+function GameState:unload(next, ...)
 end
 
---- Called on each update.
-function GameState:update(dt)
-   -- implement your own update logic here
+--- Called when a state is popped and this one becomes active.
+--- @param previous? GameState
+--- @vararg any Additional parameters passed to the state.
+function GameState:resume(previous, ...)
 end
 
---- Called on each draw.
-function GameState:draw()
-   -- implement your own draw logic here
-end
-
---- Called on each keypress.
-function GameState:keypressed(key, scancode)
-   -- handle keypresses here
-end
-
-function GameState:mousepressed( x, y, button, istouch, presses )
-   -- handle mousepress here
-end
-
---- Called when the mouse wheel is moved.
-function GameState:wheelmoved(dx, dy)
-   -- handle mouse wheel movement here
+--- Called when a state is pushed on top of this one.
+--- @param next GameState
+--- @vararg any Additional parameters passed to the state.
+function GameState:pause(next, ...)
 end
 
 function GameState:getManager() return self.manager end

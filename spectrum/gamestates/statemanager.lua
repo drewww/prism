@@ -1,100 +1,115 @@
----@class GameStateManager : Object
+local loveCallbacks = {
+   'directorydropped',
+   'draw',
+   'filedropped',
+   'focus',
+   'gamepadaxis',
+   'gamepadpressed',
+   'gamepadreleased',
+   'joystickaxis',
+   'joystickhat',
+   'joystickpressed',
+   'joystickreleased',
+   'joystickremoved',
+   'keypressed',
+   'keyreleased',
+   'load',
+   'lowmemory',
+   'mousefocus',
+   'mousemoved',
+   'mousepressed',
+   'mousereleased',
+   'quit',
+   'resize',
+   'run',
+   'textedited',
+   'textinput',
+   'threaderror',
+   'touchmoved',
+   'touchpressed',
+   'touchreleased',
+   'update',
+   'visible',
+   'wheelmoved',
+   'joystickadded',
+}
+
+-- returns a list of all the items in t1 that aren't in t2
+local function exclude(t1, t2)
+   local set = {}
+   for _, item in ipairs(t1) do set[item] = true end
+   for _, item in ipairs(t2) do set[item] = nil end
+   local t = {}
+   for item, _ in pairs(set) do
+      table.insert(t, item)
+   end
+   return t
+end
+
+--- A state manager that uses a stack to hold states. Implementation taken from https://github.com/tesselode/roomy.
+--- @class GameStateManager : Object
+--- @field private states GameState[]
+--- @overload fun(): GameStateManager
 local StateManager = prism.Object:extend("GameStateManager")
 
 function StateManager:__new()
-   self.stateStack = {}
+  self.states = {}
 end
 
---- @param state GameState State to push to the top of the stack.
-function StateManager:push(state)
-   assert(state:is(spectrum.GameState), "state must be a subclass of GameState")
-   state.manager = self
-   table.insert(self.stateStack, state)
-   if state.load then
-      state:load()
+--- Emits an event to the current state, passing any extra parameters along to it.
+--- @param event string The event to emit.
+--- @param ... any Additional parameters to pass to the state.
+function StateManager:emit(event, ...)
+   local state = self.states[#self.states]
+   if state and state[event] then state[event](state, ...) end
+end
+
+--- Changes the currently active state.
+--- @param ... any Additional parameters to pass to the state.
+function StateManager:enter(next, ...)
+   local previous = self.states[#self.states]
+   self:emit('unload', next, ...)
+   previous.manager = nil
+   self.states[#self.states] = next
+   self:emit('load', previous, ...)
+end
+
+--- Pushes a new state onto the stack, making it the new active state.
+--- @param next GameState The state to push.
+--- @param ... any Additional parameters to pass to the state.
+function StateManager:push(next, ...)
+   local previous = self.states[#self.states]
+   next.manager = self
+   self:emit('pause', next, ...)
+   self.states[#self.states + 1] = next
+   self:emit('load', previous, ...)
+end
+
+--- Removes the active state from the stack and resumes the previous one.
+--- @param ... any Additional parameters to pass to the state.
+function StateManager:pop(...)
+   local previous = self.states[#self.states]
+   local next = self.states[#self.states - 1]
+   self:emit('unload', next, ...)
+   previous.manager = nil
+   self.states[#self.states] = nil
+   self:emit('resume', previous, ...)
+end
+
+--- Hooks the love callbacks into the manager's, overwriting the originals.
+--- @param options? { include: string[], exclude: string[] } Lists of callbacks to include or exclude.
+function StateManager:hook(options)
+   options = options or {}
+   local callbacks = options.include or loveCallbacks
+   if options.exclude then
+      callbacks = exclude(callbacks, options.exclude)
    end
-end
-
---- Pops the state from the top of the stack.
-function StateManager:pop()
-   local topState = self.stateStack[#self.stateStack]
-   if topState and topState.unload then
-      topState:unload()
-   end
-   
-   local newTopState = self.stateStack[#self.stateStack]
-   if newTopState then
-      newTopState:load()
-   end
-   return table.remove(self.stateStack, #self.stateStack)
-end
-
---- @param state GameState Swap the top of the stack with this state.
-function StateManager:replace(state)
-   assert(state:is(spectrum.GameState), "state must be a subclass of GameState")
-
-   local state = self:pop()
-   state:unload()
-
-   self:push(state)
-end
-
---- Called each update, calls update on top state in stack.
-function StateManager:update(dt)
-   local topState = self.stateStack[#self.stateStack]
-   if topState and topState.update then
-      topState:update(dt)
-   end
-end
-
---- Called each draw, calls draw on top state in stack.
-function StateManager:draw()
-   local topState = self.stateStack[#self.stateStack]
-   if topState and topState.draw then
-      topState:draw()
-   end
-end
-
---- Called on keypress, calls keypressed on top state in stack
-function StateManager:keypressed(key, scancode)
-   local topState = self.stateStack[#self.stateStack]
-   if topState and topState.keypressed then
-      topState:keypressed(key, scancode)
-   end
-end
-
-function StateManager:textinput(text)
-   local topState = self.stateStack[#self.stateStack]
-   if topState and topState.textinput then
-      topState:textinput(text)
-   end
-end
-
-function StateManager:mousepressed(x, y, button, istouch, presses)
-   local topState = self.stateStack[#self.stateStack]
-   if topState and topState.mousepressed then
-      topState:mousepressed(x, y, button, istouch, presses)
-   end
-end
-
-function StateManager:mousereleased(x, y, button)
-   local topState = self.stateStack[#self.stateStack]
-   if topState and topState.mousereleased then
-      topState:mousereleased(x, y, button)
-   end
-end
-
-function StateManager:mousemoved(x, y, dx, dy, istouch)
-   local topState = self.stateStack[#self.stateStack]
-   if topState and topState.mousemoved then
-      topState:mousemoved(x, y, dx, dy, istouch)
-   end
-end
-
-function StateManager:wheelmoved(dx, dy)
-   local topState = self.stateStack[#self.stateStack]
-   if topState and topState.wheelmoved then
-      topState:wheelmoved(dx, dy)
+   for _, callbackName in ipairs(callbacks) do
+      local oldCallback = love[callbackName]
+      love[callbackName] = function(...)
+      if oldCallback then oldCallback(...) end
+         self:emit(callbackName, ...)
+      end
    end
 end
 
