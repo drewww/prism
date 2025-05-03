@@ -161,9 +161,6 @@ function Level:addActor(actor)
    end
 
    self.systemManager:onActorAdded(self, actor)
-
-   local pos = actor:getPosition()
-   self:getCell(pos.x, pos.y):onEnter(self, actor)
 end
 
 --- Removes an actor from the level. Handles updating the component cache and
@@ -229,9 +226,6 @@ function Level:moveActor(actor, pos, skipSparseMap)
 
    if not skipSparseMap then self.actorStorage:insertSparseMapEntries(actor) end
 
-   self:getCell(previousPosition.x, previousPosition.y):onLeave(self, actor)
-   self:getCell(pos.x, pos.y):onEnter(self, actor)
-
    self.systemManager:onMove(self, actor, previousPosition, pos)
 end
 
@@ -253,14 +247,12 @@ function Level:performAction(action, silent)
    if not silent then
       self.systemManager:beforeAction(self, owner, action)
       local x, y = owner:getPosition():decompose()
-      self:getCell(x, y):beforeAction(self, owner, action)
    end
    action:perform(self)
    self:yield(prism.messages.ActionMessage(action))
    if not silent then
       self.systemManager:afterAction(self, owner, action)
       local x, y = owner:getPosition():decompose()
-      self:getCell(x, y):afterAction(self, owner, action)
    end
 end
 
