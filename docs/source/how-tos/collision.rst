@@ -11,23 +11,21 @@ First, register any "layers" or types of movement you want to use:
    prism.Collision.assignNextAvailableMovetype("walk")
    prism.Collision.assignNextAvailableMovetype("fly")
 
-These are just strings, so it's recommended to use constants to identify them. Then, for every 
-:lua:class:`Cell` in your game, define which movement types are allowed through:
-
-.. code:: lua
-
-   Floor.allowedMovetypes = { "walk" }
-
-   Pit.allowedMovetypes = { "fly" }
-
-For actors, the :lua:class:`ColliderComponent` is provided. Use it to define which movement types
-the actor blocks:
+Then, use a :lua:class:`ColliderComponent` to define collision for actors and cells. If no move types
+are supplied, nothing will be able to pass.
 
 .. code:: lua
 
    prism.components.Collider{ allowedMovetypes = { "fly" } }
 
-For movement, you can define a component yourself with a collision mask. Here's an example:
+   prism.components.Collider() -- impassable
+
+.. caution::
+
+   Cells are required to define a collider!
+
+For movement, you can define a component yourself by using :lua:func:`Collision.createBitmaskFromMovetypes` to
+create a collision mask. Here's an example from the `template <https://github.com/prismrl/prism-template>_`:
 
 .. code:: lua
 
@@ -48,5 +46,5 @@ For movement, you can define a component yourself with a collision mask. Here's 
    prism.components.Mover{ "walk" }
 
 Then you can use it whenever a function expects a mask, like in :lua:func:`Level.findPath` or
-:lua:func:`Level.getCellPassable`. You might also want to use a custom mask for a specific action, 
-such as throwing an item. 
+:lua:func:`Level.getCellPassable`. You could use the same function to create a custom mask for a specific action,
+such as throwing an item over a pit.

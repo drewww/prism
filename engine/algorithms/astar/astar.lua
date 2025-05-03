@@ -73,7 +73,8 @@ local function astarSearch(start, goal, passableCallback, costCallback, minDista
    end
 
    if pathFound then
-      return reconstructPath(cameFrom, costSoFar, final)
+      local path = reconstructPath(cameFrom, costSoFar, final)
+      return path:length() > 0 and path or nil
    end
 end
 
