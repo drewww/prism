@@ -24,6 +24,8 @@ def process_files(input_dir, output_dir):
 
     for root, _, files in os.walk(input_dir):
         for file in files:
+            if not file.endswith(".lua"):
+                continue
             input_file_path = os.path.join(root, file)
             output_file_path = os.path.join(output_dir, os.path.relpath(input_file_path, input_dir))
             output_file_path = os.path.splitext(output_file_path)[0] + ".rst"
