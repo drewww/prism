@@ -1,10 +1,10 @@
 --- The root node of a behavior tree.
---- @class BTRoot : BTNode
---- @overload fun(children: BTNode[]): BTRoot
-local BTRoot = prism.BehaviorTree.Node:extend("BTRoot")
+--- @class BehaviorTree.Root : BehaviorTree.Node
+--- @overload fun(children: BehaviorTree.Node[]): BehaviorTree.Root
+local BTRoot = prism.BehaviorTree.Node:extend("BehaviorTree.Root")
 
 --- Creates a new BTRoot.
---- @param children BTNode[]
+--- @param children BehaviorTree.Node[]
 function BTRoot:__new(children)
    self.children = self.children or children
 end

@@ -6,14 +6,14 @@ local function fov(level, origin, maxDepth, callback)
    callback(origin.x, origin.y, level:getCell(origin.x, origin.y))
 
    for i = 0, 3 do
-      local quadrant = prism.fov.Quadrant(i, origin)
+      local quadrant = prism.FOV.Quadrant(i, origin)
 
       local function reveal(x, y)
          local x, y = quadrant:transform(x, y)
          callback(x, y, level:getCell(x, y))
       end
 
-      ---@param row Row
+      ---@param row FOV.Row
       ---@param col integer
       local function isSymmetric(row, col)
          local startNum = row.startSlope:tonumber()
@@ -33,13 +33,13 @@ local function fov(level, origin, maxDepth, callback)
          return not level:getCellOpaque(x, y)
       end
 
-      local function slope(x, y) return prism.fov.Fraction(2 * y - 1, 2 * x) end
+      local function slope(x, y) return prism.FOV.Fraction(2 * y - 1, 2 * x) end
 
       local function scanIterative(row)
-         --- @type Row[]
+         --- @type FOV.Row[]
          local rows = { row }
          while #rows > 0 do
-            ---@type Row
+            ---@type FOV.Row
             row = table.remove(rows)
 
             local px, py
@@ -65,7 +65,7 @@ local function fov(level, origin, maxDepth, callback)
          end
       end
 
-      local firstRow = prism.fov.Row(1, prism.fov.Fraction(-1), prism.fov.Fraction(1))
+      local firstRow = prism.FOV.Row(1, prism.FOV.Fraction(-1), prism.FOV.Fraction(1))
       scanIterative(firstRow)
    end
 end
