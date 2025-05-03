@@ -125,7 +125,6 @@ local function EditorRoot(self, scene)
       self.props.editor.keybindsEnabled = not focused
    end)
 
-   local background = prism.Color4.fromHex(0x181425)
    local frameBackground = prism.Color4.fromHex(0x193c3e)
    local panelBackground = prism.Color4.fromHex(0x262b44)
    return function(_, x, y, w, h, depth)
@@ -157,7 +156,6 @@ local function EditorRoot(self, scene)
       )
       love.graphics.pop()
 
-      love.graphics.setBackgroundColor(background:decompose())
       love.graphics.push("all")
 
       local bottomEdge = canvas:getHeight() - 16
