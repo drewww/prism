@@ -23,12 +23,12 @@ end
 ---@class SelectionPanelProps : Inky.Props
 ---@field placeables Placeable[]
 ---@field selected Placeable
----@field selectedText love.Text
+---@field selectedText love.TextBatch
 ---@field filtered number[]
 ---@field display Display
 ---@field size Vector2
 ---@field editor Editor
----@field overlay love.Canvas
+---@field overlay love.Texture
 
 ---@class SelectionPanel : Inky.Element
 ---@field props SelectionPanelProps
@@ -100,7 +100,7 @@ local function SelectionPanel(self, scene)
    local highlight = prism.Color4.fromHex(0x2ce8f5)
    local fontSize = self.props.size.x - (self.props.size.x > 48 and 24 or 8)
    local selectionFont = love.graphics.newFont(geometer.assetPath .. "/assets/FROGBLOCK-Polyducks.ttf", fontSize)
-   self.props.selectedText = love.graphics.newText(selectionFont, "")
+   self.props.selectedText = love.graphics.newTextBatch(selectionFont, "")
 
    return function(_, x, y, w, h, depth)
       local offsetY = love.graphics.getCanvas():getHeight() - background:getHeight()
