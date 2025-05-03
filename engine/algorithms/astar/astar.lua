@@ -27,14 +27,18 @@ end
 
 local function defaultCostCallback(_, _) return 1 end
 
----@param start Vector2
----@param goal Vector2
----@param passableCallback fun(x: integer, y: integer): boolean
----@param costCallback? fun(x: integer, y: integer): integer
----@param minDistance? integer
-local function astarSearch(start, goal, passableCallback, costCallback, minDistance)
+--- Gets a path between two points using A* pathfinding. It is usually preferable to use :lua:func:`Level.findPath`.
+---@param start Vector2 The starting position.
+---@param goal Vector2 The goal position.
+---@param passableCallback PassableCallback A callback for determining passability.
+---@param costCallback? CostCallback An optional callback for determning costs.
+---@param minDistance? integer A minimum distance to be away from the goal. Defaults to zero.
+---@param distanceType? DistanceType An optional distance type to use for calculating the minimum distance. Defaults to prism._defaultDistance.
+---@return Path? path A path to the goal, or nil if a path could not be found or the start is already at the minimum distance.
+local function astarSearch(start, goal, passableCallback, costCallback, minDistance, distanceType)
    minDistance = minDistance or 0
    costCallback = costCallback or defaultCostCallback
+   distanceType = distanceType or prism._defaultDistance
 
    local frontier = prism.PriorityQueue()
    frontier:push(start, 0)
@@ -50,7 +54,7 @@ local function astarSearch(start, goal, passableCallback, costCallback, minDista
    while not frontier:isEmpty() do
       local current = frontier:pop()
       --- @cast current Vector2
-      if current:getRange(prism._defaultDistance, goal) <= minDistance then
+      if current:getRange(distanceType, goal) <= minDistance then
          final = current
          pathFound = true
          break

@@ -50,7 +50,8 @@ end
 --- Returns true if the cell at the specified coordinates is passable, false otherwise.
 --- @param x number The x-coordinate.
 --- @param y number The y-coordinate.
---- @return boolean True if the cell is passable, false otherwise.
+--- @param mask Bitmask The collision mask.
+--- @return boolean -- True if the cell is passable, false otherwise.
 function Map:getCellPassable(x, y, mask)
    return prism.Collision.checkBitmaskOverlap(self.passableCache:getMask(x, y), mask)
 end

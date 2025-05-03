@@ -9,7 +9,7 @@
 --- @field passableCache BitmaskBuffer A cache of cell passability || actor passability for each cell. Used to speed up pathfinding.
 --- @field decision ActionDecision Used during deserialization to resume.
 --- @field RNG RNG The level's local random number generator, use this for randomness within the level like attack rolls.
---- @overload fun(map: Map, actors: [Actor], systems: [System], scheduler: Scheduler?): Level
+--- @overload fun(map: Map, actors: Actor[], systems: System[], scheduler: Scheduler?): Level
 local Level = prism.Object:extend("Level")
 
 Level.serializationBlacklist = {
@@ -139,7 +139,7 @@ function Level:getSystem(className) self.systemManager:getSystem(className) end
 --- Note: IDs are unique to actors within the Level but may be reused 
 --- when indices are freed.
 --- @param actor Actor The actor whose ID is to be retrieved.
---- @return integer? The unique ID of the actor, or nil if the actor is not found.
+--- @return integer? -- The unique ID of the actor, or nil if the actor is not found.
 function Level:getID(actor)
    return self.actorStorage:getID(actor)
 end
@@ -433,15 +433,16 @@ function Level:updateOpacityCache(x, y)
 end
 
 --- Finds a path between two positions.
----@param startPos Vector2
----@param goalPos Vector2
+---@param start Vector2 The starting position.
+---@param goal Vector2 The goal position.
 ---@param minDistance integer The minimum distance away to pathfind to.
 ---@param mask Bitmask The collision mask to use for passability checks.
----@return Path | nil -- The path, or nil if none is found.
-function Level:findPath(startPos, goalPos, minDistance, mask)
+---@param distanceType? DistanceType An optional distance type to use for calculating the minimum distance. Defaults to prism._defaultDistance.
+---@return Path? path A path to the goal, or nil if a path could not be found or the start is already at the minimum distance.
+function Level:findPath(start, goal, minDistance, mask, distanceType)
    if
-       startPos.x < 1 or startPos.x > self.map.w or startPos.y < 1 or startPos.y > self.map.h or
-       goalPos.x < 1 or goalPos.x > self.map.w or goalPos.y < 1 or goalPos.y > self.map.h
+       start.x < 1 or start.x > self.map.w or start.y < 1 or start.y > self.map.h or
+       goal.x < 1 or goal.x > self.map.w or goal.y < 1 or goal.y > self.map.h
    then
       error("Path destination is not on the map.")
    end
@@ -451,7 +452,7 @@ function Level:findPath(startPos, goalPos, minDistance, mask)
    end
 
    -- Use the prism.astar function to find the path
-   return prism.astar(startPos, goalPos, passableCallback, nil, minDistance)
+   return prism.astar(start, goal, passableCallback, nil, minDistance, distanceType)
 end
 
 --- Returns a list of all actors that are within the given range of the given
@@ -484,7 +485,7 @@ function Level:getAOE(type, position, range)
       return fov, seenActors
    elseif type == "box" then
       for actorInAOE in self.actorStorage:eachActor() do
-         if actorInAOE:getRangeVec("box", position) <= range then table.insert(seenActors, actorInAOE) end
+         if actorInAOE:getRangeVec(position) <= range then table.insert(seenActors, actorInAOE) end
       end
 
       return nil, seenActors

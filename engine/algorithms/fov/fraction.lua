@@ -1,6 +1,6 @@
---- @class Fraction : Object
---- @overload fun(numerator, denominator): Fraction
---- @type Fraction
+--- @class FOV.Fraction : Object
+--- @overload fun(numerator, denominator): FOV.Fraction
+--- @type FOV.Fraction
 local Fraction = prism.Object:extend("Fraction")
 
 function Fraction:__new(numerator, denominator)
