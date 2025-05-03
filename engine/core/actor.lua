@@ -77,17 +77,17 @@ end
 function Actor:getPosition() return self.position:copy() end
 
 --- Get the range from this actor to another actor.
---- @param type DistanceType
 --- @param actor Actor The other actor to get the range to.
+--- @param type? DistanceType
 --- @return number -- The calculated range.
-function Actor:getRange(type, actor)
-   return self.position:getRange(type, actor.position)
+function Actor:getRange(actor, type)
+   return self.position:getRange(actor.position, type)
 end
 
 --- Get the range from this actor to a given vector.
---- @param type string The type of range calculation to use.
 --- @param vector Vector2 The vector to get the range to.
+--- @param type? DistanceType The type of range calculation to use.
 --- @return number -- The calculated range.
-function Actor:getRangeVec(type, vector) return self.position:getRange(type, vector) end
+function Actor:getRangeVec(vector, type) return self.position:getRange(vector, type) end
 
 return Actor

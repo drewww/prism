@@ -108,17 +108,19 @@ function Action:getNumTargets()
 end
 
 --- Returns the target object at the specified index.
---- @tparam number index The index of the target object to retrieve.
+--- @param index number The index of the target object to retrieve.
 --- @return Target|nil targetObject
 function Action:getTargetObject(index) return self.targets[index] end
 
 --- Determines if the specified actor is a target of this action.
--- @tparam Actor actor The actor to check if they are a target of this action.
--- @treturn boolean true if the specified actor is a target of this action, false otherwise.
+--- @param actor Actor The actor to check if they are a target of this action.
+--- @return boolean -- True if the specified actor is a target of this action, false otherwise.
 function Action:hasTarget(actor)
    for _, a in pairs(self.targetObjects) do
       if a == actor then return true end
    end
+
+   return false
 end
 
 --- Validates the specified target for this action.
@@ -126,7 +128,7 @@ end
 --- @param owner Actor The actor that is performing the action.
 --- @param toValidate Actor The target actor to validate.
 --- @param targets? Object[] The previously selected targets.
---- @return boolean -- true if the specified target actor is valid for this action, false otherwise.
+--- @return boolean -- True if the specified target actor is valid for this action, false otherwise.
 function Action:validateTarget(n, owner, toValidate, targets)
    return self.targets[n]:validate(owner, toValidate, targets)
 end
