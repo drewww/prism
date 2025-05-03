@@ -1,6 +1,5 @@
 if not spectrum then error("Geometer depends on spectrum!") end
 
---- @module "geometer"
 geometer = {}
 
 --- @type string

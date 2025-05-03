@@ -1,3 +1,5 @@
+--- The game state for Geometer. This should be the only thing you have to interface with
+--- to use Geometer in a game.
 --- @class EditorState : GameState
 --- @field editor Editor
 local EditorState = spectrum.GameState:extend "EditorState"
