@@ -5,7 +5,7 @@ local Inky = geometer.require "inky"
 ---@field size Vector2 the final size of a tile in editor
 ---@field display Display
 ---@field onSelect function
----@field overlay love.Canvas
+---@field overlay love.Texture
 
 ---@class TileElement : Inky.Element
 ---@field props TileElementProps
@@ -58,7 +58,7 @@ local TileElement = Inky.defineElement(Tile)
 ---@field size Vector2 the final size of a tile in editor
 ---@field display Display
 ---@field onSelect function
----@field overlay love.Canvas
+---@field overlay love.Texture
 ---@field placeables Placeable[]
 ---@field elements TileElement[]
 ---@field filtered number[]

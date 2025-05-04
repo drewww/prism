@@ -275,7 +275,8 @@ function prism.loadModule(directory)
    table.insert(prism.modules, directory)
 
    if love.filesystem.read(directory .. "/module.lua") then
-      require(directory .. "." .. "module")
+      local filename = directory:gsub("/", ".") .. ".module"
+      require(filename)
    end
 
    local sourceDir = love.filesystem.getSource() -- Get the source directory
