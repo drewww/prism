@@ -36,7 +36,8 @@ end
 --- prerequisites are met and will throw an error if they are not.
 --- @param component Component The component to add to the entity.
 function Entity:addComponent(component)
-   assert(component:is(prism.Component), "Expected argument component to be of type Component!")
+   assert(component:is(prism.Component), "Expected argument component to be of type Component, was " .. component)
+   assert(component.name, "Component " .. component.className .. " must have a name!")
    assert(component:checkRequirements(self), "Unsupported component " .. component.className .. " added to entity!")
    assert(not self:hasComponent(component), "Entity already has component " .. component.className .. "!")
 

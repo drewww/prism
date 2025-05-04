@@ -8,7 +8,7 @@
 --- @class System : Object
 --- @field global boolean A system defined global can only be attached to the Game object. It will see all events from all levels.
 --- @field name string A system must define a name that is unique to the System.
---- @field requirements string[] A table of requirements that must be met for the System to be attached to a Level.
+--- @field requirements string[] A table of requirements that must be met for the System to be attached to a Level. References the name of a system, not their class name.
 --- @field softRequirements string[] A table of optional requirements that ensure proper order if both Systems are attached.
 --- @field owner Level? The level that holds this system.
 --- @field beforeActions table<Action, fun(level: Level, actor: Actor, action: Action)> A table mapping specific actions to event hooks.

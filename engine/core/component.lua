@@ -4,7 +4,7 @@
 --- also grant actions.
 --- @class Component : Object
 --- @field name string Each component prototype MUST have a unique name!
---- @field requirements table A list of component prototypes the actor must first have, before this can be applied.
+--- @field requirements string[] A list of components the actor must first have, before this can be applied. References the component name, not their class name.
 --- @field owner Entity The Actor this component is composing. This is set by Actor when a component is added or removed.
 --- @overload fun(): Component
 local Component = prism.Object:extend("Component")
@@ -22,8 +22,8 @@ function Component:checkRequirements(entity)
    local foundreqs = {}
 
    for _, component in pairs(entity.components) do
-      for _, req in pairs(self.requirements) do
-         if component:is(req) then table.insert(foundreqs, component) end
+      for _, requirement in pairs(self.requirements) do
+         if component.name == requirement then table.insert(foundreqs, component) end
       end
    end
 
