@@ -7,7 +7,7 @@ Released under the **MIT License**, prism2 is free to use for both personal and 
 ## Features
 
 - **Command Pattern**: Encapsulates actions as discrete commands, enabling clean and decoupled turn-based mechanics.
-- **Composition-Based Design**: Promotes flexibility using an Entity-Component-System (ECS)-style approach.
+- **Composition-Based Design**: Promotes flexibility and reusability using composition to build entities.
 - **Event Listener System**: React to in-game events dynamically, such as status effects, traps, and environmental interactions.
 - **Lightweight and Modular**: Built in Lua, prism2 is designed to be lean and easy to use.
 
