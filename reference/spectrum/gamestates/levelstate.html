@@ -8,7 +8,7 @@
   <button>Back to top</button>
 </div></template>
     <title>LevelState &#8212; Prism  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=3ba690ee" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=266695fe" />
     <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=27fed22d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/lua.css" />
@@ -119,6 +119,18 @@ Sets up the game loop, initializes decision handlers, and binds custom callbacks
 </dd></dl>
 
 <dl class="lua method">
+<dt class="sig sig-object lua" id="lua-LevelState.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-LevelState" title="LevelState"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">LevelState</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-LevelState.update" title="Link to this definition">¶</a></dt>
+<dd><p>Updates the state of the level.
+Advances the coroutine and processes decisions or messages if necessary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dt</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The time delta since the last update.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
 <dt class="sig sig-object lua" id="lua-LevelState.handleMessage">
 <span class="sig-name descname"><span class="pre">handleMessage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-LevelState" title="LevelState"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">LevelState</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-LevelState.handleMessage" title="Link to this definition">¶</a></dt>
 <dd><p>Handles incoming messages from the coroutine.
@@ -138,6 +150,14 @@ Processes decisions, action messages, and debug messages as appropriate.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>message</strong> (<a class="reference internal" href="../../prism/core/messages/actionmessage.html#lua-ActionMessage" title="ActionMessage"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ActionMessage</span></code></a>) – The action message to handle.</p>
 </dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-LevelState.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-LevelState" title="LevelState"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">LevelState</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-LevelState.draw" title="Link to this definition">¶</a></dt>
+<dd><p>Draws the current state of the level, including the perspective of relevant actors.</p>
+<dl class="field-list simple">
 </dl>
 </dd></dl>
 
@@ -246,8 +266,10 @@ custom decision-handling logic.</p>
 <li class="toctree-l3"><a class="reference internal" href="#lua-LevelState.time"><code class="docutils literal notranslate"><span class="pre">time</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-LevelState.actionHandlers"><code class="docutils literal notranslate"><span class="pre">actionHandlers</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-LevelState.shouldAdvance"><code class="docutils literal notranslate"><span class="pre">shouldAdvance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-LevelState.update"><code class="docutils literal notranslate"><span class="pre">update()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-LevelState.handleMessage"><code class="docutils literal notranslate"><span class="pre">handleMessage()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-LevelState.handleActionMessage"><code class="docutils literal notranslate"><span class="pre">handleActionMessage()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-LevelState.draw"><code class="docutils literal notranslate"><span class="pre">draw()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-LevelState.updateDecision"><code class="docutils literal notranslate"><span class="pre">updateDecision()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-LevelState.drawBeforeCells"><code class="docutils literal notranslate"><span class="pre">drawBeforeCells()</span></code></a></li>
 </ul>

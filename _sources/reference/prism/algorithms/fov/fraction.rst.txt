@@ -1,5 +1,5 @@
-.. title:: Fraction
-.. lua:autoobject:: Fraction
+.. title:: FOV
+.. lua:autoobject:: FOV
    :members:
    :special-members: __new
    :undoc-members:
