@@ -25,7 +25,7 @@ are supplied, nothing will be able to pass.
    Cells are required to define a collider!
 
 For movement, you can define a component yourself by using :lua:func:`Collision.createBitmaskFromMovetypes` to
-create a collision mask. Here's an example from the `template <https://github.com/prismrl/prism-template>_`:
+create a collision mask. Here's an example from the `template <https://github.com/prismrl/prism-template>`_:
 
 .. code:: lua
 
