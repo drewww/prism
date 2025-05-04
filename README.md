@@ -1,8 +1,10 @@
-<picture>
- <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/75c12e71-974f-4f43-ad67-8b8438a9744e">
- <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/5d8a003b-e646-4e9c-a5cf-5d3799163f3f">
- <img alt="prism" src="https://github.com/user-attachments/assets/5d8a003b-e646-4e9c-a5cf-5d3799163f3f">
-</picture>
+<div align="center>
+ <picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/75c12e71-974f-4f43-ad67-8b8438a9744e">
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/5d8a003b-e646-4e9c-a5cf-5d3799163f3f">
+  <img alt="prism" src="https://github.com/user-attachments/assets/5d8a003b-e646-4e9c-a5cf-5d3799163f3f">
+ </picture>
+</div>
 
 **prism** is a roguelike game engine written in [Lua](https://www.lua.org/) for use with [LÖVE](https://love2d.org/), inspired by Bob Nystrom's talk on roguelike architecture. It utilizes the **command pattern** and **composition** to provide a modular, extensible foundation for creating turn-based games.
 
