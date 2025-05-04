@@ -54,7 +54,7 @@ local function astarSearch(start, goal, passableCallback, costCallback, minDista
    while not frontier:isEmpty() do
       local current = frontier:pop()
       --- @cast current Vector2
-      if current:getRange(distanceType, goal) <= minDistance then
+      if current:getRange(goal, distanceType) <= minDistance then
          final = current
          pathFound = true
          break
