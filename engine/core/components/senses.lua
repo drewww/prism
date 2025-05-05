@@ -15,4 +15,8 @@ function Senses:initialize(actor)
    self.unknown = prism.SparseMap()
 end
 
+function Senses:query(...)
+   return self.actors:query(...)
+end
+
 return Senses

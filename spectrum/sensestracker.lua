@@ -40,7 +40,7 @@ function SensesTracker:createSensedMaps(level, curActor)
          end
    
          -- Collect other sensed actors
-         for actorInSight in sensesComponent.actors:query():iter() do
+         for actorInSight in sensesComponent:query():iter() do
             actorSet[actorInSight] = true
             self.otherSensedActors:insert(actorInSight.position.x, actorInSight.position.y, actorInSight)
          end
@@ -50,7 +50,7 @@ function SensesTracker:createSensedMaps(level, curActor)
    if curActor then
       local sensesComponent = curActor:getComponent(prism.components.Senses)
       if sensesComponent then
-         for actor in sensesComponent.actors:query():iter() do
+         for actor in sensesComponent:query():iter() do
             actorSet[actor] = true
             ---@diagnostic disable-next-line
             self.totalSensedActors:insert(actor.position.x, actor.position.y, actor)
