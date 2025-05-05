@@ -6,7 +6,9 @@
  </picture>
 </div>
 
-**prism** is a roguelike game engine written in [Lua](https://www.lua.org/) for use with [LÖVE](https://love2d.org/), inspired by Bob Nystrom's talk on roguelike architecture. It utilizes the **command pattern** and **composition** to provide a modular, extensible foundation for creating turn-based games.
+## prism
+
+**prism** is a roguelike game engine written in [Lua](https://www.lua.org/) for use with [LÖVE](https://love2d.org/), inspired by Bob Nystrom's [talk](https://www.youtube.com/watch?v=JxI3Eu5DPwE) on roguelike architecture. It utilizes the **command pattern** and **composition** to provide a modular, extensible foundation for creating turn-based games.
 
 Released under the **MIT License**, prism is free to use for both personal and commercial projects.
 
