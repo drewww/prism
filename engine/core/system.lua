@@ -93,8 +93,4 @@ function System:onTurnEnd(level, actor) end
 --- @param event Message The event data that caused the yield.
 function System:onYield(level, event) end
 
---- This method is called when descending to a lower level.
---- @param level Level The Level object this System is attached to.
-function System:onDescend(level) end
-
 return System
