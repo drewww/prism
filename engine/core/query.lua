@@ -21,9 +21,7 @@ function Query:with(...)
    local req = { ... }
 
    for _, component in ipairs(req) do
-      print "YA"
       if not self.requiredComponents[component] then
-         print "DA"
          self.requiredComponentsCount = self.requiredComponentsCount + 1
          table.insert(self.requiredComponentsList, component)
       end
@@ -80,7 +78,6 @@ function Query:iter()
    local requiredComponents = self.requiredComponents
 
    -- Case 1: Position-based query
-   print "BA"
    if requiredPosition then
       local actors = positionCache:get(self.requiredPosition:decompose())
       if not actors then

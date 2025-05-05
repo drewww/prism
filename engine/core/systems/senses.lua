@@ -12,7 +12,7 @@ function SensesSystem:onTurn(level, actor)
 end
 
 function SensesSystem:postInitialize(level)
-   for actor, _ in level:eachActor(prism.components.Senses) do
+   for actor, _ in level:query(prism.components.Senses):iter() do
       self:triggerRebuild(level, actor)
    end
 end
@@ -20,7 +20,7 @@ end
 ---@param level Level
 ---@param event Message
 function SensesSystem:onYield(level, event)
-   for actor in level:eachActor(prism.components.Senses) do
+   for actor in level:query(prism.components.Senses):iter() do
       if actor:getComponent(prism.components.PlayerController) then
          self:triggerRebuild(level, actor)
       end
