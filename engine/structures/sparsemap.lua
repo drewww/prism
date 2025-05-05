@@ -35,6 +35,8 @@ function SparseMap:each()
    local key, val
    return function()
       key, val = next(self.list, key)
+
+      --- @diagnostic disable-next-line
       if key then return val[1], val[2], key end
       return nil
    end
