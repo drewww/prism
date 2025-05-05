@@ -19,9 +19,9 @@ in pre-release but very stable.
 
 Latest downloads, as of April 2025:
 
-- `Windows <https://github.com/love2d/love/actions/runs/14505101389/artifacts/2960592718>`_
-- `Linux AppImage <https://github.com/love2d/love/actions/runs/14505101389/artifacts/2960587520>`_
-- `macOS <https://github.com/love2d/love/actions/runs/14505101389/artifacts/2960597108>`_
+- `Windows <https://github.com/love2d/love/actions/runs/14422931049/artifacts/2933455705>`_
+- `Linux AppImage <https://github.com/love2d/love/actions/runs/14422931049/artifacts/2933455904>`_
+- `macOS <https://github.com/love2d/love/actions/runs/14422931049/artifacts/2933456500>`_
 
 .. note::
 
