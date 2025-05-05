@@ -25,14 +25,14 @@ function SensesTracker:createSensedMaps(level, curActor)
    local actorSet = {}
 
    -- Collect explored cells
-   for actor in level:eachActor(prism.components.PlayerController) do
+   for actor in level:query(prism.components.PlayerController):iter() do
       local sensesComponent = actor:getComponent(prism.components.Senses)
       for x, y, cell in sensesComponent.explored:each() do
          self.exploredCells:set(x, y, cell)
       end
    end
 
-   for actor in level:eachActor(prism.components.PlayerController) do
+   for actor in level:query(prism.components.PlayerController):iter() do
       if actor ~= curActor then
          local sensesComponent = actor:getComponent(prism.components.Senses)
          for x, y, cell in sensesComponent.cells:each() do
@@ -42,10 +42,10 @@ function SensesTracker:createSensedMaps(level, curActor)
    end
 
    -- Collect other sensed actors
-   for actor in level:eachActor(prism.components.PlayerController) do
+   for actor in level:query(prism.components.PlayerController):iter() do
       if actor ~= curActor then
          local sensesComponent = actor:getComponent(prism.components.Senses)
-         for actorInSight in sensesComponent.actors:eachActor() do
+         for actorInSight in sensesComponent.actors:query():iter() do
             actorSet[actorInSight] = true
             self.otherSensedActors:insert(actorInSight.position.x, actorInSight.position.y, actorInSight)
          end
@@ -55,7 +55,7 @@ function SensesTracker:createSensedMaps(level, curActor)
    if curActor then
       local sensesComponent = curActor:getComponent(prism.components.Senses)
       if sensesComponent then
-         for actor in sensesComponent.actors:eachActor() do
+         for actor in sensesComponent.actors:query():iter() do
             actorSet[actor] = true
             ---@diagnostic disable-next-line
             self.totalSensedActors:insert(actor.position.x, actor.position.y, actor)

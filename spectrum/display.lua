@@ -16,8 +16,7 @@ local Display = prism.Object:extend("Display")
 ---@field removeActor fun(self, actor: Actor)
 ---@field getActorsAt fun(self, x:integer, y:integer)
 ---@field inBounds fun(self, x: integer, y:integer)
----@field eachActorAt fun(self, x:integer, y:integer): fun()
----@field eachActor fun(self, ...:Component): fun(): (Actor, ...:Component)
+---@field query fun(self, ...:Component): Query
 ---@field eachCell fun(self): fun(): integer, integer, Cell
 ---@field debug boolean
 
@@ -51,7 +50,7 @@ function Display:draw()
       Display.drawDrawable(drawable, self.spriteAtlas, self.cellSize, x, y)
    end
 
-   for actor in self.attachable:eachActor() do
+   for actor in self.attachable:query():iter() do
       self:drawActor(actor)
    end
 
@@ -92,13 +91,13 @@ function Display.buildSenseInfo(primary, secondary)
    local secondaryActorSet = {}
 
    for _, sensesComponent in ipairs(primary) do
-      for actor in sensesComponent.actors:eachActor(prism.components.Drawable) do
+      for actor in sensesComponent.actors:query(prism.components.Drawable):iter() do
          primaryActorSet[actor] = true
       end
    end
 
    for _, sensesComponent in ipairs(secondary) do
-      for actor in sensesComponent.actors:eachActor() do
+      for actor in sensesComponent.actors:query():iter() do
          if not primaryActorSet[actor] then
             secondaryActorSet[actor] = true
          end
@@ -147,7 +146,7 @@ function Display:drawPerspective(primary, secondary)
       if done then self.override = nil end
    end
 
-   for actor in self.attachable:eachActor() do
+   for actor in self.attachable:query():iter() do
       local alpha = 1
       if not primaryActorSet[actor] then
          alpha = 0.7
