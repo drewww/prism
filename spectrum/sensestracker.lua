@@ -24,27 +24,22 @@ function SensesTracker:createSensedMaps(level, curActor)
 
    local actorSet = {}
 
-   -- Collect explored cells
    for actor in level:query(prism.components.PlayerController):iter() do
       local sensesComponent = actor:getComponent(prism.components.Senses)
+   
+      -- Always collect explored cells
       for x, y, cell in sensesComponent.explored:each() do
          self.exploredCells:set(x, y, cell)
       end
-   end
-
-   for actor in level:query(prism.components.PlayerController):iter() do
+   
+      -- Skip self for other sensed data
       if actor ~= curActor then
-         local sensesComponent = actor:getComponent(prism.components.Senses)
+         -- Collect other sensed cells
          for x, y, cell in sensesComponent.cells:each() do
             self.otherSensedCells:set(x, y, cell)
          end
-      end
-   end
-
-   -- Collect other sensed actors
-   for actor in level:query(prism.components.PlayerController):iter() do
-      if actor ~= curActor then
-         local sensesComponent = actor:getComponent(prism.components.Senses)
+   
+         -- Collect other sensed actors
          for actorInSight in sensesComponent.actors:query():iter() do
             actorSet[actorInSight] = true
             self.otherSensedActors:insert(actorInSight.position.x, actorInSight.position.y, actorInSight)
