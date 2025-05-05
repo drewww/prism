@@ -9,14 +9,13 @@
 ---@overload fun(spriteAtlas: SpriteAtlas, cellSize: Vector2, attachable: SpectrumAttachable): Display
 local Display = prism.Object:extend("Display")
 
----@class SpectrumAttachable : Object
+---@class SpectrumAttachable : Object, IQueryable
 ---@field getCell fun(self, x:integer, y:integer): Cell
 ---@field setCell fun(self, x:integer, y:integer, cell: Cell|nil)
 ---@field addActor fun(self, actor: Actor)
 ---@field removeActor fun(self, actor: Actor)
 ---@field getActorsAt fun(self, x:integer, y:integer)
 ---@field inBounds fun(self, x: integer, y:integer)
----@field query fun(self, ...:Component): Query
 ---@field eachCell fun(self): fun(): integer, integer, Cell
 ---@field debug boolean
 

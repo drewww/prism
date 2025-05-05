@@ -1,3 +1,6 @@
+--- @class IQueryable
+--- @field query fun(self, ...:Component): Query
+
 --- @class Query : Object
 --- Represents a query over actors in an `ActorStorage`, filtering by required components and optionally by position.
 --- Supports fluent chaining via `with()` and `at()` methods.

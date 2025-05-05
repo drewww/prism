@@ -2,7 +2,7 @@
 --- It is used by the 'Level' class to store and retrieve actors, and is returned by a few Level methods.
 --- You should rarely, if ever, need to instance this class yourself, it's mostly used internally and for
 --- a few returns from Level.
---- @class ActorStorage : Object
+--- @class ActorStorage : Object, IQueryable
 --- @field private actors Actor[] The list of actors in the storage.
 --- @field private ids SparseArray A sparse array of references to the Actors in the storage. The ID is derived from this.
 --- @field private actorToID table<Actor, integer?> A hashmap of actors to ids.

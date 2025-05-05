@@ -1,5 +1,5 @@
 --- A map builder class that extends the SparseGrid class to handle map-specific functionalities.
---- @class MapBuilder : SparseGrid, SpectrumAttachable
+--- @class MapBuilder : SparseGrid, IQueryable, SpectrumAttachable
 --- @field actors ActorStorage A list of actors present in the map.
 --- @field initialValue Cell The initial value to fill the map with.
 --- @overload fun(initialValue: Cell): MapBuilder

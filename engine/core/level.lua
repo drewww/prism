@@ -1,6 +1,6 @@
 --- The 'Level' holds all of the actors and systems, and runs the game loop. Through the ActorStorage and SystemManager
 ---
---- @class Level : Object, SpectrumAttachable
+--- @class Level : Object, IQueryable, SpectrumAttachable
 --- @field systemManager SystemManager A table containing all of the systems active in the level, set in the constructor.
 --- @field actorStorage ActorStorage The main actor storage containing all of the level's actors.
 --- @field scheduler Scheduler The main scheduler driving the loop of the game.
