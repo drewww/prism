@@ -19,7 +19,8 @@ Released under the **MIT License**, prism is free to use for both personal and c
 
 ## Documentation
 
-Find our docs here: [Documentation](https://prismrl.github.io/prism/)
+Find our docs here: 
+[Documentation](https://prismrl.github.io/prism/)
 
 ## Community
 
