@@ -92,6 +92,8 @@ prism.Path = prism.require "algorithms.astar.path"
 prism.astar = prism.require "algorithms.astar.astar"
 
 -- Core
+--- @module "engine.core.query"
+prism.Query = prism.require "core.query"
 --- @module "engine.core.scheduler.scheduler"
 prism.Scheduler = prism.require "core.scheduler.scheduler"
 --- @module "engine.core.scheduler.simple_scheduler"
@@ -148,7 +150,7 @@ prism.BehaviorTree.Succeeder = prism.require "core.behavior_tree.btsucceeder"
 prism.actors = {}
 --- @type table<string, Action>
 prism.actions = {}
---- @type table<string, Component>
+--- @type table<string, any>
 prism.components = {}
 --- @type table<string, Cell>
 prism.cells = {}
