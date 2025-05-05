@@ -12,10 +12,10 @@ end
 --- Adds a system to the manager.
 --- @param system System The system to add.
 function SystemManager:addSystem(system)
-   assert(system.name, "System must have a name.")
+   assert(system:is(prism.System), "Tried to add a system that was not of type System.")
    assert(
-      not self.systems[system.name],
-      "System with name " .. system.name .. " already exists. System names must be unique."
+      not self.systems[system.className],
+      "Level already has system " .. system.className .. "!"
    )
 
    -- Check our requirements and make sure we have all the systems we need
@@ -24,7 +24,7 @@ function SystemManager:addSystem(system)
          assert(
             self.systems[requirement],
             "System "
-            .. system.name
+            .. system.className
             .. " requires system "
             .. requirement
             .. " but it is not present."
@@ -37,12 +37,12 @@ function SystemManager:addSystem(system)
    for _, existingSystem in pairs(self.systems) do
       if existingSystem.softRequirements and #existingSystem.softRequirements > 0 then
          for _, softRequirement in ipairs(existingSystem.softRequirements) do
-            if softRequirement == system.name then
+            if softRequirement == system.className then
                error(
                   "System "
-                  .. system.name
+                  .. system.className
                   .. " is out of order. It must be added before "
-                  .. existingSystem.name
+                  .. existingSystem.className
                   .. " because it is a soft requirement."
                )
             end
@@ -52,18 +52,14 @@ function SystemManager:addSystem(system)
 
    -- We've succeeded and we insert the system into our systems table
    system.owner = self.owner
-   self.systems[system.name] = system
+   self.systems[system.className] = system
 end
 
 --- Gets a system by name.
---- @param systemName string The name of the system to get.
+--- @param systemName string The className of the system to get.
 --- @return System? -- The system with the given name, or nil if not found.
 function SystemManager:getSystem(systemName)
-   for _, system in pairs(self.systems) do
-      if system.name == systemName then return system end
-   end
-
-   return nil
+   return self.systems[systemName]
 end
 
 --- Initializes all systems attached to the manager.

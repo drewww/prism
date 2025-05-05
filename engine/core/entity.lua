@@ -33,11 +33,10 @@ function Entity:initialize()
 end
 
 --- Adds a component to the entity. This function will check if the component's
---- prerequisites are met and will throw an error if they are not.
+--- prerequisites are met and will throw an error if they are not, or if the entity already has the component.
 --- @param component Component The component to add to the entity.
 function Entity:addComponent(component)
    assert(component:is(prism.Component), "Expected argument component to be of type Component, was " .. component)
-   assert(component.name, "Component " .. component.className .. " must have a name!")
    assert(component:checkRequirements(self), "Unsupported component " .. component.className .. " added to entity!")
    assert(not self:hasComponent(component), "Entity already has component " .. component.className .. "!")
 
@@ -62,7 +61,7 @@ function Entity:removeComponent(component)
    for _, componentPrototype in pairs(prism.components) do
       if component:is(componentPrototype) then
          if not self.componentCache[componentPrototype] then
-            error("Entity does not have component " .. componentPrototype.name .. "!")
+            error("Entity does not have component " .. componentPrototype.className .. "!")
          end
 
          for cachedComponent, _ in pairs(self.componentCache) do

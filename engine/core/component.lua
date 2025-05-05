@@ -3,7 +3,6 @@
 --- allows an actor to move around the map. Components are essentially data storage that can
 --- also grant actions.
 --- @class Component : Object
---- @field name string Each component prototype MUST have a unique name!
 --- @field requirements string[] A list of components the actor must first have, before this can be applied. References the component name, not their class name.
 --- @field owner Entity The Actor this component is composing. This is set by Actor when a component is added or removed.
 --- @overload fun(): Component
@@ -23,7 +22,7 @@ function Component:checkRequirements(entity)
 
    for _, component in pairs(entity.components) do
       for _, requirement in pairs(self.requirements) do
-         if component.name == requirement then table.insert(foundreqs, component) end
+         if component.className == requirement then table.insert(foundreqs, component) end
       end
    end
 
