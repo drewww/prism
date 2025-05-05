@@ -24,6 +24,7 @@ Released under the **MIT License**, prism is free to use for both personal and c
 
 Find our docs here:  
 [Documentation](https://prismrl.github.io/prism/)
+[Tutorial](https://prismrl.github.io/prism/making-a-roguelike/part1.html#)
 
 ## Community
 
