@@ -3,7 +3,7 @@
 --- allows an actor to move around the map. Components are essentially data storage that can
 --- also grant actions.
 --- @class Component : Object
---- @field requirements string[] A list of components the actor must first have, before this can be applied. References the component name, not their class name.
+--- @field requirements string[] A list of components the actor must first have, before this can be applied. References the component class name.
 --- @field owner Entity The Actor this component is composing. This is set by Actor when a component is added or removed.
 --- @overload fun(): Component
 local Component = prism.Object:extend("Component")
