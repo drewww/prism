@@ -2,14 +2,15 @@ import os
 import re
 import sys
 
-def write_class(file_path, class_name):
-    with open(file_path, 'a') as f:
-        f.write(f".. title:: {class_name}\n")
-        f.write(f".. lua:autoobject:: {class_name}\n")
-        f.write("   :members:\n")
-        f.write("   :special-members: __new\n")
-        f.write("   :undoc-members:\n")
-        f.write("   :inherited-members: __new\n\n")
+def write_classes(file_path, class_names):
+    with open(file_path, 'w') as f:
+        for class_name in class_names:
+            f.write(f".. title:: {class_name}\n")
+            f.write(f".. lua:autoobject:: {class_name}\n")
+            f.write("   :members:\n")
+            f.write("   :special-members: __new\n")
+            f.write("   :undoc-members:\n")
+            f.write("   :inherited-members: __new\n\n")
 
 def process_files(input_dir, output_dir):
     """
@@ -36,12 +37,13 @@ def process_files(input_dir, output_dir):
             with open(input_file_path, 'r') as f:
                 content = f.readlines()
 
-            class_name = None
+            class_names = []
             for line in content:
                 match = re.search(r'@class\s+(\S+)', line)
                 if match:
-                    class_name = match.group(1)
-                    write_class(output_file_path, class_name)
+                    class_names.append(match.group(1))
+            if len(class_names) > 0:
+                write_classes(output_file_path, class_names)
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:

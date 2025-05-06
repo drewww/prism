@@ -3,7 +3,6 @@
 --- Like actors, they hold components that can be used to modify their behaviour.
 --- Cells are required to have a ColliderComponent.
 --- @class Cell : Entity
---- @field name string Displayed in the user interface.
 --- @overload fun(): Cell
 local Cell = prism.Entity:extend("Cell")
 
