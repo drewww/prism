@@ -131,7 +131,7 @@ Define a Drop action that removes the item from the inventory and places it into
 
 
 Keybindings
-===========
+-----------
 
 To allow players to interact with their inventory, add keybindings for pickup and inventory access in your ``keybindingschema.lua``:
 
@@ -141,7 +141,7 @@ To allow players to interact with their inventory, add keybindings for pickup an
    { key = "tab", action = "inventory", description = "Open inventory." }
 
 Handling Pickup Input
-=====================
+---------------------
 
 Now that you've defined the keybinding and action, handle the ``pickup`` input inside your levelstate's keypressed function. This example queries for an item on the same tile as the player using the Senses component, creates a Pickup action, and sets it as the decision:
 
@@ -166,7 +166,7 @@ Now that you've defined the keybinding and action, handle the ``pickup`` input i
 This approach ensures the action is only triggered when a valid item is on the player's current tile and the action can legally be performed.
 
 Inventory State
-===============
+---------------
 
 Once players can pick up and drop items, they'll need a way to view and interact with their inventory. Below is a **very basic** example of a custom :lua:class:`GameState` that does just that.
 
