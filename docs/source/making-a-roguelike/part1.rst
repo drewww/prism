@@ -68,7 +68,7 @@ You might notice that you can walk right through the kobold. We fix that by givi
 
 .. code:: lua
 
-   prism.components.ColliderComponent()
+   prism.components.Collider()
 
 If we restart the game and spawn in another kobold, we shouldn't be able to walk
 through kobolds anymore. We're also going to give the kobold a few more core components: a 
