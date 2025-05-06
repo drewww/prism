@@ -67,7 +67,7 @@ interface is implemented by <a class="reference internal" href="../reference/pri
 </section>
 <section id="iterating-over-results">
 <h2>Iterating Over Results<a class="headerlink" href="#iterating-over-results" title="Link to this heading">¶</a></h2>
-<p>Use <a href="#id1"><span class="problematic" id="id2">:lua:method:`Query.iter`</span></a> to get an iterator over matching actors and their components:</p>
+<p>Use <a class="reference internal" href="../reference/prism/core/query.html#lua-Query.iter" title="Query.iter"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Query:iter()</span></code></a> to get an iterator over matching actors and their components:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">for</span> <span class="n">actor</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="n">collider</span><span class="p">,</span> <span class="n">senses</span> <span class="kr">in</span> <span class="n">query</span><span class="p">:</span><span class="n">iter</span><span class="p">()</span> <span class="kr">do</span>
     <span class="c1">-- do stuff</span>
 <span class="kr">end</span>
