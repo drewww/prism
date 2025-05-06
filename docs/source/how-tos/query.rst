@@ -31,7 +31,7 @@ You can also restrict the query to a single tile with :lua:func:`Query.at`.
 Iterating Over Results
 ----------------------
 
-Use :lua:method:`Query.iter` to get an iterator over matching actors and their components:
+Use :lua:func:`Query.iter` to get an iterator over matching actors and their components:
 
 .. code:: lua
 
@@ -67,7 +67,7 @@ Putting It Together
 Here's an example of it all put together:
 
 .. code:: lua
-    
+
     local query = level:query(prism.components.Controller, prism.components.Senses)
         :with(prism.components.Senses)
         :at(x, y)
