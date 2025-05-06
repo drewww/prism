@@ -164,9 +164,8 @@
 </pre></div>
 </div>
 </section>
-</section>
 <section id="keybindings">
-<h1>Keybindings<a class="headerlink" href="#keybindings" title="Link to this heading">¶</a></h1>
+<h2>Keybindings<a class="headerlink" href="#keybindings" title="Link to this heading">¶</a></h2>
 <p>To allow players to interact with their inventory, add keybindings for pickup and inventory access in your <code class="docutils literal notranslate"><span class="pre">keybindingschema.lua</span></code>:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;pickup&quot;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Pickup an item on the tile you&#39;re standing on.&quot;</span> <span class="p">},</span>
 <span class="p">{</span> <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;tab&quot;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;inventory&quot;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Open inventory.&quot;</span> <span class="p">}</span>
@@ -174,7 +173,7 @@
 </div>
 </section>
 <section id="handling-pickup-input">
-<h1>Handling Pickup Input<a class="headerlink" href="#handling-pickup-input" title="Link to this heading">¶</a></h1>
+<h2>Handling Pickup Input<a class="headerlink" href="#handling-pickup-input" title="Link to this heading">¶</a></h2>
 <p>Now that you’ve defined the keybinding and action, handle the <code class="docutils literal notranslate"><span class="pre">pickup</span></code> input inside your levelstate’s keypressed function. This example queries for an item on the same tile as the player using the Senses component, creates a Pickup action, and sets it as the decision:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;pickup&quot;</span> <span class="kr">then</span>
     <span class="kd">local</span> <span class="n">senses</span> <span class="o">=</span> <span class="n">owner</span><span class="p">:</span><span class="n">getComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Senses</span><span class="p">)</span>
@@ -196,7 +195,7 @@
 <p>This approach ensures the action is only triggered when a valid item is on the player’s current tile and the action can legally be performed.</p>
 </section>
 <section id="inventory-state">
-<h1>Inventory State<a class="headerlink" href="#inventory-state" title="Link to this heading">¶</a></h1>
+<h2>Inventory State<a class="headerlink" href="#inventory-state" title="Link to this heading">¶</a></h2>
 <p>Once players can pick up and drop items, they’ll need a way to view and interact with their inventory. Below is a <strong>very basic</strong> example of a custom <a class="reference internal" href="../reference/spectrum/gamestates/gamestate.html#lua-GameState" title="GameState"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">GameState</span></code></a> that does just that.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -250,6 +249,7 @@
 <span class="kr">return</span> <span class="n">InventoryState</span>
 </pre></div>
 </div>
+</section>
 <section id="pushing-the-inventory-state">
 <h2>Pushing the Inventory State<a class="headerlink" href="#pushing-the-inventory-state" title="Link to this heading">¶</a></h2>
 <p>To trigger this state when the player presses the inventory key (like <code class="docutils literal notranslate"><span class="pre">tab</span></code>), you can hook into your <cite>LevelState:keypressed</cite> handler and push the state:</p>
@@ -317,11 +317,9 @@
 <li class="toctree-l1"><a class="reference internal" href="collision.html">Collision</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Inventory</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#pickup-and-drop-actions">Pickup and Drop Actions</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#keybindings">Keybindings</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#handling-pickup-input">Handling Pickup Input</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#inventory-state">Inventory State</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#keybindings">Keybindings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#handling-pickup-input">Handling Pickup Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inventory-state">Inventory State</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pushing-the-inventory-state">Pushing the Inventory State</a></li>
 </ul>
 </li>
