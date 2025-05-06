@@ -1,5 +1,4 @@
---- We export a global namespace.
---- @module "prism"
+--- This is the global entrypoint into Prism.
 prism = {}
 prism.path = ...
 
@@ -11,8 +10,8 @@ prism.json = prism.require "lib.json"
 --- @type boolean
 prism._initialized = false
 
+---@type DistanceType
 prism._defaultDistance = "8way"
-prism._defaultRangeType = "8way"
 
 -- Root object
 
@@ -72,13 +71,13 @@ prism.Queue = prism.require "structures.queue"
 prism.PriorityQueue = prism.require "structures.priority_queue"
 
 -- Algorithms
-prism.fov = {}
+prism.FOV = {}
 --- @module "engine.algorithms.fov.row"
-prism.fov.Row = prism.require "algorithms.fov.row"
+prism.FOV.Row = prism.require "algorithms.fov.row"
 --- @module "engine.algorithms.fov.quadrant"
-prism.fov.Quadrant = prism.require "algorithms.fov.quadrant"
+prism.FOV.Quadrant = prism.require "algorithms.fov.quadrant"
 --- @module "engine.algorithms.fov.fraction"
-prism.fov.Fraction = prism.require "algorithms.fov.fraction"
+prism.FOV.Fraction = prism.require "algorithms.fov.fraction"
 --- @module "engine.algorithms.fov.fov"
 prism.computeFOV = prism.require "algorithms.fov.fov"
 
@@ -146,24 +145,38 @@ prism.BehaviorTree.Sequence = prism.require "core.behavior_tree.btsequence"
 prism.BehaviorTree.Succeeder = prism.require "core.behavior_tree.btsucceeder"
 
 
+--- The actor registry.
 --- @type table<string, Actor>
 prism.actors = {}
+
+--- The actions registry.
 --- @type table<string, Action>
 prism.actions = {}
---- @type table<string, any>
+
+--- The component registry.
+--- @type table<string, Component>
 prism.components = {}
+
+--- The component registry.
 --- @type table<string, Cell>
 prism.cells = {}
+
+--- The target registry.
 --- @type table<string, Target>
 prism.targets = {}
+
+--- The message registry.
 --- @type table<string, Message>
 prism.messages = {}
+
+--- The system registry.
 --- @type table<string, System>
 prism.systems = {}
---- @type table<string, Message>
-prism.messages = {}
+
+--- The decision registry.
 --- @type table<string, Decision>
 prism.decisions = {}
+
 prism.behaviors = {}
 
 --- @module "engine.core.systems.senses"
@@ -253,13 +266,19 @@ local function loadItems(path, itemType, recurse, definitions)
 end
 
 prism.modules = {}
+
+--- Loads a module into prism, automatically loading objects based on directory, e.g. everything in
+--- ``module/actors`` would get loaded into the Actor registry. Will also run ``module/module.lua``
+--- for any other set up.
+--- @param directory string The root directory of the module.
 function prism.loadModule(directory)
    local items = love.filesystem.getDirectoryItems(directory)
    assert(#items > 0, "The specified directory in loadModule does not exist!")
    table.insert(prism.modules, directory)
 
    if love.filesystem.read(directory .. "/module.lua") then
-      require(directory .. "." .. "module")
+      local filename = directory:gsub("/", ".") .. ".module"
+      require(filename)
    end
 
    local sourceDir = love.filesystem.getSource() -- Get the source directory

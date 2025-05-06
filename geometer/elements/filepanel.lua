@@ -5,7 +5,7 @@ local Button = geometer.require "elements.button"
 ---@class FilePanelProps : Inky.Props
 ---@field scale Vector2
 ---@field name string
----@field overlay love.Canvas
+---@field overlay love.Texture
 ---@field open boolean
 ---@field editor Editor
 

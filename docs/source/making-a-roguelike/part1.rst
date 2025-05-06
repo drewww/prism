@@ -2,16 +2,26 @@ Getting started
 ===============
 
 In this tutorial, we'll start with a project template and create an enemy that follows
-the player. We will also be able to kick them.
+the player. And we'll add the ability to kick them.
+
 
 .. video:: ../_static/output.mp4
+   :caption: Kicking a kobold
+   :align: center
+
+The following sections will expand this into a complete game.
 
 Installation
 ------------
 
-To begin, download and install LÖVE from https://love2d.org/. If you are
-using Linux, LÖVE is often available through your distribution’s package
-manager.
+To begin, download and install LÖVE. Prism technically supports LÖVE version 12.0, which is still
+in pre-release but very stable.
+
+Latest downloads, as of April 2025:
+
+- `Windows <https://github.com/love2d/love/actions/runs/14422931049/artifacts/2933455705>`_
+- `Linux AppImage <https://github.com/love2d/love/actions/runs/14422931049/artifacts/2933455904>`_
+- `macOS <https://github.com/love2d/love/actions/runs/14422931049/artifacts/2933456500>`_
 
 .. note::
 
@@ -70,8 +80,12 @@ You might notice that you can walk right through the kobold. We fix that by givi
 
    prism.components.Collider()
 
+.. note::
+
+   See :doc:`../how-tos/collision` for more information on the collision system.
+
 If we restart the game and spawn in another kobold, we shouldn't be able to walk
-through kobolds anymore. We're also going to give the kobold a few more core components: a 
+through kobolds anymore. We're also going to give the kobold a few more core components: a
 :lua:class:`SensesComponent`, ``SightComponent``, and ``MoverComponent``, so it can see and move:
 
 .. code:: lua
@@ -87,7 +101,7 @@ The kobold controller
 Now that the kobold exists in the world, you might notice something—it’s
 not moving! To give it behavior, we need to implement a :lua:class:`ControllerComponent`.
 
-A ``Controller`` (or one of its derivatives) defines an ``act``
+A :lua:class:`ControllerComponent` (or one of its derivatives) defines the :lua:func:`ControllerComponent.act`
 function, which takes the :lua:class:`Level` and the :lua:class:`Actor` as arguments and
 returns a valid action.
 
@@ -102,12 +116,10 @@ returns a valid action.
 .. code:: lua
 
    --- @class KoboldControllerComponent : ControllerComponent
-   --- @field blackboard table|nil
    --- @overload fun(): KoboldControllerComponent
    local KoboldController = prism.components.Controller:extend("KoboldControllerComponent")
    KoboldController.name = "KoboldController"
 
-   ---@return Action
    function KoboldController:act(level, actor)
       local destination = actor:getPosition() + prism.Vector2.RIGHT
       local move = prism.actions.Move(actor, { destination })
@@ -120,12 +132,11 @@ returns a valid action.
 
    return KoboldController
 
-
 .. tip::
 
    Always provide a default action to take in a controller.
 
-Back in `kobold.lua`, give it our new controller component:
+Back in ``kobold.lua``, give it our new controller component:
 
 .. code:: lua
 
@@ -138,9 +149,9 @@ Pathfinding
 -----------
 To make our kobold follow the player, we need to do a few things:
 
-1. See if the player is within range of the kobold
-2. Find a valid path to the player
-3. Move the kobold along that path
+1. See if the player is within range of the kobold.
+2. Find a valid path to the player.
+3. Move the kobold along that path.
 
 We can find the player by grabbing the :lua:class:`SensesComponent` from the kobold and
 seeing if it contains the player.
@@ -159,9 +170,17 @@ positions and the kobold's collision mask.
    local mover = actor:getComponent(prism.components.Mover)
    local path = level:findPath(actor:getPosition(), player:getPosition(), 1, mover.mask)
 
-.. note::
+Then we check if there's a path and move the kobold along it, using :lua:func:`Path.pop` to get the first
+position.
 
-   See :doc:`../how-tos/collision` for more information on the collision system.
+.. code:: lua
+
+   if path then
+      local move = prism.actions.Move(actor, { path:pop() })
+      if move:canPerform(level) then
+         return move
+      end
+   end
 
 Kicking kobolds
 ---------------

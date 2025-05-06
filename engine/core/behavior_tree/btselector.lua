@@ -1,10 +1,10 @@
 --- A selector node in the behavior tree.
---- @class BTSelector : BTNode
---- @overload fun(children: BTNode[]): BTSelector
-local BTSelector = prism.BehaviorTree.Node:extend("BTSelector")
+--- @class BehaviorTree.Selector : BehaviorTree.Node
+--- @overload fun(children: BehaviorTree.Node[]): BehaviorTree.Selector
+local BTSelector = prism.BehaviorTree.Node:extend("BehaviorTree.Selector")
 
 --- Creates a new BTSelector.
---- @param children BTNode[]
+--- @param children BehaviorTree.Node[]
 function BTSelector:__new(children)
    self.children = children
 end

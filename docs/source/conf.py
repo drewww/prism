@@ -38,7 +38,10 @@ html_css_files = [
 
 html_theme_options = {
     'github_user': 'prismrl',
-    'github_repo': 'prism'
+    'github_repo': 'prism',
+    'logo': 'prism.png'
 }
+
+html_favicon = '_static/prism.png'
 
 pygments_style = 'pastie'

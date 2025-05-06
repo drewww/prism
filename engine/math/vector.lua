@@ -164,11 +164,11 @@ local rangeCase = {
    ["manhattan"] = Vector2.distanceManhattan,
    ["euclidean"] = Vector2.distance
 }
---- Gets the range, a ciel'd integer representing the number of tiles away the other vector is
---- @param type DistanceType
+--- Gets the range, a ceil'd integer representing the number of tiles away the other vector is.
 --- @param vec Vector2
-function Vector2:getRange(type, vec)
-   return rangeCase[type](self, vec)
+--- @param type? DistanceType
+function Vector2:getRange(vec, type)
+   return rangeCase[type or prism._defaultDistance](self, vec)
 end
 
 --- Returns the x and y components of the vector separately.

@@ -23,14 +23,6 @@ button {
   cursor: pointer;
 }
 
-div.admonition {
-    background: var(--background-color);
-    color: var(--font-color);
-    padding: 1em;
-    border: 1px solid var(--font-color);
-    margin-bottom: var(--global-space);
-}
-
 div.admonition p.admonition-title {
   font-size: var(--global-font-size);
   font-family: var(--font-stack);
@@ -70,6 +62,11 @@ h5,
 h6,
 .logo {
   line-height: var(--global-line-height);
+}
+
+.logo > a:hover {
+  background: none;
+  color: none;
 }
 
 .caption {
@@ -195,6 +192,7 @@ h1 + *,
   margin-top: 0;
 }
 
+div.body h2,
 h2,
 h3,
 h4,
@@ -204,6 +202,7 @@ h6 {
   font-size: var(--global-font-size) !important;
   position: relative;
   margin-bottom: var(--global-line-height);
+  margin-top: 0;
   font-weight: 600 !important;
 }
 
@@ -244,17 +243,24 @@ pre code::before {
   content: "";
 }
 
+.highlight {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  border: 1px solid var(--font-color);
+  background: inherit;
+}
+
 pre {
   display: block;
   word-break: break-all;
   word-wrap: break-word;
   background-color: var(--block-background-color);
-  border: 1px solid var(--secondary-color);
-  padding: var(--global-space);
+  padding: 1em;
   white-space: pre-wrap;
   white-space: -moz-pre-wrap;
   white-space: -o-pre-wrap;
-  font-size: var(--global-font-size)
+  font-size: var(--global-font-size);
+  width: 1000px;
 }
 
 pre code {
@@ -292,19 +298,23 @@ pre code {
   white-space: nowrap;
 }
 
-.terminal-prompt::before, .logo::before {
+.terminal-prompt::before {
   content: "> ";
 }
 
-.terminal-prompt::after, .logo::after {
+dt:target {
+  background: none;
+}
+
+.terminal-prompt::after {
   content: "";
   animation: cursor 800ms infinite;
   background: var(--primary-color);
   border-radius: 0;
   display: inline-block;
   height: 1em;
-  margin-left: 0.2em;
-  width: 3px;
+  margin-left: 0.1em;
+  width: 5px;
   bottom: -2px;
   position: relative;
 }
@@ -344,8 +354,17 @@ li > ul > li {
   padding-left: calc(var(--global-space) * 2);
 }
 
+.field-list ul,
 .sphinxsidebarwrapper > ul > li {
   padding-left: 0;
+}
+
+dl.field-list > dt {
+  padding-right: 0;
+}
+
+dl.field-list > dd {
+  padding-left: var(--global-font-size);
 }
 
 li::after {
@@ -599,6 +618,9 @@ label {
   color: var(--font-color);
 }
 
+/*input[value="search"],*/
+div.sphinxsidebar #searchbox input[type="submit"],
+div.sphinxsidebar input,
 input[type="email"],
 input[type="text"],
 input[type="number"],
@@ -608,9 +630,9 @@ input[type="date"],
 input[type="time"] {
   border: 1px var(--input-style) var(--font-color);
   width: 100%;
-  padding: 0.7em 0.5em;
+  padding: 0.7em 0.5em !important;
   font-size: 1em;
-  font-family: var(--font-stack);
+  font-family: var(--font-stack) !important;
 
   /* stylelint-disable */
   -webkit-appearance: none;
@@ -619,6 +641,31 @@ input[type="time"] {
 
   appearance: none;
   border-radius: 0;
+}
+
+input[value="search"] {
+  border: 1px solid var(--font-color) !important;
+}
+
+input[value="Go"] {
+  border-left: none !important;
+  width: 20% !important;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 940px) {
+  div.sphinxsidebar {
+    background: var(--background-color);
+    color: var(--font-color);
+  }
+
+  div.sphinxsidebarwrapper {
+    border-top: 1px dashed;
+  }
+
+  div.sphinxsidebar h3, div.sphinxsidebar h4, div.sphinxsidebar p, div.sphinxsidebar h3 a {
+    color: var(--font-color);
+  }
 }
 
 input[type="email"]:active,
@@ -734,6 +781,7 @@ select:-webkit-autofill:focus {
   overflow: auto;
 }
 
+input[type="submit"],
 .gh-btn,
 .btn {
   border-style: solid;
@@ -779,16 +827,19 @@ select:-webkit-autofill:focus {
   display: flex;
 }
 
+input[type="submit"],
 .btn-default {
   background-color: var(--font-color);
   border-color: var(--invert-font-color);
   color: var(--invert-font-color);
 }
 
+input[type="submit"]:hover,
 .btn-default:hover,
 .btn-default:focus:not(.btn-ghost) {
   background-color: var(--secondary-color);
   color: var(--invert-font-color);
+  border: 1px solid var(--secondary-color) !important;
 }
 
 .btn-default.btn-ghost:focus,
@@ -911,8 +962,10 @@ select:-webkit-autofill:focus {
   z-index: 400;
 }
 
+div.admonition,
 .admonition,
 .terminal-alert {
+  background: inherit;
   color: var(--font-color);
   padding: 1em;
   border: 1px solid var(--font-color);
@@ -1037,6 +1090,7 @@ figure > img {
 
 figure {
   margin: 0;
+
 }
 
 figure > figcaption {

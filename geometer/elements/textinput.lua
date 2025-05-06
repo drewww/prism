@@ -3,7 +3,7 @@ local Inky = geometer.require "inky"
 ---@class TextInputProps : Inky.Props
 ---@field font love.Font
 ---@field content string
----@field overlay love.Canvas
+---@field overlay love.Texture
 ---@field size Vector2
 ---@field focused boolean
 ---@field onEdit function?

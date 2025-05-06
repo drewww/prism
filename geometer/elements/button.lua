@@ -4,7 +4,7 @@ local Inky = geometer.require "inky"
 ---@field pressed boolean whether the button is pressed
 ---@field pressedQuad love.Quad
 ---@field unpressedQuad love.Quad
----@field tileset love.Image
+---@field tileset love.Texture
 ---@field onRelease? fun(pointer: Inky.Pointer) a function called after releasing the button
 ---@field onPress? fun(pointer: Inky.Pointer) a function called after pressing the button
 ---@field toggle boolean whether the button stays pressed after clicking

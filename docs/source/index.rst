@@ -5,6 +5,7 @@
 
 Prism
 =====
+
 A comprehensive traditional roguelike engine for `LÖVE <https://love2d.org/>`_.
 
 "Traditional" roguelike?
@@ -27,9 +28,10 @@ Our discord can be found `here <https://discord.gg/9YpsH4hYVF>`_.
 
 .. toctree::
    :caption: How-tos
+   :glob:
    :hidden:
 
-   how-tos/collision
+   how-tos/*
 
 .. toctree::
    :caption: Making a roguelike
