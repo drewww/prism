@@ -22,13 +22,7 @@ jobs:
         uses: actions/setup-python@v2
 
       - name: Generate docs
-        run: |
-          pip install -r docs/requirements.txt
-          python3 docs/scripts/gen.py spectrum/ docs/source/reference/spectrum
-          python3 docs/scripts/gen.py engine/ docs/source/reference/prism
-
-      - name: Build docs
-        run: make html
+        run: make build
         working-directory: ./docs
 
       - name: Deploy to gh-pages

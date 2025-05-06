@@ -1,5 +1,5 @@
 --- @class SystemManager : Object
---- @field systems System[]
+--- @field systems table<string, System>
 --- @overload fun(owner: Level): SystemManager
 local SystemManager = prism.Object:extend("SystemManager")
 
@@ -12,10 +12,10 @@ end
 --- Adds a system to the manager.
 --- @param system System The system to add.
 function SystemManager:addSystem(system)
-   assert(system.name, "System must have a name.")
+   assert(system:is(prism.System), "Tried to add a system that was not of type System.")
    assert(
-      not self.systems[system.name],
-      "System with name " .. system.name .. " already exists. System names must be unique."
+      not self.systems[system.className],
+      "Level already has system " .. system.className .. "!"
    )
 
    -- Check our requirements and make sure we have all the systems we need
@@ -24,7 +24,7 @@ function SystemManager:addSystem(system)
          assert(
             self.systems[requirement],
             "System "
-            .. system.name
+            .. system.className
             .. " requires system "
             .. requirement
             .. " but it is not present."
@@ -37,12 +37,12 @@ function SystemManager:addSystem(system)
    for _, existingSystem in pairs(self.systems) do
       if existingSystem.softRequirements and #existingSystem.softRequirements > 0 then
          for _, softRequirement in ipairs(existingSystem.softRequirements) do
-            if softRequirement == system.name then
+            if softRequirement == system.className then
                error(
                   "System "
-                  .. system.name
+                  .. system.className
                   .. " is out of order. It must be added before "
-                  .. existingSystem.name
+                  .. existingSystem.className
                   .. " because it is a soft requirement."
                )
             end
@@ -52,18 +52,14 @@ function SystemManager:addSystem(system)
 
    -- We've succeeded and we insert the system into our systems table
    system.owner = self.owner
-   table.insert(self.systems, system)
+   self.systems[system.className] = system
 end
 
 --- Gets a system by name.
---- @param systemName string The name of the system to get.
+--- @param systemName string The className of the system to get.
 --- @return System? -- The system with the given name, or nil if not found.
 function SystemManager:getSystem(systemName)
-   for _, system in ipairs(self.systems) do
-      if system.name == systemName then return system end
-   end
-
-   return nil
+   return self.systems[systemName]
 end
 
 --- Initializes all systems attached to the manager.
@@ -77,7 +73,7 @@ end
 --- Post-initializes all systems after the level has been populated.
 --- @param level Level The level to post-initialize the systems for.
 function SystemManager:postInitialize(level)
-   for _, system in ipairs(self.systems) do
+   for _, system in pairs(self.systems) do
       system:postInitialize(level)
    end
 end
@@ -85,7 +81,7 @@ end
 --- Calls the onTick method for all systems.
 --- @param level Level The level to call onTick for.
 function SystemManager:onTick(level)
-   for _, system in ipairs(self.systems) do
+   for _, system in pairs(self.systems) do
       system:onTick(level)
    end
 end
@@ -94,7 +90,7 @@ end
 --- @param level Level The level to call onTurn for.
 --- @param actor Actor The actor taking its turn.
 function SystemManager:onTurn(level, actor)
-   for _, system in ipairs(self.systems) do
+   for _, system in pairs(self.systems) do
       system:onTurn(level, actor)
    end
 end
@@ -103,7 +99,7 @@ end
 --- @param level Level The level to call onTurn for.
 --- @param actor Actor The actor taking its turn.
 function SystemManager:onTurnEnd(level, actor)
-   for _, system in ipairs(self.systems) do
+   for _, system in pairs(self.systems) do
       system:onTurnEnd(level, actor)
    end
 end
@@ -112,7 +108,7 @@ end
 --- @param level Level The level to call onActorAdded for.
 --- @param actor Actor The actor that has been added.
 function SystemManager:onActorAdded(level, actor)
-   for _, system in ipairs(self.systems) do
+   for _, system in pairs(self.systems) do
       system:onActorAdded(level, actor)
    end
 end
@@ -121,7 +117,7 @@ end
 --- @param level Level The level to call onActorRemoved for.
 --- @param actor Actor The actor that has been removed.
 function SystemManager:onActorRemoved(level, actor)
-   for _, system in ipairs(self.systems) do
+   for _, system in pairs(self.systems) do
       system:onActorRemoved(level, actor)
    end
 end
@@ -132,7 +128,7 @@ end
 --- @param from Vector2 The position the actor is moving from.
 --- @param to Vector2 The position the actor is moving to.
 function SystemManager:beforeMove(level, actor, from, to)
-   for _, system in ipairs(self.systems) do
+   for _, system in pairs(self.systems) do
       system:beforeMove(level, actor, from, to)
    end
 end
@@ -143,7 +139,7 @@ end
 --- @param from Vector2 The position the actor moved from.
 --- @param to Vector2 The position the actor moved to.
 function SystemManager:onMove(level, actor, from, to)
-   for _, system in ipairs(self.systems) do
+   for _, system in pairs(self.systems) do
       system:onMove(level, actor, from, to)
    end
 end
@@ -153,7 +149,7 @@ end
 --- @param actor Actor The actor that has selected an action.
 --- @param action Action The action the actor has selected.
 function SystemManager:beforeAction(level, actor, action)
-   for _, system in ipairs(self.systems) do
+   for _, system in pairs(self.systems) do
       system:beforeAction(level, actor, action)
    end
 end
@@ -163,7 +159,7 @@ end
 --- @param actor Actor The actor that has taken an action.
 --- @param action Action The action the actor has executed.
 function SystemManager:afterAction(level, actor, action)
-   for _, system in ipairs(self.systems) do
+   for _, system in pairs(self.systems) do
       system:afterAction(level, actor, action)
    end
 end
@@ -173,7 +169,7 @@ end
 --- @param x number The x coordinate of the tile.
 --- @param y number The y coordinate of the tile.
 function SystemManager:afterOpacityChanged(level, x, y)
-   for _, system in ipairs(self.systems) do
+   for _, system in pairs(self.systems) do
       system:afterOpacityChanged(level, x, y)
    end
 end
@@ -185,7 +181,7 @@ end
 --- @param level Level The level to call onYield for.
 --- @param event Message The event data that caused the yield.
 function SystemManager:onYield(level, event)
-   for _, system in ipairs(self.systems) do
+   for _, system in pairs(self.systems) do
       system:onYield(level, event)
    end
 end
@@ -195,7 +191,7 @@ end
 --- @param eventString string The key of the event handler method into the system.
 --- @param ... any The arguments to be passed to the event handler method.
 function SystemManager:trigger(eventString, ...)
-   for _, system in ipairs(self.systems) do
+   for _, system in pairs(self.systems) do
       if system[eventString] then
          system[eventString](system, ...)
       end

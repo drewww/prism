@@ -18,7 +18,6 @@ Action.silent = false
 ---@param targets? Object[] An optional list of target actors. Not all actions require targets.
 function Action:__new(owner, targets)
    self.owner = owner
-   self.name = self.name or "ERROR"
    self.targets = self.targets or {}
    self.targetObjects = targets or {}
 
