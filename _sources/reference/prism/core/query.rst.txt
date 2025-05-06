@@ -1,0 +1,14 @@
+.. title:: IQueryable
+.. lua:autoobject:: IQueryable
+   :members:
+   :special-members: __new
+   :undoc-members:
+   :inherited-members: __new
+
+.. title:: Query
+.. lua:autoobject:: Query
+   :members:
+   :special-members: __new
+   :undoc-members:
+   :inherited-members: __new
+

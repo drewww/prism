@@ -104,7 +104,7 @@ Click on the k on the right hand side and use the pen tool to draw a
 kobold in. Press the green button to resume the game.</p>
 <p>You might notice that you can walk right through the kobold. We fix that by giving it a
 <a class="reference internal" href="../reference/prism/core/components/collider.html#lua-ColliderComponent" title="ColliderComponent"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ColliderComponent</span></code></a>:</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">ColliderComponent</span><span class="p">()</span>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Collider</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -269,7 +269,7 @@ and then perform the kick action on them:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">if</span> <span class="n">move</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">)</span> <span class="kr">then</span>
 <span class="p">...</span>
 
-<span class="kd">local</span> <span class="n">target</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">:</span><span class="n">getActorsAt</span><span class="p">(</span><span class="n">position</span><span class="p">:</span><span class="n">decompose</span><span class="p">())[</span><span class="mi">1</span><span class="p">]</span>
+<span class="kd">local</span> <span class="n">target</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">:</span><span class="n">query</span><span class="p">():</span><span class="n">at</span><span class="p">(</span><span class="n">position</span><span class="p">:</span><span class="n">decompose</span><span class="p">()):</span><span class="n">gather</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
 <span class="kd">local</span> <span class="n">kick</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Kick</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="p">{</span> <span class="n">target</span> <span class="p">})</span>
 <span class="kr">if</span> <span class="n">kick</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">)</span> <span class="kr">then</span>
    <span class="n">decision</span><span class="p">:</span><span class="n">setAction</span><span class="p">(</span><span class="n">kick</span><span class="p">)</span>

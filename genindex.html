@@ -145,6 +145,8 @@
 </li>
         <li><a href="reference/prism/structures/priority_queue.html#lua-PriorityQueue.__new">(method in PriorityQueue)</a>
 </li>
+        <li><a href="reference/prism/core/query.html#lua-Query.__new">(method in Query)</a>
+</li>
         <li><a href="reference/prism/structures/queue.html#lua-Queue.__new">(method in Queue)</a>
 </li>
         <li><a href="reference/prism/core/rng.html#lua-RNG.__new">(method in RNG)</a>
@@ -290,6 +292,8 @@
 </li>
       <li><a href="reference/prism/core/collision.html#lua-Collision.assignNextAvailableMovetype">assignNextAvailableMovetype (staticmethod in Collision)</a>
 </li>
+      <li><a href="reference/prism/core/query.html#lua-Query.at">at (method in Query)</a>
+</li>
       <li><a href="reference/spectrum/display.html#lua-Display.attachable">attachable (data in Display)</a>
 </li>
   </ul></td>
@@ -417,6 +421,8 @@
       <li><a href="reference/prism/core/component.html#lua-Component">Component (class in )</a>
 </li>
       <li><a href="reference/prism/core/entity.html#lua-Entity.componentCache">componentCache (data in Entity)</a>
+</li>
+      <li><a href="reference/prism/core/actorstorage.html#lua-ActorStorage.componentCounts">componentCounts (data in ActorStorage)</a>
 </li>
       <li><a href="reference/prism/index.html#lua-components">components (data in )</a>
 
@@ -553,31 +559,21 @@
       <li><a href="reference/prism/structures/grid.html#lua-Grid.each">each (method in Grid)</a>
 
       <ul>
+        <li><a href="reference/prism/core/query.html#lua-Query.each">(method in Query)</a>
+</li>
         <li><a href="reference/prism/structures/sparsegrid.html#lua-SparseGrid.each">(method in SparseGrid)</a>
 </li>
         <li><a href="reference/prism/structures/sparsemap.html#lua-SparseMap.each">(method in SparseMap)</a>
-</li>
-      </ul></li>
-      <li><a href="reference/spectrum/display.html#lua-SpectrumAttachable.eachActor">eachActor (data in SpectrumAttachable)</a>
-
-      <ul>
-        <li><a href="reference/prism/core/actorstorage.html#lua-ActorStorage.eachActor">(method in ActorStorage)</a>
-</li>
-      </ul></li>
-      <li><a href="reference/spectrum/display.html#lua-SpectrumAttachable.eachActorAt">eachActorAt (data in SpectrumAttachable)</a>
-
-      <ul>
-        <li><a href="reference/prism/core/actorstorage.html#lua-ActorStorage.eachActorAt">(method in ActorStorage)</a>
 </li>
       </ul></li>
       <li><a href="reference/spectrum/display.html#lua-SpectrumAttachable.eachCell">eachCell (data in SpectrumAttachable)</a>
 </li>
       <li><a href="reference/prism/index.html#lua-Ellipse">Ellipse (function in )</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/spectrum/gamestates/statemanager.html#lua-GameStateManager.emit">emit (method in GameStateManager)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/prism/structures/queue.html#lua-Queue.empty">empty (method in Queue)</a>
 
       <ul>
@@ -634,6 +630,8 @@
 </li>
       <li><a href="reference/spectrum/gamestates/statemanager.html#lua-GameStateManager">GameStateManager (class in )</a>
 </li>
+      <li><a href="reference/prism/core/query.html#lua-Query.gather">gather (method in Query)</a>
+</li>
       <li><a href="reference/spectrum/gamestates/levelstate.html#lua-LevelState.geometer">geometer (data in LevelState)</a>
 </li>
       <li><a href="reference/prism/structures/booleanbuffer.html#lua-BooleanBuffer.get">get (method in BooleanBuffer)</a>
@@ -650,20 +648,12 @@
       </ul></li>
       <li><a href="reference/prism/core/actor.html#lua-Actor.getActions">getActions (method in Actor)</a>
 </li>
-      <li><a href="reference/prism/core/actorstorage.html#lua-ActorStorage.getActorByType">getActorByType (method in ActorStorage)</a>
-
-      <ul>
-        <li><a href="reference/prism/core/level.html#lua-Level.getActorByType">(method in Level)</a>
-</li>
-      </ul></li>
       <li><a href="reference/prism/core/level.html#lua-Level.getActorController">getActorController (method in Level)</a>
 </li>
       <li><a href="reference/spectrum/display.html#lua-SpectrumAttachable.getActorsAt">getActorsAt (data in SpectrumAttachable)</a>
-
-      <ul>
-        <li><a href="reference/prism/core/actorstorage.html#lua-ActorStorage.getActorsAt">(method in ActorStorage)</a>
 </li>
-      </ul></li>
+      <li><a href="reference/prism/core/actorstorage.html#lua-ActorStorage.getAllActors">getAllActors (method in ActorStorage)</a>
+</li>
       <li><a href="reference/prism/core/level.html#lua-Level.getAOE">getAOE (method in Level)</a>
 </li>
       <li><a href="reference/prism/structures/bitmaskbuffer.html#lua-BitmaskBuffer.getBit">getBit (method in BitmaskBuffer)</a>
@@ -689,6 +679,10 @@
       <li><a href="reference/prism/core/cell.html#lua-Cell.getCollisionMask">getCollisionMask (method in Cell)</a>
 </li>
       <li><a href="reference/prism/core/entity.html#lua-Entity.getComponent">getComponent (method in Entity)</a>
+</li>
+      <li><a href="reference/prism/core/actorstorage.html#lua-ActorStorage.getComponentCache">getComponentCache (method in ActorStorage)</a>
+</li>
+      <li><a href="reference/prism/core/actorstorage.html#lua-ActorStorage.getComponentCount">getComponentCount (method in ActorStorage)</a>
 </li>
       <li><a href="reference/prism/math/bounding_box.html#lua-BoundingBox.getHeight">getHeight (method in BoundingBox)</a>
 </li>
@@ -747,6 +741,8 @@
       <li><a href="reference/prism/core/actor.html#lua-Actor.getRangeVec">getRangeVec (method in Actor)</a>
 </li>
       <li><a href="reference/prism/core/rng.html#lua-RNG.getSeed">getSeed (method in RNG)</a>
+</li>
+      <li><a href="reference/prism/core/actorstorage.html#lua-ActorStorage.getSparseMap">getSparseMap (method in ActorStorage)</a>
 </li>
       <li><a href="reference/prism/core/rng.html#lua-RNG.getState">getState (method in RNG)</a>
 </li>
@@ -862,9 +858,13 @@
 </li>
       <li><a href="reference/prism/math/bounding_box.html#lua-BoundingBox.intersects">intersects (method in BoundingBox)</a>
 </li>
+      <li><a href="reference/prism/core/query.html#lua-IQueryable">IQueryable (class in )</a>
+</li>
       <li><a href="reference/prism/core/object.html#lua-Object.is">is (method in Object)</a>
 </li>
       <li><a href="reference/prism/structures/priority_queue.html#lua-PriorityQueue.isEmpty">isEmpty (method in PriorityQueue)</a>
+</li>
+      <li><a href="reference/prism/core/query.html#lua-Query.iter">iter (method in Query)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1024,8 +1024,6 @@
         <li><a href="reference/prism/core/system_manager.html#lua-SystemManager.onActorRemoved">(method in SystemManager)</a>
 </li>
       </ul></li>
-      <li><a href="reference/prism/core/system.html#lua-System.onDescend">onDescend (method in System)</a>
-</li>
       <li><a href="reference/prism/core/actorstorage.html#lua-ActorStorage.onDeserialize">onDeserialize (method in ActorStorage)</a>
 
       <ul>
@@ -1172,9 +1170,13 @@
 </li>
       <li><a href="reference/spectrum/spriteatlas.html#lua-SpriteAtlas.quadsByIndex">quadsByIndex (data in SpriteAtlas)</a>
 </li>
+      <li><a href="reference/spectrum/spriteatlas.html#lua-SpriteAtlas.quadsByName">quadsByName (data in SpriteAtlas)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/spectrum/spriteatlas.html#lua-SpriteAtlas.quadsByName">quadsByName (data in SpriteAtlas)</a>
+      <li><a href="reference/prism/core/query.html#lua-Query">Query (class in )</a>
+</li>
+      <li><a href="reference/prism/core/query.html#lua-IQueryable.query">query (data in IQueryable)</a>
 </li>
       <li><a href="reference/prism/structures/queue.html#lua-Queue">Queue (class in )</a>
 </li>
@@ -1314,10 +1316,10 @@
 </li>
       <li><a href="reference/spectrum/camera.html#lua-Camera.setScale">setScale (method in Camera)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/prism/core/rng.html#lua-RNG.setSeed">setSeed (method in RNG)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/prism/core/rng.html#lua-RNG.setState">setState (method in RNG)</a>
 </li>
       <li><a href="reference/spectrum/gamestates/levelstate.html#lua-LevelState.shouldAdvance">shouldAdvance (method in LevelState)</a>
@@ -1355,6 +1357,8 @@
       <li><a href="reference/prism/core/rng.html#lua-RNG.state2">state2 (data in RNG)</a>
 </li>
       <li><a href="reference/prism/core/level.html#lua-Level.step">step (method in Level)</a>
+</li>
+      <li><a href="reference/prism/core/query.html#lua-Query.storage">storage (data in Query)</a>
 </li>
       <li><a href="reference/prism/core/object.html#lua-Object.stripName">stripName (data in Object)</a>
 </li>
@@ -1497,6 +1501,8 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/prism/math/color.html#lua-Color4.WHITE">WHITE (data in Color4)</a>
+</li>
+      <li><a href="reference/prism/core/query.html#lua-Query.with">with (method in Query)</a>
 </li>
   </ul></td>
 </tr></table>

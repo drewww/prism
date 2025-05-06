@@ -78,7 +78,7 @@ You might notice that you can walk right through the kobold. We fix that by givi
 
 .. code:: lua
 
-   prism.components.ColliderComponent()
+   prism.components.Collider()
 
 .. note::
 
@@ -265,7 +265,7 @@ and then perform the kick action on them:
    if move:canPerform(self.level) then
    ...
 
-   local target = self.level:getActorsAt(position:decompose())[1]
+   local target = self.level:query():at(position:decompose()):gather()[1]
    local kick = prism.actions.Kick(owner, { target })
    if kick:canPerform(self.level) then
       decision:setAction(kick)
