@@ -1,5 +1,5 @@
 --- A map builder class that extends the SparseGrid class to handle map-specific functionalities.
---- @class MapBuilder : SparseGrid, SpectrumAttachable
+--- @class MapBuilder : SparseGrid, IQueryable, SpectrumAttachable
 --- @field actors ActorStorage A list of actors present in the map.
 --- @field initialValue Cell The initial value to fill the map with.
 --- @overload fun(initialValue: Cell): MapBuilder
@@ -158,7 +158,7 @@ function MapBuilder:blit(source, destX, destY, maskFn)
    end
 
    -- Adjust actor positions
-   for actor in source.actors:eachActor() do
+   for actor in source.actors:query():iter() do
       ---@diagnostic disable-next-line
       actor.position = actor.position + prism.Vector2(destX, destY)
       self.actors:addActor(actor)
@@ -194,7 +194,7 @@ function MapBuilder:build()
    end
 
    -- Adjust actor positions
-   for actor in self.actors:eachActor() do
+   for actor in self.actors:query():iter() do
       ---@diagnostic disable-next-line
       actor.position = actor.position - prism.Vector2(minX - 1, minY - 1)
    end
@@ -225,12 +225,8 @@ function MapBuilder:inBounds(x, y)
    return true
 end
 
-function MapBuilder:eachActorAt(x, y)
-   return self.actors:eachActorAt(x, y)
-end
-
-function MapBuilder:eachActor(...)
-   return self.actors:eachActor(...)
+function MapBuilder:query(...)
+   return self.actors:query(...)
 end
 
 return MapBuilder

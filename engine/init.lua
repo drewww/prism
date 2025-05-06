@@ -91,6 +91,8 @@ prism.Path = prism.require "algorithms.astar.path"
 prism.astar = prism.require "algorithms.astar.astar"
 
 -- Core
+--- @module "engine.core.query"
+prism.Query = prism.require "core.query"
 --- @module "engine.core.scheduler.scheduler"
 prism.Scheduler = prism.require "core.scheduler.scheduler"
 --- @module "engine.core.scheduler.simple_scheduler"

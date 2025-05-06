@@ -2,7 +2,7 @@
 --- It is used by the 'Level' class to store and retrieve actors, and is returned by a few Level methods.
 --- You should rarely, if ever, need to instance this class yourself, it's mostly used internally and for
 --- a few returns from Level.
---- @class ActorStorage : Object
+--- @class ActorStorage : Object, IQueryable
 --- @field private actors Actor[] The list of actors in the storage.
 --- @field private ids SparseArray A sparse array of references to the Actors in the storage. The ID is derived from this.
 --- @field private actorToID table<Actor, integer?> A hashmap of actors to ids.
@@ -21,6 +21,7 @@ function ActorStorage:__new(insertSparseMapCallback, removeSparseMapCallback)
    self.actorToID = {}
    self.sparseMap = prism.SparseMap()
    self.componentCache = {}
+   self.componentCounts = {}
    self.insertSparseMapCallback = insertSparseMapCallback or function() end
    self.removeSparseMapCallback = removeSparseMapCallback or function() end
 end
@@ -76,91 +77,10 @@ function ActorStorage:hasActor(actor)
    return self.actorToID[actor] ~= nil
 end
 
---- Returns an iterator over the actors in the storage. If a component is specified, only actors with that
---- component will be returned.
---- @param ... any The components to filter by.
---- @return fun(): (Actor, ...:Component) iter An iterator over the actors in the storage.
-function ActorStorage:eachActor(...)
-   local n = 1
-   local comp = { ... }
-
-   if #comp == 1 and self.componentCache[comp[1]] then
-      local currentComponentCache = self.componentCache[comp[1]]
-      local key = next(currentComponentCache, nil)
-
-      return function()
-         ---@diagnostic disable-next-line
-         if not key then return end
-
-         local ractor, rcomp = key, key:getComponent(comp[1])
-         key = next(currentComponentCache, key)
-
-         return ractor, rcomp
-      end
-   end
-
-   return function()
-      for i = n, #self.actors do
-         n = i + 1
-
-         if #comp == 0 then return self.actors[i] end
-
-         local components = {}
-         local hasComponents = false
-         for j = 1, #comp do
-            if self.actors[i]:hasComponent(comp[j]) then
-               hasComponents = true
-               table.insert(components, self.actors[i]:getComponent(comp[j]))
-            else
-               hasComponents = false
-               break
-            end
-         end
-
-         if hasComponents then return self.actors[i], unpack(components) end
-      end
-
-      ---@diagnostic disable-next-line
-      return nil
-   end
-end
-
---- Returns an iterator over the actors in the storage that have the specified prototype.
---- @param prototype Actor The prototype to filter by.
---- @return Actor|nil The first actor that matches the prototype, or nil if no actor matches.
-function ActorStorage:getActorByType(prototype)
-   for i = 1, #self.actors do
-      if self.actors[i]:is(prototype) then return self.actors[i] end
-   end
-end
-
---- Returns a table of actors in the storage at the given position.
---- TODO: Return an ActorStorage object instead of a table.
----
---- @param x number The x-coordinate to check.
---- @param y number The y-coordinate to check.
---- @return Actor[] actors A table of actors at the given position.
-function ActorStorage:getActorsAt(x, y)
-   local actorsAtPosition = {}
-   for actor, _ in pairs(self.sparseMap:get(x, y)) do
-      table.insert(actorsAtPosition, actor)
-   end
-
-   return actorsAtPosition
-end
-
---- Returns an iterator over the actors in the storage at the given position.
---- @param x number The x-coordinate to check.
---- @param y number The y-coordinate to check.
---- @return fun(): Actor iterator An iterator over the actors at the given position.
-function ActorStorage:eachActorAt(x, y)
-   local key, _
-   local actors = self.sparseMap:get(x, y)
-   local function iterator()
-      key, _ = next(actors, key)
-      return key
-   end
-   return iterator
+--- @param ... Component
+--- @return Query
+function ActorStorage:query(...)
+   return prism.Query(self, ...)
 end
 
 --- Removes the specified actor from the spatial map.
@@ -183,21 +103,33 @@ end
 --- @param actor Actor The actor to update the component cache for.
 function ActorStorage:updateComponentCache(actor)
    for _, component in pairs(prism.components) do
-      if not self.componentCache[component] then self.componentCache[component] = {} end
+      if not self.componentCache[component] then
+         self.componentCache[component] = {}
+         self.componentCounts[component] = 0
+      end
 
-      if actor:hasComponent(component) then
+      local hasComp = actor:hasComponent(component)
+      local cached = self.componentCache[component][actor]
+
+      if hasComp and not cached then
          self.componentCache[component][actor] = true
-      else
+         self.componentCounts[component] = self.componentCounts[component] + 1
+      elseif not hasComp and cached then
          self.componentCache[component][actor] = nil
+         self.componentCounts[component] = self.componentCounts[component] - 1
       end
    end
 end
+
 
 --- Removes the specified actor from the component cache.
 --- @param actor Actor The actor to remove from the component cache.
 function ActorStorage:removeComponentCache(actor)
    for _, component in pairs(prism.components) do
-      if self.componentCache[component] then self.componentCache[component][actor] = nil end
+      if self.componentCache[component] and self.componentCache[component][actor] then
+         self.componentCache[component][actor] = nil
+         self.componentCounts[component] = self.componentCounts[component] - 1
+      end
    end
 end
 
@@ -216,6 +148,35 @@ function ActorStorage:onDeserialize()
    for _, actor in pairs(self.actors) do
       self:insertSparseMapEntries(actor)
    end
+end
+
+--- Retrieves the component cache for a specific component.
+--- This is a read-only operation, and the returned table should not be modified directly.
+--- @param component Component The component to query.
+--- @return table<Actor, boolean>|nil cache The component cache for the specified component.
+function ActorStorage:getComponentCache(component)
+   return self.componentCache[component]
+end
+
+--- Retrieves the sparse map.
+--- This is a read-only operation. The returned SparseMap should not be modified directly.
+--- @return SparseMap The sparse map of actor positions.
+function ActorStorage:getSparseMap()
+   return self.sparseMap
+end
+
+--- Retrieves all actors in the storage.
+--- This is a read-only operation. The returned list of actors should not be modified directly.
+--- @return Actor[] actors A list of all actors in the storage.
+function ActorStorage:getAllActors()
+   return self.actors
+end
+
+--- Retrieves the count of a specific component.
+--- @param component Component The component to query.
+--- @return integer The count of the specified component.
+function ActorStorage:getComponentCount(component)
+   return self.componentCounts[component] or 0
 end
 
 return ActorStorage

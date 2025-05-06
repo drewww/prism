@@ -1,6 +1,6 @@
 --- The 'Level' holds all of the actors and systems, and runs the game loop. Through the ActorStorage and SystemManager
 ---
---- @class Level : Object, SpectrumAttachable
+--- @class Level : Object, IQueryable, SpectrumAttachable
 --- @field systemManager SystemManager A table containing all of the systems active in the level, set in the constructor.
 --- @field actorStorage ActorStorage The main actor storage containing all of the level's actors.
 --- @field scheduler Scheduler The main scheduler driving the loop of the game.
@@ -280,27 +280,8 @@ function Level:hasActor(actor) return self.actorStorage:hasActor(actor) end
 --- that have the given components. If no components are given it iterate over
 --- all actors. A thin wrapper over the inner ActorStorage.
 --- @param ... any The components to filter by.
---- @return function An iterator that returns the next actor that matches the given components.
-function Level:eachActor(...) return self.actorStorage:eachActor(...) end
-
---- Returns the first actor that extends the given prototype, or nil if no actor
---- is found. Useful for one offs like stairs in some games.
---- @param prototype Actor The prototype to check for.
---- @return Actor|nil The first actor that extends the given prototype, or nil if no actor is found.
-function Level:getActorByType(prototype) return self.actorStorage:getActorByType(prototype) end
-
---- Returns a list of all actors at the given position. A thin wrapper over
---- the inner ActorStorage.
---- @param x number The x component of the position to check.
---- @param y number The y component of the position to check.
---- @return Actor[] -- A list of all actors at the given position.
-function Level:getActorsAt(x, y) return self.actorStorage:getActorsAt(x, y) end
-
---- Returns an iterator that will return all actors at the given position.
---- @param x number The x component of the position to check.
---- @param y number The y component of the position to check.
---- @return fun(): Actor iter An iterator that returns the next actor at the given position.
-function Level:eachActorAt(x, y) return self.actorStorage:eachActorAt(x, y) end
+--- @return Query query An iterator that returns the next actor that matches the given components.
+function Level:query(...) return self.actorStorage:query(...) end
 
 function Level:computeFOV(origin, maxDepth, callback)
    prism.computeFOV(self, origin, maxDepth, callback)
@@ -365,6 +346,10 @@ function Level:initializePassabilityCache()
    end
 end
 
+-- We reuse query objects in cases like this. This happens a lot and
+-- creating a new query object each time is bad for the GC.
+--- @type Query|nil
+local passabilityQuery = nil;
 --- Updates the passability cache at the given position. This should be called
 --- whenever an actor moves or a cell's passability changes. This is handled
 --- automatically by the Level class.
@@ -373,11 +358,14 @@ end
 function Level:updatePassabilityCache(x, y)
    local mask = self.map.passableCache:getMask(x, y)
 
-   for actor, _ in self.actorStorage:eachActorAt(x, y) do
-      local collider = actor:getComponent(prism.components.Collider)
-      if collider then
-         mask = bit.band(collider.mask, mask)
-      end
+   if not passabilityQuery then
+      passabilityQuery = self:query(prism.components.Collider)
+   end
+
+   passabilityQuery:at(x, y)
+   for _, collider in passabilityQuery:iter() do
+      --- @cast collider ColliderComponent
+      mask = bit.band(collider.mask, mask)
    end
 
    self.passableCache:setMask(x, y, mask)
@@ -407,16 +395,25 @@ function Level:initializeOpacityCache()
    end
 end
 
+--- @type Query
+local opacityQuery = nil
 --- Updates the opacity cache at the given position. This should be called
 --- whenever an actor moves or a cell's opacity changes. This is handled
 --- automatically by the Level class.
 --- @param x number The x component of the position to update.
 --- @param y number The y component of the position to update.
 function Level:updateOpacityCache(x, y)
+   if not opacityQuery then
+      opacityQuery = self:query(prism.components.Opaque)
+         :at(x, y)
+   else
+      opacityQuery:at(x, y)
+   end
+
    local opaque = false
-   for actor, _ in self.actorStorage:eachActorAt(x, y) do
-      opaque = opaque or actor:hasComponent(prism.components.Opaque)
-      if opaque then break end
+   for _ in opacityQuery:iter() do
+      opaque = true
+      break;
    end
 
    opaque = opaque or self.map.opacityCache:get(x, y)
@@ -469,14 +466,14 @@ function Level:getAOE(type, position, range)
          fov:set(x, y, true)
       end)
 
-      for actorInAOE in self.actorStorage:eachActor() do
+      for actorInAOE in self:query():iter() do
          local x, y = actorInAOE:getPosition():decompose()
          if fov:get(x, y) then table.insert(seenActors, actorInAOE) end
       end
 
       return fov, seenActors
    elseif type == "box" then
-      for actorInAOE in self.actorStorage:eachActor() do
+      for actorInAOE in self:query():iter() do
          if actorInAOE:getRangeVec(position) <= range then table.insert(seenActors, actorInAOE) end
       end
 

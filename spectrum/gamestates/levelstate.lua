@@ -79,7 +79,7 @@ function LevelState:handleActionMessage(message)
    ---@cast message ActionMessage
    local actionproto = getmetatable(message.action)
    local seen = false
-   for _, senses, _ in self.level:eachActor(prism.components.Senses, prism.components.PlayerController) do
+   for _, senses, _ in self.level:query(prism.components.Senses, prism.components.PlayerController):iter() do
       ---@cast senses SensesComponent
       if senses.actors:hasActor(message.action.owner) then
          seen = true
@@ -109,7 +109,8 @@ function LevelState:draw()
    local primary = { sensesComponent }
    local secondary = {}
 
-   for _, _, senses in self.level:eachActor(prism.components.PlayerController, prism.components.Senses) do
+   local query = self.level:query(prism.components.PlayerController, prism.components.Senses)
+   for _, _, senses in query:iter() do
       table.insert(secondary, senses)
    end
 
