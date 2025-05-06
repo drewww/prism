@@ -61,11 +61,6 @@ To gather results into a list, use :lua:func:`Query.gather`:
     end
 
 
-.. note::
-
-   Query performance is optimized internally based on your filters.
-   Position-based queries and single-component queries are particularly fast.
-
 Putting It Together
 -----------------
 
@@ -79,3 +74,8 @@ Here's an example of it all put together:
     for actor, controller, collider, senses in query:iter() do
         -- do stuff
     end
+
+.. note::
+
+   Query performance is optimized internally based on your filters.
+   Position-based queries and single-component queries are particularly fast.
