@@ -1,10 +1,10 @@
 --- @class IQueryable
 --- @field query fun(self, ...:Component): Query
 
---- @class Query : Object
 --- Represents a query over actors in an `ActorStorage`, filtering by required components and optionally by position.
 --- Supports fluent chaining via `with()` and `at()` methods.
 --- Provides `iter()`, `each()`, and `gather()` for iteration and retrieval.
+--- @class Query : Object
 --- @field private requiredComponents table<Component, boolean> A set of required component types.
 --- @field private requiredComponentsList Component[] Ordered list of required component types.
 --- @field private requiredComponentsCount integer The number of required component types.
@@ -88,7 +88,6 @@ end
 function Query:iter()
    local positionCache = self.storage:getSparseMap()
    local actors = self.storage:getAllActors()
-   local componentCounts = self.storage.componentCounts
    local requiredPosition = self.requiredPosition
 
    --- @type table<Component, boolean>
@@ -136,9 +135,9 @@ function Query:iter()
    local smallestCount = math.huge
    for component in pairs(requiredComponents) do
       local cache = self.storage:getComponentCache(component)
-      if cache and (not smallestCache or componentCounts[component] < smallestCount) then
+      if cache and (not smallestCache or self.storage:getComponentCount(component) < smallestCount) then
          smallestCache = cache
-         smallestCount = componentCounts[component]
+         smallestCount = self.storage:getComponentCount(component) 
       end
    end
 

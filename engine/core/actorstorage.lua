@@ -7,7 +7,8 @@
 --- @field private ids SparseArray A sparse array of references to the Actors in the storage. The ID is derived from this.
 --- @field private actorToID table<Actor, integer?> A hashmap of actors to ids.
 --- @field private sparseMap SparseMap The spatial map for storing actor positions.
---- @field private componentCache table The cache for storing actor components.
+--- @field private componentCache table<Component, table<Actor, boolean>> The cache for storing actor components.
+--- @field private componentCounts table<Component, number>
 --- @field private insertSparseMapCallback function
 --- @field private removeSparseMapCallback function
 --- @overload fun(insertSparseMapCallback?: function, removeSparseMapCallback?: function): ActorStorage
