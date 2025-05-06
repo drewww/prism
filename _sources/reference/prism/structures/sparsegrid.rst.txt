@@ -1,5 +1,5 @@
-.. title:: SparseGrid
-.. lua:autoobject:: SparseGrid
+.. title:: SparseGrid<V>
+.. lua:autoobject:: SparseGrid<V>
    :members:
    :special-members: __new
    :undoc-members:

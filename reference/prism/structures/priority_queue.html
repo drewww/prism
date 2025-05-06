@@ -7,7 +7,7 @@
 <template id="tmpl_gotoTop"><div id="gotoTop">
   <button>Back to top</button>
 </div></template>
-    <title>PriorityQueue &#8212; Prism  documentation</title>
+    <title>PriorityQueue&lt;T&gt; &#8212; Prism  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=266695fe" />
     <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=27fed22d" />
@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Queue" href="queue.html" />
-    <link rel="prev" title="Grid" href="grid.html" />
+    <link rel="prev" title="Grid&lt;T&gt;" href="grid.html" />
    
   <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
   
@@ -43,77 +43,7 @@
 
           <div class="body" role="main">
             
-  <dl class="lua class">
-<dt class="sig sig-object lua" id="lua-PriorityQueue">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PriorityQueue</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../core/object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><a class="headerlink" href="#lua-PriorityQueue" title="Link to this definition">¶</a></dt>
-<dd><dl class="lua method">
-<dt class="sig sig-object lua" id="lua-PriorityQueue.__new">
-<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-PriorityQueue" title="PriorityQueue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">PriorityQueue</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-PriorityQueue.__new" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="lua data">
-<dt class="sig sig-object lua" id="lua-PriorityQueue._heap">
-<span class="sig-name descname"><span class="pre">_heap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-PriorityQueue._heap" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-PriorityQueue._swap">
-<span class="sig-name descname"><span class="pre">_swap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-PriorityQueue" title="PriorityQueue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">PriorityQueue</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-PriorityQueue._swap" title="Link to this definition">¶</a></dt>
-<dd><p>Swap elements at indices i and j in the heap</p>
-<dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-PriorityQueue._bubbleUp">
-<span class="sig-name descname"><span class="pre">_bubbleUp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-PriorityQueue" title="PriorityQueue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">PriorityQueue</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-PriorityQueue._bubbleUp" title="Link to this definition">¶</a></dt>
-<dd><p>Bubble up the element at index i to its proper place in the heap</p>
-<dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-PriorityQueue._bubbleDown">
-<span class="sig-name descname"><span class="pre">_bubbleDown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-PriorityQueue" title="PriorityQueue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">PriorityQueue</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-PriorityQueue._bubbleDown" title="Link to this definition">¶</a></dt>
-<dd><p>Bubble down the element at index i to its proper place in the heap</p>
-<dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-PriorityQueue.push">
-<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-PriorityQueue" title="PriorityQueue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">PriorityQueue</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-PriorityQueue.push" title="Link to this definition">¶</a></dt>
-<dd><p>Push a new element to the PriorityQueue.</p>
-<dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-PriorityQueue.pop">
-<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-PriorityQueue" title="PriorityQueue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">PriorityQueue</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="p"><span class="pre">&lt;</span></span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">T</span></code><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">nil</span></code></span></span><a class="headerlink" href="#lua-PriorityQueue.pop" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-PriorityQueue.isEmpty">
-<span class="sig-name descname"><span class="pre">isEmpty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-PriorityQueue" title="PriorityQueue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">PriorityQueue</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></span></span><a class="headerlink" href="#lua-PriorityQueue.isEmpty" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-PriorityQueue.size">
-<span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-PriorityQueue" title="PriorityQueue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">PriorityQueue</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></span></span><a class="headerlink" href="#lua-PriorityQueue.size" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-
+  
 
           </div>
           
@@ -167,116 +97,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../making-a-roguelike/part2.html">The clash of steel</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Prism</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../index.html#lua-actors"><code class="docutils literal notranslate"><span class="pre">actors</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#lua-actions"><code class="docutils literal notranslate"><span class="pre">actions</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#lua-components"><code class="docutils literal notranslate"><span class="pre">components</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#lua-cells"><code class="docutils literal notranslate"><span class="pre">cells</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#lua-targets"><code class="docutils literal notranslate"><span class="pre">targets</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#lua-messages"><code class="docutils literal notranslate"><span class="pre">messages</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#lua-systems"><code class="docutils literal notranslate"><span class="pre">systems</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#lua-decisions"><code class="docutils literal notranslate"><span class="pre">decisions</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/action.html"><code class="docutils literal notranslate"><span class="pre">Action</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/actor.html"><code class="docutils literal notranslate"><span class="pre">Actor</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/actorstorage.html"><code class="docutils literal notranslate"><span class="pre">ActorStorage</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior.html"><code class="docutils literal notranslate"><span class="pre">IBehavior</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/cell.html"><code class="docutils literal notranslate"><span class="pre">Cell</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/collision.html"><code class="docutils literal notranslate"><span class="pre">Collision</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/component.html"><code class="docutils literal notranslate"><span class="pre">Component</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/decision.html"><code class="docutils literal notranslate"><span class="pre">Decision</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/entity.html"><code class="docutils literal notranslate"><span class="pre">Entity</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/level.html"><code class="docutils literal notranslate"><span class="pre">Level</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/map.html"><code class="docutils literal notranslate"><span class="pre">Map</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/map_builder.html"><code class="docutils literal notranslate"><span class="pre">MapBuilder</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/message.html"><code class="docutils literal notranslate"><span class="pre">Message</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/object.html"><code class="docutils literal notranslate"><span class="pre">Object</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/query.html"><code class="docutils literal notranslate"><span class="pre">IQueryable</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/query.html#lua-Query"><code class="docutils literal notranslate"><span class="pre">Query</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/rng.html"><code class="docutils literal notranslate"><span class="pre">RNG</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/system.html"><code class="docutils literal notranslate"><span class="pre">System</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/system_manager.html"><code class="docutils literal notranslate"><span class="pre">SystemManager</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/target.html"><code class="docutils literal notranslate"><span class="pre">Target</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/scheduler/scheduler.html"><code class="docutils literal notranslate"><span class="pre">Scheduler</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/scheduler/simple_scheduler.html"><code class="docutils literal notranslate"><span class="pre">SimpleScheduler</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#lua-loadModule"><code class="docutils literal notranslate"><span class="pre">loadModule()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#lua-turn"><code class="docutils literal notranslate"><span class="pre">turn()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#lua-advanceCoroutine"><code class="docutils literal notranslate"><span class="pre">advanceCoroutine()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/components/collider.html"><code class="docutils literal notranslate"><span class="pre">ColliderComponent</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/components/collider.html#lua-ColliderOptions"><code class="docutils literal notranslate"><span class="pre">ColliderOptions</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/components/controller.html"><code class="docutils literal notranslate"><span class="pre">ControllerComponent</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/components/opaque.html"><code class="docutils literal notranslate"><span class="pre">OpaqueComponent</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/components/player_controller.html"><code class="docutils literal notranslate"><span class="pre">PlayerControllerComponent</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/components/senses.html"><code class="docutils literal notranslate"><span class="pre">SensesComponent</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/systems/senses.html"><code class="docutils literal notranslate"><span class="pre">SensesSystem</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/collision.html"><code class="docutils literal notranslate"><span class="pre">Collision</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/messages/actionmessage.html"><code class="docutils literal notranslate"><span class="pre">ActionMessage</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/messages/debugmessage.html"><code class="docutils literal notranslate"><span class="pre">DebugMessage</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/decisions/actiondecision.html"><code class="docutils literal notranslate"><span class="pre">ActionDecision</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btconditional.html"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Conditional</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btconditional.html#lua-BehaviorTree.Node"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Node</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btconditional.html#lua-BehaviorTree.Root"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Root</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btconditional.html#lua-BehaviorTree.Selector"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Selector</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btconditional.html#lua-BehaviorTree.Sequence"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Sequence</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btconditional.html#lua-BehaviorTree.Succeeder"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Succeeder</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btnode.html"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Conditional</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btnode.html#lua-BehaviorTree.Node"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Node</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btnode.html#lua-BehaviorTree.Root"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Root</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btnode.html#lua-BehaviorTree.Selector"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Selector</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btnode.html#lua-BehaviorTree.Sequence"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Sequence</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btnode.html#lua-BehaviorTree.Succeeder"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Succeeder</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btroot.html"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Conditional</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btroot.html#lua-BehaviorTree.Node"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Node</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btroot.html#lua-BehaviorTree.Root"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Root</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btroot.html#lua-BehaviorTree.Selector"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Selector</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btroot.html#lua-BehaviorTree.Sequence"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Sequence</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btroot.html#lua-BehaviorTree.Succeeder"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Succeeder</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btselector.html"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Conditional</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btselector.html#lua-BehaviorTree.Node"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Node</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btselector.html#lua-BehaviorTree.Root"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Root</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btselector.html#lua-BehaviorTree.Selector"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Selector</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btselector.html#lua-BehaviorTree.Sequence"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Sequence</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btselector.html#lua-BehaviorTree.Succeeder"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Succeeder</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btsequence.html"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Conditional</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btsequence.html#lua-BehaviorTree.Node"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Node</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btsequence.html#lua-BehaviorTree.Root"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Root</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btsequence.html#lua-BehaviorTree.Selector"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Selector</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btsequence.html#lua-BehaviorTree.Sequence"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Sequence</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btsequence.html#lua-BehaviorTree.Succeeder"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Succeeder</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btsucceeder.html"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Conditional</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btsucceeder.html#lua-BehaviorTree.Node"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Node</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btsucceeder.html#lua-BehaviorTree.Root"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Root</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btsucceeder.html#lua-BehaviorTree.Selector"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Selector</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btsucceeder.html#lua-BehaviorTree.Sequence"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Sequence</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btsucceeder.html#lua-BehaviorTree.Succeeder"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Succeeder</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="bitmaskbuffer.html"><code class="docutils literal notranslate"><span class="pre">BitmaskBuffer</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="booleanbuffer.html"><code class="docutils literal notranslate"><span class="pre">BooleanBuffer</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="grid.html"><code class="docutils literal notranslate"><span class="pre">Grid</span></code></a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">PriorityQueue</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#lua-PriorityQueue.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-PriorityQueue._heap"><code class="docutils literal notranslate"><span class="pre">_heap</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-PriorityQueue._swap"><code class="docutils literal notranslate"><span class="pre">_swap()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-PriorityQueue._bubbleUp"><code class="docutils literal notranslate"><span class="pre">_bubbleUp()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-PriorityQueue._bubbleDown"><code class="docutils literal notranslate"><span class="pre">_bubbleDown()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-PriorityQueue.push"><code class="docutils literal notranslate"><span class="pre">push()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-PriorityQueue.pop"><code class="docutils literal notranslate"><span class="pre">pop()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-PriorityQueue.isEmpty"><code class="docutils literal notranslate"><span class="pre">isEmpty()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-PriorityQueue.size"><code class="docutils literal notranslate"><span class="pre">size()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="queue.html"><code class="docutils literal notranslate"><span class="pre">Queue</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="sparsearray.html"><code class="docutils literal notranslate"><span class="pre">SparseArray</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="sparsegrid.html"><code class="docutils literal notranslate"><span class="pre">SparseGrid</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="sparsemap.html"><code class="docutils literal notranslate"><span class="pre">SparseMap</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../math/bounding_box.html"><code class="docutils literal notranslate"><span class="pre">BoundingBox</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../math/color.html"><code class="docutils literal notranslate"><span class="pre">Color4</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../math/vector.html"><code class="docutils literal notranslate"><span class="pre">Vector2</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../algorithms/astar/path.html"><code class="docutils literal notranslate"><span class="pre">Path</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#lua-PassableCallback"><code class="docutils literal notranslate"><span class="pre">PassableCallback</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#lua-Ellipse"><code class="docutils literal notranslate"><span class="pre">Ellipse()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#lua-Bresenham"><code class="docutils literal notranslate"><span class="pre">Bresenham()</span></code></a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Prism</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../spectrum/index.html">Spectrum</a></li>
 </ul>
 
@@ -285,7 +107,7 @@
 <ul>
   <li><a href="../../../index.html">Documentation overview</a><ul>
   <li><a href="../index.html">Prism</a><ul>
-      <li>Previous: <a href="grid.html" title="previous chapter">Grid</a></li>
+      <li>Previous: <a href="grid.html" title="previous chapter">Grid&lt;T&gt;</a></li>
       <li>Next: <a href="queue.html" title="next chapter">Queue</a></li>
   </ul></li>
   </ul></li>

@@ -1,5 +1,5 @@
-.. title:: BehaviorTree
-.. lua:autoobject:: BehaviorTree
+.. title:: BehaviorTree.Conditional
+.. lua:autoobject:: BehaviorTree.Conditional
    :members:
    :special-members: __new
    :undoc-members:

@@ -1,5 +1,5 @@
-.. title:: Grid
-.. lua:autoobject:: Grid
+.. title:: Grid<T>
+.. lua:autoobject:: Grid<T>
    :members:
    :special-members: __new
    :undoc-members:

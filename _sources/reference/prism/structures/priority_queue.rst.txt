@@ -1,5 +1,5 @@
-.. title:: PriorityQueue
-.. lua:autoobject:: PriorityQueue
+.. title:: PriorityQueue<T>
+.. lua:autoobject:: PriorityQueue<T>
    :members:
    :special-members: __new
    :undoc-members:
