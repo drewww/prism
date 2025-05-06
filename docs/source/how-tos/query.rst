@@ -67,6 +67,7 @@ Putting It Together
 Here's an example of it all put together:
 
 .. code:: lua
+    
     local query = level:query(prism.components.Controller, prism.components.Senses)
         :with(prism.components.Senses)
         :at(x, y)
