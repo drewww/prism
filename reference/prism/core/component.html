@@ -51,15 +51,9 @@ Components are used to add functionality to actors. For instance, the <cite>Move
 allows an actor to move around the map. Components are essentially data storage that can
 also grant actions.</p>
 <dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Component.name">
-<span class="sig-name descname"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><a class="headerlink" href="#lua-Component.name" title="Link to this definition">¶</a></dt>
-<dd><p>Each component prototype MUST have a unique name!</p>
-</dd></dl>
-
-<dl class="lua data">
 <dt class="sig sig-object lua" id="lua-Component.requirements">
-<span class="sig-name descname"><span class="pre">requirements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-Component.requirements" title="Link to this definition">¶</a></dt>
-<dd><p>A list of component prototypes the actor must first have, before this can be applied.</p>
+<span class="sig-name descname"><span class="pre">requirements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><span class="p"><span class="pre">[]</span></span><a class="headerlink" href="#lua-Component.requirements" title="Link to this definition">¶</a></dt>
+<dd><p>A list of components the actor must first have, before this can be applied. References the component class name.</p>
 </dd></dl>
 
 <dl class="lua data">
@@ -172,7 +166,6 @@ the actor. This would include stuff like attaching systems, etc.</p>
 <li class="toctree-l2"><a class="reference internal" href="cell.html"><code class="docutils literal notranslate"><span class="pre">Cell</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="collision.html"><code class="docutils literal notranslate"><span class="pre">Collision</span></code></a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Component</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Component.name"><code class="docutils literal notranslate"><span class="pre">name</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Component.requirements"><code class="docutils literal notranslate"><span class="pre">requirements</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Component.owner"><code class="docutils literal notranslate"><span class="pre">owner</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Component.initialize"><code class="docutils literal notranslate"><span class="pre">initialize()</span></code></a></li>

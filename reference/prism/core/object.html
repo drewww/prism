@@ -54,13 +54,14 @@
 </dd></dl>
 
 <dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Object.serializationBlacklist">
-<span class="sig-name descname"><span class="pre">serializationBlacklist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><span class="p"><span class="pre">&lt;</span></span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#lua-Object.serializationBlacklist" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object lua" id="lua-Object.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><a class="headerlink" href="#lua-Object.name" title="Link to this definition">¶</a></dt>
+<dd><p>An optional display name. Defaults to the className.</p>
+</dd></dl>
 
 <dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Object.stripName">
-<span class="sig-name descname"><span class="pre">stripName</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code><a class="headerlink" href="#lua-Object.stripName" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object lua" id="lua-Object.serializationBlacklist">
+<span class="sig-name descname"><span class="pre">serializationBlacklist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><span class="p"><span class="pre">&lt;</span></span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#lua-Object.serializationBlacklist" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="lua data">
@@ -88,6 +89,13 @@
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Object.adopt">
 <span class="sig-name descname"><span class="pre">adopt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">o</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">unknown</span></code></span></span><a class="headerlink" href="#lua-Object.adopt" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Object.isInstance">
+<span class="sig-name descname"><span class="pre">isInstance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></span></span><a class="headerlink" href="#lua-Object.isInstance" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -250,11 +258,12 @@ THis does not deep copy or merge tables, currently. It’s a shallow mixin.</p>
 <li class="toctree-l2"><a class="reference internal" href="message.html"><code class="docutils literal notranslate"><span class="pre">Message</span></code></a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Object</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Object.className"><code class="docutils literal notranslate"><span class="pre">className</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Object.name"><code class="docutils literal notranslate"><span class="pre">name</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Object.serializationBlacklist"><code class="docutils literal notranslate"><span class="pre">serializationBlacklist</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Object.stripName"><code class="docutils literal notranslate"><span class="pre">stripName</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Object._serializationBlacklist"><code class="docutils literal notranslate"><span class="pre">_serializationBlacklist</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Object.extend"><code class="docutils literal notranslate"><span class="pre">extend()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Object.adopt"><code class="docutils literal notranslate"><span class="pre">adopt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Object.isInstance"><code class="docutils literal notranslate"><span class="pre">isInstance()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Object.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Object.is"><code class="docutils literal notranslate"><span class="pre">is()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Object.instanceOf"><code class="docutils literal notranslate"><span class="pre">instanceOf()</span></code></a></li>

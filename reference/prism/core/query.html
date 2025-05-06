@@ -56,7 +56,10 @@
 <dl class="lua class">
 <dt class="sig sig-object lua" id="lua-Query">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Query</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><a class="headerlink" href="#lua-Query" title="Link to this definition">¶</a></dt>
-<dd><dl class="lua method">
+<dd><p>Represents a query over actors in an <cite>ActorStorage</cite>, filtering by required components and optionally by position.
+Supports fluent chaining via <cite>with()</cite> and <cite>at()</cite> methods.
+Provides <cite>iter()</cite>, <cite>each()</cite>, and <cite>gather()</cite> for iteration and retrieval.</p>
+<dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Query.__new">
 <span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Query" title="Query"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Query</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">storage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="actorstorage.html#lua-ActorStorage" title="ActorStorage"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ActorStorage</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">...</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Query.__new" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">

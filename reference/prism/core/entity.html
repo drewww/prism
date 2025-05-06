@@ -85,7 +85,7 @@ Initializes and copies the entity’s fields from its prototype.</p>
 <dt class="sig sig-object lua" id="lua-Entity.addComponent">
 <span class="sig-name descname"><span class="pre">addComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Entity" title="Entity"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Entity</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">component</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Entity.addComponent" title="Link to this definition">¶</a></dt>
 <dd><p>Adds a component to the entity. This function will check if the component’s
-prerequisites are met and will throw an error if they are not.</p>
+prerequisites are met and will throw an error if they are not, or if the entity already has the component.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>component</strong> (<a class="reference internal" href="component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a>) – The component to add to the entity.</p>
