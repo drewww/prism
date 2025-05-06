@@ -4,10 +4,13 @@ prism._ISCLASS = {}
 --- A simple class system for Lua. This is the base class for all other classes in PRISM.
 ---@class Object
 ---@field className string A unique name for this class. By convention this should match the annotation name you use.
+---@field private stripName boolean
+---@field private _isInstance boolean
 ---@field serializationBlacklist table<string, boolean>
 local Object = {}
 Object.className = "Object"
 Object.stripName = true
+Object._isInstance = false
 
 Object._serializationBlacklist = {
    className = true,
@@ -25,6 +28,7 @@ function Object:extend(className, ignoreclassName)
    setmetatable(o, self)
    self.__index = self
    self.__call = self.__call or Object.__call
+   o._isInstance = false
    o.className = className
 
    --print(className, not ignoreclassName, not prism._OBJECTREGISTRY[className])
@@ -52,6 +56,8 @@ function Object:__call(...)
 end
 
 function Object:adopt(o)
+   o._isInstance = true
+
    -- we hard cast self to a table
    --- @diagnostic disable-next-line
    --- @cast self Object
@@ -59,6 +65,10 @@ function Object:adopt(o)
    self.__index = self
 
    return o
+end
+
+function Object:isInstance()
+   return self._isInstance
 end
 
 --- The default constructor for the class. Subclasses should override this.
@@ -284,38 +294,6 @@ function Object.deserialize(data)
    end
 
    return idToObject[data.rootId]
-end
-
-
---- Pretty-prints an object for debugging or visualization.
---- @param obj table The object to pretty-print.
---- @param indent string The current indentation level (used for recursion).
---- @param visited table A table of visited objects to prevent circular references.
-function Object.prettyprint(obj, indent, visited)
-   indent = indent or ""
-   visited = visited or {}
-
-   if type(obj) ~= "table" then
-      return tostring(obj)
-   end
-
-   if visited[obj] then
-      return "<circular reference>"
-   end
-
-   visited[obj] = true
-   local result = "{\n"
-   local nextIndent = indent .. "  "
-
-   for k, v in pairs(obj) do
-      local keyStr = type(k) == "string" and ('"' .. k .. '"') or "[" .. tostring(k) .. "]"
-      local valueStr = Object.prettyprint(v, nextIndent, visited)
-      result = result .. nextIndent .. keyStr .. " = " .. valueStr .. ",\n"
-   end
-
-   visited[obj] = nil -- Clear the visited flag for this object to allow reuse
-   result = result .. indent .. "}"
-   return result
 end
 
 --- @type Object
