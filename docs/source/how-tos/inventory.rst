@@ -246,3 +246,26 @@ To trigger this state when the player presses the inventory key (like ``tab``), 
 
 This approach uses the decision and current level to let the inventory state interact with the game world. Any selected item can be turned into a drop action from within the state.
 
+Creating an Item
+----------------
+
+Now that we have an inventory system and actions to interact with it, let's create a simple item to pick up and drop. Here's an example actor called ``Cheese`` that uses the Item component.
+
+.. code:: lua
+
+   --- @class CheeseActor : Actor
+   local Cheese = prism.Actor:extend("CheeseActor")
+   Cheese.name = "Cheese"
+
+   function Cheese:initialize()
+      return {
+         prism.components.Drawable(string.byte(";") + 1, prism.Color4.WHITE),
+         prism.components.Item()
+      }
+   end
+
+   return Cheese
+
+This actor has the ``Item`` component so it can be picked up and placed in inventories. This is a simple example, but you could throw items onto any Actor even NPCs!
+
+You can spawn this actor into your level to test pickups and drops by pressing ``~`` and using geometer to paint it in.
