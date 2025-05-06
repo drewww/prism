@@ -38,7 +38,7 @@ def process_files(input_dir, output_dir):
 
             class_name = None
             for line in content:
-                match = re.search(r'@class\s+(\w+)', line)
+                match = re.search(r'@class\s+(\S+)', line)
                 if match:
                     class_name = match.group(1)
                     write_class(output_file_path, class_name)
