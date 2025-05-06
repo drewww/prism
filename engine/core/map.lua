@@ -14,11 +14,18 @@ Map.serializationBlacklist = {
 --- Initializes the map with the specified dimensions and initial value, and sets up the opacity caches.
 --- @param w number The width of the map.
 --- @param h number The height of the map.
---- @param initialValue Cell The initial value to fill the map with.
-function Map:__new(w, h, initialValue)
-   prism.Grid.__new(self, w, h, initialValue)
+--- @param cellPrototype Cell The initial value to fill the map with.
+function Map:__new(w, h, cellPrototype)
+   assert(not cellPrototype:isInstance(), "Map constructor expects a prototype!")
+   
+   prism.Grid.__new(self, w, h, cellPrototype)
+
    self.opacityCache = prism.BooleanBuffer(w, h)
    self.passableCache = prism.BitmaskBuffer(w, h)
+
+   for x, y, _ in self:each() do
+      self:set(x, y, cellPrototype())
+   end
 end
 
 --- Sets the cell at the specified coordinates to the given value.
@@ -26,6 +33,8 @@ end
 --- @param y number The y-coordinate.
 --- @param cell Cell The cell to set.
 function Map:set(x, y, cell)
+   assert(cell:isInstance(), "Attempted to add an uninstantiated cell to map!")
+
    prism.Grid.set(self, x, y, cell)
    self:updateCaches(x, y)
 end
@@ -35,6 +44,7 @@ end
 --- @param y number The y-coordinate.
 --- @return Cell cell The cell at the specified coordinates.
 function Map:get(x, y)
+   --- @diagnostic disable-next-line
    return prism.Grid.get(self, x, y)
 end
 

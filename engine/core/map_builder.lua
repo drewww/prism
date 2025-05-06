@@ -37,11 +37,13 @@ end
 --- @param y1 number The y-coordinate of the top-left corner.
 --- @param x2 number The x-coordinate of the bottom-right corner.
 --- @param y2 number The y-coordinate of the bottom-right corner.
---- @param cell Cell The cell to fill the rectangle with.
-function MapBuilder:drawRectangle(x1, y1, x2, y2, cell)
+--- @param cellPrototype Cell The cell to fill the rectangle with.
+function MapBuilder:drawRectangle(x1, y1, x2, y2, cellPrototype)
+   assert(not cellPrototype:isInstance(), "drawRectangle expects a prototype, not an instance!")
+
    for x = x1, x2 do
       for y = y1, y2 do
-         self:set(x, y, cell)
+         self:set(x, y, cellPrototype())
       end
    end
 end
@@ -51,12 +53,14 @@ end
 --- @param cy number The y-coordinate of the center.
 --- @param rx number The radius along the x-axis.
 --- @param ry number The radius along the y-axis.
---- @param cell Cell The cell to fill the ellipse with.
-function MapBuilder:drawEllipse(cx, cy, rx, ry, cell)
+--- @param cellPrototype Cell The cell to fill the ellipse with.
+function MapBuilder:drawEllipse(cx, cy, rx, ry, cellPrototype)
+   assert(not cellPrototype:isInstance(), "drawEllipse expects a prototype, not an instance!")
+
    for x = -rx, rx do
       for y = -ry, ry do
          if (x * x) / (rx * rx) + (y * y) / (ry * ry) <= 1 then
-            self:set(cx + x, cy + y, cell)
+            self:set(cx + x, cy + y, cellPrototype())
          end
       end
    end
@@ -67,8 +71,10 @@ end
 --- @param y1 number The y-coordinate of the starting point.
 --- @param x2 number The x-coordinate of the ending point.
 --- @param y2 number The y-coordinate of the ending point.
---- @param cell Cell The cell to draw the line with.
-function MapBuilder:drawLine(x1, y1, x2, y2, cell)
+--- @param cellPrototype Cell The cell to draw the line with.
+function MapBuilder:drawLine(x1, y1, x2, y2, cellPrototype)
+   assert(not cellPrototype:isInstance(), "drawEllipse expects a prototype, not an instance!")
+
    local dx = math.abs(x2 - x1)
    local dy = math.abs(y2 - y1)
    local sx = x1 < x2 and 1 or -1
@@ -76,7 +82,7 @@ function MapBuilder:drawLine(x1, y1, x2, y2, cell)
    local err = dx - dy
 
    while true do
-      self:set(x1, y1, cell)
+      self:set(x1, y1, cellPrototype())
       if x1 == x2 and y1 == y2 then break end
       local e2 = 2 * err
       if e2 > -dy then
@@ -105,15 +111,18 @@ end
 --- Sets the value at the specified coordinates.
 --- @param x number The x-coordinate.
 --- @param y number The y-coordinate.
---- @param value any The value to set.
-function MapBuilder:set(x, y, value)
-   prism.SparseGrid.set(self, x, y, value)
+--- @param cell Cell The value to set.
+function MapBuilder:set(x, y, cell)
+   assert(cell:isInstance(), "set expects an instance, not a prototype!")
+   prism.SparseGrid.set(self, x, y, cell)
 end
 
 --- Adds padding around the map with a specified width and cell value.
 --- @param width number The width of the padding to add.
---- @param cell Cell The cell value to use for padding.
-function MapBuilder:addPadding(width, cell)
+--- @param cellPrototype Cell The cell value to use for padding.
+function MapBuilder:addPadding(width, cellPrototype)
+   assert(not cellPrototype:isInstance(), "addPadding expects a prototype, not an instance!")
+
    local minX, minY = math.huge, math.huge
    local maxX, maxY = -math.huge, -math.huge
 
@@ -126,19 +135,19 @@ function MapBuilder:addPadding(width, cell)
 
    for x = minX - width, maxX + width do
       for y = minY - width, minY - 1 do
-         self:set(x, y, cell)
+         self:set(x, y, cellPrototype())
       end
       for y = maxY + 1, maxY + width do
-         self:set(x, y, cell)
+         self:set(x, y, cellPrototype())
       end
    end
 
    for y = minY - width, maxY + width do
       for x = minX - width, minX - 1 do
-         self:set(x, y, cell)
+         self:set(x, y, cellPrototype())
       end
       for x = maxX + 1, maxX + width do
-         self:set(x, y, cell)
+         self:set(x, y, cellPrototype())
       end
    end
 end
@@ -206,6 +215,7 @@ end
 function MapBuilder:eachCell()
    return self:each()
 end
+
 -- Part of the interface that Level and MapBuilder share
 -- for use with geometer
 
