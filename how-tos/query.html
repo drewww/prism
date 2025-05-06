@@ -94,6 +94,15 @@ interface is implemented by <a class="reference internal" href="../reference/pri
 <section id="putting-it-together">
 <h2>Putting It Together<a class="headerlink" href="#putting-it-together" title="Link to this heading">¶</a></h2>
 <p>Here’s an example of it all put together:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">query</span> <span class="o">=</span> <span class="n">level</span><span class="p">:</span><span class="n">query</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Controller</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Senses</span><span class="p">)</span>
+    <span class="p">:</span><span class="n">with</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Senses</span><span class="p">)</span>
+    <span class="p">:</span><span class="n">at</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="kr">for</span> <span class="n">actor</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="n">collider</span><span class="p">,</span> <span class="n">senses</span> <span class="kr">in</span> <span class="n">query</span><span class="p">:</span><span class="n">iter</span><span class="p">()</span> <span class="kr">do</span>
+    <span class="c1">-- do stuff</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Query performance is optimized internally based on your filters.
