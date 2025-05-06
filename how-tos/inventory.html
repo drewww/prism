@@ -202,48 +202,50 @@
 <p>This UI is intentionally primitive and meant only as a <strong>minimal working example</strong>. It supports letter-based selection and dropping, but lacks many usability features like scrolling, item descriptions, or a grid layout.</p>
 </div>
 <p>Here’s the inventory state code:</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class InventoryState : GameState</span>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">keybindings</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;keybindingschema&quot;</span>
+
+<span class="c1">--- @class InventoryState : GameState</span>
 <span class="kd">local</span> <span class="n">InventoryState</span> <span class="o">=</span> <span class="n">spectrum</span><span class="p">.</span><span class="n">GameState</span><span class="p">:</span><span class="n">extend</span> <span class="s2">&quot;InventoryState&quot;</span>
 
 <span class="c1">--- @param decision ActionDecision</span>
 <span class="c1">--- @param level Level</span>
 <span class="c1">--- @param inventory InventoryComponent</span>
 <span class="kr">function</span> <span class="nc">InventoryState</span><span class="p">:</span><span class="nf">__new</span><span class="p">(</span><span class="n">decision</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">inventory</span><span class="p">)</span>
-   <span class="n">self</span><span class="p">.</span><span class="n">decision</span> <span class="o">=</span> <span class="n">decision</span>
-   <span class="n">self</span><span class="p">.</span><span class="n">level</span> <span class="o">=</span> <span class="n">level</span>
-   <span class="n">self</span><span class="p">.</span><span class="n">items</span> <span class="o">=</span> <span class="n">inventory</span><span class="p">.</span><span class="n">inventory</span><span class="p">:</span><span class="n">getAllActors</span><span class="p">()</span>
-   <span class="n">self</span><span class="p">.</span><span class="n">letters</span> <span class="o">=</span> <span class="p">{}</span>
-   <span class="kr">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">#</span><span class="n">self</span><span class="p">.</span><span class="n">items</span> <span class="kr">do</span>
-      <span class="n">self</span><span class="p">.</span><span class="n">letters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">string.char</span><span class="p">(</span><span class="mi">96</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="c1">-- a, b, c, ...</span>
-   <span class="kr">end</span>
+<span class="n">self</span><span class="p">.</span><span class="n">decision</span> <span class="o">=</span> <span class="n">decision</span>
+<span class="n">self</span><span class="p">.</span><span class="n">level</span> <span class="o">=</span> <span class="n">level</span>
+<span class="n">self</span><span class="p">.</span><span class="n">items</span> <span class="o">=</span> <span class="n">inventory</span><span class="p">.</span><span class="n">inventory</span><span class="p">:</span><span class="n">getAllActors</span><span class="p">()</span>
+<span class="n">self</span><span class="p">.</span><span class="n">letters</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="kr">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">#</span><span class="n">self</span><span class="p">.</span><span class="n">items</span> <span class="kr">do</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">letters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">string.char</span><span class="p">(</span><span class="mi">96</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="c1">-- a, b, c, ...</span>
+<span class="kr">end</span>
 <span class="kr">end</span>
 
 <span class="kr">function</span> <span class="nc">InventoryState</span><span class="p">:</span><span class="nf">draw</span><span class="p">()</span>
-   <span class="n">love</span><span class="p">.</span><span class="n">graphics</span><span class="p">.</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Inventory:&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
-   <span class="kr">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="kr">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">items</span><span class="p">)</span> <span class="kr">do</span>
-      <span class="kd">local</span> <span class="n">letter</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">letters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-      <span class="n">love</span><span class="p">.</span><span class="n">graphics</span><span class="p">.</span><span class="nb">print</span><span class="p">((</span><span class="s2">&quot;[%s] %s&quot;</span><span class="p">):</span><span class="n">format</span><span class="p">(</span><span class="n">letter</span><span class="p">,</span> <span class="n">item</span><span class="p">.</span><span class="n">name</span><span class="p">),</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">20</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
-   <span class="kr">end</span>
+<span class="n">love</span><span class="p">.</span><span class="n">graphics</span><span class="p">.</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Inventory:&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="kr">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="kr">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">items</span><span class="p">)</span> <span class="kr">do</span>
+    <span class="kd">local</span> <span class="n">letter</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">letters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">love</span><span class="p">.</span><span class="n">graphics</span><span class="p">.</span><span class="nb">print</span><span class="p">((</span><span class="s2">&quot;[%s] %s&quot;</span><span class="p">):</span><span class="n">format</span><span class="p">(</span><span class="n">letter</span><span class="p">,</span> <span class="n">item</span><span class="p">.</span><span class="n">name</span><span class="p">),</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">20</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+<span class="kr">end</span>
 <span class="kr">end</span>
 
 <span class="kr">function</span> <span class="nc">InventoryState</span><span class="p">:</span><span class="nf">keypressed</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-   <span class="c1">-- Convert pressed key to inventory index</span>
-   <span class="kr">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">letter</span> <span class="kr">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">letters</span><span class="p">)</span> <span class="kr">do</span>
-      <span class="kr">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">letter</span> <span class="kr">then</span>
-         <span class="kd">local</span> <span class="n">pressedItem</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">items</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-         <span class="kd">local</span> <span class="n">drop</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Drop</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">decision</span><span class="p">.</span><span class="n">actor</span><span class="p">,</span> <span class="p">{</span> <span class="n">pressedItem</span> <span class="p">})</span>
-         <span class="kr">if</span> <span class="n">drop</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">)</span> <span class="kr">then</span>
+<span class="c1">-- Convert pressed key to inventory index</span>
+<span class="kr">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">letter</span> <span class="kr">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">letters</span><span class="p">)</span> <span class="kr">do</span>
+    <span class="kr">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">letter</span> <span class="kr">then</span>
+        <span class="kd">local</span> <span class="n">pressedItem</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">items</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="kd">local</span> <span class="n">drop</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Drop</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">decision</span><span class="p">.</span><span class="n">actor</span><span class="p">,</span> <span class="p">{</span> <span class="n">pressedItem</span> <span class="p">})</span>
+        <span class="kr">if</span> <span class="n">drop</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">)</span> <span class="kr">then</span>
             <span class="n">self</span><span class="p">.</span><span class="n">decision</span><span class="p">:</span><span class="n">setAction</span><span class="p">(</span><span class="n">drop</span><span class="p">)</span>
-         <span class="kr">end</span>
+        <span class="kr">end</span>
 
-         <span class="n">self</span><span class="p">.</span><span class="n">manager</span><span class="p">:</span><span class="n">pop</span><span class="p">()</span>
-         <span class="kr">return</span>
-      <span class="kr">end</span>
-   <span class="kr">end</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">manager</span><span class="p">:</span><span class="n">pop</span><span class="p">()</span>
+        <span class="kr">return</span>
+    <span class="kr">end</span>
+<span class="kr">end</span>
 
-   <span class="kr">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;escape&quot;</span> <span class="kr">then</span>
-      <span class="n">self</span><span class="p">.</span><span class="n">manager</span><span class="p">:</span><span class="n">pop</span><span class="p">()</span>
-   <span class="kr">end</span>
+<span class="kr">if</span> <span class="n">keybindings</span><span class="p">:</span><span class="n">keypressed</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;inventory&quot;</span> <span class="kr">then</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">manager</span><span class="p">:</span><span class="n">pop</span><span class="p">()</span>
+<span class="kr">end</span>
 <span class="kr">end</span>
 
 <span class="kr">return</span> <span class="n">InventoryState</span>
