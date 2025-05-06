@@ -10,6 +10,11 @@ local function fov(level, origin, maxDepth, callback)
 
       local function reveal(x, y)
          local x, y = quadrant:transform(x, y)
+
+         if x < 1 or y < 1 or x > level.map.w or y > level.map.w then
+            return
+         end
+
          callback(x, y, level:getCell(x, y))
       end
 
@@ -24,12 +29,21 @@ local function fov(level, origin, maxDepth, callback)
       local function isWall(x, y)
          if not y then return false end
          local x, y = quadrant:transform(x, y)
+
+         if x < 1 or y < 1 or x > level.map.w or y > level.map.w then
+            return true
+         end
          return level:getCellOpaque(x, y)
       end
 
       local function isFloor(x, y)
          if not y then return false end
          local x, y = quadrant:transform(x, y)
+
+         if x < 1 or y < 1 or x > level.map.w or y > level.map.w then
+            return false
+         end
+
          return not level:getCellOpaque(x, y)
       end
 
