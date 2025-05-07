@@ -2,7 +2,7 @@
 --- @class ControllerComponent : Component
 --- @field blackboard table|nil
 --- @overload fun(): ControllerComponent
-local Controller = prism.Component:extend("Controller")
+local Controller = prism.Component:extend "ControllerComponent"
 Controller.name = "Controller"
 
 --- Returns the :lua:class:`Action` that the actor will take on its turn. 

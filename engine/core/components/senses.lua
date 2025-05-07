@@ -6,7 +6,7 @@
 --- @field actors ActorStorage An actor storage with the actors the player is aware of.
 --- @field unknown SparseMap<Vector2> Unkown actors are things the player is aware of the location of, but not the components.
 --- @overload fun(): SensesComponent
-local Senses = prism.Component:extend("Senses")
+local Senses = prism.Component:extend "SensesComponent"
 
 function Senses:initialize(actor)
    self.explored = prism.SparseGrid()

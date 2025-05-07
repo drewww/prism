@@ -2,7 +2,7 @@
 --- @class PlayerControllerComponent : ControllerComponent
 --- @overload fun(): PlayerControllerComponent
 --- @type PlayerControllerComponent
-local PlayerController = prism.components.Controller:extend("PlayerController")
+local PlayerController = prism.components.Controller:extend "PlayerControllerComponent"
 
 ---@param level Level
 ---@param actor Actor

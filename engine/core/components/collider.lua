@@ -2,7 +2,7 @@
 --- @class ColliderComponent : Component
 --- @field mask CollisionMask The mask to use when testing collision. Defaults to zero, blocking everything.
 --- @overload fun(options: ColliderOptions?): ColliderComponent
-local Collider = prism.Component:extend("Collider")
+local Collider = prism.Component:extend "ColliderComponent"
 Collider.name = "Collideable"
 Collider.mask = 0
 
