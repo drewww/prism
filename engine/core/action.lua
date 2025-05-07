@@ -67,7 +67,7 @@ end
 --- @param level Level
 --- @return boolean canPerform
 function Action:_canPerform(level, ...)
-   error("This is a virtual method and must be overriden on subclasses!")
+   return true
 end
 
 --- @param actor Actor
