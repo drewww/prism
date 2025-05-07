@@ -1,15 +1,19 @@
---- The 'Level' holds all of the actors and systems, and runs the game loop. Through the ActorStorage and SystemManager
+--- Represents a single game level, managing the map, actors, systems,
+--- scheduling, and cached data for FOV and pathfinding. Also handles the
+--- turn-based game loop via `run` and `step`.
 ---
 --- @class Level : Object, IQueryable, SpectrumAttachable
---- @field systemManager SystemManager A table containing all of the systems active in the level, set in the constructor.
---- @field actorStorage ActorStorage The main actor storage containing all of the level's actors.
---- @field scheduler Scheduler The main scheduler driving the loop of the game.
---- @field map Map The level's map.
---- @field opacityCache BooleanBuffer A cache of cell opacity || actor opacity for each cell. Used to speed up fov/lighting calculations.
---- @field passableCache BitmaskBuffer A cache of cell passability || actor passability for each cell. Used to speed up pathfinding.
---- @field decision ActionDecision Used during deserialization to resume.
---- @field RNG RNG The level's local random number generator, use this for randomness within the level like attack rolls.
---- @overload fun(map: Map, actors: Actor[], systems: System[], scheduler: Scheduler?): Level
+---
+--- @field systemManager SystemManager        -- Manages systems, dispatches events, controls lifecycle.
+--- @field actorStorage ActorStorage          -- Stores all actors; supports lookup and indexing.
+--- @field scheduler Scheduler                -- Controls actor turn order in the game loop.
+--- @field map Map                            -- The static layout of terrain, walls, etc.
+--- @field opacityCache BooleanBuffer         -- Cached opacity grid for FOV and lighting.
+--- @field passableCache BitmaskBuffer        -- Cached passability grid for pathfinding.
+--- @field decision ActionDecision            -- Temporary storage for the current actor’s choice.
+--- @field RNG RNG                            -- Level-local RNG; supports deterministic behavior.
+---
+--- @overload fun(map: Map, actors: Actor[], systems: System[], scheduler: Scheduler?, seed: string?): Level
 local Level = prism.Object:extend("Level")
 
 Level.serializationBlacklist = {
