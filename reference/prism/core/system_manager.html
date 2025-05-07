@@ -61,7 +61,9 @@
 <dl class="lua data">
 <dt class="sig sig-object lua" id="lua-SystemManager.owner">
 <span class="sig-name descname"><span class="pre">owner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="level.html#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a><a class="headerlink" href="#lua-SystemManager.owner" title="Link to this definition">¶</a></dt>
-<dd><p>The ‘Level’ holds all of the actors and systems, and runs the game loop. Through the ActorStorage and SystemManager</p>
+<dd><p>Represents a single game level, managing the map, actors, systems,
+scheduling, and cached data for FOV and pathfinding. Also handles the
+turn-based game loop via <cite>run</cite> and <cite>step</cite>.</p>
 </dd></dl>
 
 <dl class="lua method">
