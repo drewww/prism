@@ -1,8 +1,8 @@
 --- A controller component that stops to wait for input to receive its action.
---- @class PlayerControllerComponent : ControllerComponent
---- @overload fun(): PlayerControllerComponent
---- @type PlayerControllerComponent
-local PlayerController = prism.components.Controller:extend "PlayerControllerComponent"
+--- @class PlayerController : Controller
+--- @overload fun(): PlayerController
+--- @type PlayerController
+local PlayerController = prism.components.Controller:extend "PlayerController"
 
 ---@param level Level
 ---@param actor Actor

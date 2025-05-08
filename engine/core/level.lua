@@ -266,9 +266,9 @@ end
 --- actor's conditions for an override controller and returns it if it exists.
 --- Otherwise it returns the actor's normal controller.
 --- @param actor Actor The actor to get the controller for.
---- @return ControllerComponent controller The actor's controller.
+--- @return Controller controller The actor's controller.
 function Level:getActorController(actor)
-   --- @type ControllerComponent Cast to a Controller from the generic Controller component
+   --- @type Controller Cast to a Controller from the generic Controller component
    return actor:getComponent(prism.components.Controller)
 end
 
@@ -376,7 +376,7 @@ function Level:updatePassabilityCache(x, y)
 
    passabilityQuery:at(x, y)
    for _, collider in passabilityQuery:iter() do
-      --- @cast collider ColliderComponent
+      --- @cast collider Collider
       mask = bit.band(collider.mask, mask)
    end
 

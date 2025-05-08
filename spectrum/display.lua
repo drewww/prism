@@ -57,8 +57,8 @@ function Display:draw()
    love.graphics.pop()
 end
 
----@param primary SensesComponent[] List of primary senses.
----@param secondary SensesComponent[] List of secondary senses.
+---@param primary Senses[] List of primary senses.
+---@param secondary Senses[] List of secondary senses.
 function Display.buildSenseInfo(primary, secondary)
    local primaryCellSet = prism.SparseGrid()
    local secondaryCellSet = prism.SparseGrid()
@@ -110,8 +110,8 @@ function Display.buildSenseInfo(primary, secondary)
 end
 
 --- Draws the perspective of primary and secondary senses.
----@param primary SensesComponent[] List of primary senses.
----@param secondary SensesComponent[] List of secondary senses.
+---@param primary Senses[] List of primary senses.
+---@param secondary Senses[] List of secondary senses.
 function Display:drawPerspective(primary, secondary)
    local drawnSet = {}
 
@@ -180,7 +180,7 @@ function Display:drawActor(actor, alpha, color, drawnSet, x, y)
 
    local drawable = actor:getComponent(prism.components.Drawable)
    if not drawable then return end
-   ---@cast drawable DrawableComponent
+   ---@cast drawable Drawable
 
    local position = actor:getPosition()
    x, y = x or position.x, y or position.y
@@ -208,7 +208,7 @@ end
 
 --- Retrieves the quad for a drawable.
 ---@param spriteAtlas SpriteAtlas The sprite atlas.
----@param drawable DrawableComponent The drawable component.
+---@param drawable Drawable The drawable component.
 ---@return love.Quad|nil -- The quad used for rendering.
 function Display.getQuad(spriteAtlas, drawable)
    if type(drawable.index) == "number" then
@@ -221,7 +221,7 @@ function Display.getQuad(spriteAtlas, drawable)
 end
 
 --- Draws a drawable object.
----@param drawable DrawableComponent Drawable to render.
+---@param drawable Drawable Drawable to render.
 ---@param spriteAtlas SpriteAtlas Sprite atlas to use.
 ---@param cellSize Vector2 Size of each cell.
 ---@param x integer X-coordinate.

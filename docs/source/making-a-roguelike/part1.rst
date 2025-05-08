@@ -74,7 +74,7 @@ Click on the k on the right hand side and use the pen tool to draw a
 kobold in. Press the green button to resume the game.
 
 You might notice that you can walk right through the kobold. We fix that by giving it a
-:lua:class:`ColliderComponent`:
+:lua:class:`Collider`:
 
 .. code:: lua
 
@@ -86,7 +86,7 @@ You might notice that you can walk right through the kobold. We fix that by givi
 
 If we restart the game and spawn in another kobold, we shouldn't be able to walk
 through kobolds anymore. We're also going to give the kobold a few more core components: a
-:lua:class:`SensesComponent`, ``SightComponent``, and ``MoverComponent``, so it can see and move:
+:lua:class:`Senses`, ``SightComponent``, and ``MoverComponent``, so it can see and move:
 
 .. code:: lua
 
@@ -99,9 +99,9 @@ The kobold controller
 ---------------------
 
 Now that the kobold exists in the world, you might notice something—it’s
-not moving! To give it behavior, we need to implement a :lua:class:`ControllerComponent`.
+not moving! To give it behavior, we need to implement a :lua:class:`Controller`.
 
-A :lua:class:`ControllerComponent` (or one of its derivatives) defines the :lua:func:`ControllerComponent.act`
+A :lua:class:`Controller` (or one of its derivatives) defines the :lua:func:`Controller.act`
 function, which takes the :lua:class:`Level` and the :lua:class:`Actor` as arguments and
 returns a valid action.
 
@@ -115,9 +115,9 @@ returns a valid action.
 
 .. code:: lua
 
-   --- @class KoboldControllerComponent : ControllerComponent
-   --- @overload fun(): KoboldControllerComponent
-   local KoboldController = prism.components.Controller:extend("KoboldControllerComponent")
+   --- @class KoboldController : Controller
+   --- @overload fun(): KoboldController
+   local KoboldController = prism.components.Controller:extend("KoboldController")
    KoboldController.name = "KoboldController"
 
    function KoboldController:act(level, actor)
@@ -153,7 +153,7 @@ To make our kobold follow the player, we need to do a few things:
 2. Find a valid path to the player.
 3. Move the kobold along that path.
 
-We can find the player by grabbing the :lua:class:`SensesComponent` from the kobold and
+We can find the player by grabbing the :lua:class:`Senses` from the kobold and
 seeing if it contains the player.
 
 .. code:: lua

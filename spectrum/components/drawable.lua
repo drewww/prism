@@ -1,10 +1,10 @@
 --- Represents the visual for an actor. Used by Spectrum and Geometer to render actors.
---- @class DrawableComponent : Component
+--- @class Drawable : Component
 --- @field index string|integer an index into a SpriteAtlas
 --- @field color Color4
 --- @field background Color4
---- @overload fun(index: string|integer, color?: Color4, background?: Color4): DrawableComponent
-local Drawable = prism.Component:extend "DrawableComponent"
+--- @overload fun(index: string|integer, color?: Color4, background?: Color4): Drawable
+local Drawable = prism.Component:extend "Drawable"
 
 --- Index needs to be a string associated with a sprite in the SpriteAtlas, or
 --- an integer index associated with a sprite.

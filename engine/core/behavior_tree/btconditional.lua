@@ -12,7 +12,7 @@ end
 --- Runs the conditional node.
 --- @param level Level
 --- @param actor Actor
---- @param controller ControllerComponent
+--- @param controller Controller
 --- @return boolean|Action
 function BTConditional:run(level, actor, controller)
    return self:conditionFunc(level, actor)

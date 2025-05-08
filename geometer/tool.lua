@@ -17,9 +17,9 @@ function Tool:draw(editor, display)
    -- Draw visuals.
 end
 
----Returns the DrawableComponent from placeable
+---Returns the Drawable from placeable
 ---@param placeable Placeable
----@return DrawableComponent
+---@return Drawable
 function Tool:getDrawable(placeable)
    placeable = placeable()
    return placeable:getComponent(prism.components.Drawable)
@@ -27,7 +27,7 @@ end
 
 ---Draws a cell at the given coordinates.
 ---@param display Display
----@param drawable DrawableComponent
+---@param drawable Drawable
 ---@param x number
 ---@param y number
 function Tool:drawCell(display, drawable, x, y)

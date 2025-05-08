@@ -1,7 +1,6 @@
 --- Blocks vision through the actor.
---- @class OpaqueComponent : Component
---- @overload fun(): OpaqueComponent
-local Opaque = prism.Component:extend "OpaqueComponent"
-Opaque.name = "Opaque"
+--- @class Opaque : Component
+--- @overload fun(): Opaque
+local Opaque = prism.Component:extend "Opaque"
 
 return Opaque

@@ -23,7 +23,7 @@ install:
 	. venv/bin/activate
 	pip install -r requirements.txt
 
-watch:
+watch: install
 	sphinx-autobuild source build/html
 
 build: install

@@ -1,7 +1,7 @@
 --- A 'Cell' is a single tile on the map.
 --- It defines the properties of the tile and has a few callbacks.
 --- Like actors, they hold components that can be used to modify their behaviour.
---- Cells are required to have a ColliderComponent.
+--- Cells are required to have a Collider.
 --- @class Cell : Entity
 --- @overload fun(): Cell
 local Cell = prism.Entity:extend("Cell")
