@@ -19,14 +19,14 @@ function SystemManager:addSystem(system)
    )
 
    -- Check our requirements and make sure we have all the systems we need
-   if system.requirements and #system.requirements > 1 then
+   if system.requirements and #system.requirements > 0 then
       for _, requirement in ipairs(system.requirements) do
          assert(
-            self.systems[requirement],
+            self.systems[requirement.className],
             "System "
             .. system.className
             .. " requires system "
-            .. requirement
+            .. requirement.className
             .. " but it is not present."
          )
       end
@@ -37,7 +37,7 @@ function SystemManager:addSystem(system)
    for _, existingSystem in pairs(self.systems) do
       if existingSystem.softRequirements and #existingSystem.softRequirements > 0 then
          for _, softRequirement in ipairs(existingSystem.softRequirements) do
-            if softRequirement == system.className then
+            if system:is(softRequirement) then
                error(
                   "System "
                   .. system.className

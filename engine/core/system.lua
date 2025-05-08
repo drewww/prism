@@ -6,8 +6,9 @@
 --- the game instead. A system's methods should never be mutated at run time, the SystemManager does
 --- cacheing on the event handlers here to improve performance.
 --- @class System : Object
---- @field requirements string[] A table of requirements that must be met for the System to be attached to a Level. References the system's class name.
---- @field softRequirements string[] A table of optional requirements that ensure proper order if both Systems are attached.
+--- @field global boolean A system defined global can only be attached to the Game object. It will see all events from all levels.
+--- @field requirements System[] A list of systems (prototypes) that must be on the level for the System to be attached.
+--- @field softRequirements System[] A table of optional requirements that ensure proper order if both Systems are attached.
 --- @field owner Level? The level that holds this system.
 --- @overload fun(): System
 local System = prism.Object:extend("System")

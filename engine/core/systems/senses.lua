@@ -2,10 +2,6 @@
 local SensesSystem = prism.System:extend("SensesSystem")
 SensesSystem.name = "Senses"
 
---- The message system requires the Senses system. While we don't
---- directly reference it here we do grab data off the Senses component
-SensesSystem.requirements = { "SensesSystem" }
-
 function SensesSystem:onTurn(level, actor)
    if actor:hasComponent(prism.components.PlayerController) then return end
    self:triggerRebuild(level, actor)

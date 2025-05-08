@@ -144,37 +144,61 @@ prism.BehaviorTree.Sequence = prism.require "core.behavior_tree.btsequence"
 --- @module "engine.core.behavior_tree.btsucceeder"
 prism.BehaviorTree.Succeeder = prism.require "core.behavior_tree.btsucceeder"
 
+local dynamicRegistry = {
+   __index = function(t, key)
+      local value = rawget(t, key)
+
+      if value then
+         return value
+      else
+         local info = debug.getinfo(2, "Sl")
+         local source = info.short_src
+         local line = info.currentline
+         local debugInfo = string.format("%s:%d", source, line)
+         rawset(t, key, { empty = true, accessedFrom = debugInfo })
+         return nil
+      end
+   end,
+
+   __newindex = function(t, key, value)
+      local oldValue = rawget(t, key)
+
+      if oldValue and oldValue.empty then
+         value.empty = nil
+         value.accessedFrom = nil
+         value:adopt(oldValue)
+         oldValue._isInstance = false
+         rawset(t, key, oldValue)
+         print("setting fake component", key)
+      else
+         rawset(t, key, value)
+         print("setting real component", key)
+      end
+   end
+}
 
 --- The actor registry.
---- @type table<string, Actor>
 prism.actors = {}
 
 --- The actions registry.
---- @type table<string, Action>
 prism.actions = {}
 
 --- The component registry.
---- @type table<string, Component>
 prism.components = {}
 
 --- The component registry.
---- @type table<string, Cell>
 prism.cells = {}
 
 --- The target registry.
---- @type table<string, Target>
 prism.targets = {}
 
 --- The message registry.
---- @type table<string, Message>
 prism.messages = {}
 
 --- The system registry.
---- @type table<string, System>
 prism.systems = {}
 
 --- The decision registry.
---- @type table<string, Decision>
 prism.decisions = {}
 
 prism.behaviors = {}
@@ -182,7 +206,6 @@ prism.behaviors = {}
 --- @module "engine.core.systems.senses"
 prism.systems.Senses = prism.require "core.systems.senses"
 
---- @type Collider
 --- @module "engine.core.components.collider"
 prism.components.Collider = prism.require "core.components.collider"
 
@@ -230,7 +253,6 @@ prism._itemPatterns = {
    decisions = "[dD][eE][cC][iI][sS][iI][oO][nN]",
    behaviors = "[bB][eE][hH][aA][vV][iI][oO][rR]",
 }
-
 
 local function loadItems(path, itemType, recurse, definitions)
    local info = {}
@@ -284,9 +306,25 @@ function prism.loadModule(directory)
    local sourceDir = love.filesystem.getSource() -- Get the source directory
    local definitions = { "---@meta " .. string.lower(directory) }
 
+   setmetatable(prism.components, dynamicRegistry)
+   setmetatable(prism.components, dynamicRegistry)
    for _, item in ipairs(prism._items) do
       loadItems(directory .. "/" .. item, item, true, definitions)
    end
+
+   for name, component in pairs(prism.components) do
+      if component.empty then
+         error("Component " .. name .. " was accessed but does not exist!\nAccessed from:\n" .. component.accessedFrom)
+      end
+   end
+   setmetatable(prism.components, nil)
+
+   for name, system in pairs(prism.systems) do
+      if system.empty then
+         error("System " .. name .. " was accessed but does not exist!\nAccessed from:\n" .. system.accessedFrom)
+      end
+   end
+   setmetatable(prism.systems, nil)
 
    local lastSubdir = directory:match("([^/\\]+)$")
 
