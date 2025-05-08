@@ -67,6 +67,10 @@ function Collision.getMovetypeName(bitmask)
    return Collision.movetypeNames[bitmask]
 end
 
+
+--- Assigns the next available unregistered movetype to a given name.
+--- @param name string The name to associate with the next available movetype.
+--- @return integer bitmask The bitmask value assigned.
 function Collision.assignNextAvailableMovetype(name)
    if Collision.registeredMovetypes[name] then
       error("movetypes name already registered: " .. name)

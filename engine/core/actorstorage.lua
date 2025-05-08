@@ -1,16 +1,21 @@
---- The 'ActorStorage' is a container for 'Actors' that maintains a list, spatial map, and component cache.
---- It is used by the 'Level' class to store and retrieve actors, and is returned by a few Level methods.
---- You should rarely, if ever, need to instance this class yourself, it's mostly used internally and for
---- a few returns from Level.
+--- @alias ComponentCache table<Component, table<Actor, boolean>>
+
+--- ActorStorage is a container class used to manage a collection of Actor objects.
+--- It maintains internal structures for efficient lookup, spatial queries, and component caching.
+---
+--- This class is primarily used internally by the Level class, and most users will interact with
+--- it through Level methods. However, it can also be used in other specialized contexts such as
+--- inventory systems or sensory subsystems (e.g., tracking visible actors).
+---
 --- @class ActorStorage : Object, IQueryable
---- @field private actors Actor[] The list of actors in the storage.
---- @field private ids SparseArray A sparse array of references to the Actors in the storage. The ID is derived from this.
---- @field private actorToID table<Actor, integer?> A hashmap of actors to ids.
---- @field private sparseMap SparseMap The spatial map for storing actor positions.
---- @field private componentCache table<Component, table<Actor, boolean>> The cache for storing actor components.
---- @field private componentCounts table<Component, number>
---- @field private insertSparseMapCallback function
---- @field private removeSparseMapCallback function
+--- @field private actors                      Actor[]                     -- Ordered list of all actors.
+--- @field private ids                         SparseArray                 -- Sparse array used to assign unique IDs to actors.
+--- @field private actorToID                   table<Actor, integer?>      -- Map from actors to their assigned IDs, also useful as a set for quick membership checks.
+--- @field private sparseMap                   SparseMap                   -- Spatial map storing actor positions.
+--- @field private componentCache              ComponentCache              -- Cached map of actors per component.
+--- @field private componentCounts             table<Component, number>    -- Count of actors per component.
+--- @field private insertSparseMapCallback     function                    -- Optional callback for insert events.
+--- @field private removeSparseMapCallback     function                    -- Optional callback for removal events.
 --- @overload fun(insertSparseMapCallback?: function, removeSparseMapCallback?: function): ActorStorage
 local ActorStorage = prism.Object:extend("ActorStorage")
 
@@ -23,8 +28,7 @@ function ActorStorage:__new(insertSparseMapCallback, removeSparseMapCallback)
    self.sparseMap = prism.SparseMap()
    self.componentCache = {}
    self.componentCounts = {}
-   self.insertSparseMapCallback = insertSparseMapCallback or function() end
-   self.removeSparseMapCallback = removeSparseMapCallback or function() end
+   self:setCallbacks(insertSparseMapCallback, removeSparseMapCallback)
 end
 
 function ActorStorage:setCallbacks(insertCallback, removeCallback)
@@ -51,7 +55,7 @@ function ActorStorage:removeActor(actor)
    assert(actor:is(prism.Actor), "Tried to remove a non-actor object from actor storage!")
    if not self.actorToID[actor] then return end
 
-   self:removeComponentCache(actor)
+   self:_removeComponentCache(actor)
    self:removeSparseMapEntries(actor)
 
    for k, v in ipairs(self.actors) do
@@ -125,7 +129,8 @@ end
 
 --- Removes the specified actor from the component cache.
 --- @param actor Actor The actor to remove from the component cache.
-function ActorStorage:removeComponentCache(actor)
+--- @private
+function ActorStorage:_removeComponentCache(actor)
    for _, component in pairs(prism.components) do
       if self.componentCache[component] and self.componentCache[component][actor] then
          self.componentCache[component][actor] = nil
