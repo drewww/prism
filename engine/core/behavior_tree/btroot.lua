@@ -12,7 +12,7 @@ end
 --- Runs the behavior tree starting from this root node.
 --- @param level Level
 --- @param actor Actor
---- @param controller ControllerComponent
+--- @param controller Controller
 --- @return Action
 function BTRoot:run(level, actor, controller)
    for i = 1, #self.children do

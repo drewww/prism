@@ -182,7 +182,7 @@ prism.behaviors = {}
 --- @module "engine.core.systems.senses"
 prism.systems.Senses = prism.require "core.systems.senses"
 
---- @type ColliderComponent
+--- @type Collider
 --- @module "engine.core.components.collider"
 prism.components.Collider = prism.require "core.components.collider"
 
@@ -311,7 +311,7 @@ end
 --- There is a version of this provided for time-based
 ---@param level Level
 ---@param actor Actor
----@param controller ControllerComponent
+---@param controller Controller
 ---@diagnostic disable-next-line
 function prism.turn(level, actor, controller)
    local _, action

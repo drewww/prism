@@ -80,7 +80,7 @@ function LevelState:handleActionMessage(message)
    local actionproto = getmetatable(message.action)
    local seen = false
    for _, senses, _ in self.level:query(prism.components.Senses, prism.components.PlayerController):iter() do
-      ---@cast senses SensesComponent
+      ---@cast senses Senses
       if senses.actors:hasActor(message.action.owner) then
          seen = true
          break

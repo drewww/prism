@@ -11,7 +11,7 @@ First, register any "layers" or types of movement you want to use, usually in yo
    prism.Collision.assignNextAvailableMovetype("walk")
    prism.Collision.assignNextAvailableMovetype("fly")
 
-Then, use a :lua:class:`ColliderComponent` to define collision for actors and cells. If no move types
+Then, use a :lua:class:`Collider` to define collision for actors and cells. If no move types
 are supplied, nothing will be able to pass.
 
 .. code:: lua

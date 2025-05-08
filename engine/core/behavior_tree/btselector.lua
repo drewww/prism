@@ -12,7 +12,7 @@ end
 --- Runs the selector node.
 --- @param level Level
 --- @param actor Actor
---- @param controller ControllerComponent
+--- @param controller Controller
 --- @return boolean|Action
 function BTSelector:run(level, actor, controller)
    for i = 1, #self.children do
