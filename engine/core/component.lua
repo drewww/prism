@@ -9,11 +9,6 @@
 local Component = prism.Object:extend("Component")
 Component.requirements = {}
 
---- Called after the actor is loaded and ready, this is where the component should do any initialization requiring
---- the actor. This would include stuff like attaching systems, etc.
---- @param owner Entity
-function Component:initialize(owner) end
-
 --- Checks whether an actor has the required components to attach this component.
 --- @param entity Entity The actor to check the requirements against.
 --- @return boolean meetsRequirements the actor meets all requirements, false otherwise.

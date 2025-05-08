@@ -8,7 +8,7 @@
 --- @overload fun(): Senses
 local Senses = prism.Component:extend "Senses"
 
-function Senses:initialize(actor)
+function Senses:__new(actor)
    self.explored = prism.SparseGrid()
    self.cells = prism.SparseGrid()
    self.actors = prism.ActorStorage()

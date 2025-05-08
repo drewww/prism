@@ -50,7 +50,6 @@ function Entity:addComponent(component)
 
    component.owner = self
    table.insert(self.components, component)
-   component:initialize(self)
 end
 
 --- Removes a component from the entity. This function will throw an error if the
