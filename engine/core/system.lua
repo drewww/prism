@@ -6,19 +6,14 @@
 --- the game instead. A system's methods should never be mutated at run time, the SystemManager does
 --- cacheing on the event handlers here to improve performance.
 --- @class System : Object
---- @field global boolean A system defined global can only be attached to the Game object. It will see all events from all levels.
 --- @field requirements string[] A table of requirements that must be met for the System to be attached to a Level. References the system's class name.
 --- @field softRequirements string[] A table of optional requirements that ensure proper order if both Systems are attached.
 --- @field owner Level? The level that holds this system.
---- @field beforeActions table<Action, fun(level: Level, actor: Actor, action: Action)> A table mapping specific actions to event hooks.
---- @field afterActions table<Action, fun(level: Level, actor: Actor, action: Action)> A table mapping specific actions to event hooks.
 --- @overload fun(): System
 local System = prism.Object:extend("System")
 System.global = false
 System.requirements = nil
 System.softRequirements = nil
-System.beforeActions = {}
-System.afterActions = {}
 
 --- This method is called when the Level is initialized. It is called after all of the Systems have been attached.
 --- @param level Level The Level object this System is attached to.

@@ -2,15 +2,13 @@
 --- An Action consists of an owner, a name, a list of targets, and a list of target objects.
 --- See Target for more.
 --- @class Action : Object
---- @field time number The time it takes to perform this action. Lower is better.
 --- @field silent boolean A silent action doesn't generate messages
 --- @field owner Actor The actor taking the action.
---- @field targets Target[]
---- @field targetObjects Object[]
---- @field requiredComponents Component[]
+--- @field private targets Target[]
+--- @field private targetObjects Object[]
+--- @field private requiredComponents Component[]
 --- @overload fun(owner: Actor, targets: Object[]): Action
 local Action = prism.Object:extend("Action")
-Action.time = 100
 Action.silent = false
 
 --- Constructor for the Action class.
@@ -25,6 +23,7 @@ function Action:__new(owner, targets)
    assert(Action.perform == self.perform, "Do not override perform! Override _perform instead!")
 end
 
+--- @private
 function Action:__validateTargets()
    if #self.targetObjects ~= #self.targets then
       return false,
@@ -66,6 +65,7 @@ end
 --- sure an action is valid for the actor. This would be useful for
 --- @param level Level
 --- @return boolean canPerform
+--- @private
 function Action:_canPerform(level, ...)
    return true
 end
@@ -88,6 +88,7 @@ end
 
 --- Performs the action. This should be overriden on all subclasses
 --- @param level Level The level the action is being performed in.
+--- @private
 function Action:_perform(level, ...)
    error("This is a virtual method and must be overriden on subclasses!")
 end
