@@ -153,7 +153,7 @@ for any other set up.</p>
 </li>
 <li><dl class="lua function">
 <dt class="sig sig-object lua" id="lua-turn">
-<span class="sig-name descname"><span class="pre">turn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="core/level.html#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="core/actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="core/components/controller.html#lua-ControllerComponent" title="ControllerComponent"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ControllerComponent</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-turn" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">turn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="core/level.html#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="core/actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="core/components/controller.html#lua-Controller" title="Controller"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Controller</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-turn" title="Link to this definition">¶</a></dt>
 <dd><p>This is the core turn logic, and if you need to use a different scheduler or
 want a different turn structure you should override this.</p>
 <dl class="field-list simple">
@@ -161,7 +161,7 @@ want a different turn structure you should override this.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>level</strong> (<a class="reference internal" href="core/level.html#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a>) – The current level.</p></li>
 <li><p><strong>actor</strong> (<a class="reference internal" href="core/actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a>) – The actor taking their turn.</p></li>
-<li><p><strong>controller</strong> (<a class="reference internal" href="core/components/controller.html#lua-ControllerComponent" title="ControllerComponent"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ControllerComponent</span></code></a>) – The actor’s controller, for convenience.</p></li>
+<li><p><strong>controller</strong> (<a class="reference internal" href="core/components/controller.html#lua-Controller" title="Controller"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Controller</span></code></a>) – The actor’s controller, for convenience.</p></li>
 </ul>
 </dd>
 </dl>
@@ -179,12 +179,12 @@ want a different turn structure you should override this.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Basic components</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="core/components/collider.html"><code class="docutils literal notranslate"><span class="pre">ColliderComponent</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="core/components/collider.html"><code class="docutils literal notranslate"><span class="pre">Collider</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="core/components/collider.html#lua-ColliderOptions"><code class="docutils literal notranslate"><span class="pre">ColliderOptions</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="core/components/controller.html"><code class="docutils literal notranslate"><span class="pre">ControllerComponent</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="core/components/opaque.html"><code class="docutils literal notranslate"><span class="pre">OpaqueComponent</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="core/components/player_controller.html"><code class="docutils literal notranslate"><span class="pre">PlayerControllerComponent</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="core/components/senses.html"><code class="docutils literal notranslate"><span class="pre">SensesComponent</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="core/components/controller.html"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="core/components/opaque.html"><code class="docutils literal notranslate"><span class="pre">Opaque</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="core/components/player_controller.html"><code class="docutils literal notranslate"><span class="pre">PlayerController</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="core/components/senses.html"><code class="docutils literal notranslate"><span class="pre">Senses</span></code></a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
@@ -321,6 +321,7 @@ want a different turn structure you should override this.</p>
 <script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../architecture-primer.html">Prism’s Architecture: A Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../conventions.html">Conventions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-tos</span></p>
 <ul>
@@ -369,12 +370,12 @@ want a different turn structure you should override this.</p>
 <li class="toctree-l2"><a class="reference internal" href="#lua-loadModule"><code class="docutils literal notranslate"><span class="pre">loadModule()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lua-turn"><code class="docutils literal notranslate"><span class="pre">turn()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lua-advanceCoroutine"><code class="docutils literal notranslate"><span class="pre">advanceCoroutine()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="core/components/collider.html"><code class="docutils literal notranslate"><span class="pre">ColliderComponent</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core/components/collider.html"><code class="docutils literal notranslate"><span class="pre">Collider</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="core/components/collider.html#lua-ColliderOptions"><code class="docutils literal notranslate"><span class="pre">ColliderOptions</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="core/components/controller.html"><code class="docutils literal notranslate"><span class="pre">ControllerComponent</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="core/components/opaque.html"><code class="docutils literal notranslate"><span class="pre">OpaqueComponent</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="core/components/player_controller.html"><code class="docutils literal notranslate"><span class="pre">PlayerControllerComponent</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="core/components/senses.html"><code class="docutils literal notranslate"><span class="pre">SensesComponent</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core/components/controller.html"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core/components/opaque.html"><code class="docutils literal notranslate"><span class="pre">Opaque</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core/components/player_controller.html"><code class="docutils literal notranslate"><span class="pre">PlayerController</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core/components/senses.html"><code class="docutils literal notranslate"><span class="pre">Senses</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="core/systems/senses.html"><code class="docutils literal notranslate"><span class="pre">SensesSystem</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="core/collision.html"><code class="docutils literal notranslate"><span class="pre">Collision</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="core/messages/actionmessage.html"><code class="docutils literal notranslate"><span class="pre">ActionMessage</span></code></a></li>

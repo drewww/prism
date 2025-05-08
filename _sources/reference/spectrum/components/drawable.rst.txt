@@ -1,5 +1,5 @@
-.. title:: DrawableComponent
-.. lua:autoobject:: DrawableComponent
+.. title:: Drawable
+.. lua:autoobject:: Drawable
    :members:
    :special-members: __new
    :undoc-members:

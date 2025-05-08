@@ -24,6 +24,7 @@ Our discord can be found `here <https://discord.gg/9YpsH4hYVF>`_.
    :hidden:
 
    architecture-primer
+   conventions
 
 .. toctree::
    :caption: How-tos

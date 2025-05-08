@@ -1,5 +1,5 @@
-.. title:: PlayerControllerComponent
-.. lua:autoobject:: PlayerControllerComponent
+.. title:: PlayerController
+.. lua:autoobject:: PlayerController
    :members:
    :special-members: __new
    :undoc-members:

@@ -1,5 +1,5 @@
-.. title:: SensesComponent
-.. lua:autoobject:: SensesComponent
+.. title:: Senses
+.. lua:autoobject:: Senses
    :members:
    :special-members: __new
    :undoc-members:

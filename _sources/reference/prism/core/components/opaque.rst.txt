@@ -1,5 +1,5 @@
-.. title:: OpaqueComponent
-.. lua:autoobject:: OpaqueComponent
+.. title:: Opaque
+.. lua:autoobject:: Opaque
    :members:
    :special-members: __new
    :undoc-members:

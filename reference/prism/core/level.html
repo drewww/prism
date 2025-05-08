@@ -50,45 +50,15 @@
 scheduling, and cached data for FOV and pathfinding. Also handles the
 turn-based game loop via <cite>run</cite> and <cite>step</cite>.</p>
 <dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Level.systemManager">
-<span class="sig-name descname"><span class="pre">systemManager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="system_manager.html#lua-SystemManager" title="SystemManager"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SystemManager</span></code></a><a class="headerlink" href="#lua-Level.systemManager" title="Link to this definition">¶</a></dt>
-<dd><p>Manages systems, dispatches events, controls lifecycle.</p>
-</dd></dl>
-
-<dl class="lua data">
 <dt class="sig sig-object lua" id="lua-Level.actorStorage">
 <span class="sig-name descname"><span class="pre">actorStorage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="actorstorage.html#lua-ActorStorage" title="ActorStorage"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ActorStorage</span></code></a><a class="headerlink" href="#lua-Level.actorStorage" title="Link to this definition">¶</a></dt>
 <dd><p>Stores all actors; supports lookup and indexing.</p>
 </dd></dl>
 
 <dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Level.scheduler">
-<span class="sig-name descname"><span class="pre">scheduler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scheduler/scheduler.html#lua-Scheduler" title="Scheduler"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Scheduler</span></code></a><a class="headerlink" href="#lua-Level.scheduler" title="Link to this definition">¶</a></dt>
-<dd><p>Controls actor turn order in the game loop.</p>
-</dd></dl>
-
-<dl class="lua data">
 <dt class="sig sig-object lua" id="lua-Level.map">
 <span class="sig-name descname"><span class="pre">map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="map.html#lua-Map" title="Map"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Map</span></code></a><a class="headerlink" href="#lua-Level.map" title="Link to this definition">¶</a></dt>
 <dd><p>The static layout of terrain, walls, etc.</p>
-</dd></dl>
-
-<dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Level.opacityCache">
-<span class="sig-name descname"><span class="pre">opacityCache</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../structures/booleanbuffer.html#lua-BooleanBuffer" title="BooleanBuffer"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">BooleanBuffer</span></code></a><a class="headerlink" href="#lua-Level.opacityCache" title="Link to this definition">¶</a></dt>
-<dd><p>Cached opacity grid for FOV and lighting.</p>
-</dd></dl>
-
-<dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Level.passableCache">
-<span class="sig-name descname"><span class="pre">passableCache</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../structures/bitmaskbuffer.html#lua-BitmaskBuffer" title="BitmaskBuffer"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">BitmaskBuffer</span></code></a><a class="headerlink" href="#lua-Level.passableCache" title="Link to this definition">¶</a></dt>
-<dd><p>Cached passability grid for pathfinding.</p>
-</dd></dl>
-
-<dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Level.decision">
-<span class="sig-name descname"><span class="pre">decision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="decisions/actiondecision.html#lua-ActionDecision" title="ActionDecision"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ActionDecision</span></code></a><a class="headerlink" href="#lua-Level.decision" title="Link to this definition">¶</a></dt>
-<dd><p>Temporary storage for the current actor’s choice.</p>
 </dd></dl>
 
 <dl class="lua data">
@@ -99,7 +69,7 @@ turn-based game loop via <cite>run</cite> and <cite>step</cite>.</p>
 
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Level.__new">
-<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="map.html#lua-Map" title="Map"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Map</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">actors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a><span class="p"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">systems</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="system.html#lua-System" title="System"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">System</span></code></a><span class="p"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheduler?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scheduler/scheduler.html#lua-Scheduler" title="Scheduler"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Scheduler</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">seed?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Level.__new" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">private</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="map.html#lua-Map" title="Map"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Map</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">actors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a><span class="p"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">systems</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="system.html#lua-System" title="System"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">System</span></code></a><span class="p"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheduler?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scheduler/scheduler.html#lua-Scheduler" title="Scheduler"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Scheduler</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">seed?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Level.__new" title="Link to this definition">¶</a></dt>
 <dd><p>Constructor for the Level class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -110,13 +80,6 @@ turn-based game loop via <cite>run</cite> and <cite>step</cite>.</p>
 <li><p><strong>scheduler?</strong> (<a class="reference internal" href="scheduler/scheduler.html#lua-Scheduler" title="Scheduler"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Scheduler</span></code></a>) – The ‘abstract class’ that Schedulers should inherit from and implement.</p></li>
 </ul>
 </dd>
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Level.initialize">
-<span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">actors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a><span class="p"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">systems</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="system.html#lua-System" title="System"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">System</span></code></a><span class="p"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Level.initialize" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
 </dl>
 </dd></dl>
 
@@ -241,7 +204,7 @@ standing on.</p>
 
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Level.getActorController">
-<span class="sig-name descname"><span class="pre">getActorController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="components/controller.html#lua-ControllerComponent" title="ControllerComponent"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ControllerComponent</span></code></a></span></span><a class="headerlink" href="#lua-Level.getActorController" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getActorController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="components/controller.html#lua-Controller" title="Controller"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Controller</span></code></a></span></span><a class="headerlink" href="#lua-Level.getActorController" title="Link to this definition">¶</a></dt>
 <dd><p>Gets the actor’s controller. This is a utility function that checks the
 actor’s conditions for an override controller and returns it if it exists.
 Otherwise it returns the actor’s normal controller.</p>
@@ -250,7 +213,7 @@ Otherwise it returns the actor’s normal controller.</p>
 <dd class="field-odd"><p><strong>actor</strong> (<a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a>) – The actor to get the controller for.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>controller</strong> (<a class="reference internal" href="components/controller.html#lua-ControllerComponent" title="ControllerComponent"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ControllerComponent</span></code></a>) – The actor’s controller.</p>
+<dd class="field-even"><p><strong>controller</strong> (<a class="reference internal" href="components/controller.html#lua-Controller" title="Controller"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Controller</span></code></a>) – The actor’s controller.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -278,13 +241,6 @@ over the inner ActorStorage.</p>
 </dd></dl>
 
 <dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Level.updateCaches">
-<span class="sig-name descname"><span class="pre">updateCaches</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Level.updateCaches" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Level.getCellPassable">
 <span class="sig-name descname"><span class="pre">getCellPassable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></span></span><a class="headerlink" href="#lua-Level.getCellPassable" title="Link to this definition">¶</a></dt>
 <dd><p>Returns true if the cell at the given position is passable, false otherwise. Considers
@@ -299,33 +255,6 @@ actors in the sparse map as well as the cell’s passable property.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>_1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code>) – True if the cell is passable, false otherwise.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Level.initializePassabilityCache">
-<span class="sig-name descname"><span class="pre">initializePassabilityCache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Level.initializePassabilityCache" title="Link to this definition">¶</a></dt>
-<dd><p>Initialize the passable cache. This should be called after the level is
-created and before the game loop starts. It will initialize the passable
-cache with the cell passable cache. This is handled automatically by the
-Level class.</p>
-<dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Level.updatePassabilityCache">
-<span class="sig-name descname"><span class="pre">updatePassabilityCache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Level.updatePassabilityCache" title="Link to this definition">¶</a></dt>
-<dd><p>Updates the passability cache at the given position. This should be called
-whenever an actor moves or a cell’s passability changes. This is handled
-automatically by the Level class.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The x component of the position to update.</p></li>
-<li><p><strong>y</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The y component of the position to update.</p></li>
-</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -355,33 +284,6 @@ outside of systems that need to know about opacity.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>map</strong> (<a class="reference internal" href="../structures/booleanbuffer.html#lua-BooleanBuffer" title="BooleanBuffer"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">BooleanBuffer</span></code></a>) – The opacity cache for the level.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Level.initializeOpacityCache">
-<span class="sig-name descname"><span class="pre">initializeOpacityCache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Level.initializeOpacityCache" title="Link to this definition">¶</a></dt>
-<dd><p>Initialize the opacity cache. This should be called after the level is
-created and before the game loop starts. It will initialize the opacity
-cache with the cell opacity cache. This is handled automatically by the
-Level class.</p>
-<dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Level.updateOpacityCache">
-<span class="sig-name descname"><span class="pre">updateOpacityCache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Level.updateOpacityCache" title="Link to this definition">¶</a></dt>
-<dd><p>Updates the opacity cache at the given position. This should be called
-whenever an actor moves or a cell’s opacity changes. This is handled
-automatically by the Level class.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The x component of the position to update.</p></li>
-<li><p><strong>y</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The y component of the position to update.</p></li>
-</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -425,13 +327,6 @@ box type uses a simple box around the given position.</p>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>actors?</strong> (<a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a><span class="p">[]</span>) – A list of actors within the given range.</p>
 </dd>
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Level.sparseMapCallback">
-<span class="sig-name descname"><span class="pre">sparseMapCallback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">function</span></code></span></span><a class="headerlink" href="#lua-Level.sparseMapCallback" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
 </dl>
 </dd></dl>
 
@@ -485,6 +380,7 @@ box type uses a simple box around the given position.</p>
 <script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../architecture-primer.html">Prism’s Architecture: A Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../conventions.html">Conventions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-tos</span></p>
 <ul>
@@ -518,16 +414,10 @@ box type uses a simple box around the given position.</p>
 <li class="toctree-l2"><a class="reference internal" href="decision.html"><code class="docutils literal notranslate"><span class="pre">Decision</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="entity.html"><code class="docutils literal notranslate"><span class="pre">Entity</span></code></a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Level</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Level.systemManager"><code class="docutils literal notranslate"><span class="pre">systemManager</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.actorStorage"><code class="docutils literal notranslate"><span class="pre">actorStorage</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Level.scheduler"><code class="docutils literal notranslate"><span class="pre">scheduler</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.map"><code class="docutils literal notranslate"><span class="pre">map</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Level.opacityCache"><code class="docutils literal notranslate"><span class="pre">opacityCache</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Level.passableCache"><code class="docutils literal notranslate"><span class="pre">passableCache</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Level.decision"><code class="docutils literal notranslate"><span class="pre">decision</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.RNG"><code class="docutils literal notranslate"><span class="pre">RNG</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Level.initialize"><code class="docutils literal notranslate"><span class="pre">initialize()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.run"><code class="docutils literal notranslate"><span class="pre">run()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.step"><code class="docutils literal notranslate"><span class="pre">step()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.yield"><code class="docutils literal notranslate"><span class="pre">yield()</span></code></a></li>
@@ -541,17 +431,11 @@ box type uses a simple box around the given position.</p>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.getActorController"><code class="docutils literal notranslate"><span class="pre">getActorController()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.hasActor"><code class="docutils literal notranslate"><span class="pre">hasActor()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.computeFOV"><code class="docutils literal notranslate"><span class="pre">computeFOV()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Level.updateCaches"><code class="docutils literal notranslate"><span class="pre">updateCaches()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.getCellPassable"><code class="docutils literal notranslate"><span class="pre">getCellPassable()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Level.initializePassabilityCache"><code class="docutils literal notranslate"><span class="pre">initializePassabilityCache()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Level.updatePassabilityCache"><code class="docutils literal notranslate"><span class="pre">updatePassabilityCache()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.getCellOpaque"><code class="docutils literal notranslate"><span class="pre">getCellOpaque()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.getOpacityCache"><code class="docutils literal notranslate"><span class="pre">getOpacityCache()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Level.initializeOpacityCache"><code class="docutils literal notranslate"><span class="pre">initializeOpacityCache()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Level.updateOpacityCache"><code class="docutils literal notranslate"><span class="pre">updateOpacityCache()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.findPath"><code class="docutils literal notranslate"><span class="pre">findPath()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.getAOE"><code class="docutils literal notranslate"><span class="pre">getAOE()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Level.sparseMapCallback"><code class="docutils literal notranslate"><span class="pre">sparseMapCallback()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.onDeserialize"><code class="docutils literal notranslate"><span class="pre">onDeserialize()</span></code></a></li>
 </ul>
 </li>
@@ -570,12 +454,12 @@ box type uses a simple box around the given position.</p>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#lua-loadModule"><code class="docutils literal notranslate"><span class="pre">loadModule()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#lua-turn"><code class="docutils literal notranslate"><span class="pre">turn()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#lua-advanceCoroutine"><code class="docutils literal notranslate"><span class="pre">advanceCoroutine()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="components/collider.html"><code class="docutils literal notranslate"><span class="pre">ColliderComponent</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/collider.html"><code class="docutils literal notranslate"><span class="pre">Collider</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/collider.html#lua-ColliderOptions"><code class="docutils literal notranslate"><span class="pre">ColliderOptions</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="components/controller.html"><code class="docutils literal notranslate"><span class="pre">ControllerComponent</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="components/opaque.html"><code class="docutils literal notranslate"><span class="pre">OpaqueComponent</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="components/player_controller.html"><code class="docutils literal notranslate"><span class="pre">PlayerControllerComponent</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="components/senses.html"><code class="docutils literal notranslate"><span class="pre">SensesComponent</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/controller.html"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/opaque.html"><code class="docutils literal notranslate"><span class="pre">Opaque</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/player_controller.html"><code class="docutils literal notranslate"><span class="pre">PlayerController</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/senses.html"><code class="docutils literal notranslate"><span class="pre">Senses</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="systems/senses.html"><code class="docutils literal notranslate"><span class="pre">SensesSystem</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="collision.html"><code class="docutils literal notranslate"><span class="pre">Collision</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="messages/actionmessage.html"><code class="docutils literal notranslate"><span class="pre">ActionMessage</span></code></a></li>

@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Inventory" href="inventory.html" />
-    <link rel="prev" title="Prism’s Architecture: A Primer" href="../architecture-primer.html" />
+    <link rel="prev" title="Conventions" href="../conventions.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -52,7 +52,7 @@ built in to Prism. Here’s how it works:</p>
 <span class="n">prism</span><span class="p">.</span><span class="n">Collision</span><span class="p">.</span><span class="n">assignNextAvailableMovetype</span><span class="p">(</span><span class="s2">&quot;fly&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Then, use a <a class="reference internal" href="../reference/prism/core/components/collider.html#lua-ColliderComponent" title="ColliderComponent"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ColliderComponent</span></code></a> to define collision for actors and cells. If no move types
+<p>Then, use a <a class="reference internal" href="../reference/prism/core/components/collider.html#lua-Collider" title="Collider"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Collider</span></code></a> to define collision for actors and cells. If no move types
 are supplied, nothing will be able to pass.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Collider</span><span class="p">{</span> <span class="n">allowedMovetypes</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;fly&quot;</span> <span class="p">}</span> <span class="p">}</span>
 
@@ -127,6 +127,7 @@ such as throwing an item over a pit.</p>
 <script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../architecture-primer.html">Prism’s Architecture: A Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conventions.html">Conventions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-tos</span></p>
 <ul class="current">
@@ -149,7 +150,7 @@ such as throwing an item over a pit.</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../architecture-primer.html" title="previous chapter">Prism’s Architecture: A Primer</a></li>
+      <li>Previous: <a href="../conventions.html" title="previous chapter">Conventions</a></li>
       <li>Next: <a href="inventory.html" title="next chapter">Inventory</a></li>
   </ul></li>
 </ul>

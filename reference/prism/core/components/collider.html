@@ -24,7 +24,7 @@
     <link rel="icon" href="../../../../_static/prism.png"/>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="ControllerComponent" href="controller.html" />
+    <link rel="next" title="Controller" href="controller.html" />
     <link rel="prev" title="SimpleScheduler" href="../scheduler/simple_scheduler.html" />
    
   <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
@@ -44,18 +44,18 @@
           <div class="body" role="main">
             
   <dl class="lua class">
-<dt class="sig sig-object lua" id="lua-ColliderComponent">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ColliderComponent</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a><a class="headerlink" href="#lua-ColliderComponent" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object lua" id="lua-Collider">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Collider</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a><a class="headerlink" href="#lua-Collider" title="Link to this definition">¶</a></dt>
 <dd><p>Gives an actor collision, preventing other actors from moving into its cell.</p>
 <dl class="lua data">
-<dt class="sig sig-object lua" id="lua-ColliderComponent.mask">
-<span class="sig-name descname"><span class="pre">mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><a class="headerlink" href="#lua-ColliderComponent.mask" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object lua" id="lua-Collider.mask">
+<span class="sig-name descname"><span class="pre">mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><a class="headerlink" href="#lua-Collider.mask" title="Link to this definition">¶</a></dt>
 <dd><p>The mask to use when testing collision. Defaults to zero, blocking everything.</p>
 </dd></dl>
 
 <dl class="lua method">
-<dt class="sig sig-object lua" id="lua-ColliderComponent.__new">
-<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-ColliderComponent" title="ColliderComponent"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ColliderComponent</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">options?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-ColliderOptions" title="ColliderOptions"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ColliderOptions</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-ColliderComponent.__new" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object lua" id="lua-Collider.__new">
+<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Collider" title="Collider"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Collider</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">options?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-ColliderOptions" title="ColliderOptions"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ColliderOptions</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Collider.__new" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -113,6 +113,7 @@
 <script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../architecture-primer.html">Prism’s Architecture: A Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../conventions.html">Conventions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-tos</span></p>
 <ul>
@@ -161,19 +162,19 @@
 <li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-loadModule"><code class="docutils literal notranslate"><span class="pre">loadModule()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-turn"><code class="docutils literal notranslate"><span class="pre">turn()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-advanceCoroutine"><code class="docutils literal notranslate"><span class="pre">advanceCoroutine()</span></code></a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">ColliderComponent</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#lua-ColliderComponent.mask"><code class="docutils literal notranslate"><span class="pre">mask</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-ColliderComponent.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Collider</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Collider.mask"><code class="docutils literal notranslate"><span class="pre">mask</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Collider.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#lua-ColliderOptions"><code class="docutils literal notranslate"><span class="pre">ColliderOptions</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#lua-ColliderOptions.allowedMovetypes"><code class="docutils literal notranslate"><span class="pre">allowedMovetypes</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="controller.html"><code class="docutils literal notranslate"><span class="pre">ControllerComponent</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="opaque.html"><code class="docutils literal notranslate"><span class="pre">OpaqueComponent</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="player_controller.html"><code class="docutils literal notranslate"><span class="pre">PlayerControllerComponent</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="senses.html"><code class="docutils literal notranslate"><span class="pre">SensesComponent</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="controller.html"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="opaque.html"><code class="docutils literal notranslate"><span class="pre">Opaque</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="player_controller.html"><code class="docutils literal notranslate"><span class="pre">PlayerController</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="senses.html"><code class="docutils literal notranslate"><span class="pre">Senses</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../systems/senses.html"><code class="docutils literal notranslate"><span class="pre">SensesSystem</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../collision.html"><code class="docutils literal notranslate"><span class="pre">Collision</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../messages/actionmessage.html"><code class="docutils literal notranslate"><span class="pre">ActionMessage</span></code></a></li>
@@ -208,7 +209,7 @@
   <li><a href="../../../../index.html">Documentation overview</a><ul>
   <li><a href="../../index.html">Prism</a><ul>
       <li>Previous: <a href="../scheduler/simple_scheduler.html" title="previous chapter">SimpleScheduler</a></li>
-      <li>Next: <a href="controller.html" title="next chapter">ControllerComponent</a></li>
+      <li>Next: <a href="controller.html" title="next chapter">Controller</a></li>
   </ul></li>
   </ul></li>
 </ul>

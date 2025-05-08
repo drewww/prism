@@ -59,14 +59,14 @@ of the game objects, making them easy to access, e.g. ``prism.actors.Player()``.
 
    :param string directory: The root directory of the module.
 
-- .. lua:function:: turn(level: Level, actor: Actor, controller: ControllerComponent)
+- .. lua:function:: turn(level: Level, actor: Actor, controller: Controller)
 
    This is the core turn logic, and if you need to use a different scheduler or 
    want a different turn structure you should override this. 
 
    :param Level level: The current level.
    :param Actor actor: The actor taking their turn.
-   :param ControllerComponent controller: The actor's controller, for convenience.
+   :param Controller controller: The actor's controller, for convenience.
 
 - .. lua:function:: advanceCoroutine()
 

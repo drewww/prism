@@ -103,7 +103,7 @@ move this character using the following default keys:</p>
 Click on the k on the right hand side and use the pen tool to draw a
 kobold in. Press the green button to resume the game.</p>
 <p>You might notice that you can walk right through the kobold. We fix that by giving it a
-<a class="reference internal" href="../reference/prism/core/components/collider.html#lua-ColliderComponent" title="ColliderComponent"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ColliderComponent</span></code></a>:</p>
+<a class="reference internal" href="../reference/prism/core/components/collider.html#lua-Collider" title="Collider"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Collider</span></code></a>:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Collider</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -113,7 +113,7 @@ kobold in. Press the green button to resume the game.</p>
 </div>
 <p>If we restart the game and spawn in another kobold, we shouldn’t be able to walk
 through kobolds anymore. We’re also going to give the kobold a few more core components: a
-<a class="reference internal" href="../reference/prism/core/components/senses.html#lua-SensesComponent" title="SensesComponent"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">SensesComponent</span></code></a>, <code class="docutils literal notranslate"><span class="pre">SightComponent</span></code>, and <code class="docutils literal notranslate"><span class="pre">MoverComponent</span></code>, so it can see and move:</p>
+<a class="reference internal" href="../reference/prism/core/components/senses.html#lua-Senses" title="Senses"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Senses</span></code></a>, <code class="docutils literal notranslate"><span class="pre">SightComponent</span></code>, and <code class="docutils literal notranslate"><span class="pre">MoverComponent</span></code>, so it can see and move:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Senses</span><span class="p">(),</span>
 <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Sight</span><span class="p">{</span> <span class="n">range</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span> <span class="n">fov</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">},</span>
 <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Mover</span><span class="p">{</span> <span class="s2">&quot;walk&quot;</span> <span class="p">}</span>
@@ -123,8 +123,8 @@ through kobolds anymore. We’re also going to give the kobold a few more core c
 <section id="the-kobold-controller">
 <h2>The kobold controller<a class="headerlink" href="#the-kobold-controller" title="Link to this heading">¶</a></h2>
 <p>Now that the kobold exists in the world, you might notice something—it’s
-not moving! To give it behavior, we need to implement a <a class="reference internal" href="../reference/prism/core/components/controller.html#lua-ControllerComponent" title="ControllerComponent"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ControllerComponent</span></code></a>.</p>
-<p>A <a class="reference internal" href="../reference/prism/core/components/controller.html#lua-ControllerComponent" title="ControllerComponent"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ControllerComponent</span></code></a> (or one of its derivatives) defines the <a class="reference internal" href="../reference/prism/core/components/controller.html#lua-ControllerComponent.act" title="ControllerComponent.act"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">ControllerComponent:act()</span></code></a>
+not moving! To give it behavior, we need to implement a <a class="reference internal" href="../reference/prism/core/components/controller.html#lua-Controller" title="Controller"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Controller</span></code></a>.</p>
+<p>A <a class="reference internal" href="../reference/prism/core/components/controller.html#lua-Controller" title="Controller"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Controller</span></code></a> (or one of its derivatives) defines the <a class="reference internal" href="../reference/prism/core/components/controller.html#lua-Controller.act" title="Controller.act"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Controller:act()</span></code></a>
 function, which takes the <a class="reference internal" href="../reference/prism/core/level.html#lua-Level" title="Level"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Level</span></code></a> and the <a class="reference internal" href="../reference/prism/core/actor.html#lua-Actor" title="Actor"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Actor</span></code></a> as arguments and
 returns a valid action.</p>
 <div class="admonition caution">
@@ -136,9 +136,9 @@ returns a valid action.</p>
 <li><p>Create a new file named <code class="docutils literal notranslate"><span class="pre">koboldcontroller.lua</span></code>.</p></li>
 <li><p>Add the following code:</p></li>
 </ol>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class KoboldControllerComponent : ControllerComponent</span>
-<span class="c1">--- @overload fun(): KoboldControllerComponent</span>
-<span class="kd">local</span> <span class="n">KoboldController</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Controller</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;KoboldControllerComponent&quot;</span><span class="p">)</span>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class KoboldController : Controller</span>
+<span class="c1">--- @overload fun(): KoboldController</span>
+<span class="kd">local</span> <span class="n">KoboldController</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Controller</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;KoboldController&quot;</span><span class="p">)</span>
 <span class="n">KoboldController</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;KoboldController&quot;</span>
 
 <span class="kr">function</span> <span class="nc">KoboldController</span><span class="p">:</span><span class="nf">act</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">actor</span><span class="p">)</span>
@@ -173,7 +173,7 @@ behaviour doesn’t make for a great game. Let’s make them follow the player a
 <li><p>Find a valid path to the player.</p></li>
 <li><p>Move the kobold along that path.</p></li>
 </ol>
-<p>We can find the player by grabbing the <a class="reference internal" href="../reference/prism/core/components/senses.html#lua-SensesComponent" title="SensesComponent"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">SensesComponent</span></code></a> from the kobold and
+<p>We can find the player by grabbing the <a class="reference internal" href="../reference/prism/core/components/senses.html#lua-Senses" title="Senses"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Senses</span></code></a> from the kobold and
 seeing if it contains the player.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">senses</span> <span class="o">=</span> <span class="n">actor</span><span class="p">:</span><span class="n">getComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Senses</span><span class="p">)</span>
 <span class="kd">local</span> <span class="n">player</span> <span class="o">=</span> <span class="n">senses</span><span class="p">.</span><span class="n">actors</span><span class="p">:</span><span class="n">getActorByType</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">actors</span><span class="p">.</span><span class="n">Player</span><span class="p">)</span>
@@ -334,6 +334,7 @@ and then perform the kick action on them:</p>
 <script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../architecture-primer.html">Prism’s Architecture: A Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conventions.html">Conventions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-tos</span></p>
 <ul>

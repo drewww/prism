@@ -7,7 +7,7 @@
 <template id="tmpl_gotoTop"><div id="gotoTop">
   <button>Back to top</button>
 </div></template>
-    <title>SensesComponent &#8212; Prism  documentation</title>
+    <title>Senses &#8212; Prism  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=266695fe" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css?v=27fed22d" />
@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
     <link rel="next" title="SensesSystem" href="../systems/senses.html" />
-    <link rel="prev" title="PlayerControllerComponent" href="player_controller.html" />
+    <link rel="prev" title="PlayerController" href="player_controller.html" />
    
   <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
   
@@ -44,37 +44,37 @@
           <div class="body" role="main">
             
   <dl class="lua class">
-<dt class="sig sig-object lua" id="lua-SensesComponent">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SensesComponent</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../query.html#lua-IQueryable" title="IQueryable"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">IQueryable</span></code></a><a class="headerlink" href="#lua-SensesComponent" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object lua" id="lua-Senses">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Senses</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../query.html#lua-IQueryable" title="IQueryable"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">IQueryable</span></code></a><a class="headerlink" href="#lua-Senses" title="Link to this definition">¶</a></dt>
 <dd><p>Senses is used by the sense system as the storage for all of the sensory information
 from the other sense components/systems. It is required for sight. See the SensesSystem for more.</p>
 <dl class="lua data">
-<dt class="sig sig-object lua" id="lua-SensesComponent.cells">
-<span class="sig-name descname"><span class="pre">cells</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseGrid</span></code><a class="headerlink" href="#lua-SensesComponent.cells" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object lua" id="lua-Senses.cells">
+<span class="sig-name descname"><span class="pre">cells</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseGrid</span></code><a class="headerlink" href="#lua-Senses.cells" title="Link to this definition">¶</a></dt>
 <dd><p>A sparse grid of cells representing the portion of the map the actor’s senses reveal.</p>
 </dd></dl>
 
 <dl class="lua data">
-<dt class="sig sig-object lua" id="lua-SensesComponent.explored">
-<span class="sig-name descname"><span class="pre">explored</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseGrid</span></code><a class="headerlink" href="#lua-SensesComponent.explored" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object lua" id="lua-Senses.explored">
+<span class="sig-name descname"><span class="pre">explored</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseGrid</span></code><a class="headerlink" href="#lua-Senses.explored" title="Link to this definition">¶</a></dt>
 <dd><p>A sparse grid of cells the actor’s senses have previously revealed.</p>
 </dd></dl>
 
 <dl class="lua data">
-<dt class="sig sig-object lua" id="lua-SensesComponent.actors">
-<span class="sig-name descname"><span class="pre">actors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../actorstorage.html#lua-ActorStorage" title="ActorStorage"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ActorStorage</span></code></a><a class="headerlink" href="#lua-SensesComponent.actors" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object lua" id="lua-Senses.actors">
+<span class="sig-name descname"><span class="pre">actors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../actorstorage.html#lua-ActorStorage" title="ActorStorage"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ActorStorage</span></code></a><a class="headerlink" href="#lua-Senses.actors" title="Link to this definition">¶</a></dt>
 <dd><p>An actor storage with the actors the player is aware of.</p>
 </dd></dl>
 
 <dl class="lua data">
-<dt class="sig sig-object lua" id="lua-SensesComponent.unknown">
-<span class="sig-name descname"><span class="pre">unknown</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../structures/sparsemap.html#lua-SparseMap" title="SparseMap"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseMap</span></code></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../../math/vector.html#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#lua-SensesComponent.unknown" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object lua" id="lua-Senses.unknown">
+<span class="sig-name descname"><span class="pre">unknown</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../structures/sparsemap.html#lua-SparseMap" title="SparseMap"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseMap</span></code></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../../math/vector.html#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#lua-Senses.unknown" title="Link to this definition">¶</a></dt>
 <dd><p>Unkown actors are things the player is aware of the location of, but not the components.</p>
 </dd></dl>
 
 <dl class="lua method">
-<dt class="sig sig-object lua" id="lua-SensesComponent.__new">
-<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">...</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-SensesComponent.__new" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object lua" id="lua-Senses.__new">
+<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">...</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Senses.__new" title="Link to this definition">¶</a></dt>
 <dd><p>The default constructor for the class. Subclasses should override this.</p>
 <dl class="field-list simple">
 </dl>
@@ -123,6 +123,7 @@ from the other sense components/systems. It is required for sight. See the Sense
 <script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../architecture-primer.html">Prism’s Architecture: A Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../conventions.html">Conventions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-tos</span></p>
 <ul>
@@ -171,17 +172,17 @@ from the other sense components/systems. It is required for sight. See the Sense
 <li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-loadModule"><code class="docutils literal notranslate"><span class="pre">loadModule()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-turn"><code class="docutils literal notranslate"><span class="pre">turn()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-advanceCoroutine"><code class="docutils literal notranslate"><span class="pre">advanceCoroutine()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="collider.html"><code class="docutils literal notranslate"><span class="pre">ColliderComponent</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="collider.html"><code class="docutils literal notranslate"><span class="pre">Collider</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="collider.html#lua-ColliderOptions"><code class="docutils literal notranslate"><span class="pre">ColliderOptions</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="controller.html"><code class="docutils literal notranslate"><span class="pre">ControllerComponent</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="opaque.html"><code class="docutils literal notranslate"><span class="pre">OpaqueComponent</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="player_controller.html"><code class="docutils literal notranslate"><span class="pre">PlayerControllerComponent</span></code></a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">SensesComponent</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#lua-SensesComponent.cells"><code class="docutils literal notranslate"><span class="pre">cells</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-SensesComponent.explored"><code class="docutils literal notranslate"><span class="pre">explored</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-SensesComponent.actors"><code class="docutils literal notranslate"><span class="pre">actors</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-SensesComponent.unknown"><code class="docutils literal notranslate"><span class="pre">unknown</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-SensesComponent.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="controller.html"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="opaque.html"><code class="docutils literal notranslate"><span class="pre">Opaque</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="player_controller.html"><code class="docutils literal notranslate"><span class="pre">PlayerController</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Senses</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Senses.cells"><code class="docutils literal notranslate"><span class="pre">cells</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Senses.explored"><code class="docutils literal notranslate"><span class="pre">explored</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Senses.actors"><code class="docutils literal notranslate"><span class="pre">actors</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Senses.unknown"><code class="docutils literal notranslate"><span class="pre">unknown</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Senses.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../systems/senses.html"><code class="docutils literal notranslate"><span class="pre">SensesSystem</span></code></a></li>
@@ -217,7 +218,7 @@ from the other sense components/systems. It is required for sight. See the Sense
 <ul>
   <li><a href="../../../../index.html">Documentation overview</a><ul>
   <li><a href="../../index.html">Prism</a><ul>
-      <li>Previous: <a href="player_controller.html" title="previous chapter">PlayerControllerComponent</a></li>
+      <li>Previous: <a href="player_controller.html" title="previous chapter">PlayerController</a></li>
       <li>Next: <a href="../systems/senses.html" title="next chapter">SensesSystem</a></li>
   </ul></li>
   </ul></li>

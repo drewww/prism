@@ -1,5 +1,5 @@
-.. title:: ColliderComponent
-.. lua:autoobject:: ColliderComponent
+.. title:: Collider
+.. lua:autoobject:: Collider
    :members:
    :special-members: __new
    :undoc-members:
