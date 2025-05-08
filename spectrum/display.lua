@@ -14,7 +14,6 @@ local Display = prism.Object:extend("Display")
 ---@field setCell fun(self, x:integer, y:integer, cell: Cell|nil)
 ---@field addActor fun(self, actor: Actor)
 ---@field removeActor fun(self, actor: Actor)
----@field getActorsAt fun(self, x:integer, y:integer)
 ---@field inBounds fun(self, x: integer, y:integer)
 ---@field eachCell fun(self): fun(): integer, integer, Cell
 ---@field debug boolean
@@ -46,6 +45,7 @@ function Display:draw()
 
    for x, y, cell in self.attachable:eachCell() do
       local drawable = cell:getComponent(prism.components.Drawable)
+      --- @cast drawable DrawableComponent
       Display.drawDrawable(drawable, self.spriteAtlas, self.cellSize, x, y)
    end
 

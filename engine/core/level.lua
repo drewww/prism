@@ -4,14 +4,14 @@
 ---
 --- @class Level : Object, IQueryable, SpectrumAttachable
 ---
---- @field systemManager SystemManager        -- Manages systems, dispatches events, controls lifecycle.
---- @field actorStorage ActorStorage          -- Stores all actors; supports lookup and indexing.
---- @field scheduler Scheduler                -- Controls actor turn order in the game loop.
---- @field map Map                            -- The static layout of terrain, walls, etc.
---- @field opacityCache BooleanBuffer         -- Cached opacity grid for FOV and lighting.
---- @field passableCache BitmaskBuffer        -- Cached passability grid for pathfinding.
---- @field decision ActionDecision            -- Temporary storage for the current actor’s choice.
---- @field RNG RNG                            -- Level-local RNG; supports deterministic behavior.
+--- @field actorStorage ActorStorage                  -- Stores all actors; supports lookup and indexing.
+--- @field map Map                                    -- The static layout of terrain, walls, etc.
+--- @field RNG RNG                                    -- Level-local RNG; supports deterministic behavior.
+--- @field private systemManager SystemManager        -- Manages systems, dispatches events, controls lifecycle.
+--- @field private scheduler Scheduler                -- Controls actor turn order in the game loop.
+--- @field private opacityCache BooleanBuffer         -- Cached opacity grid for FOV and lighting.
+--- @field private passableCache BitmaskBuffer        -- Cached passability grid for pathfinding.
+--- @field private decision ActionDecision            -- Temporary storage for the current actor’s choice.
 ---
 --- @overload fun(map: Map, actors: Actor[], systems: System[], scheduler: Scheduler?, seed: string?): Level
 local Level = prism.Object:extend("Level")
@@ -27,6 +27,7 @@ Level.serializationBlacklist = {
 --- @param systems System[] A list of systems to register with the level.
 --- @param scheduler Scheduler?
 --- @param seed string?
+--- @private
 function Level:__new(map, actors, systems, scheduler, seed)
    self.systemManager = prism.SystemManager(self)
    self.actorStorage = prism.ActorStorage(self:sparseMapCallback(), self:sparseMapCallback())
@@ -42,6 +43,7 @@ end
 
 --- @param actors Actor[]
 --- @param systems System[]
+--- @private
 function Level:initialize(actors, systems)
    assert(#actors > 0, "A level must be initialized with at least one actor!")
    self:initializeOpacityCache()
@@ -322,6 +324,9 @@ function Level:eachCell()
    return self.map:each()
 end
 
+--- @private
+--- @param x integer
+--- @param y integer
 function Level:updateCaches(x, y)
    self:updateOpacityCache(x, y)
    self:updatePassabilityCache(x, y)
@@ -342,6 +347,7 @@ end
 --- created and before the game loop starts. It will initialize the passable
 --- cache with the cell passable cache. This is handled automatically by the
 --- Level class.
+--- @private
 function Level:initializePassabilityCache()
    for x = 1, self.map.w do
       for y = 1, self.map.h do
@@ -354,11 +360,13 @@ end
 -- creating a new query object each time is bad for the GC.
 --- @type Query|nil
 local passabilityQuery = nil;
+
 --- Updates the passability cache at the given position. This should be called
 --- whenever an actor moves or a cell's passability changes. This is handled
 --- automatically by the Level class.
 --- @param x number The x component of the position to update.
 --- @param y number The y component of the position to update.
+--- @private
 function Level:updatePassabilityCache(x, y)
    local mask = self.map.passableCache:getMask(x, y)
 
@@ -390,6 +398,7 @@ function Level:getOpacityCache() return self.opacityCache end
 --- created and before the game loop starts. It will initialize the opacity
 --- cache with the cell opacity cache. This is handled automatically by the
 --- Level class.
+--- @private
 function Level:initializeOpacityCache()
    for x = 1, self.map.w do
       for y = 1, self.map.h do
@@ -406,6 +415,7 @@ local opacityQuery = nil
 --- automatically by the Level class.
 --- @param x number The x component of the position to update.
 --- @param y number The y component of the position to update.
+--- @private
 function Level:updateOpacityCache(x, y)
    if not opacityQuery then
       opacityQuery = self:query(prism.components.Opaque)
@@ -485,6 +495,7 @@ function Level:getAOE(type, position, range)
    end
 end
 
+--- @private
 function Level:sparseMapCallback()
    return function(x, y, actor)
       self:updateCaches(x, y)
