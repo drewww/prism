@@ -57,8 +57,6 @@ end
 
 --- Draws the current state of the level, including the perspective of relevant actors.
 function LevelState:draw()
-   local startTime = love.timer.getTime() -- Start timing
-
    local curActor
    if self.decision then
       local actionDecision = self.decision
@@ -85,18 +83,11 @@ function LevelState:draw()
    end
 
    self.display:clear()
-   self:_draw(curActor, primary, secondary)
+   self:_draw(primary, secondary)
    self.display:draw()
-
-   local elapsedTime = (love.timer.getTime() - startTime) * 1000 -- Convert to milliseconds
-
-   local color = prism.Color4(love.graphics.getColor())
-   love.graphics.setColor(1, 0, 0)
-   love.graphics.print(string.format("Draw time: %.2f ms", elapsedTime))
-   love.graphics.setColor(color:decompose())
 end
 
-function LevelState:_draw()
+function LevelState:_draw(curActor, primary, secondary)
    error("Your custom level state should overwrite this man!")
 end
 
@@ -104,9 +95,6 @@ function LevelState:keypressed(key, scancode)
    if key == "`" then
       self.manager:push(self.geometer)
    end
-end
-
-function LevelState:terminalDraw()
 end
 
 --- This method is invoked each update when a decision exists 
