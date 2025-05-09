@@ -214,10 +214,10 @@ local dynamicRegistry = {
       else
          -- Create an extra table to load components that get indexed before
          -- their creation so we trigger __newindex later.
-         local empties = rawget(t, "empties")
+         local empties = rawget(t, "__empties")
          if not empties then
             empties = {}
-            rawset(t, "empties", empties)
+            rawset(t, "__empties", empties)
          end
 
          -- If we've already indexed it return the original empty.
@@ -238,7 +238,7 @@ local dynamicRegistry = {
 
    __newindex = function(t, key, value)
       local oldValue
-      local empties = rawget(t, "empties")
+      local empties = rawget(t, "__empties")
 
       if empties then
          oldValue = rawget(empties, key)
@@ -350,6 +350,7 @@ function prism.loadModule(directory)
       end
    end
    setmetatable(prism.components, nil)
+   prism.components.__empties = nil
 
    for name, system in pairs(prism.systems) do
       if system.empty then
@@ -357,6 +358,7 @@ function prism.loadModule(directory)
       end
    end
    setmetatable(prism.systems, nil)
+   prism.systems.__empties = nil
 
    local lastSubdir = directory:match("([^/\\]+)$")
 
