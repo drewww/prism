@@ -80,17 +80,24 @@ function Display:draw()
 end
 
 --- @param attachable SpectrumAttachable
+--- @param attachable SpectrumAttachable
 function Display:putLevel(attachable)
-   local x, y = self.camera:decompose()
-   for ax, ay, cell in attachable:eachCell() do
-      local drawable = cell:getComponent(prism.components.Drawable)
-      self:putDrawable(ax + x, ay + y, drawable, nil, 0)
+   local camX, camY = self.camera:decompose()
+
+   for x = 1, self.width do
+      for y = 1, self.height do
+         local cell = attachable:getCell(x - camX, y - camY)
+         if cell then
+            local drawable = cell:getComponent(prism.components.Drawable)
+            self:putDrawable(x, y, drawable, nil, 0)
+         end
+      end
    end
 
    for actor, drawable in attachable:query(prism.components.Drawable):iter() do
       --- @diagnostic disable-next-line
       local ax, ay = actor.position:decompose()
-      self:putDrawable(ax + x, ay + y, drawable)
+      self:putDrawable(ax + camX, ay + camY, drawable)
    end
 end
 
