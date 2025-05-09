@@ -1,4 +1,11 @@
-.vscode/
+.*
+
+!.gitignore
+!.gitmodules
+!.luarc.json
+
+!.github/
+
 definitions/
 build/
 venv/
