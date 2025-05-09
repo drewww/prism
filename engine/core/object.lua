@@ -65,6 +65,7 @@ function Object:adopt(o)
    --- @cast self Object
    setmetatable(o, self)
    self.__index = self
+   self.__call = self.__call or Object.__call
 
    return o
 end

@@ -38,7 +38,11 @@ end
 function Entity:addComponent(component)
    assert(type(component) == "table", "Expected component got " .. type(component))
    assert(component.is and component:is(prism.Component), "Expected argument component to be of type Component, was " .. (component.className or "table"))
-   assert(component:checkRequirements(self), "Unsupported component " .. component.className .. " added to entity!")
+   local requirementsMet, missingComponent = component:checkRequirements(self)
+   if not requirementsMet then
+      ---@diagnostic disable-next-line
+      error(self.name .. " was missing requirement " .. missingComponent.className .. " for " .. component.className .. "!")
+   end
    assert(not self:hasComponent(component), "Entity already has component " .. component.className .. "!")
 
    for _, v in pairs(prism.components) do

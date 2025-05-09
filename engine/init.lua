@@ -144,38 +144,7 @@ prism.BehaviorTree.Sequence = prism.require "core.behavior_tree.btsequence"
 --- @module "engine.core.behavior_tree.btsucceeder"
 prism.BehaviorTree.Succeeder = prism.require "core.behavior_tree.btsucceeder"
 
-local dynamicRegistry = {
-   __index = function(t, key)
-      local value = rawget(t, key)
 
-      if value then
-         return value
-      else
-         local info = debug.getinfo(2, "Sl")
-         local source = info.short_src
-         local line = info.currentline
-         local debugInfo = string.format("%s:%d", source, line)
-         rawset(t, key, { empty = true, accessedFrom = debugInfo })
-         return nil
-      end
-   end,
-
-   __newindex = function(t, key, value)
-      local oldValue = rawget(t, key)
-
-      if oldValue and oldValue.empty then
-         value.empty = nil
-         value.accessedFrom = nil
-         value:adopt(oldValue)
-         oldValue._isInstance = false
-         rawset(t, key, oldValue)
-         print("setting fake component", key)
-      else
-         rawset(t, key, value)
-         print("setting real component", key)
-      end
-   end
-}
 
 --- The actor registry.
 prism.actors = {}
@@ -230,11 +199,71 @@ prism.messages.ActionMessage = prism.require "core.messages.actionmessage"
 --- @module "engine.core.messages.debugmessage"
 prism.messages.DebugMessage = prism.require "core.messages.debugmessage"
 
+--- Dynamic Registry for dealing with component and system requirements
+--- being referenced before creation.
+---
+--- If a component gets indexed before it's been created
+--- we create a temp table that will get used to fill the real index later, so
+--- it will reference the same table.
+local dynamicRegistry = {
+   __index = function(t, key)
+      local value = rawget(t, key)
+
+      if value then
+         return value
+      else
+         -- Create an extra table to load components that get indexed before
+         -- their creation so we trigger __newindex later.
+         local empties = rawget(t, "empties")
+         if not empties then
+            empties = {}
+            rawset(t, "empties", empties)
+         end
+
+         -- If we've already indexed it return the original empty.
+         if empties[key] then
+            return empties[key]
+         end
+
+         -- Collect some debug information on the file we called from in case the object never exists.
+         local info = debug.getinfo(2, "Sl")
+         local source = info.short_src
+         local line = info.currentline
+         local debugInfo = string.format("%s:%d", source, line)
+         local empty = { empty = true, accessedFrom = debugInfo }
+         rawset(empties, key, empty)
+         return empty
+      end
+   end,
+
+   __newindex = function(t, key, value)
+      local oldValue
+      local empties = rawget(t, "empties")
+
+      if empties then
+         oldValue = rawget(empties, key)
+      end
+
+      -- If we referenced an object before creation, we'll have the empty table here.
+      -- Adopt that empty table with the real class.
+      if oldValue then
+         oldValue.empty = nil
+         oldValue.accessedFrom = nil
+         prism.Object.adopt(value, oldValue)
+         oldValue._isInstance = false
+         rawset(t, key, oldValue)
+      else
+         -- If not, nothing has referenced the the object yet so we set it normally.
+         rawset(t, key, value)
+      end
+   end
+}
+
 prism._items = {
+   "components",
    "targets",
    "cells",
    "actions",
-   "components",
    --"behaviors",
    "actors",
    "messages",
@@ -275,9 +304,12 @@ local function loadItems(path, itemType, recurse, definitions)
 
          assert(strippedClassName ~= "",
             "File " .. name .. " contains type " .. itemType .. " without a valid stripped name!")
-         assert(items[strippedClassName] == nil,
+         -- Raw get to avoid messing with the dynamic registry in case of components and systems.
+         assert(rawget(items, strippedClassName) == nil,
             "File " .. name .. " contains type " .. itemType .. " with duplicate name!")
          items[strippedClassName] = item
+         -- Manually set the package to ensure it's the same table when require'd elsewhere.
+         package.loaded[fileName] = items[strippedClassName]
 
          table.insert(definitions, "--- @module " .. '"' .. fileName .. '"')
          table.insert(definitions, "prism." .. itemType .. "." .. strippedClassName .. " = nil")
@@ -307,7 +339,7 @@ function prism.loadModule(directory)
    local definitions = { "---@meta " .. string.lower(directory) }
 
    setmetatable(prism.components, dynamicRegistry)
-   setmetatable(prism.components, dynamicRegistry)
+   setmetatable(prism.systems, dynamicRegistry)
    for _, item in ipairs(prism._items) do
       loadItems(directory .. "/" .. item, item, true, definitions)
    end
