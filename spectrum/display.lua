@@ -1,256 +1,227 @@
----@class Display : Object
---- Display handles rendering the game world, including cells, actors, and perspectives.
----@field attachable SpectrumAttachable The current level being displayed.
----@field spriteAtlas SpriteAtlas The sprite atlas used for rendering graphics.
----@field camera Camera The camera used to render the display.
----@field dt number Delta time for updates.
----@field cellSize Vector2
----@field override fun(dt: integer, drawnSet: table<Actor,boolean>)|nil
----@overload fun(spriteAtlas: SpriteAtlas, cellSize: Vector2, attachable: SpectrumAttachable): Display
-local Display = prism.Object:extend("Display")
-
 ---@class SpectrumAttachable : Object, IQueryable
 ---@field getCell fun(self, x:integer, y:integer): Cell
 ---@field setCell fun(self, x:integer, y:integer, cell: Cell|nil)
 ---@field addActor fun(self, actor: Actor)
 ---@field removeActor fun(self, actor: Actor)
 ---@field inBounds fun(self, x: integer, y:integer)
+---@field getSize fun(): Vector2
 ---@field eachCell fun(self): fun(): integer, integer, Cell
 ---@field debug boolean
 
---- Initializes a new Display instance.
----@param spriteAtlas SpriteAtlas The sprite atlas for rendering.
----@param cellSize Vector2 Size of each cell in pixels.
----@param attachable SpectrumAttachable Object containing cells and actors to render.
-function Display:__new(spriteAtlas, cellSize, attachable)
-   self.cellSize = cellSize
-   self.attachable = attachable
+---@class Display : Object
+---@field width integer
+---@field height integer
+---@field cells table<number, table<number, {char: (string|integer)?, fg: Color4, bg: Color4, depth: number}>>
+---@overload fun(width: integer, heigh: integer, spriteAtlas: SpriteAtlas, cellSize: Vector2): Display
+local Display = prism.Object:extend("Display")
+
+--- Initializes the terminal display
+--- @param width integer
+--- @param height integer
+--- @param spriteAtlas SpriteAtlas
+--- @param cellSize Vector2
+function Display:__new(width, height, spriteAtlas, cellSize)
    self.spriteAtlas = spriteAtlas
-   self.camera = spectrum.Camera()
-   self.override = nil
-   self.message = nil
-   self.dt = nil
+   self.cellSize = cellSize
+   self.width = width
+   self.height = height
+
+   self.cells = {{}}
+
+   -- Initialize the grid with empty cells
+   for x = 1, self.width do
+      self.cells[x] = {}
+      for y = 1, self.height do
+         self.cells[x][y] = {
+            char = nil,
+            fg = prism.Color4(1, 1, 1, 1),
+            bg = prism.Color4(0, 0, 0, 0),
+            depth = -math.huge, -- Lowest possible depth
+         }
+      end
+   end
 end
 
---- Updates the display state.
----@param dt number Delta time for updates.
-function Display:update(dt)
-   self.dt = dt
-end
-
---- Renders the display.
 function Display:draw()
-   love.graphics.push("all")
-   self.camera:push()
-
-   for x, y, cell in self.attachable:eachCell() do
-      local drawable = cell:getComponent(prism.components.Drawable)
-      --- @cast drawable DrawableComponent
-      Display.drawDrawable(drawable, self.spriteAtlas, self.cellSize, x, y)
-   end
-
-   for actor in self.attachable:query():iter() do
-      self:drawActor(actor)
-   end
-
-   self.camera:pop()
-   love.graphics.pop()
-end
-
----@param primary Senses[] List of primary senses.
----@param secondary Senses[] List of secondary senses.
-function Display.buildSenseInfo(primary, secondary)
-   local primaryCellSet = prism.SparseGrid()
-   local secondaryCellSet = prism.SparseGrid()
-   local exploredCellSet = prism.SparseGrid()
-
-   for _, sensesComponent in pairs(primary) do
-      for x, y, _ in sensesComponent.cells:each() do
-         primaryCellSet:set(x, y, true)
-      end
-
-      for x, y, _ in sensesComponent.explored:each() do
-         exploredCellSet:set(x, y, true)
-      end
-   end
-
-   for _, sensesComponent in pairs(secondary) do
-      for x, y, _ in sensesComponent.cells:each() do
-         if not primaryCellSet:get(x, y) then
-            secondaryCellSet:set(x, y, true)
-         end
-      end
-
-      for x, y, _ in sensesComponent.explored:each() do
-         exploredCellSet:set(x, y, true)
-      end
-   end
-
-   local primaryActorSet = {}
-   local secondaryActorSet = {}
-
-   for _, sensesComponent in ipairs(primary) do
-      for actor in sensesComponent.actors:query(prism.components.Drawable):iter() do
-         primaryActorSet[actor] = true
-      end
-   end
-
-   for _, sensesComponent in ipairs(secondary) do
-      for actor in sensesComponent.actors:query():iter() do
-         if not primaryActorSet[actor] then
-            secondaryActorSet[actor] = true
-         end
-      end
-   end
-
-   return 
-      primaryCellSet, secondaryCellSet,
-      primaryActorSet, secondaryActorSet,
-      exploredCellSet
-end
-
---- Draws the perspective of primary and secondary senses.
----@param primary Senses[] List of primary senses.
----@param secondary Senses[] List of secondary senses.
-function Display:drawPerspective(primary, secondary)
-   local drawnSet = {}
-
-   love.graphics.push("all")
-   self.camera:push()
-
-   local 
-      primaryCellSet, secondaryCellSet,
-      primaryActorSet, secondaryActorSet, 
-      exploredCellsSet 
-   = Display.buildSenseInfo(primary, secondary)
-
-   self:beforeDrawCells()
-
-   for x, y, cell in self.attachable:eachCell() do
-      local alpha = 1
-      if not primaryCellSet:get(x, y) then 
-         alpha = 0.7
-         if not secondaryCellSet:get(x, y) then alpha = 0.3 end
-      end
-      if primaryCellSet:get(x, y) or secondaryCellSet:get(x, y) or exploredCellsSet:get(x, y) then
-         local drawable = cell:getComponent(prism.components.Drawable)
-         Display.drawDrawable(drawable, self.spriteAtlas, self.cellSize, x, y, nil, alpha)
-      end
-   end
-
-   self:beforeDrawActors()
-
-   if self.override then
-      local done = self.override(self.dt, drawnSet)
-      if done then self.override = nil end
-   end
-
-   for actor in self.attachable:query():iter() do
-      local alpha = 1
-      if not primaryActorSet[actor] then
-         alpha = 0.7
-         if not secondaryActorSet[actor] then alpha = 0.3 end
-      end
-
-      if primaryActorSet[actor] or secondaryActorSet[actor] then
-         self:drawActor(actor, alpha, nil, drawnSet)
-      end
-   end
-
-   self.camera:pop()
-   love.graphics.pop()
-end
-
---- Sets an override rendering function.
----@param functionFactory fun(display: Display, message: any): fun(dt: number): boolean A factory for override functions.
----@param message any Optional message to pass to the function.
-function Display:setOverride(functionFactory, message)
-   self.override = functionFactory(self, message)
-end
-
---- Draws an actor.
----@param actor Actor The actor to draw.
----@param alpha number? Optional alpha transparency.
----@param color Color4? Optional color tint.
----@param drawnSet table? Optional set to track drawn actors.
-function Display:drawActor(actor, alpha, color, drawnSet, x, y)
-   if drawnSet and drawnSet[actor] then
-      return
-   end
-
-   local drawable = actor:getComponent(prism.components.Drawable)
-   if not drawable then return end
-   ---@cast drawable Drawable
-
-   local position = actor:getPosition()
-   x, y = x or position.x, y or position.y
-   Display.drawDrawable(drawable, self.spriteAtlas, self.cellSize, x, y, color, alpha)
-
-   if drawnSet then
-      drawnSet[actor] = true
-   end
-end
-
---- Hook for custom behavior before drawing cells.
-function Display:beforeDrawCells()
-   -- override this method in your subclass!
-end
-
---- Hook for custom behavior before drawing actors.
-function Display:beforeDrawActors()
-   -- override this method in your subclass!
-end
-
---- Hook for custom behavior after drawing actors.
-function Display:afterDrawActors()
-   -- override this method in your subclass!
-end
-
---- Retrieves the quad for a drawable.
----@param spriteAtlas SpriteAtlas The sprite atlas.
----@param drawable Drawable The drawable component.
----@return love.Quad|nil -- The quad used for rendering.
-function Display.getQuad(spriteAtlas, drawable)
-   if type(drawable.index) == "number" then
-      ---@diagnostic disable-next-line
-      return spriteAtlas:getQuadByIndex(drawable.index)
-   else
-      ---@diagnostic disable-next-line
-      return spriteAtlas:getQuadByName(drawable.index)
-   end
-end
-
---- Draws a drawable object.
----@param drawable Drawable Drawable to render.
----@param spriteAtlas SpriteAtlas Sprite atlas to use.
----@param cellSize Vector2 Size of each cell.
----@param x integer X-coordinate.
----@param y integer Y-coordinate.
----@param color Color4? Optional color tint.
----@param alpha number? Optional alpha transparency.
-function Display.drawDrawable(drawable, spriteAtlas, cellSize, x, y, color, alpha)
-   alpha = alpha or 1
-   local quad = Display.getQuad(spriteAtlas, drawable)
-   color = color or drawable.color
-   local r, g, b, a = color:decompose()
-   local cSx, cSy = cellSize.x, cellSize.y
-
-   love.graphics.setColor(drawable.background:decompose())
-   love.graphics.rectangle("fill", x * cSx, y * cSy, cSx, cSy)
-
-   love.graphics.setColor(r, g, b, a * alpha)
-   love.graphics.draw(spriteAtlas.image, quad, x * cSx, y * cSy)
-   love.graphics.setColor(1, 1, 1, 1)
-end
-
---- Gets the cell under the mouse cursor.
----@return integer x The X coordinate of the cell.
----@return integer y The Y coordinate of the cell.
-function Display:getCellUnderMouse()
    local cSx, cSy = self.cellSize.x, self.cellSize.y
-   local mx, my = love.mouse.getPosition()
-   local wx, wy = self.camera:toWorldSpace(mx, my)
-   return math.floor(wx / cSx), math.floor(wy / cSy)
+
+   -- draw bgs
+   for x = 1, self.width do
+      for y = 1, self.height do
+         local cell = self.cells[x][y]
+
+         if cell.bg.a ~= 0 then
+            local dx, dy = x - 1, y - 1
+            love.graphics.setColor(cell.bg:decompose())
+            love.graphics.rectangle("fill", dx * cSx, dy * cSy, cSx, cSy)
+         end
+      end
+   end
+
+   -- Draw characters
+   for x = 1, self.width do
+      for y = 1, self.height do
+         local cell = self.cells[x][y]
+         local dx, dy = x - 1, y - 1
+         local quad = self:getQuad(cell.char)
+         
+         if quad then
+            love.graphics.setColor(cell.fg:decompose())
+            love.graphics.draw(
+               self.spriteAtlas.image,
+               quad,
+               dx * cSx,
+               dy * cSy
+            )
+         end
+      end
+   end
+end
+
+--- @param x integer
+--- @param y integer
+--- @param attachable SpectrumAttachable
+function Display:putLevel(x, y, attachable)
+   for ax, ay, cell in attachable:eachCell() do
+      local drawable = cell:getComponent(prism.components.Drawable)
+      self:putDrawable(ax + x, ay + y, drawable, nil, 0)
+   end
+
+   for actor, drawable in attachable:query(prism.components.Drawable):iter() do
+      --- @diagnostic disable-next-line
+      local ax, ay = actor.position:decompose()
+      self:putDrawable(ax + x, ay + y, drawable)
+   end
+end
+
+--- @param attachable SpectrumAttachable
+--- @param primary Senses[]
+--- @param secondary Senses[]
+function Display:putSenses(x, y, primary, secondary)
+   local tempColor = prism.Color4()
+   local drawnCells = prism.SparseGrid()
+
+   --- @param senses Senses
+   local function drawCells(cellMap, alpha)
+      for cx, cy, cell in cellMap:each() do
+         if not drawnCells:get(cx, cy) then
+            drawnCells:set(cx, cy, true)
+            --- @cast cell Cell
+            
+            local drawable = cell:expectComponent(prism.components.Drawable)
+            tempColor = drawable.color:copy(tempColor)
+            tempColor.a = tempColor.a * alpha
+            self:putDrawable(x + cx, y + cy, drawable, tempColor)
+         end
+      end
+   end
+
+   for _, senses in ipairs(primary) do
+      drawCells(senses.cells, 1)
+   end
+
+   for _, senses in ipairs(secondary) do
+      drawCells(senses.cells, 0.7)
+   end
+
+   for _, senses in ipairs(primary) do
+      drawCells(senses.explored, 0.3)
+   end
+
+   for _, senses in ipairs(secondary) do
+      drawCells(senses.explored, 0.3)
+   end
+
+   local drawnActors = {}
+
+   local function drawActors(queryable, alpha)
+      for actor, drawable in queryable:query(prism.components.Drawable):iter() do
+         --- @cast drawable Drawable
+         if not drawnActors[actor] then
+            drawnActors[actor] = true
+            tempColor = drawable.color:copy(tempColor)
+            tempColor.a = tempColor.a * alpha
+
+            local ax, ay = actor.position:decompose()
+            self:putDrawable(x + ax, y + ay, drawable, tempColor)
+         end
+      end
+   end
+
+   for _, senses in ipairs(primary) do
+      drawActors(senses, 1)
+   end
+
+   for _, senses in ipairs(secondary) do
+      drawActors(senses, 0.7)
+   end
+end
+
+--- Puts a Drawable at a position with depth checking
+--- @param x integer
+--- @param y integer
+--- @param drawable Drawable
+function Display:putDrawable(x, y, drawable, color, layer)
+   self:put(x, y, drawable.index, color or drawable.color, drawable.background, layer or drawable.layer)
+end
+
+function Display:put(x, y, char, fg, bg, layer)
+   if x < 1 or x > self.width or y < 1 or y > self.height then return end
+
+   fg = fg or prism.Color4.WHITE
+   bg = bg or prism.Color4.TRANSPARENT
+
+   local cell = self.cells[x][y]
+
+   if layer >= cell.depth then
+      cell.char = char
+      fg:copy(cell.fg)
+      bg:copy(cell.bg)
+      cell.depth = layer
+   end
+end
+
+--- @param index string|integer
+function Display:getQuad(index)
+   if type(index) == "number" then
+      return self.spriteAtlas:getQuadByIndex(index)
+   elseif type(index) == "string" then
+      return self.spriteAtlas:getQuadByName(index)
+   end
+end
+
+--- Clears the grid to a background color and resets depth
+--- @param bg? Color4 Optional background color
+function Display:clear(bg)
+   bg = bg or prism.Color4.TRANSPARENT
+
+   for x = 1, self.width do
+      for y = 1, self.height do
+         local cell = self.cells[x][y]
+         cell.char = nil
+         bg:copy(cell.bg)
+         cell.depth = -math.huge
+      end
+   end
+end
+
+function Display:fitWindowToTerminal()
+   local cellWidth, cellHeight = self.cellSize.x, self.cellSize.y
+   local windowWidth = self.width * cellWidth
+   local windowHeight = self.height * cellHeight
+   love.window.setMode(windowWidth, windowHeight, { resizable = true })
+end
+
+--- Calculates the top-left offset needed to center a position on the display
+--- @param x integer
+--- @param y integer
+--- @return integer offsetx, integer offsety  The x and y offset
+function Display:getCenterOffset(x, y)
+   local centerX = math.floor(self.width / 2)
+   local centerY = math.floor(self.height / 2)
+   local offsetX = centerX - x
+   local offsetY = centerY - y
+   return offsetX, offsetY
 end
 
 return Display

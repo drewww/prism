@@ -22,14 +22,6 @@ function LevelState:__new(level, display, actionHandlers)
    self.geometer = geometer.EditorState(self.level, self.display)
    self.time = 0
    self.actionHandlers = actionHandlers or {}
-
-   local callbackGenerator = function(callback)
-      return function(display)
-         callback(self, display)
-      end
-   end
-
-   self.display.beforeDrawCells = callbackGenerator(self.drawBeforeCells)
 end
 
 --- Determines if the coroutine should proceed to the next step.
@@ -37,10 +29,6 @@ end
 function LevelState:shouldAdvance()
    local hasDecision = self.decision ~= nil
    local decisionDone = hasDecision and self.decision:validateResponse()
-
-   if self.display.override then
-      return false
-   end
 
    return not hasDecision or decisionDone
 end
@@ -55,8 +43,6 @@ function LevelState:update(dt)
       self.decision, self.message = nil, nil
       if message then self:handleMessage(message) end
    end   
-
-   self.display:update(dt)
 end
 
 --- Handles incoming messages from the coroutine.
@@ -76,24 +62,13 @@ end
 --- Handles an action message by determining visibility and setting display overrides.
 --- @param message ActionMessage The action message to handle.
 function LevelState:handleActionMessage(message)
-   ---@cast message ActionMessage
-   local actionproto = getmetatable(message.action)
-   local seen = false
-   for _, senses, _ in self.level:query(prism.components.Senses, prism.components.PlayerController):iter() do
-      ---@cast senses Senses
-      if senses.actors:hasActor(message.action.owner) then
-         seen = true
-         break
-      end
-   end
-   if seen and self.actionHandlers[actionproto] then
-      self.display:setOverride(self.actionHandlers[actionproto], message)
-   end
    self.message = message
 end
 
 --- Draws the current state of the level, including the perspective of relevant actors.
 function LevelState:draw()
+   local startTime = love.timer.getTime() -- Start timing
+
    local curActor
    if self.decision then
       local actionDecision = self.decision
@@ -119,7 +94,21 @@ function LevelState:draw()
       secondary = {}
    end
 
-   self.display:drawPerspective(primary, secondary)
+   self.display:clear()
+   local x, y = self.display:getCenterOffset(curActor:getPosition():decompose())
+   self.display:putSenses(x, y, primary, secondary)
+   self:terminalDraw()
+   self.display:draw()
+
+   local elapsedTime = (love.timer.getTime() - startTime) * 1000 -- Convert to milliseconds
+
+   local color = prism.Color4(love.graphics.getColor())
+   love.graphics.setColor(1, 0, 0)
+   love.graphics.print(string.format("Draw time: %.2f ms", elapsedTime))
+   love.graphics.setColor(color:decompose())
+end
+
+function LevelState:terminalDraw()
 end
 
 --- This method is invoked each update when a decision exists 
