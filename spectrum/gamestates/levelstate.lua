@@ -12,8 +12,7 @@ local LevelState = spectrum.GameState:extend("LevelState")
 --- Sets up the game loop, initializes decision handlers, and binds custom callbacks for drawing.
 --- @param level Level The level object to be managed by this state.
 --- @param display Display The display object for rendering the level.
---- @param actionHandlers table<fun():fun()> A table of callback generators for handling actions.
-function LevelState:__new(level, display, actionHandlers)
+function LevelState:__new(level, display)
    self.level = level
    self.updateCoroutine = coroutine.create(level.run)
    self.decision = nil
@@ -21,7 +20,6 @@ function LevelState:__new(level, display, actionHandlers)
    self.display = display
    self.geometer = geometer.EditorState(self.level, self.display)
    self.time = 0
-   self.actionHandlers = actionHandlers or {}
 end
 
 --- Determines if the coroutine should proceed to the next step.
@@ -52,17 +50,9 @@ function LevelState:handleMessage(message)
    if message:is(prism.Decision) then
       ---@cast message Decision
       self.decision = message
-   elseif message:is(prism.messages.ActionMessage) and not self.level.debug then
-      self:handleActionMessage(message)
    elseif message:is(prism.messages.DebugMessage) then
       self.manager:push(self.geometer)
    end
-end
-
---- Handles an action message by determining visibility and setting display overrides.
---- @param message ActionMessage The action message to handle.
-function LevelState:handleActionMessage(message)
-   self.message = message
 end
 
 --- Draws the current state of the level, including the perspective of relevant actors.
@@ -95,9 +85,7 @@ function LevelState:draw()
    end
 
    self.display:clear()
-   local x, y = self.display:getCenterOffset(curActor:getPosition():decompose())
-   self.display:putSenses(x, y, primary, secondary)
-   self:terminalDraw()
+   self:_draw(curActor, primary, secondary)
    self.display:draw()
 
    local elapsedTime = (love.timer.getTime() - startTime) * 1000 -- Convert to milliseconds
@@ -106,6 +94,16 @@ function LevelState:draw()
    love.graphics.setColor(1, 0, 0)
    love.graphics.print(string.format("Draw time: %.2f ms", elapsedTime))
    love.graphics.setColor(color:decompose())
+end
+
+function LevelState:_draw()
+   error("Your custom level state should overwrite this man!")
+end
+
+function LevelState:keypressed(key, scancode) 
+   if key == "`" then
+      self.manager:push(self.geometer)
+   end
 end
 
 function LevelState:terminalDraw()
@@ -118,13 +116,6 @@ end
 --- @param actor Actor The actor responsible for making the decision.
 --- @param decision ActionDecision The decision being updated.
 function LevelState:updateDecision(dt, actor, decision)
-   -- override in subclasses
-end
-
-
---- Draws content before rendering cells. Override in subclasses for custom behavior.
---- @param display Display The display object used for drawing.
-function LevelState:drawBeforeCells(display)
    -- override in subclasses
 end
 

@@ -25,6 +25,7 @@ function Display:__new(width, height, spriteAtlas, cellSize)
    self.cellSize = cellSize
    self.width = width
    self.height = height
+   self.camera = prism.Vector2()
 
    self.cells = {{}}
 
@@ -78,10 +79,9 @@ function Display:draw()
    end
 end
 
---- @param x integer
---- @param y integer
 --- @param attachable SpectrumAttachable
-function Display:putLevel(x, y, attachable)
+function Display:putLevel(attachable)
+   local x, y = self.camera:decompose()
    for ax, ay, cell in attachable:eachCell() do
       local drawable = cell:getComponent(prism.components.Drawable)
       self:putDrawable(ax + x, ay + y, drawable, nil, 0)
@@ -94,10 +94,10 @@ function Display:putLevel(x, y, attachable)
    end
 end
 
---- @param attachable SpectrumAttachable
 --- @param primary Senses[]
 --- @param secondary Senses[]
-function Display:putSenses(x, y, primary, secondary)
+function Display:putSenses(primary, secondary)
+   local x, y = self.camera:decompose()
    local tempColor = prism.Color4()
    local drawnCells = prism.SparseGrid()
 
@@ -173,11 +173,27 @@ function Display:put(x, y, char, fg, bg, layer)
 
    local cell = self.cells[x][y]
 
-   if layer >= cell.depth then
+   if not layer or layer >= cell.depth then
       cell.char = char
       fg:copy(cell.fg)
       bg:copy(cell.bg)
       cell.depth = layer
+   end
+end
+
+--- Draws a string of characters at a grid position
+--- @param x integer Starting X grid coordinate
+--- @param y integer Y grid coordinate
+--- @param str string The string to draw
+--- @param fg? Color4 Foreground color (defaults to white)
+--- @param bg? Color4 Background color (defaults to transparent)
+--- @param layer? number Draw layer (optional)
+function Display:putString(x, y, str, fg, bg, layer)
+   fg = fg or prism.Color4.WHITE
+   bg = bg or prism.Color4.TRANSPARENT
+   for i = 1, #str do
+      local char = str:sub(i, i)
+      self:put(x + i - 1, y, char, fg, bg, layer)
    end
 end
 
@@ -222,6 +238,75 @@ function Display:getCenterOffset(x, y)
    local offsetX = centerX - x
    local offsetY = centerY - y
    return offsetX, offsetY
+end
+
+--- Draws a Drawable at pixel coordinates (not grid coordinates)
+--- @param x number Pixel X coordinate
+--- @param y number Pixel Y coordinate
+--- @param drawable Drawable
+function Display:drawDrawable(x, y, drawable)
+   local quad = self:getQuad(drawable.index)
+   if quad then
+      love.graphics.setColor(drawable.color:decompose())
+      love.graphics.draw(self.spriteAtlas.image, quad, x, y)
+   end
+end
+
+--- Returns the grid cell under the current mouse position, adjusted by optional grid offsets
+--- @return integer? x, integer? y  Grid coordinates, or nil if out of bounds
+function Display:getCellUnderMouse()
+   local x, y = self.camera:decompose()
+
+
+   local mx, my = love.mouse.getPosition()
+   local gx = math.floor(mx / self.cellSize.x) - x + 1
+   local gy = math.floor(my / self.cellSize.y) - y + 1
+
+   return gx, gy
+end
+
+function Display:setCamera(x, y)
+   self.camera:compose(x, y)
+end
+
+function Display:moveCamera(dx, dy)
+   self.camera.x = self.camera.x + dx
+   self.camera.y = self.camera.y + dy
+end
+
+function Display:putRect(x, y, w, h, char, fg, bg, layer)
+   for dx = 0, w - 1 do
+      self:put(x + dx, y, char, fg, bg, layer)
+      self:put(x + dx, y + h - 1, char, fg, bg, layer)
+   end
+   for dy = 1, h - 2 do
+      self:put(x, y + dy, char, fg, bg, layer)
+      self:put(x + w - 1, y + dy, char, fg, bg, layer)
+   end
+end
+
+function Display:putFilledRect(x, y, w, h, char, fg, bg, layer)
+   for dx = 0, w - 1 do
+      for dy = 0, h - 1 do
+         self:put(x + dx, y + dy, char, fg, bg, layer)
+      end
+   end
+end
+
+function Display:putLine(x0, y0, x1, y1, char, fg, bg, layer)
+   local dx = math.abs(x1 - x0)
+   local dy = math.abs(y1 - y0)
+   local sx = x0 < x1 and 1 or -1
+   local sy = y0 < y1 and 1 or -1
+   local err = dx - dy
+
+   while true do
+      self:put(x0, y0, char, fg, bg, layer)
+      if x0 == x1 and y0 == y1 then break end
+      local e2 = 2 * err
+      if e2 > -dy then err = err - dy; x0 = x0 + sx end
+      if e2 < dx then err = err + dx; y0 = y0 + sy end
+   end
 end
 
 return Display

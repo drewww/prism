@@ -109,4 +109,45 @@ function SpriteAtlas.fromGrid(imagePath, cellWidth, cellHeight, names)
    return SpriteAtlas(imagePath, spriteData, names)
 end
 
+--- Creates a SpriteAtlas from a grid of cells, mapping each quad to an ASCII character.
+--- The first quad is mapped to string.char(startingCode), e.g. 'A' for 65, ' ' for 32.
+--- @param imagePath string The path to the texture atlas image.
+--- @param cellWidth number The width of each cell in the grid.
+--- @param cellHeight number The height of each cell in the grid.
+--- @param startingCode number The ASCII code to start mapping from (default is 32, space).
+--- @return SpriteAtlas -- The created SpriteAtlas instance.
+function SpriteAtlas.fromASCIIGrid(imagePath, cellWidth, cellHeight)
+   startingCode = startingCode or 32 -- default to space character
+   local image = love.graphics.newImage(imagePath)
+   local imageWidth, imageHeight = image:getDimensions()
+
+   assert(imageWidth % cellWidth == 0, "Image width must be evenly divisible by cell width")
+   assert(imageHeight % cellHeight == 0, "Image height must be evenly divisible by cell height")
+
+   local spriteData = {}
+   local names = {}
+   local cols = imageWidth / cellWidth
+   local rows = imageHeight / cellHeight
+
+   local code = 0
+   local index = 1
+
+   for row = 0, rows - 1 do
+      for col = 0, cols - 1 do
+         spriteData[index] = {
+            x = col * cellWidth,
+            y = row * cellHeight,
+            width = cellWidth,
+            height = cellHeight
+         }
+         names[index] = string.char(code)
+         code = code + 1
+         index = index + 1
+      end
+   end
+
+   return SpriteAtlas(imagePath, spriteData, names)
+end
+
+
 return SpriteAtlas
