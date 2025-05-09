@@ -28,14 +28,11 @@ end
 ---Draws a cell at the given coordinates.
 ---@param display Display
 ---@param drawable Drawable
----@param x number
----@param y number
+---@param x integer
+---@param y integer
 function Tool:drawCell(display, drawable, x, y)
-   local csx, csy = display.cellSize.x, display.cellSize.y
-
-   love.graphics.setColor(love.graphics.getBackgroundColor())
-   love.graphics.rectangle("fill", x * csx, y * csy, csx, csy)
-   display.drawDrawable(drawable, display.spriteAtlas, display.cellSize, x, y, drawable.color)
+   x, y = x + display.camera.x, y + display.camera.y
+   display:putDrawable(x, y, drawable)
 end
 
 ---Handles mouse click events.
