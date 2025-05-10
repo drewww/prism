@@ -1,12 +1,13 @@
 --- An 'Action' is a command that affects a discrete change in the game state.
 --- An Action consists of an owner, a name, a list of targets, and a list of target objects.
 --- See Target for more.
+--- !doc protected-members
 --- @class Action : Object
---- @field silent boolean A silent action doesn't generate messages
+--- @field silent boolean A silent action doesn't generate messages.
 --- @field owner Actor The actor taking the action.
---- @field private targets Target[]
---- @field private targetObjects Object[]
---- @field private requiredComponents Component[]
+--- @field protected targets Target[] (static) A list of targets to apply the action to.
+--- @field protected targetObjects Object[] The objects that correspond to the targets.
+--- @field protected requiredComponents Component[] (static) Components required for an actor to take this action.
 --- @overload fun(owner: Actor, targets: Object[]): Action
 local Action = prism.Object:extend("Action")
 Action.silent = false

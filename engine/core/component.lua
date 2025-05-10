@@ -1,29 +1,32 @@
---- The `Component` class represents a component that can be attached to actors.
+--- The `Component` class represents a component that can be attached to actors or cells.
 --- Components are used to add functionality to actors. For instance, the `Moveable` component
 --- allows an actor to move around the map. Components are essentially data storage that can
 --- also grant actions.
 --- @class Component : Object
---- @field requirements string[] A list of components the actor must first have, before this can be applied. References the component class name.
---- @field owner Entity The Actor this component is composing. This is set by Actor when a component is added or removed.
+--- @field requirements Component[] (static) A list of components (prototypes) the entity must have before this one can be applied.
+--- @field owner Entity The entity this component is composing. This is set by Entity when a component is added or removed.
 --- @overload fun(): Component
 local Component = prism.Object:extend("Component")
 Component.requirements = {}
 
+--- Returns a list of components (prototypes) the entity must have before this one can be applied.
+--- Override this to provide requirements, and it will get called to populate the list.
+--- @return Component ...
+function Component:getRequirements()
+end
+
 --- Checks whether an actor has the required components to attach this component.
 --- @param entity Entity The actor to check the requirements against.
---- @return boolean meetsRequirements the actor meets all requirements, false otherwise.
+--- @return boolean meetsRequirements True if the entity meets all requirements, false otherwise.
+--- @return Component? -- The first component found missing from the entity if requirements aren't met.
 function Component:checkRequirements(entity)
-   local foundreqs = {}
-
-   for _, component in pairs(entity.components) do
-      for _, requirement in pairs(self.requirements) do
-         if component.className == requirement then table.insert(foundreqs, component) end
+   for _, component in ipairs(self.requirements) do
+      if not entity:hasComponent(component) then
+         return false, component
       end
    end
 
-   if #foundreqs == #self.requirements then return true end
-
-   return false
+   return true
 end
 
 return Component

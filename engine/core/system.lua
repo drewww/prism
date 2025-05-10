@@ -6,14 +6,25 @@
 --- the game instead. A system's methods should never be mutated at run time, the SystemManager does
 --- cacheing on the event handlers here to improve performance.
 --- @class System : Object
---- @field requirements string[] A table of requirements that must be met for the System to be attached to a Level. References the system's class name.
---- @field softRequirements string[] A table of optional requirements that ensure proper order if both Systems are attached.
+--- @field requirements System[] (static) A list of systems (prototypes) that must be on the level for the System to be attached.
+--- @field softRequirements System[] (static) A list of optional requirements that ensure proper order if both Systems are attached.
 --- @field owner Level? The level that holds this system.
 --- @overload fun(): System
 local System = prism.Object:extend("System")
-System.global = false
-System.requirements = nil
-System.softRequirements = nil
+System.requirements = {}
+System.softRequirements = {}
+
+--- Returns a list of systems (prototypes) that must be on the level for the System to be attached.
+--- Override this to provide requirements and it will get called to populate the list.
+--- @return System ...
+function System:getRequirements()
+end
+
+--- Reutnrs a list of optional requirements that ensure proper order if both Systems are attached.
+--- Override this to provide soft requirements.
+--- @return System ...
+function System:getSoftRequirements()
+end
 
 --- This method is called when the Level is initialized. It is called after all of the Systems have been attached.
 --- @param level Level The Level object this System is attached to.

@@ -28,6 +28,3 @@ spectrum.GameState = spectrum.require "gamestates.gamestate"
 
 --- @module "spectrum.gamestates.levelstate"
 spectrum.LevelState = spectrum.require "gamestates.levelstate"
-
---- @module "spectrum.components.drawable"
-prism.components.Drawable = nil

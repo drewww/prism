@@ -145,36 +145,29 @@ prism.BehaviorTree.Sequence = prism.require "core.behavior_tree.btsequence"
 prism.BehaviorTree.Succeeder = prism.require "core.behavior_tree.btsucceeder"
 
 
+
 --- The actor registry.
---- @type table<string, Actor>
 prism.actors = {}
 
 --- The actions registry.
---- @type table<string, Action>
 prism.actions = {}
 
 --- The component registry.
---- @type table<string, Component>
 prism.components = {}
 
 --- The component registry.
---- @type table<string, Cell>
 prism.cells = {}
 
 --- The target registry.
---- @type table<string, Target>
 prism.targets = {}
 
 --- The message registry.
---- @type table<string, Message>
 prism.messages = {}
 
 --- The system registry.
---- @type table<string, System>
 prism.systems = {}
 
 --- The decision registry.
---- @type table<string, Decision>
 prism.decisions = {}
 
 prism.behaviors = {}
@@ -182,7 +175,6 @@ prism.behaviors = {}
 --- @module "engine.core.systems.senses"
 prism.systems.Senses = prism.require "core.systems.senses"
 
---- @type Collider
 --- @module "engine.core.components.collider"
 prism.components.Collider = prism.require "core.components.collider"
 
@@ -208,10 +200,10 @@ prism.messages.ActionMessage = prism.require "core.messages.actionmessage"
 prism.messages.DebugMessage = prism.require "core.messages.debugmessage"
 
 prism._items = {
+   "components",
    "targets",
    "cells",
    "actions",
-   "components",
    --"behaviors",
    "actors",
    "messages",
@@ -230,7 +222,6 @@ prism._itemPatterns = {
    decisions = "[dD][eE][cC][iI][sS][iI][oO][nN]",
    behaviors = "[bB][eE][hH][aA][vV][iI][oO][rR]",
 }
-
 
 local function loadItems(path, itemType, recurse, definitions)
    local info = {}
@@ -253,6 +244,7 @@ local function loadItems(path, itemType, recurse, definitions)
 
          assert(strippedClassName ~= "",
             "File " .. name .. " contains type " .. itemType .. " without a valid stripped name!")
+         -- Raw get to avoid messing with the dynamic registry in case of components and systems.
          assert(items[strippedClassName] == nil,
             "File " .. name .. " contains type " .. itemType .. " with duplicate name!")
          items[strippedClassName] = item
@@ -286,6 +278,16 @@ function prism.loadModule(directory)
 
    for _, item in ipairs(prism._items) do
       loadItems(directory .. "/" .. item, item, true, definitions)
+   end
+
+   for _, component in pairs(prism.components) do
+      --- @cast component Component
+      component.requirements = { component:getRequirements() }
+   end
+
+   for _, system in ipairs(prism.systems) do
+      --- @cast system System
+      system.requirements = { system:getRequirements() }
    end
 
    local lastSubdir = directory:match("([^/\\]+)$")
