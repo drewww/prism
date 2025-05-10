@@ -56,8 +56,11 @@ function LevelState:handleMessage(message)
    end
 end
 
---- Draws the current state of the level, including the perspective of relevant actors.
-function LevelState:draw()
+
+--- Collects and returns all player controlled senses into a group of
+--- primary (active turn) and secondary (other player controlled actors).
+--- @return Senses[] primary, Senses[] secondary
+function LevelState:getSenses()
    local curActor
    if self.decision then
       local actionDecision = self.decision
@@ -83,13 +86,16 @@ function LevelState:draw()
       secondary = {}
    end
 
-   self.display:clear()
-   self:drawTerminal(primary, secondary)
-   self.display:draw()
+   return primary, secondary
 end
 
-function LevelState:drawTerminal(primary, secondary)
-   error("Your custom level state should overwrite this man!")
+--- Draws the current state of the level, including the perspective of relevant actors.
+function LevelState:draw()
+   self.display:clear()
+   local primary, secondary = self:getSenses()
+   -- Render the level using the actor’s senses
+   self.display:putSenses(primary, secondary)
+   self.display:draw()
 end
 
 function LevelState:keypressed(key, scancode) 
