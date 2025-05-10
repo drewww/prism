@@ -3,22 +3,20 @@
 --- See Target for more.
 --- !doc protected-members
 --- @class Action : Object
---- @field silent boolean A silent action doesn't generate messages.
 --- @field owner Actor The actor taking the action.
 --- @field protected targets Target[] (static) A list of targets to apply the action to.
 --- @field protected targetObjects Object[] The objects that correspond to the targets.
 --- @field protected requiredComponents Component[] (static) Components required for an actor to take this action.
 --- @overload fun(owner: Actor, targets: Object[]): Action
 local Action = prism.Object:extend("Action")
-Action.silent = false
 
 --- Constructor for the Action class.
 ---@param owner Actor The actor that is performing the action.
----@param targets? Object[] An optional list of target actors. Not all actions require targets.
-function Action:__new(owner, targets)
+---@param ... Object An optional list of target actors. Not all actions require targets.
+function Action:__new(owner, ...)
    self.owner = owner
    self.targets = self.targets or {}
-   self.targetObjects = targets or {}
+   self.targetObjects = {...}
 
    assert(Action.canPerform == self.canPerform, "Do not override canPerform! Override _canPerform instead!")
    assert(Action.perform == self.perform, "Do not override perform! Override _perform instead!")
