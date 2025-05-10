@@ -101,66 +101,72 @@ function Display:putLevel(attachable)
    end
 end
 
+local tempColor = prism.Color4()
+
+--- @private
+function Display:_drawCells(drawnCells, cellMap, alpha)
+   local x, y = self.camera:decompose()
+
+   for cx, cy, cell in cellMap:each() do
+      if not drawnCells:get(cx, cy) then
+         drawnCells:set(cx, cy, true)
+         --- @cast cell Cell
+         
+         local drawable = cell:expectComponent(prism.components.Drawable)
+         tempColor = drawable.color:copy(tempColor)
+         tempColor.a = tempColor.a * alpha
+         self:putDrawable(x + cx, y + cy, drawable, tempColor)
+      end
+   end
+end
+
+--- @private
+function Display:_drawActors(drawnActors, queryable, alpha)
+   local x, y = self.camera:decompose()
+
+   for actor, drawable in queryable:query(prism.components.Drawable):iter() do
+      --- @cast drawable Drawable
+      if not drawnActors[actor] then
+         drawnActors[actor] = true
+         tempColor = drawable.color:copy(tempColor)
+         tempColor.a = tempColor.a * alpha
+
+         local ax, ay = actor.position:decompose()
+         self:putDrawable(x + ax, y + ay, drawable, tempColor)
+      end
+   end
+end
+
+
 --- @param primary Senses[]
 --- @param secondary Senses[]
 function Display:putSenses(primary, secondary)
-   local x, y = self.camera:decompose()
-   local tempColor = prism.Color4()
    local drawnCells = prism.SparseGrid()
 
-   --- @param senses Senses
-   local function drawCells(cellMap, alpha)
-      for cx, cy, cell in cellMap:each() do
-         if not drawnCells:get(cx, cy) then
-            drawnCells:set(cx, cy, true)
-            --- @cast cell Cell
-            
-            local drawable = cell:expectComponent(prism.components.Drawable)
-            tempColor = drawable.color:copy(tempColor)
-            tempColor.a = tempColor.a * alpha
-            self:putDrawable(x + cx, y + cy, drawable, tempColor)
-         end
-      end
-   end
-
    for _, senses in ipairs(primary) do
-      drawCells(senses.cells, 1)
+      self:_drawCells(drawnCells, senses.cells, 1)
    end
 
    for _, senses in ipairs(secondary) do
-      drawCells(senses.cells, 0.7)
+      self:_drawCells(drawnCells, senses.cells, 0.7)
    end
 
    for _, senses in ipairs(primary) do
-      drawCells(senses.explored, 0.3)
+      self:_drawCells(drawnCells, senses.explored, 0.3)
    end
 
    for _, senses in ipairs(secondary) do
-      drawCells(senses.explored, 0.3)
+      self:_drawCells(drawnCells, senses.explored, 0.3)
    end
 
    local drawnActors = {}
 
-   local function drawActors(queryable, alpha)
-      for actor, drawable in queryable:query(prism.components.Drawable):iter() do
-         --- @cast drawable Drawable
-         if not drawnActors[actor] then
-            drawnActors[actor] = true
-            tempColor = drawable.color:copy(tempColor)
-            tempColor.a = tempColor.a * alpha
-
-            local ax, ay = actor.position:decompose()
-            self:putDrawable(x + ax, y + ay, drawable, tempColor)
-         end
-      end
-   end
-
    for _, senses in ipairs(primary) do
-      drawActors(senses, 1)
+      self:_drawActors(drawnActors, senses, 1)
    end
 
    for _, senses in ipairs(secondary) do
-      drawActors(senses, 0.7)
+      self:_drawActors(drawnActors, senses, 0.7)
    end
 end
 
