@@ -8,10 +8,11 @@
 ---@field eachCell fun(self): fun(): integer, integer, Cell
 ---@field debug boolean
 
+--- @alias DisplayCell {char: (string|integer)?, fg: Color4, bg: Color4, depth: number}
 ---@class Display : Object
 ---@field width integer
 ---@field height integer
----@field cells table<number, table<number, {char: (string|integer)?, fg: Color4, bg: Color4, depth: number}>>
+---@field cells table<number, table<number, DisplayCell>>
 ---@overload fun(width: integer, heigh: integer, spriteAtlas: SpriteAtlas, cellSize: Vector2): Display
 local Display = prism.Object:extend("Display")
 
@@ -79,7 +80,6 @@ function Display:draw()
    end
 end
 
---- @param attachable SpectrumAttachable
 --- @param attachable SpectrumAttachable
 function Display:putLevel(attachable)
    local camX, camY = self.camera:decompose()
