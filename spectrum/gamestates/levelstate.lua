@@ -13,6 +13,7 @@ local LevelState = spectrum.GameState:extend("LevelState")
 --- @param level Level The level object to be managed by this state.
 --- @param display Display The display object for rendering the level.
 function LevelState:__new(level, display)
+   assert(level and display)
    self.level = level
    self.updateCoroutine = coroutine.create(level.run)
    self.decision = nil
@@ -83,11 +84,11 @@ function LevelState:draw()
    end
 
    self.display:clear()
-   self:_draw(primary, secondary)
+   self:drawTerminal(primary, secondary)
    self.display:draw()
 end
 
-function LevelState:_draw(curActor, primary, secondary)
+function LevelState:drawTerminal(primary, secondary)
    error("Your custom level state should overwrite this man!")
 end
 
