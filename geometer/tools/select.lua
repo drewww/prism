@@ -106,17 +106,18 @@ function Select:draw(editor, display)
 
    if self.pasted then
       for x, y, cell in self.cells:each() do
-         local drawable = self:getDrawable(cell)
+         local drawable = cell:getComponent(prism.components.Drawable)
          self:drawCell(display, drawable, lx + x - 1, ly + y - 1)
       end
    end
+
 
    love.graphics.push("all")
    love.graphics.setColor(0.1725, 0.909, 0.960)
    love.graphics.rectangle(
       "line",
-      lx * display.cellSize.x,
-      ly * display.cellSize.y,
+      (lx + display.camera.x - 1) * display.cellSize.x,
+      (ly + display.camera.y - 1) * display.cellSize.y,
       (rx - lx) * display.cellSize.x + display.cellSize.x,
       (ry - ly) * display.cellSize.y + display.cellSize.y
    )
