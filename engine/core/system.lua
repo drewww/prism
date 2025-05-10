@@ -6,18 +6,16 @@
 --- the game instead. A system's methods should never be mutated at run time, the SystemManager does
 --- cacheing on the event handlers here to improve performance.
 --- @class System : Object
---- @field global boolean A system defined global can only be attached to the Game object. It will see all events from all levels.
---- @field requirements System[] A list of systems (prototypes) that must be on the level for the System to be attached.
---- @field softRequirements System[] A list of optional requirements that ensure proper order if both Systems are attached.
+--- @field requirements System[] (static) A list of systems (prototypes) that must be on the level for the System to be attached.
+--- @field softRequirements System[] (static) A list of optional requirements that ensure proper order if both Systems are attached.
 --- @field owner Level? The level that holds this system.
 --- @overload fun(): System
 local System = prism.Object:extend("System")
-System.global = false
 System.requirements = {}
 System.softRequirements = {}
 
 --- Returns a list of systems (prototypes) that must be on the level for the System to be attached.
---- Override this to provide requirements.
+--- Override this to provide requirements and it will get called to populate the list.
 --- @return System ...
 function System:getRequirements()
 end

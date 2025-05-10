@@ -3,7 +3,7 @@ prism._ISCLASS = {}
 
 --- A simple class system for Lua. This is the base class for all other classes in PRISM.
 ---@class Object
----@field className string A unique name for this class. By convention this should match the annotation name you use.
+---@field className string (static) A unique name for this class. By convention this should match the annotation name you use.
 ---@field name string An optional display name. Defaults to the className.
 ---@field private stripName boolean
 ---@field private _isInstance boolean

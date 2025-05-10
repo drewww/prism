@@ -3,14 +3,14 @@
 --- allows an actor to move around the map. Components are essentially data storage that can
 --- also grant actions.
 --- @class Component : Object
---- @field requirements Component[] A list of components (prototypes) the entity must have before this one can be applied.
+--- @field requirements Component[] (static) A list of components (prototypes) the entity must have before this one can be applied.
 --- @field owner Entity The entity this component is composing. This is set by Entity when a component is added or removed.
 --- @overload fun(): Component
 local Component = prism.Object:extend("Component")
 Component.requirements = {}
 
 --- Returns a list of components (prototypes) the entity must have before this one can be applied.
---- Override this to provide requirements.
+--- Override this to provide requirements, and it will get called to populate the list.
 --- @return Component ...
 function Component:getRequirements()
 end

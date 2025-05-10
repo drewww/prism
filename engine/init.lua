@@ -281,10 +281,12 @@ function prism.loadModule(directory)
    end
 
    for _, component in pairs(prism.components) do
+      --- @cast component Component
       component.requirements = { component:getRequirements() }
    end
 
    for _, system in ipairs(prism.systems) do
+      --- @cast system System
       system.requirements = { system:getRequirements() }
    end
 

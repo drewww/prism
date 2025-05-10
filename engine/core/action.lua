@@ -5,9 +5,9 @@
 --- @class Action : Object
 --- @field silent boolean A silent action doesn't generate messages.
 --- @field owner Actor The actor taking the action.
---- @field protected targets Target[] A list of targets to apply the action to.
+--- @field protected targets Target[] (static) A list of targets to apply the action to.
 --- @field protected targetObjects Object[] The objects that correspond to the targets.
---- @field protected requiredComponents Component[] Components required for an actor to take this action.
+--- @field protected requiredComponents Component[] (static) Components required for an actor to take this action.
 --- @overload fun(owner: Actor, targets: Object[]): Action
 local Action = prism.Object:extend("Action")
 Action.silent = false
