@@ -63,6 +63,7 @@ local function EditorRoot(self, scene)
    playButton.props.pressedQuad = atlas:getQuadByIndex(4)
    playButton.props.onRelease = function()
       self.props.quit = true
+      love.mouse.setCursor()
    end
 
    local debugButton = Button(scene)

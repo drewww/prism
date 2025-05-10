@@ -33,7 +33,7 @@ local function Tile(self, scene)
    return function(_, x, y, w, h)
       local drawable = self.props.placeable:getComponent(prism.components.Drawable)
       local color = drawable.color or prism.Color4.WHITE
-      local quad = spectrum.Display.getQuad(self.props.display.spriteAtlas, drawable)
+      local quad = self.props.display:getQuad(drawable.index)
 
       love.graphics.push("all")
       love.graphics.setCanvas(self.props.overlay)

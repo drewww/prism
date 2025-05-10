@@ -113,7 +113,7 @@ local function SelectionPanel(self, scene)
 
       local drawable = self.props.selected:getComponent(prism.components.Drawable)
       local color = drawable.color or prism.Color4.WHITE
-      local quad = spectrum.Display.getQuad(self.props.display.spriteAtlas, drawable)
+      local quad = self.props.display:getQuad(drawable.index)
       local scale = prism.Vector2(
          self.props.size.x / self.props.display.cellSize.x,
          self.props.size.y / self.props.display.cellSize.y

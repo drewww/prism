@@ -78,7 +78,6 @@ end
 ---@param attachable SpectrumAttachable
 function Editor:setAttachable(attachable)
    self.attachable = attachable
-   self.display.attachable = attachable
    self.editorRoot.props.attachable = attachable
    self.editorRoot.props.display = self.display
 end
@@ -129,6 +128,7 @@ end
 
 function Editor:mousereleased(x, y, button)
    if button == 1 then pointer:raise("release") end
+   if button == 2 then pointer:raise("releasedrag") end
 end
 
 function Editor:mousepressed(x, y, button)

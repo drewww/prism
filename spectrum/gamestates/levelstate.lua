@@ -12,8 +12,8 @@ local LevelState = spectrum.GameState:extend("LevelState")
 --- Sets up the game loop, initializes decision handlers, and binds custom callbacks for drawing.
 --- @param level Level The level object to be managed by this state.
 --- @param display Display The display object for rendering the level.
---- @param actionHandlers table<fun():fun()> A table of callback generators for handling actions.
-function LevelState:__new(level, display, actionHandlers)
+function LevelState:__new(level, display)
+   assert(level and display)
    self.level = level
    self.updateCoroutine = coroutine.create(level.run)
    self.decision = nil
@@ -21,15 +21,6 @@ function LevelState:__new(level, display, actionHandlers)
    self.display = display
    self.geometer = geometer.EditorState(self.level, self.display)
    self.time = 0
-   self.actionHandlers = actionHandlers or {}
-
-   local callbackGenerator = function(callback)
-      return function(display)
-         callback(self, display)
-      end
-   end
-
-   self.display.beforeDrawCells = callbackGenerator(self.drawBeforeCells)
 end
 
 --- Determines if the coroutine should proceed to the next step.
@@ -37,10 +28,6 @@ end
 function LevelState:shouldAdvance()
    local hasDecision = self.decision ~= nil
    local decisionDone = hasDecision and self.decision:validateResponse()
-
-   if self.display.override then
-      return false
-   end
 
    return not hasDecision or decisionDone
 end
@@ -55,8 +42,6 @@ function LevelState:update(dt)
       self.decision, self.message = nil, nil
       if message then self:handleMessage(message) end
    end   
-
-   self.display:update(dt)
 end
 
 --- Handles incoming messages from the coroutine.
@@ -66,34 +51,16 @@ function LevelState:handleMessage(message)
    if message:is(prism.Decision) then
       ---@cast message Decision
       self.decision = message
-   elseif message:is(prism.messages.ActionMessage) and not self.level.debug then
-      self:handleActionMessage(message)
    elseif message:is(prism.messages.DebugMessage) then
       self.manager:push(self.geometer)
    end
 end
 
---- Handles an action message by determining visibility and setting display overrides.
---- @param message ActionMessage The action message to handle.
-function LevelState:handleActionMessage(message)
-   ---@cast message ActionMessage
-   local actionproto = getmetatable(message.action)
-   local seen = false
-   for _, senses, _ in self.level:query(prism.components.Senses, prism.components.PlayerController):iter() do
-      ---@cast senses Senses
-      if senses.actors:hasActor(message.action.owner) then
-         seen = true
-         break
-      end
-   end
-   if seen and self.actionHandlers[actionproto] then
-      self.display:setOverride(self.actionHandlers[actionproto], message)
-   end
-   self.message = message
-end
 
---- Draws the current state of the level, including the perspective of relevant actors.
-function LevelState:draw()
+--- Collects and returns all player controlled senses into a group of
+--- primary (active turn) and secondary (other player controlled actors).
+--- @return Senses[] primary, Senses[] secondary
+function LevelState:getSenses()
    local curActor
    if self.decision then
       local actionDecision = self.decision
@@ -119,7 +86,22 @@ function LevelState:draw()
       secondary = {}
    end
 
-   self.display:drawPerspective(primary, secondary)
+   return primary, secondary
+end
+
+--- Draws the current state of the level, including the perspective of relevant actors.
+function LevelState:draw()
+   self.display:clear()
+   local primary, secondary = self:getSenses()
+   -- Render the level using the actor’s senses
+   self.display:putSenses(primary, secondary)
+   self.display:draw()
+end
+
+function LevelState:keypressed(key, scancode) 
+   if key == "`" then
+      self.manager:push(self.geometer)
+   end
 end
 
 --- This method is invoked each update when a decision exists 
@@ -129,13 +111,6 @@ end
 --- @param actor Actor The actor responsible for making the decision.
 --- @param decision ActionDecision The decision being updated.
 function LevelState:updateDecision(dt, actor, decision)
-   -- override in subclasses
-end
-
-
---- Draws content before rendering cells. Override in subclasses for custom behavior.
---- @param display Display The display object used for drawing.
-function LevelState:drawBeforeCells(display)
    -- override in subclasses
 end
 

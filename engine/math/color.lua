@@ -1,8 +1,8 @@
 ---@class Color4 : Object
----@field private r number The red component (0-1).
----@field private g number The green component (0-1).
----@field private b number The blue component (0-1).
----@field private a number The alpha component (0-1).
+---@field r number The red component (0-1).
+---@field g number The green component (0-1).
+---@field b number The blue component (0-1).
+---@field a number The alpha component (0-1).
 ---@overload fun(r?: number, g?: number, b?: number, a?: number): Color4
 local Color4 = prism.Object:extend("Color4")
 
@@ -32,9 +32,12 @@ function Color4.fromHex(hex)
 end
 
 --- Returns a copy of the color.
----@return Color4 A copy of the color.
-function Color4:copy()
-   return Color4(self.r, self.g, self.b, self.a)
+--- @param out Color4?
+--- @return Color4 out A copy of the color.
+function Color4:copy(out)
+   local out = out or Color4()
+   out:compose(self.r, self.g, self.b, self.a)
+   return out
 end
 
 --- Linearly interpolates between two colors.
@@ -97,6 +100,10 @@ end
 ---@return number r, number g, number b, number a The components of the color.
 function Color4:decompose()
    return self.r, self.g, self.b, self.a
+end
+
+function Color4:compose(r, g, b, a)
+   self.r, self.g, self.b, self.a = r, g, b, a
 end
 
 --- Clamps the components of the color between 0 and 1.
