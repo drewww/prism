@@ -50,18 +50,6 @@
 An Action consists of an owner, a name, a list of targets, and a list of target objects.
 See Target for more.</p>
 <dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Action.time">
-<span class="sig-name descname"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code><a class="headerlink" href="#lua-Action.time" title="Link to this definition">¶</a></dt>
-<dd><p>The time it takes to perform this action. Lower is better.</p>
-</dd></dl>
-
-<dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Action.silent">
-<span class="sig-name descname"><span class="pre">silent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code><a class="headerlink" href="#lua-Action.silent" title="Link to this definition">¶</a></dt>
-<dd><p>A silent action doesn’t generate messages</p>
-</dd></dl>
-
-<dl class="lua data">
 <dt class="sig sig-object lua" id="lua-Action.owner">
 <span class="sig-name descname"><span class="pre">owner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a><a class="headerlink" href="#lua-Action.owner" title="Link to this definition">¶</a></dt>
 <dd><p>The actor taking the action.</p>
@@ -69,28 +57,31 @@ See Target for more.</p>
 
 <dl class="lua data">
 <dt class="sig sig-object lua" id="lua-Action.targets">
-<span class="sig-name descname"><span class="pre">targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="target.html#lua-Target" title="Target"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Target</span></code></a><span class="p"><span class="pre">[]</span></span><a class="headerlink" href="#lua-Action.targets" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="k"><span class="pre">protected</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="target.html#lua-Target" title="Target"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Target</span></code></a><span class="p"><span class="pre">[]</span></span><a class="headerlink" href="#lua-Action.targets" title="Link to this definition">¶</a></dt>
+<dd><p>(static) A list of targets to apply the action to.</p>
+</dd></dl>
 
 <dl class="lua data">
 <dt class="sig sig-object lua" id="lua-Action.targetObjects">
-<span class="sig-name descname"><span class="pre">targetObjects</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><span class="p"><span class="pre">[]</span></span><a class="headerlink" href="#lua-Action.targetObjects" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="k"><span class="pre">protected</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">targetObjects</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><span class="p"><span class="pre">[]</span></span><a class="headerlink" href="#lua-Action.targetObjects" title="Link to this definition">¶</a></dt>
+<dd><p>The objects that correspond to the targets.</p>
+</dd></dl>
 
 <dl class="lua data">
 <dt class="sig sig-object lua" id="lua-Action.requiredComponents">
-<span class="sig-name descname"><span class="pre">requiredComponents</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a><span class="p"><span class="pre">[]</span></span><a class="headerlink" href="#lua-Action.requiredComponents" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="k"><span class="pre">protected</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">requiredComponents</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a><span class="p"><span class="pre">[]</span></span><a class="headerlink" href="#lua-Action.requiredComponents" title="Link to this definition">¶</a></dt>
+<dd><p>(static) Components required for an actor to take this action.</p>
+</dd></dl>
 
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Action.__new">
-<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">targets?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><span class="p"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Action.__new" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">...</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Action.__new" title="Link to this definition">¶</a></dt>
 <dd><p>Constructor for the Action class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>owner</strong> (<a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a>) – The actor that is performing the action.</p></li>
-<li><p><strong>targets?</strong> (<a class="reference internal" href="object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><span class="p">[]</span>) – An optional list of target actors. Not all actions require targets.</p></li>
+<li><p><strong>...</strong> (<a class="reference internal" href="object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a>) – An optional list of target actors. Not all actions require targets.</p></li>
 </ul>
 </dd>
 </dl>
@@ -107,15 +98,6 @@ unpacks the target objects.</p>
 </dd></dl>
 
 <dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Action._canPerform">
-<span class="sig-name descname"><span class="pre">_canPerform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="level.html#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">...</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">unknown</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">canPerform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></span></span><a class="headerlink" href="#lua-Action._canPerform" title="Link to this definition">¶</a></dt>
-<dd><p>This method should be overriden by subclasses. This is called to make
-sure an action is valid for the actor. This would be useful for</p>
-<dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Action.hasRequisiteComponents">
 <span class="sig-name descname"><span class="pre">hasRequisiteComponents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">hasRequisiteComponents</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></span></span><a class="headerlink" href="#lua-Action.hasRequisiteComponents" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -126,17 +108,6 @@ sure an action is valid for the actor. This would be useful for</p>
 <dt class="sig sig-object lua" id="lua-Action.perform">
 <span class="sig-name descname"><span class="pre">perform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Action.perform" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Action._perform">
-<span class="sig-name descname"><span class="pre">_perform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="level.html#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">...</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">unknown</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Action._perform" title="Link to this definition">¶</a></dt>
-<dd><p>Performs the action. This should be overriden on all subclasses</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>level</strong> (<a class="reference internal" href="level.html#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a>) – The level the action is being performed in.</p>
-</dd>
 </dl>
 </dd></dl>
 
@@ -277,18 +248,14 @@ sure an action is valid for the actor. This would be useful for</p>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#lua-systems"><code class="docutils literal notranslate"><span class="pre">systems</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#lua-decisions"><code class="docutils literal notranslate"><span class="pre">decisions</span></code></a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Action</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Action.time"><code class="docutils literal notranslate"><span class="pre">time</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Action.silent"><code class="docutils literal notranslate"><span class="pre">silent</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Action.owner"><code class="docutils literal notranslate"><span class="pre">owner</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Action.targets"><code class="docutils literal notranslate"><span class="pre">targets</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Action.targetObjects"><code class="docutils literal notranslate"><span class="pre">targetObjects</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Action.requiredComponents"><code class="docutils literal notranslate"><span class="pre">requiredComponents</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Action.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Action.canPerform"><code class="docutils literal notranslate"><span class="pre">canPerform()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Action._canPerform"><code class="docutils literal notranslate"><span class="pre">_canPerform()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Action.hasRequisiteComponents"><code class="docutils literal notranslate"><span class="pre">hasRequisiteComponents()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Action.perform"><code class="docutils literal notranslate"><span class="pre">perform()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Action._perform"><code class="docutils literal notranslate"><span class="pre">_perform()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Action.getTarget"><code class="docutils literal notranslate"><span class="pre">getTarget()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Action.getNumTargets"><code class="docutils literal notranslate"><span class="pre">getNumTargets()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Action.getTargetObject"><code class="docutils literal notranslate"><span class="pre">getTargetObject()</span></code></a></li>

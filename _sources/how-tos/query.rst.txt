@@ -60,6 +60,18 @@ To gather results into a list, use :lua:func:`Query.gather`:
         -- Do something with them
     end
 
+Getting a Single Result
+-----------------------
+
+Use ``Query:first()`` to get the first match:
+
+.. code:: lua
+
+    local actor, playerController = level:query(prism.components.PlayerController):first()
+
+Good for singleton components like if your game has only one actor with a PlayerController.
+First calls iter behind the scenes and discards the iterator after the first result.
+
 
 Putting It Together
 -----------------

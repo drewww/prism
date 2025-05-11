@@ -173,6 +173,25 @@
 </dl>
 </dd></dl>
 
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="lua-SpriteAtlas.fromASCIIGrid">
+<em class="property"><span class="k"><span class="pre">staticmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fromASCIIGrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imagePath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">cellWidth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">cellHeight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a></span></span><a class="headerlink" href="#lua-SpriteAtlas.fromASCIIGrid" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a SpriteAtlas from a grid of cells, mapping each quad to an ASCII character.
+The first quad is mapped to string.char(startingCode), e.g. ‘A’ for 65, ‘ ‘ for 32.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>imagePath</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – The path to the texture atlas image.</p></li>
+<li><p><strong>cellWidth</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The width of each cell in the grid.</p></li>
+<li><p><strong>cellHeight</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The height of each cell in the grid.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>_1</strong> (<a class="reference internal" href="#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a>) – The created SpriteAtlas instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 
@@ -234,8 +253,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../prism/index.html">Prism</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Spectrum</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="camera.html"><code class="docutils literal notranslate"><span class="pre">Camera</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="display.html"><code class="docutils literal notranslate"><span class="pre">Display</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="display.html#lua-SpectrumAttachable"><code class="docutils literal notranslate"><span class="pre">SpectrumAttachable</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="display.html"><code class="docutils literal notranslate"><span class="pre">SpectrumAttachable</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="display.html#lua-Display"><code class="docutils literal notranslate"><span class="pre">Display</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="keybindings.html"><code class="docutils literal notranslate"><span class="pre">Keybinding</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="sensestracker.html"><code class="docutils literal notranslate"><span class="pre">SensesTracker</span></code></a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a><ul>
@@ -249,6 +268,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#lua-SpriteAtlas.drawByIndex"><code class="docutils literal notranslate"><span class="pre">drawByIndex()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-SpriteAtlas.fromAtlased"><code class="docutils literal notranslate"><span class="pre">fromAtlased()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-SpriteAtlas.fromGrid"><code class="docutils literal notranslate"><span class="pre">fromGrid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-SpriteAtlas.fromASCIIGrid"><code class="docutils literal notranslate"><span class="pre">fromASCIIGrid()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="components/drawable.html"><code class="docutils literal notranslate"><span class="pre">Drawable</span></code></a></li>

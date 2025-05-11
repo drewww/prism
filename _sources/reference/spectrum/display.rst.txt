@@ -1,12 +1,12 @@
-.. title:: Display
-.. lua:autoobject:: Display
+.. title:: SpectrumAttachable
+.. lua:autoobject:: SpectrumAttachable
    :members:
    :special-members: __new
    :undoc-members:
    :inherited-members: __new
 
-.. title:: SpectrumAttachable
-.. lua:autoobject:: SpectrumAttachable
+.. title:: Display
+.. lua:autoobject:: Display
    :members:
    :special-members: __new
    :undoc-members:

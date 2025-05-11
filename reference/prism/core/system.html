@@ -62,21 +62,15 @@ cacheing on the event handlers here to improve performance.</p>
 </dd></dl>
 
 <dl class="lua data">
-<dt class="sig sig-object lua" id="lua-System.global">
-<span class="sig-name descname"><span class="pre">global</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code><a class="headerlink" href="#lua-System.global" title="Link to this definition">¶</a></dt>
-<dd><p>A system defined global can only be attached to the Game object. It will see all events from all levels.</p>
-</dd></dl>
-
-<dl class="lua data">
 <dt class="sig sig-object lua" id="lua-System.requirements">
-<span class="sig-name descname"><span class="pre">requirements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><span class="p"><span class="pre">[]</span></span><a class="headerlink" href="#lua-System.requirements" title="Link to this definition">¶</a></dt>
-<dd><p>A table of requirements that must be met for the System to be attached to a Level. References the system’s class name.</p>
+<span class="sig-name descname"><span class="pre">requirements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-System" title="System"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">System</span></code></a><span class="p"><span class="pre">[]</span></span><a class="headerlink" href="#lua-System.requirements" title="Link to this definition">¶</a></dt>
+<dd><p>(static) A list of systems (prototypes) that must be on the level for the System to be attached.</p>
 </dd></dl>
 
 <dl class="lua data">
 <dt class="sig sig-object lua" id="lua-System.softRequirements">
-<span class="sig-name descname"><span class="pre">softRequirements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><span class="p"><span class="pre">[]</span></span><a class="headerlink" href="#lua-System.softRequirements" title="Link to this definition">¶</a></dt>
-<dd><p>A table of optional requirements that ensure proper order if both Systems are attached.</p>
+<span class="sig-name descname"><span class="pre">softRequirements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-System" title="System"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">System</span></code></a><span class="p"><span class="pre">[]</span></span><a class="headerlink" href="#lua-System.softRequirements" title="Link to this definition">¶</a></dt>
+<dd><p>(static) A list of optional requirements that ensure proper order if both Systems are attached.</p>
 </dd></dl>
 
 <dl class="lua data">
@@ -85,16 +79,22 @@ cacheing on the event handlers here to improve performance.</p>
 <dd><p>The level that holds this system.</p>
 </dd></dl>
 
-<dl class="lua data">
-<dt class="sig sig-object lua" id="lua-System.beforeActions">
-<span class="sig-name descname"><span class="pre">beforeActions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="action.html#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">fun</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="level.html#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="action.html#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a><span class="p"><span class="pre">)&gt;</span></span><a class="headerlink" href="#lua-System.beforeActions" title="Link to this definition">¶</a></dt>
-<dd><p>A table mapping specific actions to event hooks.</p>
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-System.getRequirements">
+<span class="sig-name descname"><span class="pre">getRequirements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-System" title="System"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">System</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">...</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-System" title="System"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">System</span></code></a></span></span><a class="headerlink" href="#lua-System.getRequirements" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a list of systems (prototypes) that must be on the level for the System to be attached.
+Override this to provide requirements and it will get called to populate the list.</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
-<dl class="lua data">
-<dt class="sig sig-object lua" id="lua-System.afterActions">
-<span class="sig-name descname"><span class="pre">afterActions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="action.html#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">fun</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="level.html#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="action.html#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a><span class="p"><span class="pre">)&gt;</span></span><a class="headerlink" href="#lua-System.afterActions" title="Link to this definition">¶</a></dt>
-<dd><p>A table mapping specific actions to event hooks.</p>
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-System.getSoftRequirements">
+<span class="sig-name descname"><span class="pre">getSoftRequirements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-System" title="System"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">System</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">...</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-System" title="System"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">System</span></code></a></span></span><a class="headerlink" href="#lua-System.getSoftRequirements" title="Link to this definition">¶</a></dt>
+<dd><p>Reutnrs a list of optional requirements that ensure proper order if both Systems are attached.
+Override this to provide soft requirements.</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 <dl class="lua method">
@@ -365,12 +365,11 @@ input controlled actors in the Sight system.</p>
 <li class="toctree-l2"><a class="reference internal" href="rng.html"><code class="docutils literal notranslate"><span class="pre">RNG</span></code></a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">System</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#lua-System.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-System.global"><code class="docutils literal notranslate"><span class="pre">global</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-System.requirements"><code class="docutils literal notranslate"><span class="pre">requirements</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-System.softRequirements"><code class="docutils literal notranslate"><span class="pre">softRequirements</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-System.owner"><code class="docutils literal notranslate"><span class="pre">owner</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-System.beforeActions"><code class="docutils literal notranslate"><span class="pre">beforeActions</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-System.afterActions"><code class="docutils literal notranslate"><span class="pre">afterActions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-System.getRequirements"><code class="docutils literal notranslate"><span class="pre">getRequirements()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-System.getSoftRequirements"><code class="docutils literal notranslate"><span class="pre">getSoftRequirements()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-System.initialize"><code class="docutils literal notranslate"><span class="pre">initialize()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-System.postInitialize"><code class="docutils literal notranslate"><span class="pre">postInitialize()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-System.beforeAction"><code class="docutils literal notranslate"><span class="pre">beforeAction()</span></code></a></li>

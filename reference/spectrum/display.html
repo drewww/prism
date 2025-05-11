@@ -7,7 +7,7 @@
 <template id="tmpl_gotoTop"><div id="gotoTop">
   <button>Back to top</button>
 </div></template>
-    <title>SpectrumAttachable &#8212; Prism  documentation</title>
+    <title>Display &#8212; Prism  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=266695fe" />
     <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
@@ -44,215 +44,6 @@
           <div class="body" role="main">
             
   <dl class="lua class">
-<dt class="sig sig-object lua" id="lua-Display">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Display</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/core/object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><a class="headerlink" href="#lua-Display" title="Link to this definition">¶</a></dt>
-<dd><dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Display.attachable">
-<span class="sig-name descname"><span class="pre">attachable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SpectrumAttachable" title="SpectrumAttachable"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpectrumAttachable</span></code></a><a class="headerlink" href="#lua-Display.attachable" title="Link to this definition">¶</a></dt>
-<dd><p>The current level being displayed.</p>
-</dd></dl>
-
-<dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Display.spriteAtlas">
-<span class="sig-name descname"><span class="pre">spriteAtlas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="spriteatlas.html#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a><a class="headerlink" href="#lua-Display.spriteAtlas" title="Link to this definition">¶</a></dt>
-<dd><p>The sprite atlas used for rendering graphics.</p>
-</dd></dl>
-
-<dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Display.camera">
-<span class="sig-name descname"><span class="pre">camera</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="camera.html#lua-Camera" title="Camera"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Camera</span></code></a><a class="headerlink" href="#lua-Display.camera" title="Link to this definition">¶</a></dt>
-<dd><p>The camera used to render the display.</p>
-</dd></dl>
-
-<dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Display.dt">
-<span class="sig-name descname"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code><a class="headerlink" href="#lua-Display.dt" title="Link to this definition">¶</a></dt>
-<dd><p>Delta time for updates.</p>
-</dd></dl>
-
-<dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Display.cellSize">
-<span class="sig-name descname"><span class="pre">cellSize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/math/vector.html#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a><a class="headerlink" href="#lua-Display.cellSize" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Display.override">
-<span class="sig-name descname"><span class="pre">override</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">fun</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">drawnSet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../prism/core/actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code><span class="p"><span class="pre">&gt;)</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">nil</span></code><a class="headerlink" href="#lua-Display.override" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Display.__new">
-<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">spriteAtlas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="spriteatlas.html#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">cellSize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/math/vector.html#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">attachable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SpectrumAttachable" title="SpectrumAttachable"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpectrumAttachable</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.__new" title="Link to this definition">¶</a></dt>
-<dd><p>Initializes a new Display instance.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>spriteAtlas</strong> (<a class="reference internal" href="spriteatlas.html#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a>) – The sprite atlas for rendering.</p></li>
-<li><p><strong>cellSize</strong> (<a class="reference internal" href="../prism/math/vector.html#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a>) – Size of each cell in pixels.</p></li>
-<li><p><strong>attachable</strong> (<a class="reference internal" href="#lua-SpectrumAttachable" title="SpectrumAttachable"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpectrumAttachable</span></code></a>) – Object containing cells and actors to render.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Display.message">
-<span class="sig-name descname"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">unknown</span></code><a class="headerlink" href="#lua-Display.message" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Display.update">
-<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.update" title="Link to this definition">¶</a></dt>
-<dd><p>Updates the display state.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>dt</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – Delta time for updates.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Display.draw">
-<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.draw" title="Link to this definition">¶</a></dt>
-<dd><p>Renders the display.</p>
-<dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="lua staticmethod">
-<dt class="sig sig-object lua" id="lua-Display.buildSenseInfo">
-<em class="property"><span class="k"><span class="pre">staticmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">buildSenseInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">primary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/core/components/senses.html#lua-Senses" title="Senses"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Senses</span></code></a><span class="p"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secondary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/core/components/senses.html#lua-Senses" title="Senses"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Senses</span></code></a><span class="p"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseGrid</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseGrid</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseGrid</span></code></span></span><a class="headerlink" href="#lua-Display.buildSenseInfo" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>primary</strong> (<a class="reference internal" href="../prism/core/components/senses.html#lua-Senses" title="Senses"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Senses</span></code></a><span class="p">[]</span>) – List of primary senses.</p></li>
-<li><p><strong>secondary</strong> (<a class="reference internal" href="../prism/core/components/senses.html#lua-Senses" title="Senses"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Senses</span></code></a><span class="p">[]</span>) – List of secondary senses.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Display.drawPerspective">
-<span class="sig-name descname"><span class="pre">drawPerspective</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">primary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/core/components/senses.html#lua-Senses" title="Senses"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Senses</span></code></a><span class="p"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secondary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/core/components/senses.html#lua-Senses" title="Senses"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Senses</span></code></a><span class="p"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.drawPerspective" title="Link to this definition">¶</a></dt>
-<dd><p>Draws the perspective of primary and secondary senses.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>primary</strong> (<a class="reference internal" href="../prism/core/components/senses.html#lua-Senses" title="Senses"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Senses</span></code></a><span class="p">[]</span>) – List of primary senses.</p></li>
-<li><p><strong>secondary</strong> (<a class="reference internal" href="../prism/core/components/senses.html#lua-Senses" title="Senses"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Senses</span></code></a><span class="p">[]</span>) – List of secondary senses.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Display.setOverride">
-<span class="sig-name descname"><span class="pre">setOverride</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">functionFactory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">fun</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">display</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">fun</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.setOverride" title="Link to this definition">¶</a></dt>
-<dd><p>Sets an override rendering function.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>functionFactory</strong> (<span class="k">fun</span><span class="p">(</span><span class="n">display</span><span class="p">:</span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p">:</span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code><span class="p">)</span><span class="p">:</span><span class="w"> </span><span class="k">fun</span><span class="p">(</span><span class="n">dt</span><span class="p">:</span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code><span class="p">)</span><span class="p">:</span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code>) – A factory for override functions.</p></li>
-<li><p><strong>message</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code>) – Optional message to pass to the function.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Display.drawActor">
-<span class="sig-name descname"><span class="pre">drawActor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/core/actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">alpha?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">color?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/math/color.html#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">drawnSet?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.drawActor" title="Link to this definition">¶</a></dt>
-<dd><p>Draws an actor.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>actor</strong> (<a class="reference internal" href="../prism/core/actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a>) – The actor to draw.</p></li>
-<li><p><strong>alpha?</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – Optional alpha transparency.</p></li>
-<li><p><strong>color?</strong> (<a class="reference internal" href="../prism/math/color.html#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a>) – Optional color tint.</p></li>
-<li><p><strong>drawnSet?</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code>) – Optional set to track drawn actors.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Display.beforeDrawCells">
-<span class="sig-name descname"><span class="pre">beforeDrawCells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.beforeDrawCells" title="Link to this definition">¶</a></dt>
-<dd><p>Hook for custom behavior before drawing cells.</p>
-<dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Display.beforeDrawActors">
-<span class="sig-name descname"><span class="pre">beforeDrawActors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.beforeDrawActors" title="Link to this definition">¶</a></dt>
-<dd><p>Hook for custom behavior before drawing actors.</p>
-<dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Display.afterDrawActors">
-<span class="sig-name descname"><span class="pre">afterDrawActors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.afterDrawActors" title="Link to this definition">¶</a></dt>
-<dd><p>Hook for custom behavior after drawing actors.</p>
-<dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="lua staticmethod">
-<dt class="sig sig-object lua" id="lua-Display.getQuad">
-<em class="property"><span class="k"><span class="pre">staticmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getQuad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spriteAtlas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="spriteatlas.html#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">drawable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="components/drawable.html#lua-Drawable" title="Drawable"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Drawable</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">love.graphics.Quad</span></code><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">nil</span></code></span></span><a class="headerlink" href="#lua-Display.getQuad" title="Link to this definition">¶</a></dt>
-<dd><p>Retrieves the quad for a drawable.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>spriteAtlas</strong> (<a class="reference internal" href="spriteatlas.html#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a>) – The sprite atlas.</p></li>
-<li><p><strong>drawable</strong> (<a class="reference internal" href="components/drawable.html#lua-Drawable" title="Drawable"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Drawable</span></code></a>) – The drawable component.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>_1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">love.graphics.Quad</span></code><span class="w"> </span><span class="p">|</span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">nil</span></code>) – The quad used for rendering.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="lua staticmethod">
-<dt class="sig sig-object lua" id="lua-Display.drawDrawable">
-<em class="property"><span class="k"><span class="pre">staticmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">drawDrawable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">drawable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="components/drawable.html#lua-Drawable" title="Drawable"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Drawable</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">spriteAtlas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="spriteatlas.html#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">cellSize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/math/vector.html#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">color?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/math/color.html#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">alpha?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.drawDrawable" title="Link to this definition">¶</a></dt>
-<dd><p>Draws a drawable object.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>drawable</strong> (<a class="reference internal" href="components/drawable.html#lua-Drawable" title="Drawable"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Drawable</span></code></a>) – Drawable to render.</p></li>
-<li><p><strong>spriteAtlas</strong> (<a class="reference internal" href="spriteatlas.html#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a>) – Sprite atlas to use.</p></li>
-<li><p><strong>cellSize</strong> (<a class="reference internal" href="../prism/math/vector.html#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a>) – Size of each cell.</p></li>
-<li><p><strong>x</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – X-coordinate.</p></li>
-<li><p><strong>y</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – Y-coordinate.</p></li>
-<li><p><strong>color?</strong> (<a class="reference internal" href="../prism/math/color.html#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a>) – Optional color tint.</p></li>
-<li><p><strong>alpha?</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – Optional alpha transparency.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Display.getCellUnderMouse">
-<span class="sig-name descname"><span class="pre">getCellUnderMouse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></span></span><a class="headerlink" href="#lua-Display.getCellUnderMouse" title="Link to this definition">¶</a></dt>
-<dd><p>Gets the cell under the mouse cursor.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – The X coordinate of the cell.</p></li>
-<li><p><strong>y</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – The Y coordinate of the cell.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="lua class">
 <dt class="sig sig-object lua" id="lua-SpectrumAttachable">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SpectrumAttachable</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/core/object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../prism/core/query.html#lua-IQueryable" title="IQueryable"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">IQueryable</span></code></a><a class="headerlink" href="#lua-SpectrumAttachable" title="Link to this definition">¶</a></dt>
 <dd><dl class="lua method">
@@ -289,6 +80,11 @@
 <dd></dd></dl>
 
 <dl class="lua data">
+<dt class="sig sig-object lua" id="lua-SpectrumAttachable.getSize">
+<span class="sig-name descname"><span class="pre">getSize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">fun</span></span><span class="p"><span class="pre">()</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/math/vector.html#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a><a class="headerlink" href="#lua-SpectrumAttachable.getSize" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
 <dt class="sig sig-object lua" id="lua-SpectrumAttachable.eachCell">
 <span class="sig-name descname"><span class="pre">eachCell</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">fun</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">fun</span></span><span class="p"><span class="pre">()</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../prism/core/cell.html#lua-Cell" title="Cell"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Cell</span></code></a><a class="headerlink" href="#lua-SpectrumAttachable.eachCell" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -297,6 +93,206 @@
 <dt class="sig sig-object lua" id="lua-SpectrumAttachable.debug">
 <span class="sig-name descname"><span class="pre">debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code><a class="headerlink" href="#lua-SpectrumAttachable.debug" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="lua-Display">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Display</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/core/object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><a class="headerlink" href="#lua-Display" title="Link to this definition">¶</a></dt>
+<dd><dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Display.width">
+<span class="sig-name descname"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><a class="headerlink" href="#lua-Display.width" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Display.height">
+<span class="sig-name descname"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><a class="headerlink" href="#lua-Display.height" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Display.cells">
+<span class="sig-name descname"><span class="pre">cells</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><span class="p"><span class="pre">&lt;</span></span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><span class="p"><span class="pre">&lt;</span></span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="n"><span class="pre">char</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><span class="p"><span class="pre">)?</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">fg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/math/color.html#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">bg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/math/color.html#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">depth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code><span class="p"><span class="pre">}&gt;&gt;</span></span><a class="headerlink" href="#lua-Display.cells" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Display.__new">
+<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">spriteAtlas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="spriteatlas.html#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">cellSize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/math/vector.html#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.__new" title="Link to this definition">¶</a></dt>
+<dd><p>Initializes the terminal display</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Display.spriteAtlas">
+<span class="sig-name descname"><span class="pre">spriteAtlas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="spriteatlas.html#lua-SpriteAtlas" title="SpriteAtlas"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a><a class="headerlink" href="#lua-Display.spriteAtlas" title="Link to this definition">¶</a></dt>
+<dd><p>A simple sprite atlas. Used by spectrum.Display to render cells and actors.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Display.cellSize">
+<span class="sig-name descname"><span class="pre">cellSize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/math/vector.html#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a><a class="headerlink" href="#lua-Display.cellSize" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Display.camera">
+<span class="sig-name descname"><span class="pre">camera</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/math/vector.html#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a><a class="headerlink" href="#lua-Display.camera" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Display.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.draw" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Display.putLevel">
+<span class="sig-name descname"><span class="pre">putLevel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">attachable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SpectrumAttachable" title="SpectrumAttachable"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SpectrumAttachable</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.putLevel" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Display.putSenses">
+<span class="sig-name descname"><span class="pre">putSenses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">primary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/core/components/senses.html#lua-Senses" title="Senses"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Senses</span></code></a><span class="p"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secondary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/core/components/senses.html#lua-Senses" title="Senses"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Senses</span></code></a><span class="p"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.putSenses" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Display.putDrawable">
+<span class="sig-name descname"><span class="pre">putDrawable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">drawable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="components/drawable.html#lua-Drawable" title="Drawable"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Drawable</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.putDrawable" title="Link to this definition">¶</a></dt>
+<dd><p>Puts a Drawable at a position with depth checking</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Display.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">char</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">fg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">bg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.put" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Display.putString">
+<span class="sig-name descname"><span class="pre">putString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">fg?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/math/color.html#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">bg?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/math/color.html#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">layer?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.putString" title="Link to this definition">¶</a></dt>
+<dd><p>Draws a string of characters at a grid position</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – Starting X grid coordinate</p></li>
+<li><p><strong>y</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – Y grid coordinate</p></li>
+<li><p><strong>str</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – The string to draw</p></li>
+<li><p><strong>fg?</strong> (<a class="reference internal" href="../prism/math/color.html#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a>) – Foreground color (defaults to white)</p></li>
+<li><p><strong>bg?</strong> (<a class="reference internal" href="../prism/math/color.html#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a>) – Background color (defaults to transparent)</p></li>
+<li><p><strong>layer?</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – Draw layer (optional)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Display.getQuad">
+<span class="sig-name descname"><span class="pre">getQuad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">love.graphics.Quad</span></code></span></span><a class="headerlink" href="#lua-Display.getQuad" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Display.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">bg?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/math/color.html#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.clear" title="Link to this definition">¶</a></dt>
+<dd><p>Clears the grid to a background color and resets depth</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bg?</strong> (<a class="reference internal" href="../prism/math/color.html#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a>) – Optional background color</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Display.fitWindowToTerminal">
+<span class="sig-name descname"><span class="pre">fitWindowToTerminal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.fitWindowToTerminal" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Display.getCenterOffset">
+<span class="sig-name descname"><span class="pre">getCenterOffset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">offsetx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">offsety</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></span></span><a class="headerlink" href="#lua-Display.getCenterOffset" title="Link to this definition">¶</a></dt>
+<dd><p>Calculates the top-left offset needed to center a position on the display</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>offsetx</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – The x and y offset</p></li>
+<li><p><strong>offsety</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – The x and y offset</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Display.drawDrawable">
+<span class="sig-name descname"><span class="pre">drawDrawable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">drawable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="components/drawable.html#lua-Drawable" title="Drawable"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Drawable</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.drawDrawable" title="Link to this definition">¶</a></dt>
+<dd><p>Draws a Drawable at pixel coordinates (not grid coordinates)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – Pixel X coordinate</p></li>
+<li><p><strong>y</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – Pixel Y coordinate</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Display.getCellUnderMouse">
+<span class="sig-name descname"><span class="pre">getCellUnderMouse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">x?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">y?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></span></span><a class="headerlink" href="#lua-Display.getCellUnderMouse" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the grid cell under the current mouse position, adjusted by optional grid offsets</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x?</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – Grid coordinates, or nil if out of bounds</p></li>
+<li><p><strong>y?</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – Grid coordinates, or nil if out of bounds</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Display.setCamera">
+<span class="sig-name descname"><span class="pre">setCamera</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.setCamera" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Display.moveCamera">
+<span class="sig-name descname"><span class="pre">moveCamera</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.moveCamera" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Display.putRect">
+<span class="sig-name descname"><span class="pre">putRect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">char</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">fg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">bg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.putRect" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Display.putFilledRect">
+<span class="sig-name descname"><span class="pre">putFilledRect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">char</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">fg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">bg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.putFilledRect" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Display.putLine">
+<span class="sig-name descname"><span class="pre">putLine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">char</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">fg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">bg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.putLine" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -359,38 +355,43 @@
 <li class="toctree-l1"><a class="reference internal" href="../prism/index.html">Prism</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Spectrum</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="camera.html"><code class="docutils literal notranslate"><span class="pre">Camera</span></code></a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Display</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Display.attachable"><code class="docutils literal notranslate"><span class="pre">attachable</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Display.spriteAtlas"><code class="docutils literal notranslate"><span class="pre">spriteAtlas</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Display.camera"><code class="docutils literal notranslate"><span class="pre">camera</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Display.dt"><code class="docutils literal notranslate"><span class="pre">dt</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Display.cellSize"><code class="docutils literal notranslate"><span class="pre">cellSize</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Display.override"><code class="docutils literal notranslate"><span class="pre">override</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Display.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Display.message"><code class="docutils literal notranslate"><span class="pre">message</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Display.update"><code class="docutils literal notranslate"><span class="pre">update()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Display.draw"><code class="docutils literal notranslate"><span class="pre">draw()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Display.buildSenseInfo"><code class="docutils literal notranslate"><span class="pre">buildSenseInfo()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Display.drawPerspective"><code class="docutils literal notranslate"><span class="pre">drawPerspective()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Display.setOverride"><code class="docutils literal notranslate"><span class="pre">setOverride()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Display.drawActor"><code class="docutils literal notranslate"><span class="pre">drawActor()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Display.beforeDrawCells"><code class="docutils literal notranslate"><span class="pre">beforeDrawCells()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Display.beforeDrawActors"><code class="docutils literal notranslate"><span class="pre">beforeDrawActors()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Display.afterDrawActors"><code class="docutils literal notranslate"><span class="pre">afterDrawActors()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Display.getQuad"><code class="docutils literal notranslate"><span class="pre">getQuad()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Display.drawDrawable"><code class="docutils literal notranslate"><span class="pre">drawDrawable()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Display.getCellUnderMouse"><code class="docutils literal notranslate"><span class="pre">getCellUnderMouse()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#lua-SpectrumAttachable"><code class="docutils literal notranslate"><span class="pre">SpectrumAttachable</span></code></a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">SpectrumAttachable</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#lua-SpectrumAttachable.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-SpectrumAttachable.getCell"><code class="docutils literal notranslate"><span class="pre">getCell</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-SpectrumAttachable.setCell"><code class="docutils literal notranslate"><span class="pre">setCell</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-SpectrumAttachable.addActor"><code class="docutils literal notranslate"><span class="pre">addActor</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-SpectrumAttachable.removeActor"><code class="docutils literal notranslate"><span class="pre">removeActor</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-SpectrumAttachable.inBounds"><code class="docutils literal notranslate"><span class="pre">inBounds</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-SpectrumAttachable.getSize"><code class="docutils literal notranslate"><span class="pre">getSize</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-SpectrumAttachable.eachCell"><code class="docutils literal notranslate"><span class="pre">eachCell</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-SpectrumAttachable.debug"><code class="docutils literal notranslate"><span class="pre">debug</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#lua-Display"><code class="docutils literal notranslate"><span class="pre">Display</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.width"><code class="docutils literal notranslate"><span class="pre">width</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.height"><code class="docutils literal notranslate"><span class="pre">height</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.cells"><code class="docutils literal notranslate"><span class="pre">cells</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.spriteAtlas"><code class="docutils literal notranslate"><span class="pre">spriteAtlas</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.cellSize"><code class="docutils literal notranslate"><span class="pre">cellSize</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.camera"><code class="docutils literal notranslate"><span class="pre">camera</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.draw"><code class="docutils literal notranslate"><span class="pre">draw()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.putLevel"><code class="docutils literal notranslate"><span class="pre">putLevel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.putSenses"><code class="docutils literal notranslate"><span class="pre">putSenses()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.putDrawable"><code class="docutils literal notranslate"><span class="pre">putDrawable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.put"><code class="docutils literal notranslate"><span class="pre">put()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.putString"><code class="docutils literal notranslate"><span class="pre">putString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.getQuad"><code class="docutils literal notranslate"><span class="pre">getQuad()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.clear"><code class="docutils literal notranslate"><span class="pre">clear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.fitWindowToTerminal"><code class="docutils literal notranslate"><span class="pre">fitWindowToTerminal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.getCenterOffset"><code class="docutils literal notranslate"><span class="pre">getCenterOffset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.drawDrawable"><code class="docutils literal notranslate"><span class="pre">drawDrawable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.getCellUnderMouse"><code class="docutils literal notranslate"><span class="pre">getCellUnderMouse()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.setCamera"><code class="docutils literal notranslate"><span class="pre">setCamera()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.moveCamera"><code class="docutils literal notranslate"><span class="pre">moveCamera()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.putRect"><code class="docutils literal notranslate"><span class="pre">putRect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.putFilledRect"><code class="docutils literal notranslate"><span class="pre">putFilledRect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.putLine"><code class="docutils literal notranslate"><span class="pre">putLine()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="keybindings.html"><code class="docutils literal notranslate"><span class="pre">Keybinding</span></code></a></li>

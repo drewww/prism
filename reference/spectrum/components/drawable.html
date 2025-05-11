@@ -65,12 +65,17 @@
 
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Drawable.__new">
-<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Drawable" title="Drawable"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Drawable</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../prism/math/color.html#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">background?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../prism/math/color.html#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Drawable.__new" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Drawable" title="Drawable"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Drawable</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../prism/math/color.html#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">background?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../prism/math/color.html#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Drawable.__new" title="Link to this definition">¶</a></dt>
 <dd><p>Index needs to be a string associated with a sprite in the SpriteAtlas, or
 an integer index associated with a sprite.</p>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Drawable.layer">
+<span class="sig-name descname"><span class="pre">layer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code><a class="headerlink" href="#lua-Drawable.layer" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -133,8 +138,8 @@ an integer index associated with a sprite.</p>
 <li class="toctree-l1"><a class="reference internal" href="../../prism/index.html">Prism</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Spectrum</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../camera.html"><code class="docutils literal notranslate"><span class="pre">Camera</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../display.html"><code class="docutils literal notranslate"><span class="pre">Display</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../display.html#lua-SpectrumAttachable"><code class="docutils literal notranslate"><span class="pre">SpectrumAttachable</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../display.html"><code class="docutils literal notranslate"><span class="pre">SpectrumAttachable</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../display.html#lua-Display"><code class="docutils literal notranslate"><span class="pre">Display</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../keybindings.html"><code class="docutils literal notranslate"><span class="pre">Keybinding</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sensestracker.html"><code class="docutils literal notranslate"><span class="pre">SensesTracker</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../spriteatlas.html"><code class="docutils literal notranslate"><span class="pre">SpriteAtlas</span></code></a></li>
@@ -143,6 +148,7 @@ an integer index associated with a sprite.</p>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Drawable.color"><code class="docutils literal notranslate"><span class="pre">color</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Drawable.background"><code class="docutils literal notranslate"><span class="pre">background</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Drawable.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Drawable.layer"><code class="docutils literal notranslate"><span class="pre">layer</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../gamestates/gamestate.html"><code class="docutils literal notranslate"><span class="pre">GameState</span></code></a></li>

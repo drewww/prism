@@ -176,7 +176,9 @@ behaviour doesn’t make for a great game. Let’s make them follow the player a
 <p>We can find the player by grabbing the <a class="reference internal" href="../reference/prism/core/components/senses.html#lua-Senses" title="Senses"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Senses</span></code></a> from the kobold and
 seeing if it contains the player.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">senses</span> <span class="o">=</span> <span class="n">actor</span><span class="p">:</span><span class="n">getComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Senses</span><span class="p">)</span>
-<span class="kd">local</span> <span class="n">player</span> <span class="o">=</span> <span class="n">senses</span><span class="p">.</span><span class="n">actors</span><span class="p">:</span><span class="n">getActorByType</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">actors</span><span class="p">.</span><span class="n">Player</span><span class="p">)</span>
+
+<span class="kd">local</span> <span class="n">player</span> <span class="o">=</span> <span class="n">senses</span><span class="p">:</span><span class="n">query</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">PlayerController</span><span class="p">):</span><span class="n">first</span><span class="p">()</span>
+
 <span class="kr">if</span> <span class="ow">not</span> <span class="n">player</span> <span class="kr">then</span> <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Wait</span><span class="p">()</span> <span class="kr">end</span>
 </pre></div>
 </div>
@@ -229,7 +231,7 @@ that any actor trying to perform the kick action have a controller.</p>
 </pre></div>
 </div>
 <p>For the logic, we’ll define methods that validate and perform the kick. We don’t have any
-special conditions for kicking, so from <a class="reference internal" href="../reference/prism/core/action.html#lua-Action._canPerform" title="Action._canPerform"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Action:_canPerform()</span></code></a> we’ll just return true.
+special conditions for kicking, so from <code class="xref lua lua-func docutils literal notranslate"><span class="pre">Action._canPerform</span></code> we’ll just return true.
 For the kick itself, we get the direction from the player to the target (kobold), and check passability
 for three tiles in the direction before finally moving them. We also give the kobold flying movement by
 checking passability with a custom collision mask.</p>
@@ -269,8 +271,11 @@ and then perform the kick action on them:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">if</span> <span class="n">move</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">)</span> <span class="kr">then</span>
 <span class="p">...</span>
 
-<span class="kd">local</span> <span class="n">target</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">:</span><span class="n">query</span><span class="p">():</span><span class="n">at</span><span class="p">(</span><span class="n">position</span><span class="p">:</span><span class="n">decompose</span><span class="p">()):</span><span class="n">gather</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
-<span class="kd">local</span> <span class="n">kick</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Kick</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="p">{</span> <span class="n">target</span> <span class="p">})</span>
+<span class="kd">local</span> <span class="n">target</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">:</span><span class="n">query</span><span class="p">()</span> <span class="c1">-- grab a query object</span>
+   <span class="p">:</span><span class="n">at</span><span class="p">(</span><span class="n">position</span><span class="p">:</span><span class="n">decompose</span><span class="p">())</span> <span class="c1">-- restrict the query to the destination</span>
+   <span class="p">:</span><span class="n">first</span><span class="p">()</span> <span class="c1">-- grab one of the kickable things, or nil</span>
+
+<span class="kd">local</span> <span class="n">kick</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Kick</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
 <span class="kr">if</span> <span class="n">kick</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">)</span> <span class="kr">then</span>
    <span class="n">decision</span><span class="p">:</span><span class="n">setAction</span><span class="p">(</span><span class="n">kick</span><span class="p">)</span>
 <span class="kr">end</span>
