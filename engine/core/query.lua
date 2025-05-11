@@ -198,4 +198,16 @@ function Query:each(fn)
    while eachBody(fn, iter()) do end
 end
 
+--- Returns the first matching actor and its components.
+--- @return Actor? actor The first matching actor, or nil if no actor matches.
+function Query:first()
+   local iterator = self:iter()
+   local actor = iterator() -- Get the first result from the iterator
+   if actor then
+      return actor
+   end
+   
+   return nil -- Return nil if no actor was found
+end
+
 return Query
