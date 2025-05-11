@@ -14,7 +14,7 @@ Released under the **MIT License**, prism is free to use for both personal and c
 
 ## Features
 
-- **Command Pattern**: Encapsulates actions as discrete commands, enabling clean and decoupled turn-based mechanics.
+- **Command Pattern**: Encapsulates changes in state as objects, enabling clean and decoupled turn-based mechanics.
 - **Composition-Based Design**: Promotes flexibility and reusability using composition to build entities.
 - **Event Listener System**: React to in-game events dynamically, such as status effects, traps, and environmental interactions.
 - **Lightweight and Modular**: Built in Lua, prism is designed to be lean and easy to use.
