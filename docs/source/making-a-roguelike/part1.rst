@@ -159,7 +159,9 @@ seeing if it contains the player.
 .. code:: lua
 
    local senses = actor:getComponent(prism.components.Senses)
-   local player = senses.actors:getActorByType(prism.actors.Player)
+   
+   local player = senses:query(prism.components.PlayerController):first()
+
    if not player then return prism.actions.Wait() end
 
 We can get a path to the player by using the :lua:func:`Level.findPath` method, passing the
@@ -265,8 +267,11 @@ and then perform the kick action on them:
    if move:canPerform(self.level) then
    ...
 
-   local target = self.level:query():at(position:decompose()):gather()[1]
-   local kick = prism.actions.Kick(owner, { target })
+   local target = self.level:query() -- grab a query object
+      :at(position:decompose()) -- restrict the query to the destination
+      :first() -- grab one of the kickable things, or nil
+
+   local kick = prism.actions.Kick(owner, target)
    if kick:canPerform(self.level) then
       decision:setAction(kick)
    end
