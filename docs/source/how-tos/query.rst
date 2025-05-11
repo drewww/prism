@@ -63,7 +63,7 @@ To gather results into a list, use :lua:func:`Query.gather`:
 Getting a Single Result
 -----------------------
 
-Use ``Query:first()`` to get the first match:
+Use :lua:func:`Query:first()` to get the first match:
 
 .. code:: lua
 
