@@ -64,6 +64,7 @@ used for controlling kobolds and the player. We're grabbing the mask of the acto
 here to see if the conditions are right for falling.
 
 .. code:: lua
+   
       local isCellFlying = prism.Collision.checkBitmaskOverlap(flyMask, cellMask)
       local canActorMoveHere = prism.Collision.checkBitmaskOverlap(cellMask, mask)
       return isCellFlying and not canActorMoveHere

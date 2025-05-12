@@ -97,6 +97,12 @@ falling into the void below if they’re on a pit but unable to fly.</p>
 <p>We define Fall’s <code class="docutils literal notranslate"><span class="pre">_canPerform</span></code> this is the inner private function to canPerform which you’ve
 used for controlling kobolds and the player. We’re grabbing the mask of the actor and the cell
 here to see if the conditions are right for falling.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span>   <span class="kd">local</span> <span class="n">isCellFlying</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Collision</span><span class="p">.</span><span class="n">checkBitmaskOverlap</span><span class="p">(</span><span class="n">flyMask</span><span class="p">,</span> <span class="n">cellMask</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">canActorMoveHere</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Collision</span><span class="p">.</span><span class="n">checkBitmaskOverlap</span><span class="p">(</span><span class="n">cellMask</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+   <span class="kr">return</span> <span class="n">isCellFlying</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">canActorMoveHere</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
 <p>First we see if the cell allows flying movement. Then we check if the actor can move to the tile
 they’re standing on. If the cell allows flying and the actor has no movetypes that are allowed on
 the cell then they can fall.</p>
