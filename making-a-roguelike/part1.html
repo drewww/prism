@@ -247,11 +247,10 @@ checking passability with a custom collision mask.</p>
    <span class="kd">local</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Collision</span><span class="p">.</span><span class="n">createBitmaskFromMovetypes</span><span class="p">{</span> <span class="s2">&quot;fly&quot;</span> <span class="p">}</span>
 
    <span class="kd">local</span> <span class="n">nextpos</span> <span class="o">=</span> <span class="n">kicked</span><span class="p">:</span><span class="n">getPosition</span><span class="p">()</span>
-   <span class="kd">local</span> <span class="n">finalpos</span> <span class="o">=</span> <span class="n">nextpos</span>
    <span class="kr">for</span> <span class="n">_</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span> <span class="kr">do</span>
-      <span class="n">nextpos</span> <span class="o">=</span> <span class="n">finalpos</span> <span class="o">+</span> <span class="n">direction</span>
+      <span class="n">nextpos</span> <span class="o">=</span> <span class="n">nextpos</span> <span class="o">+</span> <span class="n">direction</span>
       <span class="kr">if</span> <span class="n">level</span><span class="p">:</span><span class="n">getCellPassable</span><span class="p">(</span><span class="n">nextpos</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">nextpos</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span> <span class="kr">then</span>
-         <span class="n">level</span><span class="p">:</span><span class="n">moveActor</span><span class="p">(</span><span class="n">nextpos</span><span class="p">)</span>
+         <span class="n">level</span><span class="p">:</span><span class="n">moveActor</span><span class="p">(</span><span class="n">kicked</span><span class="p">,</span> <span class="n">nextpos</span><span class="p">)</span>
       <span class="kr">else</span>
          <span class="kr">break</span>
       <span class="kr">end</span>
