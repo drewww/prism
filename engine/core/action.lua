@@ -50,6 +50,7 @@ end
 --- @return boolean canPerform
 --- @return string? error
 function Action:canPerform(level)
+   if not level:hasActor(self.owner) then return false, "Actor not inside the level!" end
    if not self:hasRequisiteComponents(self.owner) then 
       return false, "Actor is missing requisite component."
    end
