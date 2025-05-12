@@ -241,11 +241,10 @@ checking passability with a custom collision mask.
       local mask = prism.Collision.createBitmaskFromMovetypes{ "fly" }
 
       local nextpos = kicked:getPosition()
-      local finalpos = nextpos
       for _ = 1, 3 do
-         nextpos = finalpos + direction
+         nextpos = nextpos + direction
          if level:getCellPassable(nextpos.x, nextpos.y, mask) then
-            level:moveActor(nextpos)
+            level:moveActor(kicked, nextpos)
          else
             break
          end
