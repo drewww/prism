@@ -122,7 +122,7 @@ returns a valid action.
 
    function KoboldController:act(level, actor)
       local destination = actor:getPosition() + prism.Vector2.RIGHT
-      local move = prism.actions.Move(actor, { destination })
+      local move = prism.actions.Move(actor, destination)
       if move:canPerform(level) then
          return move
       end
@@ -178,7 +178,7 @@ position.
 .. code:: lua
 
    if path then
-      local move = prism.actions.Move(actor, { path:pop() })
+      local move = prism.actions.Move(actor, path:pop())
       if move:canPerform(level) then
          return move
       end
@@ -202,7 +202,7 @@ kick.lua:
       ---@cast actor Actor
       return actor:is(prism.Actor)
          and actor:hasComponent(prism.components.Collider)
-         and owner:getRange("8way", actor) == 1
+         and owner:getRange(actor) == 1
    end
 
 With this target we’re saying you can only kick actors at range one with a collider 
@@ -245,13 +245,11 @@ checking passability with a custom collision mask.
       for _ = 1, 3 do
          nextpos = finalpos + direction
          if level:getCellPassable(nextpos.x, nextpos.y, mask) then
-            finalpos = nextpos
+            level:moveActor(nextpos)
          else
             break
          end
       end
-
-      level:moveActor(kicked, finalpos)
    end
 
 Kicking kobolds, for real this time
@@ -268,7 +266,7 @@ and then perform the kick action on them:
    ...
 
    local target = self.level:query() -- grab a query object
-      :at(position:decompose()) -- restrict the query to the destination
+      :at(destination:decompose()) -- restrict the query to the destination
       :first() -- grab one of the kickable things, or nil
 
    local kick = prism.actions.Kick(owner, target)
@@ -289,5 +287,5 @@ That's all for part one. In conclusion, we've accomplished the following:
 2. Implemented a kick action to shove kobolds around.
 3. Integrated the kick by performing it when bumping into a valid target.
 
-You can find the code for this part at https://github.com/prismrl/prism-tutorial on the ``part-1`` branch. In the 
+You can find the code for this part at https://github.com/prismrl/prism-tutorial on the ``part1`` branch. In the 
 :doc:`next section <part2>`, we'll do some work with components and systems to flesh out the combat system.
