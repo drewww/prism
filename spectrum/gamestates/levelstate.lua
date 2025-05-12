@@ -1,7 +1,7 @@
 --- @class LevelState : GameState
 --- Represents the state for running a level, including managing the game loop, 
 --- handling decisions, messages, and drawing the interface.
---- @field decision Decision The current decision being processed, if any.
+--- @field decision ActionDecision The current decision being processed, if any.
 --- @field level Level The level object representing the game environment.
 --- @field display Display The display object used for rendering.
 --- @field message ActionMessage The most recent action message.
@@ -48,8 +48,8 @@ end
 --- Processes decisions, action messages, and debug messages as appropriate.
 --- @param message any The message to handle.
 function LevelState:handleMessage(message)
-   if message:is(prism.Decision) then
-      ---@cast message Decision
+   if message:is(prism.decisions.ActionDecision) then
+      ---@cast message ActionDecision
       self.decision = message
    elseif message:is(prism.messages.DebugMessage) then
       self.manager:push(self.geometer)

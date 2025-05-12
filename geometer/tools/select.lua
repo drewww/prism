@@ -48,6 +48,7 @@ end
 
 function Select:update(dt, editor)
    local x, y = editor.display:getCellUnderMouse()
+   if not x or not y then return end
    if not editor.attachable:inBounds(x, y) then return end
 
    if self.pasted and self.dragging then

@@ -88,7 +88,7 @@ function Display:putLevel(attachable)
       for y = 1, self.height do
          local cell = attachable:getCell(x - camX, y - camY)
          if cell then
-            local drawable = cell:getComponent(prism.components.Drawable)
+            local drawable = cell:expectComponent(prism.components.Drawable)
             self:putDrawable(x, y, drawable, nil, 0)
          end
       end
