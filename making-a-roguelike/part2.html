@@ -48,10 +48,12 @@
 <p>Unfortunately for kobolds, they can’t fly. In this section of the tutorial we’re going to
 create a <a class="reference internal" href="../reference/prism/core/system.html#lua-System" title="System"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">System</span></code></a> that listens for the end of an actor’s turn, and sends things
 falling into the void below if they’re on a pit but unable to fly.</p>
+<p>First we’ll need to create a component we’ll put on cells to indicate they’re a place you
+can fall.</p>
 <section id="creating-the-void-component">
-<h2>Creating the Void component<a class="headerlink" href="#creating-the-void-component" title="Link to this heading">¶</a></h2>
+<h2>Creating the Void Component<a class="headerlink" href="#creating-the-void-component" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
-<li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">modules/MyGame/components`</span></code></p></li>
+<li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">modules/MyGame/components</span></code></p></li>
 <li><p>Create a new file called <code class="docutils literal notranslate"><span class="pre">void.lua</span></code></p></li>
 </ol>
 <p>Put the following into <code class="docutils literal notranslate"><span class="pre">void.lua</span></code>:</p>
@@ -62,24 +64,21 @@ falling into the void below if they’re on a pit but unable to fly.</p>
 <span class="kr">return</span> <span class="n">Void</span>
 </pre></div>
 </div>
-<p>This is a simple tag component that we’ll put on cells to indicate that
-an actor can fall here if they don’t have an allowed movetype while standing
-on the cell.</p>
+<p>This is a simple tag component that marks tiles where actors can fall if they don’t have an allowed movement type.</p>
 </section>
 <section id="adding-void-to-our-pit">
 <h2>Adding Void to Our Pit<a class="headerlink" href="#adding-void-to-our-pit" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">modules/MyGame/cells/pit.lua</span></code></p></li>
 </ol>
-<p>Add the following line to it’s components:</p>
+<p>Add the following line to its components:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Void</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
 <section id="creating-the-fall-system">
 <h2>Creating the Fall System<a class="headerlink" href="#creating-the-fall-system" title="Link to this heading">¶</a></h2>
-<p>We’ll create a new system called <code class="docutils literal notranslate"><span class="pre">FallSystem</span></code>. Its job is to run at the end of every actor’s turn and check whether they’re floating over something they can’t stand on.</p>
-<p>First, make sure your file is in the correct place:</p>
+<p>Next we’re going to create an Action that encapsulates the act of falling to your doom.</p>
 <ol class="arabic simple">
 <li><p>Navigate to the <code class="docutils literal notranslate"><span class="pre">modules/MyGame/actions</span></code> directory.</p></li>
 <li><p>Create a new file called <code class="docutils literal notranslate"><span class="pre">fall.lua</span></code>.</p></li>
@@ -148,12 +147,12 @@ If the cell is a void, and the actor can’t stand there off to depths they go!<
 <span class="kr">end</span>
 </pre></div>
 </div>
-<p>This ones simple, we remove the floating actor from the level.</p>
+<p>This one’s simple, we remove the floating actor from the level.</p>
 </section>
 <section id="triggering-fall-with-a-system">
 <h2>Triggering Fall With a System<a class="headerlink" href="#triggering-fall-with-a-system" title="Link to this heading">¶</a></h2>
 <p>Okay so we’ve got the fall action done, but this isn’t exactly something
-most actors are doing willingly. I doubt the kobold is going to opt to fall by itself.</p>
+most actors are doing willingly. Kobolds aren’t exactly volunteering to fall into the void.</p>
 <p>Let’s create a System to listen in and make sure things fall when they ought to.</p>
 <ol class="arabic simple">
 <li><p>Navigate to the <code class="docutils literal notranslate"><span class="pre">modules/MyGame/</span></code> directory.</p></li>
@@ -179,9 +178,12 @@ most actors are doing willingly. I doubt the kobold is going to opt to fall by i
 </pre></div>
 </div>
 <p>When an actor moves we check if it should fall when it reaches it’s destination. We’re
-hooking into <a class="reference internal" href="../reference/prism/core/system.html#lua-System.onMove" title="System.onMove"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">System:onMove()</span></code></a> which is trigged by Level whenever <code class="xref lua lua-func docutils literal notranslate"><span class="pre">Level:moveActor</span></code>
+hooking into <a class="reference internal" href="../reference/prism/core/system.html#lua-System.onMove" title="System.onMove"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">System:onMove()</span></code></a> which is triggered by Level whenever <code class="xref lua lua-func docutils literal notranslate"><span class="pre">Level:moveActor</span></code>
 is called.</p>
 <p>See <a class="reference internal" href="../reference/prism/core/system.html#lua-System" title="System"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">System</span></code></a> for a listing of events you can hook into!</p>
+</section>
+<section id="wrapping-up">
+<h2>Wrapping Up<a class="headerlink" href="#wrapping-up" title="Link to this heading">¶</a></h2>
 <p>With our FallSystem in place, kobolds and other unfortunate creatures will now tumble
 into the void if they end their turn standing on a pit they can’t fly over.
 We’ve used components to tag dangerous tiles, actions to represent involuntary movement,
@@ -243,10 +245,11 @@ combat. We’ll set up a health component, and teach actors how to attack.</p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="part1.html">Getting started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Taking Flight</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#creating-the-void-component">Creating the Void component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-the-void-component">Creating the Void Component</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#adding-void-to-our-pit">Adding Void to Our Pit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#creating-the-fall-system">Creating the Fall System</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#triggering-fall-with-a-system">Triggering Fall With a System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wrapping-up">Wrapping Up</a></li>
 </ul>
 </li>
 </ul>

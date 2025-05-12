@@ -5,10 +5,13 @@ Unfortunately for kobolds, they can't fly. In this section of the tutorial we're
 create a :lua:class:`System` that listens for the end of an actor's turn, and sends things
 falling into the void below if they're on a pit but unable to fly.
 
-Creating the Void component
+First we'll need to create a component we'll put on cells to indicate they're a place you
+can fall.
+
+Creating the Void Component
 ---------------------------
 
-1. Navigate to ``modules/MyGame/components```
+1. Navigate to ``modules/MyGame/components``
 2. Create a new file called ``void.lua``
 
 Put the following into ``void.lua``:
@@ -21,16 +24,14 @@ Put the following into ``void.lua``:
 
    return Void
 
-This is a simple tag component that we'll put on cells to indicate that
-an actor can fall here if they don't have an allowed movetype while standing
-on the cell.
+This is a simple tag component that marks tiles where actors can fall if they don’t have an allowed movement type.
 
 Adding Void to Our Pit
 ----------------------
 
 1. Navigate to ``modules/MyGame/cells/pit.lua``
 
-Add the following line to it's components:
+Add the following line to its components:
 
 .. code:: lua  
 
@@ -39,9 +40,7 @@ Add the following line to it's components:
 Creating the Fall System
 ------------------------
 
-We'll create a new system called ``FallSystem``. Its job is to run at the end of every actor's turn and check whether they're floating over something they can't stand on.
-
-First, make sure your file is in the correct place:
+Next we're going to create an Action that encapsulates the act of falling to your doom.
 
 1. Navigate to the ``modules/MyGame/actions`` directory.
 2. Create a new file called ``fall.lua``.
@@ -121,13 +120,13 @@ With all that out the way let's add the Fall action's _perform.
       level:removeActor(self.owner) -- into the depths with you!
    end
 
-This ones simple, we remove the floating actor from the level.
+This one's simple, we remove the floating actor from the level.
 
 Triggering Fall With a System
 -----------------------------
 
 Okay so we've got the fall action done, but this isn't exactly something
-most actors are doing willingly. I doubt the kobold is going to opt to fall by itself.
+most actors are doing willingly. Kobolds aren’t exactly volunteering to fall into the void.
 
 Let's create a System to listen in and make sure things fall when they ought to.
 
@@ -156,10 +155,13 @@ Add the following code:
    return FallSystem
 
 When an actor moves we check if it should fall when it reaches it's destination. We're
-hooking into :lua:func:`System.onMove` which is trigged by Level whenever :lua:func:`Level:moveActor`
+hooking into :lua:func:`System.onMove` which is triggered by Level whenever :lua:func:`Level:moveActor`
 is called.
 
 See :lua:class:`System` for a listing of events you can hook into!
+
+Wrapping Up
+-----------
 
 With our FallSystem in place, kobolds and other unfortunate creatures will now tumble 
 into the void if they end their turn standing on a pit they can’t fly over.
