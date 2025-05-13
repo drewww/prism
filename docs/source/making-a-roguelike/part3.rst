@@ -257,9 +257,6 @@ it pretty an exercise for the reader, and we're going to keep it really simple.
 .. code:: lua
 
    --- @class GameOverState : GameState
-   --- A custom game level state responsible for initializing the level map,
-   --- handling input, and drawing the state to the screen.
-   ---
    --- @field display Display
    --- @overload fun(display: Display): GameOverState
    local GameOverState = spectrum.GameState:extend "GameOverState"
