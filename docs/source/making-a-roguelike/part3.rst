@@ -202,6 +202,22 @@ Uh Oh!
 You died and the window froze. What happened? The Level logic runs on a Lua couroutine, you can think of it
 kind of like a cooperative thread. The Level runs then it passes the baton with a note around it called a Message.
 
+Let's create a simple stub message called GameOver.
+
+1. Navigate to ``modules/MyGame``
+2. Create a new folder called ``messages``
+3. In ``modules/MyGame/messages`` create a new file named ``gameover.lua``
+
+.. code:: lua  
+
+   ---@class GameOverMessage : Message
+   local GameOverMessage = prism.Message:extend("GameOverMessage")
+
+   return GameOverMessage
+
+This doesn't really need any additional information in it, it's only sent to let the UI know that the game has
+ended.
+
 In this case the last actor with a PlayerController dies and the Level just keeps on going! This is because Level
 stops passing any messages. We need to pass a message to the UI that tells it the player has died and to show a 
 game over screen.
@@ -209,4 +225,22 @@ game over screen.
 1. Navigate to ``modules/MyGame/systems``
 2. Create a new file called ``losecondition.lua``
 
+.. code:: lua  
 
+   --- @class LoseCondition : System
+   local LoseCondition = prism.System:extend "LoseCondition"
+
+
+   function LoseCondition:afterAction(level, actor, action)
+      if not actor:hasComponent(prism.components.PlayerController) then return end
+      if not action:is(prism.actions.Die) then return end
+
+      -- It's the player and they're dying. Time to let the user interface know the game is
+      -- over.
+      level:yield(prism.messages.GameOver())
+   end
+
+   return LoseCondition
+
+Handling Messages
+-----------------
