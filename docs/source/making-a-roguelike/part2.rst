@@ -37,7 +37,7 @@ Add the following line to its components:
 
    prism.components.Void()
 
-Creating the Fall System
+Creating the Fall Action
 ------------------------
 
 Next we're going to create an Action that encapsulates the act of falling to your doom.
