@@ -106,8 +106,8 @@ Die is a really simple action, pretty much just a wrapper for removing an actor 
 doing this so that we can see if the player dies and send a "game over" message to the user interface near
 the end of this chapter.
 
-Making the Fall Use Die
------------------------
+Making Fall Use Die
+----------------------
 
 Now that we've got the Die action, let's test it by changing the Fall action to use it instead of just removing
 the actor from the level.
@@ -242,5 +242,97 @@ game over screen.
 
    return LoseCondition
 
-Handling Messages
------------------
+We hook into afterAction and check if the actor had a PlayerController and the action they just finished
+was die. If both of these are true the player lost the game.
+
+Game Over Screen
+----------------
+
+We're going to want to create a new GameState for the game over screen. I'm going to leave making
+it pretty an exercise for the reader, and we're going to keep it really simple.
+
+1. Navigate to ``gamestates``.
+2. Create a new file called ``gameoverstate.lua``
+
+.. code:: lua
+
+   --- @class GameOverState : GameState
+   --- A custom game level state responsible for initializing the level map,
+   --- handling input, and drawing the state to the screen.
+   ---
+   --- @field display Display
+   --- @overload fun(display: Display): GameOverState
+   local GameOverState = spectrum.GameState:extend "GameOverState"
+
+   function GameOverState:__new(display)
+      self.display = display
+   end
+
+   function GameOverState:draw()
+      self.display:clear()
+      self.display:putString(1, 1, "Game Over!")
+      self.display:draw()
+   end
+
+   return GameOverState
+
+Nothing too crazy, we create a new gamestate that takes a display and draws "Game Over!" in the top left using it.
+Now, finally, we're going to handle the GameOverMessage in MyGameLevelState.
+
+.. code:: lua
+
+   function MyGameLevelState:handleMessage(message)
+      spectrum.LevelState.handleMessage(self, message)
+
+      if message:is(prism.messages.GameOver) then
+         self.manager:enter(GameOverState(self.display))
+      end
+   end
+
+Our handleMessage function listens for messages from the Level, and in this case when it gets the GameOver message we know
+it's time to trash this levelstate and show the GameOverState instead!
+
+Wrapping Up
+-----------
+
+The last thing we've got to do now is give the Player the attacker component, and change some of the keypressed handling.
+
+Head over to the player file and add the following:
+
+.. code:: lua  
+
+   prism.components.Attacker(1)
+
+Now let's make our way to MyGameLevelState and add in some logic for making attacks.
+
+.. code:: lua  
+
+   -- MyGamelevelstate.lua
+   -- keypressed()
+
+   -- line 127
+   local target = self.level:query() -- grab a query object
+      :at(destination:decompose()) -- restrict the query to the destination
+      :first() -- grab one of the kickable things, or nil
+
+   if love.keyboard.isDown("lshift") then
+      local kick = prism.actions.Kick(owner, target)
+      if kick:canPerform(self.level) then
+         decision:setAction(kick)
+      end
+   else
+      local attack = prism.actions.Attack(owner, target)
+      if attack:canPerform(self.level) then
+         decision:setAction(attack)
+      end
+   end
+
+Okay and we're finally done! Now the player can attack, but if they hold shift they can still
+kick. 
+
+In the Next Section
+-------------------
+
+We've got attacking working now and we can lose hp and die and so can the kobolds! There's a little
+bit of a problem, though. It's hard to tell what's going on! In the next section of the tutorial we'll
+be adding a message log.
