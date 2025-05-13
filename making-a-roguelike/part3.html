@@ -254,9 +254,6 @@ it pretty an exercise for the reader, and we’re going to keep it really simple
 <li><p>Create a new file called <code class="docutils literal notranslate"><span class="pre">gameoverstate.lua</span></code></p></li>
 </ol>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class GameOverState : GameState</span>
-<span class="c1">--- A custom game level state responsible for initializing the level map,</span>
-<span class="c1">--- handling input, and drawing the state to the screen.</span>
-<span class="c1">---</span>
 <span class="c1">--- @field display Display</span>
 <span class="c1">--- @overload fun(display: Display): GameOverState</span>
 <span class="kd">local</span> <span class="n">GameOverState</span> <span class="o">=</span> <span class="n">spectrum</span><span class="p">.</span><span class="n">GameState</span><span class="p">:</span><span class="n">extend</span> <span class="s2">&quot;GameOverState&quot;</span>
