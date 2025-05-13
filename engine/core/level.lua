@@ -135,7 +135,7 @@ function Level:addSystem(system) self.systemManager:addSystem(system) end
 --- Gets a system by name.
 --- @param className string The name of the system to get.
 --- @return System? system The system with the given name.
-function Level:getSystem(className) self.systemManager:getSystem(className) end
+function Level:getSystem(className) return self.systemManager:getSystem(className) end
 
 --
 -- Actor
