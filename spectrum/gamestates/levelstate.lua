@@ -29,6 +29,11 @@ function LevelState:shouldAdvance()
    local hasDecision = self.decision ~= nil
    local decisionDone = hasDecision and self.decision:validateResponse()
 
+   --- @diagnostic disable-next-line
+   if not self.manager or self.manager.states[#self.manager.states] ~= self then
+      return false
+   end
+   
    return not hasDecision or decisionDone
 end
 
