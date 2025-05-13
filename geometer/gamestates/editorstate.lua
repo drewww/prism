@@ -12,6 +12,11 @@ function EditorState:__new(attachable, display, fileEnabled)
 end
 
 function EditorState:load()
+   self._textInput = love.keyboard.hasTextInput()
+   self._keyRepeat = love.keyboard.hasKeyRepeat()
+   love.keyboard.setTextInput(true)
+   love.keyboard.setKeyRepeat(true)
+
    self.editor:startEditing()
 end
 
@@ -47,6 +52,11 @@ end
 
 function EditorState:textinput(text)
    self.editor:textinput(text)
+end
+
+function EditorState:unload()
+   love.keyboard.setKeyRepeat(self._keyRepeat)
+   love.keyboard.setTextInput(self._textInput)
 end
 
 return EditorState

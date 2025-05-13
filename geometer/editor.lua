@@ -72,7 +72,6 @@ function Editor:startEditing()
    self.tool = getmetatable(self.tool)()
 
    self.attachable.debug = false
-   love.keyboard.setKeyRepeat(true)
 end
 
 ---@param attachable SpectrumAttachable
