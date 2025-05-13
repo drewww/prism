@@ -170,8 +170,31 @@ some kind of to-hit or armor calculation, and we'll get there. For now though we
 Making Kobolds Dangerous
 ------------------------
 
-In this section we'll give the Kobold actor the Attacker component and modifying it's controller to take
-the attack action.
+First let's give the kobold a new component, the Attacker component.
+
+.. code:: lua  
+
+   prism.components.Attacker(1) -- deals 1 damage
+
+Now we make our way over to koboldcontroller.lua and add the attack action.
+
+.. code:: lua
+   -- in KoboldController:act()
+   ...
+
+   if not mover then return prism.actions.Wait() end
+
+   if player:getRange(actor) == 1 then
+      local attack = prism.actions.Attack(actor, player)
+      if attack:canPerform(level) then
+         return attack
+      end
+   end
+   
+   ...
+
+Now let's head back into the game and spawn a kobold with geometer. Let it attack you a few times and you'll
+see your health decreasing. Let that kobold get you to zero hit points.
 
 Uh Oh!
 ------
@@ -180,4 +203,10 @@ You died and the window froze. What happened? The Level logic runs on a Lua cour
 kind of like a cooperative thread. The Level runs then it passes the baton with a note around it called a Message.
 
 In this case the last actor with a PlayerController dies and the Level just keeps on going! This is because Level
-stops passing any messages. We need to pass a message to Level that 
+stops passing any messages. We need to pass a message to the UI that tells it the player has died and to show a 
+game over screen.
+
+1. Navigate to ``modules/MyGame/systems``
+2. Create a new file called ``losecondition.lua``
+
+
