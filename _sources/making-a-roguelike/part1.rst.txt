@@ -63,7 +63,7 @@ To make the game more engaging, let’s introduce an enemy: the
 
    function Kobold:initialize()
       return {
-         prism.components.Drawable(string.byte("k") + 1, prism.Color4.RED),
+         prism.components.Drawable("k", prism.Color4.RED),
       }
    end
 
