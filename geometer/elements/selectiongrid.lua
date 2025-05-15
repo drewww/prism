@@ -37,7 +37,13 @@ local function Tile(self, scene)
       love.graphics.push("all")
       love.graphics.setCanvas(self.props.overlay)
       love.graphics.setColor(drawable.background:decompose())
-      love.graphics.rectangle("fill", x / 8 * self.props.size.x, y / 8 * self.props.size.y, self.props.size.x, self.props.size.y)
+      love.graphics.rectangle(
+         "fill",
+         x / 8 * self.props.size.x,
+         y / 8 * self.props.size.y,
+         self.props.size.x,
+         self.props.size.y
+      )
       love.graphics.setColor(drawable.color:decompose())
       love.graphics.draw(
          self.props.display.spriteAtlas.image,
