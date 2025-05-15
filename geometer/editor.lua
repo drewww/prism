@@ -2,7 +2,7 @@
 local keybinds = geometer.require "keybindingschema"
 local PenTool = geometer.require "tools.pen"
 
----@alias Placeable Actor|Cell
+---@alias Placeable Entity
 
 ---@class Editor : Object
 ---@field attachable SpectrumAttachable

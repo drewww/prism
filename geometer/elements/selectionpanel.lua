@@ -112,7 +112,6 @@ local function SelectionPanel(self, scene)
       grid:render(x, y + 5 * 8, w, 8 * 12, depth + 1)
 
       local drawable = self.props.selected:getComponent(prism.components.Drawable)
-      local color = drawable.color or prism.Color4.WHITE
       local quad = self.props.display:getQuad(drawable.index)
       local scale = prism.Vector2(
          self.props.size.x / self.props.display.cellSize.x,
@@ -128,7 +127,13 @@ local function SelectionPanel(self, scene)
          (x / 8 + 5) * self.props.size.x,
          (y / 8 + 17) * self.props.size.y + self.props.size.y / 4
       )
-      love.graphics.setColor(color:decompose())
+      love.graphics.setColor(drawable.background:decompose())
+
+      local spriteOffSetX = (x / 8 + 3) * self.props.size.x
+      local spriteOffSetY = (y / 8 + 17) * self.props.size.y
+
+      love.graphics.rectangle("fill", spriteOffSetX, spriteOffSetY, self.props.size.x, self.props.size.y)
+      love.graphics.setColor(drawable.color:decompose())
       love.graphics.draw(
          self.props.display.spriteAtlas.image,
          quad,

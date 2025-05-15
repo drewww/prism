@@ -32,12 +32,13 @@ local function Tile(self, scene)
 
    return function(_, x, y, w, h)
       local drawable = self.props.placeable:getComponent(prism.components.Drawable)
-      local color = drawable.color or prism.Color4.WHITE
       local quad = self.props.display:getQuad(drawable.index)
 
       love.graphics.push("all")
       love.graphics.setCanvas(self.props.overlay)
-      love.graphics.setColor(color:decompose())
+      love.graphics.setColor(drawable.background:decompose())
+      love.graphics.rectangle("fill", x / 8 * self.props.size.x, y / 8 * self.props.size.y, self.props.size.x, self.props.size.y)
+      love.graphics.setColor(drawable.color:decompose())
       love.graphics.draw(
          self.props.display.spriteAtlas.image,
          quad,
