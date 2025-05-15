@@ -2,7 +2,9 @@
 prism = {}
 prism.path = ...
 
-function prism.require(p) return require(table.concat({ prism.path, p }, ".")) end
+function prism.require(p)
+   return require(table.concat({ prism.path, p }, "."))
+end
 
 --- @module "engine.lib.json"
 prism.json = prism.require "lib.json"
@@ -99,13 +101,13 @@ prism.Scheduler = prism.require "core.scheduler.scheduler"
 prism.SimpleScheduler = prism.require "core.scheduler.simple_scheduler"
 --- @module "engine.core.action"
 prism.Action = prism.require "core.action"
---- @module "engine.core.component" 
+--- @module "engine.core.component"
 prism.Component = prism.require "core.component"
 --- @module "engine.core.entity"
 prism.Entity = prism.require "core.entity"
 --- @module "engine.core.actor"
 prism.Actor = prism.require "core.actor"
---- @module "engine.core.actorstorage" 
+--- @module "engine.core.actorstorage"
 prism.ActorStorage = prism.require "core.actorstorage"
 --- @module "engine.core.cell"
 prism.Cell = prism.require "core.cell"
@@ -143,8 +145,6 @@ prism.BehaviorTree.Selector = prism.require "core.behavior_tree.btselector"
 prism.BehaviorTree.Sequence = prism.require "core.behavior_tree.btsequence"
 --- @module "engine.core.behavior_tree.btsucceeder"
 prism.BehaviorTree.Succeeder = prism.require "core.behavior_tree.btsucceeder"
-
-
 
 --- The actor registry.
 prism.actors = {}
@@ -238,15 +238,17 @@ local function loadItems(path, itemType, recurse, definitions)
          local item = require(fileName)
          local strippedClassName = string.gsub(item.className, prism._itemPatterns[itemType], "")
 
-         if not item.stripName then
-            strippedClassName = item.className
-         end
+         if not item.stripName then strippedClassName = item.className end
 
-         assert(strippedClassName ~= "",
-            "File " .. name .. " contains type " .. itemType .. " without a valid stripped name!")
+         assert(
+            strippedClassName ~= "",
+            "File " .. name .. " contains type " .. itemType .. " without a valid stripped name!"
+         )
          -- Raw get to avoid messing with the dynamic registry in case of components and systems.
-         assert(items[strippedClassName] == nil,
-            "File " .. name .. " contains type " .. itemType .. " with duplicate name!")
+         assert(
+            items[strippedClassName] == nil,
+            "File " .. name .. " contains type " .. itemType .. " with duplicate name!"
+         )
          items[strippedClassName] = item
 
          table.insert(definitions, "--- @module " .. '"' .. fileName .. '"')
@@ -306,8 +308,7 @@ function prism.loadModule(directory)
    file:close()
 end
 
-function prism.hotload()
-end
+function prism.hotload() end
 
 --- This is the core turn logic, and if you need to use a different scheduler or want a different turn structure you should override this.
 --- There is a version of this provided for time-based
@@ -331,12 +332,8 @@ end
 function prism.advanceCoroutine(updateCoroutine, level, decision)
    local success, ret = coroutine.resume(updateCoroutine, level, decision)
 
-   if not success then
-      error(ret .. "\n" .. debug.traceback(updateCoroutine))
-   end
+   if not success then error(ret .. "\n" .. debug.traceback(updateCoroutine)) end
 
    local coroutineStatus = coroutine.status(updateCoroutine)
-   if coroutineStatus == "suspended" then
-      return ret
-   end
+   if coroutineStatus == "suspended" then return ret end
 end

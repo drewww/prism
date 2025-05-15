@@ -4,8 +4,8 @@ local SparseArray = prism.Object:extend("SparseArray")
 
 --- Constructor for SparseArray.
 function SparseArray:__new()
-   self.data = {}         -- Holds the actual values
-   self.freeIndices = {}  -- Tracks free indices
+   self.data = {} -- Holds the actual values
+   self.freeIndices = {} -- Tracks free indices
 end
 
 --- Adds an item to the sparse array.
@@ -29,7 +29,7 @@ end
 function SparseArray:remove(index)
    if self.data[index] ~= nil then
       self.data[index] = nil
-      table.insert(self.freeIndices, index)   -- Mark the index as free
+      table.insert(self.freeIndices, index) -- Mark the index as free
    else
       error("Index " .. index .. " is invalid or already nil.")
    end
@@ -54,9 +54,7 @@ end
 function SparseArray:bake()
    local denseArray = {}
    for _, value in ipairs(self.data) do
-      if value ~= nil then
-         table.insert(denseArray, value)
-      end
+      if value ~= nil then table.insert(denseArray, value) end
    end
    self.data = denseArray
    self.freeIndices = {}

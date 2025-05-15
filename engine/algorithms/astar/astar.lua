@@ -1,6 +1,8 @@
 ---@param a Vector2
 ---@param b Vector2
-local function heuristic(a, b) return a:distance(b) end
+local function heuristic(a, b)
+   return a:distance(b)
+end
 
 -- helper function to reconstruct the path
 local function reconstructPath(cameFrom, costSoFar, current)
@@ -25,7 +27,9 @@ local function reconstructPath(cameFrom, costSoFar, current)
    return prism.Path(path, costs)
 end
 
-local function defaultCostCallback(_, _) return 1 end
+local function defaultCostCallback(_, _)
+   return 1
+end
 
 --- Gets a path between two points using A* pathfinding. It is usually preferable to use :lua:func:`Level.findPath`.
 ---@param start Vector2 The starting position.
@@ -43,7 +47,7 @@ local function astarSearch(start, goal, passableCallback, costCallback, minDista
    local frontier = prism.PriorityQueue()
    frontier:push(start, 0)
 
-   local cameFrom = {}  -- [vec] = vec | nil
+   local cameFrom = {} -- [vec] = vec | nil
    local costSoFar = {} -- [vec] = float
 
    cameFrom[start:hash()] = nil

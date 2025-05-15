@@ -112,7 +112,6 @@ function Select:draw(editor, display)
       end
    end
 
-
    love.graphics.push("all")
    love.graphics.setColor(0.1725, 0.909, 0.960)
    love.graphics.rectangle(

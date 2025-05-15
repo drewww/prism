@@ -66,9 +66,7 @@ end
 --- Pop the first node from the path
 ---@return Vector2|nil -- The removed node, or nil if the path is empty
 function Path:pop()
-   if #self.path == 0 then
-      return nil
-   end
+   if #self.path == 0 then return nil end
 
    local removedNode = table.remove(self.path, 1)
    local nodeCost = table.remove(self.costIndex, 1)
@@ -78,9 +76,7 @@ function Path:pop()
 end
 
 function Path:popBack()
-   if #self.path == 0 then
-      return nil
-   end
+   if #self.path == 0 then return nil end
 
    local removedNode = table.remove(self.path, #self.path)
    local nodeCost = table.remove(self.costIndex, #self.path)
@@ -96,7 +92,7 @@ function Path:totalCostAt(index)
    local totalCost = 0
    for i = 1, math.min(index, #self.path) do
       local node = self.path[i]
-      totalCost = totalCost + (self.costIndex[i])
+      totalCost = totalCost + self.costIndex[i]
    end
    return totalCost
 end

@@ -8,9 +8,13 @@ function Fraction:__new(numerator, denominator)
    self.denominator = denominator or 1
 end
 
-function Fraction:__tostring() return self.numerator .. "/" .. self.denominator end
+function Fraction:__tostring()
+   return self.numerator .. "/" .. self.denominator
+end
 
-function Fraction:tonumber() return self.numerator / self.denominator end
+function Fraction:tonumber()
+   return self.numerator / self.denominator
+end
 
 function Fraction:__mul(other)
    if type(other) == "number" then
@@ -33,19 +37,15 @@ function Fraction.__le(lhs, rhs)
 end
 
 function Fraction.__add(lhs, rhs)
-   return Fraction(
-      lhs.numerator * rhs.denominator + lhs.denominator * rhs.numerator,
-      lhs.denominator * rhs.denominator
-   )
+   return Fraction(lhs.numerator * rhs.denominator + lhs.denominator * rhs.numerator, lhs.denominator * rhs.denominator)
 end
 
 function Fraction.__sub(lhs, rhs)
-   return Fraction(
-      lhs.numerator * rhs.denominator - lhs.denominator * rhs.numerator,
-      lhs.denominator * rhs.denominator
-   )
+   return Fraction(lhs.numerator * rhs.denominator - lhs.denominator * rhs.numerator, lhs.denominator * rhs.denominator)
 end
 
-function Fraction:__unm() return Fraction(-self.numerator, self.denominator) end
+function Fraction:__unm()
+   return Fraction(-self.numerator, self.denominator)
+end
 
 return Fraction

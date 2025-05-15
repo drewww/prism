@@ -18,9 +18,7 @@ function BTSelector:run(level, actor, controller)
    for i = 1, #self.children do
       local child = self.children[i]
       local result = child:run(level, actor, controller)
-      if result then
-         return result
-      end
+      if result then return result end
    end
    return false
 end

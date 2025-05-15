@@ -53,9 +53,7 @@ end
 --- @return boolean -- True if the value is in the queue, false otherwise.
 function Queue:contains(value)
    for i = self.first, self.last do
-      if self.queue[i] == value then
-         return true
-      end
+      if self.queue[i] == value then return true end
    end
    return false
 end

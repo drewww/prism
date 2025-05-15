@@ -1,5 +1,5 @@
 --- @class LevelState : GameState
---- Represents the state for running a level, including managing the game loop, 
+--- Represents the state for running a level, including managing the game loop,
 --- handling decisions, messages, and drawing the interface.
 --- @field decision ActionDecision The current decision being processed, if any.
 --- @field level Level The level object representing the game environment.
@@ -30,10 +30,8 @@ function LevelState:shouldAdvance()
    local decisionDone = hasDecision and self.decision:validateResponse()
 
    --- @diagnostic disable-next-line
-   if not self.manager or self.manager.states[#self.manager.states] ~= self then
-      return false
-   end
-   
+   if not self.manager or self.manager.states[#self.manager.states] ~= self then return false end
+
    return not hasDecision or decisionDone
 end
 
@@ -46,7 +44,7 @@ function LevelState:update(dt)
       local message = prism.advanceCoroutine(self.updateCoroutine, self.level, self.decision)
       self.decision, self.message = nil, nil
       if message then self:handleMessage(message) end
-   end   
+   end
 end
 
 --- Handles incoming messages from the coroutine.
@@ -60,7 +58,6 @@ function LevelState:handleMessage(message)
       self.manager:push(self.geometer)
    end
 end
-
 
 --- Collects and returns all player controlled senses into a group of
 --- primary (active turn) and secondary (other player controlled actors).
@@ -77,7 +74,7 @@ function LevelState:getSenses()
       end
    end
 
-   local sensesComponent = curActor and curActor:getComponent(prism.components.Senses) 
+   local sensesComponent = curActor and curActor:getComponent(prism.components.Senses)
    local primary = { sensesComponent }
    local secondary = {}
 
@@ -103,15 +100,13 @@ function LevelState:draw()
    self.display:draw()
 end
 
-function LevelState:keypressed(key, scancode) 
-   if key == "`" then
-      self.manager:push(self.geometer)
-   end
+function LevelState:keypressed(key, scancode)
+   if key == "`" then self.manager:push(self.geometer) end
 end
 
---- This method is invoked each update when a decision exists 
---- and its response is not yet valid.. Override this method in subclasses to implement 
---- custom decision-handling logic. 
+--- This method is invoked each update when a decision exists
+--- and its response is not yet valid.. Override this method in subclasses to implement
+--- custom decision-handling logic.
 --- @param dt number The time delta since the last update.
 --- @param actor Actor The actor responsible for making the decision.
 --- @param decision ActionDecision The decision being updated.

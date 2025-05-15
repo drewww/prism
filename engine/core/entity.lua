@@ -37,11 +37,16 @@ end
 --- @param component Component The component to add to the entity.
 function Entity:addComponent(component)
    assert(type(component) == "table", "Expected component got " .. type(component))
-   assert(component.is and component:is(prism.Component), "Expected argument component to be of type Component, was " .. (component.className or "table"))
+   assert(
+      component.is and component:is(prism.Component),
+      "Expected argument component to be of type Component, was " .. (component.className or "table")
+   )
    local requirementsMet, missingComponent = component:checkRequirements(self)
    if not requirementsMet then
       ---@diagnostic disable-next-line
-      error(self.name .. " was missing requirement " .. missingComponent.className .. " for " .. component.className .. "!")
+      error(
+         self.name .. " was missing requirement " .. missingComponent.className .. " for " .. component.className .. "!"
+      )
    end
    assert(not self:hasComponent(component), "Entity already has component " .. component.className .. "!")
 
@@ -96,8 +101,9 @@ end
 --- @generic T
 --- @param prototype T The type of the component to return.
 --- @return T?
-function Entity:getComponent(prototype) return self.componentCache[prototype] end
-
+function Entity:getComponent(prototype)
+   return self.componentCache[prototype]
+end
 
 --- Expects a component, returning it or erroring on nil.
 --- @generic T

@@ -34,7 +34,10 @@ function Object:extend(className, ignoreclassName)
    o.className = className
 
    --print(className, not ignoreclassName, not prism._OBJECTREGISTRY[className])
-   assert(ignoreclassName or not prism._OBJECTREGISTRY[className], className .. " is already in use by another prototype!")
+   assert(
+      ignoreclassName or not prism._OBJECTREGISTRY[className],
+      className .. " is already in use by another prototype!"
+   )
 
    -- TODO: Remove ignorclassName hack.
    if not ignoreclassName then
@@ -117,9 +120,7 @@ local unmixed = {
 --- @return self
 function Object:mixin(mixin)
    for k, v in pairs(mixin) do
-      if not unmixed[k] then
-         self[k] = v
-      end
+      if not unmixed[k] then self[k] = v end
    end
 
    return self
@@ -128,13 +129,13 @@ end
 function Object.serialize(object)
    assert(object, "Object cannot be nil.")
    local visited = {}
-   local stack = {object}
+   local stack = { object }
    local nextId = 1
    local objectToId = {}
 
    local result = {
       references = {},
-      rootId = nil
+      rootId = nil,
    }
 
    -- Helper function to get or assign ID for any table
@@ -149,32 +150,23 @@ function Object.serialize(object)
    -- Helper function to determine if a value should be serialized
    local function shouldSerialize(obj, key, value)
       local serializable = value ~= nil and type(value) ~= "function"
-      if obj.serializationBlacklist and obj.serializationBlacklist[key] then
-         return false
-      end
+      if obj.serializationBlacklist and obj.serializationBlacklist[key] then return false end
 
-      if Object._serializationBlacklist[key] then
-         return false
-      end
+      if Object._serializationBlacklist[key] then return false end
 
       return serializable
    end
 
    -- Helper function to determine if a value is a SerializableObject
    local function isSerializableObject(value)
-      return type(value) == "table" and
-             getmetatable(value) and
-             value.is and
-             value:is(Object)
+      return type(value) == "table" and getmetatable(value) and value.is and value:is(Object)
    end
 
    -- Helper function to serialize a single value
    local function serializeValue(v)
-      if prism._ISCLASS[v] then
-         return {prototype = prism._ISCLASS[v]}
-      end
+      if prism._ISCLASS[v] then return { prototype = prism._ISCLASS[v] } end
       if type(v) == "table" then
-         return {ref = getObjectId(v)}
+         return { ref = getObjectId(v) }
       else
          return v
       end
@@ -204,7 +196,7 @@ function Object.serialize(object)
             if shouldSerialize(obj, k, v) then
                table.insert(objData.entries, {
                   key = serializeValue(k),
-                  value = serializeValue(v)
+                  value = serializeValue(v),
                })
 
                if type(v) == "table" and not visited[v] and not prism._ISCLASS[v] then
@@ -254,9 +246,7 @@ function Object.deserialize(data)
 
    -- Helper function to resolve references
    local function resolveValue(value)
-      if type(value) == "table" and value.prototype then
-         return prism._OBJECTREGISTRY[value.prototype]
-      end
+      if type(value) == "table" and value.prototype then return prism._OBJECTREGISTRY[value.prototype] end
       if type(value) == "table" and value.ref then
          local resolved = idToObject[value.ref]
          assert(resolved, "Could not resolve reference: " .. value.ref)
@@ -291,9 +281,7 @@ function Object.deserialize(data)
       id = tonumber(id)
       local obj = idToObject[id]
 
-      if obj.onDeserialize then
-         obj:onDeserialize()
-      end
+      if obj.onDeserialize then obj:onDeserialize() end
    end
 
    return idToObject[data.rootId]
@@ -307,13 +295,9 @@ function Object.prettyprint(obj, indent, visited)
    indent = indent or ""
    visited = visited or {}
 
-   if type(obj) ~= "table" then
-      return tostring(obj)
-   end
+   if type(obj) ~= "table" then return tostring(obj) end
 
-   if visited[obj] then
-      return "<circular reference>"
-   end
+   if visited[obj] then return "<circular reference>" end
 
    visited[obj] = true
    local result = "{\n"

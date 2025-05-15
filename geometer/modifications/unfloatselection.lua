@@ -14,7 +14,7 @@ end
 
 function UnfloatSelection:execute(attachable)
    local map, actors = self.floatingSelection:build()
-   
+
    for x = 1, map.w do
       for y = 1, map.h do
          self:placeCell(attachable, x, y, map:get(x, y))

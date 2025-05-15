@@ -17,7 +17,7 @@ Map.serializationBlacklist = {
 --- @param cellPrototype Cell The initial value to fill the map with.
 function Map:__new(w, h, cellPrototype)
    assert(not cellPrototype:isInstance(), "Map constructor expects a prototype!")
-   
+
    prism.Grid.__new(self, w, h, cellPrototype)
 
    self.opacityCache = prism.BooleanBuffer(w, h)

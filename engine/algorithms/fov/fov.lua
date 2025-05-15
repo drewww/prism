@@ -11,9 +11,7 @@ local function fov(level, origin, maxDepth, callback)
       local function reveal(x, y)
          local x, y = quadrant:transform(x, y)
 
-         if x < 1 or y < 1 or x > level.map.w or y > level.map.w then
-            return
-         end
+         if x < 1 or y < 1 or x > level.map.w or y > level.map.w then return end
 
          callback(x, y, level:getCell(x, y))
       end
@@ -30,9 +28,7 @@ local function fov(level, origin, maxDepth, callback)
          if not y then return false end
          local x, y = quadrant:transform(x, y)
 
-         if x < 1 or y < 1 or x > level.map.w or y > level.map.w then
-            return true
-         end
+         if x < 1 or y < 1 or x > level.map.w or y > level.map.w then return true end
          return level:getCellOpaque(x, y)
       end
 
@@ -40,14 +36,14 @@ local function fov(level, origin, maxDepth, callback)
          if not y then return false end
          local x, y = quadrant:transform(x, y)
 
-         if x < 1 or y < 1 or x > level.map.w or y > level.map.w then
-            return false
-         end
+         if x < 1 or y < 1 or x > level.map.w or y > level.map.w then return false end
 
          return not level:getCellOpaque(x, y)
       end
 
-      local function slope(x, y) return prism.FOV.Fraction(2 * y - 1, 2 * x) end
+      local function slope(x, y)
+         return prism.FOV.Fraction(2 * y - 1, 2 * x)
+      end
 
       local function scanIterative(row)
          --- @type FOV.Row[]
@@ -64,17 +60,13 @@ local function fov(level, origin, maxDepth, callback)
                   local nextRow = row:next()
                   nextRow.endSlope = slope(x, y)
 
-                  if nextRow.depth <= maxDepth then
-                     table.insert(rows, nextRow)
-                  end
+                  if nextRow.depth <= maxDepth then table.insert(rows, nextRow) end
                end
                px, py = x, y
             end
             if isFloor(px, py) then
                local nextRow = row:next()
-               if nextRow.depth <= maxDepth then
-                  table.insert(rows, row:next())
-               end
+               if nextRow.depth <= maxDepth then table.insert(rows, row:next()) end
             end
          end
       end

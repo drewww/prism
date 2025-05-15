@@ -26,11 +26,17 @@ function Row:eachTile()
    end
 end
 
-function Row.roundTiesUp(n) return math.floor(n:tonumber() + 0.5) end
+function Row.roundTiesUp(n)
+   return math.floor(n:tonumber() + 0.5)
+end
 
-function Row.roundTiesDown(n) return math.ceil(n:tonumber() - 0.5) end
+function Row.roundTiesDown(n)
+   return math.ceil(n:tonumber() - 0.5)
+end
 
 --- @return FOV.Row
-function Row:next() return Row(self.depth + 1, self.startSlope, self.endSlope) end
+function Row:next()
+   return Row(self.depth + 1, self.startSlope, self.endSlope)
+end
 
 return Row

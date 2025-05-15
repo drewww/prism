@@ -26,19 +26,19 @@ function SensesTracker:createSensedMaps(level, curActor)
 
    for actor in level:query(prism.components.PlayerController):iter() do
       local sensesComponent = actor:getComponent(prism.components.Senses)
-   
+
       -- Always collect explored cells
       for x, y, cell in sensesComponent.explored:each() do
          self.exploredCells:set(x, y, cell)
       end
-   
+
       -- Skip self for other sensed data
       if actor ~= curActor then
          -- Collect other sensed cells
          for x, y, cell in sensesComponent.cells:each() do
             self.otherSensedCells:set(x, y, cell)
          end
-   
+
          -- Collect other sensed actors
          for actorInSight in sensesComponent:query():iter() do
             actorSet[actorInSight] = true
@@ -69,16 +69,12 @@ function SensesTracker:passableCallback()
       --- @type Cell
       local cell = self.exploredCells:get(x, y)
 
-      if cell then
-         passable = prism.Collision.checkBitmaskOverlap(mask, cell:getCollisionMask())
-      end
+      if cell then passable = prism.Collision.checkBitmaskOverlap(mask, cell:getCollisionMask()) end
 
       for actor, _ in pairs(self.totalSensedActors:get(x, y)) do
          ---@cast actor Actor
          local collider = actor:getComponent(prism.components.Collider)
-         if collider then
-            passable = prism.Collision.checkBitmaskOverlap(mask, collider.mask)
-         end
+         if collider then passable = prism.Collision.checkBitmaskOverlap(mask, collider.mask) end
       end
 
       return passable

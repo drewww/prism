@@ -12,9 +12,13 @@ function BoundingBox:__new(x, y, i, j)
    self.j = j
 end
 
-function BoundingBox:getWidth() return self.i - self.x + 1 end
+function BoundingBox:getWidth()
+   return self.i - self.x + 1
+end
 
-function BoundingBox:getHeight() return self.j - self.y + 1 end
+function BoundingBox:getHeight()
+   return self.j - self.y + 1
+end
 
 function BoundingBox:contains(x, y)
    return x >= self.x and x <= self.i and y >= self.y and y <= self.j

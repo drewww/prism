@@ -13,14 +13,13 @@ function Keybinding:__new(schema)
    for _, entry in ipairs(schema) do
       assert(type(entry.key) == "string", "Schema entry must include a 'key' field of type string.")
       assert(type(entry.action) == "string", "Schema entry must include an 'action' field of type string.")
-      assert(entry.description == nil or type(entry.description) == "string",
-             "Description must be a string or nil.")
+      assert(entry.description == nil or type(entry.description) == "string", "Description must be a string or nil.")
 
       local mode = entry.mode or "default"
       self.schema[mode] = self.schema[mode] or {}
       self.schema[mode][entry.key] = {
          action = entry.action,
-         description = entry.description or "No description provided."
+         description = entry.description or "No description provided.",
       }
    end
 end
@@ -42,7 +41,7 @@ function Keybinding:set(key, action, mode)
    self.keymap[mode] = self.keymap[mode] or {}
    self.keymap[mode][key] = {
       action = action,
-      description = binding.description -- Retain the original description
+      description = binding.description, -- Retain the original description
    }
 end
 
@@ -52,7 +51,7 @@ end
 --- @param mode string|nil The mode to use for the keybinding.
 --- @return string|nil -- The action associated with the key, or nil if no binding exists.
 function Keybinding:keypressed(key, mode)
-   mode = mode or "default"  -- Default mode if none provided
+   mode = mode or "default" -- Default mode if none provided
    local binding = self.keymap[mode] and self.keymap[mode][key] or self.schema[mode] and self.schema[mode][key]
    return binding and binding.action
 end

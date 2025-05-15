@@ -13,20 +13,13 @@ end
 --- @param system System The system to add.
 function SystemManager:addSystem(system)
    assert(system:is(prism.System), "Tried to add a system that was not of type System.")
-   assert(
-      not self.systems[system.className],
-      "Level already has system " .. system.className .. "!"
-   )
+   assert(not self.systems[system.className], "Level already has system " .. system.className .. "!")
 
    -- Check our requirements and make sure we have all the systems we need
    for _, requirement in ipairs(system.requirements) do
       assert(
          self.systems[requirement.className],
-         "System "
-         .. system.className
-         .. " requires system "
-         .. requirement.className
-         .. " but it is not present."
+         "System " .. system.className .. " requires system " .. requirement.className .. " but it is not present."
       )
    end
 
@@ -37,10 +30,10 @@ function SystemManager:addSystem(system)
          if system:is(softRequirement) then
             error(
                "System "
-               .. system.className
-               .. " is out of order. It must be added before "
-               .. existingSystem.className
-               .. " because it is a soft requirement."
+                  .. system.className
+                  .. " is out of order. It must be added before "
+                  .. existingSystem.className
+                  .. " because it is a soft requirement."
             )
          end
       end
@@ -188,9 +181,7 @@ end
 --- @param ... any The arguments to be passed to the event handler method.
 function SystemManager:trigger(eventString, ...)
    for _, system in pairs(self.systems) do
-      if system[eventString] then
-         system[eventString](system, ...)
-      end
+      if system[eventString] then system[eventString](system, ...) end
    end
 end
 

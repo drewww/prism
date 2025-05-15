@@ -6,6 +6,8 @@
 
 !.github/
 
+!.styluaignore
+
 definitions/
 build/
 venv/

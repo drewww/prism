@@ -101,7 +101,7 @@ end
 function Vector2._hash(x, y)
    -- Shift to handle negatives (assuming 26-bit signed integers)
    x = x + 0x2000000 -- Shift range from [-2^25, 2^25-1] to [0, 2^26-1]
-   y = y + 0x2000000 
+   y = y + 0x2000000
    return y * 0x4000000 + x -- Combine into a single number
 end
 
@@ -162,7 +162,7 @@ local rangeCase = {
    ["chebyshev"] = Vector2.distanceChebyshev,
    ["4way"] = Vector2.distanceManhattan,
    ["manhattan"] = Vector2.distanceManhattan,
-   ["euclidean"] = Vector2.distance
+   ["euclidean"] = Vector2.distance,
 }
 --- Gets the range, a ceil'd integer representing the number of tiles away the other vector is.
 --- @param vec Vector2
@@ -234,7 +234,7 @@ Vector2.neighborhood4 = {
    Vector2.UP,
    Vector2.DOWN,
    Vector2.RIGHT,
-   Vector2.LEFT
+   Vector2.LEFT,
 }
 
 return Vector2

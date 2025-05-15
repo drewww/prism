@@ -146,9 +146,7 @@ function Editor:keypressed(key, scancode)
    if not self.keybindsEnabled then return end
 
    local mode
-   if love.keyboard.isDown("lctrl") or love.keyboard.isDown("rctrl") then
-      mode = "ctrl"
-   end
+   if love.keyboard.isDown("lctrl") or love.keyboard.isDown("rctrl") then mode = "ctrl" end
 
    local action = keybinds:keypressed(key, mode)
    if action then scene:raise(action, pointer) end

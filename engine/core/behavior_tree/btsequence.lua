@@ -17,12 +17,8 @@ end
 function BTSequence:run(level, actor, controller)
    for i, child in ipairs(self.children) do
       local result = child:run(level, actor, controller)
-      if result == false then
-         return false
-      end
-      if type(result) == "table" then
-         return result
-      end
+      if result == false then return false end
+      if type(result) == "table" then return result end
    end
    return true
 end

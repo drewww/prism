@@ -18,7 +18,7 @@ local Level = prism.Object:extend("Level")
 
 Level.serializationBlacklist = {
    opacityCache = true,
-   passableCache = true
+   passableCache = true,
 }
 
 --- Constructor for the Level class.
@@ -33,7 +33,7 @@ function Level:__new(map, actors, systems, scheduler, seed)
    self.actorStorage = prism.ActorStorage(self:sparseMapCallback(), self:sparseMapCallback())
    self.scheduler = scheduler or prism.SimpleScheduler()
    self.map = map
-   self.opacityCache = prism.BooleanBuffer(map.w, map.h)  -- holds a cache of opacity to speed up fov calcs
+   self.opacityCache = prism.BooleanBuffer(map.w, map.h) -- holds a cache of opacity to speed up fov calcs
    self.passableCache = prism.BitmaskBuffer(map.w, map.h) -- holds a cache of passability to speed up a* calcs
    self.RNG = prism.RNG(seed or love.timer.getTime())
    self.debug = false
@@ -130,19 +130,23 @@ end
 --- doesn't have a name or if a system with the same name already exists, or if
 --- the system has a requirement that hasn't been attached yet.
 --- @param system System The system to add.
-function Level:addSystem(system) self.systemManager:addSystem(system) end
+function Level:addSystem(system)
+   self.systemManager:addSystem(system)
+end
 
 --- Gets a system by name.
 --- @param className string The name of the system to get.
 --- @return System? system The system with the given name.
-function Level:getSystem(className) return self.systemManager:getSystem(className) end
+function Level:getSystem(className)
+   return self.systemManager:getSystem(className)
+end
 
 --
 -- Actor
 --
 
 --- Retrieves the unique ID associated with the specified actor.
---- Note: IDs are unique to actors within the Level but may be reused 
+--- Note: IDs are unique to actors within the Level but may be reused
 --- when indices are freed.
 --- @param actor Actor The actor whose ID is to be retrieved.
 --- @return integer? -- The unique ID of the actor, or nil if the actor is not found.
@@ -162,9 +166,7 @@ function Level:addActor(actor)
    actor.level = self
 
    self.actorStorage:addActor(actor)
-   if actor:hasComponent(prism.components.Controller) then
-      self.scheduler:add(actor)
-   end
+   if actor:hasComponent(prism.components.Controller) then self.scheduler:add(actor) end
 
    self.systemManager:onActorAdded(self, actor)
 end
@@ -280,14 +282,18 @@ end
 --- over the inner ActorStorage.
 --- @param actor Actor The actor to check for.
 --- @return boolean hasActor True if the level contains the given actor, false otherwise.
-function Level:hasActor(actor) return self.actorStorage:hasActor(actor) end
+function Level:hasActor(actor)
+   return self.actorStorage:hasActor(actor)
+end
 
 --- This method returns an iterator that will return all actors in the level
 --- that have the given components. If no components are given it iterate over
 --- all actors. A thin wrapper over the inner ActorStorage.
 --- @param ... any The components to filter by.
 --- @return Query query An iterator that returns the next actor that matches the given components.
-function Level:query(...) return self.actorStorage:query(...) end
+function Level:query(...)
+   return self.actorStorage:query(...)
+end
 
 function Level:computeFOV(origin, maxDepth, callback)
    prism.computeFOV(self, origin, maxDepth, callback)
@@ -306,16 +312,16 @@ end
 --- @param x number The x component of the position to get.
 --- @param y number The y component of the position to get.
 --- @return Cell -- The cell at the given position.
-function Level:getCell(x, y) return self.map:get(x, y) end
+function Level:getCell(x, y)
+   return self.map:get(x, y)
+end
 
 --- Is there a cell at this x, y? Part of the interface with MapBuilder
 --- @param x integer The x component to check if in bounds.
 --- @param y integer The x component to check if in bounds.
 --- @return boolean
 function Level:inBounds(x, y)
-   return
-      x > 0 and x <= self.map.w and
-      y > 0 and y <= self.map.h
+   return x > 0 and x <= self.map.w and y > 0 and y <= self.map.h
 end
 
 --- Iteration wrapper for the map.
@@ -359,7 +365,7 @@ end
 -- We reuse query objects in cases like this. This happens a lot and
 -- creating a new query object each time is bad for the GC.
 --- @type Query|nil
-local passabilityQuery = nil;
+local passabilityQuery = nil
 
 --- Updates the passability cache at the given position. This should be called
 --- whenever an actor moves or a cell's passability changes. This is handled
@@ -370,9 +376,7 @@ local passabilityQuery = nil;
 function Level:updatePassabilityCache(x, y)
    local mask = self.map.passableCache:getMask(x, y)
 
-   if not passabilityQuery then
-      passabilityQuery = self:query(prism.components.Collider)
-   end
+   if not passabilityQuery then passabilityQuery = self:query(prism.components.Collider) end
 
    passabilityQuery:at(x, y)
    for _, collider in passabilityQuery:iter() do
@@ -387,12 +391,16 @@ end
 --- @param x number The x component of the position to check.
 --- @param y number The y component of the position to check.
 --- @return boolean -- True if the cell is opaque, false otherwise.
-function Level:getCellOpaque(x, y) return self.opacityCache:get(x, y) end
+function Level:getCellOpaque(x, y)
+   return self.opacityCache:get(x, y)
+end
 
 --- Returns the opacity cache for the level. This generally shouldn't be used
 --- outside of systems that need to know about opacity.
 --- @return BooleanBuffer map The opacity cache for the level.
-function Level:getOpacityCache() return self.opacityCache end
+function Level:getOpacityCache()
+   return self.opacityCache
+end
 
 --- Initialize the opacity cache. This should be called after the level is
 --- created and before the game loop starts. It will initialize the opacity
@@ -418,8 +426,7 @@ local opacityQuery = nil
 --- @private
 function Level:updateOpacityCache(x, y)
    if not opacityQuery then
-      opacityQuery = self:query(prism.components.Opaque)
-         :at(x, y)
+      opacityQuery = self:query(prism.components.Opaque):at(x, y)
    else
       opacityQuery:at(x, y)
    end
@@ -427,7 +434,7 @@ function Level:updateOpacityCache(x, y)
    local opaque = false
    for _ in opacityQuery:iter() do
       opaque = true
-      break;
+      break
    end
 
    opaque = opaque or self.map.opacityCache:get(x, y)
@@ -444,8 +451,14 @@ end
 ---@return Path? path A path to the goal, or nil if a path could not be found or the start is already at the minimum distance.
 function Level:findPath(start, goal, minDistance, mask, distanceType)
    if
-       start.x < 1 or start.x > self.map.w or start.y < 1 or start.y > self.map.h or
-       goal.x < 1 or goal.x > self.map.w or goal.y < 1 or goal.y > self.map.h
+      start.x < 1
+      or start.x > self.map.w
+      or start.y < 1
+      or start.y > self.map.h
+      or goal.x < 1
+      or goal.x > self.map.w
+      or goal.y < 1
+      or goal.y > self.map.h
    then
       error("Path destination is not on the map.")
    end

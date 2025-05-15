@@ -32,9 +32,7 @@ function Query:with(...)
    local req = { ... }
 
    for _, component in ipairs(req) do
-      assert(not self.requiredComponents[component],
-         "Multiple component of the same type added to query!"
-      )
+      assert(not self.requiredComponents[component], "Multiple component of the same type added to query!")
 
       self.requiredComponentsCount = self.requiredComponentsCount + 1
       table.insert(self.requiredComponentsList, component)
@@ -55,16 +53,13 @@ function Query:at(x, y)
    return self
 end
 
-
 local components = {}
 
 -- Helper function to check all required components for an actor
 local function hasRequired(actor, storage, requiredComponents)
    for component in pairs(requiredComponents) do
       local cache = storage:getComponentCache(component)
-      if not cache or not cache[actor] then
-         return false
-      end
+      if not cache or not cache[actor] then return false end
    end
    return true
 end
@@ -72,7 +67,7 @@ end
 -- Helper function to get components for an actor
 --- @param actor Actor
 --- @param requiredComponentsList Component[]
---- @return ...:Component 
+--- @return ...:Component
 local function getComponents(actor, requiredComponentsList)
    local n = 0
    for _, component in ipairs(requiredComponentsList) do
@@ -97,7 +92,9 @@ function Query:iter()
    if requiredPosition then
       local actors = positionCache:get(self.requiredPosition:decompose())
       if not actors then
-         return function() return nil end
+         return function()
+            return nil
+         end
       end
 
       local iter, state, actor = pairs(actors)
@@ -117,16 +114,16 @@ function Query:iter()
       local component = self.requiredComponentsList[1]
       local cache = self.storage:getComponentCache(component)
       if not cache then
-         return function() return nil end
+         return function()
+            return nil
+         end
       end
 
       local actor = nil
       return function()
          actor = next(cache, actor)
          if not actor then return nil end
-         if hasRequired(actor, self.storage, requiredComponents) then
-            return actor, actor:getComponent(component)
-         end
+         if hasRequired(actor, self.storage, requiredComponents) then return actor, actor:getComponent(component) end
       end
    end
 
@@ -137,7 +134,7 @@ function Query:iter()
       local cache = self.storage:getComponentCache(component)
       if cache and (not smallestCache or self.storage:getComponentCount(component) < smallestCount) then
          smallestCache = cache
-         smallestCount = self.storage:getComponentCount(component) 
+         smallestCount = self.storage:getComponentCount(component)
       end
    end
 
@@ -162,7 +159,6 @@ function Query:iter()
    end
 end
 
-
 --- Gathers all matching results into a list.
 --- @param results? Actor[] Optional table to insert results into.
 --- @return Actor[] actors The populated list of results.
@@ -173,9 +169,7 @@ function Query:gather(results)
 
    while true do
       local result = iterator()
-      if not result then
-         break
-      end
+      if not result then break end
 
       table.insert(results, result)
    end
@@ -195,7 +189,8 @@ end
 --- @param fn fun(actor: Actor, ...:Component) The function to apply to each result.
 function Query:each(fn)
    local iter = self:iter()
-   while eachBody(fn, iter()) do end
+   while eachBody(fn, iter()) do
+   end
 end
 
 --- Returns the first matching actor and its components.
@@ -203,10 +198,8 @@ end
 function Query:first()
    local iterator = self:iter()
    local actor = iterator() -- Get the first result from the iterator
-   if actor then
-      return actor
-   end
-   
+   if actor then return actor end
+
    return nil -- Return nil if no actor was found
 end
 

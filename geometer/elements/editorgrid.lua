@@ -47,9 +47,7 @@ local function EditorGrid(self, scene)
       pointer:captureElement(self, false)
    end)
 
-   self:onPointer("scroll", function(_, pointer, dx, dy)
-
-   end)
+   self:onPointer("scroll", function(_, pointer, dx, dy) end)
 
    return function(_, x, y, w, h)
       love.graphics.setScissor(x, y, w, h)
@@ -59,7 +57,6 @@ local function EditorGrid(self, scene)
       self.props.editor.tool:draw(self.props.editor, self.props.display)
       self.props.display:draw()
       love.graphics.setColor(r, g, b, a)
-
 
       love.graphics.setScissor()
    end

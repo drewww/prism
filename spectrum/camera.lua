@@ -36,8 +36,8 @@ function Camera:centerOn(x, y)
    local screenW, screenH = love.graphics.getWidth(), love.graphics.getHeight()
 
    x, y = x or self.position.x, y or self.position.y
-   self.position.x = x - (screenW * 0.5) * (self.scale.x)
-   self.position.y = y - (screenH * 0.5) * (self.scale.y)
+   self.position.x = x - (screenW * 0.5) * self.scale.x
+   self.position.y = y - (screenH * 0.5) * self.scale.y
 end
 
 ---@param scaleX number
@@ -56,7 +56,7 @@ end
 ---@param pointX number
 ---@param pointY number
 function Camera:scaleAroundPoint(factorX, factorY, pointX, pointY)
-   factorY = factorY or factorX 
+   factorY = factorY or factorX
 
    local scale = self.scale:copy()
    scale.x = math.max(0.1, scale.x + factorX)
@@ -65,7 +65,7 @@ function Camera:scaleAroundPoint(factorX, factorY, pointX, pointY)
    local delta = self.scale - scale
    self:setScale(scale.x, scale.y)
 
-   local offsetX = pointX  * delta.x
+   local offsetX = pointX * delta.x
    local offsetY = pointY * delta.y
 
    self.position.x = self.position.x + offsetX

@@ -1,7 +1,7 @@
 ---@enum Inky.PointerMode
 local PointerMode = {
-	POSITION = "POSITION",
-	TARGET   = "TARGET",
+   POSITION = "POSITION",
+   TARGET = "TARGET",
 }
 
 return PointerMode

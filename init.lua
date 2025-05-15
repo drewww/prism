@@ -1,5 +1,5 @@
 local p = ... .. "."
 
-require (p .. "engine")
-require (p .. "spectrum")
-require (p .. "geometer")
+require(p .. "engine")
+require(p .. "spectrum")
+require(p .. "geometer")

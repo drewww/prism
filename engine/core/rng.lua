@@ -25,7 +25,7 @@ local function createMash()
          hash = hash * n
          n = math.floor(hash)
          hash = hash - n
-         n = n + hash * 0x100000000                 -- 2^32
+         n = n + hash * 0x100000000 -- 2^32
       end
       return math.floor(n) * 2.3283064365386963e-10 -- 2^-32
    end
@@ -141,8 +141,8 @@ end
 --- Sets the state of the RNG.
 --- @param stateTable table The state to set.
 function RNG:setState(stateTable)
-   self.state0, self.state1, self.state2, self.carrier, self.seed = stateTable[1], stateTable[2], stateTable[3],
-   stateTable[4], stateTable[5]
+   self.state0, self.state1, self.state2, self.carrier, self.seed =
+      stateTable[1], stateTable[2], stateTable[3], stateTable[4], stateTable[5]
 end
 
 --- Clones the RNG.

@@ -1,11 +1,9 @@
 local PATH = string.sub(..., 1, string.len(...) - string.len("core.props.internal"))
 
-
 ---@module "inky.lib.class"
 local Class = require(PATH .. "lib.class")
 ---@module "inky.lib.hashSet"
 local HashSet = require(PATH .. "lib.hashSet")
-
 
 ---@class Inky.Props.Internal
 ---
@@ -16,8 +14,8 @@ local HashSet = require(PATH .. "lib.hashSet")
 local Internal = Class()
 
 function Internal:constructor()
-	self.values        = {}
-	self.changedValues = HashSet()
+   self.values = {}
+   self.changedValues = HashSet()
 end
 
 return Internal

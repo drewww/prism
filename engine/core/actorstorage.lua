@@ -59,7 +59,10 @@ function ActorStorage:removeActor(actor)
    self:removeSparseMapEntries(actor)
 
    for k, v in ipairs(self.actors) do
-      if v == actor then table.remove(self.actors, k) break end
+      if v == actor then
+         table.remove(self.actors, k)
+         break
+      end
    end
 
    self.ids:remove(self.actorToID[actor])
@@ -67,7 +70,7 @@ function ActorStorage:removeActor(actor)
 end
 
 --- Retrieves the unique ID associated with the specified actor.
---- Note: IDs are unique to actors within the ActorStorage but may be reused 
+--- Note: IDs are unique to actors within the ActorStorage but may be reused
 --- when indices are freed.
 --- @param actor Actor The actor whose ID is to be retrieved.
 --- @return integer? The unique ID of the actor, or nil if the actor is not found.
@@ -125,7 +128,6 @@ function ActorStorage:updateComponentCache(actor)
       end
    end
 end
-
 
 --- Removes the specified actor from the component cache.
 --- @param actor Actor The actor to remove from the component cache.

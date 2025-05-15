@@ -12,8 +12,7 @@ Component.requirements = {}
 --- Returns a list of components (prototypes) the entity must have before this one can be applied.
 --- Override this to provide requirements, and it will get called to populate the list.
 --- @return Component ...
-function Component:getRequirements()
-end
+function Component:getRequirements() end
 
 --- Checks whether an actor has the required components to attach this component.
 --- @param entity Entity The actor to check the requirements against.
@@ -21,9 +20,7 @@ end
 --- @return Component? -- The first component found missing from the entity if requirements aren't met.
 function Component:checkRequirements(entity)
    for _, component in ipairs(self.requirements) do
-      if not entity:hasComponent(component) then
-         return false, component
-      end
+      if not entity:hasComponent(component) then return false, component end
    end
 
    return true

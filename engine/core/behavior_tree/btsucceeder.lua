@@ -16,9 +16,7 @@ end
 --- @return boolean|Action
 function BTSucceeder:run(level, actor, controller)
    local ret = self.node:run(level, actor, controller)
-   if ret == false then
-      return true
-   end
+   if ret == false then return true end
    return ret
 end
 

@@ -17,14 +17,12 @@ System.softRequirements = {}
 --- Returns a list of systems (prototypes) that must be on the level for the System to be attached.
 --- Override this to provide requirements and it will get called to populate the list.
 --- @return System ...
-function System:getRequirements()
-end
+function System:getRequirements() end
 
 --- Reutnrs a list of optional requirements that ensure proper order if both Systems are attached.
 --- Override this to provide soft requirements.
 --- @return System ...
-function System:getSoftRequirements()
-end
+function System:getSoftRequirements() end
 
 --- This method is called when the Level is initialized. It is called after all of the Systems have been attached.
 --- @param level Level The Level object this System is attached to.

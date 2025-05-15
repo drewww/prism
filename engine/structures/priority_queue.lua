@@ -2,7 +2,9 @@
 --- @overload fun(T): PriorityQueue
 local PriorityQueue = prism.Object:extend("PriorityQueue")
 
-function PriorityQueue:__new() self._heap = {} end
+function PriorityQueue:__new()
+   self._heap = {}
+end
 
 --- Swap elements at indices i and j in the heap
 --- @param i integer
@@ -32,16 +34,11 @@ function PriorityQueue:_bubbleDown(i)
    local rightChild = 2 * i + 1
    local smallest = i
 
-   if
-      leftChild <= #self._heap and self._heap[leftChild].priority < self._heap[smallest].priority
-   then
+   if leftChild <= #self._heap and self._heap[leftChild].priority < self._heap[smallest].priority then
       smallest = leftChild
    end
 
-   if
-      rightChild <= #self._heap
-      and self._heap[rightChild].priority < self._heap[smallest].priority
-   then
+   if rightChild <= #self._heap and self._heap[rightChild].priority < self._heap[smallest].priority then
       smallest = rightChild
    end
 
@@ -74,9 +71,13 @@ function PriorityQueue:pop()
    return highestPriorityElement
 end
 
-function PriorityQueue:isEmpty() return #self._heap == 0 end
+function PriorityQueue:isEmpty()
+   return #self._heap == 0
+end
 
-function PriorityQueue:size() return #self._heap end
+function PriorityQueue:size()
+   return #self._heap
+end
 
 -- Unit tests
 

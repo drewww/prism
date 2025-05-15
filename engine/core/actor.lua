@@ -60,9 +60,7 @@ function Actor:getActions()
    local totalActions = {}
 
    for _, action in pairs(prism.actions) do
-      if action:hasRequisiteComponents(self) then
-         table.insert(totalActions, action)
-      end
+      if action:hasRequisiteComponents(self) then table.insert(totalActions, action) end
    end
 
    return totalActions
@@ -74,7 +72,9 @@ end
 
 --- Returns the current position of the actor.
 --- @return Vector2 position Returns a copy of the actor's current position.
-function Actor:getPosition() return self.position:copy() end
+function Actor:getPosition()
+   return self.position:copy()
+end
 
 --- Get the range from this actor to another actor.
 --- @param actor Actor The other actor to get the range to.
@@ -88,6 +88,8 @@ end
 --- @param vector Vector2 The vector to get the range to.
 --- @param type? DistanceType The type of range calculation to use.
 --- @return number -- The calculated range.
-function Actor:getRangeVec(vector, type) return self.position:getRange(vector, type) end
+function Actor:getRangeVec(vector, type)
+   return self.position:getRange(vector, type)
+end
 
 return Actor

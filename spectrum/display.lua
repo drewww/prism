@@ -28,7 +28,7 @@ function Display:__new(width, height, spriteAtlas, cellSize)
    self.height = height
    self.camera = prism.Vector2()
 
-   self.cells = {{}}
+   self.cells = { {} }
 
    -- Initialize the grid with empty cells
    for x = 1, self.width do
@@ -66,15 +66,10 @@ function Display:draw()
          local cell = self.cells[x][y]
          local dx, dy = x - 1, y - 1
          local quad = self:getQuad(cell.char)
-         
+
          if quad then
             love.graphics.setColor(cell.fg:decompose())
-            love.graphics.draw(
-               self.spriteAtlas.image,
-               quad,
-               dx * cSx,
-               dy * cSy
-            )
+            love.graphics.draw(self.spriteAtlas.image, quad, dx * cSx, dy * cSy)
          end
       end
    end
@@ -111,7 +106,7 @@ function Display:_drawCells(drawnCells, cellMap, alpha)
       if not drawnCells:get(cx, cy) then
          drawnCells:set(cx, cy, true)
          --- @cast cell Cell
-         
+
          local drawable = cell:expectComponent(prism.components.Drawable)
          tempColor = drawable.color:copy(tempColor)
          tempColor.a = tempColor.a * alpha
@@ -136,7 +131,6 @@ function Display:_drawActors(drawnActors, queryable, alpha)
       end
    end
 end
-
 
 --- @param primary Senses[]
 --- @param secondary Senses[]
@@ -270,7 +264,6 @@ end
 function Display:getCellUnderMouse()
    local x, y = self.camera:decompose()
 
-
    local mx, my = love.mouse.getPosition()
    local gx = math.floor(mx / self.cellSize.x) - x + 1
    local gy = math.floor(my / self.cellSize.y) - y + 1
@@ -317,8 +310,14 @@ function Display:putLine(x0, y0, x1, y1, char, fg, bg, layer)
       self:put(x0, y0, char, fg, bg, layer)
       if x0 == x1 and y0 == y1 then break end
       local e2 = 2 * err
-      if e2 > -dy then err = err - dy; x0 = x0 + sx end
-      if e2 < dx then err = err + dx; y0 = y0 + sy end
+      if e2 > -dy then
+         err = err - dy
+         x0 = x0 + sx
+      end
+      if e2 < dx then
+         err = err + dx
+         y0 = y0 + sy
+      end
    end
 end
 

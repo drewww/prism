@@ -19,9 +19,7 @@ end
 --- @param x number? The x-coordinate.
 --- @param y number? The y-coordinate.
 function MapBuilder:addActor(actor, x, y)
-   if x and y then
-      actor.position = prism.Vector2(x, y)
-   end
+   if x and y then actor.position = prism.Vector2(x, y) end
 
    self.actors:addActor(actor)
 end
@@ -59,9 +57,7 @@ function MapBuilder:drawEllipse(cx, cy, rx, ry, cellPrototype)
 
    for x = -rx, rx do
       for y = -ry, ry do
-         if (x * x) / (rx * rx) + (y * y) / (ry * ry) <= 1 then
-            self:set(cx + x, cy + y, cellPrototype())
-         end
+         if (x * x) / (rx * rx) + (y * y) / (ry * ry) <= 1 then self:set(cx + x, cy + y, cellPrototype()) end
       end
    end
 end
@@ -102,9 +98,7 @@ end
 --- @return Cell -- The cell at the specified coordinates, or the initialValue if not set.
 function MapBuilder:get(x, y)
    local value = prism.SparseGrid.get(self, x, y)
-   if value == nil then
-      value = self.initialValue
-   end
+   if value == nil then value = self.initialValue end
    return value
 end
 
@@ -158,12 +152,12 @@ end
 --- @param destY number The y-coordinate of the top-left corner in the destination MapBuilder.
 --- @param maskFn fun(x: integer, y: integer, source: Cell, dest: Cell)|nil A callback function for masking. Should return true if the cell should be copied, false otherwise.
 function MapBuilder:blit(source, destX, destY, maskFn)
-   maskFn = maskFn or function() return true end
+   maskFn = maskFn or function()
+      return true
+   end
 
    for x, y, value in source:each() do
-      if maskFn(x, y, value, self:get(x, y)) then
-         self:set(destX + x, destY + y, source:get(x, y))
-      end
+      if maskFn(x, y, value, self:get(x, y)) then self:set(destX + x, destY + y, source:get(x, y)) end
    end
 
    -- Adjust actor positions

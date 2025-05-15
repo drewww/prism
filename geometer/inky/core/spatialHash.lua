@@ -5,9 +5,7 @@ local Class = require(PATH .. "lib.class")
 ---@module "inky.lib.hashSet"
 local HashSet = require(PATH .. "lib.hashSet")
 
-
 ---@alias Inky.SpatialHash.Cell Inky.HashSet
-
 
 ---@class Inky.SpatialHash
 ---
@@ -20,10 +18,10 @@ local HashSet = require(PATH .. "lib.hashSet")
 local SpatialHash = Class()
 
 function SpatialHash:constructor(size)
-	self._size = size
+   self._size = size
 
-	self._cells    = {}
-	self._elements = {}
+   self._cells = {}
+   self._elements = {}
 end
 
 ---@param x integer
@@ -32,7 +30,7 @@ end
 ---@private
 ---@nodiscard
 function SpatialHash:_hash(x, y)
-	return 0.5 * (x + y) * (x + y + 1) + y
+   return 0.5 * (x + y) * (x + y + 1) + y
 end
 
 ---@param hash integer
@@ -41,11 +39,11 @@ end
 ---@private
 ---@nodiscard
 function SpatialHash:_inverseHash(hash)
-	local n = math.floor((-1 + math.sqrt(8 * hash + 1)) / 2)
-	local y = hash - 0.5 * (n + 1) * n
-	local x = n - y
+   local n = math.floor((-1 + math.sqrt(8 * hash + 1)) / 2)
+   local y = hash - 0.5 * (n + 1) * n
+   local x = n - y
 
-	return x, y
+   return x, y
 end
 
 ---@param v integer
@@ -53,7 +51,7 @@ end
 ---@private
 ---@nodiscard
 function SpatialHash:_toCell(v)
-	return math.floor(v / self._size)
+   return math.floor(v / self._size)
 end
 
 ---@param x number
@@ -67,70 +65,68 @@ end
 ---@private
 ---@nodiscard
 function SpatialHash:_toCellBounds(x, y, w, h)
-	local topLeftCellX     = self:_toCell(x)
-	local topLeftCellY     = self:_toCell(y)
-	local bottomRightCellX = self:_toCell(x + w)
-	local bottomRightCellY = self:_toCell(y + h)
+   local topLeftCellX = self:_toCell(x)
+   local topLeftCellY = self:_toCell(y)
+   local bottomRightCellX = self:_toCell(x + w)
+   local bottomRightCellY = self:_toCell(y + h)
 
-	return topLeftCellX, topLeftCellY, bottomRightCellX, bottomRightCellY
+   return topLeftCellX, topLeftCellY, bottomRightCellX, bottomRightCellY
 end
 
 ---@param element Inky.Element
 ---@return self
 function SpatialHash:add(element)
-	local x, y, w, h = element:__getInternal():getView()
-	local topLeftCellX, topLeftCellY, bottomRightCellX, bottomRightCellY = self:_toCellBounds(x, y, w, h)
+   local x, y, w, h = element:__getInternal():getView()
+   local topLeftCellX, topLeftCellY, bottomRightCellX, bottomRightCellY = self:_toCellBounds(x, y, w, h)
 
-	local cellLookup = self._elements[element]
-	if (cellLookup == nil) then
-		cellLookup = {}
-		self._elements[element] = cellLookup
-	end
+   local cellLookup = self._elements[element]
+   if cellLookup == nil then
+      cellLookup = {}
+      self._elements[element] = cellLookup
+   end
 
-	for cellX = topLeftCellX, bottomRightCellX do
-		for cellY = topLeftCellY, bottomRightCellY do
-			local cellHash = self:_hash(cellX, cellY)
+   for cellX = topLeftCellX, bottomRightCellX do
+      for cellY = topLeftCellY, bottomRightCellY do
+         local cellHash = self:_hash(cellX, cellY)
 
-			local cell = self._cells[cellHash]
-			if (cell == nil) then
-				cell = HashSet()
-				self._cells[cellHash] = cell
-			end
+         local cell = self._cells[cellHash]
+         if cell == nil then
+            cell = HashSet()
+            self._cells[cellHash] = cell
+         end
 
-			cell:add(element)
+         cell:add(element)
 
-			table.insert(cellLookup, cell)
-		end
-	end
+         table.insert(cellLookup, cell)
+      end
+   end
 
-	return self
+   return self
 end
 
 ---@param element Inky.Element
 ---@return self
 function SpatialHash:remove(element)
-	local cellLookup = self._elements[element]
-	if (cellLookup == nil) then
-		return self
-	end
+   local cellLookup = self._elements[element]
+   if cellLookup == nil then return self end
 
-	for i = 1, #cellLookup do
-		local cell = cellLookup[i]
-		cell:remove(element)
-	end
+   for i = 1, #cellLookup do
+      local cell = cellLookup[i]
+      cell:remove(element)
+   end
 
-	self._elements[element] = nil
+   self._elements[element] = nil
 
-	return self
+   return self
 end
 
 ---@param element Inky.Element
 ---@return self
 function SpatialHash:move(element)
-	self:remove(element)
-	self:add(element)
+   self:remove(element)
+   self:add(element)
 
-	return self
+   return self
 end
 
 ---@param x integer
@@ -138,14 +134,14 @@ end
 ---@return Inky.SpatialHash.Cell
 ---@nodiscard
 function SpatialHash:getElementsAtPoint(x, y)
-	local cellX = self:_toCell(x)
-	local cellY = self:_toCell(y)
+   local cellX = self:_toCell(x)
+   local cellY = self:_toCell(y)
 
-	local cellHash = self:_hash(cellX, cellY)
+   local cellHash = self:_hash(cellX, cellY)
 
-	local cell = self._cells[cellHash]
+   local cell = self._cells[cellHash]
 
-	return cell
+   return cell
 end
 
 return SpatialHash

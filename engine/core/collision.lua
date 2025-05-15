@@ -8,16 +8,16 @@ local Collision = {}
 --- Each movetypes represents a different collision category.
 --- @type table<string, CollisionMask>
 Collision.MOVETYPES = {
-   movetypes0  = 0x0001,
-   movetypes1  = 0x0002,
-   movetypes2  = 0x0004,
-   movetypes3  = 0x0008,
-   movetypes4  = 0x0010,
-   movetypes5  = 0x0020,
-   movetypes6  = 0x0040,
-   movetypes7  = 0x0080,
-   movetypes8  = 0x0100,
-   movetypes9  = 0x0200,
+   movetypes0 = 0x0001,
+   movetypes1 = 0x0002,
+   movetypes2 = 0x0004,
+   movetypes3 = 0x0008,
+   movetypes4 = 0x0010,
+   movetypes5 = 0x0020,
+   movetypes6 = 0x0040,
+   movetypes7 = 0x0080,
+   movetypes8 = 0x0100,
+   movetypes9 = 0x0200,
    movetypes10 = 0x0400,
    movetypes11 = 0x0800,
    movetypes12 = 0x1000,
@@ -39,12 +39,8 @@ Collision.movetypeNames = {}
 --- @param name string The name to associate with the movetypes.
 --- @param movetype string The movetypes key from `Collision.movetypes`.
 function Collision.registerMovetype(name, movetype)
-   if Collision.MOVETYPES[movetype] == nil then
-      error("Invalid movetypes: " .. tostring(movetype))
-   end
-   if Collision.registeredMovetypes[name] then
-      error("movetypes name already registered: " .. name)
-   end
+   if Collision.MOVETYPES[movetype] == nil then error("Invalid movetypes: " .. tostring(movetype)) end
+   if Collision.registeredMovetypes[name] then error("movetypes name already registered: " .. name) end
    if Collision.movetypeNames[Collision.MOVETYPES[movetype]] then
       error("movetypes already assigned to another name: " .. Collision.movetypeNames[Collision.MOVETYPES[movetype]])
    end
@@ -67,14 +63,11 @@ function Collision.getMovetypeName(bitmask)
    return Collision.movetypeNames[bitmask]
 end
 
-
 --- Assigns the next available unregistered movetype to a given name.
 --- @param name string The name to associate with the next available movetype.
 --- @return integer bitmask The bitmask value assigned.
 function Collision.assignNextAvailableMovetype(name)
-   if Collision.registeredMovetypes[name] then
-      error("movetypes name already registered: " .. name)
-   end
+   if Collision.registeredMovetypes[name] then error("movetypes name already registered: " .. name) end
 
    for index, bitmask in pairs(Collision.MOVETYPES) do
       if not Collision.movetypeNames[bitmask] then
@@ -94,10 +87,8 @@ function Collision.createBitmaskFromMovetypes(movetypesNames)
 
    for _, name in ipairs(movetypesNames) do
       local movetypesBitmask = Collision.registeredMovetypes[name]
-      if not movetypesBitmask then
-         error("movetypes name not found: " .. name)
-      end
-      bitmask = bit.bor(bitmask, movetypesBitmask)  -- bitwise OR using `bit.bor`
+      if not movetypesBitmask then error("movetypes name not found: " .. name) end
+      bitmask = bit.bor(bitmask, movetypesBitmask) -- bitwise OR using `bit.bor`
    end
 
    return bitmask
@@ -108,7 +99,7 @@ end
 --- @param bitmaskB integer The second bitmask.
 --- @return boolean True if there is an overlap, false otherwise.
 function Collision.checkBitmaskOverlap(bitmaskA, bitmaskB)
-   return bit.band(bitmaskA, bitmaskB) ~= 0  -- bitwise AND to check for common bits
+   return bit.band(bitmaskA, bitmaskB) ~= 0 -- bitwise AND to check for common bits
 end
 
 return Collision

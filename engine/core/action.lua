@@ -16,7 +16,7 @@ local Action = prism.Object:extend("Action")
 function Action:__new(owner, ...)
    self.owner = owner
    self.targets = self.targets or {}
-   self.targetObjects = {...}
+   self.targetObjects = { ... }
 
    assert(Action.canPerform == self.canPerform, "Do not override canPerform! Override _canPerform instead!")
    assert(Action.perform == self.perform, "Do not override perform! Override _perform instead!")
@@ -27,11 +27,11 @@ function Action:__validateTargets()
    if #self.targetObjects ~= #self.targets then
       return false,
          "Invalid number of targets for action "
-         .. self.name
-         .. " expected "
-         .. #self.targets
-         .. " got "
-         .. #self.targetObjects
+            .. self.name
+            .. " expected "
+            .. #self.targets
+            .. " got "
+            .. #self.targetObjects
    end
 
    for i, target in ipairs(self.targets) do
@@ -51,9 +51,7 @@ end
 --- @return string? error
 function Action:canPerform(level)
    if not level:hasActor(self.owner) then return false, "Actor not inside the level!" end
-   if not self:hasRequisiteComponents(self.owner) then 
-      return false, "Actor is missing requisite component."
-   end
+   if not self:hasRequisiteComponents(self.owner) then return false, "Actor is missing requisite component." end
 
    local success, err = self:__validateTargets()
    if not success then return success, err end
@@ -110,7 +108,9 @@ end
 --- Returns the target object at the specified index.
 --- @param index number The index of the target object to retrieve.
 --- @return Target|nil targetObject
-function Action:getTargetObject(index) return self.targets[index] end
+function Action:getTargetObject(index)
+   return self.targets[index]
+end
 
 --- Determines if the specified actor is a target of this action.
 --- @param actor Actor The actor to check if they are a target of this action.

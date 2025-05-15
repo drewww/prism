@@ -6,7 +6,6 @@ local Class = require(PATH .. "lib.class")
 ---@module "inky.core.scene.internal"
 local Internal = require(PATH .. "core.scene.internal")
 
-
 ---@class Inky.Scene
 ---
 ---@field private _internal Inky.Scene.Internal
@@ -17,7 +16,7 @@ local Scene = Class()
 ---@param spatialHashSize? integer
 ---@private
 function Scene:constructor(spatialHashSize)
-	self._internal = Internal(self, spatialHashSize)
+   self._internal = Internal(self, spatialHashSize)
 end
 
 ---Begin a frame to render Elements in
@@ -28,8 +27,8 @@ end
 ---
 ---@return Inky.Scene
 function Scene:beginFrame()
-	self._internal:beginFrame()
-	return self
+   self._internal:beginFrame()
+   return self
 end
 
 ---End a frame to render Elements in
@@ -38,15 +37,15 @@ end
 ---
 ---@return Inky.Scene
 function Scene:finishFrame()
-	self._internal:finishFrame()
-	return self
+   self._internal:finishFrame()
+   return self
 end
 
 ---Get if frame did begin
 ---@return boolean
 ---@nodiscard
 function Scene:didBeginFrame()
-	return self._internal:didBeginFrame()
+   return self._internal:didBeginFrame()
 end
 
 ---Raise a Scene event, to be caught by Elements
@@ -57,8 +56,8 @@ end
 ---@param ... unknown
 ---@return self
 function Scene:raise(eventName, ...)
-	self._internal:raise(eventName, ...)
-	return self
+   self._internal:raise(eventName, ...)
+   return self
 end
 
 ---Get the internal representation of the Scene
@@ -68,7 +67,7 @@ end
 ---@return Inky.Scene.Internal
 ---@nodiscard
 function Scene:__getInternal()
-	return self._internal
+   return self._internal
 end
 
 return Scene

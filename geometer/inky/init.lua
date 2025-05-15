@@ -1,9 +1,9 @@
-local PATH = (...):gsub('%.init$', '')
+local PATH = (...):gsub("%.init$", "")
 
 local Inky = {
-	_VERSION     = "1.0",
-	_DESCRIPTION = "A GUI Framework for LÖVE",
-	_LICENCE     = [[
+   _VERSION = "1.0",
+   _DESCRIPTION = "A GUI Framework for LÖVE",
+   _LICENCE = [[
 		MIT LICENSE
 		Copyright (c) 2023 Justin van der Leij (Keyslam)
 		Permission is hereby granted, free of charge, to any person obtaining a
@@ -22,7 +22,7 @@ local Inky = {
 		CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 		TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 		SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-   ]]
+   ]],
 }
 
 ---@module "inky.core.scene"

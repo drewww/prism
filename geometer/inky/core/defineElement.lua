@@ -9,9 +9,9 @@ local Element = require(PATH .. "core.element")
 ---@param initializer Inky.Element.Initializer
 ---@return fun(scene: Inky.Scene): Inky.Element
 local DefineElement = function(initializer)
-	return function(scene)
-		return Element(scene, initializer)
-	end
+   return function(scene)
+      return Element(scene, initializer)
+   end
 end
 
 return DefineElement

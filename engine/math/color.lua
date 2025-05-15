@@ -15,7 +15,7 @@ function Color4:__new(r, g, b, a)
    self.r = r or 0
    self.g = g or 0
    self.b = b or 0
-   self.a = a or 1  -- Default alpha to 1 (fully opaque)
+   self.a = a or 1 -- Default alpha to 1 (fully opaque)
 end
 
 --- Constructor for Color4 that accepts a hexadecimal number.

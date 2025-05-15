@@ -3,7 +3,9 @@ if not prism then error("Spectrum depends on prism!") end
 spectrum = {}
 spectrum.path = ...
 
-function spectrum.require(p) return require(table.concat({ spectrum.path, p }, ".")) end
+function spectrum.require(p)
+   return require(table.concat({ spectrum.path, p }, "."))
+end
 
 --- @module "spectrum.camera"
 spectrum.Camera = spectrum.require "camera"

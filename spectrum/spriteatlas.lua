@@ -16,9 +16,7 @@ function SpriteAtlas:__new(imagePath, spriteData, names)
    self.quadsByIndex = {}
    for i, data in ipairs(spriteData) do
       local quad = love.graphics.newQuad(data.x, data.y, data.width, data.height, self.image:getDimensions())
-      if names then
-         self.quadsByName[names[i] or tostring(i)] = quad
-      end
+      if names then self.quadsByName[names[i] or tostring(i)] = quad end
       self.quadsByIndex[i] = quad
    end
 end
@@ -69,7 +67,7 @@ function SpriteAtlas.fromAtlased(imagePath, jsonPath)
          x = region.rect[1],
          y = region.rect[2],
          width = region.rect[3],
-         height = region.rect[4]
+         height = region.rect[4],
       }
    end
 
@@ -100,7 +98,7 @@ function SpriteAtlas.fromGrid(imagePath, cellWidth, cellHeight, names)
             x = col * cellWidth,
             y = row * cellHeight,
             width = cellWidth,
-            height = cellHeight
+            height = cellHeight,
          }
          nameIndex = nameIndex + 1
       end
@@ -131,6 +129,5 @@ function SpriteAtlas.fromASCIIGrid(imagePath, cellWidth, cellHeight)
 
    return SpriteAtlas.fromGrid(imagePath, cellWidth, cellHeight, names)
 end
-
 
 return SpriteAtlas

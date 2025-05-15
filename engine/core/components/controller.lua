@@ -4,7 +4,7 @@
 --- @overload fun(): Controller
 local Controller = prism.Component:extend "Controller"
 
---- Returns the :lua:class:`Action` that the actor will take on its turn. 
+--- Returns the :lua:class:`Action` that the actor will take on its turn.
 --- This should not modify the :lua:class:`Level` directly.
 --- @param level Level
 --- @param actor Actor
