@@ -13,13 +13,15 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=27fed22d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/lua.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/terminal.css?v=cab5505d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/terminal.css?v=0497b37b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/goto-top/style.css?v=c152bd81" />
     <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../../_static/goto-top/main.js?v=69fc67a6"></script>
     <link rel="icon" href="../../../_static/prism.png"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -82,7 +84,7 @@ Initializes the map with an empty data table and actors list.</p>
 <li><p><strong>y1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The y-coordinate of the top-left corner.</p></li>
 <li><p><strong>x2</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The x-coordinate of the bottom-right corner.</p></li>
 <li><p><strong>y2</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The y-coordinate of the bottom-right corner.</p></li>
-<li><p><strong>cellPrototype</strong> (<a class="reference internal" href="cell.html#lua-Cell" title="Cell"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Cell</span></code></a>) – The cell to fill the rectangle with.</p></li>
+<li><p><strong>cellPrototype</strong> (<a class="reference internal" href="cell.html#lua-Cell" title="Cell"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Cell</span></code></a>) – The cell (prototype) to fill the rectangle with.</p></li>
 </ul>
 </dd>
 </dl>
@@ -99,7 +101,7 @@ Initializes the map with an empty data table and actors list.</p>
 <li><p><strong>cy</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The y-coordinate of the center.</p></li>
 <li><p><strong>rx</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The radius along the x-axis.</p></li>
 <li><p><strong>ry</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The radius along the y-axis.</p></li>
-<li><p><strong>cellPrototype</strong> (<a class="reference internal" href="cell.html#lua-Cell" title="Cell"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Cell</span></code></a>) – The cell to fill the ellipse with.</p></li>
+<li><p><strong>cellPrototype</strong> (<a class="reference internal" href="cell.html#lua-Cell" title="Cell"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Cell</span></code></a>) – The cell (prototype) to fill the ellipse with.</p></li>
 </ul>
 </dd>
 </dl>
@@ -116,7 +118,21 @@ Initializes the map with an empty data table and actors list.</p>
 <li><p><strong>y1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The y-coordinate of the starting point.</p></li>
 <li><p><strong>x2</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The x-coordinate of the ending point.</p></li>
 <li><p><strong>y2</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The y-coordinate of the ending point.</p></li>
-<li><p><strong>cellPrototype</strong> (<a class="reference internal" href="cell.html#lua-Cell" title="Cell"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Cell</span></code></a>) – The cell to draw the line with.</p></li>
+<li><p><strong>cellPrototype</strong> (<a class="reference internal" href="cell.html#lua-Cell" title="Cell"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Cell</span></code></a>) – The cell (prototype) to draw the line with.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-MapBuilder.drawPolygon">
+<span class="sig-name descname"><span class="pre">drawPolygon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-MapBuilder" title="MapBuilder"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">MapBuilder</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">cellPrototype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="cell.html#lua-Cell" title="Cell"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Cell</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">...</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-MapBuilder.drawPolygon" title="Link to this definition">¶</a></dt>
+<dd><p>Draws a sequence of lines between given points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cellPrototype</strong> (<a class="reference internal" href="cell.html#lua-Cell" title="Cell"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Cell</span></code></a>) – The cell (prototype) to draw the lines with.</p></li>
+<li><p><strong>...</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – Pairs of (x, y) coordinates given as a sequence of numbers.</p></li>
 </ul>
 </dd>
 </dl>
@@ -130,7 +146,7 @@ Initializes the map with an empty data table and actors list.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>width</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The width of the padding to add.</p></li>
-<li><p><strong>cellPrototype</strong> (<a class="reference internal" href="cell.html#lua-Cell" title="Cell"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Cell</span></code></a>) – The cell value to use for padding.</p></li>
+<li><p><strong>cellPrototype</strong> (<a class="reference internal" href="cell.html#lua-Cell" title="Cell"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Cell</span></code></a>) – The cell (prototype) to use for padding.</p></li>
 </ul>
 </dd>
 </dl>
@@ -253,6 +269,7 @@ Converts the sparse grid to a contiguous grid.</p>
 <li class="toctree-l3"><a class="reference internal" href="#lua-MapBuilder.drawRectangle"><code class="docutils literal notranslate"><span class="pre">drawRectangle()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-MapBuilder.drawEllipse"><code class="docutils literal notranslate"><span class="pre">drawEllipse()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-MapBuilder.drawLine"><code class="docutils literal notranslate"><span class="pre">drawLine()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-MapBuilder.drawPolygon"><code class="docutils literal notranslate"><span class="pre">drawPolygon()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-MapBuilder.addPadding"><code class="docutils literal notranslate"><span class="pre">addPadding()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-MapBuilder.blit"><code class="docutils literal notranslate"><span class="pre">blit()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-MapBuilder.build"><code class="docutils literal notranslate"><span class="pre">build()</span></code></a></li>

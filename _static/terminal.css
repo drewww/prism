@@ -37,6 +37,10 @@ div.admonition p.admonition-title {
   color: var(--invert-font-color);
 }
 
+details.sd-dropdown summary.sd-summary-title {
+  padding: 1em;
+}
+
 #gotoTop > button,
 body,
 .body {
@@ -962,14 +966,62 @@ input[type="submit"]:hover,
   z-index: 400;
 }
 
+.sd-card {
+  border: 1px solid var(--font-color);
+  border-radius: 0;
+}
+
+.sd-card-header:first-child {
+  border-radius: 0;
+}
+
+.sd-summary-content > .highlight-lua > .highlight > pre {
+  padding: 0;
+}
+
+.sd-summary-content > .highlight-lua {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.sd-summary-content > .highlight-lua > .highlight {
+  border: 0;
+  border-top: 1px solid var(--font-color);
+  padding-top: 1em;
+}
+
+details.sd-dropdown[open] > .sd-card-header {
+  margin-bottom: 0;
+}
+
+details.sd-dropdown:not([open]) > .sd-card-header,
+details.sd-dropdown summary.sd-summary-title,
 div.admonition,
 .admonition,
 .terminal-alert {
+  font-size: var(--global-font-size) !important;
+  font-family: var(--font-stack) !important;
   background: inherit;
   color: var(--font-color);
   padding: 1em;
   border: 1px solid var(--font-color);
+  border-radius: 0;
   margin-bottom: var(--global-space);
+}
+
+details.sd-dropdown .sd-summary-chevron-right {
+  transition: 0s;
+}
+
+details.sd-dropdown summary.sd-summary-title .sd-summary-state-marker svg,
+.sd-octicon, .sd-octicon-chevron-right, .sd-octicon-chevron-right {
+  opacity: 1;
+}
+
+details.sd-dropdown[open] > .sd-card-header {
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
 }
 
 div .caution,
