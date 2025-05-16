@@ -35,7 +35,7 @@ end
 --- @param y1 number The y-coordinate of the top-left corner.
 --- @param x2 number The x-coordinate of the bottom-right corner.
 --- @param y2 number The y-coordinate of the bottom-right corner.
---- @param cellPrototype Cell The cell to fill the rectangle with.
+--- @param cellPrototype Cell The cell (prototype) to fill the rectangle with.
 function MapBuilder:drawRectangle(x1, y1, x2, y2, cellPrototype)
    assert(not cellPrototype:isInstance(), "drawRectangle expects a prototype, not an instance!")
 
@@ -51,7 +51,7 @@ end
 --- @param cy number The y-coordinate of the center.
 --- @param rx number The radius along the x-axis.
 --- @param ry number The radius along the y-axis.
---- @param cellPrototype Cell The cell to fill the ellipse with.
+--- @param cellPrototype Cell The cell (prototype) to fill the ellipse with.
 function MapBuilder:drawEllipse(cx, cy, rx, ry, cellPrototype)
    assert(not cellPrototype:isInstance(), "drawEllipse expects a prototype, not an instance!")
 
@@ -67,7 +67,7 @@ end
 --- @param y1 number The y-coordinate of the starting point.
 --- @param x2 number The x-coordinate of the ending point.
 --- @param y2 number The y-coordinate of the ending point.
---- @param cellPrototype Cell The cell to draw the line with.
+--- @param cellPrototype Cell The cell (prototype) to draw the line with.
 function MapBuilder:drawLine(x1, y1, x2, y2, cellPrototype)
    assert(not cellPrototype:isInstance(), "drawEllipse expects a prototype, not an instance!")
 
@@ -92,6 +92,19 @@ function MapBuilder:drawLine(x1, y1, x2, y2, cellPrototype)
    end
 end
 
+--- Draws a sequence of lines between given points.
+--- @param cellPrototype Cell The cell (prototype) to draw the lines with.
+--- @param ... integer Pairs of (x, y) coordinates given as a sequence of numbers.
+function MapBuilder:drawPolygon(cellPrototype, ...)
+   --- @type integer[]
+   local points = { ... }
+   assert(#points % 2 == 0, "Invalid sequence of points given!")
+
+   for i = 1, #points - 2, 2 do
+      self:drawLine(points[i], points[i + 1], points[i + 2], points[i + 3], cellPrototype)
+   end
+end
+
 --- Gets the value at the specified coordinates, or the initialValue if not set.
 --- @param x number The x-coordinate.
 --- @param y number The y-coordinate.
@@ -102,10 +115,10 @@ function MapBuilder:get(x, y)
    return value
 end
 
---- Sets the value at the specified coordinates.
+--- Sets the cell at the specified coordinates.
 --- @param x number The x-coordinate.
 --- @param y number The y-coordinate.
---- @param cell Cell The value to set.
+--- @param cell Cell The cell to set.
 function MapBuilder:set(x, y, cell)
    assert(cell:isInstance(), "set expects an instance, not a prototype!")
    prism.SparseGrid.set(self, x, y, cell)
@@ -113,7 +126,7 @@ end
 
 --- Adds padding around the map with a specified width and cell value.
 --- @param width number The width of the padding to add.
---- @param cellPrototype Cell The cell value to use for padding.
+--- @param cellPrototype Cell The cell (prototype) to use for padding.
 function MapBuilder:addPadding(width, cellPrototype)
    assert(not cellPrototype:isInstance(), "addPadding expects a prototype, not an instance!")
 
