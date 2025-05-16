@@ -17,7 +17,8 @@ extensions = [
     'sphinx_lua_ls',
     'sphinx_copybutton',
     'sphinxcontrib.video',
-    'atsphinx.goto_top'
+    'atsphinx.goto_top',
+    'sphinx_design'
 ]
 
 lua_ls_project_root = '../../'
