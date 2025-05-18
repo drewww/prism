@@ -7,7 +7,7 @@
 <template id="tmpl_gotoTop"><div id="gotoTop">
   <button>Back to top</button>
 </div></template>
-    <title>Taking Flight &#8212; Prism  documentation</title>
+    <title>Taking flight &#8212; Prism  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=266695fe" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
@@ -46,14 +46,14 @@
           <div class="body" role="main">
             
   <section id="taking-flight">
-<h1>Taking Flight<a class="headerlink" href="#taking-flight" title="Link to this heading">¶</a></h1>
-<p>Unfortunately for kobolds, they can’t fly. In this section of the tutorial we’re going to
-create a <a class="reference internal" href="../reference/prism/core/system.html#lua-System" title="System"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">System</span></code></a> that listens for the end of an actor’s turn, and sends things
-falling into the void below if they’re on a pit but unable to fly.</p>
+<h1>Taking flight<a class="headerlink" href="#taking-flight" title="Link to this heading">¶</a></h1>
+<p>Unfortunately for kobolds, they can’t fly. In this section we’re going to
+create a <a class="reference internal" href="../reference/prism/core/system.html#lua-System" title="System"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">System</span></code></a> that plunges actors into the abyss if they’re unable
+to fly.</p>
+<figure  class="sphinx-contrib-video-container align-center"><video controls="True" preload="auto"><source src="../_images/part2.mp4" type="video/mp4"></video><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">Kicking kobolds into the abyss</span></p></figcaption></figure><section id="creating-the-void-component">
+<h2>Creating the void component<a class="headerlink" href="#creating-the-void-component" title="Link to this heading">¶</a></h2>
 <p>First we’ll need to create a component we’ll put on cells to indicate they’re a place you
 can fall.</p>
-<section id="creating-the-void-component">
-<h2>Creating the Void Component<a class="headerlink" href="#creating-the-void-component" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">modules/MyGame/components</span></code></p></li>
 <li><p>Create a new file called <code class="docutils literal notranslate"><span class="pre">void.lua</span></code></p></li>
@@ -66,10 +66,11 @@ can fall.</p>
 <span class="kr">return</span> <span class="n">Void</span>
 </pre></div>
 </div>
-<p>This is a simple tag component that marks tiles where actors can fall if they don’t have an allowed movement type.</p>
+<p>This is a simple tag component that we’ll use to mark tiles where actors can fall if they don’t have
+an allowed movement type.</p>
 </section>
 <section id="adding-void-to-our-pit">
-<h2>Adding Void to Our Pit<a class="headerlink" href="#adding-void-to-our-pit" title="Link to this heading">¶</a></h2>
+<h2>Adding void to our pit<a class="headerlink" href="#adding-void-to-our-pit" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">modules/MyGame/cells/pit.lua</span></code></p></li>
 </ol>
@@ -79,15 +80,55 @@ can fall.</p>
 </div>
 </section>
 <section id="creating-the-fall-action">
-<h2>Creating the Fall Action<a class="headerlink" href="#creating-the-fall-action" title="Link to this heading">¶</a></h2>
-<p>Next we’re going to create an Action that encapsulates the act of falling to your doom.</p>
+<h2>Creating the fall action<a class="headerlink" href="#creating-the-fall-action" title="Link to this heading">¶</a></h2>
+<p>Next we’re going to create an lua:class:<cite>Action</cite> to represent an actor falling.</p>
 <ol class="arabic simple">
 <li><p>Navigate to the <code class="docutils literal notranslate"><span class="pre">modules/MyGame/actions</span></code> directory.</p></li>
 <li><p>Create a new file called <code class="docutils literal notranslate"><span class="pre">fall.lua</span></code>.</p></li>
+<li><p>Define the <code class="docutils literal notranslate"><span class="pre">Fall</span></code> action:</p></li>
 </ol>
-<p>Write the following into <code class="docutils literal notranslate"><span class="pre">fall.lua</span></code>:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class Fall : Action</span>
 <span class="kd">local</span> <span class="n">Fall</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Action</span><span class="p">:</span><span class="n">extend</span> <span class="s2">&quot;Fall&quot;</span>
+
+<span class="kr">return</span> <span class="n">Fall</span>
+</pre></div>
+</div>
+<p>To perform the fall itself, all we’re going to do is remove the actor:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">Fall</span><span class="p">:</span><span class="nf">_perform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+   <span class="n">level</span><span class="p">:</span><span class="n">removeActor</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">)</span> <span class="c1">-- into the depths with you!</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+<p>Determining whether we <cite>should</cite> fall is a bit more complex. We need the following to be true:</p>
+<p>The cell we’re standing on has the void component, which we can check simply:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @param level Level</span>
+<span class="kr">function</span> <span class="nc">Fall</span><span class="p">:</span><span class="nf">_canPerform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">getPosition</span><span class="p">():</span><span class="n">decompose</span><span class="p">()</span>
+   <span class="kd">local</span> <span class="n">cell</span> <span class="o">=</span> <span class="n">level</span><span class="p">:</span><span class="n">getCell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+   <span class="c1">-- We can only fall on cells that are voids.</span>
+   <span class="kr">if</span> <span class="ow">not</span> <span class="n">cell</span><span class="p">:</span><span class="n">hasComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Void</span><span class="p">)</span> <span class="kr">then</span> <span class="kr">return</span> <span class="kc">false</span> <span class="kr">end</span>
+</pre></div>
+</div>
+<p>And that we can’t move through the cell. We can get the cell’s collision mask and compare it with our own
+with <a class="reference internal" href="../reference/prism/core/collision.html#lua-Collision.checkBitmaskOverlap" title="Collision.checkBitmaskOverlap"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Collision.checkBitmaskOverlap()</span></code></a> to accomplish that check:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span>   <span class="kd">local</span> <span class="n">cellMask</span> <span class="o">=</span> <span class="n">cell</span><span class="p">:</span><span class="n">getCollisionMask</span><span class="p">()</span>
+   <span class="kd">local</span> <span class="n">mover</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">getComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Mover</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">mover</span> <span class="ow">and</span> <span class="n">mover</span><span class="p">.</span><span class="n">mask</span> <span class="ow">or</span> <span class="mi">0</span> <span class="c1">-- default to the immovable mask</span>
+
+   <span class="c1">-- We have a Void component on the cell. If the actor CAN&#39;T move here</span>
+   <span class="c1">-- then they fall.</span>
+   <span class="kr">return</span> <span class="ow">not</span> <span class="n">prism</span><span class="p">.</span><span class="n">Collision</span><span class="p">.</span><span class="n">checkBitmaskOverlap</span><span class="p">(</span><span class="n">cellMask</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+<span class="kr">end</span>
+
+<span class="kr">return</span> <span class="n">Fall</span>
+</pre></div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Complete fall.lua</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><a class="reference external" href="https://github.com/PrismRL/prism-tutorial/blob/part3/modules/MyGame/actions/fall.lua">Source</a></p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">Fall</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Action</span><span class="p">:</span><span class="n">extend</span> <span class="s2">&quot;Fall&quot;</span>
 
 <span class="c1">--- @param level Level</span>
 <span class="kr">function</span> <span class="nc">Fall</span><span class="p">:</span><span class="nf">_canPerform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
@@ -114,57 +155,21 @@ can fall.</p>
 <span class="kr">return</span> <span class="n">Fall</span>
 </pre></div>
 </div>
-<p>Let’s break it down.</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">Fall</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Action</span><span class="p">:</span><span class="n">extend</span> <span class="s2">&quot;Fall&quot;</span>
-</pre></div>
 </div>
-<p>We create a Fall action.</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">Fall</span><span class="p">:</span><span class="nf">_canPerform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
-   <span class="kd">local</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">getPosition</span><span class="p">():</span><span class="n">decompose</span><span class="p">()</span>
-   <span class="kd">local</span> <span class="n">cell</span> <span class="o">=</span> <span class="n">level</span><span class="p">:</span><span class="n">getCell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-
-   <span class="c1">-- We can only fall on cells that are voids.</span>
-   <span class="kr">if</span> <span class="ow">not</span> <span class="n">cell</span><span class="p">:</span><span class="n">hasComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Void</span><span class="p">)</span> <span class="kr">then</span> <span class="kr">return</span> <span class="kc">false</span> <span class="kr">end</span>
-</pre></div>
-</div>
-<p>We define Fall’s <code class="docutils literal notranslate"><span class="pre">_canPerform</span></code> this is the inner private function to canPerform which you’ve
-used for controlling kobolds and the player. We check if the cell the actor is standing on
-has the void component, and if it doesn’t the actor can’t fall.</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span>   <span class="kd">local</span> <span class="n">cellMask</span> <span class="o">=</span> <span class="n">cell</span><span class="p">:</span><span class="n">getCollisionMask</span><span class="p">()</span>
-   <span class="kd">local</span> <span class="n">mover</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">getComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Mover</span><span class="p">)</span>
-   <span class="kd">local</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">mover</span> <span class="ow">and</span> <span class="n">mover</span><span class="p">.</span><span class="n">mask</span> <span class="ow">or</span> <span class="mi">0</span> <span class="c1">-- default to the immovable mask</span>
-
-   <span class="c1">-- We have a Void component on the cell. If the actor CAN&#39;T move here</span>
-   <span class="c1">-- then they fall.</span>
-   <span class="kr">return</span> <span class="ow">not</span> <span class="n">prism</span><span class="p">.</span><span class="n">Collision</span><span class="p">.</span><span class="n">checkBitmaskOverlap</span><span class="p">(</span><span class="n">cellMask</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
-<span class="kr">end</span>
-</pre></div>
-</div>
-<p>Now that we’ve checked if the cell is a void we check if the actor can stands there.
-If the cell is a void, and the actor can’t stand there off to depths they go!</p>
-<p>With all that out the way let’s add the Fall action’s _perform.</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @param level Level</span>
-<span class="kr">function</span> <span class="nc">Fall</span><span class="p">:</span><span class="nf">_perform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
-   <span class="n">level</span><span class="p">:</span><span class="n">removeActor</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">)</span> <span class="c1">-- into the depths with you!</span>
-<span class="kr">end</span>
-</pre></div>
-</div>
-<p>This one’s simple, we remove the floating actor from the level.</p>
-</section>
+</details></section>
 <section id="triggering-fall-with-a-system">
-<h2>Triggering Fall With a System<a class="headerlink" href="#triggering-fall-with-a-system" title="Link to this heading">¶</a></h2>
-<p>Okay so we’ve got the fall action done, but this isn’t exactly something
-most actors are doing willingly. Kobolds aren’t exactly volunteering to fall into the void.</p>
-<p>Let’s create a System to listen in and make sure things fall when they ought to.</p>
+<h2>Triggering fall with a system<a class="headerlink" href="#triggering-fall-with-a-system" title="Link to this heading">¶</a></h2>
+<p>We’ve defined a fall action, but kobolds aren’t exactly volunteering to fall into the void.</p>
+<p>Let’s create a <code class="xref lua lua-class docutils literal notranslate"><span class="pre">System`</span></code> to make sure things fall when they ought to.</p>
 <ol class="arabic simple">
 <li><p>Navigate to the <code class="docutils literal notranslate"><span class="pre">modules/MyGame/</span></code> directory.</p></li>
-<li><p>Create a new folder called <code class="docutils literal notranslate"><span class="pre">systems</span></code>.</p></li>
-<li><p>Create a new file in that folder named <code class="docutils literal notranslate"><span class="pre">fallsystem.lua</span></code></p></li>
+<li><p>Create a new folder called <code class="docutils literal notranslate"><span class="pre">systems</span></code> if it doesn’t exist.</p></li>
+<li><p>Create a new file in that folder named <code class="docutils literal notranslate"><span class="pre">fallsystem.lua</span></code>.</p></li>
 </ol>
-<p>Add the following code:</p>
+<p>We want the actor to fall immediately when they land on a valid tile, so we’ll use the
+<a class="reference internal" href="../reference/prism/core/system.html#lua-System.onMove" title="System.onMove"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">System:onMove()</span></code></a> callback to apply the fall action whenever valid:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class FallSystem : System</span>
 <span class="kd">local</span> <span class="n">FallSystem</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">System</span><span class="p">:</span><span class="n">extend</span> <span class="s2">&quot;FallSystem&quot;</span>
-
 
 <span class="c1">--- @param level Level</span>
 <span class="c1">--- @param actor Actor</span>
@@ -179,18 +184,18 @@ most actors are doing willingly. Kobolds aren’t exactly volunteering to fall i
 <span class="kr">return</span> <span class="n">FallSystem</span>
 </pre></div>
 </div>
-<p>When an actor moves we check if it should fall when it reaches it’s destination. We’re
-hooking into <a class="reference internal" href="../reference/prism/core/system.html#lua-System.onMove" title="System.onMove"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">System:onMove()</span></code></a> which is triggered by Level whenever <code class="xref lua lua-func docutils literal notranslate"><span class="pre">Level:moveActor</span></code>
-is called.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>See <a class="reference internal" href="../reference/prism/core/system.html#lua-System" title="System"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">System</span></code></a> for a listing of events you can hook into!</p>
+</div>
 </section>
 <section id="wrapping-up">
-<h2>Wrapping Up<a class="headerlink" href="#wrapping-up" title="Link to this heading">¶</a></h2>
-<p>With our FallSystem in place, kobolds and other unfortunate creatures will now tumble
+<h2>Wrapping up<a class="headerlink" href="#wrapping-up" title="Link to this heading">¶</a></h2>
+<p>With our <code class="docutils literal notranslate"><span class="pre">FallSystem</span></code> in place, kobolds and other unfortunate creatures will now tumble
 into the void if they end their turn standing on a pit they can’t fly over.
-We’ve used components to tag dangerous tiles, actions to represent involuntary movement,
-and systems to enforce game logic based on actor movement.</p>
-<p>In the next section of the tutorial, we’ll dive into something a little more active:
+We’ve used a component to tag dangerous tiles, an action to represent involuntary movement,
+and a system to enforce game logic based on actor movement.</p>
+<p>In the <a class="reference internal" href="part3.html"><span class="doc">next section</span></a> of the tutorial, we’ll dive into something a little more active:
 combat. We’ll set up a health component, and teach actors how to attack.</p>
 </section>
 </section>
@@ -246,12 +251,12 @@ combat. We’ll set up a health component, and teach actors how to attack.</p>
 <p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="part1.html">Getting started</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Taking Flight</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#creating-the-void-component">Creating the Void Component</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#adding-void-to-our-pit">Adding Void to Our Pit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#creating-the-fall-action">Creating the Fall Action</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#triggering-fall-with-a-system">Triggering Fall With a System</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#wrapping-up">Wrapping Up</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Taking flight</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#creating-the-void-component">Creating the void component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-void-to-our-pit">Adding void to our pit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-the-fall-action">Creating the fall action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#triggering-fall-with-a-system">Triggering fall with a system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wrapping-up">Wrapping up</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="part3.html">Starting Fights</a></li>
