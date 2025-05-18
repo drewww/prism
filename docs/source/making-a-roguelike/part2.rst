@@ -1,15 +1,19 @@
-Taking Flight
+Taking flight
 =============
 
-Unfortunately for kobolds, they can't fly. In this section of the tutorial we're going to 
-create a :lua:class:`System` that listens for the end of an actor's turn, and sends things
-falling into the void below if they're on a pit but unable to fly.
+Unfortunately for kobolds, they can't fly. In this section we're going to 
+create a :lua:class:`System` that plunges actors into the abyss if they're unable
+to fly.
+
+.. video:: ../_static/part2.mp4
+   :caption: Kicking kobolds into the abyss 
+   :align: center
+
+Creating the void component
+---------------------------
 
 First we'll need to create a component we'll put on cells to indicate they're a place you
 can fall.
-
-Creating the Void Component
----------------------------
 
 1. Navigate to ``modules/MyGame/components``
 2. Create a new file called ``void.lua``
@@ -24,9 +28,10 @@ Put the following into ``void.lua``:
 
    return Void
 
-This is a simple tag component that marks tiles where actors can fall if they don’t have an allowed movement type.
+This is a simple tag component that we'll use to mark tiles where actors can fall if they don’t have 
+an allowed movement type.
 
-Adding Void to Our Pit
+Adding void to our pit
 ----------------------
 
 1. Navigate to ``modules/MyGame/cells/pit.lua``
@@ -37,21 +42,36 @@ Add the following line to its components:
 
    prism.components.Void()
 
-Creating the Fall Action
+Creating the fall action
 ------------------------
 
-Next we're going to create an Action that encapsulates the act of falling to your doom.
+Next we're going to create an lua:class:`Action` to represent an actor falling.
 
 1. Navigate to the ``modules/MyGame/actions`` directory.
 2. Create a new file called ``fall.lua``.
-
-Write the following into ``fall.lua``:
+3. Define the ``Fall`` action:
 
 .. code:: lua
 
    --- @class Fall : Action
    local Fall = prism.Action:extend "Fall"
 
+   return Fall
+
+To perform the fall itself, all we're going to do is remove the actor:
+
+.. code:: lua
+
+   function Fall:_perform(level)
+      level:removeActor(self.owner) -- into the depths with you!
+   end
+
+Determining whether we `should` fall is a bit more complex. We need the following to be true:
+
+The cell we're standing on has the void component, which we can check simply:
+
+.. code:: lua
+
    --- @param level Level
    function Fall:_canPerform(level)
       local x, y = self.owner:getPosition():decompose()
@@ -60,6 +80,12 @@ Write the following into ``fall.lua``:
       -- We can only fall on cells that are voids.
       if not cell:hasComponent(prism.components.Void) then return false end
 
+
+And that we can't move through the cell. We can get the cell's collision mask and compare it with our own
+with :lua:func:`Collision.checkBitmaskOverlap` to accomplish that check:
+
+.. code:: lua
+
       local cellMask = cell:getCollisionMask()
       local mover = self.owner:getComponent(prism.components.Mover)
       local mask = mover and mover.mask or 0 -- default to the immovable mask
@@ -67,80 +93,62 @@ Write the following into ``fall.lua``:
       -- We have a Void component on the cell. If the actor CAN'T move here
       -- then they fall.
       return not prism.Collision.checkBitmaskOverlap(cellMask, mask)
-   end
-
-   --- @param level Level
-   function Fall:_perform(level)
-      level:removeActor(self.owner) -- into the depths with you!
    end
 
    return Fall
 
-Let's break it down.
 
-.. code:: lua  
+.. dropdown:: Complete fall.lua
 
-   local Fall = prism.Action:extend "Fall"
+   `Source <https://github.com/PrismRL/prism-tutorial/blob/part3/modules/MyGame/actions/fall.lua>`_
 
-We create a Fall action.
+   .. code:: lua
 
-.. code:: lua 
+      local Fall = prism.Action:extend "Fall"
 
-   function Fall:_canPerform(level)
-      local x, y = self.owner:getPosition():decompose()
-      local cell = level:getCell(x, y)
+      --- @param level Level
+      function Fall:_canPerform(level)
+         local x, y = self.owner:getPosition():decompose()
+         local cell = level:getCell(x, y)
 
-      -- We can only fall on cells that are voids.
-      if not cell:hasComponent(prism.components.Void) then return false end
+         -- We can only fall on cells that are voids.
+         if not cell:hasComponent(prism.components.Void) then return false end
 
-We define Fall's ``_canPerform`` this is the inner private function to canPerform which you've
-used for controlling kobolds and the player. We check if the cell the actor is standing on
-has the void component, and if it doesn't the actor can't fall.
+         local cellMask = cell:getCollisionMask()
+         local mover = self.owner:getComponent(prism.components.Mover)
+         local mask = mover and mover.mask or 0 -- default to the immovable mask
 
-.. code:: lua  
+         -- We have a Void component on the cell. If the actor CAN'T move here
+         -- then they fall.
+         return not prism.Collision.checkBitmaskOverlap(cellMask, mask)
+      end
 
-      local cellMask = cell:getCollisionMask()
-      local mover = self.owner:getComponent(prism.components.Mover)
-      local mask = mover and mover.mask or 0 -- default to the immovable mask
+      --- @param level Level
+      function Fall:_perform(level)
+         level:removeActor(self.owner) -- into the depths with you!
+      end
 
-      -- We have a Void component on the cell. If the actor CAN'T move here
-      -- then they fall.
-      return not prism.Collision.checkBitmaskOverlap(cellMask, mask)
-   end
+      return Fall
 
-Now that we've checked if the cell is a void we check if the actor can stands there.
-If the cell is a void, and the actor can't stand there off to depths they go!
 
-With all that out the way let's add the Fall action's _perform.
-
-.. code:: lua  
-
-   --- @param level Level
-   function Fall:_perform(level)
-      level:removeActor(self.owner) -- into the depths with you!
-   end
-
-This one's simple, we remove the floating actor from the level.
-
-Triggering Fall With a System
+Triggering fall with a system
 -----------------------------
 
-Okay so we've got the fall action done, but this isn't exactly something
-most actors are doing willingly. Kobolds aren’t exactly volunteering to fall into the void.
+We've defined a fall action, but kobolds aren’t exactly volunteering to fall into the void.
 
-Let's create a System to listen in and make sure things fall when they ought to.
+Let's create a :lua:class:`System`` to make sure things fall when they ought to.
 
 1. Navigate to the ``modules/MyGame/`` directory.
-2. Create a new folder called ``systems``.
-3. Create a new file in that folder named ``fallsystem.lua``
+2. Create a new folder called ``systems`` if it doesn't exist.
+3. Create a new file in that folder named ``fallsystem.lua``.
 
-Add the following code:
+We want the actor to fall immediately when they land on a valid tile, so we'll use the
+:lua:func:`System.onMove` callback to apply the fall action whenever valid:
 
 .. code:: lua
 
    --- @class FallSystem : System
    local FallSystem = prism.System:extend "FallSystem"
-
 
    --- @param level Level
    --- @param actor Actor
@@ -154,19 +162,17 @@ Add the following code:
 
    return FallSystem
 
-When an actor moves we check if it should fall when it reaches it's destination. We're
-hooking into :lua:func:`System.onMove` which is triggered by Level whenever :lua:func:`Level:moveActor`
-is called.
+.. note::
 
-See :lua:class:`System` for a listing of events you can hook into!
+   See :lua:class:`System` for a listing of events you can hook into!
 
-Wrapping Up
+Wrapping up
 -----------
 
-With our FallSystem in place, kobolds and other unfortunate creatures will now tumble 
+With our ``FallSystem`` in place, kobolds and other unfortunate creatures will now tumble 
 into the void if they end their turn standing on a pit they can’t fly over.
-We’ve used components to tag dangerous tiles, actions to represent involuntary movement,
-and systems to enforce game logic based on actor movement.
+We’ve used a component to tag dangerous tiles, an action to represent involuntary movement,
+and a system to enforce game logic based on actor movement.
 
-In the next section of the tutorial, we’ll dive into something a little more active:
+In the :doc:`next section <part3>` of the tutorial, we’ll dive into something a little more active:
 combat. We’ll set up a health component, and teach actors how to attack.

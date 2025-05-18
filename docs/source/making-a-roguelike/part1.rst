@@ -5,7 +5,7 @@ In this tutorial, we'll start with a project template and create an enemy that f
 the player. And we'll add the ability to kick them.
 
 
-.. video:: ../_static/output.mp4
+.. video:: ../_static/part1.mp4
    :caption: Kicking a kobold
    :align: center
 
