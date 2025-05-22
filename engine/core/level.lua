@@ -81,6 +81,7 @@ function Level:run()
    end
 end
 
+--- Steps through one turn. This is usually called by Level:run().
 function Level:step()
    local schedNext = self.scheduler:next()
 
@@ -112,12 +113,16 @@ function Level:yield(message)
    return ret
 end
 
+--- Yields a debug message if debug is true.
 function Level:debugYield(stringMessage)
    if not self.debug then return end
 
    self:yield(prism.messages.DebugMessage(stringMessage))
 end
 
+--- Trigger a custom event on systems in the level.
+--- @param eventName string
+--- @param ... any
 function Level:trigger(eventName, ...)
    self.systemManager:trigger(eventName, ...)
 end
@@ -237,31 +242,43 @@ function Level:moveActor(actor, pos, skipSparseMap)
    self.systemManager:onMove(self, actor, previousPosition, pos)
 end
 
+--- Checks if the action is valid and can be executed.
+--- @param action Action
+--- @return boolean canPerform True if the action can be performed, false otherwise.
+--- @return string? error An optional error message, if the action cannot be performed.
+function Level:canPerform(action)
+   if not self:hasActor(action.owner) then return false, "Actor not inside the level!" end
+   local success, err = action:hasRequisiteComponents(action.owner)
+   if not success then return false, "Actor is missing requisite component: " .. err end
+
+   --- @diagnostic disable-next-line
+   success, err = action:__validateTargets()
+   if not success then return success, err end
+
+   --- @diagnostic disable-next-line
+   return action:canPerform(self, unpack(action.targetObjects))
+end
+
 --- Executes an Action, updating the level's state and triggering any events through the systems
 --- attached to the Actor or Level respectively. It also updates the 'Scheduler' if the action isn't
 --- a reaction or free action. Lastly, it calls the 'onAction' method on the 'Cell' that the 'Actor' is
 --- standing on.
 --- @param action Action The action to perform.
 --- @param silent boolean? If true this action emits no events.
-function Level:performAction(action, silent)
+function Level:perform(action, silent)
    -- this happens sometimes if one effect kills an entity and a second effect
    -- tries to damage it for instance.
    if not self:hasActor(action.owner) then return end
 
-   assert(action:canPerform(self))
+   assert(self:canPerform(action))
    local owner = action.owner
 
    self:debugYield("Actor is about to perform " .. action.name)
-   if not silent then
-      self.systemManager:beforeAction(self, owner, action)
-      local x, y = owner:getPosition():decompose()
-   end
-   action:perform(self)
+   if not silent then self.systemManager:beforeAction(self, owner, action) end
+   ---@diagnostic disable-next-line
+   action:perform(self, unpack(action.targetObjects))
    self:yield(prism.messages.ActionMessage(action))
-   if not silent then
-      self.systemManager:afterAction(self, owner, action)
-      local x, y = owner:getPosition():decompose()
-   end
+   if not silent then self.systemManager:afterAction(self, owner, action) end
 end
 
 --- Gets the actor's controller. This is a utility function that checks the
@@ -314,6 +331,17 @@ end
 --- @return Cell -- The cell at the given position.
 function Level:getCell(x, y)
    return self.map:get(x, y)
+end
+
+--- Gets the cell at an actor's position.
+--- @param actor Actor An actor in the level.
+--- @return Cell -- The cell at the actor's position.
+function Level:getActorCell(actor)
+   assert(actor:is(prism.Actor), "Attemped to get the cell of a non-actor object!")
+   assert(actor.level == self, "Attempted to get the cell of an actor not in the level!")
+
+   --- @diagnostic disable-next-line
+   return self:getCell(actor.position:decompose())
 end
 
 --- Is there a cell at this x, y? Part of the interface with MapBuilder
