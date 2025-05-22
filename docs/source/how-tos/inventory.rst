@@ -76,11 +76,11 @@ Define a Pickup action that removes the item from the level and adds it to the a
         prism.components.Inventory,
     }
 
-    function Pickup:_canPerform(level, item)
+    function Pickup:canPerform(level, item)
         return true
     end
 
-    function Pickup:_perform(level, item)
+    function Pickup:perform(level, item)
         local inventory = self.owner:expectComponent(prism.components.Inventory)
         level:removeActor(item)
         inventory:addItem(item)
@@ -112,11 +112,11 @@ Define a Drop action that removes the item from the inventory and places it into
         prism.components.Inventory,
     }
 
-    function Drop:_canPerform(level, item)
+    function Drop:canPerform(level, item)
         return true
     end
 
-    function Drop:_perform(level, item)
+    function Drop:perform(level, item)
         local inventory = self.owner:expectComponent(prism.components.Inventory)
         inventory:removeItem(item)
         
