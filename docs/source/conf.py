@@ -37,10 +37,22 @@ html_css_files = [
     'terminal.css'
 ]
 
+html_sidebars = {
+    '**': [
+        'about.html',
+        'readingmodes.html',
+        'searchfield.html',
+        'navigation.html',
+        'relations.html',
+        'donate.html',
+    ]
+}
+
 html_theme_options = {
     'github_user': 'prismrl',
     'github_repo': 'prism',
-    'logo': 'prism.png'
+    'logo': 'prism.png',
+    'sidebar_width': '244px',
 }
 
 html_favicon = '_static/prism.png'
