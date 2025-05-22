@@ -10,11 +10,11 @@
     <title>Level &#8212; Prism  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=266695fe" />
     <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=b08954a9" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=27fed22d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=a1f6949c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/lua.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/terminal.css?v=0497b37b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/terminal.css?v=ed51fc71" />
     <link rel="stylesheet" type="text/css" href="../../../_static/goto-top/style.css?v=c152bd81" />
     <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
@@ -244,7 +244,7 @@ over the inner ActorStorage.</p>
 
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Level.getCellPassable">
-<span class="sig-name descname"><span class="pre">getCellPassable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Bitmask</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></span></span><a class="headerlink" href="#lua-Level.getCellPassable" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getCellPassable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></span></span><a class="headerlink" href="#lua-Level.getCellPassable" title="Link to this definition">¶</a></dt>
 <dd><p>Returns true if the cell at the given position is passable, false otherwise. Considers
 actors in the sparse map as well as the cell’s passable property.</p>
 <dl class="field-list simple">
@@ -252,7 +252,7 @@ actors in the sparse map as well as the cell’s passable property.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The x component of the position to check.</p></li>
 <li><p><strong>y</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The y component of the position to check.</p></li>
-<li><p><strong>mask</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Bitmask</span></code>) – The collision mask for checking passability.</p></li>
+<li><p><strong>mask</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – The collision mask for checking passability.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -292,7 +292,7 @@ outside of systems that need to know about opacity.</p>
 
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Level.findPath">
-<span class="sig-name descname"><span class="pre">findPath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../math/vector.html#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">goal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../math/vector.html#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">minDistance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Bitmask</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">distanceType?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">DistanceType</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">path?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../algorithms/astar/path.html#lua-Path" title="Path"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Path</span></code></a></span></span><a class="headerlink" href="#lua-Level.findPath" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">findPath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../math/vector.html#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">goal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../math/vector.html#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">minDistance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">distanceType?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;4way&quot;</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;8way&quot;</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;chebyshev&quot;</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;euclidean&quot;</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;manhattan&quot;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">path?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../algorithms/astar/path.html#lua-Path" title="Path"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Path</span></code></a></span></span><a class="headerlink" href="#lua-Level.findPath" title="Link to this definition">¶</a></dt>
 <dd><p>Finds a path between two positions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -300,8 +300,8 @@ outside of systems that need to know about opacity.</p>
 <li><p><strong>start</strong> (<a class="reference internal" href="../math/vector.html#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a>) – The starting position.</p></li>
 <li><p><strong>goal</strong> (<a class="reference internal" href="../math/vector.html#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a>) – The goal position.</p></li>
 <li><p><strong>minDistance</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – The minimum distance away to pathfind to.</p></li>
-<li><p><strong>mask</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Bitmask</span></code>) – The collision mask to use for passability checks.</p></li>
-<li><p><strong>distanceType?</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">DistanceType</span></code>) – An optional distance type to use for calculating the minimum distance. Defaults to prism._defaultDistance.</p></li>
+<li><p><strong>mask</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – The collision mask to use for passability checks.</p></li>
+<li><p><strong>distanceType?</strong> (<span class="s">&quot;4way&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="s">&quot;8way&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="s">&quot;chebyshev&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="s">&quot;euclidean&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="s">&quot;manhattan&quot;</span>) – An optional distance type to use for calculating the minimum distance. Defaults to prism._defaultDistance.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -370,7 +370,53 @@ box type uses a simple box around the given position.</p>
 
 
 
+<!--
+Taken from the sphinx library theme: https://vsalvino.github.io/sphinx-library/.
 
+MIT License
+
+Copyright (c) 2020 Vince Salvino and contributors.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<script>
+  function toggleMode(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("sphinx-terminal-mode", theme);
+  }
+  var theme = localStorage.getItem("sphinx-terminal-mode");
+  if(theme !== null)
+    toggleMode(theme);
+</script>
+<h3>Reading Mode</h3>
+
+<div class="btn-group">
+<button class="btn btn-default" type="button" onclick="toggleMode('light');">Light</button>
+<button class="btn btn-default" type="button" onclick="toggleMode('sepia');">Sepia</button>
+<button class="btn btn-default" type="button" onclick="toggleMode('dark');">Dark</button>
+</div>
+
+<noscript>
+  <div>
+    JavaScript is required to toggle reading modes.
+  </div>
+</noscript>
 <search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../../../search.html" method="get">
