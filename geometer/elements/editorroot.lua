@@ -103,7 +103,8 @@ local function EditorRoot(self, scene)
    selectionPanel.props.overlay = overlay
 
    local fillModeButton = Button(scene)
-   local toggleAtlas = spectrum.SpriteAtlas.fromGrid(geometer.assetPath .. "/assets/toggle.png", 16, 8)
+   local toggleAtlas =
+      spectrum.SpriteAtlas.fromGrid(geometer.assetPath .. "/assets/toggle.png", 16, 8)
    fillModeButton.props.tileset = toggleAtlas.image
    fillModeButton.props.pressedQuad = toggleAtlas:getQuadByIndex(1)
    fillModeButton.props.unpressedQuad = toggleAtlas:getQuadByIndex(2)
@@ -176,7 +177,9 @@ local function EditorRoot(self, scene)
       tools:render(panelEdge - 13 * 8, canvas:getHeight() - 24, 112, 12)
       selectionPanel:render(panelEdge, 0, 88, canvas:getHeight(), depth + 1)
       fillModeButton:render(panelEdge + 80, canvas:getHeight() - 48, 16, 8)
-      if filePanel.props.open then filePanel:render(8, canvas:getHeight() - 8 * 11, 8 * 12, 8 * 8, depth + 1) end
+      if filePanel.props.open then
+         filePanel:render(8, canvas:getHeight() - 8 * 11, 8 * 12, 8 * 8, depth + 1)
+      end
       love.graphics.setCanvas()
 
       grid:render(

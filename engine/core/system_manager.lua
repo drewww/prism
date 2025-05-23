@@ -13,13 +13,17 @@ end
 --- @param system System The system to add.
 function SystemManager:addSystem(system)
    assert(system:is(prism.System), "Tried to add a system that was not of type System.")
-   assert(not self.systems[system.className], "Level already has system " .. system.className .. "!")
+   assert(
+      not self.systems[system.className],
+      "Level already has system " .. system.className .. "!"
+   )
 
    -- Check our requirements and make sure we have all the systems we need
    for _, requirement in ipairs(system.requirements) do
+      local err = "System %s requires system %s but it is not present"
       assert(
          self.systems[requirement.className],
-         "System " .. system.className .. " requires system " .. requirement.className .. " but it is not present."
+         err:format(system.className, requirement.className)
       )
    end
 
@@ -28,13 +32,8 @@ function SystemManager:addSystem(system)
    for _, existingSystem in pairs(self.systems) do
       for _, softRequirement in ipairs(existingSystem.softRequirements) do
          if system:is(softRequirement) then
-            error(
-               "System "
-                  .. system.className
-                  .. " is out of order. It must be added before "
-                  .. existingSystem.className
-                  .. " because it is a soft requirement."
-            )
+            local err = "System %s is out of order. It must be added before %s"
+            error(err:format(system.className, existingSystem.className))
          end
       end
    end

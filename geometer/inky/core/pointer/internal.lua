@@ -161,7 +161,8 @@ do
 
       for i = 1, #elements do
          local element = elements[i]
-         local accepted, consumed = element:__getInternal():raiseOnPointer(eventName, self._pointer, ...)
+         local accepted, consumed =
+            element:__getInternal():raiseOnPointer(eventName, self._pointer, ...)
 
          if accepted then
             local parent = self._scene:__getInternal():getElementParent(element)

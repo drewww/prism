@@ -57,7 +57,9 @@ function MapBuilder:drawEllipse(cx, cy, rx, ry, cellPrototype)
 
    for x = -rx, rx do
       for y = -ry, ry do
-         if (x * x) / (rx * rx) + (y * y) / (ry * ry) <= 1 then self:set(cx + x, cy + y, cellPrototype()) end
+         if (x * x) / (rx * rx) + (y * y) / (ry * ry) <= 1 then
+            self:set(cx + x, cy + y, cellPrototype())
+         end
       end
    end
 end
@@ -170,7 +172,9 @@ function MapBuilder:blit(source, destX, destY, maskFn)
    end
 
    for x, y, value in source:each() do
-      if maskFn(x, y, value, self:get(x, y)) then self:set(destX + x, destY + y, source:get(x, y)) end
+      if maskFn(x, y, value, self:get(x, y)) then
+         self:set(destX + x, destY + y, source:get(x, y))
+      end
    end
 
    -- Adjust actor positions

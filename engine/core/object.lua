@@ -246,7 +246,9 @@ function Object.deserialize(data)
 
    -- Helper function to resolve references
    local function resolveValue(value)
-      if type(value) == "table" and value.prototype then return prism._OBJECTREGISTRY[value.prototype] end
+      if type(value) == "table" and value.prototype then
+         return prism._OBJECTREGISTRY[value.prototype]
+      end
       if type(value) == "table" and value.ref then
          local resolved = idToObject[value.ref]
          assert(resolved, "Could not resolve reference: " .. value.ref)

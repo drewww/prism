@@ -130,7 +130,9 @@ end
 ---@param callback Inky.Element.OnPointerInHierarchyCallback
 ---@return self
 function Internal:onPointerInHierarchy(eventName, callback)
-   if not self._onPointerInHierarchyCallbacks[eventName] then self._onPointerInHierarchyCallbacks[eventName] = {} end
+   if not self._onPointerInHierarchyCallbacks[eventName] then
+      self._onPointerInHierarchyCallbacks[eventName] = {}
+   end
    table.insert(self._onPointerInHierarchyCallbacks[eventName], callback)
    return self
 end
@@ -293,7 +295,9 @@ end
 ---@return boolean
 ---@nodiscard
 function Internal:doesPointPassOverlapCheck(px, py)
-   if self._overlapCheck then return self._overlapCheck(px, py, self._x, self._y, self._w, self._h) end
+   if self._overlapCheck then
+      return self._overlapCheck(px, py, self._x, self._y, self._w, self._h)
+   end
    return true
 end
 

@@ -39,10 +39,17 @@ Collision.movetypeNames = {}
 --- @param name string The name to associate with the movetypes.
 --- @param movetype string The movetypes key from `Collision.movetypes`.
 function Collision.registerMovetype(name, movetype)
-   if Collision.MOVETYPES[movetype] == nil then error("Invalid movetypes: " .. tostring(movetype)) end
-   if Collision.registeredMovetypes[name] then error("movetypes name already registered: " .. name) end
+   if Collision.MOVETYPES[movetype] == nil then
+      error("Invalid movetypes: " .. tostring(movetype))
+   end
+   if Collision.registeredMovetypes[name] then
+      error("movetypes name already registered: " .. name)
+   end
    if Collision.movetypeNames[Collision.MOVETYPES[movetype]] then
-      error("movetypes already assigned to another name: " .. Collision.movetypeNames[Collision.MOVETYPES[movetype]])
+      error(
+         "movetypes already assigned to another name: "
+            .. Collision.movetypeNames[Collision.MOVETYPES[movetype]]
+      )
    end
 
    Collision.registeredMovetypes[name] = Collision.MOVETYPES[movetype]
@@ -67,7 +74,9 @@ end
 --- @param name string The name to associate with the next available movetype.
 --- @return integer bitmask The bitmask value assigned.
 function Collision.assignNextAvailableMovetype(name)
-   if Collision.registeredMovetypes[name] then error("movetypes name already registered: " .. name) end
+   if Collision.registeredMovetypes[name] then
+      error("movetypes name already registered: " .. name)
+   end
 
    for index, bitmask in pairs(Collision.MOVETYPES) do
       if not Collision.movetypeNames[bitmask] then

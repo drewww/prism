@@ -74,7 +74,10 @@ local function SelectionPanel(self, scene)
    grid.props.onSelect = onSelect
    grid.props.size = self.props.size
 
-   local font = love.graphics.newFont(geometer.assetPath .. "/assets/FROGBLOCK-Polyducks.ttf", self.props.size.x)
+   local font = love.graphics.newFont(
+      geometer.assetPath .. "/assets/FROGBLOCK-Polyducks.ttf",
+      self.props.size.x
+   )
    local textInput = TextInput(scene)
    textInput.props.font = font
    textInput.props.overlay = self.props.overlay
@@ -99,7 +102,8 @@ local function SelectionPanel(self, scene)
    local panelTop = love.graphics.newImage(geometer.assetPath .. "/assets/panel_top.png")
    local highlight = prism.Color4.fromHex(0x2ce8f5)
    local fontSize = self.props.size.x - (self.props.size.x > 48 and 24 or 8)
-   local selectionFont = love.graphics.newFont(geometer.assetPath .. "/assets/FROGBLOCK-Polyducks.ttf", fontSize)
+   local selectionFont =
+      love.graphics.newFont(geometer.assetPath .. "/assets/FROGBLOCK-Polyducks.ttf", fontSize)
    self.props.selectedText = love.graphics.newTextBatch(selectionFont, "")
 
    return function(_, x, y, w, h, depth)
@@ -132,7 +136,13 @@ local function SelectionPanel(self, scene)
       local spriteOffSetX = (x / 8 + 3) * self.props.size.x
       local spriteOffSetY = (y / 8 + 17) * self.props.size.y
 
-      love.graphics.rectangle("fill", spriteOffSetX, spriteOffSetY, self.props.size.x, self.props.size.y)
+      love.graphics.rectangle(
+         "fill",
+         spriteOffSetX,
+         spriteOffSetY,
+         self.props.size.x,
+         self.props.size.y
+      )
       love.graphics.setColor(drawable.color:decompose())
       love.graphics.draw(
          self.props.display.spriteAtlas.image,

@@ -27,7 +27,8 @@ function Erase:mousereleased(editor, attached, x, y)
    if not self.origin or not self.second then return nil end
 
    local lx, ly, rx, ry = self:getCurrentRect()
-   local modification = EraseModification(editor.placeable, prism.Vector2(lx, ly), prism.Vector2(rx, ry))
+   local modification =
+      EraseModification(editor.placeable, prism.Vector2(lx, ly), prism.Vector2(rx, ry))
    editor:execute(modification)
 
    self.origin = nil

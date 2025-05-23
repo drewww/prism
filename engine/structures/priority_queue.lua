@@ -34,11 +34,16 @@ function PriorityQueue:_bubbleDown(i)
    local rightChild = 2 * i + 1
    local smallest = i
 
-   if leftChild <= #self._heap and self._heap[leftChild].priority < self._heap[smallest].priority then
+   if
+      leftChild <= #self._heap and self._heap[leftChild].priority < self._heap[smallest].priority
+   then
       smallest = leftChild
    end
 
-   if rightChild <= #self._heap and self._heap[rightChild].priority < self._heap[smallest].priority then
+   if
+      rightChild <= #self._heap
+      and self._heap[rightChild].priority < self._heap[smallest].priority
+   then
       smallest = rightChild
    end
 

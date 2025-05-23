@@ -15,7 +15,8 @@ function SpriteAtlas:__new(imagePath, spriteData, names)
    self.quadsByName = {}
    self.quadsByIndex = {}
    for i, data in ipairs(spriteData) do
-      local quad = love.graphics.newQuad(data.x, data.y, data.width, data.height, self.image:getDimensions())
+      local quad =
+         love.graphics.newQuad(data.x, data.y, data.width, data.height, self.image:getDimensions())
       if names then self.quadsByName[names[i] or tostring(i)] = quad end
       self.quadsByIndex[i] = quad
    end

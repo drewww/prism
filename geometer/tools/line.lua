@@ -28,7 +28,8 @@ function Line:mousereleased(editor)
 
    local fx, fy = self.origin.x, self.origin.y
    local x, y = self.to.x, self.to.y
-   local modification = LineModification(editor.placeable, prism.Vector2(fx, fy), prism.Vector2(x, y))
+   local modification =
+      LineModification(editor.placeable, prism.Vector2(fx, fy), prism.Vector2(x, y))
    editor:execute(modification)
 
    self.origin = nil

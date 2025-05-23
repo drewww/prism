@@ -112,12 +112,18 @@ for i, v in ipairs(testData) do
 end
 
 for i, v in ipairs(testData) do
-   assert(queue:pop() == v, "Test 5 Failed: The order of elements coming out of the queue is incorrect")
+   assert(
+      queue:pop() == v,
+      "Test 5 Failed: The order of elements coming out of the queue is incorrect"
+   )
 end
 
 -- Test 6: Interleave pushes and pops
 queue:push(1)
-assert(queue:pop() == 1, "Test 6 Failed: Queue should return the same element after a push-pop cycle")
+assert(
+   queue:pop() == 1,
+   "Test 6 Failed: Queue should return the same element after a push-pop cycle"
+)
 queue:push(2)
 queue:push(3)
 assert(queue:pop() == 2, "Test 6 Failed: Queue should return the first pushed element")

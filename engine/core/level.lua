@@ -281,13 +281,10 @@ function Level:perform(action, silent)
    if not silent then self.systemManager:afterAction(self, owner, action) end
 end
 
---- Gets the actor's controller. This is a utility function that checks the
---- actor's conditions for an override controller and returns it if it exists.
---- Otherwise it returns the actor's normal controller.
+--- Gets the actor's controller.
 --- @param actor Actor The actor to get the controller for.
---- @return Controller controller The actor's controller.
+--- @return Controller? controller The actor's controller, or nil if it doesn't have one.
 function Level:getActorController(actor)
-   --- @type Controller Cast to a Controller from the generic Controller component
    return actor:getComponent(prism.components.Controller)
 end
 
