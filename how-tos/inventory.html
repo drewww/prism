@@ -113,11 +113,11 @@
     <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">,</span>
 <span class="p">}</span>
 
-<span class="kr">function</span> <span class="nc">Pickup</span><span class="p">:</span><span class="nf">_canPerform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+<span class="kr">function</span> <span class="nc">Pickup</span><span class="p">:</span><span class="nf">canPerform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
     <span class="kr">return</span> <span class="kc">true</span>
 <span class="kr">end</span>
 
-<span class="kr">function</span> <span class="nc">Pickup</span><span class="p">:</span><span class="nf">_perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+<span class="kr">function</span> <span class="nc">Pickup</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
     <span class="kd">local</span> <span class="n">inventory</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">expectComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">)</span>
     <span class="n">level</span><span class="p">:</span><span class="n">removeActor</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
     <span class="n">inventory</span><span class="p">:</span><span class="n">addItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
@@ -147,11 +147,11 @@
     <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">,</span>
 <span class="p">}</span>
 
-<span class="kr">function</span> <span class="nc">Drop</span><span class="p">:</span><span class="nf">_canPerform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+<span class="kr">function</span> <span class="nc">Drop</span><span class="p">:</span><span class="nf">canPerform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
     <span class="kr">return</span> <span class="kc">true</span>
 <span class="kr">end</span>
 
-<span class="kr">function</span> <span class="nc">Drop</span><span class="p">:</span><span class="nf">_perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+<span class="kr">function</span> <span class="nc">Drop</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
     <span class="kd">local</span> <span class="n">inventory</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">expectComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">)</span>
     <span class="n">inventory</span><span class="p">:</span><span class="n">removeItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 

@@ -296,11 +296,11 @@ that any actor trying to perform the kick action have a controller.</p>
 </pre></div>
 </div>
 <p>For the logic, we’ll define methods that validate and perform the kick. We don’t have any
-special conditions for kicking, so from <code class="xref lua lua-func docutils literal notranslate"><span class="pre">Action._canPerform</span></code> we’ll just return true.
+special conditions for kicking, so from <a class="reference internal" href="../reference/prism/core/action.html#lua-Action.canPerform" title="Action.canPerform"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Action:canPerform()</span></code></a> we’ll just return true.
 For the kick itself, we get the direction from the player to the target (kobold), and check passability
 for three tiles in the direction before finally moving them. We also give the kobold flying movement by
 checking passability with a custom collision mask.</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">Kick</span><span class="p">:</span><span class="nf">_canPerform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">Kick</span><span class="p">:</span><span class="nf">canPerform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
    <span class="kr">return</span> <span class="kc">true</span>
 <span class="kr">end</span>
 
@@ -308,7 +308,7 @@ checking passability with a custom collision mask.</p>
 
 <span class="c1">--- @param level Level</span>
 <span class="c1">--- @param kicked Actor</span>
-<span class="kr">function</span> <span class="nc">Kick</span><span class="p">:</span><span class="nf">_perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">kicked</span><span class="p">)</span>
+<span class="kr">function</span> <span class="nc">Kick</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">kicked</span><span class="p">)</span>
    <span class="kd">local</span> <span class="n">direction</span> <span class="o">=</span> <span class="p">(</span><span class="n">kicked</span><span class="p">:</span><span class="n">getPosition</span><span class="p">()</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">getPosition</span><span class="p">())</span>
 
    <span class="kr">for</span> <span class="n">_</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span> <span class="kr">do</span>
@@ -346,13 +346,13 @@ checking passability with a custom collision mask.</p>
    <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Controller</span>
 <span class="p">}</span>
 
-<span class="kr">function</span> <span class="nc">Kick</span><span class="p">:</span><span class="nf">_canPerform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+<span class="kr">function</span> <span class="nc">Kick</span><span class="p">:</span><span class="nf">canPerform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
    <span class="kr">return</span> <span class="kc">true</span>
 <span class="kr">end</span>
 
 <span class="c1">--- @param level Level</span>
 <span class="c1">--- @param kicked Actor</span>
-<span class="kr">function</span> <span class="nc">Kick</span><span class="p">:</span><span class="nf">_perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">kicked</span><span class="p">)</span>
+<span class="kr">function</span> <span class="nc">Kick</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">kicked</span><span class="p">)</span>
    <span class="kd">local</span> <span class="n">direction</span> <span class="o">=</span> <span class="p">(</span><span class="n">kicked</span><span class="p">:</span><span class="n">getPosition</span><span class="p">()</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">getPosition</span><span class="p">())</span>
 
    <span class="kd">local</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Collision</span><span class="p">.</span><span class="n">createBitmaskFromMovetypes</span><span class="p">{</span> <span class="s2">&quot;fly&quot;</span> <span class="p">}</span>
