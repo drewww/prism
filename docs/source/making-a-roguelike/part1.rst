@@ -289,14 +289,14 @@ that any actor trying to perform the kick action have a controller.
    return Kick
 
 For the logic, we'll define methods that validate and perform the kick. We don't have any
-special conditions for kicking, so from :lua:func:`Action._canPerform` we'll just return true.
+special conditions for kicking, so from :lua:func:`Action.canPerform` we'll just return true.
 For the kick itself, we get the direction from the player to the target (kobold), and check passability
 for three tiles in the direction before finally moving them. We also give the kobold flying movement by
 checking passability with a custom collision mask.
 
 .. code:: lua
 
-   function Kick:_canPerform(level)
+   function Kick:canPerform(level)
       return true
    end
 
@@ -304,7 +304,7 @@ checking passability with a custom collision mask.
 
    --- @param level Level
    --- @param kicked Actor
-   function Kick:_perform(level, kicked)
+   function Kick:perform(level, kicked)
       local direction = (kicked:getPosition() - self.owner:getPosition())
 
       for _ = 1, 3 do
@@ -343,13 +343,13 @@ checking passability with a custom collision mask.
          prism.components.Controller
       }
 
-      function Kick:_canPerform(level)
+      function Kick:canPerform(level)
          return true
       end
 
       --- @param level Level
       --- @param kicked Actor
-      function Kick:_perform(level, kicked)
+      function Kick:perform(level, kicked)
          local direction = (kicked:getPosition() - self.owner:getPosition())
 
          local mask = prism.Collision.createBitmaskFromMovetypes{ "fly" }

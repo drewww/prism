@@ -96,7 +96,7 @@ for actors dying in a system by the end of this chapter. So let's turn the act o
    ---@class Die : Action
    local Die = prism.Action:extend("Die")
 
-   function Die:_perform(level)
+   function Die:perform(level)
       level:removeActor(self.owner)
    end
 
@@ -112,7 +112,7 @@ Making Fall Use Die
 Now that we've got the Die action, let's test it by changing the Fall action to use it instead of just removing
 the actor from the level.
 
-Navigate to ``modules/MyGame/actions/fall.lua`` and replace the single line in it's _perform with the following:
+Navigate to ``modules/MyGame/actions/fall.lua`` and replace the single line in it's perform with the following:
 
 .. code:: lua
 
@@ -150,7 +150,7 @@ Okay, finally! We're going to make the attack action!
 
    --- @param level Level
    --- @param target Actor
-   function Attack:_perform(level, target)
+   function Attack:perform(level, target)
       local health = target:expectComponent(prism.components.Health)
       local attacker = self.owner:expectComponent(prism.components.Attacker)
       health.hp = health.hp - attacker.damage

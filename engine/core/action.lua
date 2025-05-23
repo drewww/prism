@@ -17,9 +17,6 @@ function Action:__new(owner, ...)
    self.owner = owner
    self.targets = self.targets or {}
    self.targetObjects = { ... }
-
-   assert(Action.canPerform == self.canPerform, "Do not override canPerform! Override _canPerform instead!")
-   assert(Action.perform == self.perform, "Do not override perform! Override _perform instead!")
 end
 
 --- @private
@@ -43,52 +40,34 @@ function Action:__validateTargets()
    return true
 end
 
---- Call this function to check if the action is valid and can be executed in
---- the given level. This calls the inner overrideable _canPerform, and
---- unpacks the target objects.
---- @param level Level
---- @return boolean canPerform
---- @return string? error
-function Action:canPerform(level)
-   if not level:hasActor(self.owner) then return false, "Actor not inside the level!" end
-   if not self:hasRequisiteComponents(self.owner) then return false, "Actor is missing requisite component." end
-
-   local success, err = self:__validateTargets()
-   if not success then return success, err end
-
-   return self:_canPerform(level, unpack(self.targetObjects))
-end
-
---- This method should be overriden by subclasses. This is called to make
---- sure an action is valid for the actor. This would be useful for
---- @param level Level
---- @return boolean canPerform
---- @private
-function Action:_canPerform(level, ...)
+--- Checks if the action is valid and can be executed in the given level. Override this.
+--- @param level Level The level the action would be performed in.
+--- @return boolean canPerform True if the action could be performed, false otherwise.
+--- @return string? error An optional error message, if the action cannot be performed.
+--- @protected
+function Action:canPerform(level, ...)
    return true
 end
 
---- @param actor Actor
---- @return boolean hasRequisiteComponents
+--- Checks whether or not the actor has the required components to perform this action.
+--- @param actor Actor The actor to check.
+--- @return boolean hasRequisiteComponents True if the actor has the required components, false otherwise.
+--- @return string? missingComponent The name of the first missing component, should any be missing.
 function Action:hasRequisiteComponents(actor)
    if not self.requiredComponents then return true end
 
    for _, component in pairs(self.requiredComponents) do
-      if not actor:hasComponent(component) then return false end
+      if not actor:hasComponent(component) then return false, component.name end
    end
 
    return true
 end
 
-function Action:perform(level)
-   self:_perform(level, unpack(self.targetObjects))
-end
-
---- Performs the action. This should be overriden on all subclasses
---- @param level Level The level the action is being performed in.
---- @private
-function Action:_perform(level, ...)
-   error("This is a virtual method and must be overriden on subclasses!")
+--- Performs the action on the level. Override this.
+--- @param level Level The level to perform the action in.
+--- @protected
+function Action:perform(level, ...)
+   error("This is a virtual method and must be overriden by subclasses!")
 end
 
 --- Returns the target actor at the specified index.

@@ -176,7 +176,6 @@ function SystemManager:onYield(level, event)
 end
 
 --- This is useful for calling custom events you define in your Actions, Systems, etc.
---- An example usage of this can be found in the Sight system.
 --- @param eventString string The key of the event handler method into the system.
 --- @param ... any The arguments to be passed to the event handler method.
 function SystemManager:trigger(eventString, ...)
