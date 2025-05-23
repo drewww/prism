@@ -36,26 +36,31 @@ end
 --- prerequisites are met and will throw an error if they are not, or if the entity already has the component.
 --- @param component Component The component to add to the entity.
 function Entity:addComponent(component)
+   -- stylua: ignore start
    assert(type(component) == "table", "Expected component got " .. type(component))
    assert(
       component.is and component:is(prism.Component),
       "Expected argument component to be of type Component, was " .. (component.className or "table")
    )
+
    local requirementsMet, missingComponent = component:checkRequirements(self)
    if not requirementsMet then
-      ---@diagnostic disable-next-line
-      error(
-         self.name .. " was missing requirement " .. missingComponent.className .. " for " .. component.className .. "!"
-      )
+      --- @cast missingComponent Component
+      local err = "%s was missing requirement %s for %s"
+      error(err:format(self.name, missingComponent.className, component.className))
    end
+
    assert(not self:hasComponent(component), "Entity already has component " .. component.className .. "!")
 
    for _, v in pairs(prism.components) do
       if component:is(v) then
-         if self.componentCache[v] then error("Entity already has component " .. v.className .. "!") end
+         if self.componentCache[v] then
+            error("Entity already has component " .. v.className .. "!")
+         end
          self.componentCache[v] = component
       end
    end
+   -- stylua: ignore end
 
    component.owner = self
    table.insert(self.components, component)
@@ -74,7 +79,9 @@ function Entity:removeComponent(component)
          end
 
          for cachedComponent, _ in pairs(self.componentCache) do
-            if cachedComponent:is(componentPrototype) then self.componentCache[cachedComponent] = nil end
+            if cachedComponent:is(componentPrototype) then
+               self.componentCache[cachedComponent] = nil
+            end
          end
       end
    end
@@ -88,30 +95,40 @@ function Entity:removeComponent(component)
    end
 end
 
---- Returns a bool indicating whether the entity has a component of the given type.
---- @param prototype any The prototype of the component to check for.
---- @return boolean hasComponent
-function Entity:hasComponent(prototype)
-   assert(prototype:is(prism.Component), "Expected argument type to be inherited from Component!")
+--- Checks whether the entity has all of the components given.
+--- @param ... Component The list of component prototypes.
+--- @return boolean hasComponents True if the entity has all of the components.
+function Entity:hasComponent(...)
+   for _, prototype in ipairs({ ... }) do
+      -- stylua: ignore
+      assert(prototype:is(prism.Component), "Expected argument type to be inherited from Component!")
+      if not self.componentCache[prototype] then return false end
+   end
 
-   return self.componentCache[prototype] ~= nil
+   return true
 end
 
---- Searches for a component that inherits from the supplied prototype.
+--- Returns the components for the prototypes given, or nil if the entity does not have it.
 --- @generic T
 --- @param prototype T The type of the component to return.
 --- @return T?
-function Entity:getComponent(prototype)
-   return self.componentCache[prototype]
+--- @return Component? ...
+function Entity:getComponent(prototype, ...)
+   if prototype == nil then return nil end
+
+   assert(prototype:is(prism.Component), "Expected argument type to be inherited from Component!")
+
+   return self.componentCache[prototype], self:getComponent(...)
 end
 
---- Expects a component, returning it or erroring on nil.
+--- Expects a component, returning it or erroring if the entity does not have the component.
 --- @generic T
 --- @param prototype T The type of the component to return.
 --- @return T
 function Entity:expectComponent(prototype)
-   ---@diagnostic disable-next-line
-   return self.componentCache[prototype] or error("Expected component " .. prototype.className .. "!")
+   --- @cast prototype Object
+   return self.componentCache[prototype]
+      or error("Expected component " .. prototype.className .. "!")
 end
 
 return Entity
