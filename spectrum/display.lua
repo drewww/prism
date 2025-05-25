@@ -13,6 +13,7 @@
 ---@field width integer
 ---@field height integer
 ---@field cells table<number, table<number, DisplayCell>>
+---@field camera Vector2 The offset to draw the display at.
 ---@overload fun(width: integer, heigh: integer, spriteAtlas: SpriteAtlas, cellSize: Vector2): Display
 local Display = prism.Object:extend("Display")
 
@@ -28,7 +29,7 @@ function Display:__new(width, height, spriteAtlas, cellSize)
    self.height = height
    self.camera = prism.Vector2()
 
-   self.cells = {{}}
+   self.cells = { {} }
 
    -- Initialize the grid with empty cells
    for x = 1, self.width do
@@ -68,15 +69,10 @@ function Display:draw()
          local cell = self.cells[x][y]
          local dx, dy = x - 1, y - 1
          local quad = self:getQuad(cell.char)
-         
+
          if quad then
             love.graphics.setColor(cell.fg:decompose())
-            love.graphics.draw(
-               self.spriteAtlas.image,
-               quad,
-               dx * cSx,
-               dy * cSy
-            )
+            love.graphics.draw(self.spriteAtlas.image, quad, dx * cSx, dy * cSy)
          end
       end
    end
@@ -99,6 +95,7 @@ function Display:putLevel(attachable)
    end
 
    for actor, drawable in attachable:query(prism.components.Drawable):iter() do
+      --- @cast drawable Drawable
       --- @diagnostic disable-next-line
       local ax, ay = actor.position:decompose()
       self:putDrawable(ax + camX, ay + camY, drawable)
@@ -119,7 +116,7 @@ function Display:_drawCells(drawnCells, cellMap, alpha)
       if not drawnCells:get(cx, cy) then
          drawnCells:set(cx, cy, true)
          --- @cast cell Cell
-         
+
          local drawable = cell:expectComponent(prism.components.Drawable)
          tempColor = drawable.color:copy(tempColor)
          tempColor.a = tempColor.a * alpha
@@ -143,12 +140,12 @@ function Display:_drawActors(drawnActors, queryable, alpha)
          tempColor = drawable.color:copy(tempColor)
          tempColor.a = tempColor.a * alpha
 
+         --- @diagnostic disable-next-line
          local ax, ay = actor.position:decompose()
          self:putDrawable(x + ax, y + ay, drawable, tempColor)
       end
    end
 end
-
 
 --- Puts vision and explored areas from primary and secondary senses onto the display.
 --- Cells and actors from primary senses are drawn fully opaque, while those from secondary
@@ -265,7 +262,7 @@ function Display:putString(x, y, str, fg, bg, layer, align, width)
    elseif align ~= "left" and align ~= nil then -- Added check for nil as default for "left"
       error("Invalid alignment: " .. tostring(align))
    end
-   
+
    fg = fg or prism.Color4.WHITE
    bg = bg or prism.Color4.TRANSPARENT
    for i = 1, #str do
@@ -336,16 +333,17 @@ function Display:drawDrawable(x, y, drawable)
    end
 end
 
---- Returns the grid cell coordinates that are currently under the mouse cursor,
---- adjusted by the display's camera position.
+--- Returns the grid cell under the current mouse position, adjusted by optional grid offsets.
+--- @param mx? number A custom X coordinate to use for the mouse position.
+--- @param my? number A custom Y coordinate to use for the mouse position.
 --- @return integer? x The X grid coordinate, or nil if out of bounds.
---- @return integer? y The Y grid coordinate, or nil if out of bounds.
-function Display:getCellUnderMouse()
+--- @return integer? y The X grid coordinate, or nil if out of bounds.
+function Display:getCellUnderMouse(mx, my)
    local x, y = self.camera:decompose()
+   local mmx, mmy = love.mouse.getPosition()
 
-   local mx, my = love.mouse.getPosition()
-   local gx = math.floor(mx / self.cellSize.x) - x + 1
-   local gy = math.floor(my / self.cellSize.y) - y + 1
+   local gx = math.floor((mx or mmx) / self.cellSize.x) - x + 1
+   local gy = math.floor((my or mmy) / self.cellSize.y) - y + 1
 
    return gx, gy
 end
@@ -423,9 +421,16 @@ function Display:putLine(x0, y0, x1, y1, char, fg, bg, layer)
       self:put(x0, y0, char, fg, bg, layer)
       if x0 == x1 and y0 == y1 then break end
       local e2 = 2 * err
-      if e2 > -dy then err = err - dy; x0 = x0 + sx end
-      if e2 < dx then err = err + dx; y0 = y0 + sy end
+      if e2 > -dy then
+         err = err - dy
+         x0 = x0 + sx
+      end
+      if e2 < dx then
+         err = err + dx
+         y0 = y0 + sy
+      end
    end
 end
 
 return Display
+
