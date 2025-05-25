@@ -175,7 +175,14 @@ end
 --- @param y integer
 --- @param drawable Drawable
 function Display:putDrawable(x, y, drawable, color, layer)
-   self:put(x, y, drawable.index, color or drawable.color, drawable.background, layer or drawable.layer)
+   self:put(
+      x,
+      y,
+      drawable.index,
+      color or drawable.color,
+      drawable.background,
+      layer or drawable.layer
+   )
 end
 
 function Display:put(x, y, char, fg, bg, layer)

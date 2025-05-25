@@ -324,7 +324,7 @@ function prism.turn(level, actor, controller)
    -- we make sure we got an action back from the controller for sanity's sake
    assert(action, "Actor " .. actor.name .. " returned nil from act()")
 
-   level:performAction(action)
+   level:perform(action)
 end
 
 --- Runs the level coroutine and returns the next message, or nil if the coroutine has halted.

@@ -5,7 +5,7 @@ In this tutorial, we'll start with a project template and create an enemy that f
 the player. And we'll add the ability to kick them.
 
 
-.. video:: ../_static/output.mp4
+.. video:: ../_static/part1.mp4
    :caption: Kicking a kobold
    :align: center
 
@@ -94,6 +94,7 @@ through kobolds anymore. We're also going to give the kobold a few more core com
    prism.components.Sight{ range = 12, fov = true },
    prism.components.Mover{ "walk" }
 
+      
 
 The kobold controller
 ---------------------
@@ -145,6 +146,30 @@ Back in ``kobold.lua``, give it our new controller component:
 Our kobold should move right until they hit a wall now, but this
 behaviour doesn't make for a great game. Let's make them follow the player around.
 
+.. dropdown:: Complete kobold.lua
+
+   `Source <https://github.com/PrismRL/prism-tutorial/blob/part1/modules/MyGame/actors/kobold.lua>`_
+
+   .. code:: lua
+
+      --- @class Kobold : Actor
+      local Kobold = prism.Actor:extend("Kobold")
+      Kobold.name = "Kobold"
+
+      function Kobold:initialize()
+         return {
+            prism.components.Drawable(string.byte("k") + 1, prism.Color4.RED),
+            prism.components.Collider(),
+            prism.components.Senses(),
+            prism.components.Sight{ range = 12, fov = true },
+            prism.components.Mover{ "walk" },
+            prism.components.KoboldController()
+         }
+      end
+
+      return Kobold
+
+
 Pathfinding
 -----------
 To make our kobold follow the player, we need to do a few things:
@@ -154,15 +179,19 @@ To make our kobold follow the player, we need to do a few things:
 3. Move the kobold along that path.
 
 We can find the player by grabbing the :lua:class:`Senses` from the kobold and
-seeing if it contains the player.
+seeing if it contains the player. We should also ensure the kobold has the component in the first place.
 
 .. code:: lua
-
-   local senses = actor:getComponent(prism.components.Senses)
    
-   local player = senses:query(prism.components.PlayerController):first()
+   local senses = actor:getComponent(prism.components.Senses)
+   if not senses then return prism.actions.Wait() end -- we can't see!
 
+   local player = senses:query(prism.components.PlayerController):first()
    if not player then return prism.actions.Wait() end
+
+.. note::
+
+   See :doc:`../how-tos/query` for more information on querying.
 
 We can get a path to the player by using the :lua:func:`Level.findPath` method, passing the
 positions and the kobold's collision mask.
@@ -170,6 +199,8 @@ positions and the kobold's collision mask.
 .. code:: lua
 
    local mover = actor:getComponent(prism.components.Mover)
+   if not mover then return prism.actions.Wait() end -- we can't move!
+
    local path = level:findPath(actor:getPosition(), player:getPosition(), 1, mover.mask)
 
 Then we check if there's a path and move the kobold along it, using :lua:func:`Path.pop` to get the first
@@ -183,6 +214,42 @@ position.
          return move
       end
    end
+
+Jump back into the game and you should find kobolds chasing after you.
+
+.. dropdown:: Complete koboldcontroller.lua
+
+   `Source <https://github.com/PrismRL/prism-tutorial/blob/part1/modules/MyGame/components/koboldcontroller.lua>`_
+
+   .. code:: lua
+
+      --- @class KoboldController : Controller
+      --- @overload fun(): KoboldController
+      local KoboldController = prism.components.Controller:extend("KoboldController")
+      KoboldController.name = "KoboldController"
+
+      function KoboldController:act(level, actor)
+         local senses = actor:getComponent(prism.components.Senses)
+         if not senses then return prism.actions.Wait() end -- we can't see!
+         local player = senses:query(prism.components.PlayerController):first()
+         if not player then return prism.actions.Wait() end
+         local mover = actor:getComponent(prism.components.Mover)
+         if not mover then return prism.actions.Wait() end
+
+         local path = level:findPath(actor:getPosition(), player:getPosition(), 1, mover.mask)
+
+         if path then
+            local move = prism.actions.Move(actor, path:pop())
+            if move:canPerform(level) then
+               return move
+            end
+         end
+
+         return prism.actions.Wait()
+      end
+
+      return KoboldController
+
 
 Kicking kobolds
 ---------------
@@ -222,14 +289,14 @@ that any actor trying to perform the kick action have a controller.
    return Kick
 
 For the logic, we'll define methods that validate and perform the kick. We don't have any
-special conditions for kicking, so from :lua:func:`Action._canPerform` we'll just return true.
+special conditions for kicking, so from :lua:func:`Action.canPerform` we'll just return true.
 For the kick itself, we get the direction from the player to the target (kobold), and check passability
 for three tiles in the direction before finally moving them. We also give the kobold flying movement by
 checking passability with a custom collision mask.
 
 .. code:: lua
 
-   function Kick:_canPerform(level)
+   function Kick:canPerform(level)
       return true
    end
 
@@ -237,18 +304,67 @@ checking passability with a custom collision mask.
 
    --- @param level Level
    --- @param kicked Actor
-   function Kick:_perform(level, kicked)
+   function Kick:perform(level, kicked)
       local direction = (kicked:getPosition() - self.owner:getPosition())
 
       for _ = 1, 3 do
          nextpos = kicked:getPosition() + direction
-         
+
          if not level:getCellPassable(nextpos.x, nextpos.y, mask) then break end
          if not level:hasActor(kicked) then break end
 
          level:moveActor(kicked, nextpos)
       end
    end
+
+.. dropdown:: Complete kick.lua
+
+   `Source <https://github.com/PrismRL/prism-tutorial/blob/part1/modules/MyGame/actions/kick.lua>`_
+
+   .. code:: lua
+
+      --- @class KickTarget : Target
+      local KickTarget = prism.Target:extend("KickTarget")
+
+      --- @param owner Actor
+      ---@param actor any
+      ---@param targets any[]
+      function KickTarget:validate(owner, actor, targets)
+         return actor:is(prism.Actor)
+            and actor:hasComponent(prism.components.Collider)
+            and owner:getRange(actor) == 1
+      end
+
+      ---@class KickAction : Action
+      local Kick = prism.Action:extend("KickAction")
+      Kick.name = "Kick"
+      Kick.targets = { KickTarget }
+      Kick.requiredComponents = {
+         prism.components.Controller
+      }
+
+      function Kick:canPerform(level)
+         return true
+      end
+
+      --- @param level Level
+      --- @param kicked Actor
+      function Kick:perform(level, kicked)
+         local direction = (kicked:getPosition() - self.owner:getPosition())
+
+         local mask = prism.Collision.createBitmaskFromMovetypes{ "fly" }
+
+         for _ = 1, 3 do
+            local nextpos = kicked:getPosition() + direction
+
+            if not level:getCellPassable(nextpos.x, nextpos.y, mask) then break end
+            if not level:hasActor(kicked) then break end
+
+            level:moveActor(kicked, nextpos)
+         end
+      end
+
+      return Kick
 
 Kicking kobolds, for real this time
 -----------------------------------
@@ -262,6 +378,7 @@ and then perform the kick action on them:
 
    if move:canPerform(self.level) then
    ...
+   end
 
    local target = self.level:query() -- grab a query object
       :at(destination:decompose()) -- restrict the query to the destination

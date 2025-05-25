@@ -42,7 +42,11 @@ function SensesTracker:createSensedMaps(level, curActor)
          -- Collect other sensed actors
          for actorInSight in sensesComponent:query():iter() do
             actorSet[actorInSight] = true
-            self.otherSensedActors:insert(actorInSight.position.x, actorInSight.position.y, actorInSight)
+            self.otherSensedActors:insert(
+               actorInSight.position.x,
+               actorInSight.position.y,
+               actorInSight
+            )
          end
       end
    end

@@ -37,11 +37,17 @@ function Fraction.__le(lhs, rhs)
 end
 
 function Fraction.__add(lhs, rhs)
-   return Fraction(lhs.numerator * rhs.denominator + lhs.denominator * rhs.numerator, lhs.denominator * rhs.denominator)
+   return Fraction(
+      lhs.numerator * rhs.denominator + lhs.denominator * rhs.numerator,
+      lhs.denominator * rhs.denominator
+   )
 end
 
 function Fraction.__sub(lhs, rhs)
-   return Fraction(lhs.numerator * rhs.denominator - lhs.denominator * rhs.numerator, lhs.denominator * rhs.denominator)
+   return Fraction(
+      lhs.numerator * rhs.denominator - lhs.denominator * rhs.numerator,
+      lhs.denominator * rhs.denominator
+   )
 end
 
 function Fraction:__unm()

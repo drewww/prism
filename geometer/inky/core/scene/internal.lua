@@ -88,7 +88,9 @@ do
             local internal = element:__getInternal()
 
             if internal:doesPointPassBoundingboxCheck(pointerX, pointerY) then
-               if internal:doesPointPassOverlapCheck(pointerX, pointerY) then overlappingElements:add(element) end
+               if internal:doesPointPassOverlapCheck(pointerX, pointerY) then
+                  overlappingElements:add(element)
+               end
             end
          end
 

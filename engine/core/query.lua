@@ -32,7 +32,10 @@ function Query:with(...)
    local req = { ... }
 
    for _, component in ipairs(req) do
-      assert(not self.requiredComponents[component], "Multiple component of the same type added to query!")
+      assert(
+         not self.requiredComponents[component],
+         "Multiple component of the same type added to query!"
+      )
 
       self.requiredComponentsCount = self.requiredComponentsCount + 1
       table.insert(self.requiredComponentsList, component)
@@ -123,7 +126,9 @@ function Query:iter()
       return function()
          actor = next(cache, actor)
          if not actor then return nil end
-         if hasRequired(actor, self.storage, requiredComponents) then return actor, actor:getComponent(component) end
+         if hasRequired(actor, self.storage, requiredComponents) then
+            return actor, actor:getComponent(component)
+         end
       end
    end
 
@@ -132,7 +137,9 @@ function Query:iter()
    local smallestCount = math.huge
    for component in pairs(requiredComponents) do
       local cache = self.storage:getComponentCache(component)
-      if cache and (not smallestCache or self.storage:getComponentCount(component) < smallestCount) then
+      if
+         cache and (not smallestCache or self.storage:getComponentCount(component) < smallestCount)
+      then
          smallestCache = cache
          smallestCount = self.storage:getComponentCount(component)
       end

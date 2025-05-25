@@ -6,8 +6,8 @@
   --mono-font-stack: "Menlo", "Monaco", "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", serif;
   --background-color: #fff;
   --page-width: 60em;
-  --font-color: #151515;
   --invert-font-color: #fff;
+  --font-color: #151515;
   --primary-color: #2789cd;
   --secondary-color: #727578;
   --error-color: #d20962;
@@ -17,6 +17,17 @@
   --input-style: solid;
   --display-h1-decoration: none;
   --block-background-color: var(--background-color);
+}
+
+[data-theme="sepia"] {
+  --background-color: #f6f0e6;
+  --font-color: #4b3626;
+}
+
+[data-theme="dark"] {
+  --background-color: #09060f;
+  --invert-font-color: #151515;
+  --font-color: #f7f2e5;
 }
 
 button {
@@ -37,9 +48,13 @@ div.admonition p.admonition-title {
   color: var(--invert-font-color);
 }
 
+details.sd-dropdown summary.sd-summary-title {
+  padding: 1em;
+}
+
 #gotoTop > button,
 body,
-.body {
+div.body {
   font-size: var(--global-font-size) !important;
   color: var(--font-color);
   line-height: var(--global-line-height);
@@ -62,6 +77,21 @@ h5,
 h6,
 .logo {
   line-height: var(--global-line-height);
+}
+
+div.sphinxsidebar p,
+div.sphinxsidebar h3, div.sphinxsidebar h4 {
+  color: var(--font-color);
+}
+
+#gotoTop {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 1000;
+  button {
+    border: solid var(--font-color) 1px !important;
+  }
 }
 
 .logo > a:hover {
@@ -347,6 +377,7 @@ dt:target {
   }
 }
 
+ul.search li,
 li,
 li > ul > li {
   position: relative;
@@ -793,7 +824,7 @@ input[type="submit"],
   justify-content: center;
   cursor: pointer;
   outline: none;
-  padding: 0.65em 2em;
+  padding: 0.65em 1em;
   font-size: 1em;
   font-family: inherit;
   user-select: none;
@@ -962,14 +993,62 @@ input[type="submit"]:hover,
   z-index: 400;
 }
 
+.sd-card {
+  border: 1px solid var(--font-color);
+  border-radius: 0;
+}
+
+.sd-card-header:first-child {
+  border-radius: 0;
+}
+
+.sd-summary-content > .highlight-lua > .highlight > pre {
+  padding: 0;
+}
+
+.sd-summary-content > .highlight-lua {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.sd-summary-content > .highlight-lua > .highlight {
+  border: 0;
+  border-top: 1px solid var(--font-color);
+  padding-top: 1em;
+}
+
+details.sd-dropdown[open] > .sd-card-header {
+  margin-bottom: 0;
+}
+
+details.sd-dropdown:not([open]) > .sd-card-header,
+details.sd-dropdown summary.sd-summary-title,
 div.admonition,
 .admonition,
 .terminal-alert {
+  font-size: var(--global-font-size) !important;
+  font-family: var(--font-stack) !important;
   background: inherit;
   color: var(--font-color);
   padding: 1em;
   border: 1px solid var(--font-color);
+  border-radius: 0;
   margin-bottom: var(--global-space);
+}
+
+details.sd-dropdown .sd-summary-chevron-right {
+  transition: 0s;
+}
+
+details.sd-dropdown summary.sd-summary-title .sd-summary-state-marker svg,
+.sd-octicon, .sd-octicon-chevron-right, .sd-octicon-chevron-right {
+  opacity: 1;
+}
+
+details.sd-dropdown[open] > .sd-card-header {
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
 }
 
 div .caution,

@@ -5,7 +5,11 @@ return spectrum.Keybinding {
    { key = "v", mode = "ctrl", action = "paste", description = "Paste the current selection." },
 
    { key = "f", action = "fill", description = "Toggle fill mode." },
-   { key = "m", action = "mode", description = "Swaps between tile, actor, and actor + tile modes." },
+   {
+      key = "m",
+      action = "mode",
+      description = "Swaps between tile, actor, and actor + tile modes.",
+   },
    { key = "n", action = "pen", description = "Swap to the pen tool." },
    { key = "e", action = "delete", description = "Swap to the delete tool." },
    { key = "r", action = "rect", description = "Swap to the rect tool." },

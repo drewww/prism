@@ -60,7 +60,9 @@ local function TextInput(self, scene)
    self:onPointer("keypressed", function(_, pointer, key)
       if key == "backspace" then
          local content = self.props.content
-         if string.len(content) > 0 then content = string.sub(content, 1, string.len(content) - 1) end
+         if string.len(content) > 0 then
+            content = string.sub(content, 1, string.len(content) - 1)
+         end
          self.props.content = content
       elseif key == "return" or key == "escape" then
          focus(false, pointer)
@@ -73,7 +75,10 @@ local function TextInput(self, scene)
       x = (x / 8) * self.props.size.x
       y = (y / 8) * self.props.size.y
       local length = self.props.content:len()
-      local offset = length > self.props.limit and (length - self.props.limit) * self.props.font:getHeight() or 0
+      local offset = 0
+      if length > self.props.limit then
+         offset = (length - self.props.limit) * self.props.font:getHeight()
+      end
 
       love.graphics.push("all")
       love.graphics.setScissor(x, y, (w / 8) * self.props.size.x, (h / 8) * self.props.size.y)
@@ -86,7 +91,11 @@ local function TextInput(self, scene)
          love.graphics.print(self.props.placeholder, x, y + self.props.size.y / 8)
       end
       love.graphics.setColor(1, 1, 1, 1)
-      love.graphics.print(self.props.content .. ((blink and self.props.focused) and "Σ" or ""), x, y)
+      love.graphics.print(
+         self.props.content .. ((blink and self.props.focused) and "Σ" or ""),
+         x,
+         y
+      )
       love.graphics.pop()
    end
 end

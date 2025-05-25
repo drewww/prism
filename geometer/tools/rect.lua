@@ -35,8 +35,12 @@ function RectTool:mousereleased(editor, attachable, x, y)
    local lx, ly, rx, ry = self:getCurrentRect()
    if not lx then return end
 
-   local modification =
-      RectModification(editor.placeable, prism.Vector2(lx, ly), prism.Vector2(rx, ry), editor.fillMode)
+   local modification = RectModification(
+      editor.placeable,
+      prism.Vector2(lx, ly),
+      prism.Vector2(rx, ry),
+      editor.fillMode
+   )
    editor:execute(modification)
 
    self.origin = nil

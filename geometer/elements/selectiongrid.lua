@@ -161,7 +161,8 @@ local function SelectionGrid(self, scene)
 
    local scrollColor = prism.Color4.fromHex(0x2ce8f5)
    local selector = love.graphics.newImage(geometer.assetPath .. "/assets/selector.png")
-   local gridAtlas = spectrum.SpriteAtlas.fromGrid(geometer.assetPath .. "/assets/grid.png", 7 * 8, 11 * 8)
+   local gridAtlas =
+      spectrum.SpriteAtlas.fromGrid(geometer.assetPath .. "/assets/grid.png", 7 * 8, 11 * 8)
 
    return function(_, x, y, w, h, depth)
       gridAtlas:drawByIndex(getGrid(), x + 24, y)
@@ -176,7 +177,9 @@ local function SelectionGrid(self, scene)
 
          local tileX, tileY = x + 16 + (8 * (2 * column)), y + (8 * row)
          tile:render(tileX, tileY, 8, 8, depth + 1)
-         if tile.props.placeable == self.props.selected then love.graphics.draw(selector, tileX - 8, tileY - 8) end
+         if tile.props.placeable == self.props.selected then
+            love.graphics.draw(selector, tileX - 8, tileY - 8)
+         end
          column = column + 1
          if column % 4 == 0 then
             column = 1

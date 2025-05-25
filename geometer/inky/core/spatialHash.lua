@@ -77,7 +77,8 @@ end
 ---@return self
 function SpatialHash:add(element)
    local x, y, w, h = element:__getInternal():getView()
-   local topLeftCellX, topLeftCellY, bottomRightCellX, bottomRightCellY = self:_toCellBounds(x, y, w, h)
+   local topLeftCellX, topLeftCellY, bottomRightCellX, bottomRightCellY =
+      self:_toCellBounds(x, y, w, h)
 
    local cellLookup = self._elements[element]
    if cellLookup == nil then
