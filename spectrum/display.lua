@@ -16,11 +16,11 @@
 ---@overload fun(width: integer, heigh: integer, spriteAtlas: SpriteAtlas, cellSize: Vector2): Display
 local Display = prism.Object:extend("Display")
 
---- Initializes the terminal display
---- @param width integer
---- @param height integer
---- @param spriteAtlas SpriteAtlas
---- @param cellSize Vector2
+--- Initializes the terminal display.
+--- @param width integer The width of the display in cells.
+--- @param height integer The height of the display in cells.
+--- @param spriteAtlas SpriteAtlas The sprite atlas used for drawing characters.
+--- @param cellSize Vector2 The size of each cell in pixels.
 function Display:__new(width, height, spriteAtlas, cellSize)
    self.spriteAtlas = spriteAtlas
    self.cellSize = cellSize
@@ -44,6 +44,8 @@ function Display:__new(width, height, spriteAtlas, cellSize)
    end
 end
 
+--- Draws the entire display to the screen. This function iterates through all cells
+--- and draws their background colors and then their characters.
 function Display:draw()
    local cSx, cSy = self.cellSize.x, self.cellSize.y
 
@@ -80,7 +82,9 @@ function Display:draw()
    end
 end
 
---- @param attachable SpectrumAttachable
+--- Puts the drawable components of a level (cells and actors) onto the display.
+--- This function uses the current camera position to determine what part of the level to draw.
+--- @param attachable SpectrumAttachable An object representing the level, capable of providing cell and actor information.
 function Display:putLevel(attachable)
    local camX, camY = self.camera:decompose()
 
@@ -103,7 +107,11 @@ end
 
 local tempColor = prism.Color4()
 
+--- Draws cells from a given cell map onto the display, handling depth and transparency.
 --- @private
+--- @param drawnCells SparseGrid A sparse grid to keep track of already drawn cells to prevent overdrawing.
+--- @param cellMap table A map of cells to draw.
+--- @param alpha number The transparency level for the drawn cells (0.0 to 1.0).
 function Display:_drawCells(drawnCells, cellMap, alpha)
    local x, y = self.camera:decompose()
 
@@ -120,7 +128,11 @@ function Display:_drawCells(drawnCells, cellMap, alpha)
    end
 end
 
+--- Draws actors from a queryable object onto the display, handling depth and transparency.
 --- @private
+--- @param drawnActors table A table to keep track of already drawn actors to prevent overdrawing.
+--- @param queryable IQueryable An object capable of being queried for actors with drawable components.
+--- @param alpha number The transparency level for the drawn actors (0.0 to 1.0).
 function Display:_drawActors(drawnActors, queryable, alpha)
    local x, y = self.camera:decompose()
 
@@ -138,8 +150,11 @@ function Display:_drawActors(drawnActors, queryable, alpha)
 end
 
 
---- @param primary Senses[]
---- @param secondary Senses[]
+--- Puts vision and explored areas from primary and secondary senses onto the display.
+--- Cells and actors from primary senses are drawn fully opaque, while those from secondary
+--- senses are drawn with reduced opacity. Explored areas are drawn with even lower opacity.
+--- @param primary Senses[] A list of primary Senses objects.
+--- @param secondary Senses[] A list of secondary Senses objects.
 function Display:putSenses(primary, secondary)
    local drawnCells = prism.SparseGrid()
 
@@ -170,10 +185,13 @@ function Display:putSenses(primary, secondary)
    end
 end
 
---- Puts a Drawable at a position with depth checking
---- @param x integer
---- @param y integer
---- @param drawable Drawable
+--- Puts a Drawable object onto the display grid at specified coordinates, considering its depth.
+--- If a `color` or `layer` is provided, they will override the drawable's default values.
+--- @param x integer The X grid coordinate.
+--- @param y integer The Y grid coordinate.
+--- @param drawable Drawable The drawable object to put.
+--- @param color Color4? An optional color to use for the drawable.
+--- @param layer number? An optional layer to use for depth sorting.
 function Display:putDrawable(x, y, drawable, color, layer)
    self:put(
       x,
@@ -185,6 +203,14 @@ function Display:putDrawable(x, y, drawable, color, layer)
    )
 end
 
+--- Puts a character, foreground color, and background color at a specific grid position.
+--- This function respects drawing layers, so higher layer values will overwrite lower ones.
+--- @param x integer The X grid coordinate.
+--- @param y integer The Y grid coordinate.
+--- @param char string|integer The character or index to draw.
+--- @param fg Color4 The foreground color.
+--- @param bg Color4 The background color.
+--- @param layer number? The draw layer (higher numbers draw on top). Defaults to -math.huge.
 function Display:put(x, y, char, fg, bg, layer)
    if x < 1 or x > self.width or y < 1 or y > self.height then return end
 
@@ -201,15 +227,33 @@ function Display:put(x, y, char, fg, bg, layer)
    end
 end
 
---- Draws a string of characters at a grid position
---- @param x integer Starting X grid coordinate
---- @param y integer Y grid coordinate
---- @param str string The string to draw
---- @param fg? Color4 Foreground color (defaults to white)
---- @param bg? Color4 Background color (defaults to transparent)
---- @param layer? number Draw layer (optional)
---- @param align? "left"|"center"|"right"
---- @param width? integer
+--- Sets only the background color of a cell at a specific grid position, with depth checking.
+--- @param x integer The X grid coordinate.
+--- @param y integer The Y grid coordinate.
+--- @param bg Color4 The background color to set.
+--- @param layer number? The draw layer (optional, higher numbers draw on top). Defaults to -math.huge.
+function Display:putBG(x, y, bg, layer)
+   if x < 1 or x > self.width or y < 1 or y > self.height then return end
+
+   bg = bg or prism.Color4.TRANSPARENT
+
+   local cell = self.cells[x][y]
+
+   if not layer or layer >= cell.depth then
+      bg:copy(cell.bg)
+      cell.depth = layer or -math.huge
+   end
+end
+
+--- Draws a string of characters at a grid position, with optional alignment.
+--- @param x integer The starting X grid coordinate.
+--- @param y integer The Y grid coordinate.
+--- @param str string The string to draw.
+--- @param fg Color4? The foreground color (defaults to white).
+--- @param bg Color4? The background color (defaults to transparent).
+--- @param layer number? The draw layer (optional).
+--- @param align "left"|"center"|"right"? The alignment of the string within the specified width.
+--- @param width integer? The width within which to align the string.
 function Display:putString(x, y, str, fg, bg, layer, align, width)
    local strLen = #str
    width = width or self.width
@@ -218,7 +262,7 @@ function Display:putString(x, y, str, fg, bg, layer, align, width)
       x = x + math.floor((width - strLen) / 2)
    elseif align == "right" then
       x = x + width - strLen
-   else
+   elseif align ~= "left" and align ~= nil then -- Added check for nil as default for "left"
       error("Invalid alignment: " .. tostring(align))
    end
    
@@ -230,7 +274,9 @@ function Display:putString(x, y, str, fg, bg, layer, align, width)
    end
 end
 
---- @param index string|integer
+--- Retrieves the appropriate sprite atlas quad based on an index (number) or name (string).
+--- @param index string|integer The index (number) or name (string) of the quad to retrieve.
+--- @return love.graphics.Quad? optquad The quad object, or nil if not found.
 function Display:getQuad(index)
    if type(index) == "number" then
       return self.spriteAtlas:getQuadByIndex(index)
@@ -239,8 +285,9 @@ function Display:getQuad(index)
    end
 end
 
---- Clears the grid to a background color and resets depth
---- @param bg? Color4 Optional background color
+--- Clears the entire display grid, resetting all cell characters to nil,
+--- setting backgrounds to a specified color (or transparent), and resetting depth.
+--- @param bg Color4? Optional background color to clear to (defaults to transparent).
 function Display:clear(bg)
    bg = bg or prism.Color4.TRANSPARENT
 
@@ -254,6 +301,8 @@ function Display:clear(bg)
    end
 end
 
+--- Adjusts the Love2D window size to perfectly fit the terminal display's dimensions,
+--- considering cell size.
 function Display:fitWindowToTerminal()
    local cellWidth, cellHeight = self.cellSize.x, self.cellSize.y
    local windowWidth = self.width * cellWidth
@@ -261,10 +310,11 @@ function Display:fitWindowToTerminal()
    love.window.setMode(windowWidth, windowHeight, { resizable = true, usedpiscale = false })
 end
 
---- Calculates the top-left offset needed to center a position on the display
---- @param x integer
---- @param y integer
---- @return integer offsetx, integer offsety  The x and y offset
+--- Calculates the top-left offset needed to center a given position on the display.
+--- @param x integer The X coordinate to center.
+--- @param y integer The Y coordinate to center.
+--- @return integer offsetx The calculated X offset.
+--- @return integer offsety The calculated Y offset.
 function Display:getCenterOffset(x, y)
    local centerX = math.floor(self.width / 2)
    local centerY = math.floor(self.height / 2)
@@ -273,10 +323,11 @@ function Display:getCenterOffset(x, y)
    return offsetX, offsetY
 end
 
---- Draws a Drawable at pixel coordinates (not grid coordinates)
---- @param x number Pixel X coordinate
---- @param y number Pixel Y coordinate
---- @param drawable Drawable
+--- Draws a Drawable object directly at pixel coordinates on the screen,
+--- without considering the grid or camera.
+--- @param x number The pixel X coordinate.
+--- @param y number The pixel Y coordinate.
+--- @param drawable Drawable The drawable object to render.
 function Display:drawDrawable(x, y, drawable)
    local quad = self:getQuad(drawable.index)
    if quad then
@@ -285,11 +336,12 @@ function Display:drawDrawable(x, y, drawable)
    end
 end
 
---- Returns the grid cell under the current mouse position, adjusted by optional grid offsets
---- @return integer? x, integer? y  Grid coordinates, or nil if out of bounds
+--- Returns the grid cell coordinates that are currently under the mouse cursor,
+--- adjusted by the display's camera position.
+--- @return integer? x The X grid coordinate, or nil if out of bounds.
+--- @return integer? y The Y grid coordinate, or nil if out of bounds.
 function Display:getCellUnderMouse()
    local x, y = self.camera:decompose()
-
 
    local mx, my = love.mouse.getPosition()
    local gx = math.floor(mx / self.cellSize.x) - x + 1
@@ -298,15 +350,31 @@ function Display:getCellUnderMouse()
    return gx, gy
 end
 
+--- Sets the camera's position. This position acts as an offset for drawing
+--- elements from the level or other world-space coordinates onto the display.
+--- @param x integer The X coordinate for the camera.
+--- @param y integer The Y coordinate for the camera.
 function Display:setCamera(x, y)
    self.camera:compose(x, y)
 end
 
+--- Moves the camera by a specified delta.
+--- @param dx integer The change in the camera's X position.
+--- @param dy integer The change in the camera's Y position.
 function Display:moveCamera(dx, dy)
    self.camera.x = self.camera.x + dx
    self.camera.y = self.camera.y + dy
 end
 
+--- Draws a hollow rectangle on the display grid using specified characters and colors.
+--- @param x integer The starting X grid coordinate of the rectangle.
+--- @param y integer The starting Y grid coordinate of the rectangle.
+--- @param w integer The width of the rectangle.
+--- @param h integer The height of the rectangle.
+--- @param char string|integer The character or index to draw the rectangle with.
+--- @param fg Color4? The foreground color.
+--- @param bg Color4? The background color.
+--- @param layer number? The draw layer.
 function Display:putRect(x, y, w, h, char, fg, bg, layer)
    for dx = 0, w - 1 do
       self:put(x + dx, y, char, fg, bg, layer)
@@ -318,6 +386,15 @@ function Display:putRect(x, y, w, h, char, fg, bg, layer)
    end
 end
 
+--- Draws a filled rectangle on the display grid using specified characters and colors.
+--- @param x integer The starting X grid coordinate of the rectangle.
+--- @param y integer The starting Y grid coordinate of the rectangle.
+--- @param w integer The width of the rectangle.
+--- @param h integer The height of the rectangle.
+--- @param char string|integer The character or index to fill the rectangle with.
+--- @param fg Color4? The foreground color.
+--- @param bg Color4? The background color.
+--- @param layer number? The draw layer.
 function Display:putFilledRect(x, y, w, h, char, fg, bg, layer)
    for dx = 0, w - 1 do
       for dy = 0, h - 1 do
@@ -326,6 +403,15 @@ function Display:putFilledRect(x, y, w, h, char, fg, bg, layer)
    end
 end
 
+--- Draws a line between two grid points using Bresenham's line algorithm.
+--- @param x0 integer The starting X grid coordinate.
+--- @param y0 integer The starting Y grid coordinate.
+--- @param x1 integer The ending X grid coordinate.
+--- @param y1 integer The ending Y grid coordinate.
+--- @param char string|integer The character or index to draw the line with.
+--- @param fg Color4? The foreground color.
+--- @param bg Color4? The background color.
+--- @param layer number? The draw layer.
 function Display:putLine(x0, y0, x1, y1, char, fg, bg, layer)
    local dx = math.abs(x1 - x0)
    local dy = math.abs(y1 - y0)
