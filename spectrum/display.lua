@@ -28,7 +28,7 @@ function Display:__new(width, height, spriteAtlas, cellSize)
    self.height = height
    self.camera = prism.Vector2()
 
-   self.cells = { {} }
+   self.cells = {{}}
 
    -- Initialize the grid with empty cells
    for x = 1, self.width do
@@ -66,10 +66,15 @@ function Display:draw()
          local cell = self.cells[x][y]
          local dx, dy = x - 1, y - 1
          local quad = self:getQuad(cell.char)
-
+         
          if quad then
             love.graphics.setColor(cell.fg:decompose())
-            love.graphics.draw(self.spriteAtlas.image, quad, dx * cSx, dy * cSy)
+            love.graphics.draw(
+               self.spriteAtlas.image,
+               quad,
+               dx * cSx,
+               dy * cSy
+            )
          end
       end
    end
@@ -106,7 +111,7 @@ function Display:_drawCells(drawnCells, cellMap, alpha)
       if not drawnCells:get(cx, cy) then
          drawnCells:set(cx, cy, true)
          --- @cast cell Cell
-
+         
          local drawable = cell:expectComponent(prism.components.Drawable)
          tempColor = drawable.color:copy(tempColor)
          tempColor.a = tempColor.a * alpha
@@ -131,6 +136,7 @@ function Display:_drawActors(drawnActors, queryable, alpha)
       end
    end
 end
+
 
 --- @param primary Senses[]
 --- @param secondary Senses[]
@@ -184,7 +190,7 @@ function Display:put(x, y, char, fg, bg, layer)
       cell.char = char
       fg:copy(cell.fg)
       bg:copy(cell.bg)
-      cell.depth = layer
+      cell.depth = layer or -math.huge
    end
 end
 
@@ -195,7 +201,20 @@ end
 --- @param fg? Color4 Foreground color (defaults to white)
 --- @param bg? Color4 Background color (defaults to transparent)
 --- @param layer? number Draw layer (optional)
-function Display:putString(x, y, str, fg, bg, layer)
+--- @param align? "left"|"center"|"right"
+--- @param width? integer
+function Display:putString(x, y, str, fg, bg, layer, align, width)
+   local strLen = #str
+   width = width or self.width
+
+   if align == "center" then
+      x = x + math.floor((width - strLen) / 2)
+   elseif align == "right" then
+      x = x + width - strLen
+   else
+      error("Invalid alignment: " .. tostring(align))
+   end
+   
    fg = fg or prism.Color4.WHITE
    bg = bg or prism.Color4.TRANSPARENT
    for i = 1, #str do
@@ -264,6 +283,7 @@ end
 function Display:getCellUnderMouse()
    local x, y = self.camera:decompose()
 
+
    local mx, my = love.mouse.getPosition()
    local gx = math.floor(mx / self.cellSize.x) - x + 1
    local gy = math.floor(my / self.cellSize.y) - y + 1
@@ -310,14 +330,8 @@ function Display:putLine(x0, y0, x1, y1, char, fg, bg, layer)
       self:put(x0, y0, char, fg, bg, layer)
       if x0 == x1 and y0 == y1 then break end
       local e2 = 2 * err
-      if e2 > -dy then
-         err = err - dy
-         x0 = x0 + sx
-      end
-      if e2 < dx then
-         err = err + dx
-         y0 = y0 + sy
-      end
+      if e2 > -dy then err = err - dy; x0 = x0 + sx end
+      if e2 < dx then err = err + dx; y0 = y0 + sy end
    end
 end
 
