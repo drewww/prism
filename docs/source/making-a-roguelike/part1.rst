@@ -124,11 +124,11 @@ returns a valid action.
    function KoboldController:act(level, actor)
       local destination = actor:getPosition() + prism.Vector2.RIGHT
       local move = prism.actions.Move(actor, destination)
-      if move:canPerform(level) then
+      if level:canPerform(move) then
          return move
       end
 
-      return prism.actions.Wait()
+      return prism.actions.Wait(actor)
    end
 
    return KoboldController
@@ -210,7 +210,7 @@ position.
 
    if path then
       local move = prism.actions.Move(actor, path:pop())
-      if move:canPerform(level) then
+      if level:canPerform(move) then
          return move
       end
    end
@@ -240,12 +240,12 @@ Jump back into the game and you should find kobolds chasing after you.
 
          if path then
             local move = prism.actions.Move(actor, path:pop())
-            if move:canPerform(level) then
+            if level:canPerform(move) then
                return move
             end
          end
 
-         return prism.actions.Wait()
+         return prism.actions.Wait(actor)
       end
 
       return KoboldController
@@ -376,7 +376,7 @@ and then perform the kick action on them:
 
 .. code:: lua
 
-   if move:canPerform(self.level) then
+   if self.level:canPerform(move) then
    ...
    end
 
@@ -385,13 +385,13 @@ and then perform the kick action on them:
       :first() -- grab one of the kickable things, or nil
 
    local kick = prism.actions.Kick(owner, target)
-   if kick:canPerform(self.level) then
+   if self.level:canPerform(kick) then
       decision:setAction(kick)
    end
 
 .. note::
 
-   :lua:func:`Action.canPerform` will validate all targets in the action.
+   :lua:func:`Level.canPerform` will validate all targets in the action.
 
 That's a wrap
 -------------

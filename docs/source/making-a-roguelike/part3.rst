@@ -186,7 +186,7 @@ Now we make our way over to koboldcontroller.lua and add the attack action.
 
    if player:getRange(actor) == 1 then
       local attack = prism.actions.Attack(actor, player)
-      if attack:canPerform(level) then
+      if level:canPerform(attack) then
          return attack
       end
    end
@@ -314,12 +314,12 @@ Now let's make our way to MyGameLevelState and add in some logic for making atta
 
    if love.keyboard.isDown("lshift") then
       local kick = prism.actions.Kick(owner, target)
-      if kick:canPerform(self.level) then
+      if self.level:canPerform(kick) then
          decision:setAction(kick)
       end
    else
       local attack = prism.actions.Attack(owner, target)
-      if attack:canPerform(self.level) then
+      if self.level:canPerform(attack) then
          decision:setAction(attack)
       end
    end
