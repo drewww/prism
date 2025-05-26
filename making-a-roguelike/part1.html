@@ -146,11 +146,11 @@ returns a valid action.</p>
 <span class="kr">function</span> <span class="nc">KoboldController</span><span class="p">:</span><span class="nf">act</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">actor</span><span class="p">)</span>
    <span class="kd">local</span> <span class="n">destination</span> <span class="o">=</span> <span class="n">actor</span><span class="p">:</span><span class="n">getPosition</span><span class="p">()</span> <span class="o">+</span> <span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">.</span><span class="n">RIGHT</span>
    <span class="kd">local</span> <span class="n">move</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Move</span><span class="p">(</span><span class="n">actor</span><span class="p">,</span> <span class="n">destination</span><span class="p">)</span>
-   <span class="kr">if</span> <span class="n">move</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span> <span class="kr">then</span>
+   <span class="kr">if</span> <span class="n">level</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">move</span><span class="p">)</span> <span class="kr">then</span>
       <span class="kr">return</span> <span class="n">move</span>
    <span class="kr">end</span>
 
-   <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Wait</span><span class="p">()</span>
+   <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Wait</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
 <span class="kr">end</span>
 
 <span class="kr">return</span> <span class="n">KoboldController</span>
@@ -223,7 +223,7 @@ positions and the kobold’s collision mask.</p>
 position.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">if</span> <span class="n">path</span> <span class="kr">then</span>
    <span class="kd">local</span> <span class="n">move</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Move</span><span class="p">(</span><span class="n">actor</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span><span class="n">pop</span><span class="p">())</span>
-   <span class="kr">if</span> <span class="n">move</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span> <span class="kr">then</span>
+   <span class="kr">if</span> <span class="n">level</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">move</span><span class="p">)</span> <span class="kr">then</span>
       <span class="kr">return</span> <span class="n">move</span>
    <span class="kr">end</span>
 <span class="kr">end</span>
@@ -251,12 +251,12 @@ position.</p>
 
    <span class="kr">if</span> <span class="n">path</span> <span class="kr">then</span>
       <span class="kd">local</span> <span class="n">move</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Move</span><span class="p">(</span><span class="n">actor</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span><span class="n">pop</span><span class="p">())</span>
-      <span class="kr">if</span> <span class="n">move</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span> <span class="kr">then</span>
+      <span class="kr">if</span> <span class="n">level</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">move</span><span class="p">)</span> <span class="kr">then</span>
          <span class="kr">return</span> <span class="n">move</span>
       <span class="kr">end</span>
    <span class="kr">end</span>
 
-   <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Wait</span><span class="p">()</span>
+   <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Wait</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
 <span class="kr">end</span>
 
 <span class="kr">return</span> <span class="n">KoboldController</span>
@@ -378,7 +378,7 @@ checking passability with a custom collision mask.</p>
 when we bump into a kobold. Head over to <code class="docutils literal notranslate"><span class="pre">gamestates/MyGamelevelstate.lua</span></code> and find where the move action
 is called. If the player doesn’t move, we want to check if there’s a valid actor to kick in front of us,
 and then perform the kick action on them:</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">if</span> <span class="n">move</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">)</span> <span class="kr">then</span>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">if</span> <span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">move</span><span class="p">)</span> <span class="kr">then</span>
 <span class="p">...</span>
 <span class="kr">end</span>
 
@@ -387,14 +387,14 @@ and then perform the kick action on them:</p>
    <span class="p">:</span><span class="n">first</span><span class="p">()</span> <span class="c1">-- grab one of the kickable things, or nil</span>
 
 <span class="kd">local</span> <span class="n">kick</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Kick</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
-<span class="kr">if</span> <span class="n">kick</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">)</span> <span class="kr">then</span>
+<span class="kr">if</span> <span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">kick</span><span class="p">)</span> <span class="kr">then</span>
    <span class="n">decision</span><span class="p">:</span><span class="n">setAction</span><span class="p">(</span><span class="n">kick</span><span class="p">)</span>
 <span class="kr">end</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><a class="reference internal" href="../reference/prism/core/action.html#lua-Action.canPerform" title="Action.canPerform"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Action:canPerform()</span></code></a> will validate all targets in the action.</p>
+<p><a class="reference internal" href="../reference/prism/core/level.html#lua-Level.canPerform" title="Level.canPerform"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Level:canPerform()</span></code></a> will validate all targets in the action.</p>
 </div>
 </section>
 <section id="that-s-a-wrap">

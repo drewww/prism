@@ -305,12 +305,12 @@ it’s time to trash this levelstate and show the GameOverState instead!</p>
 
 <span class="kr">if</span> <span class="n">love</span><span class="p">.</span><span class="n">keyboard</span><span class="p">.</span><span class="n">isDown</span><span class="p">(</span><span class="s2">&quot;lshift&quot;</span><span class="p">)</span> <span class="kr">then</span>
    <span class="kd">local</span> <span class="n">kick</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Kick</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
-   <span class="kr">if</span> <span class="n">kick</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">)</span> <span class="kr">then</span>
+   <span class="kr">if</span> <span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">kick</span><span class="p">)</span> <span class="kr">then</span>
       <span class="n">decision</span><span class="p">:</span><span class="n">setAction</span><span class="p">(</span><span class="n">kick</span><span class="p">)</span>
    <span class="kr">end</span>
 <span class="kr">else</span>
    <span class="kd">local</span> <span class="n">attack</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Attack</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
-   <span class="kr">if</span> <span class="n">attack</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">)</span> <span class="kr">then</span>
+   <span class="kr">if</span> <span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">attack</span><span class="p">)</span> <span class="kr">then</span>
       <span class="n">decision</span><span class="p">:</span><span class="n">setAction</span><span class="p">(</span><span class="n">attack</span><span class="p">)</span>
    <span class="kr">end</span>
 <span class="kr">end</span>

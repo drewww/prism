@@ -155,7 +155,7 @@ We want the actor to fall immediately when they land on a valid tile, so we'll u
    function FallSystem:onMove(level, actor)
       local fall = prism.actions.Fall(actor)
 
-      if fall:canPerform(level) then
+      if level:canPerform(fall) then
          level:performAction(fall)
       end
    end
