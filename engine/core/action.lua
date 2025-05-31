@@ -31,7 +31,8 @@ function Action:__validateTargets()
             .. #self.targetObjects
    end
 
-   for i, target in ipairs(self.targets) do
+   for i = 1, #self.targets do
+      local target = self.targets[i]
       if not target:validate(self.owner, self.targetObjects[i], self.targetObjects) then
          return false, "Invalid target " .. i .. " for action " .. self.name
       end
@@ -57,7 +58,7 @@ function Action:hasRequisiteComponents(actor)
    if not self.requiredComponents then return true end
 
    for _, component in pairs(self.requiredComponents) do
-      if not actor:hasComponent(component) then return false, component.name end
+      if not actor:has(component) then return false, component.name end
    end
 
    return true
@@ -105,7 +106,7 @@ end
 --- Validates the specified target for this action.
 --- @param n number The index of the target object to validate.
 --- @param owner Actor The actor that is performing the action.
---- @param toValidate Actor The target actor to validate.
+--- @param toValidate any The target object to validate.
 --- @param targets? Object[] The previously selected targets.
 --- @return boolean -- True if the specified target actor is valid for this action, false otherwise.
 function Action:validateTarget(n, owner, toValidate, targets)

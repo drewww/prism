@@ -57,7 +57,7 @@ You're going to replace this with the following.
 
 .. code:: lua  
 
-   local health = self.decision.actor:getComponent(prism.components.Health)
+   local health = self.decision.actor:get(prism.components.Health)
    if health then
       self.display:putString(1, 1, "HP: " .. health.hp)
    end
@@ -134,8 +134,8 @@ Okay, finally! We're going to make the attack action!
    --- @param targetObject any
    function AttackTarget:validate(owner, targetObject)
       return 
-         targetObject:is(prism.Actor) and
-         targetObject:getComponent(prism.components.Health) and
+         prism.Actor:is(targetObject) and
+         targetObject:get(prism.components.Health) and
          owner:getRange(targetObject) == 1
    end
 
@@ -151,8 +151,8 @@ Okay, finally! We're going to make the attack action!
    --- @param level Level
    --- @param target Actor
    function Attack:perform(level, target)
-      local health = target:expectComponent(prism.components.Health)
-      local attacker = self.owner:expectComponent(prism.components.Attacker)
+      local health = target:expect(prism.components.Health)
+      local attacker = self.owner:expect(prism.components.Attacker)
       health.hp = health.hp - attacker.damage
 
       if health.hp <= 0 then
@@ -232,8 +232,8 @@ game over screen.
 
 
    function LoseCondition:afterAction(level, actor, action)
-      if not actor:hasComponent(prism.components.PlayerController) then return end
-      if not action:is(prism.actions.Die) then return end
+      if not actor:has(prism.components.PlayerController) then return end
+      if not prism.actions.Die:is(action) then return end
 
       -- It's the player and they're dying. Time to let the user interface know the game is
       -- over.
@@ -281,7 +281,7 @@ Now, finally, we're going to handle the GameOverMessage in MyGameLevelState.
    function MyGameLevelState:handleMessage(message)
       spectrum.LevelState.handleMessage(self, message)
 
-      if message:is(prism.messages.GameOver) then
+      if prism.messages.GameOver:is(message) then
          self.manager:enter(GameOverState(self.display))
       end
    end

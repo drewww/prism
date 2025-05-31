@@ -25,23 +25,29 @@ end
 --- Adds a component to the entity. This function will check if the component's
 --- prerequisites are met and will throw an error if they are not.
 --- @param component Component The component to add to the entity.
-function Actor:addComponent(component)
-   prism.Entity.addComponent(self, component)
+--- @return Entity
+function Actor:give(component)
+   prism.Entity.give(self, component)
    if self.level then
       ---@diagnostic disable-next-line
       self.level:__addComponent(self, component)
    end
+
+   return self
 end
 
 --- Removes a component from the actor. This function will throw an error if the
 --- component is not present on the actor.
 --- @param component Component The component to remove from the actor.
-function Actor:removeComponent(component)
-   prism.Entity.removeComponent(self, component)
+--- @return Entity
+function Actor:remove(component)
+   prism.Entity.remove(self, component)
    if self.level then
       ---@diagnostic disable-next-line
       self.level:__removeComponent(self, component)
    end
+
+   return self
 end
 
 --- Creates the components for the actor. Override this.

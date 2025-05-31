@@ -88,7 +88,7 @@ function Display:putLevel(attachable)
       for y = 1, self.height do
          local cell = attachable:getCell(x - camX, y - camY)
          if cell then
-            local drawable = cell:expectComponent(prism.components.Drawable)
+            local drawable = cell:expect(prism.components.Drawable)
             self:putDrawable(x, y, drawable, nil, 0)
          end
       end
@@ -117,7 +117,7 @@ function Display:_drawCells(drawnCells, cellMap, alpha)
          drawnCells:set(cx, cy, true)
          --- @cast cell Cell
 
-         local drawable = cell:expectComponent(prism.components.Drawable)
+         local drawable = cell:expect(prism.components.Drawable)
          tempColor = drawable.color:copy(tempColor)
          tempColor.a = tempColor.a * alpha
          self:putDrawable(x + cx, y + cy, drawable, tempColor)
@@ -205,8 +205,8 @@ end
 --- @param x integer The X grid coordinate.
 --- @param y integer The Y grid coordinate.
 --- @param char string|integer The character or index to draw.
---- @param fg Color4 The foreground color.
---- @param bg Color4 The background color.
+--- @param fg? Color4 The foreground color.
+--- @param bg? Color4 The background color.
 --- @param layer number? The draw layer (higher numbers draw on top). Defaults to -math.huge.
 function Display:put(x, y, char, fg, bg, layer)
    if x < 1 or x > self.width or y < 1 or y > self.height then return end
@@ -433,4 +433,3 @@ function Display:putLine(x0, y0, x1, y1, char, fg, bg, layer)
 end
 
 return Display
-

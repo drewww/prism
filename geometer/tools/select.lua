@@ -107,7 +107,7 @@ function Select:draw(editor, display)
 
    if self.pasted then
       for x, y, cell in self.cells:each() do
-         local drawable = cell:getComponent(prism.components.Drawable)
+         local drawable = cell:get(prism.components.Drawable)
          self:drawCell(display, drawable, lx + x - 1, ly + y - 1)
       end
    end

@@ -22,7 +22,7 @@ end
 ---@return Drawable
 function Tool:getDrawable(placeable)
    placeable = placeable()
-   return placeable:getComponent(prism.components.Drawable)
+   return placeable:get(prism.components.Drawable)
 end
 
 ---Draws a cell at the given coordinates.

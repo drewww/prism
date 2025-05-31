@@ -20,7 +20,7 @@ function Component:getRequirements() end
 --- @return Component? -- The first component found missing from the entity if requirements aren't met.
 function Component:checkRequirements(entity)
    for _, component in ipairs(self.requirements) do
-      if not entity:hasComponent(component) then return false, component end
+      if not entity:has(component) then return false, component end
    end
 
    return true

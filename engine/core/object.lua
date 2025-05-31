@@ -82,20 +82,29 @@ end
 function Object:__new(...) end
 
 --- Checks if o is in the inheritance chain of self.
---- @param self any
 --- @param o any The class to check.
 --- @return boolean is True if o is in the inheritance chain of self, false otherwise.
 function Object:is(o)
+   if not o then return false end
+
    if self == o then return true end
 
-   local parent = getmetatable(self)
+   local parent = getmetatable(o)
    while parent do
-      if parent == o then return true end
+      if parent == self then return true end
 
       parent = getmetatable(parent)
    end
 
    return false
+end
+
+local errorString = "Expected a %s, got: %s"
+--- Asserts the type of an object, erroring if the given prototype isn't in the inheritance chain of the object.
+---@param o any
+---@param prototype any
+function Object.assertType(o, prototype)
+   if not prototype:is(o) then error(errorString:format(prototype.className, tostring(o))) end
 end
 
 --- Checks if o is the first class in the inheritance chain of self.
@@ -124,6 +133,10 @@ function Object:mixin(mixin)
    end
 
    return self
+end
+
+function Object:__tostring()
+   return self.name
 end
 
 function Object.serialize(object)

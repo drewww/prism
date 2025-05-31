@@ -12,7 +12,6 @@ end
 --- Adds a system to the manager.
 --- @param system System The system to add.
 function SystemManager:addSystem(system)
-   assert(system:is(prism.System), "Tried to add a system that was not of type System.")
    assert(
       not self.systems[system.className],
       "Level already has system " .. system.className .. "!"
@@ -31,7 +30,7 @@ function SystemManager:addSystem(system)
    -- of order systems
    for _, existingSystem in pairs(self.systems) do
       for _, softRequirement in ipairs(existingSystem.softRequirements) do
-         if system:is(softRequirement) then
+         if softRequirement:is(system) then
             local err = "System %s is out of order. It must be added before %s"
             error(err:format(system.className, existingSystem.className))
          end

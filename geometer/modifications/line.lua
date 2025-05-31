@@ -24,15 +24,7 @@ function LineModification:execute(attachable)
 
    for _, point in ipairs(points) do
       local x, y = point[1], point[2]
-      if self.placeable:is(prism.Actor) then
-         local actor = self.placeable
-         --- @cast actor Actor
-         self:placeActor(attachable, x, y, actor)
-      else
-         local cell = self.placeable
-         --- @cast cell Cell
-         self:placeCell(attachable, x, y, cell)
-      end
+      self:place(attachable, x, y, self.placeable)
    end
 end
 

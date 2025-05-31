@@ -78,7 +78,7 @@ The cell we're standing on has the void component, which we can check simply:
       local cell = level:getCell(x, y)
 
       -- We can only fall on cells that are voids.
-      if not cell:hasComponent(prism.components.Void) then return false end
+      if not cell:has(prism.components.Void) then return false end
 
 
 And that we can't move through the cell. We can get the cell's collision mask and compare it with our own
@@ -87,7 +87,7 @@ with :lua:func:`Collision.checkBitmaskOverlap` to accomplish that check:
 .. code:: lua
 
       local cellMask = cell:getCollisionMask()
-      local mover = self.owner:getComponent(prism.components.Mover)
+      local mover = self.owner:get(prism.components.Mover)
       local mask = mover and mover.mask or 0 -- default to the immovable mask
 
       -- We have a Void component on the cell. If the actor CAN'T move here
@@ -112,10 +112,10 @@ with :lua:func:`Collision.checkBitmaskOverlap` to accomplish that check:
          local cell = level:getCell(x, y)
 
          -- We can only fall on cells that are voids.
-         if not cell:hasComponent(prism.components.Void) then return false end
+         if not cell:has(prism.components.Void) then return false end
 
          local cellMask = cell:getCollisionMask()
-         local mover = self.owner:getComponent(prism.components.Mover)
+         local mover = self.owner:get(prism.components.Mover)
          local mask = mover and mover.mask or 0 -- default to the immovable mask
 
          -- We have a Void component on the cell. If the actor CAN'T move here
