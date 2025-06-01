@@ -49,7 +49,7 @@ end
 
 --- Handles incoming messages from the coroutine.
 --- Processes decisions, action messages, and debug messages as appropriate.
---- @param message any The message to handle.
+--- @param message Message The message to handle.
 function LevelState:handleMessage(message)
    if prism.decisions.ActionDecision:is(message) then
       ---@cast message ActionDecision

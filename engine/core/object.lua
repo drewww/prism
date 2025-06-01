@@ -99,7 +99,7 @@ function Object:is(o)
    return false
 end
 
-local errorString = "Expected a %s, got: %s"
+local errorString = "%s expected. Got: %s"
 --- Asserts the type of an object, erroring if the given prototype isn't in the inheritance chain of the object.
 ---@param o any
 ---@param prototype any

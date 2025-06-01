@@ -168,6 +168,8 @@ end
 --- @param level Level The level to call onYield for.
 --- @param event Message The event data that caused the yield.
 function SystemManager:onYield(level, event)
+   if prism.messages.DebugMessage:is(event) then return end
+
    for _, system in pairs(self.systems) do
       system:onYield(level, event)
    end
