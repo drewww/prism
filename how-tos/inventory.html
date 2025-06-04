@@ -74,7 +74,7 @@
 <span class="kr">end</span>
 
 <span class="kr">function</span> <span class="nc">InventoryComponent</span><span class="p">:</span><span class="nf">addItem</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
-    <span class="nb">assert</span><span class="p">(</span><span class="n">actor</span><span class="p">:</span><span class="n">hasComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Item</span><span class="p">))</span>
+    <span class="nb">assert</span><span class="p">(</span><span class="n">actor</span><span class="p">:</span><span class="n">has</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Item</span><span class="p">))</span>
     <span class="n">self</span><span class="p">.</span><span class="n">inventory</span><span class="p">:</span><span class="n">addActor</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
 <span class="kr">end</span>
 
@@ -96,10 +96,10 @@
 
 <span class="kr">function</span> <span class="nc">PickupTarget</span><span class="p">:</span><span class="nf">validate</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">targetObject</span><span class="p">)</span>
     <span class="kr">return</span>
-        <span class="n">targetObject</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">)</span> <span class="ow">and</span>
-        <span class="n">targetObject</span><span class="p">:</span><span class="n">hasComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Item</span><span class="p">)</span> <span class="ow">and</span>
+        <span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">targetObject</span><span class="p">)</span> <span class="ow">and</span>
+        <span class="n">targetObject</span><span class="p">:</span><span class="n">has</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Item</span><span class="p">)</span> <span class="ow">and</span>
         <span class="n">owner</span><span class="p">:</span><span class="n">getRange</span><span class="p">(</span><span class="n">targetObject</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span>
-        <span class="ow">not</span> <span class="n">owner</span><span class="p">:</span><span class="n">expectComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">):</span><span class="n">hasItem</span><span class="p">(</span><span class="n">targetObject</span><span class="p">)</span>
+        <span class="ow">not</span> <span class="n">owner</span><span class="p">:</span><span class="n">expect</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">):</span><span class="n">hasItem</span><span class="p">(</span><span class="n">targetObject</span><span class="p">)</span>
 <span class="kr">end</span>
 
 <span class="c1">--- @class PickupAction : Action</span>
@@ -118,7 +118,7 @@
 <span class="kr">end</span>
 
 <span class="kr">function</span> <span class="nc">Pickup</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
-    <span class="kd">local</span> <span class="n">inventory</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">expectComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">inventory</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">expect</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">)</span>
     <span class="n">level</span><span class="p">:</span><span class="n">removeActor</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
     <span class="n">inventory</span><span class="p">:</span><span class="n">addItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 <span class="kr">end</span>
@@ -131,9 +131,9 @@
 
 <span class="kr">function</span> <span class="nc">DropTarget</span><span class="p">:</span><span class="nf">validate</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">targetObject</span><span class="p">)</span>
     <span class="kr">return</span>
-        <span class="n">targetObject</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">)</span> <span class="ow">and</span>
-        <span class="n">targetObject</span><span class="p">:</span><span class="n">hasComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Item</span><span class="p">)</span> <span class="ow">and</span>
-        <span class="n">owner</span><span class="p">:</span><span class="n">expectComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">):</span><span class="n">hasItem</span><span class="p">(</span><span class="n">targetObject</span><span class="p">)</span>
+        <span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">targetObject</span><span class="p">)</span> <span class="ow">and</span>
+        <span class="n">targetObject</span><span class="p">:</span><span class="n">has</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Item</span><span class="p">)</span> <span class="ow">and</span>
+        <span class="n">owner</span><span class="p">:</span><span class="n">expect</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">):</span><span class="n">hasItem</span><span class="p">(</span><span class="n">targetObject</span><span class="p">)</span>
 <span class="kr">end</span>
 
 <span class="c1">--- @class DropAction : Action</span>
@@ -152,7 +152,7 @@
 <span class="kr">end</span>
 
 <span class="kr">function</span> <span class="nc">Drop</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
-    <span class="kd">local</span> <span class="n">inventory</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">expectComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">inventory</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">expect</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">)</span>
     <span class="n">inventory</span><span class="p">:</span><span class="n">removeItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
     <span class="c1">-- it&#39;s safe to change the position of an actor outside of a level!</span>
@@ -178,7 +178,7 @@
 <h2>Handling Pickup Input<a class="headerlink" href="#handling-pickup-input" title="Link to this heading">¶</a></h2>
 <p>Now that you’ve defined the keybinding and action, handle the <code class="docutils literal notranslate"><span class="pre">pickup</span></code> input inside your levelstate’s keypressed function. This example queries for an item on the same tile as the player using the Senses component, creates a Pickup action, and sets it as the decision:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;pickup&quot;</span> <span class="kr">then</span>
-    <span class="kd">local</span> <span class="n">senses</span> <span class="o">=</span> <span class="n">owner</span><span class="p">:</span><span class="n">getComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Senses</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">senses</span> <span class="o">=</span> <span class="n">owner</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Senses</span><span class="p">)</span>
     <span class="kr">if</span> <span class="n">senses</span> <span class="kr">then</span>
         <span class="kd">local</span> <span class="n">query</span> <span class="o">=</span> <span class="n">senses</span><span class="p">:</span><span class="n">query</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Item</span><span class="p">)</span>
             <span class="p">:</span><span class="n">at</span><span class="p">(</span><span class="n">owner</span><span class="p">:</span><span class="n">getPosition</span><span class="p">():</span><span class="n">decompose</span><span class="p">())</span>
@@ -198,7 +198,7 @@
 </section>
 <section id="inventory-state">
 <h2>Inventory State<a class="headerlink" href="#inventory-state" title="Link to this heading">¶</a></h2>
-<p>Once players can pick up and drop items, they’ll need a way to view and interact with their inventory. Below is a <strong>very basic</strong> example of a custom <a class="reference internal" href="../reference/spectrum/gamestates/gamestate.html#lua-GameState" title="GameState"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">GameState</span></code></a> that does just that.</p>
+<p>Once players can pick up and drop items, they’ll need a way to view and interact with their inventory. Below is a <strong>very basic</strong> example of a custom <a class="reference internal" href="../reference/spectrum/gamestates/meta.html#lua-GameState" title="GameState"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">GameState</span></code></a> that does just that.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This UI is intentionally primitive and meant only as a <strong>minimal working example</strong>. It supports letter-based selection and dropping, but lacks many usability features like scrolling, item descriptions, or a grid layout.</p>
@@ -263,7 +263,7 @@
 <span class="p">...</span>
 
 <span class="kr">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;inventory&quot;</span> <span class="kr">then</span>
-   <span class="kd">local</span> <span class="n">inventory</span> <span class="o">=</span> <span class="n">owner</span><span class="p">:</span><span class="n">getComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">inventory</span> <span class="o">=</span> <span class="n">owner</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">)</span>
 
    <span class="kr">if</span> <span class="n">inventory</span> <span class="kr">then</span>
       <span class="n">self</span><span class="p">.</span><span class="n">manager</span><span class="p">:</span><span class="n">push</span><span class="p">(</span><span class="n">InventoryState</span><span class="p">(</span><span class="n">decision</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">,</span> <span class="n">inventory</span><span class="p">))</span>

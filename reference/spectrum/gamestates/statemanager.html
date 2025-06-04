@@ -26,7 +26,7 @@
     <link rel="icon" href="../../../_static/prism.png"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="prev" title="LevelState" href="levelstate.html" />
+    <link rel="prev" title="GameState" href="meta.html" />
    
   <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
   
@@ -82,12 +82,12 @@
 
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-GameStateManager.push">
-<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-GameStateManager" title="GameStateManager"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">GameStateManager</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">next</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="gamestate.html#lua-GameState" title="GameState"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">GameState</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">...</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-GameStateManager.push" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-GameStateManager" title="GameStateManager"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">GameStateManager</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">next</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="meta.html#lua-GameState" title="GameState"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">GameState</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">...</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-GameStateManager.push" title="Link to this definition">¶</a></dt>
 <dd><p>Pushes a new state onto the stack, making it the new active state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>next</strong> (<a class="reference internal" href="gamestate.html#lua-GameState" title="GameState"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">GameState</span></code></a>) – The state to push.</p></li>
+<li><p><strong>next</strong> (<a class="reference internal" href="meta.html#lua-GameState" title="GameState"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">GameState</span></code></a>) – The state to push.</p></li>
 <li><p><strong>...</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code>) – Additional parameters to pass to the state.</p></li>
 </ul>
 </dd>
@@ -232,6 +232,7 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="../components/drawable.html"><code class="docutils literal notranslate"><span class="pre">Drawable</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="gamestate.html"><code class="docutils literal notranslate"><span class="pre">GameState</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="levelstate.html"><code class="docutils literal notranslate"><span class="pre">LevelState</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="meta.html"><code class="docutils literal notranslate"><span class="pre">GameState</span></code></a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">GameStateManager</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#lua-GameStateManager.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-GameStateManager.emit"><code class="docutils literal notranslate"><span class="pre">emit()</span></code></a></li>
@@ -250,7 +251,7 @@ SOFTWARE.
 <ul>
   <li><a href="../../../index.html">Documentation overview</a><ul>
   <li><a href="../index.html">Spectrum</a><ul>
-      <li>Previous: <a href="levelstate.html" title="previous chapter">LevelState</a></li>
+      <li>Previous: <a href="meta.html" title="previous chapter">GameState</a></li>
   </ul></li>
   </ul></li>
 </ul>

@@ -92,7 +92,7 @@ in MyGameLevelState:draw.</p>
 </pre></div>
 </div>
 <p>You’re going to replace this with the following.</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">health</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">decision</span><span class="p">.</span><span class="n">actor</span><span class="p">:</span><span class="n">getComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">)</span>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">health</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">decision</span><span class="p">.</span><span class="n">actor</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">)</span>
 <span class="kr">if</span> <span class="n">health</span> <span class="kr">then</span>
    <span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">putString</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;HP: &quot;</span> <span class="o">..</span> <span class="n">health</span><span class="p">.</span><span class="n">hp</span><span class="p">)</span>
 <span class="kr">end</span>
@@ -160,8 +160,8 @@ the actor from the level.</p>
 <span class="c1">--- @param targetObject any</span>
 <span class="kr">function</span> <span class="nc">AttackTarget</span><span class="p">:</span><span class="nf">validate</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">targetObject</span><span class="p">)</span>
    <span class="kr">return</span>
-      <span class="n">targetObject</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">)</span> <span class="ow">and</span>
-      <span class="n">targetObject</span><span class="p">:</span><span class="n">getComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">)</span> <span class="ow">and</span>
+      <span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">targetObject</span><span class="p">)</span> <span class="ow">and</span>
+      <span class="n">targetObject</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">)</span> <span class="ow">and</span>
       <span class="n">owner</span><span class="p">:</span><span class="n">getRange</span><span class="p">(</span><span class="n">targetObject</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
 <span class="kr">end</span>
 
@@ -177,8 +177,8 @@ the actor from the level.</p>
 <span class="c1">--- @param level Level</span>
 <span class="c1">--- @param target Actor</span>
 <span class="kr">function</span> <span class="nc">Attack</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
-   <span class="kd">local</span> <span class="n">health</span> <span class="o">=</span> <span class="n">target</span><span class="p">:</span><span class="n">expectComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">)</span>
-   <span class="kd">local</span> <span class="n">attacker</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">expectComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Attacker</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">health</span> <span class="o">=</span> <span class="n">target</span><span class="p">:</span><span class="n">expect</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">attacker</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">expect</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Attacker</span><span class="p">)</span>
    <span class="n">health</span><span class="p">.</span><span class="n">hp</span> <span class="o">=</span> <span class="n">health</span><span class="p">.</span><span class="n">hp</span> <span class="o">-</span> <span class="n">attacker</span><span class="p">.</span><span class="n">damage</span>
 
    <span class="kr">if</span> <span class="n">health</span><span class="p">.</span><span class="n">hp</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="kr">then</span>
@@ -233,8 +233,8 @@ game over screen.</p>
 
 
 <span class="kr">function</span> <span class="nc">LoseCondition</span><span class="p">:</span><span class="nf">afterAction</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">actor</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
-   <span class="kr">if</span> <span class="ow">not</span> <span class="n">actor</span><span class="p">:</span><span class="n">hasComponent</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">PlayerController</span><span class="p">)</span> <span class="kr">then</span> <span class="kr">return</span> <span class="kr">end</span>
-   <span class="kr">if</span> <span class="ow">not</span> <span class="n">action</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Die</span><span class="p">)</span> <span class="kr">then</span> <span class="kr">return</span> <span class="kr">end</span>
+   <span class="kr">if</span> <span class="ow">not</span> <span class="n">actor</span><span class="p">:</span><span class="n">has</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">PlayerController</span><span class="p">)</span> <span class="kr">then</span> <span class="kr">return</span> <span class="kr">end</span>
+   <span class="kr">if</span> <span class="ow">not</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Die</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">action</span><span class="p">)</span> <span class="kr">then</span> <span class="kr">return</span> <span class="kr">end</span>
 
    <span class="c1">-- It&#39;s the player and they&#39;re dying. Time to let the user interface know the game is</span>
    <span class="c1">-- over.</span>
@@ -278,7 +278,7 @@ Now, finally, we’re going to handle the GameOverMessage in MyGameLevelState.</
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">MyGameLevelState</span><span class="p">:</span><span class="nf">handleMessage</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
    <span class="n">spectrum</span><span class="p">.</span><span class="n">LevelState</span><span class="p">.</span><span class="n">handleMessage</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
 
-   <span class="kr">if</span> <span class="n">message</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">messages</span><span class="p">.</span><span class="n">GameOver</span><span class="p">)</span> <span class="kr">then</span>
+   <span class="kr">if</span> <span class="n">prism</span><span class="p">.</span><span class="n">messages</span><span class="p">.</span><span class="n">GameOver</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="kr">then</span>
       <span class="n">self</span><span class="p">.</span><span class="n">manager</span><span class="p">:</span><span class="n">enter</span><span class="p">(</span><span class="n">GameOverState</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">))</span>
    <span class="kr">end</span>
 <span class="kr">end</span>

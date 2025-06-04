@@ -34,7 +34,7 @@ Next, define an Inventory component that uses an :lua:class:`ActorStorage` to tr
     end
 
     function InventoryComponent:addItem(actor)
-        assert(actor:hasComponent(prism.components.Item))
+        assert(actor:has(prism.components.Item))
         self.inventory:addActor(actor)
     end
 
@@ -59,10 +59,10 @@ Define a Pickup action that removes the item from the level and adds it to the a
 
     function PickupTarget:validate(owner, targetObject)
         return 
-            targetObject:is(prism.Actor) and
-            targetObject:hasComponent(prism.components.Item) and
+            prism.Actor:is(targetObject) and
+            targetObject:has(prism.components.Item) and
             owner:getRange(targetObject) == 0 and
-            not owner:expectComponent(prism.components.Inventory):hasItem(targetObject)
+            not owner:expect(prism.components.Inventory):hasItem(targetObject)
     end
 
     --- @class PickupAction : Action
@@ -81,7 +81,7 @@ Define a Pickup action that removes the item from the level and adds it to the a
     end
 
     function Pickup:perform(level, item)
-        local inventory = self.owner:expectComponent(prism.components.Inventory)
+        local inventory = self.owner:expect(prism.components.Inventory)
         level:removeActor(item)
         inventory:addItem(item)
     end
@@ -96,9 +96,9 @@ Define a Drop action that removes the item from the inventory and places it into
 
     function DropTarget:validate(owner, targetObject)
         return 
-            targetObject:is(prism.Actor) and
-            targetObject:hasComponent(prism.components.Item) and
-            owner:expectComponent(prism.components.Inventory):hasItem(targetObject)
+            prism.Actor:is(targetObject) and
+            targetObject:has(prism.components.Item) and
+            owner:expect(prism.components.Inventory):hasItem(targetObject)
     end
 
     --- @class DropAction : Action
@@ -117,7 +117,7 @@ Define a Drop action that removes the item from the inventory and places it into
     end
 
     function Drop:perform(level, item)
-        local inventory = self.owner:expectComponent(prism.components.Inventory)
+        local inventory = self.owner:expect(prism.components.Inventory)
         inventory:removeItem(item)
         
         -- it's safe to change the position of an actor outside of a level!
@@ -148,7 +148,7 @@ Now that you've defined the keybinding and action, handle the ``pickup`` input i
 .. code:: lua
 
     if action == "pickup" then
-        local senses = owner:getComponent(prism.components.Senses)
+        local senses = owner:get(prism.components.Senses)
         if senses then
             local query = senses:query(prism.components.Item)
                 :at(owner:getPosition():decompose())
@@ -240,7 +240,7 @@ To trigger this state when the player presses the inventory key (like ``tab``), 
    ...
 
    if action == "inventory" then
-      local inventory = owner:getComponent(prism.components.Inventory)
+      local inventory = owner:get(prism.components.Inventory)
 
       if inventory then
          self.manager:push(InventoryState(decision, self.level, inventory))
