@@ -107,7 +107,7 @@ end
 
 --- Checks whether the entity has all of the components given.
 --- @param ... Component The list of component prototypes.
---- @return boolean hass True if the entity has all of the components given.
+--- @return boolean has True if the entity has all of the components given.
 function Entity:has(...)
    for _, prototype in ipairs({ ... }) do
       -- stylua: ignore

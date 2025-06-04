@@ -69,6 +69,9 @@ prism.BooleanBuffer = prism.require "structures.booleanbuffer"
 --- @module "engine.structures.bitmaskbuffer"
 prism.BitmaskBuffer = prism.require "structures.bitmaskbuffer"
 
+--- @module "engine.structures.cascadingbitmaskbuffer"
+prism.CascadingBitmaskBuffer = prism.require "structures.cascadingbitmaskbuffer"
+
 --- @module "engine.structures.queue"
 prism.Queue = prism.require "structures.queue"
 
