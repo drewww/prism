@@ -5,6 +5,7 @@
 --- @overload fun(options: ColliderOptions?): Collider
 local Collider = prism.Component:extend "Collider"
 Collider.mask = 0
+Collider.size = 1
 
 --- @class ColliderOptions
 --- @field allowedMovetypes string[]?
