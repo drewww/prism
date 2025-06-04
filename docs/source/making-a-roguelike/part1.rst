@@ -183,7 +183,7 @@ seeing if it contains the player. We should also ensure the kobold has the compo
 
 .. code:: lua
    
-   local senses = actor:getComponent(prism.components.Senses)
+   local senses = actor:get(prism.components.Senses)
    if not senses then return prism.actions.Wait() end -- we can't see!
 
    local player = senses:query(prism.components.PlayerController):first()
@@ -198,7 +198,7 @@ positions and the kobold's collision mask.
 
 .. code:: lua
 
-   local mover = actor:getComponent(prism.components.Mover)
+   local mover = actor:get(prism.components.Mover)
    if not mover then return prism.actions.Wait() end -- we can't move!
 
    local path = level:findPath(actor:getPosition(), player:getPosition(), 1, mover.mask)
@@ -229,11 +229,11 @@ Jump back into the game and you should find kobolds chasing after you.
       KoboldController.name = "KoboldController"
 
       function KoboldController:act(level, actor)
-         local senses = actor:getComponent(prism.components.Senses)
+         local senses = actor:get(prism.components.Senses)
          if not senses then return prism.actions.Wait() end -- we can't see!
          local player = senses:query(prism.components.PlayerController):first()
          if not player then return prism.actions.Wait() end
-         local mover = actor:getComponent(prism.components.Mover)
+         local mover = actor:get(prism.components.Mover)
          if not mover then return prism.actions.Wait() end
 
          local path = level:findPath(actor:getPosition(), player:getPosition(), 1, mover.mask)
@@ -267,8 +267,8 @@ kick.lua:
 
    function KickTarget:validate(owner, actor, targets)
       ---@cast actor Actor
-      return actor:is(prism.Actor)
-         and actor:hasComponent(prism.components.Collider)
+      return prism.Actor:is(actor)
+         and actor:has(prism.components.Collider)
          and owner:getRange(actor) == 1
    end
 
@@ -330,8 +330,8 @@ checking passability with a custom collision mask.
       ---@param actor any
       ---@param targets any[]
       function KickTarget:validate(owner, actor, targets)
-         return actor:is(prism.Actor)
-            and actor:hasComponent(prism.components.Collider)
+         return prism.Actor:is(actor)
+            and actor:has(prism.components.Collider)
             and owner:getRange(actor) == 1
       end
 

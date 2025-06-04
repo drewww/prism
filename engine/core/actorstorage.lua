@@ -39,7 +39,6 @@ end
 --- Adds an actor to the storage, updating the spatial map and component cache.
 --- @param actor Actor The actor to add.
 function ActorStorage:addActor(actor)
-   assert(actor:is(prism.Actor), "Tried to add a non-actor object to actor storage!")
    if self.actorToID[actor] then return end
 
    table.insert(self.actors, actor) -- Main structure
@@ -52,7 +51,6 @@ end
 --- Removes an actor from the storage, updating the spatial map and component cache.
 --- @param actor Actor The actor to remove.
 function ActorStorage:removeActor(actor)
-   assert(actor:is(prism.Actor), "Tried to remove a non-actor object from actor storage!")
    if not self.actorToID[actor] then return end
 
    self:_removeComponentCache(actor)
@@ -116,7 +114,7 @@ function ActorStorage:updateComponentCache(actor)
          self.componentCounts[component] = 0
       end
 
-      local hasComp = actor:hasComponent(component)
+      local hasComp = actor:has(component)
       local cached = self.componentCache[component][actor]
 
       if hasComp and not cached then
@@ -144,8 +142,6 @@ end
 --- Merges another ActorStorage instance with this one.
 --- @param other ActorStorage The other ActorStorage instance to merge with this one.
 function ActorStorage:merge(other)
-   assert(other:is(ActorStorage), "Tried to merge a non-ActorStorage object with actor storage!")
-
    for _, actor in ipairs(other.actors) do
       self:addActor(actor)
    end

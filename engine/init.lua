@@ -9,6 +9,9 @@ end
 --- @module "engine.lib.json"
 prism.json = prism.require "lib.json"
 
+--- @module "engine.lib.log"
+prism.logger = prism.require "lib.log"
+
 --- @type boolean
 prism._initialized = false
 

@@ -18,7 +18,7 @@ function BTRoot:run(level, actor, controller)
    for i = 1, #self.children do
       local child = self.children[i]
       local result = child:run(level, actor, controller)
-      if result and type(result) ~= "boolean" and result:is(prism.Action) then
+      if result and type(result) ~= "boolean" and prism.Action:is(result) then
          --- @type Action
          return result
       end

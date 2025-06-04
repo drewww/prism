@@ -46,6 +46,9 @@ end
 --- @private
 function Level:initialize(actors, systems)
    assert(#actors > 0, "A level must be initialized with at least one actor!")
+
+   prism.logger.debug("Level is initializing with", #actors, " actors and", #systems, " systems...")
+
    self:initializeOpacityCache()
    self:initializePassabilityCache()
 
@@ -86,7 +89,7 @@ function Level:step()
    local schedNext = self.scheduler:next()
 
    assert(
-      type(schedNext) == "string" or prism.Object.is(schedNext, prism.Actor),
+      type(schedNext) == "string" or prism.Actor:is(schedNext),
       "Found a scheduler entry that wasn't an actor or string."
    )
 
@@ -104,7 +107,7 @@ end
 --- @return Decision|nil
 function Level:yield(message)
    self.systemManager:onYield(self, message)
-   if message:is(prism.Decision) then
+   if prism.Decision:is(message) then
       ---@cast message ActionDecision
       self.decision = message
    end
@@ -114,10 +117,9 @@ function Level:yield(message)
 end
 
 --- Yields a debug message if debug is true.
-function Level:debugYield(stringMessage)
-   if not self.debug then return end
-
-   self:yield(prism.messages.DebugMessage(stringMessage))
+function Level:debugYield(message)
+   prism.logger.debug(message)
+   if self.debug then self:yield(prism.messages.DebugMessage(message)) end
 end
 
 --- Trigger a custom event on systems in the level.
@@ -136,6 +138,7 @@ end
 --- the system has a requirement that hasn't been attached yet.
 --- @param system System The system to add.
 function Level:addSystem(system)
+   prism.logger.debug("System", system.name, "was added to level")
    self.systemManager:addSystem(system)
 end
 
@@ -164,14 +167,11 @@ end
 --- scheduler if it has a controller.
 --- @param actor Actor The actor to add.
 function Level:addActor(actor)
-   -- some sanity checks
-   assert(actor:is(prism.Actor), "Attemped to add a non-actor object to the level with addActor")
-   assert(not actor.level, "Attempted to add an actor that already has a level!")
-
+   prism.logger.debug("Actor", actor.name, "was added to level")
    actor.level = self
 
    self.actorStorage:addActor(actor)
-   if actor:hasComponent(prism.components.Controller) then self.scheduler:add(actor) end
+   if actor:has(prism.components.Controller) then self.scheduler:add(actor) end
 
    self.systemManager:onActorAdded(self, actor)
 end
@@ -181,6 +181,7 @@ end
 --- the scheduler if it has a controller.
 --- @param actor Actor The actor to remove.
 function Level:removeActor(actor)
+   prism.logger.debug("Actor", actor.name, "was removed from level")
    actor.level = nil
    self.actorStorage:removeActor(actor)
    self.scheduler:remove(actor)
@@ -218,7 +219,6 @@ end
 --- @param pos Vector2 The position to move the actor to.
 --- @param skipSparseMap boolean? If true the sparse map won't be updated.
 function Level:moveActor(actor, pos, skipSparseMap)
-   assert(pos.is and pos:is(prism.Vector2), "Expected a Vector2 for pos in Level:moveActor.")
    assert(
       math.floor(pos.x) == pos.x and math.floor(pos.y) == pos.y,
       "Expected integer values for pos in Level:moveActor."
@@ -273,7 +273,7 @@ function Level:perform(action, silent)
    assert(self:canPerform(action))
    local owner = action.owner
 
-   self:debugYield("Actor is about to perform " .. action.name)
+   prism.logger.debug("Actor", owner.name, "is about to perform", action.name)
    if not silent then self.systemManager:beforeAction(self, owner, action) end
    ---@diagnostic disable-next-line
    action:perform(self, unpack(action.targetObjects))
@@ -285,7 +285,7 @@ end
 --- @param actor Actor The actor to get the controller for.
 --- @return Controller? controller The actor's controller, or nil if it doesn't have one.
 function Level:getActorController(actor)
-   return actor:getComponent(prism.components.Controller)
+   return actor:get(prism.components.Controller)
 end
 
 --
@@ -334,7 +334,6 @@ end
 --- @param actor Actor An actor in the level.
 --- @return Cell -- The cell at the actor's position.
 function Level:getActorCell(actor)
-   assert(actor:is(prism.Actor), "Attemped to get the cell of a non-actor object!")
    assert(actor.level == self, "Attempted to get the cell of an actor not in the level!")
 
    --- @diagnostic disable-next-line
@@ -355,7 +354,6 @@ function Level:eachCell()
    return self.map:each()
 end
 
---- @private
 --- @param x integer
 --- @param y integer
 function Level:updateCaches(x, y)
@@ -470,7 +468,7 @@ end
 --- Finds a path between two positions.
 ---@param start Vector2 The starting position.
 ---@param goal Vector2 The goal position.
----@param minDistance integer The minimum distance away to pathfind to.
+---@param minDistance? integer The minimum distance away to pathfind to.
 ---@param mask Bitmask The collision mask to use for passability checks.
 ---@param distanceType? DistanceType An optional distance type to use for calculating the minimum distance. Defaults to prism._defaultDistance.
 ---@return Path? path A path to the goal, or nil if a path could not be found or the start is already at the minimum distance.
@@ -508,7 +506,6 @@ end
 --- @return SparseGrid? fov
 --- @return Actor[]? actors A list of actors within the given range.
 function Level:getAOE(type, position, range)
-   assert(position:is(prism.Vector2), "Position was not a Vector2!")
    local seenActors = {}
 
    if type == "fov" then

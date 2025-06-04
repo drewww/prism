@@ -1,7 +1,7 @@
 --- @class LevelState : GameState
 --- Represents the state for running a level, including managing the game loop,
 --- handling decisions, messages, and drawing the interface.
---- @field decision ActionDecision The current decision being processed, if any.
+--- @field decision? ActionDecision The current decision being processed, if any.
 --- @field level Level The level object representing the game environment.
 --- @field display Display The display object used for rendering.
 --- @field message ActionMessage The most recent action message.
@@ -49,12 +49,12 @@ end
 
 --- Handles incoming messages from the coroutine.
 --- Processes decisions, action messages, and debug messages as appropriate.
---- @param message any The message to handle.
+--- @param message Message The message to handle.
 function LevelState:handleMessage(message)
-   if message:is(prism.decisions.ActionDecision) then
+   if prism.decisions.ActionDecision:is(message) then
       ---@cast message ActionDecision
       self.decision = message
-   elseif message:is(prism.messages.DebugMessage) then
+   elseif prism.messages.DebugMessage:is(message) then
       self.manager:push(self.geometer)
    end
 end
@@ -69,12 +69,12 @@ function LevelState:getSenses()
       ---@cast actionDecision ActionDecision
       curActor = actionDecision.actor
    elseif self.message then
-      if self.message.action.owner:hasComponent(prism.components.PlayerController) then
+      if self.message.action.owner:has(prism.components.PlayerController) then
          curActor = self.message.action.owner
       end
    end
 
-   local sensesComponent = curActor and curActor:getComponent(prism.components.Senses)
+   local sensesComponent = curActor and curActor:get(prism.components.Senses)
    local primary = { sensesComponent }
    local secondary = {}
 
@@ -112,6 +112,33 @@ end
 --- @param decision ActionDecision The decision being updated.
 function LevelState:updateDecision(dt, actor, decision)
    -- override in subclasses
+end
+
+--- Compute a custom mouse transform for retrieving cells.
+--- This should return the mouse coordinates transformed to the display's context.
+--- e.g. if you scale the display by 3x, this should scale it back down by 3x.
+--- @param mx number The X-coordinate of the mouse.
+--- @param my number The Y-coordinate of the mouse.
+--- @return number mx The transformed X-coordinate.
+--- @return number my The transformed Y-coordinate.
+function LevelState:transformMousePosition(mx, my)
+   return mx, my
+end
+
+--- Returns the X-coordinate, Y-coordinate, and cell the mouse is over, if the mouse is over a cell.
+--- @return integer? x
+--- @return integer? y
+--- @return Cell?
+function LevelState:getCellUnderMouse()
+   local mx, my = love.mouse.getPosition()
+   local x, y = self.display:getCellUnderMouse(self:transformMousePosition(mx, my))
+   return x, y, self.level:getCell(x, y)
+end
+
+--- Gets the actor waiting for an action. Usually the player.
+--- @return Actor?
+function LevelState:getCurrentActor()
+   return self.decision and self.decision.actor or nil
 end
 
 return LevelState

@@ -24,13 +24,7 @@ function EllipseModification:execute(attachable, editor)
       if cellSet:get(x, y) then return end
 
       cellSet:set(x, y, true)
-      if self.placeable:is(prism.Actor) then
-         ---@diagnostic disable-next-line
-         self:placeActor(attachable, x, y, self.placeable)
-      else
-         ---@diagnostic disable-next-line
-         self:placeCell(attachable, x, y, self.placeable)
-      end
+      self:place(attachable, x, y, self.placeable)
    end)
 end
 

@@ -75,7 +75,7 @@ local function getComponents(actor, requiredComponentsList)
    local n = 0
    for _, component in ipairs(requiredComponentsList) do
       n = n + 1
-      components[n] = actor:getComponent(component)
+      components[n] = actor:get(component)
    end
    return unpack(components, 1, n)
 end
@@ -94,11 +94,9 @@ function Query:iter()
    -- Case 1: Position-based query
    if requiredPosition then
       local actors = positionCache:get(self.requiredPosition:decompose())
-      if not actors then
-         return function()
-            return nil
-         end
-      end
+      if not actors then return function()
+         return nil
+      end end
 
       local iter, state, actor = pairs(actors)
       return function()
@@ -116,18 +114,16 @@ function Query:iter()
    if self.requiredComponentsCount == 1 then
       local component = self.requiredComponentsList[1]
       local cache = self.storage:getComponentCache(component)
-      if not cache then
-         return function()
-            return nil
-         end
-      end
+      if not cache then return function()
+         return nil
+      end end
 
       local actor = nil
       return function()
          actor = next(cache, actor)
          if not actor then return nil end
          if hasRequired(actor, self.storage, requiredComponents) then
-            return actor, actor:getComponent(component)
+            return actor, actor:get(component)
          end
       end
    end

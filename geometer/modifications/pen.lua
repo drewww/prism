@@ -15,15 +15,7 @@ end
 --- @param attachable SpectrumAttachable
 function PenModification:execute(attachable)
    for x, y in self.locations:each() do
-      if self.placeable:is(prism.Actor) then
-         local actorPrototype = self.placeable
-         --- @cast actorPrototype Actor
-         self:placeActor(attachable, x, y, actorPrototype)
-      else
-         local cellPrototype = self.placeable
-         --- @cast cellPrototype Cell
-         self:placeCell(attachable, x, y, cellPrototype)
-      end
+      self:place(attachable, x, y, self.placeable)
    end
 end
 

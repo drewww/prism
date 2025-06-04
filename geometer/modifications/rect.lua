@@ -25,15 +25,7 @@ function RectModification:execute(attachable)
       -- Fill the rectangle
       for x = i, k do
          for y = j, l do
-            if self.placeable:is(prism.Actor) then
-               local actor = self.placeable
-               --- @cast actor Actor
-               self:placeActor(attachable, x, y, actor)
-            else
-               local cell = self.placeable
-               --- @cast cell Cell
-               self:placeCell(attachable, x, y, cell)
-            end
+            self:place(attachable, x, y, self.placeable)
          end
       end
    else
@@ -54,15 +46,7 @@ end
 ---@param x number
 ---@param y number
 function RectModification:placeBoundaryCell(attachable, x, y)
-   if self.placeable:is(prism.Actor) then
-      local actor = self.placeable
-      --- @cast actor Actor
-      self:placeActor(attachable, x, y, actor)
-   else
-      local cell = self.placeable
-      --- @cast cell Cell
-      self:placeCell(attachable, x, y, cell)
-   end
+   self:place(attachable, x, y, self.placeable)
 end
 
 return RectModification

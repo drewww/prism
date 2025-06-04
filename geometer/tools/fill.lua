@@ -11,7 +11,7 @@ local Fill = geometer.Tool:extend("FillTool")
 ---@param cellx number The x-coordinate of the cell clicked.
 ---@param celly number The y-coordinate of the cell clicked.
 function Fill:mouseclicked(editor, level, cellx, celly)
-   if editor.placeable:is(prism.Actor) then return end
+   if prism.Actor:is(editor.placeable) then return end
    if cellx < 1 or cellx > level.map.w then return end
    if celly < 1 or celly > level.map.h then return end
 
@@ -27,10 +27,11 @@ function Fill:bucket(attachable, x, y)
    local cell = attachable:getCell(x, y)
    local cellPrototype = nil
    if cell then cellPrototype = getmetatable(cell) end
+   --- @cast cellPrototype Cell
 
    prism.BreadthFirstSearch(prism.Vector2(x, y), function(x, y)
       local cellAt = attachable:getCell(x, y)
-      return cellPrototype and cellAt and cellAt:is(cellPrototype)
+      return cellPrototype and cellPrototype:is(cellAt)
    end, function(x, y)
       self.locations:set(x, y, true)
    end)

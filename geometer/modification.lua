@@ -47,9 +47,23 @@ function Modification:removeActor(level, actor)
 end
 
 --- @param attachable SpectrumAttachable
----@param x integer
----@param y integer
----@param actorPrototype Actor
+--- @param x integer
+--- @param y integer
+--- @param entityPrototype Entity
+function Modification:place(attachable, x, y, entityPrototype)
+   if prism.Actor:is(entityPrototype) then
+      --- @cast entityPrototype Actor
+      self:placeActor(attachable, x, y, entityPrototype)
+   else
+      --- @cast entityPrototype Cell
+      self:placeCell(attachable, x, y, entityPrototype)
+   end
+end
+
+--- @param attachable SpectrumAttachable
+--- @param x integer
+--- @param y integer
+--- @param actorPrototype Actor
 function Modification:placeActor(attachable, x, y, actorPrototype)
    if not self.placed then self.placed = {} end
 

@@ -31,7 +31,7 @@ local function Tile(self, scene)
    end)
 
    return function(_, x, y, w, h)
-      local drawable = self.props.placeable:getComponent(prism.components.Drawable)
+      local drawable = self.props.placeable:get(prism.components.Drawable)
       local quad = self.props.display:getQuad(drawable.index)
 
       love.graphics.push("all")
