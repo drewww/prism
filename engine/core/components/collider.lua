@@ -21,8 +21,6 @@ function Collider:__new(options)
    end
 
    self.size = options.size or 1
-
-   self.shape = shape
 end
 
 return Collider
