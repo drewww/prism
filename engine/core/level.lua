@@ -227,10 +227,10 @@ function Level:moveActor(actor, pos)
       "Expected integer values for pos in Level:moveActor."
    )
 
-   self.systemManager:beforeMove(self, actor, actor:getPosition(), pos)
-
    -- if the actor isn't in the level, we don't do anything
    if not self:hasActor(actor) then return end
+
+   self.systemManager:beforeMove(self, actor, actor:getPosition(), pos)
 
    self.actorStorage:removeSparseMapEntries(actor)
 
@@ -490,7 +490,7 @@ function Level:findPath(start, goal, actor, mask, minDistance, distanceType)
       not self.map:isInBounds(start.x, start.y) 
       or not self.map:isInBounds(goal.x, goal.y)
    then
-      error("Path destination is not on the map.")
+     return nil
    end
 
    local collider = actor:get(prism.components.Collider)
