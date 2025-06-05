@@ -496,7 +496,7 @@ function Level:findPath(start, goal, actor, mask, minDistance, distanceType)
    local collider = actor:get(prism.components.Collider)
    local size = collider and collider.size or 1
    local function passableCallback(x, y)
-      return self:_getCellPassable(x, y, mask, size) -- Assume this is a method in your Level class that checks passability
+      return self:_getCellPassable(x, y, mask, size)
    end
 
    self.actorStorage:removeSparseMapEntries(actor)
