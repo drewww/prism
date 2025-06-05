@@ -99,7 +99,7 @@ function Level:step()
    local actor = schedNext
    ---@cast actor Actor
    self.systemManager:onTurn(self, actor)
-   prism.turn(self, actor, actor:expectComponent(prism.components.Controller))
+   prism.turn(self, actor, actor:expect(prism.components.Controller))
    self.systemManager:onTurnEnd(self, actor)
 end
 
@@ -221,7 +221,7 @@ end
 --- @param actor Actor The actor to move.
 --- @param pos Vector2 The position to move the actor to.
 function Level:moveActor(actor, pos)
-   assert(pos.is and pos:is(prism.Vector2), "Expected a Vector2 for pos in Level:moveActor.")
+   assert(prism.Vector2:is(pos), "Expected a Vector2 for pos in Level:moveActor.")
    assert(
       math.floor(pos.x) == pos.x and math.floor(pos.y) == pos.y,
       "Expected integer values for pos in Level:moveActor."
@@ -368,9 +368,13 @@ function Level:_getCellPassable(x, y, mask, size)
    return prism.Collision.checkBitmaskOverlap(mask, cellMask)
 end
 
+--- @param x integer
+--- @param y integer
+--- @param actor Actor
+--- @param mask Bitmask
 --- @return boolean -- True if the cell is passable, false otherwise.
 function Level:getCellPassable(x, y, actor, mask)
-   local collider = actor:getComponent(prism.components.Collider)
+   local collider = actor:get(prism.components.Collider)
    if not collider then return true end
 
    self.actorStorage:removeSparseMapEntries(actor)
@@ -476,30 +480,30 @@ end
 --- Finds a path between two positions.
 ---@param start Vector2 The starting position.
 ---@param goal Vector2 The goal position.
+---@param actor Actor The collision mask to use for passability checks.
+---@param mask Bitmask
 ---@param minDistance? integer The minimum distance away to pathfind to.
----@param mask Bitmask The collision mask to use for passability checks.
 ---@param distanceType? DistanceType An optional distance type to use for calculating the minimum distance. Defaults to prism._defaultDistance.
 ---@return Path? path A path to the goal, or nil if a path could not be found or the start is already at the minimum distance.
-function Level:findPath(start, goal, minDistance, collider, distanceType)
+function Level:findPath(start, goal, actor, mask, minDistance, distanceType)
    if
-      start.x < 1
-      or start.x > self.map.w
-      or start.y < 1
-      or start.y > self.map.h
-      or goal.x < 1
-      or goal.x > self.map.w
-      or goal.y < 1
-      or goal.y > self.map.h
+      not self.map:isInBounds(start.x, start.y) 
+      or not self.map:isInBounds(goal.x, goal.y)
    then
       error("Path destination is not on the map.")
    end
-   -- Define the passability callback (checks if a position is walkable)
+
+   local collider = actor:get(prism.components.Collider)
+   local size = collider and collider.size or 1
    local function passableCallback(x, y)
-      return self:getCellPassable(x, y, collider) -- Assume this is a method in your Level class that checks passability
+      return self:_getCellPassable(x, y, mask, size) -- Assume this is a method in your Level class that checks passability
    end
 
-   -- Use the prism.astar function to find the path
-   return prism.astar(start, goal, passableCallback, nil, minDistance, distanceType)
+   self.actorStorage:removeSparseMapEntries(actor)
+   local path = prism.astar(start, goal, passableCallback, nil, minDistance, distanceType)
+   self.actorStorage:insertSparseMapEntries(actor)
+
+   return path
 end
 
 --- Returns a list of all actors that are within the given range of the given

@@ -74,6 +74,14 @@ function Map:getCellOpaque(x, y)
    return self.opacityCache:get(x, y)
 end
 
+--- Returns true if the (x, y) coordinate is within the bounds of the map.
+--- @param x number The x-coordinate.
+--- @param y number The y-coordinate.
+--- @return boolean True if the coordinates are within bounds, false otherwise.
+function Map:isInBounds(x, y)
+   return x >= 1 and x <= self.w and y >= 1 and y <= self.h
+end
+
 function Map:onDeserialize()
    local w, h = self.w, self.h
    self.opacityCache = prism.BooleanBuffer(w, h)

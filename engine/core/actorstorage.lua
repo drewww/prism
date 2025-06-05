@@ -93,7 +93,7 @@ end
 --- @param actor Actor The actor to remove.
 function ActorStorage:removeSparseMapEntries(actor)
    local pos = actor:getPosition()
-   local collider = actor:getComponent(prism.components.Collider)
+   local collider = actor:get(prism.components.Collider)
    local size = collider and collider.size or 1
 
    for cellX = pos.x, pos.x + size - 1 do
@@ -108,7 +108,7 @@ end
 --- @param actor Actor The actor to insert.
 function ActorStorage:insertSparseMapEntries(actor)
    local pos = actor:getPosition()
-   local collider = actor:getComponent(prism.components.Collider)
+   local collider = actor:get(prism.components.Collider)
    local size = collider and collider.size or 1
 
    for cellX = pos.x, pos.x + size - 1 do
