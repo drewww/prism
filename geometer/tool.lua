@@ -21,7 +21,7 @@ end
 ---@param placeable Placeable
 ---@return Drawable
 function Tool:getDrawable(placeable)
-   placeable = placeable()
+   placeable = placeable.entity
    return placeable:get(prism.components.Drawable)
 end
 

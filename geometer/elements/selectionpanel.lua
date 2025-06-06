@@ -9,12 +9,12 @@ local Button = geometer.require "elements.button"
 ---@return Placeable[]
 local function initialElements()
    local t = {}
-   for _, cell in pairs(prism.cells) do
-      table.insert(t, cell())
+   for _, cellFactory in pairs(prism.cells) do
+      table.insert(t, { entity = cellFactory(), factory = cellFactory })
    end
 
-   for _, actor in pairs(prism.actors) do
-      table.insert(t, actor())
+   for _, actorFactory in pairs(prism.actors) do
+      table.insert(t, { entity = actorFactory(), factory = actorFactory })
    end
 
    return t
@@ -37,13 +37,14 @@ end
 ---@param scene Inky.Scene
 ---@return function
 local function SelectionPanel(self, scene)
-   ---@param placeable Placeable
-   local function onSelect(placeable)
+   ---@param index integer
+   local function onSelect(index)
+      local placeable = self.props.placeables[index]
       self.props.selected = placeable
-      self.props.selectedText:set(placeable.name)
+      self.props.selectedText:set(placeable.entity.name)
 
       -- We use the prototype so we can instantiate them into the level
-      self.props.editor.placeable = getmetatable(placeable)
+      self.props.editor.placeable = placeable
    end
 
    -- We capture and consume pointer events to avoid the editor grid consuming them,
@@ -87,7 +88,7 @@ local function SelectionPanel(self, scene)
    textInput.props.onEdit = function(content)
       local filtered = {}
       for i, placeable in ipairs(self.props.placeables) do
-         if placeable.name:find(content) then table.insert(filtered, i) end
+         if placeable.entity.name:find(content) then table.insert(filtered, i) end
       end
       self.props.filtered = filtered
       grid.props.filtered = filtered
@@ -115,7 +116,7 @@ local function SelectionPanel(self, scene)
       clearButton:render(x + 8 * 11, y + 2 * 8, 8, 8, depth + 2)
       grid:render(x, y + 5 * 8, w, 8 * 12, depth + 1)
 
-      local drawable = self.props.selected:get(prism.components.Drawable)
+      local drawable = self.props.selected.entity:get(prism.components.Drawable)
       local quad = self.props.display:getQuad(drawable.index)
       local scale = prism.Vector2(
          self.props.size.x / self.props.display.cellSize.x,

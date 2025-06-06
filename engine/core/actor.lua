@@ -8,7 +8,6 @@
 --- @overload fun(): Actor
 local Actor = prism.Entity:extend("Actor")
 Actor.position = nil
-Actor.name = "actor"
 
 --- @alias ActorFactory fun(): Actor
 

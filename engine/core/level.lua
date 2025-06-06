@@ -361,9 +361,9 @@ end
 --- @param x number The x component of the position to check.
 --- @param y number The y component of the position to check.
 --- @param mask Bitmask The collision mask for checking passability.
---- @param size integer The size of the actor.
+--- @param size? integer The size of the actor.
 function Level:getCellPassable(x, y, mask, size)
-   local cellMask = self.passableCache:getMask(x, y, size)
+   local cellMask = self.passableCache:getMask(x, y, size or 1)
    return prism.Collision.checkBitmaskOverlap(mask, cellMask)
 end
 
@@ -485,11 +485,8 @@ end
 ---@param distanceType? DistanceType An optional distance type to use for calculating the minimum distance. Defaults to prism._defaultDistance.
 ---@return Path? path A path to the goal, or nil if a path could not be found or the start is already at the minimum distance.
 function Level:findPath(start, goal, actor, mask, minDistance, distanceType)
-   if
-      not self.map:isInBounds(start.x, start.y) 
-      or not self.map:isInBounds(goal.x, goal.y)
-   then
-     return
+   if not self.map:isInBounds(start.x, start.y) or not self.map:isInBounds(goal.x, goal.y) then
+      return
    end
 
    local collider = actor:get(prism.components.Collider)

@@ -49,25 +49,24 @@ end
 --- @param attachable SpectrumAttachable
 --- @param x integer
 --- @param y integer
---- @param entityPrototype Entity
-function Modification:place(attachable, x, y, entityPrototype)
-   if prism.Actor:is(entityPrototype) then
-      --- @cast entityPrototype Actor
-      self:placeActor(attachable, x, y, entityPrototype)
+--- @param placeable Placeable
+function Modification:place(attachable, x, y, placeable)
+   if prism.Actor:is(placeable.entity) then
+      self:placeActor(attachable, x, y, placeable)
    else
-      --- @cast entityPrototype Cell
-      self:placeCell(attachable, x, y, entityPrototype)
+      self:placeCell(attachable, x, y, placeable)
    end
 end
 
 --- @param attachable SpectrumAttachable
 --- @param x integer
 --- @param y integer
---- @param actorPrototype Actor
-function Modification:placeActor(attachable, x, y, actorPrototype)
+--- @param placeable Placeable
+function Modification:placeActor(attachable, x, y, placeable)
    if not self.placed then self.placed = {} end
 
-   local instance = actorPrototype()
+   local instance = placeable.factory()
+   --- @cast instance Actor
 
    --- @diagnostic disable-next-line
    instance.position = prism.Vector2(x, y)
@@ -79,11 +78,11 @@ end
 ---@param attachable SpectrumAttachable
 ---@param x integer
 ---@param y integer
----@param cellPrototype Cell|nil
-function Modification:placeCell(attachable, x, y, cellPrototype)
+---@param placeable Placeable
+function Modification:placeCell(attachable, x, y, placeable)
    if not self.replaced then self.replaced = prism.SparseGrid() end
-   local instance = cellPrototype
-   if cellPrototype then instance = cellPrototype() end
+   local instance = placeable.factory()
+   --- @cast instance Cell
 
    self.replaced:set(x, y, attachable:getCell(x, y) or false)
    attachable:setCell(x, y, instance)
