@@ -32,11 +32,6 @@ local function safeGetMaskValue(self, buffer, xCoord, yCoord)
    return 0
 end
 
---- @class cbb.QueueItem table
---- @field level integer
---- @field x integer
---- @field y integer
-
 function CascadingBitmaskBuffer:_cascade(xInitial, yInitial)
    local currentMinX = xInitial
    local currentMaxX = xInitial
