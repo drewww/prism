@@ -229,36 +229,66 @@ prism._itemPatterns = {
    behaviors = "[bB][eE][hH][aA][vV][iI][oO][rR]",
 }
 
+--- @param name string
+--- @param factory CellFactory
+function prism.registerCell(name, factory)
+   assert(prism.cells[name] == nil, "Cell " .. name .. " is already registered!")
+   prism.cells[name] = factory
+
+   if prism._currentDefinitions then
+      table.insert(prism._currentDefinitions, "--- @type fun(): Cell")
+      table.insert(prism._currentDefinitions, "prism.cells." .. name .. " = nil")
+   end
+end
+
+--- @param name string
+--- @param factory ActorFactory
+function prism.registerActor(name, factory)
+   assert(prism.actors[name] == nil, "Actor " .. name .. " is already registered!")
+   prism.actors[name] = factory
+
+   if prism._currentDefinitions then
+      table.insert(prism._currentDefinitions, "--- @type fun(): Actor")
+      table.insert(prism._currentDefinitions, "prism.actors." .. name .. " = nil")
+   end
+end
+
 local function loadItems(path, itemType, recurse, definitions)
    local info = {}
    local items = prism[itemType]
 
-   for k, item in pairs(love.filesystem.getDirectoryItems(path)) do
-      local fileName = path .. "/" .. item
+   for _, itemPath in pairs(love.filesystem.getDirectoryItems(path)) do
+      local fileName = path .. "/" .. itemPath
       love.filesystem.getInfo(fileName, info)
       if info.type == "file" then
-         fileName = string.gsub(fileName, ".lua", "")
-         fileName = string.gsub(fileName, "/", ".")
+         local requireName = string.gsub(fileName, ".lua", "")
+         requireName = string.gsub(requireName, "/", ".")
 
-         local name = string.gsub(item, ".lua", "")
-         local item = require(fileName)
-         local strippedClassName = string.gsub(item.className, prism._itemPatterns[itemType], "")
+         local item = require(requireName)
 
-         if not item.stripName then strippedClassName = item.className end
+         if itemType == "actors" or itemType == "cells" then goto continue end
+
+         local name = string.gsub(item.className, prism._itemPatterns[itemType], "")
+         if not item.stripName then name = item.className end
 
          assert(
-            strippedClassName ~= "",
-            "File " .. name .. " contains type " .. itemType .. " without a valid stripped name!"
+            name ~= "",
+            "File "
+               .. fileName
+               .. " contains type "
+               .. itemType
+               .. " without a valid stripped name!"
          )
-         -- Raw get to avoid messing with the dynamic registry in case of components and systems.
          assert(
-            items[strippedClassName] == nil,
-            "File " .. name .. " contains type " .. itemType .. " with duplicate name!"
+            items[name] == nil,
+            "File " .. fileName .. " contains type " .. itemType .. " with duplicate name!"
          )
-         items[strippedClassName] = item
+         items[name] = item
 
-         table.insert(definitions, "--- @module " .. '"' .. fileName .. '"')
-         table.insert(definitions, "prism." .. itemType .. "." .. strippedClassName .. " = nil")
+         table.insert(definitions, "--- @module " .. '"' .. requireName .. '"')
+         table.insert(definitions, "prism." .. itemType .. "." .. name .. " = nil")
+
+         ::continue::
       elseif info.type == "directory" and recurse then
          loadItems(fileName, itemType, recurse, definitions)
       end
@@ -283,6 +313,7 @@ function prism.loadModule(directory)
 
    local sourceDir = love.filesystem.getSource() -- Get the source directory
    local definitions = { "---@meta " .. string.lower(directory) }
+   prism._currentDefinitions = definitions
 
    for _, item in ipairs(prism._items) do
       loadItems(directory .. "/" .. item, item, true, definitions)

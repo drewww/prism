@@ -136,7 +136,7 @@ function Object:mixin(mixin)
 end
 
 function Object:__tostring()
-   return self.name
+   return "Hello"
 end
 
 function Object.serialize(object)
