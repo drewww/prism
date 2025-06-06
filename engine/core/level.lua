@@ -76,8 +76,7 @@ function Level:run()
    if self.decision then
       local actor = self.decision.actor
 
-      --- @diagnostic disable-next-line
-      prism.turn(self, actor, actor:expectComponent(prism.components.Controller))
+      prism.turn(self, actor, actor:expect(prism.components.Controller))
 
       self.systemManager:onTurnEnd(self, actor)
    end
@@ -490,7 +489,7 @@ function Level:findPath(start, goal, actor, mask, minDistance, distanceType)
       not self.map:isInBounds(start.x, start.y) 
       or not self.map:isInBounds(goal.x, goal.y)
    then
-     return nil
+     return
    end
 
    local collider = actor:get(prism.components.Collider)
