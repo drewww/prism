@@ -11,26 +11,13 @@ local Entity = prism.Object:extend("Entity")
 function Entity:__new()
    self.position = prism.Vector2(1, 1)
 
-   local components = self:initialize()
    self.components = {}
    self.componentCache = {}
-   if components then
-      for _, component in ipairs(components) do
-         component.owner = self
-         self:give(component)
-      end
-   end
 end
 
 --
 --- Components
 --
-
---- Creates the components for the entity. Override this.
---- @return Component[]
-function Entity:initialize()
-   return {}
-end
 
 --- Adds a component to the entity, replacing any existing component of the same type. Will check if the component's
 --- prerequisites are met and will throw an error if they are not.
