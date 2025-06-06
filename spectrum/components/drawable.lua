@@ -10,8 +10,8 @@ local Drawable = prism.Component:extend "Drawable"
 --- Index needs to be a string associated with a sprite in the SpriteAtlas, or
 --- an integer index associated with a sprite.
 --- @param index string|integer
---- @param size integer?
 --- @param color Color4?
+--- @param size integer?
 --- @param background Color4?
 --- @param layer integer?
 function Drawable:__new(index, color, size, background, layer)
