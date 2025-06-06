@@ -22,6 +22,7 @@ Released under the **MIT License**, prism is free to use for both personal and c
 - **Event Listener System**: React to in-game events dynamically for things like status effects, traps, and environmental interactions.
 - **Lightweight and Modular**: Built in Lua, prism is designed to be lean and easy to use.
 - **In-Game Editor**: Geometer is a powerful in-game editor designed for rapid prototyping and debugging. Inspired by classic roguelike Wizard Modes, it lets you instantly spawn actors, modify terrain, and interact with the level like a paint program—making iteration fast and intuitive.
+- **Multitile Actors**: Prism supports having players and monsters be NxN! No longer does a dragon need to inhabit just one tile!
   
 ## Documentation
 
