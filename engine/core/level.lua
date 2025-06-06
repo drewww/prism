@@ -361,8 +361,8 @@ end
 --- @param x number The x component of the position to check.
 --- @param y number The y component of the position to check.
 --- @param mask Bitmask The collision mask for checking passability.
---- @param size integer
-function Level:_getCellPassable(x, y, mask, size)
+--- @param size integer The size of the actor.
+function Level:getCellPassable(x, y, mask, size)
    local cellMask = self.passableCache:getMask(x, y, size)
    return prism.Collision.checkBitmaskOverlap(mask, cellMask)
 end
@@ -372,12 +372,12 @@ end
 --- @param actor Actor
 --- @param mask Bitmask
 --- @return boolean -- True if the cell is passable, false otherwise.
-function Level:getCellPassable(x, y, actor, mask)
+function Level:getCellPassableByActor(x, y, actor, mask)
    local collider = actor:get(prism.components.Collider)
    if not collider then return true end
 
    self.actorStorage:removeSparseMapEntries(actor)
-   local result = self:_getCellPassable(x, y, mask, collider.size)
+   local result = self:getCellPassable(x, y, mask, collider.size)
    self.actorStorage:insertSparseMapEntries(actor)
 
    return result
@@ -495,7 +495,7 @@ function Level:findPath(start, goal, actor, mask, minDistance, distanceType)
    local collider = actor:get(prism.components.Collider)
    local size = collider and collider.size or 1
    local function passableCallback(x, y)
-      return self:_getCellPassable(x, y, mask, size)
+      return self:getCellPassable(x, y, mask, size)
    end
 
    self.actorStorage:removeSparseMapEntries(actor)
