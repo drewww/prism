@@ -479,7 +479,7 @@ end
 --- Finds a path between two positions.
 ---@param start Vector2 The starting position.
 ---@param goal Vector2 The goal position.
----@param actor Actor The collision mask to use for passability checks.
+---@param actor Actor The actor to find a path for.
 ---@param mask Bitmask
 ---@param minDistance? integer The minimum distance away to pathfind to.
 ---@param distanceType? DistanceType An optional distance type to use for calculating the minimum distance. Defaults to prism._defaultDistance.
