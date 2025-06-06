@@ -10,7 +10,7 @@
 --- @field private systemManager SystemManager        -- Manages systems, dispatches events, controls lifecycle.
 --- @field private scheduler Scheduler                -- Controls actor turn order in the game loop.
 --- @field private opacityCache BooleanBuffer         -- Cached opacity grid for FOV and lighting.
---- @field private passableCache BitmaskBuffer        -- Cached passability grid for pathfinding.
+--- @field private passableCache CascadingBitmaskBuffer -- Cached passability grid for pathfinding.
 --- @field private decision ActionDecision            -- Temporary storage for the current actor’s choice.
 ---
 --- @overload fun(map: Map, actors: Actor[], systems: System[], scheduler: Scheduler?, seed: string?): Level
@@ -34,7 +34,7 @@ function Level:__new(map, actors, systems, scheduler, seed)
    self.scheduler = scheduler or prism.SimpleScheduler()
    self.map = map
    self.opacityCache = prism.BooleanBuffer(map.w, map.h) -- holds a cache of opacity to speed up fov calcs
-   self.passableCache = prism.BitmaskBuffer(map.w, map.h) -- holds a cache of passability to speed up a* calcs
+   self.passableCache = prism.CascadingBitmaskBuffer(map.w, map.h, 4) -- holds a cache of passability to speed up a* calcs
    self.RNG = prism.RNG(seed or love.timer.getTime())
    self.debug = false
 
@@ -75,7 +75,9 @@ function Level:run()
    -- TODO: Fix this
    if self.decision then
       local actor = self.decision.actor
-      prism.turn(self, actor, self:getActorController(actor))
+
+      prism.turn(self, actor, actor:expect(prism.components.Controller))
+
       self.systemManager:onTurnEnd(self, actor)
    end
 
@@ -96,7 +98,7 @@ function Level:step()
    local actor = schedNext
    ---@cast actor Actor
    self.systemManager:onTurn(self, actor)
-   prism.turn(self, actor, self:getActorController(actor))
+   prism.turn(self, actor, actor:expect(prism.components.Controller))
    self.systemManager:onTurnEnd(self, actor)
 end
 
@@ -217,19 +219,19 @@ end
 --- generally not invoke this yourself using moveActorChecked instead.
 --- @param actor Actor The actor to move.
 --- @param pos Vector2 The position to move the actor to.
---- @param skipSparseMap boolean? If true the sparse map won't be updated.
-function Level:moveActor(actor, pos, skipSparseMap)
+function Level:moveActor(actor, pos)
+   assert(prism.Vector2:is(pos), "Expected a Vector2 for pos in Level:moveActor.")
    assert(
       math.floor(pos.x) == pos.x and math.floor(pos.y) == pos.y,
       "Expected integer values for pos in Level:moveActor."
    )
 
-   self.systemManager:beforeMove(self, actor, actor:getPosition(), pos)
-
    -- if the actor isn't in the level, we don't do anything
    if not self:hasActor(actor) then return end
 
-   if not skipSparseMap then self.actorStorage:removeSparseMapEntries(actor) end
+   self.systemManager:beforeMove(self, actor, actor:getPosition(), pos)
+
+   self.actorStorage:removeSparseMapEntries(actor)
 
    local previousPosition = actor:getPosition()
    -- we copy the position here so that the caller doesn't have to worry about
@@ -237,7 +239,7 @@ function Level:moveActor(actor, pos, skipSparseMap)
    ---@diagnostic disable-next-line
    actor.position = pos:copy()
 
-   if not skipSparseMap then self.actorStorage:insertSparseMapEntries(actor) end
+   self.actorStorage:insertSparseMapEntries(actor)
 
    self.systemManager:onMove(self, actor, previousPosition, pos)
 end
@@ -279,13 +281,6 @@ function Level:perform(action, silent)
    action:perform(self, unpack(action.targetObjects))
    self:yield(prism.messages.ActionMessage(action))
    if not silent then self.systemManager:afterAction(self, owner, action) end
-end
-
---- Gets the actor's controller.
---- @param actor Actor The actor to get the controller for.
---- @return Controller? controller The actor's controller, or nil if it doesn't have one.
-function Level:getActorController(actor)
-   return actor:get(prism.components.Controller)
 end
 
 --
@@ -366,10 +361,26 @@ end
 --- @param x number The x component of the position to check.
 --- @param y number The y component of the position to check.
 --- @param mask Bitmask The collision mask for checking passability.
---- @return boolean -- True if the cell is passable, false otherwise.
-function Level:getCellPassable(x, y, mask)
-   local cellMask = self.passableCache:getMask(x, y)
+--- @param size integer The size of the actor.
+function Level:getCellPassable(x, y, mask, size)
+   local cellMask = self.passableCache:getMask(x, y, size)
    return prism.Collision.checkBitmaskOverlap(mask, cellMask)
+end
+
+--- @param x integer
+--- @param y integer
+--- @param actor Actor
+--- @param mask Bitmask
+--- @return boolean -- True if the cell is passable, false otherwise.
+function Level:getCellPassableByActor(x, y, actor, mask)
+   local collider = actor:get(prism.components.Collider)
+   if not collider then return true end
+
+   self.actorStorage:removeSparseMapEntries(actor)
+   local result = self:getCellPassable(x, y, mask, collider.size)
+   self.actorStorage:insertSparseMapEntries(actor)
+
+   return result
 end
 
 --- Initialize the passable cache. This should be called after the level is
@@ -468,30 +479,30 @@ end
 --- Finds a path between two positions.
 ---@param start Vector2 The starting position.
 ---@param goal Vector2 The goal position.
+---@param actor Actor The actor to find a path for.
+---@param mask Bitmask
 ---@param minDistance? integer The minimum distance away to pathfind to.
----@param mask Bitmask The collision mask to use for passability checks.
 ---@param distanceType? DistanceType An optional distance type to use for calculating the minimum distance. Defaults to prism._defaultDistance.
 ---@return Path? path A path to the goal, or nil if a path could not be found or the start is already at the minimum distance.
-function Level:findPath(start, goal, minDistance, mask, distanceType)
+function Level:findPath(start, goal, actor, mask, minDistance, distanceType)
    if
-      start.x < 1
-      or start.x > self.map.w
-      or start.y < 1
-      or start.y > self.map.h
-      or goal.x < 1
-      or goal.x > self.map.w
-      or goal.y < 1
-      or goal.y > self.map.h
+      not self.map:isInBounds(start.x, start.y) 
+      or not self.map:isInBounds(goal.x, goal.y)
    then
-      error("Path destination is not on the map.")
-   end
-   -- Define the passability callback (checks if a position is walkable)
-   local function passableCallback(x, y)
-      return self:getCellPassable(x, y, mask) -- Assume this is a method in your Level class that checks passability
+     return
    end
 
-   -- Use the prism.astar function to find the path
-   return prism.astar(start, goal, passableCallback, nil, minDistance, distanceType)
+   local collider = actor:get(prism.components.Collider)
+   local size = collider and collider.size or 1
+   local function passableCallback(x, y)
+      return self:getCellPassable(x, y, mask, size)
+   end
+
+   self.actorStorage:removeSparseMapEntries(actor)
+   local path = prism.astar(start, goal, passableCallback, nil, minDistance, distanceType)
+   self.actorStorage:insertSparseMapEntries(actor)
+
+   return path
 end
 
 --- Returns a list of all actors that are within the given range of the given
@@ -542,7 +553,7 @@ function Level:onDeserialize()
 
    local w, h = self.map.w, self.map.h
    self.opacityCache = prism.BooleanBuffer(w, h)
-   self.passableCache = prism.BitmaskBuffer(w, h)
+   self.passableCache = prism.CascadingBitmaskBuffer(w, h, 4)
 
    self.map:onDeserialize()
    for x, y, _ in self.map:each() do

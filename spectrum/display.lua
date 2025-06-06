@@ -190,14 +190,18 @@ end
 --- @param color Color4? An optional color to use for the drawable.
 --- @param layer number? An optional layer to use for depth sorting.
 function Display:putDrawable(x, y, drawable, color, layer)
-   self:put(
-      x,
-      y,
-      drawable.index,
-      color or drawable.color,
-      drawable.background,
-      layer or drawable.layer
-   )
+   for ox = 1, drawable.size do
+      for oy = 1, drawable.size do
+         self:put(
+            x + ox - 1,
+            y + oy - 1,
+            drawable.index,
+            color or drawable.color,
+            drawable.background,
+            layer or drawable.layer
+         )
+      end
+   end
 end
 
 --- Puts a character, foreground color, and background color at a specific grid position.
@@ -320,10 +324,11 @@ function Display:getCenterOffset(x, y)
    return offsetX, offsetY
 end
 
+
 --- Draws a Drawable object directly at pixel coordinates on the screen,
---- without considering the grid or camera.
---- @param x number The pixel X coordinate.
---- @param y number The pixel Y coordinate.
+--- without considering the grid or camera, and handling multi-cell drawables.
+--- @param x number The pixel X coordinate of the top-left corner.
+--- @param y number The pixel Y coordinate of the top-left corner.
 --- @param drawable Drawable The drawable object to render.
 function Display:drawDrawable(x, y, drawable)
    local quad = self:getQuad(drawable.index)
