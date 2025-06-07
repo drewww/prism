@@ -4,7 +4,6 @@ prism._ISCLASS = {}
 --- A simple class system for Lua. This is the base class for all other classes in PRISM.
 ---@class Object
 ---@field className string (static) A unique name for this class. By convention this should match the annotation name you use.
----@field name string An optional display name. Defaults to the className.
 ---@field private stripName boolean
 ---@field private _isInstance boolean
 ---@field serializationBlacklist table<string, boolean>
@@ -30,7 +29,6 @@ function Object:extend(className, ignoreclassName)
    self.__index = self
    self.__call = self.__call or Object.__call
    o._isInstance = false
-   o.name = className
    o.className = className
 
    --print(className, not ignoreclassName, not prism._OBJECTREGISTRY[className])
@@ -133,10 +131,6 @@ function Object:mixin(mixin)
    end
 
    return self
-end
-
-function Object:__tostring()
-   return self.name
 end
 
 function Object.serialize(object)

@@ -47,7 +47,7 @@ end
 function Level:initialize(actors, systems)
    assert(#actors > 0, "A level must be initialized with at least one actor!")
 
-   prism.logger.debug("Level is initializing with", #actors, " actors and", #systems, " systems...")
+   prism.logger.debug("Level is initializing with", #actors, "actors and", #systems, "systems...")
 
    self:initializeOpacityCache()
    self:initializePassabilityCache()
@@ -140,7 +140,7 @@ end
 --- the system has a requirement that hasn't been attached yet.
 --- @param system System The system to add.
 function Level:addSystem(system)
-   prism.logger.debug("System", system.name, "was added to level")
+   prism.logger.debug("System", system.className, "was added to level")
    self.systemManager:addSystem(system)
 end
 
@@ -169,7 +169,7 @@ end
 --- scheduler if it has a controller.
 --- @param actor Actor The actor to add.
 function Level:addActor(actor)
-   prism.logger.debug("Actor", actor.name, "was added to level")
+   prism.logger.debug("Actor", actor:getName(), "was added to level")
    actor.level = self
 
    self.actorStorage:addActor(actor)
@@ -183,7 +183,7 @@ end
 --- the scheduler if it has a controller.
 --- @param actor Actor The actor to remove.
 function Level:removeActor(actor)
-   prism.logger.debug("Actor", actor.name, "was removed from level")
+   prism.logger.debug("Actor", actor:getName(), "was removed from level")
    actor.level = nil
    self.actorStorage:removeActor(actor)
    self.scheduler:remove(actor)
@@ -275,7 +275,7 @@ function Level:perform(action, silent)
    assert(self:canPerform(action))
    local owner = action.owner
 
-   prism.logger.debug("Actor", owner.name, "is about to perform", action.name)
+   prism.logger.debug("Actor", owner:getName(), "is about to perform", action.className)
    if not silent then self.systemManager:beforeAction(self, owner, action) end
    ---@diagnostic disable-next-line
    action:perform(self, unpack(action.targetObjects))

@@ -196,6 +196,9 @@ prism.components.Senses = prism.require "core.components.senses"
 --- @module "engine.core.components.opaque"
 prism.components.Opaque = prism.require "core.components.opaque"
 
+--- @module "engine.core.components.name"
+prism.components.Name = prism.require "core.components.name"
+
 --- @module "engine.core.decisions.actiondecision"
 prism.decisions.ActionDecision = prism.require "core.decisions.actiondecision"
 
@@ -236,7 +239,7 @@ function prism.registerCell(name, factory)
    prism.cells[name] = factory
 
    if prism._currentDefinitions then
-      table.insert(prism._currentDefinitions, "--- @type fun(): Cell")
+      table.insert(prism._currentDefinitions, "--- @type fun(...): Cell")
       table.insert(prism._currentDefinitions, "prism.cells." .. name .. " = nil")
    end
 end
@@ -248,7 +251,7 @@ function prism.registerActor(name, factory)
    prism.actors[name] = factory
 
    if prism._currentDefinitions then
-      table.insert(prism._currentDefinitions, "--- @type fun(): Actor")
+      table.insert(prism._currentDefinitions, "--- @type fun(...): Actor")
       table.insert(prism._currentDefinitions, "prism.actors." .. name .. " = nil")
    end
 end
@@ -359,7 +362,7 @@ function prism.turn(level, actor, controller)
    action = controller:act(level, actor)
 
    -- we make sure we got an action back from the controller for sanity's sake
-   assert(action, "Actor " .. actor.name .. " returned nil from act()")
+   assert(action, "Actor " .. actor:getName() .. " returned nil from act()")
 
    level:perform(action)
 end

@@ -9,7 +9,7 @@
 local Actor = prism.Entity:extend("Actor")
 Actor.position = nil
 
---- @alias ActorFactory fun(): Actor
+--- @alias ActorFactory fun(...): Actor
 
 --- Constructor for an actor.
 --- Initializes and copies the actor's fields from its prototype.

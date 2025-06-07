@@ -41,7 +41,7 @@ local function SelectionPanel(self, scene)
    local function onSelect(index)
       local placeable = self.props.placeables[index]
       self.props.selected = placeable
-      self.props.selectedText:set(placeable.entity.name)
+      self.props.selectedText:set(placeable.entity:getName())
 
       -- We use the prototype so we can instantiate them into the level
       self.props.editor.placeable = placeable
