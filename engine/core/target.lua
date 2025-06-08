@@ -118,4 +118,24 @@ function Target:sensed()
    return self
 end
 
+-- TODO: UNTESTED
+function Target:los(mask)
+   --- @param level Level
+   --- @param owner Actor
+   self.validators["los"] = function(level, owner, target)
+      if not prism.Actor:is(target) and not prism.Vector2:is(target) then return false end
+      
+      local i, j = owner:getPosition():decompose()
+      local k, l = target.getPosition and target:getPosition():decompose() or target:decompose()
+      local points = prism.Bresenham(i, j, k, l)
+
+      for _, point in ipairs(points) do
+         local x, y = point[1], point[2]
+         if not level:getCellPassable(x, y, mask) then
+            return false
+         end
+      end
+   end
+end
+
 return Target
