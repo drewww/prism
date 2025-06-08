@@ -1,3 +1,5 @@
+--- @alias TargetFactory fun(...): Target
+
 --- @class Target : Object
 --- @overload fun(): Target
 local Target = prism.Object:extend("Target")
