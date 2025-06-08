@@ -254,7 +254,7 @@ function Level:canPerform(action)
    if not success then return false, "Actor is missing requisite component: " .. err end
 
    --- @diagnostic disable-next-line
-   success, err = action:__validateTargets()
+   success, err = action:__validateTargets(self)
    if not success then return success, err end
 
    --- @diagnostic disable-next-line

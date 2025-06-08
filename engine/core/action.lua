@@ -20,7 +20,7 @@ function Action:__new(owner, ...)
 end
 
 --- @private
-function Action:__validateTargets()
+function Action:__validateTargets(level)
    if #self.targetObjects ~= #self.targets then
       return false,
          "Invalid number of targets for action "
@@ -33,7 +33,7 @@ function Action:__validateTargets()
 
    for i = 1, #self.targets do
       local target = self.targets[i]
-      if not target:validate(self.owner, self.targetObjects[i], self.targetObjects) then
+      if not target:validate(level, self.owner, self.targetObjects[i], self.targetObjects) then
          return false, "Invalid target " .. i .. " for action " .. self.className
       end
    end
@@ -109,8 +109,8 @@ end
 --- @param toValidate any The target object to validate.
 --- @param targets? Object[] The previously selected targets.
 --- @return boolean -- True if the specified target actor is valid for this action, false otherwise.
-function Action:validateTarget(n, owner, toValidate, targets)
-   return self.targets[n]:validate(owner, toValidate, targets)
+function Action:validateTarget(n, level, owner, toValidate, targets)
+   return self.targets[n]:validate(level, owner, toValidate, targets)
 end
 
 return Action
