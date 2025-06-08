@@ -24,7 +24,7 @@ function Action:__validateTargets()
    if #self.targetObjects ~= #self.targets then
       return false,
          "Invalid number of targets for action "
-            .. self.name
+            .. self.className
             .. " expected "
             .. #self.targets
             .. " got "
@@ -34,7 +34,7 @@ function Action:__validateTargets()
    for i = 1, #self.targets do
       local target = self.targets[i]
       if not target:validate(self.owner, self.targetObjects[i], self.targetObjects) then
-         return false, "Invalid target " .. i .. " for action " .. self.name
+         return false, "Invalid target " .. i .. " for action " .. self.className
       end
    end
 
@@ -58,7 +58,7 @@ function Action:hasRequisiteComponents(actor)
    if not self.requiredComponents then return true end
 
    for _, component in pairs(self.requiredComponents) do
-      if not actor:has(component) then return false, component.name end
+      if not actor:has(component) then return false, component.className end
    end
 
    return true

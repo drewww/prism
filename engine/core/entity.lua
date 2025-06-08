@@ -11,26 +11,13 @@ local Entity = prism.Object:extend("Entity")
 function Entity:__new()
    self.position = prism.Vector2(1, 1)
 
-   local components = self:initialize()
    self.components = {}
    self.componentCache = {}
-   if components then
-      for _, component in ipairs(components) do
-         component.owner = self
-         self:give(component)
-      end
-   end
 end
 
 --
 --- Components
 --
-
---- Creates the components for the entity. Override this.
---- @return Component[]
-function Entity:initialize()
-   return {}
-end
 
 --- Adds a component to the entity, replacing any existing component of the same type. Will check if the component's
 --- prerequisites are met and will throw an error if they are not.
@@ -44,7 +31,7 @@ function Entity:give(component)
    if not requirementsMet then
       --- @cast missingComponent Component
       local err = "%s was missing requirement %s for %s"
-      error(err:format(self.name, missingComponent.name, component.name))
+      error(err:format(self.className, missingComponent.className, component.className))
    end
 
    -- Set the component for all sub-classes
@@ -68,7 +55,7 @@ function Entity:remove(component)
 
    if not self:has(component) then
       -- stylua: ignore
-      prism.logger.warn("Tried to remove " .. component.name .. " from " .. self.name .. " but they didn't have it.")
+      prism.logger.warn("Tried to remove " .. component.className .. " from " .. self:getName() .. " but they didn't have it.")
       return self
    end
 
@@ -127,6 +114,13 @@ function Entity:get(prototype, ...)
    if prototype == nil then return nil end
 
    return self.componentCache[prototype], self:get(...)
+end
+
+--- Returns the entity's name from their Name component, or the className if it doesn't have one.
+--- @return string
+function Entity:getName()
+   local name = self:get(prism.components.Name)
+   return name and name.name or self.className
 end
 
 --- Expects a component, returning it or erroring if the entity does not have the component.

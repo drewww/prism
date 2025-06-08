@@ -4,8 +4,9 @@ local Inky = geometer.require "inky"
 ---@field placeable Placeable
 ---@field size Vector2 the final size of a tile in editor
 ---@field display Display
----@field onSelect function
+---@field onSelect fun(index: number)
 ---@field overlay love.Texture
+---@field index integer
 
 ---@class TileElement : Inky.Element
 ---@field props TileElementProps
@@ -19,7 +20,7 @@ local function Tile(self, scene)
    )
 
    self:onPointer("press", function()
-      self.props.onSelect(self.props.placeable)
+      self.props.onSelect(self.props.index)
    end)
 
    self:onPointerEnter(function()
@@ -31,7 +32,7 @@ local function Tile(self, scene)
    end)
 
    return function(_, x, y, w, h)
-      local drawable = self.props.placeable:get(prism.components.Drawable)
+      local drawable = self.props.placeable.entity:get(prism.components.Drawable)
       local quad = self.props.display:getQuad(drawable.index)
 
       love.graphics.push("all")
@@ -64,7 +65,7 @@ local TileElement = Inky.defineElement(Tile)
 ---@class SelectionGridProps : Inky.Props
 ---@field size Vector2 the final size of a tile in editor
 ---@field display Display
----@field onSelect function
+---@field onSelect fun(index: number)
 ---@field overlay love.Texture
 ---@field placeables Placeable[]
 ---@field elements TileElement[]
@@ -87,22 +88,23 @@ local function SelectionGrid(self, scene)
    resetRange()
 
    local upOnSelect = self.props.onSelect
-   self.props.onSelect = function(placeable)
-      self.props.selected = placeable
-      upOnSelect(placeable)
+   self.props.onSelect = function(index)
+      self.props.selected = self.props.placeables[index]
+      upOnSelect(index)
    end
 
    self.props.elements = {}
-   for _, placeable in ipairs(self.props.placeables) do
+   for index, placeable in ipairs(self.props.placeables) do
       local tile = TileElement(scene)
       tile.props.display = self.props.display
+      tile.props.index = index
       tile.props.onSelect = self.props.onSelect
       tile.props.overlay = self.props.overlay
       tile.props.size = self.props.size
       tile.props.placeable = placeable
       table.insert(self.props.elements, tile)
    end
-   self.props.onSelect(self.props.placeables[1])
+   self.props.onSelect(1)
 
    self:useEffect(function()
       resetRange()

@@ -6,9 +6,22 @@
 --- @overload fun(): Cell
 local Cell = prism.Entity:extend("Cell")
 
+--- @alias CellFactory fun(): Cell
+
 --- Constructor for the Cell class.
 function Cell:__new()
    prism.Entity.__new(self)
+end
+
+--- Initializes a cell from a list of components.
+--- @param components Component[] A list of components to give to the new cell.
+--- @return Cell cell The new actor.
+function Cell.fromComponents(components)
+   local cell = Cell()
+   for _, component in ipairs(components) do
+      cell:give(component)
+   end
+   return cell
 end
 
 --- @return Bitmask mask The collision mask of the cell.

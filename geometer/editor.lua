@@ -2,7 +2,7 @@
 local keybinds = geometer.require "keybindingschema"
 local PenTool = geometer.require "tools.pen"
 
----@alias Placeable Entity
+---@alias Placeable { entity: Entity, factory: fun(): Entity }
 
 ---@class Editor : Object
 ---@field attachable SpectrumAttachable

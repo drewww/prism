@@ -8,7 +8,8 @@
 --- @overload fun(): Actor
 local Actor = prism.Entity:extend("Actor")
 Actor.position = nil
-Actor.name = "actor"
+
+--- @alias ActorFactory fun(...): Actor
 
 --- Constructor for an actor.
 --- Initializes and copies the actor's fields from its prototype.
@@ -54,6 +55,17 @@ end
 --- @return Component[]
 function Actor:initialize()
    return {}
+end
+
+--- Initializes an actor from a list of components.
+--- @param components Component[] A list of components to give to the new actor.
+--- @return Actor actor The new actor.
+function Actor.fromComponents(components)
+   local actor = Actor()
+   for _, component in ipairs(components) do
+      actor:give(component)
+   end
+   return actor
 end
 
 --
