@@ -157,7 +157,14 @@ function Target:los(mask)
       end
    end
 
-   return
+   return self
+end
+
+--- Sets a string hint for the target, useful for UI handling.
+--- @param hint string
+function Target:setHint(hint)
+   self.hint = hint
+   return self
 end
 
 return Target
