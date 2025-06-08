@@ -1,9 +1,10 @@
 --- @alias TargetFactory fun(...): Target
 
 --- @class Target : Object
---- @overload fun(): Target
+--- @overload fun(...: Component): Target
 local Target = prism.Object:extend("Target")
 
+--- Creates a new Target and accepts components and sends them to with().
 function Target:__new(...)
    self.validators = {}
    self.reqcomponents = {}
@@ -31,6 +32,10 @@ function Target:validate(level, owner, targetObject, targets)
    return true
 end
 
+--- Adds a filter to the target, order of filters is not gaurunteed! This
+--- is where you're put custom logic like only targetting enemies with low
+--- health, etc.
+--- @param func fun(level: Level, owner: Actor, targetObject: any, targets: any[])
 function Target:filter(func)
    table.insert(self.validators, func)
 end
@@ -59,11 +64,15 @@ function Target:with(...)
    return self
 end
 
+--- Disables the default check for if the target is in the level, you'll want to set
+--- this when your target lies outside the level like inventory or equipment.
 function Target:outsideLevel()
    self.inLevel = false
    return self
 end
 
+--- Checks if the target is within the specified range, and if it's an Actor or Vector2.
+--- @param range integer
 function Target:range(range)
    self.range = range
 
@@ -71,10 +80,12 @@ function Target:range(range)
    --- @param target any
    self.validators["range"] = function (level, owner, target)
       if prism.Actor:is(target) then
-         return owner:getRange(target:getPosition()) <= self.range
+         --- @cast target Actor
+         return owner:getRange(target) <= self.range
       end
 
       if prism.Vector2:is(target) then
+         --- @cast target Vector2
          return owner:getRangeVec(target) <= self.range
       end
 
@@ -84,6 +95,8 @@ function Target:range(range)
    return self
 end
 
+--- Calls prototype:is() on the target.
+--- @param type Object The prototype to check is.
 function Target:isPrototype(type)
    assert(prism.Object:is(type), "Prototype must be a prism.Object!")
 
@@ -96,6 +109,7 @@ function Target:isPrototype(type)
    return self
 end
 
+--- Checks if the target is an Actor or Vector2 and if the owner can sense that target.
 function Target:sensed()
    self.validators["sensed"] = function (level, owner, target)
       local senses = owner:get(prism.components.Senses)
@@ -103,10 +117,12 @@ function Target:sensed()
       if not senses then return false end
 
       if prism.Actor:is(target) then
+         --- @cast target Actor
          return senses.actors:hasActor(target)
       end
 
       if prism.Vector2:is(target) then
+         --- @cast target Vector2
          return senses.cells:get(target.x, target.y) ~= nil
       end
 
@@ -119,6 +135,9 @@ function Target:sensed()
 end
 
 -- TODO: UNTESTED
+--- Walks a bresenham line between the owner and the target and checks if each tile
+--- is passable by the given mask. Fails if it can't reach the target.
+--- @param mask Bitmask
 function Target:los(mask)
    --- @param level Level
    --- @param owner Actor
