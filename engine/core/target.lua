@@ -31,7 +31,7 @@ function Target:validate(level, owner, targetObject, targets)
    return true
 end
 
-function Target:validator(func)
+function Target:filter(func)
    table.insert(self.validators, func)
 end
 
@@ -137,7 +137,7 @@ function Target:los(mask)
       end
    end
 
-   return self
+   return
 end
 
 return Target
