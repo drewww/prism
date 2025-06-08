@@ -136,6 +136,8 @@ function Target:los(mask)
          end
       end
    end
+
+   return self
 end
 
 return Target
