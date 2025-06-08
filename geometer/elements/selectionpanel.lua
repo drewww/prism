@@ -88,7 +88,8 @@ local function SelectionPanel(self, scene)
    textInput.props.onEdit = function(content)
       local filtered = {}
       for i, placeable in ipairs(self.props.placeables) do
-         if placeable.entity.name:find(content) then table.insert(filtered, i) end
+         local upper = string.upper(content)
+         if placeable.entity:getName():upper():find(upper) then table.insert(filtered, i) end
       end
       self.props.filtered = filtered
       grid.props.filtered = filtered
