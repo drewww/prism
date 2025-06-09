@@ -33,6 +33,7 @@ function Action:__validateTargets(level)
 
    for i = 1, #self.targets do
       local target = self.targets[i]
+      --- @diagnostic disable-next-line
       if not target:validate(level, self.owner, self.targetObjects[i], self.targetObjects) then
          return false, "Invalid target " .. i .. " for action " .. self.className
       end
@@ -107,10 +108,11 @@ end
 --- @param n number The index of the target object to validate.
 --- @param owner Actor The actor that is performing the action.
 --- @param toValidate any The target object to validate.
---- @param targets? Object[] The previously selected targets.
+--- @param previousTargets? any[] The previously selected targets.
 --- @return boolean -- True if the specified target actor is valid for this action, false otherwise.
-function Action:validateTarget(n, level, owner, toValidate, targets)
-   return self.targets[n]:validate(level, owner, toValidate, targets)
+function Action:validateTarget(n, level, owner, toValidate, previousTargets)
+   --- @diagnostic disable-next-line
+   return self.targets[n]:validate(level, owner, toValidate, previousTargets)
 end
 
 return Action
