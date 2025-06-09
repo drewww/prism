@@ -37,8 +37,6 @@ end
 --- @param y2 number The y-coordinate of the bottom-right corner.
 --- @param cellPrototype CellFactory The cell (prototype) to fill the rectangle with.
 function MapBuilder:drawRectangle(x1, y1, x2, y2, cellPrototype)
-   -- assert(not cellPrototype:isInstance(), "drawRectangle expects a prototype, not an instance!")
-
    for x = x1, x2 do
       for y = y1, y2 do
          self:set(x, y, cellPrototype())
@@ -53,8 +51,6 @@ end
 --- @param ry number The radius along the y-axis.
 --- @param cellPrototype CellFactory The cell (prototype) to fill the ellipse with.
 function MapBuilder:drawEllipse(cx, cy, rx, ry, cellPrototype)
-   -- assert(not cellPrototype:isInstance(), "drawEllipse expects a prototype, not an instance!")
-
    for x = -rx, rx do
       for y = -ry, ry do
          if (x * x) / (rx * rx) + (y * y) / (ry * ry) <= 1 then
@@ -71,8 +67,6 @@ end
 --- @param y2 number The y-coordinate of the ending point.
 --- @param cellPrototype CellFactory The cell (prototype) to draw the line with.
 function MapBuilder:drawLine(x1, y1, x2, y2, cellPrototype)
-   -- assert(not cellPrototype:isInstance(), "drawEllipse expects a prototype, not an instance!")
-
    local dx = math.abs(x2 - x1)
    local dy = math.abs(y2 - y1)
    local sx = x1 < x2 and 1 or -1
@@ -130,8 +124,6 @@ end
 --- @param width number The width of the padding to add.
 --- @param cellPrototype CellFactory The cell (prototype) to use for padding.
 function MapBuilder:addPadding(width, cellPrototype)
-   -- assert(not cellPrototype:isInstance(), "addPadding expects a prototype, not an instance!")
-
    local minX, minY = math.huge, math.huge
    local maxX, maxY = -math.huge, -math.huge
 
