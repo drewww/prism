@@ -55,6 +55,12 @@
 <dd><p>The mask to use when testing collision. Defaults to zero, blocking everything.</p>
 </dd></dl>
 
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Collider.size">
+<span class="sig-name descname"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><a class="headerlink" href="#lua-Collider.size" title="Link to this definition">¶</a></dt>
+<dd><p>The size of the collider. Defaults to 1.</p>
+</dd></dl>
+
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Collider.__new">
 <span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Collider" title="Collider"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Collider</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">options?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-ColliderOptions" title="ColliderOptions"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ColliderOptions</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Collider.__new" title="Link to this definition">¶</a></dt>
@@ -69,8 +75,14 @@
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ColliderOptions</span></span><a class="headerlink" href="#lua-ColliderOptions" title="Link to this definition">¶</a></dt>
 <dd><dl class="lua data">
 <dt class="sig sig-object lua" id="lua-ColliderOptions.allowedMovetypes">
-<span class="sig-name descname"><span class="pre">allowedMovetypes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><span class="p"><span class="pre">[]</span></span><a class="headerlink" href="#lua-ColliderOptions.allowedMovetypes" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">allowedMovetypes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><span class="p"><span class="pre">[]?</span></span><a class="headerlink" href="#lua-ColliderOptions.allowedMovetypes" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-ColliderOptions.size">
+<span class="sig-name descname"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code><span class="p"><span class="pre">?</span></span><a class="headerlink" href="#lua-ColliderOptions.size" title="Link to this definition">¶</a></dt>
+<dd><p>The size of the collider.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -213,14 +225,17 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-advanceCoroutine"><code class="docutils literal notranslate"><span class="pre">advanceCoroutine()</span></code></a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Collider</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Collider.mask"><code class="docutils literal notranslate"><span class="pre">mask</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Collider.size"><code class="docutils literal notranslate"><span class="pre">size</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Collider.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#lua-ColliderOptions"><code class="docutils literal notranslate"><span class="pre">ColliderOptions</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#lua-ColliderOptions.allowedMovetypes"><code class="docutils literal notranslate"><span class="pre">allowedMovetypes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-ColliderOptions.size"><code class="docutils literal notranslate"><span class="pre">size</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="controller.html"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="name.html"><code class="docutils literal notranslate"><span class="pre">Name</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="opaque.html"><code class="docutils literal notranslate"><span class="pre">Opaque</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="player_controller.html"><code class="docutils literal notranslate"><span class="pre">PlayerController</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="senses.html"><code class="docutils literal notranslate"><span class="pre">Senses</span></code></a></li>
@@ -237,6 +252,7 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="../behavior_tree/btsucceeder.html"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Succeeder</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../structures/bitmaskbuffer.html"><code class="docutils literal notranslate"><span class="pre">BitmaskBuffer</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../structures/booleanbuffer.html"><code class="docutils literal notranslate"><span class="pre">BooleanBuffer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../structures/cascadingbitmaskbuffer.html"><code class="docutils literal notranslate"><span class="pre">CascadingBitmaskBuffer</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../structures/queue.html"><code class="docutils literal notranslate"><span class="pre">Queue</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../structures/sparsearray.html"><code class="docutils literal notranslate"><span class="pre">SparseArray</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../structures/sparsemap.html"><code class="docutils literal notranslate"><span class="pre">SparseMap</span></code></a></li>

@@ -60,6 +60,20 @@ Cells are required to have a Collider.</p>
 </dl>
 </dd></dl>
 
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="lua-Cell.fromComponents">
+<em class="property"><span class="k"><span class="pre">staticmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fromComponents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a><span class="p"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">cell</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Cell" title="Cell"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Cell</span></code></a></span></span><a class="headerlink" href="#lua-Cell.fromComponents" title="Link to this definition">¶</a></dt>
+<dd><p>Initializes a cell from a list of components.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>components</strong> (<a class="reference internal" href="component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a><span class="p">[]</span>) – A list of components to give to the new cell.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>cell</strong> (<a class="reference internal" href="#lua-Cell" title="Cell"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Cell</span></code></a>) – The new actor.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Cell.getCollisionMask">
 <span class="sig-name descname"><span class="pre">getCollisionMask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Cell" title="Cell"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Cell</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></span></span><a class="headerlink" href="#lua-Cell.getCollisionMask" title="Link to this definition">¶</a></dt>
@@ -190,6 +204,7 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="behavior.html"><code class="docutils literal notranslate"><span class="pre">IBehavior</span></code></a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Cell</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Cell.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Cell.fromComponents"><code class="docutils literal notranslate"><span class="pre">fromComponents()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Cell.getCollisionMask"><code class="docutils literal notranslate"><span class="pre">getCollisionMask()</span></code></a></li>
 </ul>
 </li>
@@ -216,6 +231,7 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="components/collider.html"><code class="docutils literal notranslate"><span class="pre">Collider</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/collider.html#lua-ColliderOptions"><code class="docutils literal notranslate"><span class="pre">ColliderOptions</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/controller.html"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/name.html"><code class="docutils literal notranslate"><span class="pre">Name</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/opaque.html"><code class="docutils literal notranslate"><span class="pre">Opaque</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/player_controller.html"><code class="docutils literal notranslate"><span class="pre">PlayerController</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/senses.html"><code class="docutils literal notranslate"><span class="pre">Senses</span></code></a></li>
@@ -232,6 +248,7 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="behavior_tree/btsucceeder.html"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Succeeder</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/bitmaskbuffer.html"><code class="docutils literal notranslate"><span class="pre">BitmaskBuffer</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/booleanbuffer.html"><code class="docutils literal notranslate"><span class="pre">BooleanBuffer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/cascadingbitmaskbuffer.html"><code class="docutils literal notranslate"><span class="pre">CascadingBitmaskBuffer</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/queue.html"><code class="docutils literal notranslate"><span class="pre">Queue</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/sparsearray.html"><code class="docutils literal notranslate"><span class="pre">SparseArray</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/sparsemap.html"><code class="docutils literal notranslate"><span class="pre">SparseMap</span></code></a></li>

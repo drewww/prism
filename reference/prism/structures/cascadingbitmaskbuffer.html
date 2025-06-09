@@ -7,7 +7,7 @@
 <template id="tmpl_gotoTop"><div id="gotoTop">
   <button>Back to top</button>
 </div></template>
-    <title>Queue &#8212; Prism  documentation</title>
+    <title>CascadingBitmaskBuffer &#8212; Prism  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=266695fe" />
     <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=a1f6949c" />
@@ -26,8 +26,8 @@
     <link rel="icon" href="../../../_static/prism.png"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="SparseArray" href="sparsearray.html" />
-    <link rel="prev" title="PriorityQueue&lt;T&gt;" href="priority_queue.html" />
+    <link rel="next" title="Grid&lt;T&gt;" href="grid.html" />
+    <link rel="prev" title="BooleanBuffer" href="booleanbuffer.html" />
    
   <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
   
@@ -46,119 +46,86 @@
           <div class="body" role="main">
             
   <dl class="lua class">
-<dt class="sig sig-object lua" id="lua-Queue">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Queue</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../core/object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><a class="headerlink" href="#lua-Queue" title="Link to this definition">¶</a></dt>
-<dd><p>A basic FIFO (First In, First Out) queue implementation.</p>
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Queue.__new">
-<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Queue.__new" title="Link to this definition">¶</a></dt>
-<dd><p>Initializes a new Queue instance.</p>
-<dl class="field-list simple">
-</dl>
-</dd></dl>
-
+<dt class="sig sig-object lua" id="lua-CascadingBitmaskBuffer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CascadingBitmaskBuffer</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../core/object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><a class="headerlink" href="#lua-CascadingBitmaskBuffer" title="Link to this definition">¶</a></dt>
+<dd><p>A class representing a cascade of BitmaskBuffers for kernel checks, all at the same resolution.</p>
 <dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Queue.queue">
-<span class="sig-name descname"><span class="pre">queue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-Queue.queue" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Queue.first">
-<span class="sig-name descname"><span class="pre">first</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><a class="headerlink" href="#lua-Queue.first" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Queue.last">
-<span class="sig-name descname"><span class="pre">last</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><a class="headerlink" href="#lua-Queue.last" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object lua" id="lua-CascadingBitmaskBuffer.cascade">
+<span class="sig-name descname"><span class="pre">cascade</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="bitmaskbuffer.html#lua-BitmaskBuffer" title="BitmaskBuffer"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">BitmaskBuffer</span></code></a><span class="p"><span class="pre">[]</span></span><a class="headerlink" href="#lua-CascadingBitmaskBuffer.cascade" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Queue.push">
-<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Queue.push" title="Link to this definition">¶</a></dt>
-<dd><p>Adds an element to the end of the queue.</p>
+<dt class="sig sig-object lua" id="lua-CascadingBitmaskBuffer.__new">
+<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-CascadingBitmaskBuffer" title="CascadingBitmaskBuffer"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">CascadingBitmaskBuffer</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">maxCascadeLevel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-CascadingBitmaskBuffer.__new" title="Link to this definition">¶</a></dt>
+<dd><p>Constructor for the CascadingBitmaskBuffer class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>value</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code>) – The value to be added to the queue.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>w</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – The width of all buffers in the cascade.</p></li>
+<li><p><strong>h</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – The height of all buffers in the cascade.</p></li>
+<li><p><strong>maxCascadeLevel</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – The maximum cascade level (e.g., 5 for 1x1 to 5x5 kernels).</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-CascadingBitmaskBuffer.width">
+<span class="sig-name descname"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><a class="headerlink" href="#lua-CascadingBitmaskBuffer.width" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-CascadingBitmaskBuffer.height">
+<span class="sig-name descname"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><a class="headerlink" href="#lua-CascadingBitmaskBuffer.height" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-CascadingBitmaskBuffer.maxCascadeLevel">
+<span class="sig-name descname"><span class="pre">maxCascadeLevel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><a class="headerlink" href="#lua-CascadingBitmaskBuffer.maxCascadeLevel" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Queue.pop">
-<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></span></span><a class="headerlink" href="#lua-Queue.pop" title="Link to this definition">¶</a></dt>
-<dd><p>Removes and returns the element from the start of the queue.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>_1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code>) – The value at the start of the queue.</p>
-</dd>
+<dt class="sig sig-object lua" id="lua-CascadingBitmaskBuffer._cascade">
+<span class="sig-name descname"><span class="pre">_cascade</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-CascadingBitmaskBuffer" title="CascadingBitmaskBuffer"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">CascadingBitmaskBuffer</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">xInitial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">yInitial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-CascadingBitmaskBuffer._cascade" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
 </dl>
 </dd></dl>
 
 <dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Queue.empty">
-<span class="sig-name descname"><span class="pre">empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></span></span><a class="headerlink" href="#lua-Queue.empty" title="Link to this definition">¶</a></dt>
-<dd><p>Checks if the queue is empty.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>_1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code>) – True if the queue is empty, false otherwise.</p>
-</dd>
+<dt class="sig sig-object lua" id="lua-CascadingBitmaskBuffer.setMask">
+<span class="sig-name descname"><span class="pre">setMask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-CascadingBitmaskBuffer" title="CascadingBitmaskBuffer"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">CascadingBitmaskBuffer</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-CascadingBitmaskBuffer.setMask" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
 </dl>
 </dd></dl>
 
 <dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Queue.peek">
-<span class="sig-name descname"><span class="pre">peek</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></span></span><a class="headerlink" href="#lua-Queue.peek" title="Link to this definition">¶</a></dt>
-<dd><p>Returns the element at the start of the queue without removing it.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>_1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code>) – The value at the start of the queue.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Queue.clear">
-<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Queue.clear" title="Link to this definition">¶</a></dt>
-<dd><p>Removes all elements from the queue.</p>
-<dl class="field-list simple">
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Queue.contains">
-<span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></span></span><a class="headerlink" href="#lua-Queue.contains" title="Link to this definition">¶</a></dt>
-<dd><p>Checks if the queue contains a specific value.</p>
+<dt class="sig sig-object lua" id="lua-CascadingBitmaskBuffer.getMask">
+<span class="sig-name descname"><span class="pre">getMask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-CascadingBitmaskBuffer" title="CascadingBitmaskBuffer"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">CascadingBitmaskBuffer</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">The</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></span></span><a class="headerlink" href="#lua-CascadingBitmaskBuffer.getMask" title="Link to this definition">¶</a></dt>
+<dd><p>Get the mask value at specific coordinates for a given cascade level.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>value</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code>) – The value to check for.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – The x-coordinate.</p></li>
+<li><p><strong>y</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – The y-coordinate.</p></li>
+<li><p><strong>level</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – The cascade level (1-based).</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>_1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code>) – True if the value is in the queue, false otherwise.</p>
+<dd class="field-even"><p><strong>The</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – mask value at (x, y) for the specified level.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Queue.size">
-<span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></span></span><a class="headerlink" href="#lua-Queue.size" title="Link to this definition">¶</a></dt>
-<dd><p>Returns the number of elements in the queue.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>_1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The size of the queue.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Queue.remove">
-<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></span></span><a class="headerlink" href="#lua-Queue.remove" title="Link to this definition">¶</a></dt>
-<dd><p>Removes the first occurrence of the specified value from the queue.</p>
+<dt class="sig sig-object lua" id="lua-CascadingBitmaskBuffer.getCascadeLevel">
+<span class="sig-name descname"><span class="pre">getCascadeLevel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-CascadingBitmaskBuffer" title="CascadingBitmaskBuffer"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">CascadingBitmaskBuffer</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">buffer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="bitmaskbuffer.html#lua-BitmaskBuffer" title="BitmaskBuffer"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">BitmaskBuffer</span></code></a></span></span><a class="headerlink" href="#lua-CascadingBitmaskBuffer.getCascadeLevel" title="Link to this definition">¶</a></dt>
+<dd><p>Get the BitmaskBuffer for a specific cascade level.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>value</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code>) – The value to be removed from the queue.</p>
+<dd class="field-odd"><p><strong>level</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code>) – The cascade level (1-based).</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>_1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code>) – True if the value was removed, false otherwise.</p>
+<dd class="field-even"><p><strong>buffer</strong> (<a class="reference internal" href="bitmaskbuffer.html#lua-BitmaskBuffer" title="BitmaskBuffer"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">BitmaskBuffer</span></code></a>) – The BitmaskBuffer for the given level.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -322,22 +289,19 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="../core/behavior_tree/btsucceeder.html"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Succeeder</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="bitmaskbuffer.html"><code class="docutils literal notranslate"><span class="pre">BitmaskBuffer</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="booleanbuffer.html"><code class="docutils literal notranslate"><span class="pre">BooleanBuffer</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="cascadingbitmaskbuffer.html"><code class="docutils literal notranslate"><span class="pre">CascadingBitmaskBuffer</span></code></a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Queue</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Queue.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Queue.queue"><code class="docutils literal notranslate"><span class="pre">queue</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Queue.first"><code class="docutils literal notranslate"><span class="pre">first</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Queue.last"><code class="docutils literal notranslate"><span class="pre">last</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Queue.push"><code class="docutils literal notranslate"><span class="pre">push()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Queue.pop"><code class="docutils literal notranslate"><span class="pre">pop()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Queue.empty"><code class="docutils literal notranslate"><span class="pre">empty()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Queue.peek"><code class="docutils literal notranslate"><span class="pre">peek()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Queue.clear"><code class="docutils literal notranslate"><span class="pre">clear()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Queue.contains"><code class="docutils literal notranslate"><span class="pre">contains()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Queue.size"><code class="docutils literal notranslate"><span class="pre">size()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Queue.remove"><code class="docutils literal notranslate"><span class="pre">remove()</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">CascadingBitmaskBuffer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lua-CascadingBitmaskBuffer.cascade"><code class="docutils literal notranslate"><span class="pre">cascade</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-CascadingBitmaskBuffer.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-CascadingBitmaskBuffer.width"><code class="docutils literal notranslate"><span class="pre">width</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-CascadingBitmaskBuffer.height"><code class="docutils literal notranslate"><span class="pre">height</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-CascadingBitmaskBuffer.maxCascadeLevel"><code class="docutils literal notranslate"><span class="pre">maxCascadeLevel</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-CascadingBitmaskBuffer._cascade"><code class="docutils literal notranslate"><span class="pre">_cascade()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-CascadingBitmaskBuffer.setMask"><code class="docutils literal notranslate"><span class="pre">setMask()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-CascadingBitmaskBuffer.getMask"><code class="docutils literal notranslate"><span class="pre">getMask()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-CascadingBitmaskBuffer.getCascadeLevel"><code class="docutils literal notranslate"><span class="pre">getCascadeLevel()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="queue.html"><code class="docutils literal notranslate"><span class="pre">Queue</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="sparsearray.html"><code class="docutils literal notranslate"><span class="pre">SparseArray</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="sparsemap.html"><code class="docutils literal notranslate"><span class="pre">SparseMap</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../math/bounding_box.html"><code class="docutils literal notranslate"><span class="pre">BoundingBox</span></code></a></li>
@@ -357,8 +321,8 @@ SOFTWARE.
 <ul>
   <li><a href="../../../index.html">Documentation overview</a><ul>
   <li><a href="../index.html">Prism</a><ul>
-      <li>Previous: <a href="priority_queue.html" title="previous chapter">PriorityQueue&lt;T&gt;</a></li>
-      <li>Next: <a href="sparsearray.html" title="next chapter">SparseArray</a></li>
+      <li>Previous: <a href="booleanbuffer.html" title="previous chapter">BooleanBuffer</a></li>
+      <li>Next: <a href="grid.html" title="next chapter">Grid&lt;T&gt;</a></li>
   </ul></li>
   </ul></li>
 </ul>
@@ -383,7 +347,7 @@ SOFTWARE.
       &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |
-      <a href="../../../_sources/reference/prism/structures/queue.rst.txt"
+      <a href="../../../_sources/reference/prism/structures/cascadingbitmaskbuffer.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

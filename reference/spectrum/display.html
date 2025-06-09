@@ -318,12 +318,12 @@ considering cell size.</p>
 <dt class="sig sig-object lua" id="lua-Display.drawDrawable">
 <span class="sig-name descname"><span class="pre">drawDrawable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">drawable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="components/drawable.html#lua-Drawable" title="Drawable"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Drawable</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.drawDrawable" title="Link to this definition">¶</a></dt>
 <dd><p>Draws a Drawable object directly at pixel coordinates on the screen,
-without considering the grid or camera.</p>
+without considering the grid or camera, and handling multi-cell drawables.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The pixel X coordinate.</p></li>
-<li><p><strong>y</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The pixel Y coordinate.</p></li>
+<li><p><strong>x</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The pixel X coordinate of the top-left corner.</p></li>
+<li><p><strong>y</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The pixel Y coordinate of the top-left corner.</p></li>
 <li><p><strong>drawable</strong> (<a class="reference internal" href="components/drawable.html#lua-Drawable" title="Drawable"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Drawable</span></code></a>) – The drawable object to render.</p></li>
 </ul>
 </dd>

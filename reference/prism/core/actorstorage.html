@@ -124,7 +124,7 @@ when indices are freed.</p>
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-ActorStorage.removeSparseMapEntries">
 <span class="sig-name descname"><span class="pre">removeSparseMapEntries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-ActorStorage" title="ActorStorage"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ActorStorage</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-ActorStorage.removeSparseMapEntries" title="Link to this definition">¶</a></dt>
-<dd><p>Removes the specified actor from the spatial map.</p>
+<dd><p>Removes the specified actor from the spatial map, considering its collider size and top-left origin.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>actor</strong> (<a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a>) – The actor to remove.</p>
@@ -135,7 +135,7 @@ when indices are freed.</p>
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-ActorStorage.insertSparseMapEntries">
 <span class="sig-name descname"><span class="pre">insertSparseMapEntries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-ActorStorage" title="ActorStorage"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ActorStorage</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-ActorStorage.insertSparseMapEntries" title="Link to this definition">¶</a></dt>
-<dd><p>Inserts the specified actor into the spatial map.</p>
+<dd><p>Inserts the specified actor into the spatial map, considering its collider size and top-left origin.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>actor</strong> (<a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a>) – The actor to insert.</p>
@@ -384,6 +384,7 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="components/collider.html"><code class="docutils literal notranslate"><span class="pre">Collider</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/collider.html#lua-ColliderOptions"><code class="docutils literal notranslate"><span class="pre">ColliderOptions</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/controller.html"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/name.html"><code class="docutils literal notranslate"><span class="pre">Name</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/opaque.html"><code class="docutils literal notranslate"><span class="pre">Opaque</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/player_controller.html"><code class="docutils literal notranslate"><span class="pre">PlayerController</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/senses.html"><code class="docutils literal notranslate"><span class="pre">Senses</span></code></a></li>
@@ -400,6 +401,7 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="behavior_tree/btsucceeder.html"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Succeeder</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/bitmaskbuffer.html"><code class="docutils literal notranslate"><span class="pre">BitmaskBuffer</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/booleanbuffer.html"><code class="docutils literal notranslate"><span class="pre">BooleanBuffer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/cascadingbitmaskbuffer.html"><code class="docutils literal notranslate"><span class="pre">CascadingBitmaskBuffer</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/queue.html"><code class="docutils literal notranslate"><span class="pre">Queue</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/sparsearray.html"><code class="docutils literal notranslate"><span class="pre">SparseArray</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/sparsemap.html"><code class="docutils literal notranslate"><span class="pre">SparseMap</span></code></a></li>

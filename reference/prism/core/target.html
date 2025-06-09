@@ -48,26 +48,112 @@
   <dl class="lua class">
 <dt class="sig sig-object lua" id="lua-Target">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Target</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><a class="headerlink" href="#lua-Target" title="Link to this definition">¶</a></dt>
-<dd><dl class="lua method">
+<dd><p>Targets represent what actions are able to act on. The builder pattern is used to
+narrow down various requirements for actions.</p>
+<dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Target.__new">
-<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">...</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Target.__new" title="Link to this definition">¶</a></dt>
-<dd><p>The default constructor for the class. Subclasses should override this.</p>
+<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Target" title="Target"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Target</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">...</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">unknown</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Target.__new" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a new Target and accepts components and sends them to with().</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Target.validators">
+<span class="sig-name descname"><span class="pre">validators</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-Target.validators" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Target.reqcomponents">
+<span class="sig-name descname"><span class="pre">reqcomponents</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><a class="headerlink" href="#lua-Target.reqcomponents" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Target.inLevel">
+<span class="sig-name descname"><span class="pre">inLevel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code><a class="headerlink" href="#lua-Target.inLevel" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Target.hint">
+<span class="sig-name descname"><span class="pre">hint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><a class="headerlink" href="#lua-Target.hint" title="Link to this definition">¶</a></dt>
+<dd><p>A string hint that can be set to let the UI know how to handle the target.</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Target.filter">
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Target" title="Target"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Target</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">fun</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="level.html#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">owner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">targetObject</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">previousTargets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code><span class="p"><span class="pre">[])</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Target.filter" title="Link to this definition">¶</a></dt>
+<dd><p>Adds a custom filter to the target, for any cases not covered by the built-in methods.
+Examples might include targetting enemies with low health, or carrying a certain item.
+The order of filter application is not guaranteed!</p>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
 
 <dl class="lua method">
-<dt class="sig sig-object lua" id="lua-Target.validate">
-<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Target" title="Target"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Target</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">targetObject</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">targets?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><span class="p"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code></span></span><a class="headerlink" href="#lua-Target.validate" title="Link to this definition">¶</a></dt>
-<dd><p>The inner validate for the target. This is what you override with your own
-custom logic.</p>
+<dt class="sig sig-object lua" id="lua-Target.with">
+<span class="sig-name descname"><span class="pre">with</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Target" title="Target"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Target</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">...</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lua-Target" title="Target"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Target</span></code></a></span></span><a class="headerlink" href="#lua-Target.with" title="Link to this definition">¶</a></dt>
+<dd><p>Adds a list of components that the target object must have.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Target.outsideLevel">
+<span class="sig-name descname"><span class="pre">outsideLevel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Target" title="Target"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Target</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lua-Target" title="Target"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Target</span></code></a></span></span><a class="headerlink" href="#lua-Target.outsideLevel" title="Link to this definition">¶</a></dt>
+<dd><p>Disables checking if the target is inside the level. Useful if the target lies outside the level,
+such as in an inventory.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Target.range">
+<span class="sig-name descname"><span class="pre">range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Target" title="Target"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Target</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lua-Target" title="Target"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Target</span></code></a></span></span><a class="headerlink" href="#lua-Target.range" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if the target is within the specified range, and if it’s an Actor or Vector2.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Target.isPrototype">
+<span class="sig-name descname"><span class="pre">isPrototype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Target" title="Target"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Target</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lua-Target" title="Target"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Target</span></code></a></span></span><a class="headerlink" href="#lua-Target.isPrototype" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if the target is the same type as the given prototype.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>owner</strong> (<a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a>) – The actor performing the action.</p></li>
-<li><p><strong>targets?</strong> (<a class="reference internal" href="object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><span class="p">[]</span>) – A list of the previous targets.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>type</strong> (<a class="reference internal" href="object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a>) – The prototype to check.</p>
 </dd>
+</dl>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Target.type">
+<span class="sig-name descname"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><a class="headerlink" href="#lua-Target.type" title="Link to this definition">¶</a></dt>
+<dd><p>A simple class system for Lua. This is the base class for all other classes in PRISM.</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Target.sensed">
+<span class="sig-name descname"><span class="pre">sensed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Target" title="Target"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Target</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lua-Target" title="Target"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Target</span></code></a></span></span><a class="headerlink" href="#lua-Target.sensed" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if the target is an Actor or Vector2 and if the owner can sense that target.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Target.los">
+<span class="sig-name descname"><span class="pre">los</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Target" title="Target"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Target</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lua-Target" title="Target"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Target</span></code></a></span></span><a class="headerlink" href="#lua-Target.los" title="Link to this definition">¶</a></dt>
+<dd><p>TODO: UNTESTED
+Walks a bresenham line between the owner and the target and checks if each tile
+is passable by the given mask. Fails if it can’t reach the target.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Target.setHint">
+<span class="sig-name descname"><span class="pre">setHint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Target" title="Target"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Target</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">hint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lua-Target" title="Target"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Target</span></code></a></span></span><a class="headerlink" href="#lua-Target.setHint" title="Link to this definition">¶</a></dt>
+<dd><p>Sets a string hint for the target, useful for UI handling.</p>
+<dl class="field-list simple">
 </dl>
 </dd></dl>
 
@@ -206,7 +292,19 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="system_manager.html"><code class="docutils literal notranslate"><span class="pre">SystemManager</span></code></a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Target</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Target.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Target.validate"><code class="docutils literal notranslate"><span class="pre">validate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Target.validators"><code class="docutils literal notranslate"><span class="pre">validators</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Target.reqcomponents"><code class="docutils literal notranslate"><span class="pre">reqcomponents</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Target.inLevel"><code class="docutils literal notranslate"><span class="pre">inLevel</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Target.hint"><code class="docutils literal notranslate"><span class="pre">hint</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Target.filter"><code class="docutils literal notranslate"><span class="pre">filter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Target.with"><code class="docutils literal notranslate"><span class="pre">with()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Target.outsideLevel"><code class="docutils literal notranslate"><span class="pre">outsideLevel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Target.range"><code class="docutils literal notranslate"><span class="pre">range()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Target.isPrototype"><code class="docutils literal notranslate"><span class="pre">isPrototype()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Target.type"><code class="docutils literal notranslate"><span class="pre">type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Target.sensed"><code class="docutils literal notranslate"><span class="pre">sensed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Target.los"><code class="docutils literal notranslate"><span class="pre">los()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Target.setHint"><code class="docutils literal notranslate"><span class="pre">setHint()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="scheduler/scheduler.html"><code class="docutils literal notranslate"><span class="pre">Scheduler</span></code></a></li>
@@ -217,6 +315,7 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="components/collider.html"><code class="docutils literal notranslate"><span class="pre">Collider</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/collider.html#lua-ColliderOptions"><code class="docutils literal notranslate"><span class="pre">ColliderOptions</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/controller.html"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/name.html"><code class="docutils literal notranslate"><span class="pre">Name</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/opaque.html"><code class="docutils literal notranslate"><span class="pre">Opaque</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/player_controller.html"><code class="docutils literal notranslate"><span class="pre">PlayerController</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/senses.html"><code class="docutils literal notranslate"><span class="pre">Senses</span></code></a></li>
@@ -233,6 +332,7 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="behavior_tree/btsucceeder.html"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Succeeder</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/bitmaskbuffer.html"><code class="docutils literal notranslate"><span class="pre">BitmaskBuffer</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/booleanbuffer.html"><code class="docutils literal notranslate"><span class="pre">BooleanBuffer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/cascadingbitmaskbuffer.html"><code class="docutils literal notranslate"><span class="pre">CascadingBitmaskBuffer</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/queue.html"><code class="docutils literal notranslate"><span class="pre">Queue</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/sparsearray.html"><code class="docutils literal notranslate"><span class="pre">SparseArray</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/sparsemap.html"><code class="docutils literal notranslate"><span class="pre">SparseMap</span></code></a></li>

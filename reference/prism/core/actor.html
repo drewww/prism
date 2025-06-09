@@ -68,6 +68,28 @@ Initializes and copies the actor’s fields from its prototype.</p>
 </dd></dl>
 
 <dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Actor.initialize">
+<span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a><span class="p"><span class="pre">[]</span></span></span></span><a class="headerlink" href="#lua-Actor.initialize" title="Link to this definition">¶</a></dt>
+<dd><p>Creates the components for the actor. Override this.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="lua-Actor.fromComponents">
+<em class="property"><span class="k"><span class="pre">staticmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fromComponents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a><span class="p"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a></span></span><a class="headerlink" href="#lua-Actor.fromComponents" title="Link to this definition">¶</a></dt>
+<dd><p>Initializes an actor from a list of components.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>components</strong> (<a class="reference internal" href="component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a><span class="p">[]</span>) – A list of components to give to the new actor.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>actor</strong> (<a class="reference internal" href="#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a>) – The new actor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Actor.getActions">
 <span class="sig-name descname"><span class="pre">getActions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">totalActions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="action.html#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a><span class="p"><span class="pre">[]</span></span></span></span><a class="headerlink" href="#lua-Actor.getActions" title="Link to this definition">¶</a></dt>
 <dd><p>Get a list of actions that the actor can perform.</p>
@@ -238,6 +260,8 @@ SOFTWARE.
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Actor</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Actor.level"><code class="docutils literal notranslate"><span class="pre">level</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Actor.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Actor.initialize"><code class="docutils literal notranslate"><span class="pre">initialize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Actor.fromComponents"><code class="docutils literal notranslate"><span class="pre">fromComponents()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Actor.getActions"><code class="docutils literal notranslate"><span class="pre">getActions()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Actor.getPosition"><code class="docutils literal notranslate"><span class="pre">getPosition()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Actor.getRange"><code class="docutils literal notranslate"><span class="pre">getRange()</span></code></a></li>
@@ -270,6 +294,7 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="components/collider.html"><code class="docutils literal notranslate"><span class="pre">Collider</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/collider.html#lua-ColliderOptions"><code class="docutils literal notranslate"><span class="pre">ColliderOptions</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/controller.html"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="components/name.html"><code class="docutils literal notranslate"><span class="pre">Name</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/opaque.html"><code class="docutils literal notranslate"><span class="pre">Opaque</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/player_controller.html"><code class="docutils literal notranslate"><span class="pre">PlayerController</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="components/senses.html"><code class="docutils literal notranslate"><span class="pre">Senses</span></code></a></li>
@@ -286,6 +311,7 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="behavior_tree/btsucceeder.html"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Succeeder</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/bitmaskbuffer.html"><code class="docutils literal notranslate"><span class="pre">BitmaskBuffer</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/booleanbuffer.html"><code class="docutils literal notranslate"><span class="pre">BooleanBuffer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structures/cascadingbitmaskbuffer.html"><code class="docutils literal notranslate"><span class="pre">CascadingBitmaskBuffer</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/queue.html"><code class="docutils literal notranslate"><span class="pre">Queue</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/sparsearray.html"><code class="docutils literal notranslate"><span class="pre">SparseArray</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/sparsemap.html"><code class="docutils literal notranslate"><span class="pre">SparseMap</span></code></a></li>
