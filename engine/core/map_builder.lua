@@ -7,7 +7,7 @@ local MapBuilder = prism.SparseGrid:extend("MapBuilder")
 
 --- The constructor for the 'MapBuilder' class.
 --- Initializes the map with an empty data table and actors list.
---- @param initialValue CellFactory The initial value to fill the map with.
+--- @param initialValue CellFactory A cell factory to define the default value of the map.
 function MapBuilder:__new(initialValue)
    prism.SparseGrid.__new(self)
    self.actors = prism.ActorStorage()
@@ -35,7 +35,7 @@ end
 --- @param y1 number The y-coordinate of the top-left corner.
 --- @param x2 number The x-coordinate of the bottom-right corner.
 --- @param y2 number The y-coordinate of the bottom-right corner.
---- @param cellFactory CellFactory The cell (prototype) to fill the rectangle with.
+--- @param cellFactory CellFactory The cell factory to fill the rectangle with.
 function MapBuilder:drawRectangle(x1, y1, x2, y2, cellFactory)
    for x = x1, x2 do
       for y = y1, y2 do
@@ -49,7 +49,7 @@ end
 --- @param cy number The y-coordinate of the center.
 --- @param rx number The radius along the x-axis.
 --- @param ry number The radius along the y-axis.
---- @param cellFactory CellFactory The cell (prototype) to fill the ellipse with.
+--- @param cellFactory CellFactory The cell factory to fill the ellipse with.
 function MapBuilder:drawEllipse(cx, cy, rx, ry, cellFactory)
    for x = -rx, rx do
       for y = -ry, ry do
@@ -65,7 +65,7 @@ end
 --- @param y1 number The y-coordinate of the starting point.
 --- @param x2 number The x-coordinate of the ending point.
 --- @param y2 number The y-coordinate of the ending point.
---- @param cellFactory CellFactory The cell (prototype) to draw the line with.
+--- @param cellFactory CellFactory The cell factory to draw the line with.
 function MapBuilder:drawLine(x1, y1, x2, y2, cellFactory)
    local dx = math.abs(x2 - x1)
    local dy = math.abs(y2 - y1)
@@ -89,7 +89,7 @@ function MapBuilder:drawLine(x1, y1, x2, y2, cellFactory)
 end
 
 --- Draws a sequence of lines between given points.
---- @param cellFactory CellFactory The cell (prototype) to draw the lines with.
+--- @param cellFactory CellFactory The cell factory to draw the lines with.
 --- @param ... integer Pairs of (x, y) coordinates given as a sequence of numbers.
 function MapBuilder:drawPolygon(cellFactory, ...)
    --- @type integer[]
@@ -116,13 +116,13 @@ end
 --- @param y number The y-coordinate.
 --- @param cell Cell The cell to set.
 function MapBuilder:set(x, y, cell)
-   assert(cell:isInstance(), "set expects an instance, not a prototype!")
+   assert(cell:isInstance(), "set expects an instance, not a factory!")
    prism.SparseGrid.set(self, x, y, cell)
 end
 
 --- Adds padding around the map with a specified width and cell value.
 --- @param width number The width of the padding to add.
---- @param cellFactory CellFactory The cell (prototype) to use for padding.
+--- @param cellFactory CellFactory The cell factory to use for padding.
 function MapBuilder:addPadding(width, cellFactory)
    local minX, minY = math.huge, math.huge
    local maxX, maxY = -math.huge, -math.huge
@@ -225,7 +225,7 @@ end
 --- Mirror set.
 --- @param x any
 --- @param y any
---- @param value any
+--- @param value Cell
 function MapBuilder:setCell(x, y, value)
    self:set(x, y, value)
 end
