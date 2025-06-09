@@ -35,11 +35,11 @@ end
 --- @param y1 number The y-coordinate of the top-left corner.
 --- @param x2 number The x-coordinate of the bottom-right corner.
 --- @param y2 number The y-coordinate of the bottom-right corner.
---- @param cellPrototype CellFactory The cell (prototype) to fill the rectangle with.
-function MapBuilder:drawRectangle(x1, y1, x2, y2, cellPrototype)
+--- @param cellFactory CellFactory The cell (prototype) to fill the rectangle with.
+function MapBuilder:drawRectangle(x1, y1, x2, y2, cellFactory)
    for x = x1, x2 do
       for y = y1, y2 do
-         self:set(x, y, cellPrototype())
+         self:set(x, y, cellFactory())
       end
    end
 end
@@ -49,12 +49,12 @@ end
 --- @param cy number The y-coordinate of the center.
 --- @param rx number The radius along the x-axis.
 --- @param ry number The radius along the y-axis.
---- @param cellPrototype CellFactory The cell (prototype) to fill the ellipse with.
-function MapBuilder:drawEllipse(cx, cy, rx, ry, cellPrototype)
+--- @param cellFactory CellFactory The cell (prototype) to fill the ellipse with.
+function MapBuilder:drawEllipse(cx, cy, rx, ry, cellFactory)
    for x = -rx, rx do
       for y = -ry, ry do
          if (x * x) / (rx * rx) + (y * y) / (ry * ry) <= 1 then
-            self:set(cx + x, cy + y, cellPrototype())
+            self:set(cx + x, cy + y, cellFactory())
          end
       end
    end
@@ -65,8 +65,8 @@ end
 --- @param y1 number The y-coordinate of the starting point.
 --- @param x2 number The x-coordinate of the ending point.
 --- @param y2 number The y-coordinate of the ending point.
---- @param cellPrototype CellFactory The cell (prototype) to draw the line with.
-function MapBuilder:drawLine(x1, y1, x2, y2, cellPrototype)
+--- @param cellFactory CellFactory The cell (prototype) to draw the line with.
+function MapBuilder:drawLine(x1, y1, x2, y2, cellFactory)
    local dx = math.abs(x2 - x1)
    local dy = math.abs(y2 - y1)
    local sx = x1 < x2 and 1 or -1
@@ -74,7 +74,7 @@ function MapBuilder:drawLine(x1, y1, x2, y2, cellPrototype)
    local err = dx - dy
 
    while true do
-      self:set(x1, y1, cellPrototype())
+      self:set(x1, y1, cellFactory())
       if x1 == x2 and y1 == y2 then break end
       local e2 = 2 * err
       if e2 > -dy then
@@ -89,15 +89,15 @@ function MapBuilder:drawLine(x1, y1, x2, y2, cellPrototype)
 end
 
 --- Draws a sequence of lines between given points.
---- @param cellPrototype CellFactory The cell (prototype) to draw the lines with.
+--- @param cellFactory CellFactory The cell (prototype) to draw the lines with.
 --- @param ... integer Pairs of (x, y) coordinates given as a sequence of numbers.
-function MapBuilder:drawPolygon(cellPrototype, ...)
+function MapBuilder:drawPolygon(cellFactory, ...)
    --- @type integer[]
    local points = { ... }
    assert(#points % 2 == 0, "Invalid sequence of points given!")
 
    for i = 1, #points - 2, 2 do
-      self:drawLine(points[i], points[i + 1], points[i + 2], points[i + 3], cellPrototype)
+      self:drawLine(points[i], points[i + 1], points[i + 2], points[i + 3], cellFactory)
    end
 end
 
@@ -122,8 +122,8 @@ end
 
 --- Adds padding around the map with a specified width and cell value.
 --- @param width number The width of the padding to add.
---- @param cellPrototype CellFactory The cell (prototype) to use for padding.
-function MapBuilder:addPadding(width, cellPrototype)
+--- @param cellFactory CellFactory The cell (prototype) to use for padding.
+function MapBuilder:addPadding(width, cellFactory)
    local minX, minY = math.huge, math.huge
    local maxX, maxY = -math.huge, -math.huge
 
@@ -136,19 +136,19 @@ function MapBuilder:addPadding(width, cellPrototype)
 
    for x = minX - width, maxX + width do
       for y = minY - width, minY - 1 do
-         self:set(x, y, cellPrototype())
+         self:set(x, y, cellFactory())
       end
       for y = maxY + 1, maxY + width do
-         self:set(x, y, cellPrototype())
+         self:set(x, y, cellFactory())
       end
    end
 
    for y = minY - width, maxY + width do
       for x = minX - width, minX - 1 do
-         self:set(x, y, cellPrototype())
+         self:set(x, y, cellFactory())
       end
       for x = maxX + 1, maxX + width do
-         self:set(x, y, cellPrototype())
+         self:set(x, y, cellFactory())
       end
    end
 end
@@ -199,7 +199,7 @@ function MapBuilder:build()
    local height = maxY - minY + 1
 
    -- Create a new Map and populate it with the sparse grid data
-   local map = prism.Map(width, height, self.initialValue())
+   local map = prism.Map(width, height, self.initialValue)
 
    for x, y, _ in self:each() do
       map:set(x - minX + 1, y - minY + 1, self:get(x, y))
