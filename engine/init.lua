@@ -256,6 +256,18 @@ function prism.registerActor(name, factory)
    end
 end
 
+--- @param name string
+--- @param target TargetFactory
+function prism.registerTarget(name, target)
+   assert(prism.targets[name] == nil, "Target " .. name .. " is already registered!")
+   prism.targets[name] = target
+
+   if prism._currentDefinitions then
+      table.insert(prism._currentDefinitions, "--- @type fun(...): Target")
+      table.insert(prism._currentDefinitions, "prism.targets." .. name .. " = nil")
+   end
+end
+
 local function loadItems(path, itemType, recurse, definitions)
    local info = {}
    local items = prism[itemType]
@@ -269,7 +281,7 @@ local function loadItems(path, itemType, recurse, definitions)
 
          local item = require(requireName)
 
-         if itemType == "actors" or itemType == "cells" then goto continue end
+         if itemType == "actors" or itemType == "cells" or itemType == "targets" then goto continue end
 
          local name = string.gsub(item.className, prism._itemPatterns[itemType], "")
          if not item.stripName then name = item.className end
