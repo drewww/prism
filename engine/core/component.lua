@@ -26,4 +26,13 @@ function Component:checkRequirements(entity)
    return true
 end
 
+function Component:getBase()
+   local proto = self:isInstance() and getmetatable(self) or self
+   while proto and proto ~= prism.Component do
+      proto = getmetatable(proto)
+   end
+   
+   return proto
+end
+
 return Component

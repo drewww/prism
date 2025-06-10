@@ -89,10 +89,14 @@ function ActorStorage:query(...)
    return prism.Query(self, ...)
 end
 
+local reusedvec = prism.Vector2()
+
 --- Removes the specified actor from the spatial map, considering its collider size and top-left origin.
 --- @param actor Actor The actor to remove.
 function ActorStorage:removeSparseMapEntries(actor)
-   local pos = actor:getPosition()
+   local pos = actor:getPosition(reusedvec)
+   if not pos then return end
+   
    local collider = actor:get(prism.components.Collider)
    local size = collider and collider.size or 1
 
@@ -107,7 +111,9 @@ end
 --- Inserts the specified actor into the spatial map, considering its collider size and top-left origin.
 --- @param actor Actor The actor to insert.
 function ActorStorage:insertSparseMapEntries(actor)
-   local pos = actor:getPosition()
+   local pos = actor:getPosition(reusedvec)
+   if not pos then return end
+
    local collider = actor:get(prism.components.Collider)
    local size = collider and collider.size or 1
 

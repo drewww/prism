@@ -197,8 +197,12 @@ end
 --- @private
 function Level:__removeComponent(actor, component)
    self.actorStorage:updateComponentCache(actor)
-   local x, y = actor:getPosition():decompose()
-   self:updateCaches(x, y)
+
+   local position = actor:getPosition()
+   if position then
+      local x, y = actor:getPosition():decompose()
+      self:updateCaches(x, y)
+   end
 end
 
 --- Adds a component to an actor. It handles updating
@@ -215,8 +219,7 @@ function Level:__addComponent(actor, component)
 end
 
 --- Moves an actor to the given position. This function doesn't do any checking
---- for overlaps or collisions. It's used by the moveActorChecked function, you should
---- generally not invoke this yourself using moveActorChecked instead.
+--- for overlaps or collisions.
 --- @param actor Actor The actor to move.
 --- @param pos Vector2 The position to move the actor to.
 function Level:moveActor(actor, pos)
@@ -237,11 +240,41 @@ function Level:moveActor(actor, pos)
    -- we copy the position here so that the caller doesn't have to worry about
    -- allocating a new table
    ---@diagnostic disable-next-line
-   actor.position = pos:copy()
+   actor:_setPosition(pos)
 
    self.actorStorage:insertSparseMapEntries(actor)
 
    self.systemManager:onMove(self, actor, previousPosition, pos)
+end
+
+--- Gives an actor a position in the level. This should only be used
+--- to initially assign position to actors entering the level.
+--- @param actor Actor The actor to position.
+--- @param pos Vector2 The position to assign.
+function Level:givePosition(actor, pos)
+   assert(prism.Vector2:is(pos), "Expected a Vector2 for pos in Level:givePosition.")
+   assert(
+      math.floor(pos.x) == pos.x and math.floor(pos.y) == pos.y,
+      "Expected integer values for pos in Level:givePosition."
+   )
+
+   -- Prevent double-positioning
+   if actor:getPosition() ~= nil then
+      self:moveActor(actor, pos)
+      return
+   end
+
+   actor:give(prism.components.Position(pos))
+   self.actorStorage:insertSparseMapEntries(actor)
+   self.systemManager:beforeMove(self, actor, pos, pos)
+   self.systemManager:onMove(self, actor, pos, pos)
+end
+
+
+--- @param actor Actor
+function Level:removePosition(actor)
+   if not actor:getPosition() then return end
+   actor:remove(prism.components.Position)
 end
 
 --- Checks if the action is valid and can be executed.
@@ -332,7 +365,7 @@ function Level:getActorCell(actor)
    assert(actor.level == self, "Attempted to get the cell of an actor not in the level!")
 
    --- @diagnostic disable-next-line
-   return self:getCell(actor.position:decompose())
+   return self:getCell(actor:expectPosition():decompose())
 end
 
 --- Is there a cell at this x, y? Part of the interface with MapBuilder

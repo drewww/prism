@@ -68,8 +68,7 @@ function Modification:placeActor(attachable, x, y, placeable)
    local instance = placeable.factory()
    --- @cast instance Actor
 
-   --- @diagnostic disable-next-line
-   instance.position = prism.Vector2(x, y)
+   instance:give(prism.components.Position(prism.Vector2(x, y)))
 
    attachable:addActor(instance)
    table.insert(self.placed, instance)

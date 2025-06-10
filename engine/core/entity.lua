@@ -9,8 +9,6 @@ local Entity = prism.Object:extend("Entity")
 --- Initializes and copies the entity's fields from its prototype.
 --- @param self Entity
 function Entity:__new()
-   self.position = prism.Vector2(1, 1)
-
    self.components = {}
    self.componentCache = {}
 end
@@ -26,7 +24,7 @@ end
 function Entity:give(component)
    -- stylua: ignore start
    assert(component:isInstance(), "Expected an instance of a Component!")
-
+   assert(prism.Component:is(component), "Component must be Component!")
    local requirementsMet, missingComponent = component:checkRequirements(self)
    if not requirementsMet then
       --- @cast missingComponent Component
@@ -34,11 +32,15 @@ function Entity:give(component)
       error(err:format(self.className, missingComponent.className, component.className))
    end
 
-   -- Set the component for all sub-classes
-   for _, v in pairs(prism.components) do
-      if v:is(component) then
-         self.componentCache[v] = component
-      end
+   local base = component:getBase()
+   if self:has(base) then
+      self:remove(base)
+   end
+
+   local proto = getmetatable(component)
+   while proto and proto ~= prism.Component do
+      self.componentCache[proto] = component
+      proto = getmetatable(proto)
    end
    -- stylua: ignore end
 
@@ -59,15 +61,10 @@ function Entity:remove(component)
       return self
    end
 
-   -- Remove all of the sub-classes from the cache
-   for _, componentPrototype in pairs(prism.components) do
-      if componentPrototype:is(component) then
-         for cachedComponent, _ in pairs(self.componentCache) do
-            if componentPrototype:is(cachedComponent) then
-               self.componentCache[cachedComponent] = nil
-            end
-         end
-      end
+   local proto = component
+   while proto and proto ~= prism.Component do
+      self.componentCache[proto] = nil
+      proto = getmetatable(proto)
    end
 
    for i = 1, #self.components do

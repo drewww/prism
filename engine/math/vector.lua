@@ -30,8 +30,11 @@ end
 
 --- Returns a copy of the vector.
 ---@return Vector2 # A copy of the vector.
-function Vector2:copy()
-   return Vector2(self.x, self.y)
+function Vector2:copy(out)
+   out = out or Vector2()
+   out.x, out.y = self.x, self.y
+
+   return out
 end
 
 --- Returns the length of the vector.

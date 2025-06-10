@@ -97,7 +97,7 @@ function Display:putLevel(attachable)
    for actor, drawable in attachable:query(prism.components.Drawable):iter() do
       --- @cast drawable Drawable
       --- @diagnostic disable-next-line
-      local ax, ay = actor.position:decompose()
+      local ax, ay = actor:getPosition():decompose()
       self:putDrawable(ax + camX, ay + camY, drawable)
    end
 end
@@ -141,8 +141,11 @@ function Display:_drawActors(drawnActors, queryable, alpha)
          tempColor.a = tempColor.a * alpha
 
          --- @diagnostic disable-next-line
-         local ax, ay = actor.position:decompose()
-         self:putDrawable(x + ax, y + ay, drawable, tempColor)
+         local position = actor:getPosition()
+         if position then
+            local ax, ay = position:decompose()
+            self:putDrawable(x + ax, y + ay, drawable, tempColor)
+         end
       end
    end
 end
