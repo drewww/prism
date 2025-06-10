@@ -143,7 +143,9 @@ function Target:los(mask)
    --- @param owner Actor
    self.validators["los"] = function(level, owner, target)
       if not prism.Actor:is(target) and not prism.Vector2:is(target) then return false end
-      
+      if not owner:getPosition() then return false end
+      if prism.Actor:is(target) and not target:getPosition() then return false end
+
       local i, j = owner:getPosition():decompose()
       --- @diagnostic disable-next-line
       local k, l = target.getPosition and target:getPosition():decompose() or target:decompose()

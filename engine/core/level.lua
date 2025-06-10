@@ -199,10 +199,10 @@ function Level:__removeComponent(actor, component)
    self.actorStorage:updateComponentCache(actor)
 
    local position = actor:getPosition()
-   if position then
-      local x, y = actor:getPosition():decompose()
-      self:updateCaches(x, y)
-   end
+   if not position then return end
+
+   local x, y = actor:getPosition():decompose()
+   self:updateCaches(x, y)
 end
 
 --- Adds a component to an actor. It handles updating
@@ -215,6 +215,8 @@ function Level:__addComponent(actor, component)
    self.actorStorage:updateComponentCache(actor)
 
    local pos = actor:getPosition()
+   if not pos then return end
+
    self:updateCaches(pos.x, pos.y)
 end
 
@@ -223,6 +225,9 @@ end
 --- @param actor Actor The actor to move.
 --- @param pos Vector2 The position to move the actor to.
 function Level:moveActor(actor, pos)
+   local curpos = actor:getPosition()
+   if not curpos then return end -- warn here?
+
    assert(prism.Vector2:is(pos), "Expected a Vector2 for pos in Level:moveActor.")
    assert(
       math.floor(pos.x) == pos.x and math.floor(pos.y) == pos.y,
@@ -232,11 +237,10 @@ function Level:moveActor(actor, pos)
    -- if the actor isn't in the level, we don't do anything
    if not self:hasActor(actor) then return end
 
-   self.systemManager:beforeMove(self, actor, actor:getPosition(), pos)
+   self.systemManager:beforeMove(self, actor, curpos, pos)
 
    self.actorStorage:removeSparseMapEntries(actor)
 
-   local previousPosition = actor:getPosition()
    -- we copy the position here so that the caller doesn't have to worry about
    -- allocating a new table
    ---@diagnostic disable-next-line
@@ -244,7 +248,7 @@ function Level:moveActor(actor, pos)
 
    self.actorStorage:insertSparseMapEntries(actor)
 
-   self.systemManager:onMove(self, actor, previousPosition, pos)
+   self.systemManager:onMove(self, actor, curpos, pos)
 end
 
 --- Gives an actor a position in the level. This should only be used
@@ -549,6 +553,7 @@ end
 function Level:getAOE(type, position, range)
    local seenActors = {}
 
+   local tempv = prism.Vector2()
    if type == "fov" then
       local fov = prism.SparseGrid()
 
@@ -557,14 +562,19 @@ function Level:getAOE(type, position, range)
       end)
 
       for actorInAOE in self:query():iter() do
-         local x, y = actorInAOE:getPosition():decompose()
-         if fov:get(x, y) then table.insert(seenActors, actorInAOE) end
+         local pos = actorInAOE:getPosition(tempv)
+         if not pos then
+            local x, y = pov:decompose()
+            if fov:get(x, y) then table.insert(seenActors, actorInAOE) end
+         end
       end
 
       return fov, seenActors
    elseif type == "box" then
       for actorInAOE in self:query():iter() do
-         if actorInAOE:getRangeVec(position) <= range then table.insert(seenActors, actorInAOE) end
+         if actorInAOE:getPosition(tempv) then
+            if actorInAOE:getRangeVec(position) <= range then table.insert(seenActors, actorInAOE) end
+         end
       end
 
       return nil, seenActors
