@@ -23,8 +23,9 @@ end
 --- @return Entity -- The entity, for chaining purposes.
 function Entity:give(component)
    -- stylua: ignore start
-   assert(component:isInstance(), "Expected an instance of a Component!")
    assert(prism.Component:is(component), "Component must be Component!")
+   assert(component:isInstance(), "Expected an instance of a Component!")
+   
    local requirementsMet, missingComponent = component:checkRequirements(self)
    if not requirementsMet then
       --- @cast missingComponent Component
