@@ -25,6 +25,10 @@ end
 --- @param component Component The component to add to the entity.
 --- @return Entity
 function Actor:give(component)
+   if self.level and not self.level.componentOverride and component.levelManaged then
+      error("Attempted to give a level managed component! Use level:give<Component> instead!")
+   end
+
    prism.Entity.give(self, component)
    if self.level then
       ---@diagnostic disable-next-line
@@ -39,6 +43,10 @@ end
 --- @param component Component The component to remove from the actor.
 --- @return Entity
 function Actor:remove(component)
+   if self.level and not self.level.componentOverride and component.levelManaged then
+      error("Attempted to remove a level managed component! Use level:remove<Component> instead!")
+   end
+
    prism.Entity.remove(self, component)
    if self.level then
       ---@diagnostic disable-next-line
@@ -111,7 +119,7 @@ end
 --- @param type? DistanceType
 --- @return number -- The calculated range.
 function Actor:getRange(actor, type)
-   return self:expectPosition():getRange(actor.position, type)
+   return self:expectPosition():getRange(actor:expectPosition(), type)
 end
 
 --- Get the range from this actor to a given vector.

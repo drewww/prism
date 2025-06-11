@@ -12,7 +12,7 @@
 --- @field private opacityCache BooleanBuffer         -- Cached opacity grid for FOV and lighting.
 --- @field private passableCache CascadingBitmaskBuffer -- Cached passability grid for pathfinding.
 --- @field private decision ActionDecision            -- Temporary storage for the current actor’s choice.
----
+--- @field componentOverride boolean                  -- A flag set right before a level managed component gets added or removed.
 --- @overload fun(map: Map, actors: Actor[], systems: System[], scheduler: Scheduler?, seed: string?): Level
 local Level = prism.Object:extend("Level")
 
@@ -197,12 +197,7 @@ end
 --- @private
 function Level:__removeComponent(actor, component)
    self.actorStorage:updateComponentCache(actor)
-
-   local position = actor:getPosition()
-   if not position then return end
-
-   local x, y = actor:getPosition():decompose()
-   self:updateCaches(x, y)
+   self:_updateSparseMap(actor)
 end
 
 --- Adds a component to an actor. It handles updating
@@ -213,13 +208,13 @@ end
 --- @private
 function Level:__addComponent(actor, component)
    self.actorStorage:updateComponentCache(actor)
-
-   local pos = actor:getPosition()
-   if not pos then return end
-
-   self:updateCaches(pos.x, pos.y)
+   self:_updateSparseMap(actor)
 end
 
+function Level:_updateSparseMap(actor)
+   self.actorStorage:removeSparseMapEntries(actor)
+   self.actorStorage:insertSparseMapEntries(actor)
+end
 --- Moves an actor to the given position. This function doesn't do any checking
 --- for overlaps or collisions.
 --- @param actor Actor The actor to move.
@@ -239,46 +234,13 @@ function Level:moveActor(actor, pos)
 
    self.systemManager:beforeMove(self, actor, curpos, pos)
 
-   self.actorStorage:removeSparseMapEntries(actor)
-
    -- we copy the position here so that the caller doesn't have to worry about
    -- allocating a new table
    ---@diagnostic disable-next-line
-   actor:_setPosition(pos)
-
-   self.actorStorage:insertSparseMapEntries(actor)
+   actor:expect(prism.components.Position)._position = pos:copy()
+   self:_updateSparseMap(actor)
 
    self.systemManager:onMove(self, actor, curpos, pos)
-end
-
---- Gives an actor a position in the level. This should only be used
---- to initially assign position to actors entering the level.
---- @param actor Actor The actor to position.
---- @param pos Vector2 The position to assign.
-function Level:givePosition(actor, pos)
-   assert(prism.Vector2:is(pos), "Expected a Vector2 for pos in Level:givePosition.")
-   assert(
-      math.floor(pos.x) == pos.x and math.floor(pos.y) == pos.y,
-      "Expected integer values for pos in Level:givePosition."
-   )
-
-   -- Prevent double-positioning
-   if actor:getPosition() ~= nil then
-      self:moveActor(actor, pos)
-      return
-   end
-
-   actor:give(prism.components.Position(pos))
-   self.actorStorage:insertSparseMapEntries(actor)
-   self.systemManager:beforeMove(self, actor, pos, pos)
-   self.systemManager:onMove(self, actor, pos, pos)
-end
-
-
---- @param actor Actor
-function Level:removePosition(actor)
-   if not actor:getPosition() then return end
-   actor:remove(prism.components.Position)
 end
 
 --- Checks if the action is valid and can be executed.
@@ -414,7 +376,7 @@ function Level:getCellPassableByActor(x, y, actor, mask)
    if not collider then return true end
 
    self.actorStorage:removeSparseMapEntries(actor)
-   local result = self:getCellPassable(x, y, mask, collider.size)
+   local result = self:getCellPassable(x, y, mask, collider:getSize())
    self.actorStorage:insertSparseMapEntries(actor)
 
    return result
@@ -563,8 +525,8 @@ function Level:getAOE(type, position, range)
 
       for actorInAOE in self:query():iter() do
          local pos = actorInAOE:getPosition(tempv)
-         if not pos then
-            local x, y = pov:decompose()
+         if pos then
+            local x, y = pos:decompose()
             if fov:get(x, y) then table.insert(seenActors, actorInAOE) end
          end
       end

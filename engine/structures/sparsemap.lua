@@ -32,15 +32,50 @@ end
 --- Returns an iterator over all entries in the sparse map.
 --- @return function An iterator that returns the value, coordinates, and hash for each entry.
 function SparseMap:each()
-   local key, val
-   return function()
-      key, val = next(self.list, key)
+   local value, hashTable
+   local hash
 
-      --- @diagnostic disable-next-line
-      if key then return val[1], val[2], key end
+   return function()
+      while true do
+         if hashTable then
+            hash = next(hashTable, hash)
+            if hash then
+               local x, y = prism.Vector2._unhash(hash)
+               return x, y, value
+            else
+               hashTable = nil
+            end
+         end
+
+         value, hashTable = next(self.list, value)
+         hash = nil
+
+         if not value then return nil end
+      end
+   end
+end
+
+--- Returns an iterator over all (x, y) positions where the given value is stored.
+--- @param val any The value to look up.
+--- @return function iter An iterator yielding x, y, hash for each coordinate the value is in.
+function SparseMap:eachFor(val)
+   local hashTable = self.list[val]
+   local hash
+
+   if not hashTable then
+      return function() return nil end
+   end
+
+   return function()
+      hash = next(hashTable, hash)
+      if hash then
+         local x, y = prism.Vector2._unhash(hash)
+         return x, y, hash
+      end
       return nil
    end
 end
+
 
 --- Returns the total number of entries in the sparse map.
 --- @return number -- The total number of entries.
@@ -77,7 +112,7 @@ end
 --- @param value any
 --- @return boolean containsValue
 function SparseMap:contains(value)
-   return self.list[value]
+   return self.list[value] ~= nil
 end
 
 --- Inserts a value at the specified coordinates.
@@ -87,9 +122,11 @@ end
 function SparseMap:insert(x, y, val)
    local xyhash = prism.Vector2._hash(x, y)
    if not self.map[xyhash] then self.map[xyhash] = {} end
+   if not self.list[val] then self.list[val] = {} end
 
    self.__count = self.__count + 1
-   self.list[val] = { x, y }
+
+   self.list[val][xyhash] = true
    self.map[xyhash][val] = true
 end
 
@@ -103,9 +140,19 @@ function SparseMap:remove(x, y, val)
    if not self.map[xyhash] then return false end
 
    self.__count = self.__count - 1
-   self.list[val] = nil
+   self.list[val][xyhash] = nil
    self.map[xyhash][val] = nil
    return true
+end
+
+function SparseMap:removeAll(val)
+   if not self.list[val] then return end
+
+   for hash, _ in pairs(self.list[val]) do
+      self.map[hash][val] = nil
+   end
+
+   self.list[val] = nil
 end
 
 -- Some quick n dirty testing
