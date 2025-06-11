@@ -3,7 +3,6 @@
 --- @field private _position Vector2
 --- @overload fun(pos: Vector2?): Position
 local Position = prism.Component:extend "Position"
-Position.levelManaged = true
 
 function Position:__new(pos)
    self._position = pos or prism.Vector2(1, 1)
