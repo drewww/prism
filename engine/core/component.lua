@@ -5,11 +5,9 @@
 --- @class Component : Object
 --- @field requirements Component[] (static) A list of components (prototypes) the entity must have before this one can be applied.
 --- @field owner Entity The entity this component is composing. This is set by Entity when a component is added or removed.
---- @field levelManaged boolean Is this component managed by the level?
 --- @overload fun(): Component
 local Component = prism.Object:extend("Component")
 Component.requirements = {}
-Component.levelManaged = false
 
 --- Returns a list of components (prototypes) the entity must have before this one can be applied.
 --- Override this to provide requirements, and it will get called to populate the list.

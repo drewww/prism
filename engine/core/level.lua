@@ -12,7 +12,6 @@
 --- @field private opacityCache BooleanBuffer         -- Cached opacity grid for FOV and lighting.
 --- @field private passableCache CascadingBitmaskBuffer -- Cached passability grid for pathfinding.
 --- @field private decision ActionDecision            -- Temporary storage for the current actor’s choice.
---- @field componentOverride boolean                  -- A flag set right before a level managed component gets added or removed.
 --- @overload fun(map: Map, actors: Actor[], systems: System[], scheduler: Scheduler?, seed: string?): Level
 local Level = prism.Object:extend("Level")
 
