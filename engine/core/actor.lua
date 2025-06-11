@@ -3,11 +3,9 @@
 --- For example, an actor may have a Sight component that determines their field of vision, explored tiles,
 --- and other related aspects.
 --- @class Actor : Entity
---- @field private position Vector2 An actor's position in the game world.
 --- @field level? Level The level the actor is on.
 --- @overload fun(): Actor
 local Actor = prism.Entity:extend("Actor")
-Actor.position = nil
 
 --- @alias ActorFactory fun(...): Actor
 
@@ -16,7 +14,6 @@ Actor.position = nil
 --- @param self Actor
 function Actor:__new()
    prism.Entity.__new(self)
-   self.position = prism.Vector2(1, 1)
 end
 
 --
@@ -88,10 +85,25 @@ end
 -- Utility
 --
 
---- Returns the current position of the actor.
---- @return Vector2 position Returns a copy of the actor's current position.
-function Actor:getPosition()
-   return self.position:copy()
+--- Returns the current position of the actor
+--- @param out Vector2? An optional out parameter. A new Vector2 will be allocated in it's absence.
+--- @return Vector2? position Returns a copy of the actor's current position.
+function Actor:getPosition(out)
+   local comp = self:get(prism.components.Position)
+   
+   if comp then
+      return comp:getVector():copy(out)
+   end
+end
+
+--- @private
+function Actor:_setPosition(vec)
+   --- @diagnostic disable-next-line
+   self:expect(prism.components.Position)._position = vec:copy()
+end
+
+function Actor:expectPosition(out)
+   return self:expect(prism.components.Position):getVector():copy(out)
 end
 
 --- Get the range from this actor to another actor.
@@ -99,7 +111,7 @@ end
 --- @param type? DistanceType
 --- @return number -- The calculated range.
 function Actor:getRange(actor, type)
-   return self.position:getRange(actor.position, type)
+   return self:expectPosition():getRange(actor:expectPosition(), type)
 end
 
 --- Get the range from this actor to a given vector.
@@ -107,7 +119,7 @@ end
 --- @param type? DistanceType The type of range calculation to use.
 --- @return number -- The calculated range.
 function Actor:getRangeVec(vector, type)
-   return self.position:getRange(vector, type)
+   return self:expectPosition():getRange(vector, type)
 end
 
 return Actor

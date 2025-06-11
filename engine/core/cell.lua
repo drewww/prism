@@ -26,7 +26,7 @@ end
 
 --- @return Bitmask mask The collision mask of the cell.
 function Cell:getCollisionMask()
-   return self:expect(prism.components.Collider).mask
+   return self:expect(prism.components.Collider):getMask()
 end
 
 return Cell

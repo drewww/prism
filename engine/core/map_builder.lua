@@ -19,7 +19,9 @@ end
 --- @param x number? The x-coordinate.
 --- @param y number? The y-coordinate.
 function MapBuilder:addActor(actor, x, y)
-   if x and y then actor.position = prism.Vector2(x, y) end
+   if x and y and actor:getPosition() then
+      actor:give(prism.components.Position(prism.Vector2(x, y)))
+   end
 
    self.actors:addActor(actor)
 end
@@ -172,7 +174,11 @@ function MapBuilder:blit(source, destX, destY, maskFn)
    -- Adjust actor positions
    for actor in source.actors:query():iter() do
       ---@diagnostic disable-next-line
-      actor.position = actor.position + prism.Vector2(destX, destY)
+      local position = actor:getPosition()
+      if position then
+         actor:give(prism.components.Position(position + prism.Vector2(destX, destY)))
+      end
+
       self.actors:addActor(actor)
    end
 end
@@ -208,7 +214,10 @@ function MapBuilder:build()
    -- Adjust actor positions
    for actor in self.actors:query():iter() do
       ---@diagnostic disable-next-line
-      actor.position = actor.position - prism.Vector2(minX - 1, minY - 1)
+      local position = actor:getPosition()
+      if position then
+         actor:give(prism.components.Position(position - prism.Vector2(minX - 1, minY - 1)))
+      end
    end
 
    --- @diagnostic disable-next-line

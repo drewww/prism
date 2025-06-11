@@ -12,7 +12,6 @@
 --- @field private opacityCache BooleanBuffer         -- Cached opacity grid for FOV and lighting.
 --- @field private passableCache CascadingBitmaskBuffer -- Cached passability grid for pathfinding.
 --- @field private decision ActionDecision            -- Temporary storage for the current actor’s choice.
----
 --- @overload fun(map: Map, actors: Actor[], systems: System[], scheduler: Scheduler?, seed: string?): Level
 local Level = prism.Object:extend("Level")
 
@@ -197,8 +196,7 @@ end
 --- @private
 function Level:__removeComponent(actor, component)
    self.actorStorage:updateComponentCache(actor)
-   local x, y = actor:getPosition():decompose()
-   self:updateCaches(x, y)
+   self:_updateSparseMap(actor)
 end
 
 --- Adds a component to an actor. It handles updating
@@ -209,17 +207,21 @@ end
 --- @private
 function Level:__addComponent(actor, component)
    self.actorStorage:updateComponentCache(actor)
-
-   local pos = actor:getPosition()
-   self:updateCaches(pos.x, pos.y)
+   self:_updateSparseMap(actor)
 end
 
+function Level:_updateSparseMap(actor)
+   self.actorStorage:removeSparseMapEntries(actor)
+   self.actorStorage:insertSparseMapEntries(actor)
+end
 --- Moves an actor to the given position. This function doesn't do any checking
---- for overlaps or collisions. It's used by the moveActorChecked function, you should
---- generally not invoke this yourself using moveActorChecked instead.
+--- for overlaps or collisions.
 --- @param actor Actor The actor to move.
 --- @param pos Vector2 The position to move the actor to.
 function Level:moveActor(actor, pos)
+   local curpos = actor:getPosition()
+   if not curpos then return end -- warn here?
+
    assert(prism.Vector2:is(pos), "Expected a Vector2 for pos in Level:moveActor.")
    assert(
       math.floor(pos.x) == pos.x and math.floor(pos.y) == pos.y,
@@ -229,19 +231,15 @@ function Level:moveActor(actor, pos)
    -- if the actor isn't in the level, we don't do anything
    if not self:hasActor(actor) then return end
 
-   self.systemManager:beforeMove(self, actor, actor:getPosition(), pos)
+   self.systemManager:beforeMove(self, actor, curpos, pos)
 
-   self.actorStorage:removeSparseMapEntries(actor)
-
-   local previousPosition = actor:getPosition()
    -- we copy the position here so that the caller doesn't have to worry about
    -- allocating a new table
    ---@diagnostic disable-next-line
-   actor.position = pos:copy()
+   actor:expect(prism.components.Position)._position = pos:copy()
+   self:_updateSparseMap(actor)
 
-   self.actorStorage:insertSparseMapEntries(actor)
-
-   self.systemManager:onMove(self, actor, previousPosition, pos)
+   self.systemManager:onMove(self, actor, curpos, pos)
 end
 
 --- Checks if the action is valid and can be executed.
@@ -250,6 +248,7 @@ end
 --- @return string? error An optional error message, if the action cannot be performed.
 function Level:canPerform(action)
    if not self:hasActor(action.owner) then return false, "Actor not inside the level!" end
+
    local success, err = action:hasRequisiteComponents(action.owner)
    if not success then return false, "Actor is missing requisite component: " .. err end
 
@@ -332,7 +331,7 @@ function Level:getActorCell(actor)
    assert(actor.level == self, "Attempted to get the cell of an actor not in the level!")
 
    --- @diagnostic disable-next-line
-   return self:getCell(actor.position:decompose())
+   return self:getCell(actor:expectPosition():decompose())
 end
 
 --- Is there a cell at this x, y? Part of the interface with MapBuilder
@@ -377,7 +376,7 @@ function Level:getCellPassableByActor(x, y, actor, mask)
    if not collider then return true end
 
    self.actorStorage:removeSparseMapEntries(actor)
-   local result = self:getCellPassable(x, y, mask, collider.size)
+   local result = self:getCellPassable(x, y, mask, collider:getSize())
    self.actorStorage:insertSparseMapEntries(actor)
 
    return result
@@ -415,7 +414,7 @@ function Level:updatePassabilityCache(x, y)
    passabilityQuery:at(x, y)
    for _, collider in passabilityQuery:iter() do
       --- @cast collider Collider
-      mask = bit.band(collider.mask, mask)
+      mask = bit.band(collider:getMask(), mask)
    end
 
    self.passableCache:setMask(x, y, mask)
@@ -490,7 +489,7 @@ function Level:findPath(start, goal, actor, mask, minDistance, distanceType)
    end
 
    local collider = actor:get(prism.components.Collider)
-   local size = collider and collider.size or 1
+   local size = collider and collider:getSize() or 1
    local function passableCallback(x, y)
       return self:getCellPassable(x, y, mask, size)
    end
@@ -516,6 +515,7 @@ end
 function Level:getAOE(type, position, range)
    local seenActors = {}
 
+   local tempv = prism.Vector2()
    if type == "fov" then
       local fov = prism.SparseGrid()
 
@@ -524,14 +524,19 @@ function Level:getAOE(type, position, range)
       end)
 
       for actorInAOE in self:query():iter() do
-         local x, y = actorInAOE:getPosition():decompose()
-         if fov:get(x, y) then table.insert(seenActors, actorInAOE) end
+         local pos = actorInAOE:getPosition(tempv)
+         if pos then
+            local x, y = pos:decompose()
+            if fov:get(x, y) then table.insert(seenActors, actorInAOE) end
+         end
       end
 
       return fov, seenActors
    elseif type == "box" then
       for actorInAOE in self:query():iter() do
-         if actorInAOE:getRangeVec(position) <= range then table.insert(seenActors, actorInAOE) end
+         if actorInAOE:getPosition(tempv) then
+            if actorInAOE:getRangeVec(position) <= range then table.insert(seenActors, actorInAOE) end
+         end
       end
 
       return nil, seenActors

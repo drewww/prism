@@ -199,6 +199,9 @@ prism.components.Opaque = prism.require "core.components.opaque"
 --- @module "engine.core.components.name"
 prism.components.Name = prism.require "core.components.name"
 
+--- @module "engine.core.components.position"
+prism.components.Position = prism.require "core.components.position"
+
 --- @module "engine.core.decisions.actiondecision"
 prism.decisions.ActionDecision = prism.require "core.decisions.actiondecision"
 
