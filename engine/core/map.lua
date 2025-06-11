@@ -2,7 +2,7 @@
 --- @class Map : Grid
 --- @field opacityCache BooleanBuffer Caches the opaciy of the cell + actors in each tile for faster fov calculation.
 --- @field passableCache BitmaskBuffer
---- @overload fun(width: integer, height: integer, initialValue: Cell): Map
+--- @overload fun(width: integer, height: integer, initialValue: CellFactory): Map
 local Map = prism.Grid:extend("Map")
 
 Map.serializationBlacklist = {
@@ -14,17 +14,15 @@ Map.serializationBlacklist = {
 --- Initializes the map with the specified dimensions and initial value, and sets up the opacity caches.
 --- @param w number The width of the map.
 --- @param h number The height of the map.
---- @param cellPrototype Cell The initial value to fill the map with.
-function Map:__new(w, h, cellPrototype)
-   -- assert(not cellPrototype:isInstance(), "Map constructor expects a prototype!")
-
-   prism.Grid.__new(self, w, h, cellPrototype)
+--- @param cellFactory CellFactory The initial value to fill the map with.
+function Map:__new(w, h, cellFactory)
+   prism.Grid.__new(self, w, h, cellFactory())
 
    self.opacityCache = prism.BooleanBuffer(w, h)
    self.passableCache = prism.BitmaskBuffer(w, h)
 
    for x, y, _ in self:each() do
-      self:set(x, y, cellPrototype())
+      self:set(x, y, cellFactory())
    end
 end
 

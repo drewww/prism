@@ -1,5 +1,7 @@
 --- @alias TargetFactory fun(...): Target
 
+--- Targets represent what actions are able to act on. The builder pattern is used to
+--- narrow down various requirements for actions.
 --- @class Target : Object
 --- @overload fun(...: Component): Target
 local Target = prism.Object:extend("Target")
@@ -14,45 +16,43 @@ function Target:__new(...)
    self:with(...)
 end
 
---- @param level Level 
+--- @private
+--- @param level Level
 --- @param owner Actor The actor performing the action.
 --- @param targetObject any
---- @param targets Object[]? A list of the previous targets.
-function Target:validate(level, owner, targetObject, targets)
+--- @param previousTargets any[]? A list of the previous target objects.
+function Target:validate(level, owner, targetObject, previousTargets)
    if self.inLevel and prism.Actor:is(targetObject) and not level:hasActor(targetObject) then
       return false
    end
 
    for _, validator in pairs(self.validators) do
-      if not validator(level, owner, targetObject, targets) then
-         return false
-      end
+      if not validator(level, owner, targetObject, previousTargets) then return false end
    end
 
    return true
 end
 
---- Adds a filter to the target, order of filters is not gaurunteed! This
---- is where you're put custom logic like only targetting enemies with low
---- health, etc.
---- @param func fun(level: Level, owner: Actor, targetObject: any, targets: any[])
-function Target:filter(func)
-   table.insert(self.validators, func)
+--- Adds a custom filter to the target, for any cases not covered by the built-in methods.
+--- Examples might include targetting enemies with low health, or carrying a certain item.
+--- The order of filter application is not guaranteed!
+--- @param filter fun(level: Level, owner: Actor, targetObject: any, previousTargets: any[])
+function Target:filter(filter)
+   table.insert(self.validators, filter)
 end
 
+--- Adds a list of components that the target object must have.
 --- @param ... Component
 function Target:with(...)
-   for _, comp in pairs({...}) do
+   for _, comp in pairs({ ... }) do
       self.reqcomponents[comp] = true
    end
 
    --- @param target Entity
-   self.validators["with"] = function (level, owner, target)
+   self.validators["with"] = function(level, owner, target)
       if not next(self.reqcomponents) then return true end
-      
-      if not prism.Entity:is(target) then
-         return false
-      end
+
+      if not prism.Entity:is(target) then return false end
 
       for comp, _ in pairs(self.reqcomponents) do
          if not target:has(comp) then return false end
@@ -64,8 +64,8 @@ function Target:with(...)
    return self
 end
 
---- Disables the default check for if the target is in the level, you'll want to set
---- this when your target lies outside the level like inventory or equipment.
+--- Disables checking if the target is inside the level. Useful if the target lies outside the level,
+--- such as in an inventory.
 function Target:outsideLevel()
    self.inLevel = false
    return self
@@ -98,14 +98,14 @@ function Target:range(range)
    return self
 end
 
---- Calls prototype:is() on the target.
---- @param type Object The prototype to check is.
+--- Checks if the target is the same type as the given prototype.
+--- @param type Object The prototype to check.
 function Target:isPrototype(type)
    assert(prism.Object:is(type), "Prototype must be a prism.Object!")
 
    self.type = type
 
-   self.validators["type"] = function (level, owner, target)
+   self.validators["type"] = function(level, owner, target)
       return self.type:is(target)
    end
 
@@ -114,7 +114,7 @@ end
 
 --- Checks if the target is an Actor or Vector2 and if the owner can sense that target.
 function Target:sensed()
-   self.validators["sensed"] = function (level, owner, target)
+   self.validators["sensed"] = function(level, owner, target)
       local senses = owner:get(prism.components.Senses)
 
       if not senses then return false end
@@ -150,6 +150,7 @@ function Target:los(mask)
       
       if prism.Actor:is(target) and not target:getPosition() then return false end
 
+
       local i, j = owner:getPosition():decompose()
       --- @diagnostic disable-next-line
       local k, l = target.getPosition and target:getPosition():decompose() or target:decompose()
@@ -157,9 +158,7 @@ function Target:los(mask)
 
       for _, point in ipairs(points) do
          local x, y = point[1], point[2]
-         if not level:getCellPassable(x, y, mask) then
-            return false
-         end
+         if not level:getCellPassable(x, y, mask) then return false end
       end
    end
 
