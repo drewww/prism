@@ -48,7 +48,7 @@ Next, define an Inventory component that uses an :lua:class:`ActorStorage` to tr
 
    You should only call ``addItem`` or ``removeItem`` from **inside an action**! Never mutate level state outside of actions!
 
-Pickup and Drop Actions
+Pickup and drop actions
 -----------------------
 
 Define a Pickup action that removes the item from the level and adds it to the actor's inventory:
@@ -140,7 +140,7 @@ To allow players to interact with their inventory, add keybindings for pickup an
    { key = "p", action = "pickup", description = "Pickup an item on the tile you're standing on." },
    { key = "tab", action = "inventory", description = "Open inventory." }
 
-Handling Pickup Input
+Handling pickup input
 ---------------------
 
 Now that you've defined the keybinding and action, handle the ``pickup`` input inside your levelstate's keypressed function. This example queries for an item on the same tile as the player using the Senses component, creates a Pickup action, and sets it as the decision:
@@ -165,7 +165,7 @@ Now that you've defined the keybinding and action, handle the ``pickup`` input i
 
 This approach ensures the action is only triggered when a valid item is on the player's current tile and the action can legally be performed.
 
-Inventory State
+Inventory state
 ---------------
 
 Once players can pick up and drop items, they'll need a way to view and interact with their inventory. Below is a **very basic** example of a custom :lua:class:`GameState` that does just that.
@@ -227,7 +227,7 @@ Here's the inventory state code:
     return InventoryState
 
 
-Pushing the Inventory State
+Pushing the inventory state
 ---------------------------
 
 To trigger this state when the player presses the inventory key (like ``tab``), you can hook into your `LevelState:keypressed` handler and push the state:
@@ -249,7 +249,7 @@ To trigger this state when the player presses the inventory key (like ``tab``), 
 
 This approach uses the decision and current level to let the inventory state interact with the game world. Any selected item can be turned into a drop action from within the state.
 
-Creating an Item
+Creating an item
 ----------------
 
 Now that we have an inventory system and actions to interact with it, let's create a simple item to pick up and drop. Here's an example actor called ``Cheese`` that uses the Item component.

@@ -8,35 +8,35 @@ functions can be accessed from the ``prism`` global, e.g. ``prism.Level``.
 Registries get automatically loaded by :lua:func:`loadModule`. They hold all
 of the game objects, making them easy to access, e.g. ``prism.actors.Player()``.
 
-- .. lua:data:: actors table<string, Actor>
+- .. lua:data:: prism.actors table<string, Actor>
 
    The actor registry.
 
-- .. lua:data:: actions table<string, Action>
+- .. lua:data:: prism.actions table<string, Action>
 
    The actions registry.
 
-- .. lua:data:: components table<string, Component>
+- .. lua:data:: prism.components table<string, Component>
 
    The component registry.
 
-- .. lua:data:: cells table<string, Cell>
+- .. lua:data:: prism.cells table<string, Cell>
 
    The cell registry.
 
-- .. lua:data:: targets table<string, Target>
+- .. lua:data:: prism.targets table<string, Target>
 
    The target registry.
 
-- .. lua:data:: messages table<string, Message>
+- .. lua:data:: prism.messages table<string, Message>
 
    The message registry.
 
-- .. lua:data:: systems table<string, System>
+- .. lua:data:: prism.systems table<string, System>
 
    The system registry.
 
-- .. lua:data:: decisions table<string, Decision>
+- .. lua:data:: prism.decisions table<string, Decision>
 
    The decision registry.
 
@@ -51,15 +51,26 @@ of the game objects, making them easy to access, e.g. ``prism.actors.Player()``.
 
 **Functions**
 
-- .. lua:function:: loadModule(directory: string)
+- .. lua:function:: prism.loadModule(directory: string)
 
-   Loads a module into prism, automatically loading objects based on directory, e.g. everything in
-   ``module/actors`` would get loaded into :lua:data:`actors`. Will also run ``module/module.lua``
-   for any other set up.
+   Loads a module into prism, automatically loading objects based on directory. 
+   . Will also run ``module/module.lua`` for any other set up.
 
    :param string directory: The root directory of the module.
 
-- .. lua:function:: turn(level: Level, actor: Actor, controller: Controller)
+- .. lua:function:: prism.registerActor(name: string, factory: fun(...): Actor)
+
+   Registers an actor factory into the actors registry.
+
+- .. lua:function:: prism.registerCell(name: string, factory: fun(...): Cell)
+
+   Registers a cell factory into the cells registry.
+
+- .. lua:function:: prism.registerTarget(name: string, factory: fun(...): Target)
+
+   Registers a target factory into the targets registry.
+
+- .. lua:function:: prism.turn(level: Level, actor: Actor, controller: Controller)
 
    This is the core turn logic, and if you need to use a different scheduler or 
    want a different turn structure you should override this. 
@@ -68,7 +79,7 @@ of the game objects, making them easy to access, e.g. ``prism.actors.Player()``.
    :param Actor actor: The actor taking their turn.
    :param Controller controller: The actor's controller, for convenience.
 
-- .. lua:function:: advanceCoroutine()
+- .. lua:function:: prism.advanceCoroutine()
 
    Runs the level coroutine and returns the next message, or nil if the coroutine has halted.
 
@@ -122,7 +133,7 @@ of the game objects, making them easy to access, e.g. ``prism.actors.Player()``.
 **Functions**
 
 
-- .. lua:function:: Ellipse(mode: ("fill" | "line"), center: Vector2, rx: integer, ry: integer, callback: PassableCallback?)
+- .. lua:function:: prism.Ellipse(mode: ("fill" | "line"), center: Vector2, rx: integer, ry: integer, callback: PassableCallback?)
 
    Generates points for an ellipse on a grid using the Vector2 class.
 
@@ -132,7 +143,7 @@ of the game objects, making them easy to access, e.g. ``prism.actors.Player()``.
    :param integer ry: The radius on the y axis.
    :param PassableCallback? callback: An optional callback to determine passability.
 
-- .. lua:function:: Bresenham(x0: integer, y0: integer, x1: integer, y1: integer, callback: PassableCallback)
+- .. lua:function:: prism.Bresenham(x0: integer, y0: integer, x1: integer, y1: integer, callback: PassableCallback)
 
    Generates points for an ellipse on a grid using the Vector2 class.
 

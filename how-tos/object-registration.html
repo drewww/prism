@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<template id="tmpl_gotoTop"><div id="gotoTop">
+  <button>Back to top</button>
+</div></template>
+    <title>Object registration &#8212; Prism  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=266695fe" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=a1f6949c" />
+    <link rel="stylesheet" type="text/css" href="../_static/lua.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/terminal.css?v=47602536" />
+    <link rel="stylesheet" type="text/css" href="../_static/goto-top/style.css?v=c152bd81" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/goto-top/main.js?v=69fc67a6"></script>
+    <link rel="icon" href="../_static/prism.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Queries" href="query.html" />
+    <link rel="prev" title="Conventions" href="../conventions.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="object-registration">
+<h1>Object registration<a class="headerlink" href="#object-registration" title="Link to this heading">¶</a></h1>
+<p>prism makes use of a number of registries both for ease of use and for some core
+functionality. The primary interface for registering your own objects is <a class="reference internal" href="../reference/prism/index.html#lua-prism.loadModule" title="prism.loadModule"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">prism.loadModule()</span></code></a>,
+which expects a directory containing a module. Subdirectories are processed recursively.</p>
+<p>An example module might look like this:</p>
+<ul class="simple">
+<li><p>module/</p>
+<ul>
+<li><p>actors/</p>
+<ul>
+<li><p>goblins.lua</p></li>
+<li><p>items/</p>
+<ul>
+<li><p>potion.lua</p></li>
+<li><p>sword.lua</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>systems/</p>
+<ul>
+<li><p>.lua</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Below is a walk through of how and when each type of object is loaded.</p>
+<div class="terminal-timeline"><section class="terminal-card"><header>
+module.lua</header><div class="docutils container">
+<p><code class="docutils literal notranslate"><span class="pre">module.lua</span></code> is ran. You can use it to create move types with <a class="reference internal" href="../reference/prism/core/collision.html#lua-Collision.assignNextAvailableMovetype" title="Collision.assignNextAvailableMovetype"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Collision.assignNextAvailableMovetype()</span></code></a>,
+or to perform other miscellaneous set up.</p>
+</div>
+</section><section class="terminal-card"><header>
+Components</header><div class="docutils container">
+<p>Files in <code class="docutils literal notranslate"><span class="pre">module/components/</span></code> are assumed to return a single <a class="reference internal" href="../reference/prism/core/component.html#lua-Component" title="Component"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Component</span></code></a> each. These are loaded
+into <a class="reference internal" href="../reference/prism/index.html#lua-prism.components" title="prism.components"><code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.components</span></code></a>.</p>
+</div>
+</section><div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">modules/components/pushable.lua</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class Pushable : Component</span>
+<span class="c1">--- @overload fun(): Pushable</span>
+<span class="kd">local</span> <span class="n">Pushable</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Component</span><span class="p">:</span><span class="n">extend</span> <span class="s2">&quot;Pushable&quot;</span>
+
+<span class="kr">return</span> <span class="n">Pushable</span>
+</pre></div>
+</div>
+</div>
+<section class="terminal-card"><header>
+Targets</header><div class="docutils container">
+<p>All files in <code class="docutils literal notranslate"><span class="pre">module/targets/</span></code> are ran.
+<a class="reference internal" href="../reference/prism/core/target.html"><span class="doc">Targets</span></a> must be registered by providing a name and a
+factory function to <a class="reference internal" href="../reference/prism/index.html#lua-prism.registerTarget" title="prism.registerTarget"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">prism.registerTarget()</span></code></a>; these are loaded into <a class="reference internal" href="../reference/prism/index.html#lua-prism.targets" title="prism.targets"><code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.targets</span></code></a>.
+Factories can accept parameters.</p>
+</div>
+</section><div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">module/targets/movetarget.lua</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">registerTarget</span><span class="p">(</span><span class="s2">&quot;MoveTarget&quot;</span><span class="p">,</span> <span class="kr">function</span><span class="p">(</span><span class="n">range</span><span class="p">)</span>
+  <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">Target</span><span class="p">():</span><span class="n">isPrototype</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">):</span><span class="n">range</span><span class="p">(</span><span class="n">range</span><span class="p">)</span>
+<span class="kr">end</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section class="terminal-card"><header>
+Cells</header><div class="docutils container">
+<p>All files in <code class="docutils literal notranslate"><span class="pre">module/cells/</span></code> are ran.
+<a class="reference internal" href="../reference/prism/core/cell.html"><span class="doc">Cells</span></a> must be registered by providing a name and a
+factory function to <a class="reference internal" href="../reference/prism/index.html#lua-prism.registerCell" title="prism.registerCell"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">prism.registerCell()</span></code></a>; these are loaded into <a class="reference internal" href="../reference/prism/index.html#lua-prism.cells" title="prism.cells"><code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.cells</span></code></a>.
+<a class="reference internal" href="../reference/prism/core/cell.html#lua-Cell.fromComponents" title="Cell.fromComponents"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Cell.fromComponents()</span></code></a> is useful here.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Factories for cells and actors can have parameters, but ensure they are optional!</p>
+</div>
+</div>
+</section><div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">module/cells/floor.lua</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">registerCell</span><span class="p">(</span><span class="s2">&quot;Floor&quot;</span><span class="p">,</span> <span class="kr">function</span><span class="p">()</span>
+  <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">Cell</span><span class="p">.</span><span class="n">fromComponents</span> <span class="p">{</span>
+      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Name</span><span class="p">(</span><span class="s2">&quot;Floor&quot;</span><span class="p">),</span>
+      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Drawable</span><span class="p">(</span><span class="mi">271</span><span class="p">),</span>
+      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Collider</span><span class="p">{</span> <span class="n">allowedMovetypes</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;walk&quot;</span> <span class="p">}</span> <span class="p">},</span>
+  <span class="p">}</span>
+<span class="kr">end</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section class="terminal-card"><header>
+Actions</header><div class="docutils container">
+<p>Files in <code class="docutils literal notranslate"><span class="pre">module/components/</span></code> are assumed to return a single <a class="reference internal" href="../reference/prism/core/action.html#lua-Action" title="Action"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Action</span></code></a> each.
+These are loaded into <a class="reference internal" href="../reference/prism/index.html#lua-prism.actions" title="prism.actions"><code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.actions</span></code></a>.</p>
+</div>
+</section><section class="terminal-card"><header>
+Actors</header><div class="docutils container">
+<p>All files in <code class="docutils literal notranslate"><span class="pre">module/actors/</span></code> are ran.
+<a class="reference internal" href="../reference/prism/core/actor.html"><span class="doc">Actors</span></a> must be registered by providing a name and a factory
+function to <a class="reference internal" href="../reference/prism/index.html#lua-prism.registerActor" title="prism.registerActor"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">prism.registerActor()</span></code></a>; these are loaded into <a class="reference internal" href="../reference/prism/index.html#lua-prism.actors" title="prism.actors"><code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.actors</span></code></a>.
+<a class="reference internal" href="../reference/prism/core/actor.html#lua-Actor.fromComponents" title="Actor.fromComponents"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Actor.fromComponents()</span></code></a> is useful here.</p>
+</div>
+</section><div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">module/actors/goblins.lua</span><a class="headerlink" href="#id4" title="Link to this code">¶</a></div>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">registerActor</span><span class="p">(</span><span class="s2">&quot;Goblin&quot;</span><span class="p">,</span> <span class="kr">function</span><span class="p">(</span><span class="n">health</span><span class="p">)</span>
+  <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">.</span><span class="n">fromComponents</span> <span class="p">{</span>
+    <span class="c1">-- goblin stuff</span>
+    <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">(</span><span class="n">health</span> <span class="ow">or</span> <span class="mi">10</span><span class="p">)</span>
+  <span class="kr">end</span>
+<span class="kr">end</span><span class="p">)</span>
+
+<span class="n">prism</span><span class="p">.</span><span class="n">registerActor</span><span class="p">(</span><span class="s2">&quot;GoblinArcher&quot;</span><span class="p">,</span> <span class="kr">function</span><span class="p">()</span>
+  <span class="kd">local</span> <span class="n">goblin</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actors</span><span class="p">.</span><span class="n">Goblin</span><span class="p">()</span>
+
+  <span class="kd">local</span> <span class="n">inventory</span> <span class="o">=</span> <span class="n">goblin</span><span class="p">:</span><span class="n">expect</span><span class="p">(</span><span class="n">Inventory</span><span class="p">)</span>
+  <span class="n">inventory</span><span class="p">:</span><span class="n">addItem</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">actors</span><span class="p">.</span><span class="n">Bow</span><span class="p">())</span>
+
+  <span class="kr">return</span> <span class="n">goblin</span>
+<span class="kr">end</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section class="terminal-card"><header>
+Messages</header><div class="docutils container">
+<p>Files in <code class="docutils literal notranslate"><span class="pre">module/messages/</span></code> are assumed to return a single <a class="reference internal" href="../reference/prism/core/message.html#lua-Message" title="Message"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Message</span></code></a> each.
+These are loaded into <a class="reference internal" href="../reference/prism/index.html#lua-prism.messages" title="prism.messages"><code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.messages</span></code></a>.</p>
+</div>
+</section><section class="terminal-card"><header>
+Decisions</header><div class="docutils container">
+<p>Files in <code class="docutils literal notranslate"><span class="pre">module/decisions/</span></code> are assumed to return a single <a class="reference internal" href="../reference/prism/core/decision.html#lua-Decision" title="Decision"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Decision</span></code></a> each.
+These are loaded into <a class="reference internal" href="../reference/prism/index.html#lua-prism.decisions" title="prism.decisions"><code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.decisions</span></code></a>.</p>
+</div>
+</section><section class="terminal-card"><header>
+Systems</header><div class="docutils container">
+<p>Files in <code class="docutils literal notranslate"><span class="pre">module/systems/</span></code> are assumed to return a single <a class="reference internal" href="../reference/prism/core/system.html#lua-System" title="System"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">System</span></code></a> each.
+These are loaded into <a class="reference internal" href="../reference/prism/index.html#lua-prism.systems" title="prism.systems"><code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.systems</span></code></a>.</p>
+</div>
+</section></div></section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/prism.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=prismrl&repo=prism&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<!--
+Taken from the sphinx library theme: https://vsalvino.github.io/sphinx-library/.
+
+MIT License
+
+Copyright (c) 2020 Vince Salvino and contributors.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<script>
+  function toggleMode(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("sphinx-terminal-mode", theme);
+  }
+  var theme = localStorage.getItem("sphinx-terminal-mode");
+  if(theme !== null)
+    toggleMode(theme);
+</script>
+<h3>Reading Mode</h3>
+
+<div class="btn-group">
+<button class="btn btn-default" type="button" onclick="toggleMode('light');">Light</button>
+<button class="btn btn-default" type="button" onclick="toggleMode('sepia');">Sepia</button>
+<button class="btn btn-default" type="button" onclick="toggleMode('dark');">Dark</button>
+</div>
+
+<noscript>
+  <div>
+    JavaScript is required to toggle reading modes.
+  </div>
+</noscript>
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../architecture-primer.html">Prism’s Architecture: A Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conventions.html">Conventions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Object registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="query.html">Queries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collision.html">Collision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../making-a-roguelike/part1.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../making-a-roguelike/part2.html">Taking flight</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../making-a-roguelike/part3.html">Starting Fights</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/prism/index.html">Prism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/spectrum/index.html">Spectrum</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../conventions.html" title="previous chapter">Conventions</a></li>
+      <li>Next: <a href="query.html" title="next chapter">Queries</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Matthew Blanchard, LJNIC.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/how-tos/object-registration.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/lua.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/terminal.css?v=ed51fc71" />
+    <link rel="stylesheet" type="text/css" href="../_static/terminal.css?v=47602536" />
     <link rel="stylesheet" type="text/css" href="../_static/goto-top/style.css?v=c152bd81" />
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
@@ -26,8 +26,8 @@
     <link rel="icon" href="../_static/prism.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Getting started" href="../making-a-roguelike/part1.html" />
-    <link rel="prev" title="Inventory" href="inventory.html" />
+    <link rel="next" title="Collision" href="collision.html" />
+    <link rel="prev" title="Object registration" href="object-registration.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -51,7 +51,7 @@
 with certain components—such as all enemies, or everyone at a specific location. Prism
 provides a built-in query system to make this easy and efficient.</p>
 <section id="basic-usage">
-<h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Link to this heading">¶</a></h2>
+<h2>Basic usage<a class="headerlink" href="#basic-usage" title="Link to this heading">¶</a></h2>
 <p>To start a query, call <a class="reference internal" href="../reference/prism/core/query.html#lua-IQueryable.query" title="IQueryable.query"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">IQueryable.query</span></code></a> with the component types you want to require. This
 interface is implemented by <a class="reference internal" href="../reference/prism/core/level.html#lua-Level" title="Level"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Level</span></code></a>, <a class="reference internal" href="../reference/prism/core/map_builder.html#lua-MapBuilder" title="MapBuilder"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">MapBuilder</span></code></a>, and <a class="reference internal" href="../reference/prism/core/actorstorage.html#lua-ActorStorage" title="ActorStorage"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">ActorStorage</span></code></a>.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">query</span> <span class="o">=</span> <span class="n">level</span><span class="p">:</span><span class="n">query</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Controller</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Collider</span><span class="p">)</span>
@@ -68,7 +68,7 @@ interface is implemented by <a class="reference internal" href="../reference/pri
 </div>
 </section>
 <section id="iterating-over-results">
-<h2>Iterating Over Results<a class="headerlink" href="#iterating-over-results" title="Link to this heading">¶</a></h2>
+<h2>Iterating over results<a class="headerlink" href="#iterating-over-results" title="Link to this heading">¶</a></h2>
 <p>Use <a class="reference internal" href="../reference/prism/core/query.html#lua-Query.iter" title="Query.iter"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Query:iter()</span></code></a> to get an iterator over matching actors and their components:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">for</span> <span class="n">actor</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="n">collider</span><span class="p">,</span> <span class="n">senses</span> <span class="kr">in</span> <span class="n">query</span><span class="p">:</span><span class="n">iter</span><span class="p">()</span> <span class="kr">do</span>
     <span class="c1">-- do stuff</span>
@@ -83,7 +83,7 @@ interface is implemented by <a class="reference internal" href="../reference/pri
 </div>
 </section>
 <section id="gathering-results">
-<h2>Gathering Results<a class="headerlink" href="#gathering-results" title="Link to this heading">¶</a></h2>
+<h2>Gathering results<a class="headerlink" href="#gathering-results" title="Link to this heading">¶</a></h2>
 <p>To gather results into a list, use <a class="reference internal" href="../reference/prism/core/query.html#lua-Query.gather" title="Query.gather"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Query:gather()</span></code></a>:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">results</span> <span class="o">=</span> <span class="n">query</span><span class="p">:</span><span class="n">gather</span><span class="p">()</span>
 
@@ -94,7 +94,7 @@ interface is implemented by <a class="reference internal" href="../reference/pri
 </div>
 </section>
 <section id="getting-a-single-result">
-<h2>Getting a Single Result<a class="headerlink" href="#getting-a-single-result" title="Link to this heading">¶</a></h2>
+<h2>Getting a single result<a class="headerlink" href="#getting-a-single-result" title="Link to this heading">¶</a></h2>
 <p>Use <code class="xref lua lua-func docutils literal notranslate"><span class="pre">Query:first()</span></code> to get the first match:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">actor</span><span class="p">,</span> <span class="n">playerController</span> <span class="o">=</span> <span class="n">level</span><span class="p">:</span><span class="n">query</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">PlayerController</span><span class="p">):</span><span class="n">first</span><span class="p">()</span>
 </pre></div>
@@ -103,7 +103,7 @@ interface is implemented by <a class="reference internal" href="../reference/pri
 First calls iter behind the scenes and discards the iterator after the first result.</p>
 </section>
 <section id="putting-it-together">
-<h2>Putting It Together<a class="headerlink" href="#putting-it-together" title="Link to this heading">¶</a></h2>
+<h2>Putting it together<a class="headerlink" href="#putting-it-together" title="Link to this heading">¶</a></h2>
 <p>Here’s an example of it all put together:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">query</span> <span class="o">=</span> <span class="n">level</span><span class="p">:</span><span class="n">query</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Controller</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Senses</span><span class="p">)</span>
     <span class="p">:</span><span class="n">with</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Senses</span><span class="p">)</span>
@@ -212,16 +212,17 @@ SOFTWARE.
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-tos</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="collision.html">Collision</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object-registration.html">Object registration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Queries</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#basic-usage">Basic Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#iterating-over-results">Iterating Over Results</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#gathering-results">Gathering Results</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#getting-a-single-result">Getting a Single Result</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#putting-it-together">Putting It Together</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-usage">Basic usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#iterating-over-results">Iterating over results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gathering-results">Gathering results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-a-single-result">Getting a single result</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#putting-it-together">Putting it together</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="collision.html">Collision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inventory.html">Inventory</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
 <ul>
@@ -239,8 +240,8 @@ SOFTWARE.
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="inventory.html" title="previous chapter">Inventory</a></li>
-      <li>Next: <a href="../making-a-roguelike/part1.html" title="next chapter">Getting started</a></li>
+      <li>Previous: <a href="object-registration.html" title="previous chapter">Object registration</a></li>
+      <li>Next: <a href="collision.html" title="next chapter">Collision</a></li>
   </ul></li>
 </ul>
 </div>

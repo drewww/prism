@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/lua.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/terminal.css?v=ed51fc71" />
+    <link rel="stylesheet" type="text/css" href="../_static/terminal.css?v=47602536" />
     <link rel="stylesheet" type="text/css" href="../_static/goto-top/style.css?v=c152bd81" />
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
@@ -26,7 +26,7 @@
     <link rel="icon" href="../_static/prism.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Queries" href="query.html" />
+    <link rel="next" title="Getting started" href="../making-a-roguelike/part1.html" />
     <link rel="prev" title="Collision" href="collision.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -90,7 +90,7 @@
 <p>You should only call <code class="docutils literal notranslate"><span class="pre">addItem</span></code> or <code class="docutils literal notranslate"><span class="pre">removeItem</span></code> from <strong>inside an action</strong>! Never mutate level state outside of actions!</p>
 </div>
 <section id="pickup-and-drop-actions">
-<h2>Pickup and Drop Actions<a class="headerlink" href="#pickup-and-drop-actions" title="Link to this heading">¶</a></h2>
+<h2>Pickup and drop actions<a class="headerlink" href="#pickup-and-drop-actions" title="Link to this heading">¶</a></h2>
 <p>Define a Pickup action that removes the item from the level and adds it to the actor’s inventory:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">PickupTarget</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Target</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;PickupTarget&quot;</span><span class="p">)</span>
 
@@ -175,7 +175,7 @@
 </div>
 </section>
 <section id="handling-pickup-input">
-<h2>Handling Pickup Input<a class="headerlink" href="#handling-pickup-input" title="Link to this heading">¶</a></h2>
+<h2>Handling pickup input<a class="headerlink" href="#handling-pickup-input" title="Link to this heading">¶</a></h2>
 <p>Now that you’ve defined the keybinding and action, handle the <code class="docutils literal notranslate"><span class="pre">pickup</span></code> input inside your levelstate’s keypressed function. This example queries for an item on the same tile as the player using the Senses component, creates a Pickup action, and sets it as the decision:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;pickup&quot;</span> <span class="kr">then</span>
     <span class="kd">local</span> <span class="n">senses</span> <span class="o">=</span> <span class="n">owner</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Senses</span><span class="p">)</span>
@@ -197,7 +197,7 @@
 <p>This approach ensures the action is only triggered when a valid item is on the player’s current tile and the action can legally be performed.</p>
 </section>
 <section id="inventory-state">
-<h2>Inventory State<a class="headerlink" href="#inventory-state" title="Link to this heading">¶</a></h2>
+<h2>Inventory state<a class="headerlink" href="#inventory-state" title="Link to this heading">¶</a></h2>
 <p>Once players can pick up and drop items, they’ll need a way to view and interact with their inventory. Below is a <strong>very basic</strong> example of a custom <a class="reference internal" href="../reference/spectrum/gamestates/meta.html#lua-GameState" title="GameState"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">GameState</span></code></a> that does just that.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -255,7 +255,7 @@
 </div>
 </section>
 <section id="pushing-the-inventory-state">
-<h2>Pushing the Inventory State<a class="headerlink" href="#pushing-the-inventory-state" title="Link to this heading">¶</a></h2>
+<h2>Pushing the inventory state<a class="headerlink" href="#pushing-the-inventory-state" title="Link to this heading">¶</a></h2>
 <p>To trigger this state when the player presses the inventory key (like <code class="docutils literal notranslate"><span class="pre">tab</span></code>), you can hook into your <cite>LevelState:keypressed</cite> handler and push the state:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">-- top of file</span>
 <span class="kd">local</span> <span class="n">InventoryState</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;gamestates.MyGameinventorystate&quot;</span>
@@ -274,7 +274,7 @@
 <p>This approach uses the decision and current level to let the inventory state interact with the game world. Any selected item can be turned into a drop action from within the state.</p>
 </section>
 <section id="creating-an-item">
-<h2>Creating an Item<a class="headerlink" href="#creating-an-item" title="Link to this heading">¶</a></h2>
+<h2>Creating an item<a class="headerlink" href="#creating-an-item" title="Link to this heading">¶</a></h2>
 <p>Now that we have an inventory system and actions to interact with it, let’s create a simple item to pick up and drop. Here’s an example actor called <code class="docutils literal notranslate"><span class="pre">Cheese</span></code> that uses the Item component.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class CheeseActor : Actor</span>
 <span class="kd">local</span> <span class="n">Cheese</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;CheeseActor&quot;</span><span class="p">)</span>
@@ -385,17 +385,18 @@ SOFTWARE.
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-tos</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="object-registration.html">Object registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="query.html">Queries</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collision.html">Collision</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Inventory</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#pickup-and-drop-actions">Pickup and Drop Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pickup-and-drop-actions">Pickup and drop actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#keybindings">Keybindings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#handling-pickup-input">Handling Pickup Input</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#inventory-state">Inventory State</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pushing-the-inventory-state">Pushing the Inventory State</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#creating-an-item">Creating an Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#handling-pickup-input">Handling pickup input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inventory-state">Inventory state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pushing-the-inventory-state">Pushing the inventory state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-an-item">Creating an item</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="query.html">Queries</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
 <ul>
@@ -414,7 +415,7 @@ SOFTWARE.
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
       <li>Previous: <a href="collision.html" title="previous chapter">Collision</a></li>
-      <li>Next: <a href="query.html" title="next chapter">Queries</a></li>
+      <li>Next: <a href="../making-a-roguelike/part1.html" title="next chapter">Getting started</a></li>
   </ul></li>
 </ul>
 </div>

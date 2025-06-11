@@ -960,9 +960,22 @@ input[type="submit"]:hover,
   padding: var(--global-space);
 }
 
+.terminal-card > div > p {
+  margin-bottom: 0;
+}
+
+.terminal-timeline > .container {
+  padding: 0;
+}
+
+div.code-block-caption {
+  font-size: inherit;
+  padding: 0;
+}
+
 .terminal-timeline {
   position: relative;
-  padding-left: 70px;
+  padding-left: 40px;
 }
 
 .terminal-timeline::before {
@@ -970,7 +983,7 @@ input[type="submit"]:hover,
   background: var(--secondary-color);
   display: inline-block;
   position: absolute;
-  left: 35px;
+  left: 8.5px;
   width: 2px;
   height: 100%;
   z-index: 400;
@@ -987,7 +1000,7 @@ input[type="submit"]:hover,
   display: inline-block;
   position: absolute;
   margin-top: 25px;
-  left: 26px;
+  left: 0;
   width: 15px;
   height: 15px;
   z-index: 400;

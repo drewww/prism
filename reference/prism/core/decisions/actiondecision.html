@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/lua.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/terminal.css?v=ed51fc71" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/terminal.css?v=47602536" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/goto-top/style.css?v=c152bd81" />
     <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
@@ -163,9 +163,10 @@ SOFTWARE.
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-tos</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../how-tos/object-registration.html">Object registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../how-tos/query.html">Queries</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../how-tos/collision.html">Collision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../how-tos/inventory.html">Inventory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../how-tos/query.html">Queries</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
 <ul>
@@ -176,14 +177,14 @@ SOFTWARE.
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Prism</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-actors"><code class="docutils literal notranslate"><span class="pre">actors</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-actions"><code class="docutils literal notranslate"><span class="pre">actions</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-components"><code class="docutils literal notranslate"><span class="pre">components</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-cells"><code class="docutils literal notranslate"><span class="pre">cells</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-targets"><code class="docutils literal notranslate"><span class="pre">targets</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-messages"><code class="docutils literal notranslate"><span class="pre">messages</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-systems"><code class="docutils literal notranslate"><span class="pre">systems</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-decisions"><code class="docutils literal notranslate"><span class="pre">decisions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.actors"><code class="docutils literal notranslate"><span class="pre">prism.actors</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.actions"><code class="docutils literal notranslate"><span class="pre">prism.actions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.components"><code class="docutils literal notranslate"><span class="pre">prism.components</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.cells"><code class="docutils literal notranslate"><span class="pre">prism.cells</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.targets"><code class="docutils literal notranslate"><span class="pre">prism.targets</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.messages"><code class="docutils literal notranslate"><span class="pre">prism.messages</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.systems"><code class="docutils literal notranslate"><span class="pre">prism.systems</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.decisions"><code class="docutils literal notranslate"><span class="pre">prism.decisions</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../action.html"><code class="docutils literal notranslate"><span class="pre">Action</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../actor.html"><code class="docutils literal notranslate"><span class="pre">Actor</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../actorstorage.html"><code class="docutils literal notranslate"><span class="pre">ActorStorage</span></code></a></li>
@@ -206,9 +207,12 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="../target.html"><code class="docutils literal notranslate"><span class="pre">Target</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../scheduler/scheduler.html"><code class="docutils literal notranslate"><span class="pre">Scheduler</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../scheduler/simple_scheduler.html"><code class="docutils literal notranslate"><span class="pre">SimpleScheduler</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-loadModule"><code class="docutils literal notranslate"><span class="pre">loadModule()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-turn"><code class="docutils literal notranslate"><span class="pre">turn()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-advanceCoroutine"><code class="docutils literal notranslate"><span class="pre">advanceCoroutine()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.loadModule"><code class="docutils literal notranslate"><span class="pre">prism.loadModule()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.registerActor"><code class="docutils literal notranslate"><span class="pre">prism.registerActor()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.registerCell"><code class="docutils literal notranslate"><span class="pre">prism.registerCell()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.registerTarget"><code class="docutils literal notranslate"><span class="pre">prism.registerTarget()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.turn"><code class="docutils literal notranslate"><span class="pre">prism.turn()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.advanceCoroutine"><code class="docutils literal notranslate"><span class="pre">prism.advanceCoroutine()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../components/collider.html"><code class="docutils literal notranslate"><span class="pre">Collider</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../components/collider.html#lua-ColliderOptions"><code class="docutils literal notranslate"><span class="pre">ColliderOptions</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../components/controller.html"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a></li>
@@ -243,8 +247,8 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="../../math/vector.html"><code class="docutils literal notranslate"><span class="pre">Vector2</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../algorithms/astar/path.html"><code class="docutils literal notranslate"><span class="pre">Path</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-PassableCallback"><code class="docutils literal notranslate"><span class="pre">PassableCallback</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-Ellipse"><code class="docutils literal notranslate"><span class="pre">Ellipse()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-Bresenham"><code class="docutils literal notranslate"><span class="pre">Bresenham()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.Ellipse"><code class="docutils literal notranslate"><span class="pre">prism.Ellipse()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.Bresenham"><code class="docutils literal notranslate"><span class="pre">prism.Bresenham()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../spectrum/index.html">Spectrum</a></li>
