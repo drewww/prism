@@ -31,6 +31,8 @@ Our discord can be found `here <https://discord.gg/9YpsH4hYVF>`_.
    :glob:
    :hidden:
 
+   how-tos/object-registration
+   how-tos/query
    how-tos/*
 
 .. toctree::

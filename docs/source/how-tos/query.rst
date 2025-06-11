@@ -5,7 +5,7 @@ Most roguelikes involve systems where you need to efficiently find actors or ent
 with certain components—such as all enemies, or everyone at a specific location. Prism
 provides a built-in query system to make this easy and efficient.
 
-Basic Usage
+Basic usage
 -----------
 
 To start a query, call :lua:func:`IQueryable.query` with the component types you want to require. This
@@ -28,7 +28,7 @@ You can also restrict the query to a single tile with :lua:func:`Query.at`.
 
     query:at(10, 5)
 
-Iterating Over Results
+Iterating over results
 ----------------------
 
 Use :lua:func:`Query.iter` to get an iterator over matching actors and their components:
@@ -47,7 +47,7 @@ Alternatively, use :lua:func:`Query.each` to apply a function to each match:
         -- do stuff
     end)
 
-Gathering Results
+Gathering results
 -----------------
 
 To gather results into a list, use :lua:func:`Query.gather`:
@@ -60,7 +60,7 @@ To gather results into a list, use :lua:func:`Query.gather`:
         -- Do something with them
     end
 
-Getting a Single Result
+Getting a single result
 -----------------------
 
 Use :lua:func:`Query:first()` to get the first match:
@@ -73,7 +73,7 @@ Good for singleton components like if your game has only one actor with a Player
 First calls iter behind the scenes and discards the iterator after the first result.
 
 
-Putting It Together
+Putting it together
 -----------------
 
 Here's an example of it all put together:

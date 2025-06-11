@@ -11,3 +11,4 @@
 definitions/
 build/
 venv/
+__pycache__
