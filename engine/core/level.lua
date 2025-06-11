@@ -248,7 +248,7 @@ end
 --- @return string? error An optional error message, if the action cannot be performed.
 function Level:canPerform(action)
    if not self:hasActor(action.owner) then return false, "Actor not inside the level!" end
-   
+
    local success, err = action:hasRequisiteComponents(action.owner)
    if not success then return false, "Actor is missing requisite component: " .. err end
 
@@ -414,7 +414,7 @@ function Level:updatePassabilityCache(x, y)
    passabilityQuery:at(x, y)
    for _, collider in passabilityQuery:iter() do
       --- @cast collider Collider
-      mask = bit.band(collider.mask, mask)
+      mask = bit.band(collider:getMask(), mask)
    end
 
    self.passableCache:setMask(x, y, mask)
@@ -489,7 +489,7 @@ function Level:findPath(start, goal, actor, mask, minDistance, distanceType)
    end
 
    local collider = actor:get(prism.components.Collider)
-   local size = collider and collider.size or 1
+   local size = collider and collider:getSize() or 1
    local function passableCallback(x, y)
       return self:getCellPassable(x, y, mask, size)
    end

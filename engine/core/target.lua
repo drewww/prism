@@ -79,7 +79,10 @@ function Target:range(range)
    --- @param owner Actor
    --- @param target any
    self.validators["range"] = function (level, owner, target)
+      if not owner:getPosition() then return false end
+
       if prism.Actor:is(target) then
+         if not target:getPosition() then return false end
          --- @cast target Actor
          return owner:getRange(target) <= self.range
       end
@@ -144,6 +147,7 @@ function Target:los(mask)
    self.validators["los"] = function(level, owner, target)
       if not prism.Actor:is(target) and not prism.Vector2:is(target) then return false end
       if not owner:getPosition() then return false end
+      
       if prism.Actor:is(target) and not target:getPosition() then return false end
 
       local i, j = owner:getPosition():decompose()
