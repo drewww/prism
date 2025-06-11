@@ -248,6 +248,7 @@ end
 --- @return string? error An optional error message, if the action cannot be performed.
 function Level:canPerform(action)
    if not self:hasActor(action.owner) then return false, "Actor not inside the level!" end
+   
    local success, err = action:hasRequisiteComponents(action.owner)
    if not success then return false, "Actor is missing requisite component: " .. err end
 
