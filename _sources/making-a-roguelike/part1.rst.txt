@@ -57,17 +57,13 @@ To make the game more engaging, let’s introduce an enemy: the
 
 .. code:: lua
 
-   --- @class Kobold : Actor
-   local Kobold = prism.Actor:extend("Kobold")
-   Kobold.name = "Kobold"
-
-   function Kobold:initialize()
-      return {
+   prism.registerActor("Kobold", function()
+      return prism.Actor.fromComponents {
+         prism.components.Position(),
          prism.components.Drawable("k", prism.Color4.RED),
       }
-   end
+   end)
 
-   return Kobold
 
 Let’s run the game again, and press ``~``. This opens Geometer, the editor.
 Click on the k on the right hand side and use the pen tool to draw a
@@ -201,7 +197,7 @@ positions and the kobold's collision mask.
    local mover = actor:get(prism.components.Mover)
    if not mover then return prism.actions.Wait() end -- we can't move!
 
-   local path = level:findPath(actor:getPosition(), player:getPosition(), 1, mover.mask)
+   local path = level:findPath(actor:getPosition(), player:getPosition(), actor, mover.mask, 1)
 
 Then we check if there's a path and move the kobold along it, using :lua:func:`Path.pop` to get the first
 position.
@@ -236,7 +232,7 @@ Jump back into the game and you should find kobolds chasing after you.
          local mover = actor:get(prism.components.Mover)
          if not mover then return prism.actions.Wait() end
 
-         local path = level:findPath(actor:getPosition(), player:getPosition(), 1, mover.mask)
+         local path = level:findPath(actor:getPosition(), player:getPosition(), actor, mover.mask, 1)
 
          if path then
             local move = prism.actions.Move(actor, path:pop())
@@ -262,15 +258,10 @@ kick.lua:
 
 .. code:: lua
 
-   --- @class KickTarget : Target
-   local KickTarget = prism.Target:extend("KickTarget")
-
-   function KickTarget:validate(owner, actor, targets)
-      ---@cast actor Actor
-      return prism.Actor:is(actor)
-         and actor:has(prism.components.Collider)
-         and owner:getRange(actor) == 1
-   end
+   local KickTarget = prism.Target()
+      :with(prism.components.Collider)
+      :range(1)
+      :sensed()
 
 With this target we’re saying you can only kick actors at range one with a collider 
 component. Then we can define the kick action, including our target. We will also require
@@ -323,17 +314,10 @@ checking passability with a custom collision mask.
 
    .. code:: lua
 
-      --- @class KickTarget : Target
-      local KickTarget = prism.Target:extend("KickTarget")
-
-      --- @param owner Actor
-      ---@param actor any
-      ---@param targets any[]
-      function KickTarget:validate(owner, actor, targets)
-         return prism.Actor:is(actor)
-            and actor:has(prism.components.Collider)
-            and owner:getRange(actor) == 1
-      end
+      local KickTarget = prism.Target()
+         :with(prism.components.Collider)
+         :range(1)
+         :sensed()
 
       ---@class KickAction : Action
       local Kick = prism.Action:extend("KickAction")
@@ -365,6 +349,7 @@ checking passability with a custom collision mask.
       end
 
       return Kick
+
 
 Kicking kobolds, for real this time
 -----------------------------------

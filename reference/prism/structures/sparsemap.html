@@ -112,6 +112,20 @@ Initializes the map and counters.</p>
 </dd></dl>
 
 <dl class="lua method">
+<dt class="sig sig-object lua" id="lua-SparseMap.eachFor">
+<span class="sig-name descname"><span class="pre">eachFor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SparseMap" title="SparseMap"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseMap</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">iter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">function</span></code></span></span><a class="headerlink" href="#lua-SparseMap.eachFor" title="Link to this definition">¶</a></dt>
+<dd><p>Returns an iterator over all (x, y) positions where the given value is stored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>val</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code>) – The value to look up.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>iter</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">function</span></code>) – An iterator yielding x, y, hash for each coordinate the value is in.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
 <dt class="sig sig-object lua" id="lua-SparseMap.count">
 <span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SparseMap" title="SparseMap"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseMap</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></span></span><a class="headerlink" href="#lua-SparseMap.count" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the total number of entries in the sparse map.</p>
@@ -195,6 +209,13 @@ Initializes the map and counters.</p>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>_1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code>) – True if the value was successfully removed, false otherwise.</p>
 </dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-SparseMap.removeAll">
+<span class="sig-name descname"><span class="pre">removeAll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SparseMap" title="SparseMap"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseMap</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-SparseMap.removeAll" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
 </dl>
 </dd></dl>
 
@@ -347,6 +368,7 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="../core/components/name.html"><code class="docutils literal notranslate"><span class="pre">Name</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../core/components/opaque.html"><code class="docutils literal notranslate"><span class="pre">Opaque</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../core/components/player_controller.html"><code class="docutils literal notranslate"><span class="pre">PlayerController</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../core/components/position.html"><code class="docutils literal notranslate"><span class="pre">Position</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../core/components/senses.html"><code class="docutils literal notranslate"><span class="pre">Senses</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../core/systems/senses.html"><code class="docutils literal notranslate"><span class="pre">SensesSystem</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../core/collision.html"><code class="docutils literal notranslate"><span class="pre">Collision</span></code></a></li>
@@ -371,12 +393,14 @@ SOFTWARE.
 <li class="toctree-l3"><a class="reference internal" href="#lua-SparseMap.get"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-SparseMap.getByHash"><code class="docutils literal notranslate"><span class="pre">getByHash()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-SparseMap.each"><code class="docutils literal notranslate"><span class="pre">each()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-SparseMap.eachFor"><code class="docutils literal notranslate"><span class="pre">eachFor()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-SparseMap.count"><code class="docutils literal notranslate"><span class="pre">count()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-SparseMap.countCell"><code class="docutils literal notranslate"><span class="pre">countCell()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-SparseMap.has"><code class="docutils literal notranslate"><span class="pre">has()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-SparseMap.contains"><code class="docutils literal notranslate"><span class="pre">contains()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-SparseMap.insert"><code class="docutils literal notranslate"><span class="pre">insert()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-SparseMap.remove"><code class="docutils literal notranslate"><span class="pre">remove()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-SparseMap.removeAll"><code class="docutils literal notranslate"><span class="pre">removeAll()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../math/bounding_box.html"><code class="docutils literal notranslate"><span class="pre">BoundingBox</span></code></a></li>

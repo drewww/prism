@@ -1,5 +1,5 @@
-.. title:: SensesTracker
-.. lua:autoobject:: SensesTracker
+.. title:: Position
+.. lua:autoobject:: Position
    :members:
    :special-members: __new
    :undoc-members:

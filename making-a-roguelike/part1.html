@@ -88,17 +88,12 @@ move this character using the following default keys:</p>
 <li><p>Create a new file named <code class="docutils literal notranslate"><span class="pre">kobold.lua</span></code>.</p></li>
 <li><p>Add the following code to define the Kobold actor:</p></li>
 </ol>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class Kobold : Actor</span>
-<span class="kd">local</span> <span class="n">Kobold</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;Kobold&quot;</span><span class="p">)</span>
-<span class="n">Kobold</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Kobold&quot;</span>
-
-<span class="kr">function</span> <span class="nc">Kobold</span><span class="p">:</span><span class="nf">initialize</span><span class="p">()</span>
-   <span class="kr">return</span> <span class="p">{</span>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">registerActor</span><span class="p">(</span><span class="s2">&quot;Kobold&quot;</span><span class="p">,</span> <span class="kr">function</span><span class="p">()</span>
+   <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">.</span><span class="n">fromComponents</span> <span class="p">{</span>
+      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Position</span><span class="p">(),</span>
       <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Drawable</span><span class="p">(</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">Color4</span><span class="p">.</span><span class="n">RED</span><span class="p">),</span>
    <span class="p">}</span>
-<span class="kr">end</span>
-
-<span class="kr">return</span> <span class="n">Kobold</span>
+<span class="kr">end</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Let’s run the game again, and press <code class="docutils literal notranslate"><span class="pre">~</span></code>. This opens Geometer, the editor.
@@ -216,7 +211,7 @@ positions and the kobold’s collision mask.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">mover</span> <span class="o">=</span> <span class="n">actor</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Mover</span><span class="p">)</span>
 <span class="kr">if</span> <span class="ow">not</span> <span class="n">mover</span> <span class="kr">then</span> <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Wait</span><span class="p">()</span> <span class="kr">end</span> <span class="c1">-- we can&#39;t move!</span>
 
-<span class="kd">local</span> <span class="n">path</span> <span class="o">=</span> <span class="n">level</span><span class="p">:</span><span class="n">findPath</span><span class="p">(</span><span class="n">actor</span><span class="p">:</span><span class="n">getPosition</span><span class="p">(),</span> <span class="n">player</span><span class="p">:</span><span class="n">getPosition</span><span class="p">(),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mover</span><span class="p">.</span><span class="n">mask</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">path</span> <span class="o">=</span> <span class="n">level</span><span class="p">:</span><span class="n">findPath</span><span class="p">(</span><span class="n">actor</span><span class="p">:</span><span class="n">getPosition</span><span class="p">(),</span> <span class="n">player</span><span class="p">:</span><span class="n">getPosition</span><span class="p">(),</span> <span class="n">actor</span><span class="p">,</span> <span class="n">mover</span><span class="p">.</span><span class="n">mask</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Then we check if there’s a path and move the kobold along it, using <a class="reference internal" href="../reference/prism/algorithms/astar/path.html#lua-Path.pop" title="Path.pop"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Path:pop()</span></code></a> to get the first
@@ -247,7 +242,7 @@ position.</p>
    <span class="kd">local</span> <span class="n">mover</span> <span class="o">=</span> <span class="n">actor</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Mover</span><span class="p">)</span>
    <span class="kr">if</span> <span class="ow">not</span> <span class="n">mover</span> <span class="kr">then</span> <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Wait</span><span class="p">()</span> <span class="kr">end</span>
 
-   <span class="kd">local</span> <span class="n">path</span> <span class="o">=</span> <span class="n">level</span><span class="p">:</span><span class="n">findPath</span><span class="p">(</span><span class="n">actor</span><span class="p">:</span><span class="n">getPosition</span><span class="p">(),</span> <span class="n">player</span><span class="p">:</span><span class="n">getPosition</span><span class="p">(),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mover</span><span class="p">.</span><span class="n">mask</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">path</span> <span class="o">=</span> <span class="n">level</span><span class="p">:</span><span class="n">findPath</span><span class="p">(</span><span class="n">actor</span><span class="p">:</span><span class="n">getPosition</span><span class="p">(),</span> <span class="n">player</span><span class="p">:</span><span class="n">getPosition</span><span class="p">(),</span> <span class="n">actor</span><span class="p">,</span> <span class="n">mover</span><span class="p">.</span><span class="n">mask</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
    <span class="kr">if</span> <span class="n">path</span> <span class="kr">then</span>
       <span class="kd">local</span> <span class="n">move</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Move</span><span class="p">(</span><span class="n">actor</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span><span class="n">pop</span><span class="p">())</span>
@@ -270,15 +265,10 @@ position.</p>
 We’ll need to create our first action. Head over to <code class="docutils literal notranslate"><span class="pre">/modules/MyGame/actions</span></code> and add kick.lua.</p>
 <p>Let’s first create a target for our kick. Put this at the top of
 kick.lua:</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class KickTarget : Target</span>
-<span class="kd">local</span> <span class="n">KickTarget</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Target</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;KickTarget&quot;</span><span class="p">)</span>
-
-<span class="kr">function</span> <span class="nc">KickTarget</span><span class="p">:</span><span class="nf">validate</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">actor</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
-   <span class="c1">---@cast actor Actor</span>
-   <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
-      <span class="ow">and</span> <span class="n">actor</span><span class="p">:</span><span class="n">has</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Collider</span><span class="p">)</span>
-      <span class="ow">and</span> <span class="n">owner</span><span class="p">:</span><span class="n">getRange</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
-<span class="kr">end</span>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">KickTarget</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Target</span><span class="p">()</span>
+   <span class="p">:</span><span class="n">with</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Collider</span><span class="p">)</span>
+   <span class="p">:</span><span class="n">range</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+   <span class="p">:</span><span class="n">sensed</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>With this target we’re saying you can only kick actors at range one with a collider
@@ -326,17 +316,10 @@ checking passability with a custom collision mask.</p>
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">Complete kick.lua</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text"><a class="reference external" href="https://github.com/PrismRL/prism-tutorial/blob/part1/modules/MyGame/actions/kick.lua">Source</a></p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class KickTarget : Target</span>
-<span class="kd">local</span> <span class="n">KickTarget</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Target</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;KickTarget&quot;</span><span class="p">)</span>
-
-<span class="c1">--- @param owner Actor</span>
-<span class="c1">---@param actor any</span>
-<span class="c1">---@param targets any[]</span>
-<span class="kr">function</span> <span class="nc">KickTarget</span><span class="p">:</span><span class="nf">validate</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">actor</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
-   <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
-      <span class="ow">and</span> <span class="n">actor</span><span class="p">:</span><span class="n">has</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Collider</span><span class="p">)</span>
-      <span class="ow">and</span> <span class="n">owner</span><span class="p">:</span><span class="n">getRange</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
-<span class="kr">end</span>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">KickTarget</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Target</span><span class="p">()</span>
+   <span class="p">:</span><span class="n">with</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Collider</span><span class="p">)</span>
+   <span class="p">:</span><span class="n">range</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+   <span class="p">:</span><span class="n">sensed</span><span class="p">()</span>
 
 <span class="c1">---@class KickAction : Action</span>
 <span class="kd">local</span> <span class="n">Kick</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Action</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;KickAction&quot;</span><span class="p">)</span>
