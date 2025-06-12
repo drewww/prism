@@ -36,9 +36,10 @@ end
 --- Adds a custom filter to the target, for any cases not covered by the built-in methods.
 --- Examples might include targetting enemies with low health, or carrying a certain item.
 --- The order of filter application is not guaranteed!
---- @param filter fun(level: Level, owner: Actor, targetObject: any, previousTargets: any[])
+--- @param filter fun(level: Level, owner: Actor, targetObject: any, previousTargets: any[]): boolean
 function Target:filter(filter)
    table.insert(self.validators, filter)
+   return self
 end
 
 --- Adds a list of components that the target object must have.
