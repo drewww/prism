@@ -47,8 +47,7 @@
             
   <section id="starting-fights">
 <h1>Starting Fights<a class="headerlink" href="#starting-fights" title="Link to this heading">¶</a></h1>
-<p>Kobolds are dangerous creatures, but right now our Kobold is pretty harmless. Let’s add a Health component
-and an Attack action to support combat.</p>
+<p>Kicking kobolds is fun. Let’s make it so you can kick them to death!</p>
 <section id="getting-healthy">
 <h2>Getting Healthy<a class="headerlink" href="#getting-healthy" title="Link to this heading">¶</a></h2>
 <ol class="arabic simple">
@@ -70,60 +69,19 @@ and an Attack action to support combat.</p>
 </div>
 <p>The Health component is really simple, it tracks the actor’s hp and maxHP.</p>
 </section>
-<section id="giving-the-player-and-kobold-hp">
-<h2>Giving the Player and Kobold HP<a class="headerlink" href="#giving-the-player-and-kobold-hp" title="Link to this heading">¶</a></h2>
+<section id="giving-the-kobolds-hp">
+<h2>Giving the Kobolds HP<a class="headerlink" href="#giving-the-kobolds-hp" title="Link to this heading">¶</a></h2>
 <p>Let’s go ahead and add the Health component to both our kobold and the player. I’m going to trust that you
 know where to put these by this point in the tutorial.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">-- kobold.lua</span>
 <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
-
-<span class="c1">-- player.lua</span>
-<span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
 </pre></div>
 </div>
-<p>Great, let’s run the game. We’ve got HP and so does the Kobold but it’s kind of hard to tell! Let’s show
-the player their health.</p>
-</section>
-<section id="adding-hp-to-the-user-interface">
-<h2>Adding HP to the User Interface<a class="headerlink" href="#adding-hp-to-the-user-interface" title="Link to this heading">¶</a></h2>
-<p>Navigate to <code class="docutils literal notranslate"><span class="pre">gamestates/MyGamelevelstate.lua</span></code> and replace the following line
-in MyGameLevelState:draw.</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">putString</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Hello prism!&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>You’re going to replace this with the following.</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">health</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">decision</span><span class="p">.</span><span class="n">actor</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">)</span>
-<span class="kr">if</span> <span class="n">health</span> <span class="kr">then</span>
-   <span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">putString</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;HP: &quot;</span> <span class="o">..</span> <span class="n">health</span><span class="p">.</span><span class="n">hp</span><span class="p">)</span>
-<span class="kr">end</span>
-</pre></div>
-</div>
-</section>
-<section id="implementing-the-attacker-component">
-<h2>Implementing the Attacker Component<a class="headerlink" href="#implementing-the-attacker-component" title="Link to this heading">¶</a></h2>
-<p>Okay so our actors have some health now, we need to get attacking going.</p>
-<ol class="arabic simple">
-<li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">modules/MyGame/components</span></code></p></li>
-<li><p>Create a new file named <code class="docutils literal notranslate"><span class="pre">attacker.lua</span></code></p></li>
-</ol>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class Attacker : Component</span>
-<span class="kd">local</span> <span class="n">Attacker</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Component</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;Attacker&quot;</span><span class="p">)</span>
-
-<span class="kr">function</span> <span class="nc">Attacker</span><span class="p">:</span><span class="nf">__new</span><span class="p">(</span><span class="n">damage</span><span class="p">)</span>
-   <span class="n">self</span><span class="p">.</span><span class="n">damage</span> <span class="o">=</span> <span class="n">damage</span>
-<span class="kr">end</span>
-
-<span class="kr">return</span> <span class="n">Attacker</span>
-</pre></div>
-</div>
-<p>For now the Attacker component is really simple, just tracking the damage the actor does. In the future
-we’ll add a to hit bonus, and ways to override or modify these base values for equipment, potions, etc.</p>
 </section>
 <section id="implementing-the-die-action">
 <h2>Implementing the Die Action<a class="headerlink" href="#implementing-the-die-action" title="Link to this heading">¶</a></h2>
-<p>Before we get to the Attack action we’re gonna need one more ingredient, a Die action. In the previous chapter
-when an actor fell down the pit we simply removed them from the level, but we’re gonna want to be able to listen
-for actors dying in a system by the end of this chapter. So let’s turn the act of dying into it’s own action.</p>
+<p>Before we get to the Kick action doing damage we’re gonna need one more ingredient, a Die action.
+Let’s turn the act of dying into it’s own action so that we can centralize the logic.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">---@class Die : Action</span>
 <span class="kd">local</span> <span class="n">Die</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Action</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;Die&quot;</span><span class="p">)</span>
 
@@ -134,196 +92,64 @@ for actors dying in a system by the end of this chapter. So let’s turn the act
 <span class="kr">return</span> <span class="n">Die</span>
 </pre></div>
 </div>
-<p>Die is a really simple action, pretty much just a wrapper for removing an actor from the level. We’re only
-doing this so that we can see if the player dies and send a “game over” message to the user interface near
-the end of this chapter.</p>
+<p>Die is a really simple action, pretty much just a wrapper for removing an actor from the level.</p>
 </section>
 <section id="making-fall-use-die">
 <h2>Making Fall Use Die<a class="headerlink" href="#making-fall-use-die" title="Link to this heading">¶</a></h2>
 <p>Now that we’ve got the Die action, let’s test it by changing the Fall action to use it instead of just removing
 the actor from the level.</p>
 <p>Navigate to <code class="docutils literal notranslate"><span class="pre">modules/MyGame/actions/fall.lua</span></code> and replace the single line in it’s perform with the following:</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">level</span><span class="p">:</span><span class="n">performAction</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Die</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">))</span>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">level</span><span class="p">:</span><span class="n">perform</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Die</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
-<section id="implementing-the-attack-action">
-<h2>Implementing the Attack Action<a class="headerlink" href="#implementing-the-attack-action" title="Link to this heading">¶</a></h2>
-<p>Okay, finally! We’re going to make the attack action!</p>
-<ol class="arabic simple">
-<li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">modules/MyGame/actons</span></code></p></li>
-<li><p>Create a new file named <code class="docutils literal notranslate"><span class="pre">attack.lua</span></code></p></li>
-</ol>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">AttackTarget</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Target</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;AttackTarget&quot;</span><span class="p">)</span>
+<section id="doing-damage">
+<h2>Doing Damage<a class="headerlink" href="#doing-damage" title="Link to this heading">¶</a></h2>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">DamageTarget</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Target</span><span class="p">()</span>
+   <span class="p">:</span><span class="n">filter</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+      <span class="kr">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;number&quot;</span>
+   <span class="kr">end</span><span class="p">)</span>
 
-<span class="c1">--- @param owner Actor</span>
-<span class="c1">--- @param targetObject any</span>
-<span class="kr">function</span> <span class="nc">AttackTarget</span><span class="p">:</span><span class="nf">validate</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">targetObject</span><span class="p">)</span>
-   <span class="kr">return</span>
-      <span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">targetObject</span><span class="p">)</span> <span class="ow">and</span>
-      <span class="n">targetObject</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">)</span> <span class="ow">and</span>
-      <span class="n">owner</span><span class="p">:</span><span class="n">getRange</span><span class="p">(</span><span class="n">targetObject</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="kd">local</span> <span class="n">Damage</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Action</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;Damage&quot;</span><span class="p">)</span>
+<span class="n">Damage</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Damage&quot;</span>
+<span class="n">Damage</span><span class="p">.</span><span class="n">targets</span> <span class="o">=</span> <span class="p">{</span> <span class="n">DamageTarget</span> <span class="p">}</span>
+
+<span class="kr">function</span> <span class="nc">Damage</span><span class="p">:</span><span class="nf">getRequirements</span><span class="p">()</span>
+   <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span>
 <span class="kr">end</span>
 
-<span class="c1">---@class Attack : Action</span>
-<span class="kd">local</span> <span class="n">Attack</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Action</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;Attack&quot;</span><span class="p">)</span>
-<span class="n">Attack</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;attack&quot;</span>
-<span class="n">Attack</span><span class="p">.</span><span class="n">targets</span> <span class="o">=</span> <span class="p">{</span> <span class="n">AttackTarget</span> <span class="p">}</span>
-<span class="n">Attack</span><span class="p">.</span><span class="n">requiredComponents</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Controller</span><span class="p">,</span>
-      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Attacker</span>
-<span class="p">}</span>
-
-<span class="c1">--- @param level Level</span>
-<span class="c1">--- @param target Actor</span>
-<span class="kr">function</span> <span class="nc">Attack</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
-   <span class="kd">local</span> <span class="n">health</span> <span class="o">=</span> <span class="n">target</span><span class="p">:</span><span class="n">expect</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">)</span>
-   <span class="kd">local</span> <span class="n">attacker</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">expect</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Attacker</span><span class="p">)</span>
-   <span class="n">health</span><span class="p">.</span><span class="n">hp</span> <span class="o">=</span> <span class="n">health</span><span class="p">.</span><span class="n">hp</span> <span class="o">-</span> <span class="n">attacker</span><span class="p">.</span><span class="n">damage</span>
+<span class="kr">function</span> <span class="nc">Damage</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">damage</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">health</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">expect</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">)</span>
+   <span class="n">health</span><span class="p">.</span><span class="n">hp</span> <span class="o">=</span> <span class="n">health</span><span class="p">.</span><span class="n">hp</span> <span class="o">-</span> <span class="n">damage</span>
 
    <span class="kr">if</span> <span class="n">health</span><span class="p">.</span><span class="n">hp</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="kr">then</span>
-      <span class="n">level</span><span class="p">:</span><span class="n">performAction</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Die</span><span class="p">(</span><span class="n">target</span><span class="p">))</span>
+      <span class="n">level</span><span class="p">:</span><span class="n">perform</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Die</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">))</span>
    <span class="kr">end</span>
 <span class="kr">end</span>
 
-<span class="kr">return</span> <span class="n">Attack</span>
+<span class="kr">return</span> <span class="n">Damage</span>
 </pre></div>
 </div>
-<p>We set up an Attack target which checks if the target is an actor, at range 1, with a health component.</p>
-<p>Our perform action subtracts the Attacker’s damage from the target’s health. In most Roguelikes you’d have
-some kind of to-hit or armor calculation, and we’ll get there. For now though we want to get Attack working.</p>
 </section>
-<section id="making-kobolds-dangerous">
-<h2>Making Kobolds Dangerous<a class="headerlink" href="#making-kobolds-dangerous" title="Link to this heading">¶</a></h2>
-<p>First let’s give the kobold a new component, the Attacker component.</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Attacker</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1">-- deals 1 damage</span>
-</pre></div>
-</div>
-<p>Now we make our way over to koboldcontroller.lua and add the attack action.</p>
-<p>Now let’s head back into the game and spawn a kobold with geometer. Let it attack you a few times and you’ll
-see your health decreasing. Let that kobold get you to zero hit points.</p>
-</section>
-<section id="uh-oh">
-<h2>Uh Oh!<a class="headerlink" href="#uh-oh" title="Link to this heading">¶</a></h2>
-<p>You died and the window froze. What happened? The Level logic runs on a Lua couroutine, you can think of it
-kind of like a cooperative thread. The Level runs then it passes the baton with a note around it called a Message.</p>
-<p>Let’s create a simple stub message called GameOver.</p>
-<ol class="arabic simple">
-<li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">modules/MyGame</span></code></p></li>
-<li><p>Create a new folder called <code class="docutils literal notranslate"><span class="pre">messages</span></code></p></li>
-<li><p>In <code class="docutils literal notranslate"><span class="pre">modules/MyGame/messages</span></code> create a new file named <code class="docutils literal notranslate"><span class="pre">gameover.lua</span></code></p></li>
-</ol>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">---@class GameOverMessage : Message</span>
-<span class="kd">local</span> <span class="n">GameOverMessage</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Message</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;GameOverMessage&quot;</span><span class="p">)</span>
+<section id="making-kick-do-damage">
+<h2>Making Kick do Damage<a class="headerlink" href="#making-kick-do-damage" title="Link to this heading">¶</a></h2>
+<p>Let’s head back to <code class="docutils literal notranslate"><span class="pre">modules/MyGame/actions/kick.lua</span></code> and at the end of Kick:perform we’re going to add the
+following:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">Kick</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">kicked</span><span class="p">)</span>
+   <span class="p">...</span>
 
-<span class="kr">return</span> <span class="n">GameOverMessage</span>
-</pre></div>
-</div>
-<p>This doesn’t really need any additional information in it, it’s only sent to let the UI know that the game has
-ended.</p>
-<p>In this case the last actor with a PlayerController dies and the Level just keeps on going! This is because Level
-stops passing any messages. We need to pass a message to the UI that tells it the player has died and to show a
-game over screen.</p>
-<ol class="arabic simple">
-<li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">modules/MyGame/systems</span></code></p></li>
-<li><p>Create a new file called <code class="docutils literal notranslate"><span class="pre">losecondition.lua</span></code></p></li>
-</ol>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class LoseCondition : System</span>
-<span class="kd">local</span> <span class="n">LoseCondition</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">System</span><span class="p">:</span><span class="n">extend</span> <span class="s2">&quot;LoseCondition&quot;</span>
-
-
-<span class="kr">function</span> <span class="nc">LoseCondition</span><span class="p">:</span><span class="nf">afterAction</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">actor</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
-   <span class="kr">if</span> <span class="ow">not</span> <span class="n">actor</span><span class="p">:</span><span class="n">has</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">PlayerController</span><span class="p">)</span> <span class="kr">then</span> <span class="kr">return</span> <span class="kr">end</span>
-   <span class="kr">if</span> <span class="ow">not</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Die</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">action</span><span class="p">)</span> <span class="kr">then</span> <span class="kr">return</span> <span class="kr">end</span>
-
-   <span class="c1">-- It&#39;s the player and they&#39;re dying. Time to let the user interface know the game is</span>
-   <span class="c1">-- over.</span>
-   <span class="n">level</span><span class="p">:</span><span class="n">yield</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">messages</span><span class="p">.</span><span class="n">GameOver</span><span class="p">())</span>
-<span class="kr">end</span>
-
-<span class="kr">return</span> <span class="n">LoseCondition</span>
-</pre></div>
-</div>
-<p>We hook into afterAction and check if the actor had a PlayerController and the action they just finished
-was die. If both of these are true the player lost the game.</p>
-</section>
-<section id="game-over-screen">
-<h2>Game Over Screen<a class="headerlink" href="#game-over-screen" title="Link to this heading">¶</a></h2>
-<p>We’re going to want to create a new GameState for the game over screen. I’m going to leave making
-it pretty an exercise for the reader, and we’re going to keep it really simple.</p>
-<ol class="arabic simple">
-<li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">gamestates</span></code>.</p></li>
-<li><p>Create a new file called <code class="docutils literal notranslate"><span class="pre">gameoverstate.lua</span></code></p></li>
-</ol>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class GameOverState : GameState</span>
-<span class="c1">--- @field display Display</span>
-<span class="c1">--- @overload fun(display: Display): GameOverState</span>
-<span class="kd">local</span> <span class="n">GameOverState</span> <span class="o">=</span> <span class="n">spectrum</span><span class="p">.</span><span class="n">GameState</span><span class="p">:</span><span class="n">extend</span> <span class="s2">&quot;GameOverState&quot;</span>
-
-<span class="kr">function</span> <span class="nc">GameOverState</span><span class="p">:</span><span class="nf">__new</span><span class="p">(</span><span class="n">display</span><span class="p">)</span>
-   <span class="n">self</span><span class="p">.</span><span class="n">display</span> <span class="o">=</span> <span class="n">display</span>
-<span class="kr">end</span>
-
-<span class="kr">function</span> <span class="nc">GameOverState</span><span class="p">:</span><span class="nf">draw</span><span class="p">()</span>
-   <span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">clear</span><span class="p">()</span>
-   <span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">putString</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Game Over!&quot;</span><span class="p">)</span>
-   <span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">draw</span><span class="p">()</span>
-<span class="kr">end</span>
-
-<span class="kr">return</span> <span class="n">GameOverState</span>
-</pre></div>
-</div>
-<p>Nothing too crazy, we create a new gamestate that takes a display and draws “Game Over!” in the top left using it.
-Now, finally, we’re going to handle the GameOverMessage in MyGameLevelState.</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">MyGameLevelState</span><span class="p">:</span><span class="nf">handleMessage</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-   <span class="n">spectrum</span><span class="p">.</span><span class="n">LevelState</span><span class="p">.</span><span class="n">handleMessage</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
-
-   <span class="kr">if</span> <span class="n">prism</span><span class="p">.</span><span class="n">messages</span><span class="p">.</span><span class="n">GameOver</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="kr">then</span>
-      <span class="n">self</span><span class="p">.</span><span class="n">manager</span><span class="p">:</span><span class="n">enter</span><span class="p">(</span><span class="n">GameOverState</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">))</span>
+   <span class="kd">local</span> <span class="n">damage</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Damage</span><span class="p">(</span><span class="n">kicked</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+   <span class="kr">if</span> <span class="n">level</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">damage</span><span class="p">)</span> <span class="kr">then</span>
+      <span class="n">level</span><span class="p">:</span><span class="n">perform</span><span class="p">(</span><span class="n">damage</span><span class="p">)</span>
    <span class="kr">end</span>
 <span class="kr">end</span>
 </pre></div>
 </div>
-<p>Our handleMessage function listens for messages from the Level, and in this case when it gets the GameOver message we know
-it’s time to trash this levelstate and show the GameOverState instead!</p>
 </section>
-<section id="wrapping-up">
-<h2>Wrapping Up<a class="headerlink" href="#wrapping-up" title="Link to this heading">¶</a></h2>
-<p>The last thing we’ve got to do now is give the Player the attacker component, and change some of the keypressed handling.</p>
-<p>Head over to the player file and add the following:</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Attacker</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Now let’s make our way to MyGameLevelState and add in some logic for making attacks.</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">-- MyGamelevelstate.lua</span>
-<span class="c1">-- keypressed()</span>
-
-<span class="c1">-- line 127</span>
-<span class="kd">local</span> <span class="n">target</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">:</span><span class="n">query</span><span class="p">()</span> <span class="c1">-- grab a query object</span>
-   <span class="p">:</span><span class="n">at</span><span class="p">(</span><span class="n">destination</span><span class="p">:</span><span class="n">decompose</span><span class="p">())</span> <span class="c1">-- restrict the query to the destination</span>
-   <span class="p">:</span><span class="n">first</span><span class="p">()</span> <span class="c1">-- grab one of the kickable things, or nil</span>
-
-<span class="kr">if</span> <span class="n">love</span><span class="p">.</span><span class="n">keyboard</span><span class="p">.</span><span class="n">isDown</span><span class="p">(</span><span class="s2">&quot;lshift&quot;</span><span class="p">)</span> <span class="kr">then</span>
-   <span class="kd">local</span> <span class="n">kick</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Kick</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
-   <span class="kr">if</span> <span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">kick</span><span class="p">)</span> <span class="kr">then</span>
-      <span class="n">decision</span><span class="p">:</span><span class="n">setAction</span><span class="p">(</span><span class="n">kick</span><span class="p">)</span>
-   <span class="kr">end</span>
-<span class="kr">else</span>
-   <span class="kd">local</span> <span class="n">attack</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Attack</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
-   <span class="kr">if</span> <span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">attack</span><span class="p">)</span> <span class="kr">then</span>
-      <span class="n">decision</span><span class="p">:</span><span class="n">setAction</span><span class="p">(</span><span class="n">attack</span><span class="p">)</span>
-   <span class="kr">end</span>
-<span class="kr">end</span>
-</pre></div>
-</div>
-<p>Okay and we’re finally done! Now the player can attack, but if they hold shift they can still
-kick.</p>
-</section>
-<section id="in-the-next-section">
-<h2>In the Next Section<a class="headerlink" href="#in-the-next-section" title="Link to this heading">¶</a></h2>
-<p>We’ve got attacking working now and we can lose hp and die and so can the kobolds! There’s a little
-bit of a problem, though. It’s hard to tell what’s going on! In the next section of the tutorial we’ll
-be adding a message log.</p>
+<section id="that-s-all-for-now">
+<h2>That’s All for Now<a class="headerlink" href="#that-s-all-for-now" title="Link to this heading">¶</a></h2>
+<p>In the next chapter we’ll implement the player health, make kobolds dangerous by giving them the attack action,
+and implement the required logic for the player dying.</p>
 </section>
 </section>
 
@@ -428,17 +254,12 @@ SOFTWARE.
 <li class="toctree-l1"><a class="reference internal" href="part2.html">Taking flight</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Starting Fights</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#getting-healthy">Getting Healthy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#giving-the-player-and-kobold-hp">Giving the Player and Kobold HP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#adding-hp-to-the-user-interface">Adding HP to the User Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#implementing-the-attacker-component">Implementing the Attacker Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#giving-the-kobolds-hp">Giving the Kobolds HP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#implementing-the-die-action">Implementing the Die Action</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#making-fall-use-die">Making Fall Use Die</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#implementing-the-attack-action">Implementing the Attack Action</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#making-kobolds-dangerous">Making Kobolds Dangerous</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#uh-oh">Uh Oh!</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#game-over-screen">Game Over Screen</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#wrapping-up">Wrapping Up</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#in-the-next-section">In the Next Section</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#doing-damage">Doing Damage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#making-kick-do-damage">Making Kick do Damage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#that-s-all-for-now">That’s All for Now</a></li>
 </ul>
 </li>
 </ul>
