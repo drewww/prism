@@ -10,9 +10,6 @@ end
 --- @module "spectrum.camera"
 spectrum.Camera = spectrum.require "camera"
 
---- @module "spectrum.sensestracker"
-spectrum.SensesTracker = spectrum.require "sensestracker"
-
 --- @module "spectrum.spriteatlas"
 spectrum.SpriteAtlas = spectrum.require "spriteatlas"
 
