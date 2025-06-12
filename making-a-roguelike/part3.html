@@ -71,7 +71,7 @@
 </section>
 <section id="giving-the-kobolds-hp">
 <h2>Giving the Kobolds HP<a class="headerlink" href="#giving-the-kobolds-hp" title="Link to this heading">¶</a></h2>
-<p>Let’s go ahead and add the Health component to both our kobold and the player. I’m going to trust that you
+<p>Let’s go ahead and add the Health component to  our kobold. I’m going to trust that you
 know where to put these by this point in the tutorial.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">-- kobold.lua</span>
 <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
@@ -105,6 +105,8 @@ the actor from the level.</p>
 </section>
 <section id="doing-damage">
 <h2>Doing Damage<a class="headerlink" href="#doing-damage" title="Link to this heading">¶</a></h2>
+<p>Next we’re going to add the Damage action. This accepts a single target, the amount of damage to be taken.
+It modifies the health of the target and if it’s at or below zero we trigger the Die action we just added.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">DamageTarget</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Target</span><span class="p">()</span>
    <span class="p">:</span><span class="n">filter</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
       <span class="kr">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;number&quot;</span>

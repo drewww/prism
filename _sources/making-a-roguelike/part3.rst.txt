@@ -28,7 +28,7 @@ The Health component is really simple, it tracks the actor's hp and maxHP.
 Giving the Kobolds HP
 ---------------------
 
-Let's go ahead and add the Health component to both our kobold and the player. I'm going to trust that you
+Let's go ahead and add the Health component to  our kobold. I'm going to trust that you
 know where to put these by this point in the tutorial.
 
 .. code:: lua  
@@ -69,6 +69,9 @@ Navigate to ``modules/MyGame/actions/fall.lua`` and replace the single line in i
 
 Doing Damage
 ------------
+
+Next we're going to add the Damage action. This accepts a single target, the amount of damage to be taken.
+It modifies the health of the target and if it's at or below zero we trigger the Die action we just added.
 
 .. code:: lua
 
