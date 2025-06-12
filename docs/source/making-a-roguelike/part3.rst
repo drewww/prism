@@ -76,9 +76,7 @@ It modifies the health of the target and if it's at or below zero we trigger the
 .. code:: lua
 
    local DamageTarget = prism.Target()
-      :filter(function(_, _, target)
-         return type(target) == "number"
-      end)
+      :isType("number")
 
    local Damage = prism.Action:extend("Damage")
    Damage.name = "Damage"
