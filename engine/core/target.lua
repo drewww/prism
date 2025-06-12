@@ -113,6 +113,14 @@ function Target:isPrototype(type)
    return self
 end
 
+function Target:isType(string)
+   self.validators["luatype"] = function (_, _, target)
+      return type(target) == string
+   end
+
+   return self
+end
+
 --- Checks if the target is an Actor or Vector2 and if the owner can sense that target.
 function Target:sensed()
    self.validators["sensed"] = function(level, owner, target)
