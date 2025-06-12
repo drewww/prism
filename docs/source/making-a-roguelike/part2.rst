@@ -24,7 +24,6 @@ Put the following into ``void.lua``:
 
    --- @class Void : Component
    local Void = prism.Component:extend("Void")
-   Void.name = "Void"
 
    return Void
 
@@ -100,7 +99,7 @@ with :lua:func:`Collision.checkBitmaskOverlap` to accomplish that check:
 
 .. dropdown:: Complete fall.lua
 
-   `Source <https://github.com/PrismRL/prism-tutorial/blob/part3/modules/MyGame/actions/fall.lua>`_
+   `Source <https://github.com/PrismRL/Kicking-Kobolds/blob/part2/modules/MyGame/actions/fall.lua>`_
 
    .. code:: lua
 

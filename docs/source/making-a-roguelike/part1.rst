@@ -144,27 +144,22 @@ behaviour doesn't make for a great game. Let's make them follow the player aroun
 
 .. dropdown:: Complete kobold.lua
 
-   `Source <https://github.com/PrismRL/prism-tutorial/blob/part1/modules/MyGame/actors/kobold.lua>`_
+   `Source <https://github.com/PrismRL/Kicking-Kobolds/blob/part1/modules/MyGame/actors/kobold.lua>`_
 
    .. code:: lua
 
-      --- @class Kobold : Actor
-      local Kobold = prism.Actor:extend("Kobold")
-      Kobold.name = "Kobold"
-
-      function Kobold:initialize()
-         return {
-            prism.components.Drawable(string.byte("k") + 1, prism.Color4.RED),
+      prism.registerActor("Kobold", function()
+         return prism.Actor.fromComponents {
+            prism.components.Name("Kobold"),
+            prism.components.Position(),
             prism.components.Collider(),
+            prism.components.Drawable("k", prism.Color4.RED),
             prism.components.Senses(),
             prism.components.Sight{ range = 12, fov = true },
             prism.components.Mover{ "walk" },
             prism.components.KoboldController()
          }
-      end
-
-      return Kobold
-
+      end)
 
 Pathfinding
 -----------
@@ -215,7 +210,7 @@ Jump back into the game and you should find kobolds chasing after you.
 
 .. dropdown:: Complete koboldcontroller.lua
 
-   `Source <https://github.com/PrismRL/prism-tutorial/blob/part1/modules/MyGame/components/koboldcontroller.lua>`_
+   `Source <https://github.com/PrismRL/Kicking-Kobolds/blob/part1/modules/MyGame/components/koboldcontroller.lua>`_
 
    .. code:: lua
 
@@ -310,7 +305,7 @@ checking passability with a custom collision mask.
 
 .. dropdown:: Complete kick.lua
 
-   `Source <https://github.com/PrismRL/prism-tutorial/blob/part1/modules/MyGame/actions/kick.lua>`_
+   `Source <https://github.com/PrismRL/Kicking-Kobolds/blob/part1/modules/MyGame/actions/kick.lua>`_
 
    .. code:: lua
 
