@@ -177,7 +177,7 @@ with <a class="reference internal" href="../reference/prism/core/collision.html#
    <span class="kd">local</span> <span class="n">fall</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Fall</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
 
    <span class="kr">if</span> <span class="n">level</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">fall</span><span class="p">)</span> <span class="kr">then</span>
-      <span class="n">level</span><span class="p">:</span><span class="n">performAction</span><span class="p">(</span><span class="n">fall</span><span class="p">)</span>
+      <span class="n">level</span><span class="p">:</span><span class="n">perform</span><span class="p">(</span><span class="n">fall</span><span class="p">)</span>
    <span class="kr">end</span>
 <span class="kr">end</span>
 
@@ -187,6 +187,18 @@ with <a class="reference internal" href="../reference/prism/core/collision.html#
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>See <a class="reference internal" href="../reference/prism/core/system.html#lua-System" title="System"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">System</span></code></a> for a listing of events you can hook into!</p>
+</div>
+</section>
+<section id="registering-the-fall-system">
+<h2>Registering the Fall system<a class="headerlink" href="#registering-the-fall-system" title="Link to this heading">¶</a></h2>
+<p>Navigate back to <code class="docutils literal notranslate"><span class="pre">MyGamelevelstate.lua</span></code> and on line 32 you’ll see where we register systems. Go ahead and add
+<code class="docutils literal notranslate"><span class="pre">prism.systems.Fall()</span></code> to the bottom of the list like so.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">level</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Level</span><span class="p">(</span><span class="n">map</span><span class="p">,</span> <span class="n">actors</span><span class="p">,</span> <span class="p">{</span>
+   <span class="n">prism</span><span class="p">.</span><span class="n">systems</span><span class="p">.</span><span class="n">Senses</span><span class="p">(),</span>
+   <span class="n">prism</span><span class="p">.</span><span class="n">systems</span><span class="p">.</span><span class="n">Sight</span><span class="p">(),</span>
+   <span class="n">prism</span><span class="p">.</span><span class="n">systems</span><span class="p">.</span><span class="n">Fall</span><span class="p">(),</span>
+<span class="p">})</span>
+</pre></div>
 </div>
 </section>
 <section id="wrapping-up">
@@ -303,6 +315,7 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="#adding-void-to-our-pit">Adding void to our pit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#creating-the-fall-action">Creating the fall action</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#triggering-fall-with-a-system">Triggering fall with a system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#registering-the-fall-system">Registering the Fall system</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#wrapping-up">Wrapping up</a></li>
 </ul>
 </li>

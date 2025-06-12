@@ -156,7 +156,7 @@ We want the actor to fall immediately when they land on a valid tile, so we'll u
       local fall = prism.actions.Fall(actor)
 
       if level:canPerform(fall) then
-         level:performAction(fall)
+         level:perform(fall)
       end
    end
 
@@ -165,6 +165,20 @@ We want the actor to fall immediately when they land on a valid tile, so we'll u
 .. note::
 
    See :lua:class:`System` for a listing of events you can hook into!
+
+Registering the Fall system
+---------------------------
+
+Navigate back to ``MyGamelevelstate.lua`` and on line 32 you'll see where we register systems. Go ahead and add
+``prism.systems.Fall()`` to the bottom of the list like so.
+
+.. code:: lua
+
+   local level = prism.Level(map, actors, {
+      prism.systems.Senses(),
+      prism.systems.Sight(),
+      prism.systems.Fall(),
+   })
 
 Wrapping up
 -----------
