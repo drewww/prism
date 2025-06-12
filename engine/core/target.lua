@@ -79,7 +79,7 @@ function Target:range(range)
 
    --- @param owner Actor
    --- @param target any
-   self.validators["range"] = function (level, owner, target)
+   self.validators["range"] = function(level, owner, target)
       if not owner:getPosition() then return false end
 
       if prism.Actor:is(target) then
@@ -113,9 +113,10 @@ function Target:isPrototype(type)
    return self
 end
 
-function Target:isType(string)
-   self.validators["luatype"] = function (_, _, target)
-      return type(target) == string
+--- @param luaType type
+function Target:isType(luaType)
+   self.validators["luatype"] = function(_, _, target)
+      return type(target) == luaType
    end
 
    return self
@@ -156,9 +157,8 @@ function Target:los(mask)
    self.validators["los"] = function(level, owner, target)
       if not prism.Actor:is(target) and not prism.Vector2:is(target) then return false end
       if not owner:getPosition() then return false end
-      
-      if prism.Actor:is(target) and not target:getPosition() then return false end
 
+      if prism.Actor:is(target) and not target:getPosition() then return false end
 
       local i, j = owner:getPosition():decompose()
       --- @diagnostic disable-next-line
