@@ -284,8 +284,14 @@ local function loadItems(path, itemType, recurse, definitions)
 
          local item = require(requireName)
 
-         if itemType == "actors" or itemType == "cells" or itemType == "targets" then goto continue end
+         if itemType == "actors" or itemType == "cells" or itemType == "targets" then
+            goto continue
+         end
 
+         assert(
+            type(item) == "table",
+            "Expected a table from " .. fileName .. " but received a " .. type(item) .. "!"
+         )
          local name = string.gsub(item.className, prism._itemPatterns[itemType], "")
          if not item.stripName then name = item.className end
 
