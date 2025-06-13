@@ -87,6 +87,7 @@ an allowed movement type.</p>
 <li><p>Define the <code class="docutils literal notranslate"><span class="pre">Fall</span></code> action:</p></li>
 </ol>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class Fall : Action</span>
+<span class="c1">--- @overload fun(owner: Actor): Fall</span>
 <span class="kd">local</span> <span class="n">Fall</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Action</span><span class="p">:</span><span class="n">extend</span> <span class="s2">&quot;Fall&quot;</span>
 
 <span class="kr">return</span> <span class="n">Fall</span>
@@ -127,7 +128,9 @@ with <a class="reference internal" href="../reference/prism/core/collision.html#
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">Complete fall.lua</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text"><a class="reference external" href="https://github.com/PrismRL/Kicking-Kobolds/blob/part2/modules/MyGame/actions/fall.lua">Source</a></p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">Fall</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Action</span><span class="p">:</span><span class="n">extend</span> <span class="s2">&quot;Fall&quot;</span>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class Fall : Action</span>
+<span class="c1">--- @overload fun(owner: Actor): Fall</span>
+<span class="kd">local</span> <span class="n">Fall</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Action</span><span class="p">:</span><span class="n">extend</span> <span class="s2">&quot;Fall&quot;</span>
 
 <span class="c1">--- @param level Level</span>
 <span class="kr">function</span> <span class="nc">Fall</span><span class="p">:</span><span class="nf">canPerform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
@@ -148,7 +151,7 @@ with <a class="reference internal" href="../reference/prism/core/collision.html#
 
 <span class="c1">--- @param level Level</span>
 <span class="kr">function</span> <span class="nc">Fall</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
-   <span class="n">level</span><span class="p">:</span><span class="n">removeActor</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">)</span> <span class="c1">-- into the depths with you!</span>
+   <span class="n">level</span><span class="p">:</span><span class="n">perform</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Die</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">))</span>
 <span class="kr">end</span>
 
 <span class="kr">return</span> <span class="n">Fall</span>

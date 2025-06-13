@@ -45,6 +45,7 @@ Let's turn the act of dying into it's own action so that we can centralize the l
 .. code:: lua
 
    ---@class Die : Action
+   ---@overload fun(owner: Actor): Die
    local Die = prism.Action:extend("Die")
 
    function Die:perform(level)
@@ -78,13 +79,12 @@ It modifies the health of the target and if it's at or below zero we trigger the
    local DamageTarget = prism.Target()
       :isType("number")
 
+   --- @class Damage : Action
+   --- @overload fun(owner: Actor, damage: number): Damage
    local Damage = prism.Action:extend("Damage")
    Damage.name = "Damage"
    Damage.targets = { DamageTarget }
-
-   function Damage:getRequirements()
-      return prism.components.Health
-   end
+   Damage.requiredComponents = { prism.components.Health }
 
    function Damage:perform(level, damage)
       local health = self.owner:expect(prism.components.Health)
