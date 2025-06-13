@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<template id="tmpl_gotoTop"><div id="gotoTop">
+  <button>Back to top</button>
+</div></template>
+    <title>Writing Things Down &#8212; Prism  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=266695fe" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=a1f6949c" />
+    <link rel="stylesheet" type="text/css" href="../_static/lua.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/terminal.css?v=47602536" />
+    <link rel="stylesheet" type="text/css" href="../_static/goto-top/style.css?v=c152bd81" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/goto-top/main.js?v=69fc67a6"></script>
+    <link rel="icon" href="../_static/prism.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="writing-things-down">
+<h1>Writing Things Down<a class="headerlink" href="#writing-things-down" title="Link to this heading">¶</a></h1>
+<p>In this chapter we’re going to focus on exposing information to the player like their HP and
+the most recent actions that happened to them to make the flow of the game more clear.</p>
+<section id="keeping-tabs-on-your-health">
+<h2>Keeping Tabs on Your Health<a class="headerlink" href="#keeping-tabs-on-your-health" title="Link to this heading">¶</a></h2>
+<p>Head on over to <code class="docutils literal notranslate"><span class="pre">MyGamelevelstate.lua</span></code> and in draw replace the following line:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">putString</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Hello prism!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>with:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">health</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">decision</span><span class="p">.</span><span class="n">actor</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">)</span>
+<span class="kr">if</span> <span class="n">health</span> <span class="kr">then</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">putString</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;HP:&quot;</span> <span class="o">..</span> <span class="n">health</span><span class="p">.</span><span class="n">hp</span> <span class="o">..</span> <span class="s2">&quot;/&quot;</span> <span class="o">..</span> <span class="n">health</span><span class="p">.</span><span class="n">maxHP</span><span class="p">)</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+<p>Great! Now we’ve got a really primitive HP display. We’ll come back to this in a little while and spruce this up.</p>
+</section>
+<section id="logging-messages">
+<h2>Logging Messages<a class="headerlink" href="#logging-messages" title="Link to this heading">¶</a></h2>
+<p>Luckily enough prism provides a reasonable and simple implementation of a message log, not in
+it’s core files but in an optional module provided in prism/extra. The first thing we’re going to
+have to do is load that module.</p>
+<p>Head to <code class="docutils literal notranslate"><span class="pre">main.lua</span></code> and insert this right above where we load the MyGame module like so:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">loadModule</span><span class="p">(</span><span class="s2">&quot;prism/spectrum&quot;</span><span class="p">)</span>
+<span class="n">prism</span><span class="p">.</span><span class="n">loadModule</span><span class="p">(</span><span class="s2">&quot;modules/Sight&quot;</span><span class="p">)</span>
+<span class="n">prism</span><span class="p">.</span><span class="n">loadModule</span><span class="p">(</span><span class="s2">&quot;prism/extra/Log&quot;</span><span class="p">)</span>
+<span class="n">prism</span><span class="p">.</span><span class="n">loadModule</span><span class="p">(</span><span class="s2">&quot;modules/MyGame&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we’ve got the Log module loading, let’s head over to <code class="docutils literal notranslate"><span class="pre">player.lua</span></code> and give them a log component.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Log</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Okay we’ve got our log set up, let’s start using it. If you’re interested in how the Log component works
+check out the how-to on writing a message log. (This is planned for the future.)</p>
+</section>
+<section id="logging-kick">
+<h2>Logging Kick<a class="headerlink" href="#logging-kick" title="Link to this heading">¶</a></h2>
+<p>Head to <code class="docutils literal notranslate"><span class="pre">modules/MyGame/actions/kick.lua</span></code> and at the top of the file insert these lines.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">Log</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Log</span>
+<span class="kd">local</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Name</span>
+<span class="kd">local</span> <span class="n">sf</span> <span class="o">=</span> <span class="nb">string.format</span>
+</pre></div>
+</div>
+<p>These are mainly for convenience and brevity. We’re going to use them in perform. Now head to the bottom of perform
+after everything else and add the following.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">kickName</span> <span class="o">=</span> <span class="n">Name</span><span class="p">.</span><span class="n">lower</span><span class="p">(</span><span class="n">kicked</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">ownerName</span> <span class="o">=</span> <span class="n">Name</span><span class="p">.</span><span class="n">lower</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">)</span>
+<span class="n">Log</span><span class="p">.</span><span class="n">addMessage</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">sf</span><span class="p">(</span><span class="s2">&quot;You kick the %s.&quot;</span><span class="p">,</span> <span class="n">kickName</span><span class="p">))</span>
+<span class="n">Log</span><span class="p">.</span><span class="n">addMessage</span><span class="p">(</span><span class="n">kicked</span><span class="p">,</span> <span class="n">sf</span><span class="p">(</span><span class="s2">&quot;The %s kicks you!&quot;</span><span class="p">,</span> <span class="n">ownerName</span><span class="p">))</span>
+<span class="n">Log</span><span class="p">.</span><span class="n">addMessageSensed</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">sf</span><span class="p">(</span><span class="s2">&quot;The %s kicks the %s.&quot;</span><span class="p">,</span> <span class="n">ownerName</span><span class="p">,</span> <span class="n">kickName</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>This code defines a couple log messages for the various parties involved with the action. Log.addMessage is a convenience
+function provides by the log component that makes it so you don’t have to check if the actor you’re passing in has a log
+component or manipulate the log directly, it does that for you. Similarly Log.addMessageSensed works roundabout the same way
+except it defines what uninvolved actors who can see the action’s owner get in their log.</p>
+</section>
+<section id="drawing-logs">
+<h2>Drawing Logs<a class="headerlink" href="#drawing-logs" title="Link to this heading">¶</a></h2>
+<p>Okay so logging is set up and it’s time to make our way back to <code class="docutils literal notranslate"><span class="pre">MyGamelevelstate.lua</span></code> to get our log drawing.
+Below where we’re drawing HP insert the following.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">log</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">decision</span><span class="p">.</span><span class="n">actor</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Log</span><span class="p">)</span>
+<span class="kr">if</span> <span class="n">log</span> <span class="kr">then</span>
+   <span class="kd">local</span> <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
+   <span class="kr">for</span> <span class="n">line</span> <span class="kr">in</span> <span class="n">log</span><span class="p">:</span><span class="n">iterLast</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="kr">do</span>
+      <span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">putString</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">height</span> <span class="o">-</span> <span class="n">offset</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+      <span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span> <span class="o">+</span> <span class="mi">1</span>
+   <span class="kr">end</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+<p>This gives us a really basic message log at the bottom of the screen.</p>
+</section>
+<section id="adding-damage">
+<h2>Adding Damage<a class="headerlink" href="#adding-damage" title="Link to this heading">¶</a></h2>
+<p>The kick message is nice, but wouldn’t it be better if we could see how much damage we’re doing?
+Let’s head back over to <code class="docutils literal notranslate"><span class="pre">modules/MyGame/actions/damage.lua</span></code> and make a small change.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">Damage</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">damage</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">health</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">expect</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">)</span>
+   <span class="n">health</span><span class="p">.</span><span class="n">hp</span> <span class="o">=</span> <span class="n">health</span><span class="p">.</span><span class="n">hp</span> <span class="o">-</span> <span class="n">damage</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">dealt</span> <span class="o">=</span> <span class="n">damage</span> <span class="c1">-- add this!</span>
+
+   <span class="p">...</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+<p>We store the damage that was dealt in the Damage action so that we can inspect it in kick. Now heading back to
+kick.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">Kick</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">kicked</span><span class="p">)</span>
+   <span class="p">...</span>
+
+   <span class="kd">local</span> <span class="n">dmgstr</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+   <span class="kr">if</span> <span class="n">damage</span><span class="p">.</span><span class="n">dealt</span> <span class="kr">then</span>
+      <span class="n">dmgstr</span> <span class="o">=</span> <span class="n">sf</span><span class="p">(</span><span class="s2">&quot;Dealing %i damage.&quot;</span><span class="p">,</span> <span class="n">damage</span><span class="p">.</span><span class="n">dealt</span><span class="p">)</span>
+   <span class="kr">end</span>
+
+   <span class="kd">local</span> <span class="n">kickName</span> <span class="o">=</span> <span class="n">Name</span><span class="p">.</span><span class="n">lower</span><span class="p">(</span><span class="n">kicked</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">ownerName</span> <span class="o">=</span> <span class="n">Name</span><span class="p">.</span><span class="n">lower</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">)</span>
+   <span class="n">Log</span><span class="p">.</span><span class="n">addMessage</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">sf</span><span class="p">(</span><span class="s2">&quot;You kick the %s. %s&quot;</span><span class="p">,</span> <span class="n">kickName</span><span class="p">,</span> <span class="n">dmgstr</span><span class="p">))</span>
+   <span class="n">Log</span><span class="p">.</span><span class="n">addMessage</span><span class="p">(</span><span class="n">kicked</span><span class="p">,</span> <span class="n">sf</span><span class="p">(</span><span class="s2">&quot;The %s kicks you! %s&quot;</span><span class="p">,</span> <span class="n">ownerName</span><span class="p">,</span> <span class="n">dmgstr</span><span class="p">))</span>
+   <span class="n">Log</span><span class="p">.</span><span class="n">addMessageSensed</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">self</span><span class="p">,</span> <span class="n">sf</span><span class="p">(</span><span class="s2">&quot;The %s kicks the %s. %s&quot;</span><span class="p">,</span> <span class="n">ownerName</span><span class="p">,</span> <span class="n">kickName</span><span class="p">,</span> <span class="n">dmgstr</span><span class="p">))</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+</section>
+<section id="giving-our-enemies-a-name">
+<h2>Giving our Enemies a Name<a class="headerlink" href="#giving-our-enemies-a-name" title="Link to this heading">¶</a></h2>
+<p>Okay we’ve got damage in the message now too, but you might notice something our message refers to the kobold
+as “actor”. We’re going to have to give the Kobold a name component to fix this.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">-- kobold.lua</span>
+<span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Name</span><span class="p">(</span><span class="s2">&quot;Kobold&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="giving-attack-the-same-treatment">
+<h2>Giving Attack the Same Treatment<a class="headerlink" href="#giving-attack-the-same-treatment" title="Link to this heading">¶</a></h2>
+<p>Head over to <code class="docutils literal notranslate"><span class="pre">modules/MyGame/actions/attack.lua</span></code></p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">Log</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Log</span>
+<span class="kd">local</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Name</span>
+<span class="kd">local</span> <span class="n">sf</span> <span class="o">=</span> <span class="nb">string.format</span>
+</pre></div>
+</div>
+<p>We’re going to put a few aliases at the top of the file to make things easier again. Then we need to
+add the Log messages to the Attack’s perform.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">Attack</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">attacked</span><span class="p">)</span>
+   <span class="p">...</span>
+
+   <span class="kd">local</span> <span class="n">dmgstr</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+   <span class="kr">if</span> <span class="n">damage</span><span class="p">.</span><span class="n">dealt</span> <span class="kr">then</span>
+      <span class="n">dmgstr</span> <span class="o">=</span> <span class="n">sf</span><span class="p">(</span><span class="s2">&quot;Dealing %i damage.&quot;</span><span class="p">,</span> <span class="n">damage</span><span class="p">.</span><span class="n">dealt</span><span class="p">)</span>
+   <span class="kr">end</span>
+
+   <span class="kd">local</span> <span class="n">attackName</span> <span class="o">=</span> <span class="n">Name</span><span class="p">.</span><span class="n">lower</span><span class="p">(</span><span class="n">attacked</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">ownerName</span> <span class="o">=</span> <span class="n">Name</span><span class="p">.</span><span class="n">lower</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">)</span>
+   <span class="n">Log</span><span class="p">.</span><span class="n">addMessage</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">sf</span><span class="p">(</span><span class="s2">&quot;You attack the %s. %s&quot;</span><span class="p">,</span> <span class="n">attackName</span><span class="p">,</span> <span class="n">dmgstr</span><span class="p">))</span>
+   <span class="n">Log</span><span class="p">.</span><span class="n">addMessage</span><span class="p">(</span><span class="n">attacked</span><span class="p">,</span> <span class="n">sf</span><span class="p">(</span><span class="s2">&quot;The %s attacks you! %s&quot;</span><span class="p">,</span> <span class="n">ownerName</span><span class="p">,</span> <span class="n">dmgstr</span><span class="p">))</span>
+   <span class="n">Log</span><span class="p">.</span><span class="n">addMessageSensed</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">self</span><span class="p">,</span> <span class="n">sf</span><span class="p">(</span><span class="s2">&quot;The %s attacks the %s. %s&quot;</span><span class="p">,</span> <span class="n">ownerName</span><span class="p">,</span> <span class="n">attackName</span><span class="p">,</span> <span class="n">dmgstr</span><span class="p">))</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+<p>And we’re done! Now you should see messages in your log when a kobold attacks you!</p>
+</section>
+<section id="in-the-next-section">
+<h2>In the Next Section<a class="headerlink" href="#in-the-next-section" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/prism.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=prismrl&repo=prism&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<!--
+Taken from the sphinx library theme: https://vsalvino.github.io/sphinx-library/.
+
+MIT License
+
+Copyright (c) 2020 Vince Salvino and contributors.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<script>
+  function toggleMode(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("sphinx-terminal-mode", theme);
+  }
+  var theme = localStorage.getItem("sphinx-terminal-mode");
+  if(theme !== null)
+    toggleMode(theme);
+</script>
+<h3>Reading Mode</h3>
+
+<div class="btn-group">
+<button class="btn btn-default" type="button" onclick="toggleMode('light');">Light</button>
+<button class="btn btn-default" type="button" onclick="toggleMode('sepia');">Sepia</button>
+<button class="btn btn-default" type="button" onclick="toggleMode('dark');">Dark</button>
+</div>
+
+<noscript>
+  <div>
+    JavaScript is required to toggle reading modes.
+  </div>
+</noscript>
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../architecture-primer.html">Prism’s Architecture: A Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conventions.html">Conventions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/object-registration.html">Object registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/query.html">Queries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/collision.html">Collision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/inventory.html">Inventory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Taking flight</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">Starting Fights</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">Taking Licks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/prism/index.html">Prism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/spectrum/index.html">Spectrum</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Matthew Blanchard, LJNIC.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/making-a-roguelike/part5.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
