@@ -1,10 +1,10 @@
-Taking Licks
+Taking licks
 ============
 
 It's time to make kobolds a little dangerous! In this chapter we're going
 to give the player health and have the kobolds attack them!
 
-Giving the Player HP
+Giving the player HP
 --------------------
 
 The first thing we're going to want to do is go ahead and give the player a Health
@@ -15,7 +15,7 @@ component.
     -- player.lua
     prism.components.Health(10)
 
-Creating the Attack Component
+Creating the attack component
 -----------------------------
 
 We need a component to hold information about attackers, for now just damage. 
@@ -34,7 +34,7 @@ We need a component to hold information about attackers, for now just damage.
 
     return Attacker
 
-Giving Kobold the Attack Component
+Giving kobold the attack component
 ----------------------------------
 
 Go ahead and navigate to ``modules/MyGame/actors/kobold.lua`` and add the attack component:
@@ -44,7 +44,7 @@ Go ahead and navigate to ``modules/MyGame/actors/kobold.lua`` and add the attack
    prism.components.Attacker(1)
 
 
-The Attack Action
+The attack action
 -----------------
 
 Now let's make an attack action that the Kobolds can use to attack the player. This is
@@ -79,7 +79,7 @@ number.
    return Attack
 
 
-Modifying the Kobold's Controller
+Modifying the kobold's controller
 ---------------------------------
 
 Next we need to make the Kobold actually use the attack action. Navigate to ``modules/MyGame/components/koboldcontroller.lua``
@@ -98,7 +98,7 @@ and right above the final return we're going to add the following:
       return prism.actions.Wait(actor)
    end
 
-Sending a Message
+Sending a message
 -----------------
 
 If you play the game now and slap down a few kobolds with geometer you'll find something unfortunate;
@@ -145,7 +145,7 @@ And finally we're gonna have to handle this message back in the user interface. 
 
 Now when we die the game will exit to desktop which is an improvement, but not exactly what we're looking for.
 
-Gussying Things Up
+Gussying things up
 ------------------
 
 That's it for this chapter, in the next one we'll focus on some user interface stuff like
