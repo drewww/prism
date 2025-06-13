@@ -53,6 +53,7 @@ Next we're going to create an lua:class:`Action` to represent an actor falling.
 .. code:: lua
 
    --- @class Fall : Action
+   --- @overload fun(owner: Actor): Fall
    local Fall = prism.Action:extend "Fall"
 
    return Fall
@@ -103,6 +104,8 @@ with :lua:func:`Collision.checkBitmaskOverlap` to accomplish that check:
 
    .. code:: lua
 
+      --- @class Fall : Action
+      --- @overload fun(owner: Actor): Fall
       local Fall = prism.Action:extend "Fall"
 
       --- @param level Level
@@ -124,7 +127,7 @@ with :lua:func:`Collision.checkBitmaskOverlap` to accomplish that check:
 
       --- @param level Level
       function Fall:perform(level)
-         level:removeActor(self.owner) -- into the depths with you!
+         level:perform(prism.actions.Die(self.owner))
       end
 
       return Fall
