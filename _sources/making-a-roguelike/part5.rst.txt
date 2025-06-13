@@ -177,3 +177,6 @@ And we're done! Now you should see messages in your log when a kobold attacks yo
 
 In the Next Section
 -------------------
+
+We'll add a game over screen so that the game doesn't simply quit when we lose. We'll come back to
+our user interface and make it prettier in a later section of the tutorial.
