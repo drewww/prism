@@ -1,4 +1,4 @@
-Starting Fights
+Starting fights
 ===============
 
 Kicking kobolds is fun. Let's make it so you can kick them to death!

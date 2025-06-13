@@ -1,10 +1,10 @@
-Writing Things Down
+Writing things down
 ===================
 
 In this chapter we're going to focus on exposing information to the player like their HP and
 the most recent actions that happened to them to make the flow of the game more clear.
 
-Keeping Tabs on Your Health
+Keeping tabs on your health
 ---------------------------
 
 Head on over to ``MyGamelevelstate.lua`` and in draw replace the following line:
@@ -24,7 +24,7 @@ with:
 
 Great! Now we've got a really primitive HP display. We'll come back to this in a little while and spruce this up.
 
-Logging Messages
+Logging messages
 ----------------
 
 Luckily enough prism provides a reasonable and simple implementation of a message log, not in
@@ -49,7 +49,7 @@ Now we've got the Log module loading, let's head over to ``player.lua`` and give
 Okay we've got our log set up, let's start using it. If you're interested in how the Log component works
 check out the how-to on writing a message log. (This is planned for the future.)
 
-Logging Kick
+Logging kick
 ------------
 
 Head to ``modules/MyGame/actions/kick.lua`` and at the top of the file insert these lines.
@@ -76,7 +76,7 @@ function provides by the log component that makes it so you don't have to check 
 component or manipulate the log directly, it does that for you. Similarly Log.addMessageSensed works roundabout the same way
 except it defines what uninvolved actors who can see the action's owner get in their log.
 
-Drawing Logs
+Drawing logs
 ------------
 
 Okay so logging is set up and it's time to make our way back to ``MyGamelevelstate.lua`` to get our log drawing.
@@ -95,7 +95,7 @@ Below where we're drawing HP insert the following.
 
 This gives us a really basic message log at the bottom of the screen. 
 
-Adding Damage
+Adding damage
 -------------
 
 The kick message is nice, but wouldn't it be better if we could see how much damage we're doing?
@@ -131,7 +131,7 @@ kick.
       Log.addMessageSensed(level, self, sf("The %s kicks the %s. %s", ownerName, kickName, dmgstr))
    end
 
-Giving our Enemies a Name
+Giving our enemies a name
 -------------------------
 
 Okay we've got damage in the message now too, but you might notice something our message refers to the kobold
@@ -142,7 +142,7 @@ as "actor". We're going to have to give the Kobold a name component to fix this.
    -- kobold.lua
    prism.components.Name("Kobold")
 
-Giving Attack the Same Treatment
+Giving attack the same treatment
 --------------------------------
 
 Head over to ``modules/MyGame/actions/attack.lua``
@@ -175,7 +175,7 @@ add the Log messages to the Attack's perform.
 
 And we're done! Now you should see messages in your log when a kobold attacks you!
 
-In the Next Section
+In the next section
 -------------------
 
 We'll add a game over screen so that the game doesn't simply quit when we lose. We'll come back to
