@@ -75,7 +75,7 @@ end
 --- @param a Vector2
 --- @param b number
 function Vector2.__div(a, b)
-   return Vector2(a.x * b, a.y * b)
+   return Vector2(a.x / b, a.y / b)
 end
 
 --- Checks the equality of two vectors.
