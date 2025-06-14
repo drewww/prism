@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<template id="tmpl_gotoTop"><div id="gotoTop">
+  <button>Back to top</button>
+</div></template>
+    <title>Carving out caverns &#8212; Prism  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=266695fe" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=a1f6949c" />
+    <link rel="stylesheet" type="text/css" href="../_static/lua.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/terminal.css?v=47602536" />
+    <link rel="stylesheet" type="text/css" href="../_static/goto-top/style.css?v=c152bd81" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/goto-top/main.js?v=69fc67a6"></script>
+    <link rel="icon" href="../_static/prism.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Prism" href="../reference/prism/index.html" />
+    <link rel="prev" title="Losing the game" href="part6.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="carving-out-caverns">
+<h1>Carving out caverns<a class="headerlink" href="#carving-out-caverns" title="Link to this heading">¶</a></h1>
+<p>In this section of the tutorial we’ll create a more interesting place to kick kobolds,
+and put some in the game world to start.</p>
+<section id="getting-started-on-a-map">
+<h2>Getting started on a map<a class="headerlink" href="#getting-started-on-a-map" title="Link to this heading">¶</a></h2>
+<p>Let’s create a new file in the root of the project called <code class="docutils literal notranslate"><span class="pre">levelgen.lua</span></code>. We’re gonna want to
+return a function from this module that takes a few parameters.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @param rng RNG</span>
+<span class="c1">--- @param player Actor</span>
+<span class="c1">--- @param width integer</span>
+<span class="c1">--- @param height integer</span>
+<span class="kr">return</span> <span class="kr">function</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span> <span class="n">player</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">MapBuilder</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="n">Wall</span><span class="p">)</span>
+   <span class="kr">return</span> <span class="n">builder</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+<p>We give the level building function an RNG which will be exclusive to it, the player we want to place, and
+the width and height of the map we want generated. Inside we create a MapBuilder and return it.</p>
+</section>
+<section id="populating-the-void">
+<h2>Populating the void<a class="headerlink" href="#populating-the-void" title="Link to this heading">¶</a></h2>
+<p>The first step is going to be filling the void with a width * height initialization of pits and walls. To
+decide where to put what we’re going to use perlin noise.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span> <span class="c1">-- Fill the map with random noise of pits and walls.</span>
+<span class="kd">local</span> <span class="n">nox</span><span class="p">,</span> <span class="n">noy</span> <span class="o">=</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10000</span><span class="p">),</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+<span class="kr">for</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">width</span> <span class="kr">do</span>
+   <span class="kr">for</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">height</span> <span class="kr">do</span>
+      <span class="kd">local</span> <span class="n">noise</span> <span class="o">=</span> <span class="n">love</span><span class="p">.</span><span class="n">math</span><span class="p">.</span><span class="n">perlinNoise</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="mi">5</span> <span class="o">+</span> <span class="n">nox</span><span class="p">,</span> <span class="n">y</span> <span class="o">/</span> <span class="mi">5</span> <span class="o">+</span> <span class="n">noy</span><span class="p">)</span>
+      <span class="kd">local</span> <span class="n">cell</span> <span class="o">=</span> <span class="n">noise</span> <span class="o">&gt;</span> <span class="mf">0.5</span> <span class="ow">and</span> <span class="n">prism</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="n">Wall</span> <span class="ow">or</span> <span class="n">prism</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="n">Pit</span>
+      <span class="n">builder</span><span class="p">:</span><span class="n">set</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cell</span><span class="p">())</span>
+   <span class="kr">end</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+</section>
+<section id="making-room">
+<h2>Making room<a class="headerlink" href="#making-room" title="Link to this heading">¶</a></h2>
+<p>First we generate an offset for the noise using our RNG. This ensures every map gets a unique pattern of
+pits and walls.</p>
+<p>Then we loop through each tile in the map, grab our result from the perlinNoise which we scale a little bit,
+and finally check if the noise is &gt; 0.5. If it is we put a wall there, and if it’s not we place a pit.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Create rooms in each of the partitions.</span>
+<span class="c1">--- @type table&lt;number, Rectangle&gt;</span>
+<span class="kd">local</span> <span class="n">rooms</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="kd">local</span> <span class="n">missing</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">PARTITIONS</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">PARTITIONS</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+<span class="kd">local</span> <span class="n">pw</span><span class="p">,</span> <span class="n">ph</span> <span class="o">=</span> <span class="nb">math.floor</span><span class="p">(</span><span class="n">width</span> <span class="o">/</span> <span class="n">PARTITIONS</span><span class="p">),</span> <span class="nb">math.floor</span><span class="p">(</span><span class="n">height</span> <span class="o">/</span> <span class="n">PARTITIONS</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">minrw</span><span class="p">,</span> <span class="n">minrh</span> <span class="o">=</span> <span class="nb">math.floor</span><span class="p">(</span><span class="n">pw</span> <span class="o">/</span> <span class="mi">3</span><span class="p">),</span> <span class="nb">math.floor</span><span class="p">(</span><span class="n">ph</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">maxrw</span><span class="p">,</span> <span class="n">maxrh</span> <span class="o">=</span> <span class="n">pw</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="n">ph</span> <span class="o">-</span> <span class="mi">2</span> <span class="c1">-- Subtract 2 to ensure there&#39;s a margin.</span>
+<span class="kr">for</span> <span class="n">px</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">PARTITIONS</span> <span class="o">-</span> <span class="mi">1</span> <span class="kr">do</span>
+   <span class="kr">for</span> <span class="n">py</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">PARTITIONS</span> <span class="o">-</span> <span class="mi">1</span> <span class="kr">do</span>
+      <span class="kr">if</span> <span class="n">missing</span> <span class="o">~=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">)</span> <span class="kr">then</span>
+         <span class="kd">local</span> <span class="n">rw</span><span class="p">,</span> <span class="n">rh</span> <span class="o">=</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="n">minrw</span><span class="p">,</span> <span class="n">maxrw</span><span class="p">),</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="n">minrh</span><span class="p">,</span> <span class="n">maxrh</span><span class="p">)</span>
+         <span class="kd">local</span> <span class="n">x</span> <span class="o">=</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="n">px</span> <span class="o">*</span> <span class="n">pw</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">px</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">pw</span> <span class="o">-</span> <span class="n">rw</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+         <span class="kd">local</span> <span class="n">y</span> <span class="o">=</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="n">py</span> <span class="o">*</span> <span class="n">ph</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">py</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">ph</span> <span class="o">-</span> <span class="n">rh</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+         <span class="kd">local</span> <span class="n">roomRect</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Rectangle</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">rw</span><span class="p">,</span> <span class="n">rh</span><span class="p">)</span>
+         <span class="n">rooms</span><span class="p">[</span><span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">)]</span> <span class="o">=</span> <span class="n">roomRect</span>
+
+         <span class="n">builder</span><span class="p">:</span><span class="n">drawRectangle</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">rw</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">rh</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="n">Floor</span><span class="p">)</span>
+      <span class="kr">end</span>
+   <span class="kr">end</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+<p>Okay so this is a little chunky, but we’re gonna break it down. The first thing we do is decide which one of the partitions
+we’re going to omit a room in.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">missing</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">PARTITIONS</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">PARTITIONS</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Then we’re going to calculate the total width and height of our patitions.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">pw</span><span class="p">,</span> <span class="n">ph</span> <span class="o">=</span> <span class="nb">math.floor</span><span class="p">(</span><span class="n">width</span> <span class="o">/</span> <span class="n">PARTITIONS</span><span class="p">),</span> <span class="nb">math.floor</span><span class="p">(</span><span class="n">height</span> <span class="o">/</span> <span class="n">PARTITIONS</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After that let’s set some reasonable limits on the minimum and maximum room width and height.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">minrw</span><span class="p">,</span> <span class="n">minrh</span> <span class="o">=</span> <span class="nb">math.floor</span><span class="p">(</span><span class="n">pw</span> <span class="o">/</span> <span class="mi">3</span><span class="p">),</span> <span class="nb">math.floor</span><span class="p">(</span><span class="n">ph</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">maxrw</span><span class="p">,</span> <span class="n">maxrh</span> <span class="o">=</span> <span class="n">pw</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="n">ph</span> <span class="o">-</span> <span class="mi">2</span> <span class="c1">-- Subtract 2 to ensure there&#39;s a margin.</span>
+</pre></div>
+</div>
+<p>Next we loop through each of our partitions and build a room so long as it’s not the one we’re omitting. We build our
+room rectangle, hash it’s partition coordinates, and put it into a dictionary of rooms. Finally we draw the room onto our map.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">for</span> <span class="n">px</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">PARTITIONS</span> <span class="o">-</span> <span class="mi">1</span> <span class="kr">do</span>
+   <span class="kr">for</span> <span class="n">py</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">PARTITIONS</span> <span class="o">-</span> <span class="mi">1</span> <span class="kr">do</span>
+      <span class="kr">if</span> <span class="n">missing</span> <span class="o">~=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">)</span> <span class="kr">then</span>
+         <span class="kd">local</span> <span class="n">rw</span><span class="p">,</span> <span class="n">rh</span> <span class="o">=</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="n">minrw</span><span class="p">,</span> <span class="n">maxrw</span><span class="p">),</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="n">minrh</span><span class="p">,</span> <span class="n">maxrh</span><span class="p">)</span>
+         <span class="kd">local</span> <span class="n">x</span> <span class="o">=</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="n">px</span> <span class="o">*</span> <span class="n">pw</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">px</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">pw</span> <span class="o">-</span> <span class="n">rw</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+         <span class="kd">local</span> <span class="n">y</span> <span class="o">=</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="n">py</span> <span class="o">*</span> <span class="n">ph</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">py</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">ph</span> <span class="o">-</span> <span class="n">rh</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+         <span class="kd">local</span> <span class="n">roomRect</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Rectangle</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">rw</span><span class="p">,</span> <span class="n">rh</span><span class="p">)</span>
+         <span class="n">rooms</span><span class="p">[</span><span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">)]</span> <span class="o">=</span> <span class="n">roomRect</span>
+
+         <span class="n">builder</span><span class="p">:</span><span class="n">drawRectangle</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">rw</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">rh</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="n">Floor</span><span class="p">)</span>
+      <span class="kr">end</span>
+   <span class="kr">end</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+</section>
+<section id="carving-hallways">
+<h2>Carving hallways<a class="headerlink" href="#carving-hallways" title="Link to this heading">¶</a></h2>
+<p>Next we’re gonna create a function local function (yes, that’s correct) to draw the classic Rogue style L shaped hallways between
+rooms. It accepts two Rectangles representing the rooms, and if both a and b exist we draw a hallway between them. We use the level
+generator’s RNG to figure out if we should start vertically or horizontally for a little bit of spice.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Helper function to connect two points with an L-shaped hallway.</span>
+<span class="c1">--- @param a Rectangle</span>
+<span class="c1">--- @param b Rectangle</span>
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">createLShapedHallway</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+   <span class="kr">if</span> <span class="ow">not</span> <span class="n">a</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">b</span> <span class="kr">then</span> <span class="kr">return</span> <span class="kr">end</span>
+
+   <span class="kd">local</span> <span class="n">ax</span><span class="p">,</span> <span class="n">ay</span> <span class="o">=</span> <span class="n">a</span><span class="p">:</span><span class="n">center</span><span class="p">():</span><span class="n">floor</span><span class="p">():</span><span class="n">decompose</span><span class="p">()</span>
+   <span class="kd">local</span> <span class="n">bx</span><span class="p">,</span> <span class="n">by</span> <span class="o">=</span> <span class="n">b</span><span class="p">:</span><span class="n">center</span><span class="p">():</span><span class="n">floor</span><span class="p">():</span><span class="n">decompose</span><span class="p">()</span>
+   <span class="c1">-- Randomly choose one of two L-shaped tunnel patterns for variety.</span>
+   <span class="kr">if</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniform</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">0.5</span> <span class="kr">then</span>
+      <span class="n">builder</span><span class="p">:</span><span class="n">drawLine</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ay</span><span class="p">,</span> <span class="n">bx</span><span class="p">,</span> <span class="n">ay</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="n">Floor</span><span class="p">)</span>
+      <span class="n">builder</span><span class="p">:</span><span class="n">drawLine</span><span class="p">(</span><span class="n">bx</span><span class="p">,</span> <span class="n">ay</span><span class="p">,</span> <span class="n">bx</span><span class="p">,</span> <span class="n">by</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="n">Floor</span><span class="p">)</span>
+   <span class="kr">else</span>
+      <span class="n">builder</span><span class="p">:</span><span class="n">drawLine</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ay</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">by</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="n">Floor</span><span class="p">)</span>
+      <span class="n">builder</span><span class="p">:</span><span class="n">drawLine</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">by</span><span class="p">,</span> <span class="n">bx</span><span class="p">,</span> <span class="n">by</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="n">Floor</span><span class="p">)</span>
+   <span class="kr">end</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+<p>Now that we’ve got this little helper function done let’s go through each room and try to connect it to the one to the right, and the
+one to the bottom. If either doesn’t exist the hallway helper won’t get past the guard and nothing will happen.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">for</span> <span class="n">hash</span><span class="p">,</span> <span class="n">currentRoom</span> <span class="kr">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">rooms</span><span class="p">)</span> <span class="kr">do</span>
+   <span class="kd">local</span> <span class="n">px</span><span class="p">,</span> <span class="n">py</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">.</span><span class="n">_unhash</span><span class="p">(</span><span class="n">hash</span><span class="p">)</span>
+
+   <span class="n">createLShapedHallway</span><span class="p">(</span><span class="n">currentRoom</span><span class="p">,</span> <span class="n">rooms</span><span class="p">[</span><span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">px</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">py</span><span class="p">)])</span>
+   <span class="n">createLShapedHallway</span><span class="p">(</span><span class="n">currentRoom</span><span class="p">,</span> <span class="n">rooms</span><span class="p">[</span><span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)])</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+</section>
+<section id="spawning-people">
+<h2>Spawning people<a class="headerlink" href="#spawning-people" title="Link to this heading">¶</a></h2>
+<p>Now to place the player. We’ll select a random room and put the player on the center tile.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Choose the first room (top-left partition) to place the player.</span>
+<span class="kd">local</span> <span class="n">startRoom</span>
+<span class="kr">while</span> <span class="ow">not</span> <span class="n">startRoom</span> <span class="kr">do</span>
+   <span class="kd">local</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">PARTITIONS</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">PARTITIONS</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+   <span class="n">startRoom</span> <span class="o">=</span> <span class="n">rooms</span><span class="p">[</span><span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)]</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="n">playerPos</span> <span class="o">=</span> <span class="n">startRoom</span><span class="p">:</span><span class="n">center</span><span class="p">():</span><span class="n">floor</span><span class="p">()</span>
+<span class="n">builder</span><span class="p">:</span><span class="n">addActor</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">playerPos</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">playerPos</span><span class="p">.</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We’re getting close now, but we need some kobolds to kick. Let’s go through every room that’s not the starting room and spawn
+a kobold there.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">room</span> <span class="kr">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">rooms</span><span class="p">)</span> <span class="kr">do</span>
+   <span class="kr">if</span> <span class="n">room</span> <span class="o">~=</span> <span class="n">startRoom</span> <span class="kr">then</span>
+      <span class="kd">local</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">=</span> <span class="n">room</span><span class="p">:</span><span class="n">center</span><span class="p">():</span><span class="n">floor</span><span class="p">():</span><span class="n">decompose</span><span class="p">()</span>
+
+      <span class="n">builder</span><span class="p">:</span><span class="n">addActor</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">actors</span><span class="p">.</span><span class="n">Kobold</span><span class="p">(),</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">)</span>
+   <span class="kr">end</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+<p>Okay, we’ve got the player and the kobolds spawning. Time to wrap things up.</p>
+</section>
+<section id="sending-it-back">
+<h2>Sending it back<a class="headerlink" href="#sending-it-back" title="Link to this heading">¶</a></h2>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">builder</span><span class="p">:</span><span class="n">addPadding</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="n">Wall</span><span class="p">)</span>
+
+<span class="kr">return</span> <span class="n">builder</span>
+</pre></div>
+</div>
+<p>Finally we’ll wrap the entire map in some walls and return the finished MapBuilder.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Complete levelgen.lua</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">PARTITIONS</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="c1">--- @param rng RNG</span>
+<span class="c1">--- @param player Actor</span>
+<span class="c1">--- @param width integer</span>
+<span class="c1">--- @param height integer</span>
+<span class="kr">return</span> <span class="kr">function</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span> <span class="n">player</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">MapBuilder</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="n">Wall</span><span class="p">)</span>
+
+   <span class="c1">-- Fill the map with random noise of pits and walls.</span>
+   <span class="kd">local</span> <span class="n">nox</span><span class="p">,</span> <span class="n">noy</span> <span class="o">=</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10000</span><span class="p">),</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+   <span class="kr">for</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">width</span> <span class="kr">do</span>
+      <span class="kr">for</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">height</span> <span class="kr">do</span>
+         <span class="kd">local</span> <span class="n">noise</span> <span class="o">=</span> <span class="n">love</span><span class="p">.</span><span class="n">math</span><span class="p">.</span><span class="n">perlinNoise</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="mi">5</span> <span class="o">+</span> <span class="n">nox</span><span class="p">,</span> <span class="n">y</span> <span class="o">/</span> <span class="mi">5</span> <span class="o">+</span> <span class="n">noy</span><span class="p">)</span>
+         <span class="kd">local</span> <span class="n">cell</span> <span class="o">=</span> <span class="n">noise</span> <span class="o">&gt;</span> <span class="mf">0.5</span> <span class="ow">and</span> <span class="n">prism</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="n">Wall</span> <span class="ow">or</span> <span class="n">prism</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="n">Pit</span>
+         <span class="n">builder</span><span class="p">:</span><span class="n">set</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cell</span><span class="p">())</span>
+      <span class="kr">end</span>
+   <span class="kr">end</span>
+
+   <span class="c1">-- Create rooms in each of the partitions.</span>
+   <span class="c1">--- @type table&lt;number, Rectangle&gt;</span>
+   <span class="kd">local</span> <span class="n">rooms</span> <span class="o">=</span> <span class="p">{}</span>
+
+   <span class="kd">local</span> <span class="n">missing</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">PARTITIONS</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">PARTITIONS</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+   <span class="kd">local</span> <span class="n">pw</span><span class="p">,</span> <span class="n">ph</span> <span class="o">=</span> <span class="nb">math.floor</span><span class="p">(</span><span class="n">width</span> <span class="o">/</span> <span class="n">PARTITIONS</span><span class="p">),</span> <span class="nb">math.floor</span><span class="p">(</span><span class="n">height</span> <span class="o">/</span> <span class="n">PARTITIONS</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">minrw</span><span class="p">,</span> <span class="n">minrh</span> <span class="o">=</span> <span class="nb">math.floor</span><span class="p">(</span><span class="n">pw</span> <span class="o">/</span> <span class="mi">3</span><span class="p">),</span> <span class="nb">math.floor</span><span class="p">(</span><span class="n">ph</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">maxrw</span><span class="p">,</span> <span class="n">maxrh</span> <span class="o">=</span> <span class="n">pw</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="n">ph</span> <span class="o">-</span> <span class="mi">2</span> <span class="c1">-- Subtract 2 to ensure there&#39;s a margin.</span>
+   <span class="kr">for</span> <span class="n">px</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">PARTITIONS</span> <span class="o">-</span> <span class="mi">1</span> <span class="kr">do</span>
+      <span class="kr">for</span> <span class="n">py</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">PARTITIONS</span> <span class="o">-</span> <span class="mi">1</span> <span class="kr">do</span>
+         <span class="kr">if</span> <span class="n">missing</span> <span class="o">~=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">)</span> <span class="kr">then</span>
+            <span class="kd">local</span> <span class="n">rw</span><span class="p">,</span> <span class="n">rh</span> <span class="o">=</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="n">minrw</span><span class="p">,</span> <span class="n">maxrw</span><span class="p">),</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="n">minrh</span><span class="p">,</span> <span class="n">maxrh</span><span class="p">)</span>
+            <span class="kd">local</span> <span class="n">x</span> <span class="o">=</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="n">px</span> <span class="o">*</span> <span class="n">pw</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">px</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">pw</span> <span class="o">-</span> <span class="n">rw</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="kd">local</span> <span class="n">y</span> <span class="o">=</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="n">py</span> <span class="o">*</span> <span class="n">ph</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">py</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">ph</span> <span class="o">-</span> <span class="n">rh</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+            <span class="kd">local</span> <span class="n">roomRect</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Rectangle</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">rw</span><span class="p">,</span> <span class="n">rh</span><span class="p">)</span>
+            <span class="n">rooms</span><span class="p">[</span><span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">)]</span> <span class="o">=</span> <span class="n">roomRect</span>
+
+            <span class="n">builder</span><span class="p">:</span><span class="n">drawRectangle</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">rw</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">rh</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="n">Floor</span><span class="p">)</span>
+         <span class="kr">end</span>
+      <span class="kr">end</span>
+   <span class="kr">end</span>
+
+   <span class="c1">-- Helper function to connect two points with an L-shaped hallway.</span>
+   <span class="c1">--- @param a Rectangle</span>
+   <span class="c1">--- @param b Rectangle</span>
+   <span class="kd">local</span> <span class="kr">function</span> <span class="nf">createLShapedHallway</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+      <span class="kr">if</span> <span class="ow">not</span> <span class="n">a</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">b</span> <span class="kr">then</span> <span class="kr">return</span> <span class="kr">end</span>
+
+      <span class="kd">local</span> <span class="n">ax</span><span class="p">,</span> <span class="n">ay</span> <span class="o">=</span> <span class="n">a</span><span class="p">:</span><span class="n">center</span><span class="p">():</span><span class="n">floor</span><span class="p">():</span><span class="n">decompose</span><span class="p">()</span>
+      <span class="kd">local</span> <span class="n">bx</span><span class="p">,</span> <span class="n">by</span> <span class="o">=</span> <span class="n">b</span><span class="p">:</span><span class="n">center</span><span class="p">():</span><span class="n">floor</span><span class="p">():</span><span class="n">decompose</span><span class="p">()</span>
+      <span class="c1">-- Randomly choose one of two L-shaped tunnel patterns for variety.</span>
+      <span class="kr">if</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniform</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">0.5</span> <span class="kr">then</span>
+         <span class="n">builder</span><span class="p">:</span><span class="n">drawLine</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ay</span><span class="p">,</span> <span class="n">bx</span><span class="p">,</span> <span class="n">ay</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="n">Floor</span><span class="p">)</span>
+         <span class="n">builder</span><span class="p">:</span><span class="n">drawLine</span><span class="p">(</span><span class="n">bx</span><span class="p">,</span> <span class="n">ay</span><span class="p">,</span> <span class="n">bx</span><span class="p">,</span> <span class="n">by</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="n">Floor</span><span class="p">)</span>
+      <span class="kr">else</span>
+         <span class="n">builder</span><span class="p">:</span><span class="n">drawLine</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ay</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">by</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="n">Floor</span><span class="p">)</span>
+         <span class="n">builder</span><span class="p">:</span><span class="n">drawLine</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">by</span><span class="p">,</span> <span class="n">bx</span><span class="p">,</span> <span class="n">by</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="n">Floor</span><span class="p">)</span>
+      <span class="kr">end</span>
+   <span class="kr">end</span>
+
+   <span class="kr">for</span> <span class="n">hash</span><span class="p">,</span> <span class="n">currentRoom</span> <span class="kr">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">rooms</span><span class="p">)</span> <span class="kr">do</span>
+      <span class="kd">local</span> <span class="n">px</span><span class="p">,</span> <span class="n">py</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">.</span><span class="n">_unhash</span><span class="p">(</span><span class="n">hash</span><span class="p">)</span>
+
+      <span class="n">createLShapedHallway</span><span class="p">(</span><span class="n">currentRoom</span><span class="p">,</span> <span class="n">rooms</span><span class="p">[</span><span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">px</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">py</span><span class="p">)])</span>
+      <span class="n">createLShapedHallway</span><span class="p">(</span><span class="n">currentRoom</span><span class="p">,</span> <span class="n">rooms</span><span class="p">[</span><span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)])</span>
+   <span class="kr">end</span>
+
+   <span class="c1">-- Choose the first room (top-left partition) to place the player.</span>
+   <span class="kd">local</span> <span class="n">startRoom</span>
+   <span class="kr">while</span> <span class="ow">not</span> <span class="n">startRoom</span> <span class="kr">do</span>
+      <span class="kd">local</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">PARTITIONS</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">PARTITIONS</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+      <span class="n">startRoom</span> <span class="o">=</span> <span class="n">rooms</span><span class="p">[</span><span class="n">prism</span><span class="p">.</span><span class="n">Vector2</span><span class="p">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)]</span>
+   <span class="kr">end</span>
+
+   <span class="kd">local</span> <span class="n">playerPos</span> <span class="o">=</span> <span class="n">startRoom</span><span class="p">:</span><span class="n">center</span><span class="p">():</span><span class="n">floor</span><span class="p">()</span>
+   <span class="n">builder</span><span class="p">:</span><span class="n">addActor</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">playerPos</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">playerPos</span><span class="p">.</span><span class="n">y</span><span class="p">)</span>
+
+   <span class="kr">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">room</span> <span class="kr">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">rooms</span><span class="p">)</span> <span class="kr">do</span>
+      <span class="kr">if</span> <span class="n">room</span> <span class="o">~=</span> <span class="n">startRoom</span> <span class="kr">then</span>
+         <span class="kd">local</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">=</span> <span class="n">room</span><span class="p">:</span><span class="n">center</span><span class="p">():</span><span class="n">floor</span><span class="p">():</span><span class="n">decompose</span><span class="p">()</span>
+
+         <span class="n">builder</span><span class="p">:</span><span class="n">addActor</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">actors</span><span class="p">.</span><span class="n">Kobold</span><span class="p">(),</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">)</span>
+      <span class="kr">end</span>
+   <span class="kr">end</span>
+
+   <span class="n">builder</span><span class="p">:</span><span class="n">addPadding</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="n">Wall</span><span class="p">)</span>
+
+   <span class="kr">return</span> <span class="n">builder</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+</div>
+</details></section>
+<section id="updating-mygamelevelstate">
+<h2>Updating MyGameLevelState<a class="headerlink" href="#updating-mygamelevelstate" title="Link to this heading">¶</a></h2>
+<p>Head back to <code class="docutils literal notranslate"><span class="pre">gamestates/MyGamelevelstate.lua</span></code> and add the following line to the top of the file.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">levelgen</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;levelgen&quot;</span>
+</pre></div>
+</div>
+<p>Then we’re going to change it’s constructor. Head to <code class="docutils literal notranslate"><span class="pre">MyGameLevelState:__new</span></code> and let’s replace the map
+builder code there with this:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">seed</span> <span class="o">=</span> <span class="nb">tostring</span><span class="p">(</span><span class="nb">os.time</span><span class="p">())</span>
+<span class="kd">local</span> <span class="n">mapbuilder</span> <span class="o">=</span> <span class="n">levelgen</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">RNG</span><span class="p">(</span><span class="n">seed</span><span class="p">),</span> <span class="n">prism</span><span class="p">.</span><span class="n">actors</span><span class="p">.</span><span class="n">Player</span><span class="p">(),</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now run the game! You’ll be exploring a totally sick classic Rogue style map with some caverns and pits all
+around the room!</p>
+</section>
+<section id="descending-to-the-next-part">
+<h2>Descending to the next part<a class="headerlink" href="#descending-to-the-next-part" title="Link to this heading">¶</a></h2>
+<p>In the next section of the tutorial we’ll add a set of stairs and let the player descend deeper into the dungeon!</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/prism.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=prismrl&repo=prism&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<!--
+Taken from the sphinx library theme: https://vsalvino.github.io/sphinx-library/.
+
+MIT License
+
+Copyright (c) 2020 Vince Salvino and contributors.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<script>
+  function toggleMode(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("sphinx-terminal-mode", theme);
+  }
+  var theme = localStorage.getItem("sphinx-terminal-mode");
+  if(theme !== null)
+    toggleMode(theme);
+</script>
+<h3>Reading Mode</h3>
+
+<div class="btn-group">
+<button class="btn btn-default" type="button" onclick="toggleMode('light');">Light</button>
+<button class="btn btn-default" type="button" onclick="toggleMode('sepia');">Sepia</button>
+<button class="btn btn-default" type="button" onclick="toggleMode('dark');">Dark</button>
+</div>
+
+<noscript>
+  <div>
+    JavaScript is required to toggle reading modes.
+  </div>
+</noscript>
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../architecture-primer.html">Prism’s Architecture: A Primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conventions.html">Conventions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/object-registration.html">Object registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/query.html">Queries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/collision.html">Collision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/inventory.html">Inventory</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Taking flight</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">Starting fights</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">Taking licks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">Writing things down</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part6.html">Losing the game</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Carving out caverns</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started-on-a-map">Getting started on a map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#populating-the-void">Populating the void</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#making-room">Making room</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#carving-hallways">Carving hallways</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#spawning-people">Spawning people</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sending-it-back">Sending it back</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#updating-mygamelevelstate">Updating MyGameLevelState</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#descending-to-the-next-part">Descending to the next part</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/prism/index.html">Prism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/spectrum/index.html">Spectrum</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="part6.html" title="previous chapter">Losing the game</a></li>
+      <li>Next: <a href="../reference/prism/index.html" title="next chapter">Prism</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Matthew Blanchard, LJNIC.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/making-a-roguelike/part7.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -27,7 +27,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Path" href="../algorithms/astar/path.html" />
-    <link rel="prev" title="Color4" href="color.html" />
+    <link rel="prev" title="Rectangle" href="rectangle.html" />
    
   <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
   
@@ -93,6 +93,14 @@
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>_1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The length of the vector.</p>
 </dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Vector2.floor">
+<span class="sig-name descname"><span class="pre">floor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a></span></span><a class="headerlink" href="#lua-Vector2.floor" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a Vector2 with x, y floored.</p>
+<dl class="field-list simple">
 </dl>
 </dd></dl>
 
@@ -384,6 +392,7 @@ SOFTWARE.
 <li class="toctree-l1"><a class="reference internal" href="../../../making-a-roguelike/part4.html">Taking licks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../making-a-roguelike/part5.html">Writing things down</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../making-a-roguelike/part6.html">Losing the game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../making-a-roguelike/part7.html">Carving out caverns</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="current">
@@ -449,14 +458,15 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="../structures/queue.html"><code class="docutils literal notranslate"><span class="pre">Queue</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/sparsearray.html"><code class="docutils literal notranslate"><span class="pre">SparseArray</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structures/sparsemap.html"><code class="docutils literal notranslate"><span class="pre">SparseMap</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="bounding_box.html"><code class="docutils literal notranslate"><span class="pre">BoundingBox</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="color.html"><code class="docutils literal notranslate"><span class="pre">Color4</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="rectangle.html"><code class="docutils literal notranslate"><span class="pre">Rectangle</span></code></a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Vector2</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Vector2.x"><code class="docutils literal notranslate"><span class="pre">x</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Vector2.y"><code class="docutils literal notranslate"><span class="pre">y</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Vector2.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Vector2.copy"><code class="docutils literal notranslate"><span class="pre">copy()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Vector2.length"><code class="docutils literal notranslate"><span class="pre">length()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Vector2.floor"><code class="docutils literal notranslate"><span class="pre">floor()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Vector2.rotateClockwise"><code class="docutils literal notranslate"><span class="pre">rotateClockwise()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Vector2.hash"><code class="docutils literal notranslate"><span class="pre">hash()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Vector2._hash"><code class="docutils literal notranslate"><span class="pre">_hash()</span></code></a></li>
@@ -496,7 +506,7 @@ SOFTWARE.
 <ul>
   <li><a href="../../../index.html">Documentation overview</a><ul>
   <li><a href="../index.html">Prism</a><ul>
-      <li>Previous: <a href="color.html" title="previous chapter">Color4</a></li>
+      <li>Previous: <a href="rectangle.html" title="previous chapter">Rectangle</a></li>
       <li>Next: <a href="../algorithms/astar/path.html" title="next chapter">Path</a></li>
   </ul></li>
   </ul></li>

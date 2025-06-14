@@ -104,12 +104,14 @@
 <dd><dl class="lua data">
 <dt class="sig sig-object lua" id="lua-Display.width">
 <span class="sig-name descname"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><a class="headerlink" href="#lua-Display.width" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The width of the display in cells.</p>
+</dd></dl>
 
 <dl class="lua data">
 <dt class="sig sig-object lua" id="lua-Display.height">
 <span class="sig-name descname"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><a class="headerlink" href="#lua-Display.height" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The height of the display in cells.</p>
+</dd></dl>
 
 <dl class="lua data">
 <dt class="sig sig-object lua" id="lua-Display.cells">
@@ -120,6 +122,12 @@
 <dt class="sig sig-object lua" id="lua-Display.camera">
 <span class="sig-name descname"><span class="pre">camera</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/math/vector.html#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a><a class="headerlink" href="#lua-Display.camera" title="Link to this definition">¶</a></dt>
 <dd><p>The offset to draw the display at.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Display.pushed">
+<span class="sig-name descname"><span class="pre">pushed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code><a class="headerlink" href="#lua-Display.pushed" title="Link to this definition">¶</a></dt>
+<dd><p>Whether to draw with the camera offset applied or not.</p>
 </dd></dl>
 
 <dl class="lua method">
@@ -380,6 +388,22 @@ elements from the level or other world-space coordinates onto the display.</p>
 </dd></dl>
 
 <dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Display.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.push" title="Link to this definition">¶</a></dt>
+<dd><p>Push the camera offset, so everything drawn will get the camera applied.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Display.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.pop" title="Link to this definition">¶</a></dt>
+<dd><p>Pop the camera offset, so everything drawn will not get the camera applied.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Display.putRect">
 <span class="sig-name descname"><span class="pre">putRect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Display" title="Display"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Display</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">char</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">fg?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/math/color.html#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">bg?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../prism/math/color.html#lua-Color4" title="Color4"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Color4</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">layer?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Display.putRect" title="Link to this definition">¶</a></dt>
 <dd><p>Draws a hollow rectangle on the display grid using specified characters and colors.</p>
@@ -545,6 +569,7 @@ SOFTWARE.
 <li class="toctree-l1"><a class="reference internal" href="../../making-a-roguelike/part4.html">Taking licks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../making-a-roguelike/part5.html">Writing things down</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../making-a-roguelike/part6.html">Losing the game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../making-a-roguelike/part7.html">Carving out caverns</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="current">
@@ -568,6 +593,7 @@ SOFTWARE.
 <li class="toctree-l3"><a class="reference internal" href="#lua-Display.height"><code class="docutils literal notranslate"><span class="pre">height</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Display.cells"><code class="docutils literal notranslate"><span class="pre">cells</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Display.camera"><code class="docutils literal notranslate"><span class="pre">camera</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.pushed"><code class="docutils literal notranslate"><span class="pre">pushed</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Display.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Display.spriteAtlas"><code class="docutils literal notranslate"><span class="pre">spriteAtlas</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Display.cellSize"><code class="docutils literal notranslate"><span class="pre">cellSize</span></code></a></li>
@@ -586,6 +612,8 @@ SOFTWARE.
 <li class="toctree-l3"><a class="reference internal" href="#lua-Display.getCellUnderMouse"><code class="docutils literal notranslate"><span class="pre">getCellUnderMouse()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Display.setCamera"><code class="docutils literal notranslate"><span class="pre">setCamera()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Display.moveCamera"><code class="docutils literal notranslate"><span class="pre">moveCamera()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.push"><code class="docutils literal notranslate"><span class="pre">push()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Display.pop"><code class="docutils literal notranslate"><span class="pre">pop()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Display.putRect"><code class="docutils literal notranslate"><span class="pre">putRect()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Display.putFilledRect"><code class="docutils literal notranslate"><span class="pre">putFilledRect()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Display.putLine"><code class="docutils literal notranslate"><span class="pre">putLine()</span></code></a></li>
