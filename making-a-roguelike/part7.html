@@ -81,13 +81,13 @@ decide where to put what we’re going to use perlin noise.</p>
 <span class="kr">end</span>
 </pre></div>
 </div>
-</section>
-<section id="making-room">
-<h2>Making room<a class="headerlink" href="#making-room" title="Link to this heading">¶</a></h2>
 <p>First we generate an offset for the noise using our RNG. This ensures every map gets a unique pattern of
 pits and walls.</p>
 <p>Then we loop through each tile in the map, grab our result from the perlinNoise which we scale a little bit,
 and finally check if the noise is &gt; 0.5. If it is we put a wall there, and if it’s not we place a pit.</p>
+</section>
+<section id="making-room">
+<h2>Making room<a class="headerlink" href="#making-room" title="Link to this heading">¶</a></h2>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Create rooms in each of the partitions.</span>
 <span class="c1">--- @type table&lt;number, Rectangle&gt;</span>
 <span class="kd">local</span> <span class="n">rooms</span> <span class="o">=</span> <span class="p">{}</span>
