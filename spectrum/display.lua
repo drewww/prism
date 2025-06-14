@@ -10,10 +10,11 @@
 
 --- @alias DisplayCell {char: (string|integer)?, fg: Color4, bg: Color4, depth: number}
 ---@class Display : Object
----@field width integer
----@field height integer
+---@field width integer The width of the display in cells.
+---@field height integer The height of the display in cells.
 ---@field cells table<number, table<number, DisplayCell>>
 ---@field camera Vector2 The offset to draw the display at.
+---@field pushed boolean Whether to draw with the camera offset applied or not.
 ---@overload fun(width: integer, heigh: integer, spriteAtlas: SpriteAtlas, cellSize: Vector2): Display
 local Display = prism.Object:extend("Display")
 
@@ -28,6 +29,7 @@ function Display:__new(width, height, spriteAtlas, cellSize)
    self.width = width
    self.height = height
    self.camera = prism.Vector2()
+   self.pushed = false
 
    self.cells = { {} }
 
@@ -94,7 +96,9 @@ function Display:putLevel(attachable)
       end
    end
 
-   for actor, position, drawable in attachable:query(prism.components.Position, prism.components.Drawable):iter() do
+   for _, position, drawable in
+      attachable:query(prism.components.Position, prism.components.Drawable):iter()
+   do
       --- @cast drawable Drawable
       --- @cast position Position
       local ax, ay = position:getVector():decompose()
@@ -133,7 +137,9 @@ end
 function Display:_drawActors(drawnActors, queryable, alpha)
    local x, y = self.camera:decompose()
 
-   for actor, position, drawable in queryable:query(prism.components.Position, prism.components.Drawable):iter() do
+   for actor, position, drawable in
+      queryable:query(prism.components.Position, prism.components.Drawable):iter()
+   do
       --- @cast drawable Drawable
       if not drawnActors[actor] then
          drawnActors[actor] = true
@@ -213,6 +219,10 @@ end
 --- @param bg? Color4 The background color.
 --- @param layer number? The draw layer (higher numbers draw on top). Defaults to -math.huge.
 function Display:put(x, y, char, fg, bg, layer)
+   if self.pushed then
+      x = x + self.camera.x
+      y = y + self.camera.y
+   end
    if x < 1 or x > self.width or y < 1 or y > self.height then return end
 
    fg = fg or prism.Color4.WHITE
@@ -324,7 +334,6 @@ function Display:getCenterOffset(x, y)
    return offsetX, offsetY
 end
 
-
 --- Draws a Drawable object directly at pixel coordinates on the screen,
 --- without considering the grid or camera, and handling multi-cell drawables.
 --- @param x number The pixel X coordinate of the top-left corner.
@@ -367,6 +376,16 @@ end
 function Display:moveCamera(dx, dy)
    self.camera.x = self.camera.x + dx
    self.camera.y = self.camera.y + dy
+end
+
+--- Push the camera offset, so everything drawn will get the camera applied.
+function Display:push()
+   self.pushed = true
+end
+
+--- Pop the camera offset, so everything drawn will not get the camera applied.
+function Display:pop()
+   self.pushed = false
 end
 
 --- Draws a hollow rectangle on the display grid using specified characters and colors.
