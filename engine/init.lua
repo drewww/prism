@@ -32,7 +32,7 @@ prism.Color4 = prism.require "math.color"
 prism.Vector2 = prism.require "math.vector"
 
 --- @module "engine.math.bounding_box"
-prism.BoundingBox = prism.require "math.bounding_box"
+prism.Rectangle = prism.require "math.rectangle"
 
 --- @module "engine.math.bresenham"
 prism.Bresenham = prism.require "math.bresenham"
