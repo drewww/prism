@@ -43,6 +43,12 @@ function Vector2:length()
    return math.sqrt(self.x * self.x + self.y * self.y)
 end
 
+--- Returns a Vector2 with x, y floored.
+--- @return Vector2
+function Vector2:floor()
+   return Vector2(math.floor(self.x), math.floor(self.y))
+end
+
 --- Rotates the vector clockwise.
 ---@return Vector2 The rotated vector.
 function Vector2:rotateClockwise()
@@ -63,6 +69,13 @@ end
 ---@return Vector2 # The difference of the two vectors.
 function Vector2.__sub(a, b)
    return Vector2(a.x - b.x, a.y - b.y)
+end
+
+--- Divides vector a by scalar b.
+--- @param a Vector2
+--- @param b number
+function Vector2.__div(a, b)
+   return Vector2(a.x * b, a.y * b)
 end
 
 --- Checks the equality of two vectors.
