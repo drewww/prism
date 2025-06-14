@@ -42,15 +42,15 @@ decide where to put what we're going to use perlin noise.
       end
    end
 
-Making room
------------
-
 First we generate an offset for the noise using our RNG. This ensures every map gets a unique pattern of
 pits and walls.
 
 Then we loop through each tile in the map, grab our result from the perlinNoise which we scale a little bit,
 and finally check if the noise is > 0.5. If it is we put a wall there, and if it's not we place a pit.
 
+
+Making room
+-----------
 
 .. code:: lua
 
