@@ -12,6 +12,8 @@
 --- @field private opacityCache BooleanBuffer         -- Cached opacity grid for FOV and lighting.
 --- @field private passableCache CascadingBitmaskBuffer -- Cached passability grid for pathfinding.
 --- @field private decision ActionDecision            -- Temporary storage for the current actor’s choice.
+--- @field private _passabilityQuery Query?           -- A cache'd passability query to avoid garbage.
+--- @field private _opacityQuery Query?               -- A cache'd opacity query to avoid garbage.
 --- @overload fun(map: Map, actors: Actor[], systems: System[], scheduler: Scheduler?, seed: string?): Level
 local Level = prism.Object:extend("Level")
 
@@ -409,10 +411,10 @@ local passabilityQuery = nil
 function Level:updatePassabilityCache(x, y)
    local mask = self.map.passableCache:getMask(x, y)
 
-   if not passabilityQuery then passabilityQuery = self:query(prism.components.Collider) end
+   self._passabilityQuery = self._passabilityQuery or self:query(prism.components.Collider)
+   self._passabilityQuery:at(x, y)
 
-   passabilityQuery:at(x, y)
-   for _, collider in passabilityQuery:iter() do
+   for _, collider in self._passabilityQuery:iter() do
       --- @cast collider Collider
       mask = bit.band(collider:getMask(), mask)
    end
@@ -449,8 +451,6 @@ function Level:initializeOpacityCache()
    end
 end
 
---- @type Query
-local opacityQuery = nil
 --- Updates the opacity cache at the given position. This should be called
 --- whenever an actor moves or a cell's opacity changes. This is handled
 --- automatically by the Level class.
@@ -458,14 +458,11 @@ local opacityQuery = nil
 --- @param y number The y component of the position to update.
 --- @private
 function Level:updateOpacityCache(x, y)
-   if not opacityQuery then
-      opacityQuery = self:query(prism.components.Opaque):at(x, y)
-   else
-      opacityQuery:at(x, y)
-   end
+   self._opacityQuery = self._opacityQuery or self:query(prism.components.Opaque)
+   self._opacityQuery:at(x, y)
 
    local opaque = false
-   for _ in opacityQuery:iter() do
+   for _ in self._opacityQuery:iter() do
       opaque = true
       break
    end
