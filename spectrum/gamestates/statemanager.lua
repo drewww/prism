@@ -98,6 +98,7 @@ function StateManager:enter(next, ...)
    local previous = self.states[#self.states]
    self:emit("unload", next, ...)
    previous.manager = nil
+   next.manager = self
    self.states[#self.states] = next
    self:emit("load", previous, ...)
 end
