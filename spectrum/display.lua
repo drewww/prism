@@ -186,6 +186,14 @@ function Display:putSenses(primary, secondary)
    for _, senses in ipairs(secondary) do
       self:_drawActors(drawnActors, senses, 0.7)
    end
+
+   for _, senses in ipairs(primary) do
+      self:_drawActors(drawnActors, senses.remembered, 0.3)
+   end
+
+   for _, senses in ipairs(secondary) do
+      self:_drawActors(drawnActors, senses.remembered, 0.3)
+   end
 end
 
 --- Puts a Drawable object onto the display grid at specified coordinates, considering its depth.

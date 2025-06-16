@@ -3,7 +3,9 @@
 --- @class Senses : Component, IQueryable
 --- @field cells SparseGrid A sparse grid of cells representing the portion of the map the actor's senses reveal.
 --- @field explored SparseGrid A sparse grid of cells the actor's senses have previously revealed.
+--- @field remembered SparseGrid
 --- @field exploredStorage table<Level, SparseGrid>
+--- @field rememberedStorage table<Level, ActorStorage>
 --- @field actors ActorStorage An actor storage with the actors the player is aware of.
 --- @field unknown SparseMap<Vector2> Unkown actors are things the player is aware of the location of, but not the components.
 --- @overload fun(): Senses
@@ -11,6 +13,7 @@ local Senses = prism.Component:extend "Senses"
 
 function Senses:__new(actor)
    self.exploredStorage = {}
+   self.rememberedStorage = {}
    self.cells = prism.SparseGrid()
    self.actors = prism.ActorStorage()
    self.unknown = prism.SparseMap()

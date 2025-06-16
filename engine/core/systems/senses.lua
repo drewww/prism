@@ -23,20 +23,29 @@ end
 
 function SensesSystem:triggerRebuild(level, actor)
    --- @type Senses
-   local sensesComponent = actor:get(prism.components.Senses)
-   if not sensesComponent then return end
+   local senses = actor:get(prism.components.Senses)
+   if not senses then return end
 
-   sensesComponent.cells = prism.SparseGrid()
+   senses.cells = prism.SparseGrid()
 
    level:trigger("onSenses", level, actor)
 
-   if not sensesComponent.explored or sensesComponent.explored ~= sensesComponent.exploredStorage[level] then
-      sensesComponent.exploredStorage[level] = sensesComponent.exploredStorage[level] or prism.SparseGrid()
-      sensesComponent.explored = sensesComponent.exploredStorage[level]
+   if not senses.explored or senses.explored ~= senses.exploredStorage[level] then
+      senses.exploredStorage[level] = senses.exploredStorage[level] or prism.SparseGrid()
+      senses.explored = senses.exploredStorage[level]
    end
 
-   for x, y, cell in sensesComponent.cells:each() do
-      sensesComponent.explored:set(x, y, cell)
+   if not senses.remembered or senses.remembered ~= senses.exploredStorage[level] then
+      senses.rememberedStorage[level] = senses.rememberedStorage[level] or prism.ActorStorage()
+      senses.remembered = senses.rememberedStorage[level]
+   end
+
+   for x, y, cell in senses.cells:each() do
+      senses.explored:set(x, y, cell)
+   end
+
+   for actor in senses:query(prism.components.Remembered):iter() do
+      senses.remembered:addActor(actor)
    end
 end
 

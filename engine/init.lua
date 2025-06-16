@@ -193,6 +193,9 @@ prism.components.PlayerController = prism.require "core.components.player_contro
 --- @module "engine.core.components.senses"
 prism.components.Senses = prism.require "core.components.senses"
 
+--- @module "engine.core.components.remembered"
+prism.components.Remembered = prism.require "core.components.remembered"
+
 --- @module "engine.core.components.opaque"
 prism.components.Opaque = prism.require "core.components.opaque"
 
