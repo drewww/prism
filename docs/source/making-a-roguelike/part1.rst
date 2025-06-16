@@ -14,7 +14,7 @@ The following sections will expand this into a complete game.
 Installation
 ------------
 
-Follow the :doc:`installation guide <installation>` to install LÖVE and set up the project template.
+Follow the :doc:`installation guide <../installation>` to install LÖVE and set up the project template.
 
 Creating an enemy
 -----------------
