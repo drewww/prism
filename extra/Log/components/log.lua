@@ -61,7 +61,6 @@ function Log.addMessageSensed(level, action, message)
 
       for i = 1, action:getNumTargets() do
          local target = action:getTarget(i)
-         print(actor.className, target.className)
          if actor == target then return end
 
          if prism.Actor:is(target) then
