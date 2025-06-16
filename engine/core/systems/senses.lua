@@ -36,7 +36,7 @@ function SensesSystem:triggerRebuild(level, actor)
    end
 
    if not senses.remembered or senses.remembered ~= senses.exploredStorage[level] then
-      senses.rememberedStorage[level] = senses.rememberedStorage[level] or prism.ActorStorage()
+      senses.rememberedStorage[level] = senses.rememberedStorage[level] or prism.SparseGrid()
       senses.remembered = senses.rememberedStorage[level]
    end
 
@@ -44,8 +44,9 @@ function SensesSystem:triggerRebuild(level, actor)
       senses.explored:set(x, y, cell)
    end
 
-   for actor in senses:query(prism.components.Remembered):iter() do
-      senses.remembered:addActor(actor)
+   for actor in senses:query(prism.components.Drawable, prism.components.Remembered):iter() do
+      local x, y = actor:getPosition():decompose()
+      senses.remembered:set(x, y, actor)
    end
 end
 

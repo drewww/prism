@@ -153,6 +153,25 @@ function Display:_drawActors(drawnActors, queryable, alpha)
    end
 end
 
+--- @param drawnActors table
+---@param grid SparseGrid
+---@param alpha number
+function Display:_drawRemembered(drawnActors, grid, alpha)
+   local cx, cy = self.camera:decompose()
+
+   for x, y, actor in grid:each() do
+      if not drawnActors[actor] then
+         drawnActors[actor] = true
+
+         local drawable = actor:expect(prism.components.Drawable)
+         tempColor = drawable.color:copy(tempColor)
+         tempColor.a = tempColor.a * alpha
+
+         self:putDrawable(x + cx, y + cy, drawable, tempColor)
+      end
+   end
+end
+
 --- Puts vision and explored areas from primary and secondary senses onto the display.
 --- Cells and actors from primary senses are drawn fully opaque, while those from secondary
 --- senses are drawn with reduced opacity. Explored areas are drawn with even lower opacity.
@@ -188,11 +207,11 @@ function Display:putSenses(primary, secondary)
    end
 
    for _, senses in ipairs(primary) do
-      self:_drawActors(drawnActors, senses.remembered, 0.3)
+      self:_drawRemembered(drawnActors, senses.remembered, 0.3)
    end
 
    for _, senses in ipairs(secondary) do
-      self:_drawActors(drawnActors, senses.remembered, 0.3)
+      self:_drawRemembered(drawnActors, senses.remembered, 0.3)
    end
 end
 
