@@ -22,12 +22,18 @@ function SensesSystem:onYield(level, event)
 end
 
 function SensesSystem:triggerRebuild(level, actor)
+   --- @type Senses
    local sensesComponent = actor:get(prism.components.Senses)
    if not sensesComponent then return end
 
    sensesComponent.cells = prism.SparseGrid()
 
    level:trigger("onSenses", level, actor)
+
+   if not sensesComponent.explored or sensesComponent.explored ~= sensesComponent.exploredStorage[level] then
+      sensesComponent.exploredStorage[level] = sensesComponent.exploredStorage[level] or prism.SparseGrid()
+      sensesComponent.explored = sensesComponent.exploredStorage[level]
+   end
 
    for x, y, cell in sensesComponent.cells:each() do
       sensesComponent.explored:set(x, y, cell)
