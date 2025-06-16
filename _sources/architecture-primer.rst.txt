@@ -1,5 +1,5 @@
-Prism's Architecture: A Primer
-==============================
+Architecture primer
+===================
 This is an overview of how a game made with Prism fits together.
 
 Actors

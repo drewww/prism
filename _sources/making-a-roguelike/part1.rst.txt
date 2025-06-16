@@ -14,36 +14,7 @@ The following sections will expand this into a complete game.
 Installation
 ------------
 
-To begin, download and install LÖVE. Prism technically supports LÖVE version 12.0, which is still
-in pre-release but very stable.
-
-Latest downloads, as of April 2025:
-
-- `Windows <https://github.com/love2d/love/actions/runs/14422931049/artifacts/2933455705>`_
-- `Linux AppImage <https://github.com/love2d/love/actions/runs/14422931049/artifacts/2933455904>`_
-- `macOS <https://github.com/love2d/love/actions/runs/14422931049/artifacts/2933456500>`_
-
-.. note::
-
-   Prism makes heavy use of Lua type annotations to improve autocomplete, so we recommend
-   installing the `Lua language server <https://luals.github.io/>`_ for your editor.
-
-Next, clone the template project:
-
-.. code:: sh
-
-   git clone --recursive https://github.com/PrismRL/prism-template.git
-
-You can start the game by running ``love .`` in the terminal from the root directory,
-or dragging the root folder onto the LÖVE executable.
-
-Upon launching, you should see an ``@`` symbol on the screen. You can
-move this character using the following default keys:
-
-* ``WASD`` for movement
-* ``QEZC`` for diagonal movement
-
---------------
+Follow the :doc:`installation guide <installation>` to install LÖVE and set up the project template.
 
 Creating an enemy
 -----------------
