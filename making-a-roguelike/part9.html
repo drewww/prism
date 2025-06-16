@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<template id="tmpl_gotoTop"><div id="gotoTop">
+  <button>Back to top</button>
+</div></template>
+    <title>Creating continuity &#8212; Prism  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=266695fe" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=a1f6949c" />
+    <link rel="stylesheet" type="text/css" href="../_static/lua.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/terminal.css?v=47602536" />
+    <link rel="stylesheet" type="text/css" href="../_static/goto-top/style.css?v=c152bd81" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/goto-top/main.js?v=69fc67a6"></script>
+    <link rel="icon" href="../_static/prism.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="creating-continuity">
+<h1>Creating continuity<a class="headerlink" href="#creating-continuity" title="Link to this heading">¶</a></h1>
+<p>In this chapter we’ll create a Game object and put it into a GAME global that will track the overall
+state of the game. This includes managing an RNG we’ll use to seed the levelgen and each of levels, and
+tracking the depth of the dungeon the player is currently in.</p>
+<section id="getting-the-message">
+<h2>Getting the message<a class="headerlink" href="#getting-the-message" title="Link to this heading">¶</a></h2>
+<p>First we’re going to update our Descend message to include the actor that’s descending in it.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class DescendMessage : Message</span>
+<span class="c1">--- @overload fun(descender: Actor): DescendMessage</span>
+<span class="kd">local</span> <span class="n">DescendMessage</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Object</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;DescendMessage&quot;</span><span class="p">)</span>
+
+<span class="c1">--- @param descender Actor</span>
+<span class="kr">function</span> <span class="nc">DescendMessage</span><span class="p">:</span><span class="nf">__new</span><span class="p">(</span><span class="n">descender</span><span class="p">)</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">descender</span> <span class="o">=</span> <span class="n">descender</span>
+<span class="kr">end</span>
+
+<span class="kr">return</span> <span class="n">DescendMessage</span>
+</pre></div>
+</div>
+<p>Let’s also change our Descend action so that we populate the message with the descending actor.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">Descend</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+   <span class="n">level</span><span class="p">:</span><span class="n">removeActor</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">)</span>
+   <span class="n">level</span><span class="p">:</span><span class="n">yield</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">messages</span><span class="p">.</span><span class="n">Descend</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">))</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+</section>
+<section id="creating-the-game">
+<h2>Creating the game<a class="headerlink" href="#creating-the-game" title="Link to this heading">¶</a></h2>
+<p>We’re gonna create a new class Game, and we’re gonna include levelgen at the top.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">levelgen</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;levelgen&quot;</span>
+
+<span class="c1">--- @class Game : Object</span>
+<span class="c1">--- @overload fun(seed: string): Game</span>
+<span class="kd">local</span> <span class="n">Game</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Object</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;Game&quot;</span><span class="p">)</span>
+
+<span class="c1">--- @param seed string</span>
+<span class="kr">function</span> <span class="nc">Game</span><span class="p">:</span><span class="nf">__new</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">depth</span> <span class="o">=</span> <span class="mi">0</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">rng</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">RNG</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+<span class="kr">end</span>
+
+<span class="c1">--- @return string</span>
+<span class="kr">function</span> <span class="nc">Game</span><span class="p">:</span><span class="nf">getLevelSeed</span><span class="p">()</span>
+   <span class="kr">return</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">rng</span><span class="p">:</span><span class="n">getUniform</span><span class="p">())</span>
+<span class="kr">end</span>
+
+<span class="c1">--- @param player Actor</span>
+<span class="c1">--- @return MapBuilder builder</span>
+<span class="kr">function</span> <span class="nc">Game</span><span class="p">:</span><span class="nf">generateNextFloor</span><span class="p">(</span><span class="n">player</span><span class="p">)</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">depth</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span>
+
+   <span class="kd">local</span> <span class="n">genRNG</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">RNG</span><span class="p">(</span><span class="n">self</span><span class="p">:</span><span class="n">getLevelSeed</span><span class="p">())</span>
+   <span class="kr">return</span> <span class="n">levelgen</span><span class="p">(</span><span class="n">genRNG</span><span class="p">,</span> <span class="n">player</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="kr">end</span>
+
+<span class="kr">return</span> <span class="n">Game</span>
+</pre></div>
+</div>
+<p>This is going to be where we track everything we need for the overall game in the future. Having one centralized
+RNG we use for generating seeds for levelgen and levels means that our game will be repeatable given the same seed.</p>
+</section>
+<section id="making-it-global">
+<h2>Making it global<a class="headerlink" href="#making-it-global" title="Link to this heading">¶</a></h2>
+<p>Head over to <code class="docutils literal notranslate"><span class="pre">main.lua</span></code> and right below where we’re loading all our modules we’re going to create our GAME global
+and seed our game.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
+<span class="n">prism</span><span class="p">.</span><span class="n">loadModule</span><span class="p">(</span><span class="s2">&quot;modules/MyGame&quot;</span><span class="p">)</span>
+
+<span class="c1">--- @module &quot;game&quot;</span>
+<span class="kd">local</span> <span class="n">Game</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s2">&quot;game&quot;</span><span class="p">)</span>
+<span class="n">GAME</span> <span class="o">=</span> <span class="n">Game</span><span class="p">(</span><span class="nb">tostring</span><span class="p">(</span><span class="nb">os.time</span><span class="p">()))</span>
+</pre></div>
+</div>
+<p>Now our <code class="docutils literal notranslate"><span class="pre">GAME</span></code> will be accessible all over our codebase.</p>
+</section>
+<section id="modifying-the-levelstate">
+<h2>Modifying the levelstate<a class="headerlink" href="#modifying-the-levelstate" title="Link to this heading">¶</a></h2>
+<p>The first thing we’re going to want to do is remove our require on levelgen.</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">-local levelgen = require &quot;levelgen&quot;</span>
+</pre></div>
+</div>
+<p>Then we’re going to change <code class="docutils literal notranslate"><span class="pre">MyGameLevelState</span></code>’s constructor.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @param display Display</span>
+<span class="c1">--- @param builder MapBuilder</span>
+<span class="c1">--- @param seed string</span>
+<span class="kr">function</span> <span class="nc">MyGameLevelState</span><span class="p">:</span><span class="nf">__new</span><span class="p">(</span><span class="n">display</span><span class="p">,</span> <span class="n">builder</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
+   <span class="c1">-- Build the map and instantiate the level with systems</span>
+   <span class="kd">local</span> <span class="n">map</span><span class="p">,</span> <span class="n">actors</span> <span class="o">=</span> <span class="n">builder</span><span class="p">:</span><span class="n">build</span><span class="p">()</span>
+   <span class="kd">local</span> <span class="n">level</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Level</span><span class="p">(</span><span class="n">map</span><span class="p">,</span> <span class="n">actors</span><span class="p">,</span> <span class="p">{</span>
+      <span class="n">prism</span><span class="p">.</span><span class="n">systems</span><span class="p">.</span><span class="n">Senses</span><span class="p">(),</span>
+      <span class="n">prism</span><span class="p">.</span><span class="n">systems</span><span class="p">.</span><span class="n">Sight</span><span class="p">(),</span>
+      <span class="n">prism</span><span class="p">.</span><span class="n">systems</span><span class="p">.</span><span class="n">Fall</span><span class="p">(),</span>
+   <span class="p">},</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
+
+   <span class="c1">-- Initialize with the created level and display, the heavy lifting is done by</span>
+   <span class="c1">-- the parent class.</span>
+   <span class="n">spectrum</span><span class="p">.</span><span class="n">LevelState</span><span class="p">.</span><span class="n">__new</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">display</span><span class="p">)</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+<p>This sets up our Level with the map we build and the seed we’ll get from our GAME global.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @overload fun(display: Display, builder: MapBuilder, seed: string): MyGameLevelState</span>
+<span class="kd">local</span> <span class="n">MyGameLevelState</span> <span class="o">=</span> <span class="n">spectrum</span><span class="p">.</span><span class="n">LevelState</span><span class="p">:</span><span class="n">extend</span> <span class="s2">&quot;MyGameLevelState&quot;</span>
+</pre></div>
+</div>
+<p>Let’s change our overload here as well to reflect the new arguments.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">if</span> <span class="n">prism</span><span class="p">.</span><span class="n">messages</span><span class="p">.</span><span class="n">Descend</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="kr">then</span>
+   <span class="c1">--- @cast message DescendMessage</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">manager</span><span class="p">:</span><span class="n">enter</span><span class="p">(</span><span class="n">MyGameLevelState</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">,</span> <span class="n">GAME</span><span class="p">:</span><span class="n">generateNextFloor</span><span class="p">(</span><span class="n">message</span><span class="p">.</span><span class="n">descender</span><span class="p">).</span> <span class="n">GAME</span><span class="p">:))</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+<p>Now we’re going to change our handler for the message to pass the player into the next level.</p>
+</section>
+<section id="moving-along">
+<h2>Moving along<a class="headerlink" href="#moving-along" title="Link to this heading">¶</a></h2>
+<p>We’ve got descending through the levels working, and now we’ve got everything tied together with our Game class.
+In the next section we’ll work on getting our inventory and a couple items working.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/prism.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=prismrl&repo=prism&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<!--
+Taken from the sphinx library theme: https://vsalvino.github.io/sphinx-library/.
+
+MIT License
+
+Copyright (c) 2020 Vince Salvino and contributors.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<script>
+  function toggleMode(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("sphinx-terminal-mode", theme);
+  }
+  var theme = localStorage.getItem("sphinx-terminal-mode");
+  if(theme !== null)
+    toggleMode(theme);
+</script>
+<h3>Reading Mode</h3>
+
+<div class="btn-group">
+<button class="btn btn-default" type="button" onclick="toggleMode('light');">Light</button>
+<button class="btn btn-default" type="button" onclick="toggleMode('sepia');">Sepia</button>
+<button class="btn btn-default" type="button" onclick="toggleMode('dark');">Dark</button>
+</div>
+
+<noscript>
+  <div>
+    JavaScript is required to toggle reading modes.
+  </div>
+</noscript>
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../architecture-primer.html">Architecture primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conventions.html">Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/object-registration.html">Object registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/query.html">Queries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/collision.html">Collision</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Taking flight</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">Starting fights</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">Taking licks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">Writing things down</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part6.html">Losing the game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part7.html">Carving out caverns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part8.html">Descending into the depths</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/prism/index.html">Prism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/spectrum/index.html">Spectrum</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Matthew Blanchard, LJNIC.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/making-a-roguelike/part9.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
