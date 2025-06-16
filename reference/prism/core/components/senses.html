@@ -27,7 +27,7 @@
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
     <link rel="next" title="SensesSystem" href="../systems/senses.html" />
-    <link rel="prev" title="Position" href="position.html" />
+    <link rel="prev" title="Remembered" href="remembered.html" />
    
   <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
   
@@ -61,6 +61,23 @@ from the other sense components/systems. It is required for sight. See the Sense
 <span class="sig-name descname"><span class="pre">explored</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseGrid</span></code><a class="headerlink" href="#lua-Senses.explored" title="Link to this definition">¶</a></dt>
 <dd><p>A sparse grid of cells the actor’s senses have previously revealed.</p>
 </dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Senses.remembered">
+<span class="sig-name descname"><span class="pre">remembered</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseGrid</span></code><a class="headerlink" href="#lua-Senses.remembered" title="Link to this definition">¶</a></dt>
+<dd><p>A sparse grid class that stores data using hashed coordinates. Similar to a SparseMap
+except here there is only one entry per grid coordinate. This is suitable for stuff like Cells.</p>
+</dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Senses.exploredStorage">
+<span class="sig-name descname"><span class="pre">exploredStorage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../level.html#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SparseGrid</span></code><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#lua-Senses.exploredStorage" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Senses.rememberedStorage">
+<span class="sig-name descname"><span class="pre">rememberedStorage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">table</span></code><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../level.html#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../actorstorage.html#lua-ActorStorage" title="ActorStorage"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ActorStorage</span></code></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#lua-Senses.rememberedStorage" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="lua data">
 <dt class="sig sig-object lua" id="lua-Senses.actors">
@@ -237,9 +254,13 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="opaque.html"><code class="docutils literal notranslate"><span class="pre">Opaque</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="player_controller.html"><code class="docutils literal notranslate"><span class="pre">PlayerController</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="position.html"><code class="docutils literal notranslate"><span class="pre">Position</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="remembered.html"><code class="docutils literal notranslate"><span class="pre">Remembered</span></code></a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Senses</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Senses.cells"><code class="docutils literal notranslate"><span class="pre">cells</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Senses.explored"><code class="docutils literal notranslate"><span class="pre">explored</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Senses.remembered"><code class="docutils literal notranslate"><span class="pre">remembered</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Senses.exploredStorage"><code class="docutils literal notranslate"><span class="pre">exploredStorage</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Senses.rememberedStorage"><code class="docutils literal notranslate"><span class="pre">rememberedStorage</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Senses.actors"><code class="docutils literal notranslate"><span class="pre">actors</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Senses.unknown"><code class="docutils literal notranslate"><span class="pre">unknown</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Senses.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
@@ -279,7 +300,7 @@ SOFTWARE.
 <ul>
   <li><a href="../../../../index.html">Documentation overview</a><ul>
   <li><a href="../../index.html">Prism</a><ul>
-      <li>Previous: <a href="position.html" title="previous chapter">Position</a></li>
+      <li>Previous: <a href="remembered.html" title="previous chapter">Remembered</a></li>
       <li>Next: <a href="../systems/senses.html" title="next chapter">SensesSystem</a></li>
   </ul></li>
   </ul></li>

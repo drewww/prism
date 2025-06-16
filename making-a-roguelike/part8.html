@@ -70,8 +70,9 @@ will be a simple tag component.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">registerActor</span><span class="p">(</span><span class="s2">&quot;Stairs&quot;</span><span class="p">,</span> <span class="kr">function</span><span class="p">()</span>
    <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">.</span><span class="n">fromComponents</span> <span class="p">{</span>
       <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Position</span><span class="p">(),</span>
-      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Drawable</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">),</span>
-      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Stair</span><span class="p">()</span>
+      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Drawable</span><span class="p">(</span><span class="s2">&quot;&lt;&quot;</span><span class="p">),</span>
+      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Stair</span><span class="p">(),</span>
+      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Remembered</span><span class="p">(),</span>
    <span class="p">}</span>
 <span class="kr">end</span><span class="p">)</span>
 </pre></div>
