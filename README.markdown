@@ -7,7 +7,7 @@
 </div>
 
 > [!WARNING]
-> **prism's** API is in an unstable state. It is usable but likely to change as we finalize a proper release!
+> **prism's** API is in an semi-stable state. It is usable but likely to change as we finalize a proper release!
 
 ## prism
 
