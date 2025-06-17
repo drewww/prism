@@ -7,7 +7,7 @@
 </div>
 
 > [!WARNING]
-> **prism's** API is in frozen, but there might be small changes as we finalize a proper release!
+> **prism's** API is frozen, but there might be small changes as we finalize a proper release!
 
 ## prism
 
