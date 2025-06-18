@@ -44,6 +44,7 @@
 
 code.xref {
   border-bottom: none;
+  background-color: var(--code-bg-color);
 }
 
 a.reference:hover {
