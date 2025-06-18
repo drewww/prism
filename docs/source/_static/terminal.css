@@ -1187,7 +1187,10 @@ figure > img {
 
 figure {
   margin: 0;
+}
 
+.edgeLabel > p {
+  hyphens: none !important;
 }
 
 figcaption {
