@@ -35,6 +35,9 @@ To make the game more engaging, let’s introduce an enemy: the
       }
    end)
 
+.. note::
+
+   See :doc:`../how-tos/object-registration` for an overview on how to load objects in prism.
 
 Let’s run the game again, and press ``~``. This opens Geometer, the editor.
 Click on the k on the right hand side and use the pen tool to draw a

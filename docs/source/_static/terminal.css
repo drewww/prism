@@ -84,6 +84,10 @@ div.sphinxsidebar h3, div.sphinxsidebar h4 {
   color: var(--font-color);
 }
 
+div.sphinxsidebar h3:nth-of-type(2) {
+  display: none;
+}
+
 #gotoTop {
   position: fixed;
   right: 1rem;
@@ -137,6 +141,7 @@ a:hover {
   background-color: var(--primary-color);
   color: var(--invert-font-color) !important;
   border-bottom: 1px solid black;
+  text-decoration: none;
 }
 
 em {
@@ -1185,7 +1190,7 @@ figure {
 
 }
 
-figure > figcaption {
+figcaption {
   color: var(--secondary-color);
   text-align: center;
 }

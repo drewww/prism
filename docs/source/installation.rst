@@ -15,6 +15,11 @@ Latest downloads, as of June 2025:
    Prism makes heavy use of Lua type annotations to improve autocomplete and catch typing errors,
    so we recommend installing the `Lua language server <https://luals.github.io/>`_ for your editor.
 
+.. note::
+
+   We've published a VS Code `extension <https://marketplace.visualstudio.com/items?itemName=prismrl.prismrl>`_
+   for Prism that includes a few snippets for creating common objects.
+
 Project template
 ----------------
 
