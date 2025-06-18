@@ -1,8 +1,8 @@
 Getting started
 ===============
 
-In this tutorial, we'll start with a project template and create an enemy that follows
-the player. And we'll add the ability to kick them.
+In this tutorial, we'll start with a project template and create an enemy that we
+can kick around and get chased by.
 
 
 .. video:: ../_static/part1.mp4

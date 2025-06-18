@@ -6,7 +6,13 @@
 Prism
 =====
 
-A comprehensive traditional roguelike engine for `LÖVE <https://love2d.org/>`_.
+A comprehensive traditional roguelike engine, built on top of `LÖVE <https://love2d.org/>`_.
+
+Getting started
+---------------
+
+Check out :doc:`the tutorial <making-a-roguelike/part1>` for a guided walk-through
+of creating a game, or just :doc:`install prism <installation>` and start hacking away.
 
 "Traditional" roguelike?
 ------------------------
