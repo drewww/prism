@@ -21,7 +21,6 @@ An example module might look like this:
 
     * .lua
 
-
 Below is a walk through of how and when each type of object is loaded.
 
 .. timeline::

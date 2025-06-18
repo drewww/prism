@@ -22,12 +22,32 @@
 [data-theme="sepia"] {
   --background-color: #f6f0e6;
   --font-color: #4b3626;
+  --code-bg-color: #d2d8db;
 }
 
 [data-theme="dark"] {
-  --background-color: #09060f;
-  --invert-font-color: #151515;
-  --font-color: #f7f2e5;
+  --code-bg-color: #727578;
+  --background-color: #222225;
+  --page-width: 60em;
+  --font-color: #e8e9ed;
+  --invert-font-color: #222225;
+  --secondary-color: #a3abba;
+  --tertiary-color: #a3abba;
+  --primary-color: #62c4ff;
+  --error-color: #ff3c74;
+  --progress-bar-background: #3f3f44;
+  --progress-bar-fill: #62c4ff;
+  --code-bg-color: #3f3f44;
+  --input-style: solid;
+  --display-h1-decoration: none;
+}
+
+code.xref {
+  border-bottom: none;
+}
+
+a.reference:hover {
+  border-bottom: none;
 }
 
 button {
@@ -265,6 +285,7 @@ code {
   font-weight: inherit;
   background-color: var(--code-bg-color);
   font-family: var(--mono-font-stack);
+  color: var(--font-color);
 }
 
 code::after,
@@ -1298,3 +1319,6 @@ figcaption {
   font-weight: bold;
 }
 
+.marker {
+  color: var(--font-color);
+}
