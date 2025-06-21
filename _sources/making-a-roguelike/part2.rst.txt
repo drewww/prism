@@ -23,7 +23,7 @@ Put the following into ``void.lua``:
 .. code:: lua
 
    --- @class Void : Component
-   local Void = prism.Component:extend("Void")
+   local Void = prism.Component:extend "Void"
 
    return Void
 
@@ -138,7 +138,7 @@ Triggering fall with a system
 
 We've defined a fall action, but kobolds aren’t exactly volunteering to fall into the void.
 
-Let's create a :lua:class:`System`` to make sure things fall when they ought to.
+Let's create a :lua:class:`System` to make sure things fall when they ought to.
 
 1. Navigate to the ``modules/MyGame/`` directory.
 2. Create a new folder called ``systems`` if it doesn't exist.

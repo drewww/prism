@@ -10,11 +10,11 @@
     <title>Taking flight &#8212; Prism  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=266695fe" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=8b69b50b" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=26878063" />
     <link rel="stylesheet" type="text/css" href="../_static/lua.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/terminal.css?v=e67cf15c" />
+    <link rel="stylesheet" type="text/css" href="../_static/terminal.css?v=2ffb2b6d" />
     <link rel="stylesheet" type="text/css" href="../_static/goto-top/style.css?v=c152bd81" />
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
@@ -60,7 +60,7 @@ can fall.</p>
 </ol>
 <p>Put the following into <code class="docutils literal notranslate"><span class="pre">void.lua</span></code>:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class Void : Component</span>
-<span class="kd">local</span> <span class="n">Void</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Component</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;Void&quot;</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">Void</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Component</span><span class="p">:</span><span class="n">extend</span> <span class="s2">&quot;Void&quot;</span>
 
 <span class="kr">return</span> <span class="n">Void</span>
 </pre></div>
@@ -162,7 +162,7 @@ with <a class="reference internal" href="../reference/prism/core/collision.html#
 <section id="triggering-fall-with-a-system">
 <h2>Triggering fall with a system<a class="headerlink" href="#triggering-fall-with-a-system" title="Link to this heading">¶</a></h2>
 <p>We’ve defined a fall action, but kobolds aren’t exactly volunteering to fall into the void.</p>
-<p>Let’s create a <code class="xref lua lua-class docutils literal notranslate"><span class="pre">System`</span></code> to make sure things fall when they ought to.</p>
+<p>Let’s create a <a class="reference internal" href="../reference/prism/core/system.html#lua-System" title="System"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">System</span></code></a> to make sure things fall when they ought to.</p>
 <ol class="arabic simple">
 <li><p>Navigate to the <code class="docutils literal notranslate"><span class="pre">modules/MyGame/</span></code> directory.</p></li>
 <li><p>Create a new folder called <code class="docutils literal notranslate"><span class="pre">systems</span></code> if it doesn’t exist.</p></li>
