@@ -381,9 +381,7 @@ function prism.hotload() end
 ---@param controller Controller
 ---@diagnostic disable-next-line
 function prism.turn(level, actor, controller)
-   local _, action
-
-   action = controller:act(level, actor)
+   local action = controller:act(level, actor)
 
    -- we make sure we got an action back from the controller for sanity's sake
    assert(action, "Actor " .. actor:getName() .. " returned nil from act()")
