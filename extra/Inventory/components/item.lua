@@ -1,4 +1,5 @@
 --- @class Item : Component
+--- @field owner Actor
 --- @field private weight number
 --- @field private volume number
 --- @field stackable false|fun(...): Actor
@@ -12,6 +13,7 @@ Item.stacklimit = nil
 
 --- @alias ItemOptions { weight?: number, volume?: number, stackable?: ActorFactory|boolean, stackLimit: number|nil }
 
+--- Constructor for the Item component, see ItemOptions for available options.
 --- @param options ItemOptions
 function Item:__new(options)
    if not options then return end
@@ -23,18 +25,8 @@ function Item:__new(options)
    self.stackLimit = options.stackable and options.stackLimit or math.huge
 end
 
-function Item:canStack(actor)
-   local otherItem = actor:expect(prism.components.Item)
-   if not self.stackable or not otherItem.stackable then return false end
-   if self.stackable ~= otherItem.stackable then return false end
-
-   if (self.stackCount + otherItem.stackCount) > self.stackLimit then
-      return false
-   end
-
-   return true
-end
-
+--- Stacks an actor into this item. Updates the stackCount of both this item and
+--- the input item.
 --- @param actor Actor
 function Item:stack(actor)
    local item = actor:expect(prism.components.Item)
@@ -45,7 +37,11 @@ function Item:stack(actor)
    self.stackCount = self.stackCount + numToStack
 end
 
+--- Splits the stack, constructing a new actor with the correct count
+--- and returning it. Returns it's owner if count is 1 and the item
+--- is not stackable.
 --- @param count integer
+--- @return Actor split
 function Item:split(count)
    if count == 1 and not self.stackable then return self.owner end
 
@@ -61,10 +57,14 @@ function Item:split(count)
    return newActor
 end
 
+--- Gets the total weight of this item taking into account it's stackCount.
+--- @return number weight
 function Item:getWeight()
    return self.weight * self.stackCount
 end
 
+--- Gets the total volume of this item taking into account it's stackCount.
+--- @return number volume
 function Item:getVolume()
    return self.volume * self.stackCount
 end
