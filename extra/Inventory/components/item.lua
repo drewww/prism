@@ -1,19 +1,19 @@
---- @class Item : Component, IQueryable
+--- @class Item : Component
 --- @field private weight number
 --- @field private volume number
 --- @field stackable false|fun(...): Actor
 --- @overload fun(options: ItemOptions): Item
-local ItemComponent = prism.Component:extend( "ItemComponent" )
-ItemComponent.weight = 0
-ItemComponent.volume = 0
-ItemComponent.stackable = false
-ItemComponent.stackCount = nil
-ItemComponent.stacklimit = nil
+local Item = prism.Component:extend( "Item" )
+Item.weight = 0
+Item.volume = 0
+Item.stackable = false
+Item.stackCount = nil
+Item.stacklimit = nil
 
 --- @alias ItemOptions { weight?: number, volume?: number, stackable?: ActorFactory|boolean, stackLimit: number|nil }
 
 --- @param options ItemOptions
-function ItemComponent:__new(options)
+function Item:__new(options)
    if not options then return end
 
    self.weight = options.weight or 0
@@ -23,7 +23,7 @@ function ItemComponent:__new(options)
    self.stackLimit = options.stackable and options.stackLimit or math.huge
 end
 
-function ItemComponent:canStack(actor)
+function Item:canStack(actor)
    local otherItem = actor:expect(prism.components.Item)
    if not self.stackable or not otherItem.stackable then return false end
    if self.stackable ~= otherItem.stackable then return false end
@@ -36,7 +36,7 @@ function ItemComponent:canStack(actor)
 end
 
 --- @param actor Actor
-function ItemComponent:stack(actor)
+function Item:stack(actor)
    local item = actor:expect(prism.components.Item)
 
    assert(self.stackable == item.stackable)
@@ -46,7 +46,7 @@ function ItemComponent:stack(actor)
 end
 
 --- @param count integer
-function ItemComponent:split(count)
+function Item:split(count)
    if count == 1 and not self.stackable then return self.owner end
 
    assert(self.stackable, "Can't split a non-stackable item")
@@ -61,12 +61,12 @@ function ItemComponent:split(count)
    return newActor
 end
 
-function ItemComponent:getWeight()
+function Item:getWeight()
    return self.weight * self.stackCount
 end
 
-function ItemComponent:getVolume()
+function Item:getVolume()
    return self.volume * self.stackCount
 end
 
-return ItemComponent
+return Item

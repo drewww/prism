@@ -8,16 +8,16 @@
 --- @field limitWeight number The total weight allowed in the inventory.
 --- @field limitVolume number The total volume allowed in the inventory.
 --- @overload fun(options: InventoryOptions?)
-local InventoryComponent = prism.Component:extend( "InventoryComponent" )
-InventoryComponent.totalCount = 0
-InventoryComponent.totalWeight = 0
-InventoryComponent.totalVolume = 0
-InventoryComponent.limitCount = math.huge
-InventoryComponent.limitWeight = math.huge
-InventoryComponent.limitVolume = math.huge
-InventoryComponent.multipleStacks = true
+local Inventory = prism.Component:extend( "Inventory" )
+Inventory.totalCount = 0
+Inventory.totalWeight = 0
+Inventory.totalVolume = 0
+Inventory.limitCount = math.huge
+Inventory.limitWeight = math.huge
+Inventory.limitVolume = math.huge
+Inventory.multipleStacks = true
 
-function InventoryComponent:__new(options)
+function Inventory:__new(options)
    self.inventory = prism.ActorStorage()
 
    if not options then return end
@@ -30,17 +30,17 @@ function InventoryComponent:__new(options)
    end
 end
 
-function InventoryComponent:query(...)
+function Inventory:query(...)
    return self.inventory:query(...)
 end
 
-function InventoryComponent:hasItem(actor)
+function Inventory:hasItem(actor)
    return self.inventory:hasActor(actor)
 end
 
 --- @param stackable ActorFactory
 --- @return Actor?
-function InventoryComponent:getStack(stackable)
+function Inventory:getStack(stackable)
    if not stackable then return end
 
    for actor in self.inventory:query():iter() do
@@ -56,7 +56,7 @@ function InventoryComponent:getStack(stackable)
 end
 
 --- @param actor Actor
-function InventoryComponent:canAddItem(actor)
+function Inventory:canAddItem(actor)
    local item = actor:expect(prism.components.Item)
 
    local stack = self:getStack(item.stackable)
@@ -85,7 +85,7 @@ function InventoryComponent:canAddItem(actor)
 end
 
 --- @param actor Actor
-function InventoryComponent:addItem(actor)
+function Inventory:addItem(actor)
    assert(self:canAddItem(actor))
    
    local item = actor:expect(prism.components.Item)
@@ -105,7 +105,7 @@ end
 
 --- @param actor Actor
 --- @return Actor
-function InventoryComponent:removeItem(actor)
+function Inventory:removeItem(actor)
    self.inventory:removeActor(actor)
    self:updateLimits()
    return actor
@@ -114,7 +114,7 @@ end
 --- @param actor Actor
 --- @param count integer
 --- @return boolean
-function InventoryComponent:canRemoveQuantity(actor, count)
+function Inventory:canRemoveQuantity(actor, count)
    local item = actor:expect(prism.components.Item)
    if count == 1 and not item.stackable then return true end
    if not item.stackable then return false end
@@ -126,7 +126,7 @@ end
 --- @param actor Actor
 --- @param count integer
 --- @return Actor
-function InventoryComponent:removeQuantity(actor, count)
+function Inventory:removeQuantity(actor, count)
    assert(self:canRemoveQuantity(actor, count), "Can't remove quantity!")
 
    local item = actor:expect(prism.components.Item)
@@ -138,7 +138,7 @@ function InventoryComponent:removeQuantity(actor, count)
    return newActor
 end
 
-function InventoryComponent:updateLimits()
+function Inventory:updateLimits()
    self.totalCount = 0
    self.totalVolume = 0
    self.totalWeight = 0
@@ -153,4 +153,4 @@ end
 
 
 
-return InventoryComponent
+return Inventory
