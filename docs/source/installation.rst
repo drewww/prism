@@ -6,9 +6,10 @@ is in a stable but pre-release state.
 
 Latest downloads, as of June 2025:
 
-- `Windows <https://github.com/love2d/love/actions/runs/15666539349/artifacts/3331663782>`_
-- `Linux AppImage <https://github.com/love2d/love/actions/runs/15666539349/artifacts/3331663775>`_
-- `macOS <https://github.com/love2d/love/actions/runs/15666539349/artifacts/3331656441>`_
+- `Windows <https://nightly.link/love2d/love/workflows/main/main/love-windows-x64.zip>`_
+- `Linux AppImage <https://nightly.link/love2d/love/workflows/main/main/love-linux-X64.AppImage.zip>`_
+- `macOS <https://nightly.link/love2d/love/workflows/main/main/love-macos.zip>`_
+- `Others <https://nightly.link/love2d/love/workflows/main/main>`_
 
 .. note::
 
