@@ -199,6 +199,7 @@ end
 function Level:__removeComponent(actor, component)
    self.actorStorage:updateComponentCache(actor)
    self:_updateSparseMap(actor)
+   if prism.components.Controller:is(component) then self.scheduler:remove(actor) end
 end
 
 --- Adds a component to an actor. It handles updating
@@ -210,6 +211,7 @@ end
 function Level:__addComponent(actor, component)
    self.actorStorage:updateComponentCache(actor)
    self:_updateSparseMap(actor)
+   if prism.components.Controller:is(component) then self.scheduler:add(actor) end
 end
 
 function Level:_updateSparseMap(actor)
@@ -532,7 +534,9 @@ function Level:getAOE(type, position, range)
    elseif type == "box" then
       for actorInAOE in self:query():iter() do
          if actorInAOE:getPosition(tempv) then
-            if actorInAOE:getRangeVec(position) <= range then table.insert(seenActors, actorInAOE) end
+            if actorInAOE:getRangeVec(position) <= range then
+               table.insert(seenActors, actorInAOE)
+            end
          end
       end
 
