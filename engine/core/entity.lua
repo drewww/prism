@@ -25,7 +25,7 @@ function Entity:give(component)
    -- stylua: ignore start
    assert(prism.Component:is(component), "Component must be Component!")
    assert(component:isInstance(), "Expected an instance of a Component!")
-   
+
    local requirementsMet, missingComponent = component:checkRequirements(self)
    if not requirementsMet then
       --- @cast missingComponent Component
@@ -62,18 +62,14 @@ function Entity:remove(component)
       return self
    end
 
-   local proto = component
-   while proto and proto ~= prism.Component do
-      self.componentCache[proto] = nil
-      proto = getmetatable(proto)
+   local instance = self:get(component)
+   instance.owner = nil
+   for i = 1, #self.components do
+      if instance == self.components[i] then table.remove(self.components, i) end
    end
 
-   for i = 1, #self.components do
-      if component:is(self.components[i]) then
-         local componentInstance = table.remove(self.components, i)
-         componentInstance.owner = nil
-         return self
-      end
+   for prototype, cachedInstance in pairs(self.componentCache) do
+      if instance == cachedInstance then self.componentCache[prototype] = nil end
    end
 
    return self
