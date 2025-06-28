@@ -29,9 +29,9 @@ Our discord can be found `here <https://discord.gg/9YpsH4hYVF>`_.
 .. toctree::
    :hidden:
 
+   installation
    architecture-primer
    conventions
-   installation
 
 .. toctree::
    :caption: How-tos
@@ -69,3 +69,4 @@ Our discord can be found `here <https://discord.gg/9YpsH4hYVF>`_.
 
    reference/prism/index
    reference/spectrum/index
+   reference/extra/index
