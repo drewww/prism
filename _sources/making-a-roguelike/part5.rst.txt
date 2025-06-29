@@ -69,7 +69,7 @@ after everything else and add the following.
    local ownerName = Name.lower(self.owner)
    Log.addMessage(self.owner, sf("You kick the %s.", kickName))
    Log.addMessage(kicked, sf("The %s kicks you!", ownerName))
-   Log.addMessageSensed(level, self.owner, sf("The %s kicks the %s.", ownerName, kickName))
+   Log.addMessageSensed(level, self, sf("The %s kicks the %s.", ownerName, kickName))
 
 This code defines a couple log messages for the various parties involved with the action. Log.addMessage is a convenience
 function provides by the log component that makes it so you don't have to check if the actor you're passing in has a log
