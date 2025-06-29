@@ -36,7 +36,7 @@ You can add custom logic with ``:filter()``. For example, to target only actors 
       return health and health.hp < (health.maxHP / 2)
    end)
 
-Limiting Targets to a Range
+Limiting targets to a range
 ---------------------------
 
 Restrict targets to those within a certain distance (in tiles):
@@ -58,8 +58,8 @@ Require the target to be visible or otherwise sensed by the actor:
 
 This uses the actor’s ``Senses`` component.
 
-Line of Sight (LOS)
---------------------
+Line of sight
+-------------
 
 Require an unobstructed path from the actor to the target:
 
