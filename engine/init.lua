@@ -329,8 +329,11 @@ prism.modules = {}
 --- for any other set up.
 --- @param directory string The root directory of the module.
 function prism.loadModule(directory)
-   local items = love.filesystem.getDirectoryItems(directory)
-   assert(#items > 0, "The specified directory in loadModule does not exist!")
+   prism.logger.info("Loading module " .. directory)
+   assert(
+      love.filesystem.getInfo(directory, "directory"),
+      "Tried to load module " .. directory .. " but the directory did not exist!"
+   )
    table.insert(prism.modules, directory)
 
    if love.filesystem.read(directory .. "/module.lua") then
