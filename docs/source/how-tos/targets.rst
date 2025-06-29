@@ -1,5 +1,5 @@
-Target Class How-To
-====================
+Targets
+=======
 
 The ``Target`` class defines **an object an action can act on**. It uses a builder pattern to combine filters and checks. Targets validate parameters to actions at runtime
 allowing you to easily and safely discriminate an any type to something more specific. They are designed such that you can pass in any arbitrary Lua type into the Action's parameters
@@ -7,7 +7,7 @@ without runtime errors.
 
 This how-to is going to use a simple Health component as an example, this does not ship with the engine but can be found in the tutorial.
 
-Creating a Basic Target
+Creating a basic target
 -----------------------
 
 To create a Target that requires certain components:
