@@ -49,29 +49,57 @@
 <dt class="sig sig-object lua" id="lua-Name">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Name</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a><a class="headerlink" href="#lua-Name" title="Link to this definition">¶</a></dt>
 <dd><p>A display name for an entity.</p>
+<dl class="lua data">
+<dt class="sig sig-object lua" id="lua-Name.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><a class="headerlink" href="#lua-Name.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Name.__new">
-<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Name" title="Name"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Name</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Name.__new" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Name" title="Name"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Name</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Name.__new" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 </dd></dl>
 
-<dl class="lua data">
-<dt class="sig sig-object lua" id="lua-Name.name">
-<span class="sig-name descname"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code><a class="headerlink" href="#lua-Name.name" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="lua staticmethod">
 <dt class="sig sig-object lua" id="lua-Name.get">
-<em class="property"><span class="k"><span class="pre">staticmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></span></span><a class="headerlink" href="#lua-Name.get" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<em class="property"><span class="k"><span class="pre">staticmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../entity.html#lua-Entity" title="Entity"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Entity</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></span></span><a class="headerlink" href="#lua-Name.get" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves the string name of an entity, defaulting to their class name (“Actor” or “Cell”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>entity</strong> (<a class="reference internal" href="../entity.html#lua-Entity" title="Entity"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Entity</span></code></a>) – The entity whose name to retrieve.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>_1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – The name.</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="lua staticmethod">
 <dt class="sig sig-object lua" id="lua-Name.lower">
-<em class="property"><span class="k"><span class="pre">staticmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lower</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></span></span><a class="headerlink" href="#lua-Name.lower" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<em class="property"><span class="k"><span class="pre">staticmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lower</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../entity.html#lua-Entity" title="Entity"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Entity</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></span></span><a class="headerlink" href="#lua-Name.lower" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves the name of an entity in lower case.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>entity</strong> (<a class="reference internal" href="../entity.html#lua-Entity" title="Entity"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Entity</span></code></a>) – The entity whose name to retrieve.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>_1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – The name.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua staticmethod">
+<dt class="sig sig-object lua" id="lua-Name.upper">
+<em class="property"><span class="k"><span class="pre">staticmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">upper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../entity.html#lua-Entity" title="Entity"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Entity</span></code></a></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></span></span><a class="headerlink" href="#lua-Name.upper" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves the name of an entity in upper case.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>entity</strong> (<a class="reference internal" href="../entity.html#lua-Entity" title="Entity"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Entity</span></code></a>) – The entity whose name to retrieve.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>_1</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – The name.</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -172,6 +200,7 @@ SOFTWARE.
 <li class="toctree-l1"><a class="reference internal" href="../../../../how-tos/object-registration.html">Object registration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../how-tos/query.html">Queries</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../how-tos/collision.html">Collision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../how-tos/targets.html">Target Class How-To</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
 <ul>
@@ -232,10 +261,11 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="collider.html#lua-ColliderOptions"><code class="docutils literal notranslate"><span class="pre">ColliderOptions</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="controller.html"><code class="docutils literal notranslate"><span class="pre">Controller</span></code></a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Name</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#lua-Name.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Name.name"><code class="docutils literal notranslate"><span class="pre">name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Name.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Name.get"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Name.lower"><code class="docutils literal notranslate"><span class="pre">lower()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Name.upper"><code class="docutils literal notranslate"><span class="pre">upper()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="opaque.html"><code class="docutils literal notranslate"><span class="pre">Opaque</span></code></a></li>
