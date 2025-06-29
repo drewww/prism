@@ -134,6 +134,18 @@ on collision masks see the Collision how-to!</p>
 <li><p>Must be within 3 tiles</p></li>
 <li><p>Must be wounded (health &lt; max)</p></li>
 </ul>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">woundedEnemyTarget</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Target</span><span class="p">:</span><span class="n">new</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">)</span>
+   <span class="p">:</span><span class="n">isPrototype</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">)</span>
+   <span class="p">:</span><span class="n">sensed</span><span class="p">()</span>
+   <span class="p">:</span><span class="n">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+   <span class="p">:</span><span class="n">filter</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">owner</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+      <span class="kd">local</span> <span class="n">health</span> <span class="o">=</span> <span class="n">target</span><span class="p">:</span><span class="n">expect</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">)</span>
+      <span class="kr">return</span> <span class="n">health</span> <span class="ow">and</span> <span class="n">health</span><span class="p">.</span><span class="n">current</span> <span class="o">&lt;</span> <span class="n">health</span><span class="p">.</span><span class="n">max</span>
+   <span class="kr">end</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can chain our builder functions together like so to accomplish this. This can then be specified
+in an Action’s <code class="docutils literal notranslate"><span class="pre">targets</span></code> table to discriminate targets.</p>
 </section>
 </section>
 
