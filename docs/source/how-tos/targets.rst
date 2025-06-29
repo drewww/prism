@@ -117,6 +117,7 @@ Suppose we want a target that:
 - Must be wounded (health < max)
 
 .. code:: lua
+
    local woundedEnemyTarget = prism.Target:new(prism.components.Health)
       :isPrototype(prism.Actor)
       :sensed()
@@ -125,3 +126,6 @@ Suppose we want a target that:
          local health = target:expect(prism.components.Health)
          return health and health.current < health.max
       end)
+
+We can chain our builder functions together like so to accomplish this. This can then be specified
+in an Action's ``targets`` table to discriminate targets.
