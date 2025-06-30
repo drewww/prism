@@ -63,8 +63,8 @@ function InventoryTarget:outsideInventory()
 end
 
 function InventoryTarget:validate(level, owner, targetObject, previousTargets)
-   if not targetObject and not self.opt then return false end
-   if not targetObject and self.opt then return true end
+   if not targetObject and not self._optional then return false end
+   if not targetObject and self._optional then return true end
 
    local inventory = owner:get(prism.components.Inventory)
    if 
