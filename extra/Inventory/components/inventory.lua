@@ -144,7 +144,7 @@ function Inventory:canRemoveQuantity(actor, count)
 end
 
 --- Removes a quantity of an item from the actor. This creates a new
---- actor using the stackable factory and correctly sets it's stack 
+--- actor using the stackable factory and correctly sets its stack 
 --- count using item:split().
 --- @param actor Actor
 --- @param count integer
