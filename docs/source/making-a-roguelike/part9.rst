@@ -1,14 +1,15 @@
 Creating continuity
 ===================
 
-In this chapter we'll create a Game object and put it into a GAME global that will track the overall
-state of the game. This includes managing an RNG we'll use to seed the levelgen and each of levels, and
-tracking the depth of the dungeon the player is currently in.
+In this chapter, we'll create a Game object and store it in a global called GAME to track
+the overall state of the game. This includes managing a random number generator (RNG) that
+we'll use to seed level generation, as well as keeping track of the dungeon depth the player
+is currently exploring.
 
 Getting the message
 -------------------
 
-First we're going to update our Descend message to include the actor that's descending in it.
+First, let's update our ``Descend`` message to include the actor that's descending.
 
 .. code:: lua
 
@@ -23,7 +24,7 @@ First we're going to update our Descend message to include the actor that's desc
 
    return DescendMessage
 
-Let's also change our Descend action so that we populate the message with the descending actor.
+Next, let's modify the ``Descend`` action so that it populates the message with the descending actor.
 
 .. code:: lua
 
@@ -35,7 +36,7 @@ Let's also change our Descend action so that we populate the message with the de
 Creating the game
 -----------------
 
-We're gonna create a new class Game, and we're gonna include levelgen at the top.
+Now we'll create a new class Game and include levelgen at the top:
 
 .. code:: lua
 
@@ -67,14 +68,14 @@ We're gonna create a new class Game, and we're gonna include levelgen at the top
 
    return Game
 
-This is going to be where we track everything we need for the overall game in the future. Having one centralized
-RNG we use for generating seeds for levelgen and levels means that our game will be repeatable given the same seed.
+This class will eventually track everything we need for the overall game. Having a single centralized RNG 
+for generating seeds for level generation ensures that the game will be repeatable given the same seed.
 
 Making it global
 ----------------
 
-Head over to ``main.lua`` and right below where we're loading all our modules we're going to create our GAME global
-and seed our game.
+Head over to main.lua. Right below where we’re loading all our modules, let’s create our global
+GAME instance and seed the game:
 
 .. code:: lua
 
@@ -90,13 +91,13 @@ Now our ``GAME`` will be accessible all over our codebase.
 Modifying the levelstate
 ------------------------
 
-The first thing we're going to want to do is remove our require on levelgen.
+The first thing we’ll do is remove the levelgen require:
 
 .. code:: diff
 
    -local levelgen = require "levelgen"
 
-Then we're going to change ``MyGameLevelState``'s constructor. 
+Next we'll change ``MyGameLevelState``'s constructor. 
 
 .. code:: lua
 
@@ -130,13 +131,13 @@ Let's change our overload here as well to reflect the new arguments.
 
    if prism.messages.Descend:is(message) then
       --- @cast message DescendMessage
-      self.manager:enter(MyGameLevelState(self.display, GAME:generateNextFloor(message.descender). GAME:))
+      self.manager:enter(MyGameLevelState(self.display, GAME:generateNextFloor(message.descender). GAME:getLevelSeed()))
    end
 
-Now we're going to change our handler for the message to pass the player into the next level.
+Finally, let's modify our message handler so it passes the player into the next level:
 
 Moving along
 ------------
 
-We've got descending through the levels working, and now we've got everything tied together with our Game class.
-In the next section we'll work on getting our inventory and a couple items working.
+We’ve now got descending through levels working and everything tied together via our Game class. In the next section, we'll
+start working on getting our inventory system up and running, along with a few items.
