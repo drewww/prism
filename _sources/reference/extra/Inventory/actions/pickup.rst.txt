@@ -1,0 +1,7 @@
+.. title:: PickupAction
+.. lua:autoobject:: PickupAction
+   :members:
+   :special-members: __new
+   :undoc-members:
+   :inherited-members: __new
+

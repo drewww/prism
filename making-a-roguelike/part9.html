@@ -47,12 +47,13 @@
             
   <section id="creating-continuity">
 <h1>Creating continuity<a class="headerlink" href="#creating-continuity" title="Link to this heading">¶</a></h1>
-<p>In this chapter we’ll create a Game object and put it into a GAME global that will track the overall
-state of the game. This includes managing an RNG we’ll use to seed the levelgen and each of levels, and
-tracking the depth of the dungeon the player is currently in.</p>
+<p>In this chapter, we’ll create a Game object and store it in a global called GAME to track
+the overall state of the game. This includes managing a random number generator (RNG) that
+we’ll use to seed level generation, as well as keeping track of the dungeon depth the player
+is currently exploring.</p>
 <section id="getting-the-message">
 <h2>Getting the message<a class="headerlink" href="#getting-the-message" title="Link to this heading">¶</a></h2>
-<p>First we’re going to update our Descend message to include the actor that’s descending in it.</p>
+<p>First, let’s update our <code class="docutils literal notranslate"><span class="pre">Descend</span></code> message to include the actor that’s descending.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class DescendMessage : Message</span>
 <span class="c1">--- @overload fun(descender: Actor): DescendMessage</span>
 <span class="kd">local</span> <span class="n">DescendMessage</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Object</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;DescendMessage&quot;</span><span class="p">)</span>
@@ -65,7 +66,7 @@ tracking the depth of the dungeon the player is currently in.</p>
 <span class="kr">return</span> <span class="n">DescendMessage</span>
 </pre></div>
 </div>
-<p>Let’s also change our Descend action so that we populate the message with the descending actor.</p>
+<p>Next, let’s modify the <code class="docutils literal notranslate"><span class="pre">Descend</span></code> action so that it populates the message with the descending actor.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">Descend</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
    <span class="n">level</span><span class="p">:</span><span class="n">removeActor</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">)</span>
    <span class="n">level</span><span class="p">:</span><span class="n">yield</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">messages</span><span class="p">.</span><span class="n">Descend</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">))</span>
@@ -75,7 +76,7 @@ tracking the depth of the dungeon the player is currently in.</p>
 </section>
 <section id="creating-the-game">
 <h2>Creating the game<a class="headerlink" href="#creating-the-game" title="Link to this heading">¶</a></h2>
-<p>We’re gonna create a new class Game, and we’re gonna include levelgen at the top.</p>
+<p>Now we’ll create a new class Game and include levelgen at the top:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">levelgen</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;levelgen&quot;</span>
 
 <span class="c1">--- @class Game : Object</span>
@@ -105,13 +106,13 @@ tracking the depth of the dungeon the player is currently in.</p>
 <span class="kr">return</span> <span class="n">Game</span>
 </pre></div>
 </div>
-<p>This is going to be where we track everything we need for the overall game in the future. Having one centralized
-RNG we use for generating seeds for levelgen and levels means that our game will be repeatable given the same seed.</p>
+<p>This class will eventually track everything we need for the overall game. Having a single centralized RNG
+for generating seeds for level generation ensures that the game will be repeatable given the same seed.</p>
 </section>
 <section id="making-it-global">
 <h2>Making it global<a class="headerlink" href="#making-it-global" title="Link to this heading">¶</a></h2>
-<p>Head over to <code class="docutils literal notranslate"><span class="pre">main.lua</span></code> and right below where we’re loading all our modules we’re going to create our GAME global
-and seed our game.</p>
+<p>Head over to main.lua. Right below where we’re loading all our modules, let’s create our global
+GAME instance and seed the game:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
 <span class="n">prism</span><span class="p">.</span><span class="n">loadModule</span><span class="p">(</span><span class="s2">&quot;modules/MyGame&quot;</span><span class="p">)</span>
 
@@ -124,11 +125,11 @@ and seed our game.</p>
 </section>
 <section id="modifying-the-levelstate">
 <h2>Modifying the levelstate<a class="headerlink" href="#modifying-the-levelstate" title="Link to this heading">¶</a></h2>
-<p>The first thing we’re going to want to do is remove our require on levelgen.</p>
+<p>The first thing we’ll do is remove the levelgen require:</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">-local levelgen = require &quot;levelgen&quot;</span>
 </pre></div>
 </div>
-<p>Then we’re going to change <code class="docutils literal notranslate"><span class="pre">MyGameLevelState</span></code>’s constructor.</p>
+<p>Next we’ll change <code class="docutils literal notranslate"><span class="pre">MyGameLevelState</span></code>’s constructor.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @param display Display</span>
 <span class="c1">--- @param builder MapBuilder</span>
 <span class="c1">--- @param seed string</span>
@@ -155,16 +156,16 @@ and seed our game.</p>
 <p>Let’s change our overload here as well to reflect the new arguments.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">if</span> <span class="n">prism</span><span class="p">.</span><span class="n">messages</span><span class="p">.</span><span class="n">Descend</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="kr">then</span>
    <span class="c1">--- @cast message DescendMessage</span>
-   <span class="n">self</span><span class="p">.</span><span class="n">manager</span><span class="p">:</span><span class="n">enter</span><span class="p">(</span><span class="n">MyGameLevelState</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">,</span> <span class="n">GAME</span><span class="p">:</span><span class="n">generateNextFloor</span><span class="p">(</span><span class="n">message</span><span class="p">.</span><span class="n">descender</span><span class="p">).</span> <span class="n">GAME</span><span class="p">:))</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">manager</span><span class="p">:</span><span class="n">enter</span><span class="p">(</span><span class="n">MyGameLevelState</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">,</span> <span class="n">GAME</span><span class="p">:</span><span class="n">generateNextFloor</span><span class="p">(</span><span class="n">message</span><span class="p">.</span><span class="n">descender</span><span class="p">).</span> <span class="n">GAME</span><span class="p">:</span><span class="n">getLevelSeed</span><span class="p">()))</span>
 <span class="kr">end</span>
 </pre></div>
 </div>
-<p>Now we’re going to change our handler for the message to pass the player into the next level.</p>
+<p>Finally, let’s modify our message handler so it passes the player into the next level:</p>
 </section>
 <section id="moving-along">
 <h2>Moving along<a class="headerlink" href="#moving-along" title="Link to this heading">¶</a></h2>
-<p>We’ve got descending through the levels working, and now we’ve got everything tied together with our Game class.
-In the next section we’ll work on getting our inventory and a couple items working.</p>
+<p>We’ve now got descending through levels working and everything tied together via our Game class. In the next section, we’ll
+start working on getting our inventory system up and running, along with a few items.</p>
 </section>
 </section>
 

@@ -1,0 +1,7 @@
+.. title:: DropAction
+.. lua:autoobject:: DropAction
+   :members:
+   :special-members: __new
+   :undoc-members:
+   :inherited-members: __new
+
