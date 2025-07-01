@@ -10,7 +10,7 @@
     <title>Writing things down &#8212; Prism  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=266695fe" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=26878063" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=fbfae649" />
     <link rel="stylesheet" type="text/css" href="../_static/lua.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -51,48 +51,45 @@
 the most recent actions that happened to them to make the flow of the game more clear.</p>
 <section id="keeping-tabs-on-your-health">
 <h2>Keeping tabs on your health<a class="headerlink" href="#keeping-tabs-on-your-health" title="Link to this heading">¶</a></h2>
-<p>Head on over to <code class="docutils literal notranslate"><span class="pre">MyGamelevelstate.lua</span></code> and in draw replace the following line:</p>
+<p>Head on over to <code class="docutils literal notranslate"><span class="pre">gamelevelstate.lua</span></code> and in draw replace the following line:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">putString</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Hello prism!&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>with:</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">health</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">decision</span><span class="p">.</span><span class="n">actor</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">)</span>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">currentActor</span> <span class="o">=</span> <span class="n">self</span><span class="p">:</span><span class="n">getCurrentActor</span><span class="p">()</span>
+<span class="kd">local</span> <span class="n">health</span> <span class="o">=</span> <span class="n">currentActor</span> <span class="ow">and</span> <span class="n">currentActor</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">)</span>
 <span class="kr">if</span> <span class="n">health</span> <span class="kr">then</span>
    <span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">putString</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;HP:&quot;</span> <span class="o">..</span> <span class="n">health</span><span class="p">.</span><span class="n">hp</span> <span class="o">..</span> <span class="s2">&quot;/&quot;</span> <span class="o">..</span> <span class="n">health</span><span class="p">.</span><span class="n">maxHP</span><span class="p">)</span>
 <span class="kr">end</span>
 </pre></div>
 </div>
-<p>Great! Now we’ve got a really primitive HP display. We’ll come back to this in a little while and spruce this up.</p>
+<p>Now we have a primitive HP display.</p>
 </section>
 <section id="logging-messages">
 <h2>Logging messages<a class="headerlink" href="#logging-messages" title="Link to this heading">¶</a></h2>
-<p>Luckily enough prism provides a reasonable and simple implementation of a message log, not in
-it’s core files but in an optional module provided in prism/extra. The first thing we’re going to
-have to do is load that module.</p>
-<p>Head to <code class="docutils literal notranslate"><span class="pre">main.lua</span></code> and insert this right above where we load the MyGame module like so:</p>
+<p>Fortunately, prism provides a <a class="reference internal" href="../reference/extra/log/components/log.html#lua-Log" title="Log"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Log</span></code></a> component in an optional module. Load it before the <code class="docutils literal notranslate"><span class="pre">game</span></code>
+module in <code class="docutils literal notranslate"><span class="pre">main.lua</span></code>:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">loadModule</span><span class="p">(</span><span class="s2">&quot;prism/spectrum&quot;</span><span class="p">)</span>
-<span class="n">prism</span><span class="p">.</span><span class="n">loadModule</span><span class="p">(</span><span class="s2">&quot;modules/Sight&quot;</span><span class="p">)</span>
-<span class="n">prism</span><span class="p">.</span><span class="n">loadModule</span><span class="p">(</span><span class="s2">&quot;prism/extra/Log&quot;</span><span class="p">)</span>
-<span class="n">prism</span><span class="p">.</span><span class="n">loadModule</span><span class="p">(</span><span class="s2">&quot;modules/MyGame&quot;</span><span class="p">)</span>
+<span class="n">prism</span><span class="p">.</span><span class="n">loadModule</span><span class="p">(</span><span class="s2">&quot;prism/extra/sight&quot;</span><span class="p">)</span>
+<span class="hll"><span class="n">prism</span><span class="p">.</span><span class="n">loadModule</span><span class="p">(</span><span class="s2">&quot;prism/extra/log&quot;</span><span class="p">)</span>
+</span><span class="n">prism</span><span class="p">.</span><span class="n">loadModule</span><span class="p">(</span><span class="s2">&quot;modules/game&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Now we’ve got the Log module loading, let’s head over to <code class="docutils literal notranslate"><span class="pre">player.lua</span></code> and give them a log component.</p>
+<p>Now head over to <code class="docutils literal notranslate"><span class="pre">player.lua</span></code> and give them a <code class="docutils literal notranslate"><span class="pre">Log</span></code> component.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Log</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Okay we’ve got our log set up, let’s start using it. If you’re interested in how the Log component works
-check out the how-to on writing a message log. (This is planned for the future.)</p>
 </section>
 <section id="logging-kick">
 <h2>Logging kick<a class="headerlink" href="#logging-kick" title="Link to this heading">¶</a></h2>
-<p>Head to <code class="docutils literal notranslate"><span class="pre">modules/MyGame/actions/kick.lua</span></code> and at the top of the file insert these lines.</p>
+<p>Head to <code class="docutils literal notranslate"><span class="pre">modules/game/actions/kick.lua</span></code> and at the top of the file we’ll define some shorthands:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">Log</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Log</span>
 <span class="kd">local</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Name</span>
 <span class="kd">local</span> <span class="n">sf</span> <span class="o">=</span> <span class="nb">string.format</span>
 </pre></div>
 </div>
-<p>These are mainly for convenience and brevity. We’re going to use them in perform. Now head to the bottom of perform
-after everything else and add the following.</p>
+<p>These are mainly for convenience and brevity. Now head to the bottom of <code class="docutils literal notranslate"><span class="pre">perform</span></code>
+and add the following.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">kickName</span> <span class="o">=</span> <span class="n">Name</span><span class="p">.</span><span class="n">lower</span><span class="p">(</span><span class="n">kicked</span><span class="p">)</span>
 <span class="kd">local</span> <span class="n">ownerName</span> <span class="o">=</span> <span class="n">Name</span><span class="p">.</span><span class="n">lower</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">)</span>
 <span class="n">Log</span><span class="p">.</span><span class="n">addMessage</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">sf</span><span class="p">(</span><span class="s2">&quot;You kick the %s.&quot;</span><span class="p">,</span> <span class="n">kickName</span><span class="p">))</span>
@@ -100,16 +97,14 @@ after everything else and add the following.</p>
 <span class="n">Log</span><span class="p">.</span><span class="n">addMessageSensed</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">self</span><span class="p">,</span> <span class="n">sf</span><span class="p">(</span><span class="s2">&quot;The %s kicks the %s.&quot;</span><span class="p">,</span> <span class="n">ownerName</span><span class="p">,</span> <span class="n">kickName</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>This code defines a couple log messages for the various parties involved with the action. Log.addMessage is a convenience
-function provides by the log component that makes it so you don’t have to check if the actor you’re passing in has a log
-component or manipulate the log directly, it does that for you. Similarly Log.addMessageSensed works roundabout the same way
-except it defines what uninvolved actors who can see the action’s owner get in their log.</p>
+<p>We use the convenience methods <a class="reference internal" href="../reference/extra/log/components/log.html#lua-Log.addMessage" title="Log.addMessage"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Log.addMessage()</span></code></a> and <a class="reference internal" href="../reference/extra/log/components/log.html#lua-Log.addMessageSensed" title="Log.addMessageSensed"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Log.addMessageSensed()</span></code></a> to add messages to the
+affected and nearby actors.</p>
 </section>
 <section id="drawing-logs">
 <h2>Drawing logs<a class="headerlink" href="#drawing-logs" title="Link to this heading">¶</a></h2>
-<p>Okay so logging is set up and it’s time to make our way back to <code class="docutils literal notranslate"><span class="pre">MyGamelevelstate.lua</span></code> to get our log drawing.
-Below where we’re drawing HP insert the following.</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">log</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">decision</span><span class="p">.</span><span class="n">actor</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Log</span><span class="p">)</span>
+<p>Back in <code class="docutils literal notranslate"><span class="pre">gamelevelstate.lua</span></code>, we’ll draw the message log by grabbing the last 5 messages with <a class="reference internal" href="../reference/extra/log/components/log.html#lua-Log.iterLast" title="Log.iterLast"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Log:iterLast()</span></code></a>
+and writing them to the screen.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">log</span> <span class="o">=</span> <span class="n">currentActor</span> <span class="ow">and</span> <span class="n">currentActor</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Log</span><span class="p">)</span>
 <span class="kr">if</span> <span class="n">log</span> <span class="kr">then</span>
    <span class="kd">local</span> <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
    <span class="kr">for</span> <span class="n">line</span> <span class="kr">in</span> <span class="n">log</span><span class="p">:</span><span class="n">iterLast</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="kr">do</span>
@@ -124,7 +119,7 @@ Below where we’re drawing HP insert the following.</p>
 <section id="adding-damage">
 <h2>Adding damage<a class="headerlink" href="#adding-damage" title="Link to this heading">¶</a></h2>
 <p>The kick message is nice, but wouldn’t it be better if we could see how much damage we’re doing?
-Let’s head back over to <code class="docutils literal notranslate"><span class="pre">modules/MyGame/actions/damage.lua</span></code> and make a small change.</p>
+Let’s head to <code class="docutils literal notranslate"><span class="pre">modules/game/actions/damage.lua</span></code> and make a small change.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">Damage</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">damage</span><span class="p">)</span>
    <span class="kd">local</span> <span class="n">health</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">expect</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">)</span>
    <span class="n">health</span><span class="p">.</span><span class="n">hp</span> <span class="o">=</span> <span class="n">health</span><span class="p">.</span><span class="n">hp</span> <span class="o">-</span> <span class="n">damage</span>
@@ -134,8 +129,8 @@ Let’s head back over to <code class="docutils literal notranslate"><span class
 <span class="kr">end</span>
 </pre></div>
 </div>
-<p>We store the damage that was dealt in the Damage action so that we can inspect it in kick. Now heading back to
-kick.</p>
+<p>We store the damage that was dealt in the <code class="docutils literal notranslate"><span class="pre">Damage</span></code> action so that we can inspect it in kick. We generate  back to
+<code class="docutils literal notranslate"><span class="pre">kick.lua</span></code>.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">Kick</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">kicked</span><span class="p">)</span>
    <span class="p">...</span>
 
@@ -153,25 +148,15 @@ kick.</p>
 </pre></div>
 </div>
 </section>
-<section id="giving-our-enemies-a-name">
-<h2>Giving our enemies a name<a class="headerlink" href="#giving-our-enemies-a-name" title="Link to this heading">¶</a></h2>
-<p>Okay we’ve got damage in the message now too, but you might notice something our message refers to the kobold
-as “actor”. We’re going to have to give the Kobold a name component to fix this.</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">-- kobold.lua</span>
-<span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Name</span><span class="p">(</span><span class="s2">&quot;Kobold&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
 <section id="giving-attack-the-same-treatment">
 <h2>Giving attack the same treatment<a class="headerlink" href="#giving-attack-the-same-treatment" title="Link to this heading">¶</a></h2>
-<p>Head over to <code class="docutils literal notranslate"><span class="pre">modules/MyGame/actions/attack.lua</span></code></p>
+<p>Head over to <code class="docutils literal notranslate"><span class="pre">modules/game/actions/attack.lua</span></code> and add the same shorthands as before.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">Log</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Log</span>
 <span class="kd">local</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Name</span>
 <span class="kd">local</span> <span class="n">sf</span> <span class="o">=</span> <span class="nb">string.format</span>
 </pre></div>
 </div>
-<p>We’re going to put a few aliases at the top of the file to make things easier again. Then we need to
-add the Log messages to the Attack’s perform.</p>
+<p>Then give the same treatment to <code class="docutils literal notranslate"><span class="pre">Attack</span></code>.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">Attack</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">attacked</span><span class="p">)</span>
    <span class="p">...</span>
 
@@ -188,12 +173,12 @@ add the Log messages to the Attack’s perform.</p>
 <span class="kr">end</span>
 </pre></div>
 </div>
-<p>And we’re done! Now you should see messages in your log when a kobold attacks you!</p>
+<p>And we’re done! You should now see messages for when you kick kobolds and they strike back.</p>
 </section>
-<section id="in-the-next-section">
-<h2>In the next section<a class="headerlink" href="#in-the-next-section" title="Link to this heading">¶</a></h2>
-<p>We’ll add a game over screen so that the game doesn’t simply quit when we lose. We’ll come back to
-our user interface and make it prettier in a later section of the tutorial.</p>
+<section id="wrapping-up">
+<h2>Wrapping up<a class="headerlink" href="#wrapping-up" title="Link to this heading">¶</a></h2>
+<p>We now render the player’s health and use the <a class="reference internal" href="../reference/extra/log/components/log.html#lua-Log" title="Log"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Log</span></code></a> component to display a combat log. In the
+<a class="reference internal" href="part6.html"><span class="doc">next section</span></a> we’ll add a game over screen so that the game doesn’t simply quit when we lose.</p>
 </section>
 </section>
 
@@ -305,9 +290,8 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="#logging-kick">Logging kick</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#drawing-logs">Drawing logs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#adding-damage">Adding damage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#giving-our-enemies-a-name">Giving our enemies a name</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#giving-attack-the-same-treatment">Giving attack the same treatment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#in-the-next-section">In the next section</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wrapping-up">Wrapping up</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="part6.html">Losing the game</a></li>

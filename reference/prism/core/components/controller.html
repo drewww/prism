@@ -10,7 +10,7 @@
     <title>Controller &#8212; Prism  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=266695fe" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/basic.css?v=b08954a9" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css?v=26878063" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css?v=fbfae649" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/lua.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -60,6 +60,15 @@
 <dd><p>Returns the <a class="reference internal" href="../action.html#lua-Action" title="Action"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Action</span></code></a> that the actor will take on its turn.
 This should not modify the <a class="reference internal" href="../level.html#lua-Level" title="Level"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Level</span></code></a> directly.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>level</strong> (<a class="reference internal" href="../level.html#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a>) – The level the actor is in.</p></li>
+<li><p><strong>actor</strong> (<a class="reference internal" href="../actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a>) – The actor currently acting.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>_1</strong> (<a class="reference internal" href="../action.html#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a>) – The action the actor will perform.</p>
+</dd>
 </dl>
 </dd></dl>
 

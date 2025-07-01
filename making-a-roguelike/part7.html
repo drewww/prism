@@ -10,7 +10,7 @@
     <title>Carving out caverns &#8212; Prism  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=266695fe" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=26878063" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=fbfae649" />
     <link rel="stylesheet" type="text/css" href="../_static/lua.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -311,13 +311,13 @@ a kobold there.</p>
 </div>
 </div>
 </details></section>
-<section id="updating-mygamelevelstate">
-<h2>Updating MyGameLevelState<a class="headerlink" href="#updating-mygamelevelstate" title="Link to this heading">¶</a></h2>
-<p>Head back to <code class="docutils literal notranslate"><span class="pre">gamestates/MyGamelevelstate.lua</span></code> and add the following line to the top of the file.</p>
+<section id="updating-gamelevelstate">
+<h2>Updating GameLevelState<a class="headerlink" href="#updating-gamelevelstate" title="Link to this heading">¶</a></h2>
+<p>Head back to <code class="docutils literal notranslate"><span class="pre">gamestates/gamelevelstate.lua</span></code> and add the following line to the top of the file.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">levelgen</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;levelgen&quot;</span>
 </pre></div>
 </div>
-<p>Then we’re going to change it’s constructor. Head to <code class="docutils literal notranslate"><span class="pre">MyGameLevelState:__new</span></code> and let’s replace the map
+<p>Then we’re going to change it’s constructor. Head to <code class="docutils literal notranslate"><span class="pre">GameLevelState:__new</span></code> and let’s replace the map
 builder code there with this:</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">seed</span> <span class="o">=</span> <span class="nb">tostring</span><span class="p">(</span><span class="nb">os.time</span><span class="p">())</span>
 <span class="kd">local</span> <span class="n">mapbuilder</span> <span class="o">=</span> <span class="n">levelgen</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">RNG</span><span class="p">(</span><span class="n">seed</span><span class="p">),</span> <span class="n">prism</span><span class="p">.</span><span class="n">actors</span><span class="p">.</span><span class="n">Player</span><span class="p">(),</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
@@ -328,7 +328,7 @@ around the room!</p>
 </section>
 <section id="descending-to-the-next-part">
 <h2>Descending to the next part<a class="headerlink" href="#descending-to-the-next-part" title="Link to this heading">¶</a></h2>
-<p>In the next section of the tutorial we’ll add a set of stairs and let the player descend deeper into the dungeon!</p>
+<p>In the <a class="reference internal" href="part8.html"><span class="doc">next section</span></a> of the tutorial we’ll add a set of stairs and let the player descend deeper into the dungeon!</p>
 </section>
 </section>
 
@@ -443,7 +443,7 @@ SOFTWARE.
 <li class="toctree-l2"><a class="reference internal" href="#carving-hallways">Carving hallways</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#spawning-people">Spawning people</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sending-it-back">Sending it back</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#updating-mygamelevelstate">Updating MyGameLevelState</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#updating-gamelevelstate">Updating GameLevelState</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#descending-to-the-next-part">Descending to the next part</a></li>
 </ul>
 </li>

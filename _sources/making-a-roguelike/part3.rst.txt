@@ -6,7 +6,7 @@ Kicking kobolds is fun. Let's make it so you can kick them to death!
 Getting healthy
 ---------------
 
-1. Navigate to ``modules/MyGame/components``
+1. Navigate to ``modules/game/components``
 2. Create a new file named ``health.lua``
 
 .. code:: lua  
@@ -33,7 +33,7 @@ Implementing the die action
 ---------------------------
 
 Next we'll create a ``Die`` action to encapsulate the removal of actors. Create a file called
-``modules/MyGame/actions/die.lua`` and enter the following:
+``modules/game/actions/die.lua`` and enter the following:
 
 .. code:: lua
 
@@ -50,7 +50,7 @@ Next we'll create a ``Die`` action to encapsulate the removal of actors. Create 
 Now that we have the ``Die`` action, let's test it by changing the ``Fall`` action to use it instead of just removing
 the actor from the level.
 
-Navigate to ``modules/MyGame/actions/fall.lua`` and replace the single line in its ``perform`` with the following:
+Navigate to ``modules/game/actions/fall.lua`` and replace the single line in its ``perform`` with the following:
 
 .. code:: diff
 
@@ -89,7 +89,7 @@ It modifies the health of the target and if it's at or below zero we trigger the
 
    return Damage
 
-Let's head back to ``modules/MyGame/actions/kick.lua`` and at the end of ``Kick:perform`` we're going to add the
+Let's head back to ``modules/game/actions/kick.lua`` and at the end of ``Kick:perform`` we're going to add the
 following:
 
 .. code:: lua
