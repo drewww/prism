@@ -58,7 +58,7 @@ html_theme_options = {
     "github_repo": "prism",
     "logo": "prism.png",
     "sidebar_width": "300px",
-    "page_width": "950px",
+    "page_width": "1000px",
 }
 
 html_favicon = "_static/prism.png"

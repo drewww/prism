@@ -316,5 +316,5 @@ around the room!
 Descending to the next part
 ---------------------------
 
-In the next section of the tutorial we'll add a set of stairs and let the player descend deeper into the dungeon!
+In the :doc:`next section <part8>` of the tutorial we'll add a set of stairs and let the player descend deeper into the dungeon!
 

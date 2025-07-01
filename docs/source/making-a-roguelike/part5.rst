@@ -23,7 +23,7 @@ with:
       self.display:putString(1, 1, "HP:" .. health.hp .. "/" .. health.maxHP)
    end
 
-Great! Now we've got a really primitive HP display. We'll come back to this in a little while and spruce this up.
+Now we have a primitive HP display.
 
 Logging messages
 ----------------
@@ -39,7 +39,7 @@ module in ``main.lua``:
    prism.loadModule("prism/extra/log")
    prism.loadModule("modules/game")
 
-Now head over to ``player.lua`` and give them a log component.
+Now head over to ``player.lua`` and give them a ``Log`` component.
 
 .. code:: lua
 
@@ -51,7 +51,7 @@ Now head over to ``player.lua`` and give them a log component.
 Logging kick
 ------------
 
-Head to ``modules/game/actions/kick.lua`` and at the top of the file insert these lines.
+Head to ``modules/game/actions/kick.lua`` and at the top of the file we'll define some shorthands:
 
 .. code:: lua
 
@@ -76,8 +76,8 @@ affected and nearby actors.
 Drawing logs
 ------------
 
-Okay so logging is set up and it's time to make our way back to ``gamelevelstate.lua`` to get our log drawing.
-Below where we're drawing HP insert the following.
+Back in ``gamelevelstate.lua``, we'll draw the message log by grabbing the last 5 messages with :lua:func:`Log.iterLast` 
+and writing them to the screen.
 
 .. code:: lua
 
@@ -96,7 +96,7 @@ Adding damage
 -------------
 
 The kick message is nice, but wouldn't it be better if we could see how much damage we're doing?
-Let's head back over to ``modules/game/actions/damage.lua`` and make a small change.
+Let's head to ``modules/game/actions/damage.lua`` and make a small change.
 
 .. code:: lua
 
@@ -108,8 +108,8 @@ Let's head back over to ``modules/game/actions/damage.lua`` and make a small cha
       ...
    end
 
-We store the damage that was dealt in the Damage action so that we can inspect it in kick. Now heading back to
-kick.
+We store the damage that was dealt in the ``Damage`` action so that we can inspect it in kick. We generate  back to
+``kick.lua``.
 
 .. code:: lua
 
@@ -131,7 +131,7 @@ kick.
 Giving attack the same treatment
 --------------------------------
 
-Head over to ``modules/game/actions/attack.lua``
+Head over to ``modules/game/actions/attack.lua`` and add the same shorthands as before.
 
 .. code:: lua
 
@@ -139,8 +139,7 @@ Head over to ``modules/game/actions/attack.lua``
    local Name = prism.components.Name
    local sf = string.format
 
-We're going to put a few aliases at the top of the file to make things easier again. Then we need to
-add the Log messages to the Attack's perform.
+Then give the same treatment to ``Attack``.
 
 .. code:: lua
 
@@ -159,10 +158,10 @@ add the Log messages to the Attack's perform.
       Log.addMessageSensed(level, self, sf("The %s attacks the %s. %s", ownerName, attackName, dmgstr))
    end
 
-And we're done! Now you should see messages in your log when a kobold attacks you!
+And we're done! You should now see messages for when you kick kobolds and they strike back.
 
-In the next section
--------------------
+Wrapping up
+-----------
 
-We'll add a game over screen so that the game doesn't simply quit when we lose. We'll come back to
-our user interface and make it prettier in a later section of the tutorial.
+We now render the player's health and use the :lua:class:`Log` component to display a combat log. In the
+:doc:`next section <part6>` we'll add a game over screen so that the game doesn't simply quit when we lose.

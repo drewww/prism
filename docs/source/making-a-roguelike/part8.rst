@@ -1,39 +1,33 @@
 Descending into the depths
 ==========================
 
-In this chapter we're going to add stairs and create a new Level when the player uses the
-Descend action on the stairs.
+In this chapter we're going to add stairs and create a new ``Level`` when the player uses our new
+``Descend`` action on the stairs.
 
 Adding a stair component
 ------------------------
 
-The first thing we're going to want to do is create a new tag component. This component will
-be used to indicate that this actor is a staircase.
-
-Navigate to ``modules/game/components/`` and create a new file called ``stair.lua``. This
-will be a simple tag component.
+Navigate to ``modules/MyGame/components/`` and create a new file called ``stair.lua``. This
+will be a simple tag component to indicate the actor can be descended.
 
 .. code:: lua
 
    --- @class Stair : Component
    local Stair = prism.Component:extend("Stair")
-   Stair.name = "Stair"
 
    return Stair
-
-This is just a simple tag component like void earlier in the tutorial.
 
 Creating the stairs actor
 -------------------------
 
-Next we'll create a stairs actor, again really simple.
+Next we'll register a ``Stairs`` actor.
 
 .. code:: lua
 
    prism.registerActor("Stairs", function()
       return prism.Actor.fromComponents {
          prism.components.Position(),
-         prism.components.Drawable("<"),
+         prism.components.Drawable(">"),
          prism.components.Stair(),
          prism.components.Remembered(),
       }
@@ -42,7 +36,7 @@ Next we'll create a stairs actor, again really simple.
 Placing the stairs on the map
 -----------------------------
 
-Okay we've got our stairs created, it's time to place them on the map. Navigae to
+Okay we've got our stairs created, it's time to place them on the map. Navigate to
 ``levelgen.lua`` and head to the bottom of the function right above return.
 
 .. code:: lua
@@ -64,8 +58,6 @@ Okay we've got our stairs created, it's time to place them on the map. Navigae t
 We collect all the rooms the player didn't spawn in into a table, and then choose a random
 room. We place the stairs in a random corner of that room for now.
 
-So we've got stairs now, but we can't do anything with them. Let's move on.
-
 The descend message
 -------------------
 
@@ -79,7 +71,7 @@ Navigate to ``moudles/game/messages`` and create a new file ``descend.lua``.
 
    return DescendMessage
 
-For now we don't need anything inside of Descend, we'll get to that later.
+For now we don't need anything inside of ``Descend``.
 
 The descend action
 ------------------
@@ -89,7 +81,6 @@ The descend action
    local DescendTarget = prism.Target()
       :with(prism.components.Stair)
       :range(1)
-
 
    ---@class Descend : Action
    ---@overload fun(owner: Actor, stairs: Actor): Descend
@@ -103,8 +94,8 @@ The descend action
 
    return Descend
 
-First we create a target that targets actors with the stair component within range 1. Then we create
-our Descend action, which is really similar to Die except we send a different message.
+First we create a target that targets actors with the ``Stair`` component within range 1. Then we create
+our ``Descend`` action, which is similar to ``Die`` but yields a different message.
 
 Now let's add some code to ``GameLevelState:keypressed``. After we figure out which direction the user
 just pressed we'll add the following.
@@ -128,8 +119,8 @@ just pressed we'll add the following.
 Creating the next floor
 -----------------------
 
-Now that we've got everything set up we need to actually handle the descend message. In 
-``GameLevelState:handleMessage`` we'll add the following message handling.
+Now that we've got everything set up we need to actually handle the ``Descend`` message. In
+``MyGameLevelState:handleMessage`` we'll add the following message handling.
 
 .. code:: lua
 
@@ -137,14 +128,14 @@ Now that we've got everything set up we need to actually handle the descend mess
       self.manager:enter(GameLevelState(self.display))
    end
 
-Okay and now if we run the game and go find ourselves a staircase we'll be able to go down
+If we run the game and find ourselves a staircase we'll be able to go down
 to a new floor!
 
-A couple of problems, though. The new level has a completely new player on it and we're not
+There are a couple of problems, though. The new level has a completely new player on it and we're not
 tracking depth anywhere.
 
 In the next chapter
 -------------------
 
-We'll set up a Game object that tracks what depth we're on and manages level generation. We'll
-pass the player to the new level so that we're playing the same character all the way down.
+We'll set up a ``Game`` object that tracks what depth we're on and manages level generation. We'll
+pass the player to the new level so that we're playing as the same actor all the way down.
