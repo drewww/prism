@@ -22,7 +22,7 @@ Creating an enemy
 To make the game more engaging, let’s introduce an enemy: the
 **Kobold**.
 
-1. Navigate to the ``/modules/MyGame/actors/`` directory.
+1. Navigate to the ``/modules/game/actors/`` directory.
 2. Create a new file named ``kobold.lua``.
 3. Add the following code to define the Kobold actor:
 
@@ -80,7 +80,7 @@ returns a valid action.
 
    The ``act`` function **should not modify the level directly**--it should only use it to validate actions.
 
-1. Navigate to ``modules/MyGame/components/``.
+1. Navigate to ``modules/game/components/``.
 2. Create a new file named ``koboldcontroller.lua``.
 3. Add the following code:
 
@@ -118,7 +118,7 @@ behaviour doesn't make for a great game. Let's make them follow the player aroun
 
 .. dropdown:: Complete kobold.lua
 
-   `Source <https://github.com/PrismRL/Kicking-Kobolds/blob/part1/modules/MyGame/actors/kobold.lua>`_
+   `Source <https://github.com/PrismRL/Kicking-Kobolds/blob/part1/modules/game/actors/kobold.lua>`_
 
    .. code:: lua
 
@@ -184,7 +184,7 @@ Jump back into the game and you should find kobolds chasing after you.
 
 .. dropdown:: Complete koboldcontroller.lua
 
-   `Source <https://github.com/PrismRL/Kicking-Kobolds/blob/part1/modules/MyGame/components/koboldcontroller.lua>`_
+   `Source <https://github.com/PrismRL/Kicking-Kobolds/blob/part1/modules/game/components/koboldcontroller.lua>`_
 
    .. code:: lua
 
@@ -220,7 +220,7 @@ Kicking kobolds
 ---------------
 
 In this section we’ll give you something to do to these kobolds: kick them!
-We’ll need to create our first action. Head over to ``/modules/MyGame/actions`` and add kick.lua.
+We’ll need to create our first action. Head over to ``/modules/game/actions`` and add kick.lua.
 
 Let’s first create a target for our kick. Put this at the top of
 kick.lua:
@@ -279,7 +279,7 @@ checking passability with a custom collision mask.
 
 .. dropdown:: Complete kick.lua
 
-   `Source <https://github.com/PrismRL/Kicking-Kobolds/blob/part1/modules/MyGame/actions/kick.lua>`_
+   `Source <https://github.com/PrismRL/Kicking-Kobolds/blob/part1/modules/game/actions/kick.lua>`_
 
    .. code:: lua
 
@@ -324,7 +324,7 @@ Kicking kobolds, for real this time
 -----------------------------------
 
 We've added the kick action, but we don't use it anywhere. Let's fix that by performing the kick
-when we bump into a kobold. Head over to ``gamestates/MyGamelevelstate.lua`` and find where the move action
+when we bump into a kobold. Head over to ``gamestates/gamelevelstate.lua`` and find where the move action
 is called. If the player doesn't move, we want to check if there's a valid actor to kick in front of us,
 and then perform the kick action on them:
 

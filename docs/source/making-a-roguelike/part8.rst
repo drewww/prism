@@ -10,7 +10,7 @@ Adding a stair component
 The first thing we're going to want to do is create a new tag component. This component will
 be used to indicate that this actor is a staircase.
 
-Navigate to ``modules/MyGame/components/`` and create a new file called ``stair.lua``. This
+Navigate to ``modules/game/components/`` and create a new file called ``stair.lua``. This
 will be a simple tag component.
 
 .. code:: lua
@@ -69,7 +69,7 @@ So we've got stairs now, but we can't do anything with them. Let's move on.
 The descend message
 -------------------
 
-Navigate to ``moudles/MyGame/messages`` and create a new file ``descend.lua``.
+Navigate to ``moudles/game/messages`` and create a new file ``descend.lua``.
 
 .. code:: lua
 
@@ -106,7 +106,7 @@ The descend action
 First we create a target that targets actors with the stair component within range 1. Then we create
 our Descend action, which is really similar to Die except we send a different message.
 
-Now let's add some code to ``MyGameLevelState:keypressed``. After we figure out which direction the user
+Now let's add some code to ``GameLevelState:keypressed``. After we figure out which direction the user
 just pressed we'll add the following.
 
 .. code:: lua
@@ -129,12 +129,12 @@ Creating the next floor
 -----------------------
 
 Now that we've got everything set up we need to actually handle the descend message. In 
-``MyGameLevelState:handleMessage`` we'll add the following message handling.
+``GameLevelState:handleMessage`` we'll add the following message handling.
 
 .. code:: lua
 
    if prism.messages.Descend:is(message) then
-      self.manager:enter(MyGameLevelState(self.display))
+      self.manager:enter(GameLevelState(self.display))
    end
 
 Okay and now if we run the game and go find ourselves a staircase we'll be able to go down

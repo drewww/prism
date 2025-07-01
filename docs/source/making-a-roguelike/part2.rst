@@ -15,7 +15,7 @@ Creating the void component
 First we'll need to create a component we'll put on cells to indicate they're a place you
 can fall.
 
-1. Navigate to ``modules/MyGame/components``
+1. Navigate to ``modules/game/components``
 2. Create a new file called ``void.lua``
 
 Put the following into ``void.lua``:
@@ -33,7 +33,7 @@ an allowed movement type.
 Adding void to our pit
 ----------------------
 
-1. Navigate to ``modules/MyGame/cells/pit.lua``
+1. Navigate to ``modules/game/cells/pit.lua``
 
 Add the following line to its components:
 
@@ -46,7 +46,7 @@ Creating the fall action
 
 Next we're going to create an lua:class:`Action` to represent an actor falling.
 
-1. Navigate to the ``modules/MyGame/actions`` directory.
+1. Navigate to the ``modules/game/actions`` directory.
 2. Create a new file called ``fall.lua``.
 3. Define the ``Fall`` action:
 
@@ -100,7 +100,7 @@ with :lua:func:`Collision.checkBitmaskOverlap` to accomplish that check:
 
 .. dropdown:: Complete fall.lua
 
-   `Source <https://github.com/PrismRL/Kicking-Kobolds/blob/part2/modules/MyGame/actions/fall.lua>`_
+   `Source <https://github.com/PrismRL/Kicking-Kobolds/blob/part2/modules/game/actions/fall.lua>`_
 
    .. code:: lua
 
@@ -140,7 +140,7 @@ We've defined a fall action, but kobolds aren’t exactly volunteering to fall i
 
 Let's create a :lua:class:`System` to make sure things fall when they ought to.
 
-1. Navigate to the ``modules/MyGame/`` directory.
+1. Navigate to the ``modules/game/`` directory.
 2. Create a new folder called ``systems`` if it doesn't exist.
 3. Create a new file in that folder named ``fallsystem.lua``.
 
@@ -171,7 +171,7 @@ We want the actor to fall immediately when they land on a valid tile, so we'll u
 Registering the Fall system
 ---------------------------
 
-Navigate back to ``MyGamelevelstate.lua`` and on line 32 you'll see where we register systems. Go ahead and add
+Navigate back to ``gamelevelstate.lua`` and on line 32 you'll see where we register systems. Go ahead and add
 ``prism.systems.Fall()`` to the bottom of the list like so.
 
 .. code:: lua

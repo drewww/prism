@@ -37,13 +37,13 @@ Navigate to the ``gamestates`` folder and create a new file there callled ``game
 
    return GameOverState
 
-This is pretty simple. We're taking a display, the same one we've been using in ``MyGameLevelState``
+This is pretty simple. We're taking a display, the same one we've been using in ``GameLevelState``
 and we draw "Game Over" centered on the screen.
 
 Replacing the exit
 ------------------
 
-Let's head over to ``MyGameLevelState``. First we're going to need to require our new GameState at
+Let's head over to ``GameLevelState``. First we're going to need to require our new GameState at
 the top of the file.
 
 .. code:: lua

@@ -73,7 +73,7 @@ based on the ``Attacker`` component.
 
    return Attack
 
-Next we need to make kobolds actually use the attack action. Navigate to ``modules/MyGame/components/koboldcontroller.lua``
+Next we need to make kobolds actually use the attack action. Navigate to ``modules/game/components/koboldcontroller.lua``
 and right above the final return we're going to add the following:
 
 .. code:: lua
@@ -100,7 +100,7 @@ when the last player controlled actor dies.
 
    You can read more about the game loop and why this happens :doc:`here <../explainers/game-loop>`.
 
-1. Create a new folder in ``modules/MyGame/`` called ``messages``.
+1. Create a new folder in ``modules/game/`` called ``messages``.
 2. Create a new file called ``lose.lua``
 
 .. code:: lua
@@ -124,11 +124,11 @@ head back over to the Die action. Let's change its ``perform`` to the following:
    end
 
 And finally we're going to handle this message in the user interface. Head back over to
-``gamestates/MyGamelevelstate.lua`` and let's modify ``MyGameLevelState:handleMessage``.
+``gamestates/gamelevelstate.lua`` and let's modify ``GameLevelState:handleMessage``.
 
 .. code:: lua
 
-   function MyGameLevelState:handleMessage(message)
+   function GameLevelState:handleMessage(message)
       spectrum.LevelState.handleMessage(self, message)
 
       if prism.messages.Lose:is(message) then

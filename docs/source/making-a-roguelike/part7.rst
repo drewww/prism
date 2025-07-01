@@ -293,16 +293,16 @@ Finally we'll wrap the entire map in some walls and return the finished MapBuild
          return builder
       end
 
-Updating MyGameLevelState
+Updating GameLevelState
 -------------------------
 
-Head back to ``gamestates/MyGamelevelstate.lua`` and add the following line to the top of the file.
+Head back to ``gamestates/gamelevelstate.lua`` and add the following line to the top of the file.
 
 .. code:: lua
 
    local levelgen = require "levelgen"
 
-Then we're going to change it's constructor. Head to ``MyGameLevelState:__new`` and let's replace the map
+Then we're going to change it's constructor. Head to ``GameLevelState:__new`` and let's replace the map
 builder code there with this:
 
 .. code:: lua

@@ -7,7 +7,7 @@ the most recent actions that happened to them to make the flow of the game more 
 Keeping tabs on your health
 ---------------------------
 
-Head on over to ``MyGamelevelstate.lua`` and in draw replace the following line:
+Head on over to ``gamelevelstate.lua`` and in draw replace the following line:
 
 .. code:: lua
 
@@ -17,7 +17,8 @@ with:
 
 .. code:: lua
 
-   local health = self.decision.actor:get(prism.components.Health)
+   local currentActor = self:getCurrentActor()
+   local health = currentActor and currentActor:get(prism.components.Health)
    if health then
       self.display:putString(1, 1, "HP:" .. health.hp .. "/" .. health.maxHP)
    end
@@ -27,32 +28,30 @@ Great! Now we've got a really primitive HP display. We'll come back to this in a
 Logging messages
 ----------------
 
-Luckily enough prism provides a reasonable and simple implementation of a message log, not in
-it's core files but in an optional module provided in prism/extra. The first thing we're going to
-have to do is load that module.
+Fortunately, prism provides a :lua:class:`Log` component in an optional module. Load it before the ``game``
+module in ``main.lua``:
 
-Head to ``main.lua`` and insert this right above where we load the MyGame module like so:
-
-.. code:: lua
+.. code-block:: lua
+   :emphasize-lines: 3
 
    prism.loadModule("prism/spectrum")
-   prism.loadModule("modules/Sight")
-   prism.loadModule("prism/extra/Log")
-   prism.loadModule("modules/MyGame")
+   prism.loadModule("prism/extra/sight")
+   prism.loadModule("prism/extra/log")
+   prism.loadModule("modules/game")
 
-Now we've got the Log module loading, let's head over to ``player.lua`` and give them a log component.
+Now head over to ``player.lua`` and give them a log component.
 
 .. code:: lua
 
    prism.components.Log()
 
-Okay we've got our log set up, let's start using it. If you're interested in how the Log component works
-check out the how-to on writing a message log. (This is planned for the future.)
+..
+   TODO: #136 Write a how-to on logging and link it here
 
 Logging kick
 ------------
 
-Head to ``modules/MyGame/actions/kick.lua`` and at the top of the file insert these lines.
+Head to ``modules/game/actions/kick.lua`` and at the top of the file insert these lines.
 
 .. code:: lua
 
@@ -60,8 +59,8 @@ Head to ``modules/MyGame/actions/kick.lua`` and at the top of the file insert th
    local Name = prism.components.Name
    local sf = string.format
 
-These are mainly for convenience and brevity. We're going to use them in perform. Now head to the bottom of perform
-after everything else and add the following.
+These are mainly for convenience and brevity. Now head to the bottom of ``perform``
+and add the following.
 
 .. code:: lua
 
@@ -71,20 +70,18 @@ after everything else and add the following.
    Log.addMessage(kicked, sf("The %s kicks you!", ownerName))
    Log.addMessageSensed(level, self, sf("The %s kicks the %s.", ownerName, kickName))
 
-This code defines a couple log messages for the various parties involved with the action. Log.addMessage is a convenience
-function provides by the log component that makes it so you don't have to check if the actor you're passing in has a log
-component or manipulate the log directly, it does that for you. Similarly Log.addMessageSensed works roundabout the same way
-except it defines what uninvolved actors who can see the action's owner get in their log.
+We use the convenience methods :lua:func:`Log.addMessage` and :lua:func:`Log.addMessageSensed` to add messages to the 
+affected and nearby actors.
 
 Drawing logs
 ------------
 
-Okay so logging is set up and it's time to make our way back to ``MyGamelevelstate.lua`` to get our log drawing.
+Okay so logging is set up and it's time to make our way back to ``gamelevelstate.lua`` to get our log drawing.
 Below where we're drawing HP insert the following.
 
 .. code:: lua
 
-   local log = self.decision.actor:get(prism.components.Log)
+   local log = currentActor and currentActor:get(prism.components.Log)
    if log then
       local offset = 0
       for line in log:iterLast(5) do
@@ -99,7 +96,7 @@ Adding damage
 -------------
 
 The kick message is nice, but wouldn't it be better if we could see how much damage we're doing?
-Let's head back over to ``modules/MyGame/actions/damage.lua`` and make a small change.
+Let's head back over to ``modules/game/actions/damage.lua`` and make a small change.
 
 .. code:: lua
 
@@ -131,21 +128,10 @@ kick.
       Log.addMessageSensed(level, self, sf("The %s kicks the %s. %s", ownerName, kickName, dmgstr))
    end
 
-Giving our enemies a name
--------------------------
-
-Okay we've got damage in the message now too, but you might notice something our message refers to the kobold
-as "actor". We're going to have to give the Kobold a name component to fix this.
-
-.. code:: lua
-   
-   -- kobold.lua
-   prism.components.Name("Kobold")
-
 Giving attack the same treatment
 --------------------------------
 
-Head over to ``modules/MyGame/actions/attack.lua``
+Head over to ``modules/game/actions/attack.lua``
 
 .. code:: lua
 

@@ -80,7 +80,7 @@ GAME instance and seed the game:
 .. code:: lua
 
    ...
-   prism.loadModule("modules/MyGame")
+   prism.loadModule("modules/game")
 
    --- @module "game"
    local Game = require("game")
@@ -97,14 +97,14 @@ The first thing we’ll do is remove the levelgen require:
 
    -local levelgen = require "levelgen"
 
-Next we'll change ``MyGameLevelState``'s constructor. 
+Next we'll change ``GameLevelState``'s constructor. 
 
 .. code:: lua
 
    --- @param display Display
    --- @param builder MapBuilder
    --- @param seed string
-   function MyGameLevelState:__new(display, builder, seed)
+   function GameLevelState:__new(display, builder, seed)
       -- Build the map and instantiate the level with systems
       local map, actors = builder:build()
       local level = prism.Level(map, actors, {
@@ -122,8 +122,8 @@ This sets up our Level with the map we build and the seed we'll get from our GAM
 
 .. code:: lua
 
-   --- @overload fun(display: Display, builder: MapBuilder, seed: string): MyGameLevelState
-   local MyGameLevelState = spectrum.LevelState:extend "MyGameLevelState"
+   --- @overload fun(display: Display, builder: MapBuilder, seed: string): GameLevelState
+   local GameLevelState = spectrum.LevelState:extend "GameLevelState"
 
 Let's change our overload here as well to reflect the new arguments.
 
@@ -131,7 +131,7 @@ Let's change our overload here as well to reflect the new arguments.
 
    if prism.messages.Descend:is(message) then
       --- @cast message DescendMessage
-      self.manager:enter(MyGameLevelState(self.display, GAME:generateNextFloor(message.descender). GAME:getLevelSeed()))
+      self.manager:enter(GameLevelState(self.display, GAME:generateNextFloor(message.descender). GAME:getLevelSeed()))
    end
 
 Finally, let's modify our message handler so it passes the player into the next level:
@@ -139,5 +139,5 @@ Finally, let's modify our message handler so it passes the player into the next 
 Moving along
 ------------
 
-We’ve now got descending through levels working and everything tied together via our Game class. In the next section, we'll
+We’ve now got descending through levels working and everything tied together via our ``Game`` class. In the next section, we'll
 start working on getting our inventory system up and running, along with a few items.
