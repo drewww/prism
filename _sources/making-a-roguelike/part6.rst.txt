@@ -95,7 +95,7 @@ Back in ``gameoverstate.lua``, we'll add a ``keypressed`` callback to handle the
    end
 
 Don't forget to ``require`` our keybindings! We use a ``game-over`` mode to differentiate from the main game's
-controls Finally, add some instructions:
+controls. Finally, add some instructions:
 
 .. code:: lua
 
