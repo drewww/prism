@@ -1,6 +1,9 @@
 --- The game state for Geometer. This should be the only thing you have to interface with
 --- to use Geometer in a game.
 --- @class EditorState : GameState
+--- @field private textInput boolean The state of text input on load.
+--- @field private keyRepeat boolean The state of key repeat on load.
+--- @field private camera Vector2 The display's camera on load.
 --- @field editor Editor
 local EditorState = spectrum.GameState:extend "EditorState"
 
@@ -12,8 +15,9 @@ function EditorState:__new(attachable, display, fileEnabled)
 end
 
 function EditorState:load()
-   self._textInput = love.keyboard.hasTextInput()
-   self._keyRepeat = love.keyboard.hasKeyRepeat()
+   self.textInput = love.keyboard.hasTextInput()
+   self.keyRepeat = love.keyboard.hasKeyRepeat()
+   self.camera = self.editor.display.camera:copy()
    love.keyboard.setTextInput(true)
    love.keyboard.setKeyRepeat(true)
 
@@ -55,8 +59,9 @@ function EditorState:textinput(text)
 end
 
 function EditorState:unload()
-   love.keyboard.setKeyRepeat(self._keyRepeat)
-   love.keyboard.setTextInput(self._textInput)
+   love.keyboard.setKeyRepeat(self.keyRepeat)
+   love.keyboard.setTextInput(self.textInput)
+   self.editor.display:setCamera(self.camera:decompose())
 end
 
 return EditorState
