@@ -12,15 +12,12 @@ end
 --- Adds a system to the manager.
 --- @param system System The system to add.
 function SystemManager:addSystem(system)
-   assert(
-      not self:getSystem(system.className),
-      "Level already has system " .. system.className .. "!"
-   )
+   assert(not self:getSystem(system), "Level already has system " .. system.className .. "!")
 
    -- Check our requirements and make sure we have all the systems we need
    for _, requirement in ipairs(system.requirements) do
       local err = "System %s requires system %s but it is not present"
-      assert(self:getSystem(system.className), err:format(system.className, requirement.className))
+      assert(self:getSystem(system), err:format(system.className, requirement.className))
    end
 
    -- Check the soft requirements of all previous systems and make sure we don't have any out
@@ -39,12 +36,14 @@ function SystemManager:addSystem(system)
    table.insert(self.systems, system)
 end
 
---- Gets a system by name.
---- @param systemName string The className of the system to get.
---- @return System? -- The system with the given name, or nil if not found.
-function SystemManager:getSystem(systemName)
+--- Gets a system by prototype.
+--- @generic T
+--- @param prototype T The prototype of the system to get.
+--- @return T? system The system with the given prototype, or nil if not found.
+function SystemManager:getSystem(prototype)
    for _, system in ipairs(self.systems) do
-      if system.className == systemName then return system end
+      --- @diagnostic disable-next-line
+      if prototype:is(system) then return system end
    end
 end
 

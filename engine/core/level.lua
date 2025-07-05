@@ -136,20 +136,20 @@ end
 -- Systems
 --
 
---- Attaches a system to the level. This function will error if the system
---- doesn't have a name or if a system with the same name already exists, or if
---- the system has a requirement that hasn't been attached yet.
+--- Attaches a system to the level. Will error if the level already has the system, or if
+--- the level is missing required systems for the given one.
 --- @param system System The system to add.
 function Level:addSystem(system)
    prism.logger.debug("System", system.className, "was added to level")
    self.systemManager:addSystem(system)
 end
 
---- Gets a system by name.
---- @param className string The name of the system to get.
---- @return System? system The system with the given name.
-function Level:getSystem(className)
-   return self.systemManager:getSystem(className)
+--- Gets a system by prototype.
+--- @generic T
+--- @param prototype T The prototype of the system to get.
+--- @return T? system The system of the given prototype, or nil if not found.
+function Level:getSystem(prototype)
+   return self.systemManager:getSystem(prototype)
 end
 
 --
