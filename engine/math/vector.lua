@@ -204,6 +204,14 @@ function Vector2:compose(x, y)
    self.y = y
 end
 
+--- Checks equality against x and y components.
+--- @param x number The x component to check.
+--- @param y number The y component to check.
+--- @return boolean equal Whether the vector is equal to the given components.
+function Vector2:equals(x, y)
+   return self.x == x and self.y == y
+end
+
 --- The statiz ZERO vector.
 Vector2.ZERO = Vector2(0, 0)
 
