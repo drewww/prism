@@ -133,9 +133,8 @@ as this function will call the onYield method on all systems.</p>
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Level.addSystem">
 <span class="sig-name descname"><span class="pre">addSystem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">system</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="system.html#lua-System" title="System"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">System</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-Level.addSystem" title="Link to this definition">¶</a></dt>
-<dd><p>Attaches a system to the level. This function will error if the system
-doesn’t have a name or if a system with the same name already exists, or if
-the system has a requirement that hasn’t been attached yet.</p>
+<dd><p>Attaches a system to the level. Will error if the level already has the system, or if
+the level is missing required systems for the given one.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>system</strong> (<a class="reference internal" href="system.html#lua-System" title="System"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">System</span></code></a>) – The system to add.</p>
@@ -145,14 +144,14 @@ the system has a requirement that hasn’t been attached yet.</p>
 
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Level.getSystem">
-<span class="sig-name descname"><span class="pre">getSystem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">className</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">system?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="system.html#lua-System" title="System"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">System</span></code></a></span></span><a class="headerlink" href="#lua-Level.getSystem" title="Link to this definition">¶</a></dt>
-<dd><p>Gets a system by name.</p>
+<span class="sig-name descname"><span class="pre">getSystem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">prototype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="p"><span class="pre">&lt;</span></span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">T</span></code><span class="p"><span class="pre">&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">system?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="p"><span class="pre">&lt;</span></span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">T</span></code><span class="p"><span class="pre">&gt;</span></span></span></span><a class="headerlink" href="#lua-Level.getSystem" title="Link to this definition">¶</a></dt>
+<dd><p>Gets a system by prototype.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>className</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – The name of the system to get.</p>
+<dd class="field-odd"><p><strong>prototype</strong> (<span class="p">&lt;</span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">T</span></code><span class="p">&gt;</span>) – The prototype of the system to get.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>system?</strong> (<a class="reference internal" href="system.html#lua-System" title="System"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">System</span></code></a>) – The system with the given name.</p>
+<dd class="field-even"><p><strong>system?</strong> (<span class="p">&lt;</span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">T</span></code><span class="p">&gt;</span>) – The system of the given prototype, or nil if not found.</p>
 </dd>
 </dl>
 </dd></dl>

@@ -2,15 +2,17 @@ Carving out caverns
 ===================
 
 In this section of the tutorial we'll create a more interesting place to kick kobolds,
-and put some in the game world to start. 
+and put some in the game world to start.
 
 Getting started on a map
 ------------------------
 
-Let's create a new file in the root of the project called ``levelgen.lua``. We're gonna want to
+Let's create a new file in the root of the project called ``levelgen.lua``. We'll
 return a function from this module that takes a few parameters.
 
 .. code:: lua
+
+   local PARTITIONS = 3
 
    --- @param rng RNG
    --- @param player Actor
@@ -21,19 +23,26 @@ return a function from this module that takes a few parameters.
       return builder
    end
 
-We give the level building function an RNG which will be exclusive to it, the player we want to place, and
-the width and height of the map we want generated. Inside we create a MapBuilder and return it.
+We give the level building function an :lua:class:`RNG` which will be exclusive to it, the player we want to place, and
+the width and height of the map we want generated. Inside we create a :lua:class:`MapBuilder` and return it.
+The constant ``PARTITIONS`` will define the grid size of the rooms.
 
 Populating the void
 -------------------
 
-The first step is going to be filling the void with a width * height initialization of pits and walls. To
-decide where to put what we're going to use perlin noise.
+The first step is filling the void with a ``width`` * ``height`` initialization of pits and walls. To
+decide where to put which we'll use `love.math.perlinNoise <https://www.love2d.org/wiki/love.math.perlinNoise>`_.
+We'll offset the Perlin noise to a random point and set a ``Wall`` for values greater than ``0.5``.
+
+.. note::
+
+   Perlin noise is deterministic and returns the same value for the same point, so offsetting where we start
+   guarantees a random pattern.
 
 .. code:: lua
 
     -- Fill the map with random noise of pits and walls.
-   local nox, noy = rng:getUniformInt(1, 10000), rng:getUniformInt(1, 10000)
+   local nox, noy = rng:random(1, 10000), rng:random(1, 10000)
    for x = 1, width do
       for y = 1, height do
          local noise = love.math.perlinNoise(x / 5 + nox, y / 5 + noy)
@@ -42,15 +51,11 @@ decide where to put what we're going to use perlin noise.
       end
    end
 
-First we generate an offset for the noise using our RNG. This ensures every map gets a unique pattern of
-pits and walls.
-
-Then we loop through each tile in the map, grab our result from the perlinNoise which we scale a little bit,
-and finally check if the noise is > 0.5. If it is we put a wall there, and if it's not we place a pit.
-
-
 Making room
 -----------
+
+Next, we'll generate rooms in a grid, where the width and height are determined by our ``PARTITIONS`` constant.
+First, create a table of :lua:class:`Rectangles <Rectangle>` to hold our rooms.
 
 .. code:: lua
 
@@ -58,31 +63,14 @@ Making room
    --- @type table<number, Rectangle>
    local rooms = {}
 
-   local missing = prism.Vector2(rng:getUniformInt(0, PARTITIONS - 1), rng:getUniformInt(0, PARTITIONS - 1))
-   local pw, ph = math.floor(width / PARTITIONS), math.floor(height / PARTITIONS)
-   local minrw, minrh = math.floor(pw / 3), math.floor(ph / 3)
-   local maxrw, maxrh = pw - 2, ph - 2 -- Subtract 2 to ensure there's a margin.
-   for px = 0, PARTITIONS - 1 do
-      for py = 0, PARTITIONS - 1 do
-         if missing ~= prism.Vector2(px, py) then
-            local rw, rh = rng:getUniformInt(minrw, maxrw), rng:getUniformInt(minrh, maxrh)
-            local x = rng:getUniformInt(px * pw + 1, (px + 1) * pw - rw - 1)
-            local y = rng:getUniformInt(py * ph + 1, (py + 1) * ph - rh - 1)
-
-            local roomRect = prism.Rectangle(x, y, rw, rh)
-            rooms[prism.Vector2._hash(px, py)] = roomRect
-
-            builder:drawRectangle(x, y, x + rw, y + rh, prism.cells.Floor)
-         end
-      end
-   end
-
-Okay so this is a little chunky, but we're gonna break it down. The first thing we do is decide which one of the partitions
-we're going to omit a room in.
+We're going to omit one of the rooms to introduce some variance.
 
 .. code:: lua
 
-   local missing = prism.Vector2(rng:getUniformInt(0, PARTITIONS - 1), rng:getUniformInt(0, PARTITIONS - 1))
+   local missing = prism.Vector2(
+      rng:random(0, PARTITIONS - 1),
+      rng:random(0, PARTITIONS - 1)
+   )
 
 Then we're going to calculate the total width and height of our patitions.
 
@@ -97,17 +85,19 @@ After that let's set some reasonable limits on the minimum and maximum room widt
    local minrw, minrh = math.floor(pw / 3), math.floor(ph / 3)
    local maxrw, maxrh = pw - 2, ph - 2 -- Subtract 2 to ensure there's a margin.
 
-Next we loop through each of our partitions and build a room so long as it's not the one we're omitting. We build our
-room rectangle, hash it's partition coordinates, and put it into a dictionary of rooms. Finally we draw the room onto our map.
+Next we loop through each of our partitions and build a room so long as it's not the one we're omitting. We create a
+:lua:class:`Rectangle`, hash its partition coordinates, and put it into our table of rooms. Finally we draw the room onto our map
+with :lua:func:`MapBuilder.drawRectangle`.
 
 .. code:: lua
 
    for px = 0, PARTITIONS - 1 do
       for py = 0, PARTITIONS - 1 do
-         if missing ~= prism.Vector2(px, py) then
-            local rw, rh = rng:getUniformInt(minrw, maxrw), rng:getUniformInt(minrh, maxrh)
-            local x = rng:getUniformInt(px * pw + 1, (px + 1) * pw - rw - 1)
-            local y = rng:getUniformInt(py * ph + 1, (py + 1) * ph - rh - 1)
+         if not missing:equals(px, py) then
+            local rw = rng:random(minrw, maxrw)
+            local rh = rng:random(minrh, maxrh)
+            local x = rng:random(px * pw + 1, (px + 1) * pw - rw - 1)
+            local y = rng:random(py * ph + 1, (py + 1) * ph - rh - 1)
 
             local roomRect = prism.Rectangle(x, y, rw, rh)
             rooms[prism.Vector2._hash(px, py)] = roomRect
@@ -120,9 +110,10 @@ room rectangle, hash it's partition coordinates, and put it into a dictionary of
 Carving hallways
 ----------------
 
-Next we're gonna create a function local function (yes, that's correct) to draw the classic Rogue style L shaped hallways between
-rooms. It accepts two Rectangles representing the rooms, and if both a and b exist we draw a hallway between them. We use the level
-generator's RNG to figure out if we should start vertically or horizontally for a little bit of spice.
+Next we'll define a local function to draw the classic Rogue style L shaped hallways between
+rooms. It accepts two :lua:class:`Rectangles <Rectangle>` representing the rooms, and if both ``a`` and ``b``
+exist we draw a hallway between them. We use the level
+generator's RNG to determine if we should start vertically or horizontally for a little bit of spice.
 
 .. code:: lua
 
@@ -135,7 +126,7 @@ generator's RNG to figure out if we should start vertically or horizontally for 
       local ax, ay = a:center():floor():decompose()
       local bx, by = b:center():floor():decompose()
       -- Randomly choose one of two L-shaped tunnel patterns for variety.
-      if rng:getUniform() > 0.5 then
+      if rng:random() > 0.5 then
          builder:drawLine(ax, ay, bx, ay, prism.cells.Floor)
          builder:drawLine(bx, ay, bx, by, prism.cells.Floor)
       else
@@ -144,7 +135,7 @@ generator's RNG to figure out if we should start vertically or horizontally for 
       end
    end
 
-Now that we've got this little helper function done let's go through each room and try to connect it to the one to the right, and the
+Now we'll go through each room and try to connect it to the one to the right, and the
 one to the bottom. If either doesn't exist the hallway helper won't get past the guard and nothing will happen.
 
 .. code:: lua
@@ -163,10 +154,9 @@ Now to place the player. We'll select a random room and put the player on the ce
 
 .. code:: lua
 
-   -- Choose the first room (top-left partition) to place the player.
    local startRoom
    while not startRoom do
-      local x, y = rng:getUniformInt(0, PARTITIONS - 1), rng:getUniformInt(0, PARTITIONS - 1)
+      local x, y = rng:random(0, PARTITIONS - 1), rng:random(0, PARTITIONS - 1)
       startRoom = rooms[prism.Vector2._hash(x, y)]
    end
 
@@ -186,8 +176,6 @@ a kobold there.
       end
    end
 
-Okay, we've got the player and the kobolds spawning. Time to wrap things up.
-
 Sending it back
 --------------
 
@@ -197,7 +185,7 @@ Sending it back
 
    return builder
 
-Finally we'll wrap the entire map in some walls and return the finished MapBuilder.
+Finally we'll pad the entire map in some walls and return the finished :lua:class:`MapBuilder`.
 
 .. dropdown:: Complete levelgen.lua
 
@@ -213,7 +201,7 @@ Finally we'll wrap the entire map in some walls and return the finished MapBuild
          local builder = prism.MapBuilder(prism.cells.Wall)
 
          -- Fill the map with random noise of pits and walls.
-         local nox, noy = rng:getUniformInt(1, 10000), rng:getUniformInt(1, 10000)
+         local nox, noy = rng:random(1, 10000), rng:random(1, 10000)
          for x = 1, width do
             for y = 1, height do
                local noise = love.math.perlinNoise(x / 5 + nox, y / 5 + noy)
@@ -226,16 +214,16 @@ Finally we'll wrap the entire map in some walls and return the finished MapBuild
          --- @type table<number, Rectangle>
          local rooms = {}
 
-         local missing = prism.Vector2(rng:getUniformInt(0, PARTITIONS - 1), rng:getUniformInt(0, PARTITIONS - 1))
+         local missing = prism.Vector2(rng:random(0, PARTITIONS - 1), rng:random(0, PARTITIONS - 1))
          local pw, ph = math.floor(width / PARTITIONS), math.floor(height / PARTITIONS)
          local minrw, minrh = math.floor(pw / 3), math.floor(ph / 3)
          local maxrw, maxrh = pw - 2, ph - 2 -- Subtract 2 to ensure there's a margin.
          for px = 0, PARTITIONS - 1 do
             for py = 0, PARTITIONS - 1 do
-               if missing ~= prism.Vector2(px, py) then
-                  local rw, rh = rng:getUniformInt(minrw, maxrw), rng:getUniformInt(minrh, maxrh)
-                  local x = rng:getUniformInt(px * pw + 1, (px + 1) * pw - rw - 1)
-                  local y = rng:getUniformInt(py * ph + 1, (py + 1) * ph - rh - 1)
+               if not missing:equals(px, py) then
+                  local rw, rh = rng:random(minrw, maxrw), rng:random(minrh, maxrh)
+                  local x = rng:random(px * pw + 1, (px + 1) * pw - rw - 1)
+                  local y = rng:random(py * ph + 1, (py + 1) * ph - rh - 1)
 
                   local roomRect = prism.Rectangle(x, y, rw, rh)
                   rooms[prism.Vector2._hash(px, py)] = roomRect
@@ -254,7 +242,7 @@ Finally we'll wrap the entire map in some walls and return the finished MapBuild
             local ax, ay = a:center():floor():decompose()
             local bx, by = b:center():floor():decompose()
             -- Randomly choose one of two L-shaped tunnel patterns for variety.
-            if rng:getUniform() > 0.5 then
+            if rng:random() > 0.5 then
                builder:drawLine(ax, ay, bx, ay, prism.cells.Floor)
                builder:drawLine(bx, ay, bx, by, prism.cells.Floor)
             else
@@ -273,7 +261,7 @@ Finally we'll wrap the entire map in some walls and return the finished MapBuild
          -- Choose the first room (top-left partition) to place the player.
          local startRoom
          while not startRoom do
-            local x, y = rng:getUniformInt(0, PARTITIONS - 1), rng:getUniformInt(0, PARTITIONS - 1)
+            local x, y = rng:random(0, PARTITIONS - 1), rng:random(0, PARTITIONS - 1)
             startRoom = rooms[prism.Vector2._hash(x, y)]
          end
 
@@ -302,7 +290,7 @@ Head back to ``gamestates/gamelevelstate.lua`` and add the following line to the
 
    local levelgen = require "levelgen"
 
-Then we're going to change it's constructor. Head to ``GameLevelState:__new`` and let's replace the map
+Then we're going to change its constructor. Head to ``GameLevelState:__new`` and let's replace the map
 builder code there with this:
 
 .. code:: lua
@@ -310,11 +298,11 @@ builder code there with this:
    local seed = tostring(os.time())
    local mapbuilder = levelgen(prism.RNG(seed), prism.actors.Player(), 60, 30)
 
-Now run the game! You'll be exploring a totally sick classic Rogue style map with some caverns and pits all
-around the room!
+Now run the game! You'll be exploring a map reminiscent of Rogue but with a lot more pits to kick kobolds into.
 
 Descending to the next part
 ---------------------------
 
+We've developed a simple level generation algorithm using :lua:class:`RNG` and :lua:class:`MapBuilder`.
 In the :doc:`next section <part8>` of the tutorial we'll add a set of stairs and let the player descend deeper into the dungeon!
 
