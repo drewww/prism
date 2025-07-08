@@ -4,10 +4,10 @@ Descending into the depths
 In this chapter we're going to add stairs and create a new ``Level`` when the player uses our new
 ``Descend`` action on the stairs.
 
-Adding a stair component
-------------------------
+The stairs themselves
+---------------------
 
-Navigate to ``modules/MyGame/components/`` and create a new file called ``stair.lua``. This
+Navigate to ``modules/game/components/`` and create a new file called ``stair.lua``. This
 will be a simple tag component to indicate the actor can be descended.
 
 .. code:: lua
@@ -17,15 +17,13 @@ will be a simple tag component to indicate the actor can be descended.
 
    return Stair
 
-Creating the stairs actor
--------------------------
-
-Next we'll register a ``Stairs`` actor.
+Next we'll register a ``Stairs`` actor in ``modules/game/actors/stairs.lua`` with the new component.
 
 .. code:: lua
 
    prism.registerActor("Stairs", function()
       return prism.Actor.fromComponents {
+         prism.components.Name("Stairs"),
          prism.components.Position(),
          prism.components.Drawable(">"),
          prism.components.Stair(),
@@ -33,10 +31,15 @@ Next we'll register a ``Stairs`` actor.
       }
    end)
 
+.. note::
+
+   Actors with a :lua:class:`Remembered` component will remain in an actor's :lua:class:`Senses` after being seen.
+   Handy for actors you want other actors to, well, remember.
+
 Placing the stairs on the map
 -----------------------------
 
-Okay we've got our stairs created, it's time to place them on the map. Navigate to
+We've defined our stairs, it's time to place them on the map. Navigate to
 ``levelgen.lua`` and head to the bottom of the function right above return.
 
 .. code:: lua
@@ -49,19 +52,20 @@ Okay we've got our stairs created, it's time to place them on the map. Navigate 
       end
    end
 
-   local stairRoom = availableRooms[rng:getUniformInt(1, #availableRooms)]
+   local stairRoom = availableRooms[rng:random(1, #availableRooms)]
    local corners = stairRoom:toCorners()
-   local randCorner = corners[rng:getUniformInt(1, #corners)]
+   local randCorner = corners[rng:random(1, #corners)]
 
    builder:addActor(prism.actors.Stairs(), randCorner.x, randCorner.y)
 
 We collect all the rooms the player didn't spawn in into a table, and then choose a random
 room. We place the stairs in a random corner of that room for now.
 
-The descend message
--------------------
+Descending
+----------
 
-Navigate to ``moudles/game/messages`` and create a new file ``descend.lua``.
+Navigate to ``modules/game/messages`` and define a new message in ``descend.lua``.
+For now we don't need anything inside.
 
 .. code:: lua
 
@@ -71,10 +75,7 @@ Navigate to ``moudles/game/messages`` and create a new file ``descend.lua``.
 
    return DescendMessage
 
-For now we don't need anything inside of ``Descend``.
-
-The descend action
-------------------
+Next, we'll define the ``Descend`` action.
 
 .. code:: lua
 
@@ -119,8 +120,8 @@ just pressed we'll add the following.
 Creating the next floor
 -----------------------
 
-Now that we've got everything set up we need to actually handle the ``Descend`` message. In
-``MyGameLevelState:handleMessage`` we'll add the following message handling.
+Now that we've got everything set up we need to actually handle the descend message. In 
+``GameLevelState:handleMessage`` we'll add the following message handling.
 
 .. code:: lua
 
@@ -137,5 +138,6 @@ tracking depth anywhere.
 In the next chapter
 -------------------
 
-We'll set up a ``Game`` object that tracks what depth we're on and manages level generation. We'll
+We've created a ``Stairs`` actor that takes us down an infinite amount of levels. Next,
+we'll set up a ``Game`` object that tracks what depth we're on and manages level generation. We'll
 pass the player to the new level so that we're playing as the same actor all the way down.
