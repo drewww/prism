@@ -44,9 +44,11 @@ function SensesSystem:triggerRebuild(level, actor)
       senses.explored:set(x, y, cell)
    end
 
-   for actor in senses:query(prism.components.Drawable, prism.components.Remembered):iter() do
+   for rememberedActor in
+      senses:query(prism.components.Drawable, prism.components.Remembered):iter()
+   do
       local x, y = actor:getPosition():decompose()
-      senses.remembered:set(x, y, actor)
+      senses.remembered:set(x, y, rememberedActor)
    end
 end
 

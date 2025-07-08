@@ -154,16 +154,19 @@ function RNG:clone()
 end
 
 --- Gets a random number.
---- @param a number The lower threshold (optional).
---- @param b number The upper threshold (optional).
---- @return number A random number.
-function RNG:random(a, b)
-   if not a then
+--- If nothing is passed, returns a real number between 0 and 1.
+--- If only max is passed, returns an integer between 1 and max.
+--- If max and min is passed, returns an integer between min and max.
+--- @overload fun(min: integer, max: integer): integer
+--- @overload fun(max: integer): integer
+--- @overload fun(): number
+function RNG:random(min, max)
+   if not min then
       return self:getUniform()
-   elseif not b then
-      return self:getUniformInt(1, a)
+   elseif not max then
+      return self:getUniformInt(1, min)
    else
-      return self:getUniformInt(a, b)
+      return self:getUniformInt(min, max)
    end
 end
 
