@@ -11,6 +11,11 @@ can kick around and get chased by.
 
 The following sections will expand this into a complete game.
 
+.. note::
+
+   We assume familiarity with Lua, but the language is simple enough that you could probably skirt by
+   with only general programming experience.
+
 Installation
 ------------
 

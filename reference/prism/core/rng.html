@@ -212,18 +212,12 @@
 
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-RNG.random">
-<span class="sig-name descname"><span class="pre">random</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-RNG" title="RNG"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">RNG</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="n"><span class="pre">A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></span></span><a class="headerlink" href="#lua-RNG.random" title="Link to this definition">¶</a></dt>
-<dd><p>Gets a random number.</p>
+<span class="sig-name descname"><span class="pre">random</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-RNG" title="RNG"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">RNG</span></code></a></em>, <em class="sig-param"><span class="n"><span class="pre">min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code></span></span><a class="headerlink" href="#lua-RNG.random" title="Link to this definition">¶</a></dt>
+<dd><p>Gets a random number.
+If nothing is passed, returns a real number between 0 and 1.
+If only max is passed, returns an integer between 1 and max.
+If max and min is passed, returns an integer between min and max.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>a</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The lower threshold (optional).</p></li>
-<li><p><strong>b</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – The upper threshold (optional).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>A</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code>) – random number.</p>
-</dd>
 </dl>
 </dd></dl>
 

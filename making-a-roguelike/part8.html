@@ -49,9 +49,9 @@
 <h1>Descending into the depths<a class="headerlink" href="#descending-into-the-depths" title="Link to this heading">¶</a></h1>
 <p>In this chapter we’re going to add stairs and create a new <code class="docutils literal notranslate"><span class="pre">Level</span></code> when the player uses our new
 <code class="docutils literal notranslate"><span class="pre">Descend</span></code> action on the stairs.</p>
-<section id="adding-a-stair-component">
-<h2>Adding a stair component<a class="headerlink" href="#adding-a-stair-component" title="Link to this heading">¶</a></h2>
-<p>Navigate to <code class="docutils literal notranslate"><span class="pre">modules/MyGame/components/</span></code> and create a new file called <code class="docutils literal notranslate"><span class="pre">stair.lua</span></code>. This
+<section id="the-stairs-themselves">
+<h2>The stairs themselves<a class="headerlink" href="#the-stairs-themselves" title="Link to this heading">¶</a></h2>
+<p>Navigate to <code class="docutils literal notranslate"><span class="pre">modules/game/components/</span></code> and create a new file called <code class="docutils literal notranslate"><span class="pre">stair.lua</span></code>. This
 will be a simple tag component to indicate the actor can be descended.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class Stair : Component</span>
 <span class="kd">local</span> <span class="n">Stair</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Component</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;Stair&quot;</span><span class="p">)</span>
@@ -59,12 +59,10 @@ will be a simple tag component to indicate the actor can be descended.</p>
 <span class="kr">return</span> <span class="n">Stair</span>
 </pre></div>
 </div>
-</section>
-<section id="creating-the-stairs-actor">
-<h2>Creating the stairs actor<a class="headerlink" href="#creating-the-stairs-actor" title="Link to this heading">¶</a></h2>
-<p>Next we’ll register a <code class="docutils literal notranslate"><span class="pre">Stairs</span></code> actor.</p>
+<p>Next we’ll register a <code class="docutils literal notranslate"><span class="pre">Stairs</span></code> actor in <code class="docutils literal notranslate"><span class="pre">modules/game/actors/stairs.lua</span></code> with the new component.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">registerActor</span><span class="p">(</span><span class="s2">&quot;Stairs&quot;</span><span class="p">,</span> <span class="kr">function</span><span class="p">()</span>
    <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">.</span><span class="n">fromComponents</span> <span class="p">{</span>
+      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Name</span><span class="p">(</span><span class="s2">&quot;Stairs&quot;</span><span class="p">),</span>
       <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Position</span><span class="p">(),</span>
       <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Drawable</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">),</span>
       <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Stair</span><span class="p">(),</span>
@@ -73,10 +71,15 @@ will be a simple tag component to indicate the actor can be descended.</p>
 <span class="kr">end</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Actors with a <a class="reference internal" href="../reference/prism/core/components/remembered.html#lua-Remembered" title="Remembered"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Remembered</span></code></a> component will remain in an actor’s <a class="reference internal" href="../reference/prism/core/components/senses.html#lua-Senses" title="Senses"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Senses</span></code></a> after being seen.
+Handy for actors you want other actors to, well, remember.</p>
+</div>
 </section>
 <section id="placing-the-stairs-on-the-map">
 <h2>Placing the stairs on the map<a class="headerlink" href="#placing-the-stairs-on-the-map" title="Link to this heading">¶</a></h2>
-<p>Okay we’ve got our stairs created, it’s time to place them on the map. Navigate to
+<p>We’ve defined our stairs, it’s time to place them on the map. Navigate to
 <code class="docutils literal notranslate"><span class="pre">levelgen.lua</span></code> and head to the bottom of the function right above return.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @type Rectangle[]</span>
 <span class="kd">local</span> <span class="n">availableRooms</span> <span class="o">=</span> <span class="p">{}</span>
@@ -86,9 +89,9 @@ will be a simple tag component to indicate the actor can be descended.</p>
    <span class="kr">end</span>
 <span class="kr">end</span>
 
-<span class="kd">local</span> <span class="n">stairRoom</span> <span class="o">=</span> <span class="n">availableRooms</span><span class="p">[</span><span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">#</span><span class="n">availableRooms</span><span class="p">)]</span>
+<span class="kd">local</span> <span class="n">stairRoom</span> <span class="o">=</span> <span class="n">availableRooms</span><span class="p">[</span><span class="n">rng</span><span class="p">:</span><span class="n">random</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">#</span><span class="n">availableRooms</span><span class="p">)]</span>
 <span class="kd">local</span> <span class="n">corners</span> <span class="o">=</span> <span class="n">stairRoom</span><span class="p">:</span><span class="n">toCorners</span><span class="p">()</span>
-<span class="kd">local</span> <span class="n">randCorner</span> <span class="o">=</span> <span class="n">corners</span><span class="p">[</span><span class="n">rng</span><span class="p">:</span><span class="n">getUniformInt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">#</span><span class="n">corners</span><span class="p">)]</span>
+<span class="kd">local</span> <span class="n">randCorner</span> <span class="o">=</span> <span class="n">corners</span><span class="p">[</span><span class="n">rng</span><span class="p">:</span><span class="n">random</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">#</span><span class="n">corners</span><span class="p">)]</span>
 
 <span class="n">builder</span><span class="p">:</span><span class="n">addActor</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">actors</span><span class="p">.</span><span class="n">Stairs</span><span class="p">(),</span> <span class="n">randCorner</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">randCorner</span><span class="p">.</span><span class="n">y</span><span class="p">)</span>
 </pre></div>
@@ -96,9 +99,10 @@ will be a simple tag component to indicate the actor can be descended.</p>
 <p>We collect all the rooms the player didn’t spawn in into a table, and then choose a random
 room. We place the stairs in a random corner of that room for now.</p>
 </section>
-<section id="the-descend-message">
-<h2>The descend message<a class="headerlink" href="#the-descend-message" title="Link to this heading">¶</a></h2>
-<p>Navigate to <code class="docutils literal notranslate"><span class="pre">moudles/game/messages</span></code> and create a new file <code class="docutils literal notranslate"><span class="pre">descend.lua</span></code>.</p>
+<section id="descending">
+<h2>Descending<a class="headerlink" href="#descending" title="Link to this heading">¶</a></h2>
+<p>Navigate to <code class="docutils literal notranslate"><span class="pre">modules/game/messages</span></code> and define a new message in <code class="docutils literal notranslate"><span class="pre">descend.lua</span></code>.
+For now we don’t need anything inside.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class DescendMessage : Message</span>
 <span class="c1">--- @overload fun(): DescendMessage</span>
 <span class="kd">local</span> <span class="n">DescendMessage</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Object</span><span class="p">:</span><span class="n">extend</span><span class="p">(</span><span class="s2">&quot;DescendMessage&quot;</span><span class="p">)</span>
@@ -106,10 +110,7 @@ room. We place the stairs in a random corner of that room for now.</p>
 <span class="kr">return</span> <span class="n">DescendMessage</span>
 </pre></div>
 </div>
-<p>For now we don’t need anything inside of <code class="docutils literal notranslate"><span class="pre">Descend</span></code>.</p>
-</section>
-<section id="the-descend-action">
-<h2>The descend action<a class="headerlink" href="#the-descend-action" title="Link to this heading">¶</a></h2>
+<p>Next, we’ll define the <code class="docutils literal notranslate"><span class="pre">Descend</span></code> action.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">DescendTarget</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Target</span><span class="p">()</span>
    <span class="p">:</span><span class="n">with</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Stair</span><span class="p">)</span>
    <span class="p">:</span><span class="n">range</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -149,8 +150,8 @@ just pressed we’ll add the following.</p>
 </section>
 <section id="creating-the-next-floor">
 <h2>Creating the next floor<a class="headerlink" href="#creating-the-next-floor" title="Link to this heading">¶</a></h2>
-<p>Now that we’ve got everything set up we need to actually handle the <code class="docutils literal notranslate"><span class="pre">Descend</span></code> message. In
-<code class="docutils literal notranslate"><span class="pre">MyGameLevelState:handleMessage</span></code> we’ll add the following message handling.</p>
+<p>Now that we’ve got everything set up we need to actually handle the descend message. In
+<code class="docutils literal notranslate"><span class="pre">GameLevelState:handleMessage</span></code> we’ll add the following message handling.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">if</span> <span class="n">prism</span><span class="p">.</span><span class="n">messages</span><span class="p">.</span><span class="n">Descend</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="kr">then</span>
    <span class="n">self</span><span class="p">.</span><span class="n">manager</span><span class="p">:</span><span class="n">enter</span><span class="p">(</span><span class="n">GameLevelState</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">))</span>
 <span class="kr">end</span>
@@ -163,7 +164,8 @@ tracking depth anywhere.</p>
 </section>
 <section id="in-the-next-chapter">
 <h2>In the next chapter<a class="headerlink" href="#in-the-next-chapter" title="Link to this heading">¶</a></h2>
-<p>We’ll set up a <code class="docutils literal notranslate"><span class="pre">Game</span></code> object that tracks what depth we’re on and manages level generation. We’ll
+<p>We’ve created a <code class="docutils literal notranslate"><span class="pre">Stairs</span></code> actor that takes us down an infinite amount of levels. Next,
+we’ll set up a <code class="docutils literal notranslate"><span class="pre">Game</span></code> object that tracks what depth we’re on and manages level generation. We’ll
 pass the player to the new level so that we’re playing as the same actor all the way down.</p>
 </section>
 </section>
@@ -274,11 +276,9 @@ SOFTWARE.
 <li class="toctree-l1"><a class="reference internal" href="part6.html">Losing the game</a></li>
 <li class="toctree-l1"><a class="reference internal" href="part7.html">Carving out caverns</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Descending into the depths</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#adding-a-stair-component">Adding a stair component</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#creating-the-stairs-actor">Creating the stairs actor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-stairs-themselves">The stairs themselves</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#placing-the-stairs-on-the-map">Placing the stairs on the map</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#the-descend-message">The descend message</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#the-descend-action">The descend action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#descending">Descending</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#creating-the-next-floor">Creating the next floor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#in-the-next-chapter">In the next chapter</a></li>
 </ul>
