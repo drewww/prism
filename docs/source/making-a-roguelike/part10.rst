@@ -17,7 +17,7 @@ Head over to main.lua and add the inventory module from extra.
    prism.loadModule("prism/extra/inventory")
 
 Giving the player an inventory
-==============================
+------------------------------
 
 Let's head over to ``modules/game/actors/player.lua`` and add our inventory component.
 
