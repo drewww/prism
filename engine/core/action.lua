@@ -62,9 +62,9 @@ function Action:perform(level, ...)
    error("This is a virtual method and must be overriden by subclasses!")
 end
 
---- Returns the target actor at the specified index.
----@param n number The index of the target actor to retrieve.
----@return any target The target actor at the specified index.
+--- Returns the target at the specified index.
+---@param n number The index of the target to retrieve.
+---@return any target The target at the specified index.
 function Action:getTarget(n)
    if self.targetObjects[n] then return self.targetObjects[n] end
 end
@@ -83,12 +83,12 @@ function Action:getTargetObject(index)
    return self.targets[index]
 end
 
---- Determines if the specified actor is a target of this action.
---- @param actor Actor The actor to check if they are a target of this action.
---- @return boolean -- True if the specified actor is a target of this action, false otherwise.
-function Action:hasTarget(actor)
-   for _, a in pairs(self.targetObjects) do
-      if a == actor then return true end
+--- Determines if the specified value is a target of this action.
+--- @param target any The value to check if they are a target of this action.
+--- @return boolean -- True if the specified value is a target of this action, false otherwise.
+function Action:hasTarget(target)
+   for _, any in pairs(self.targetObjects) do
+      if any == target then return true end
    end
 
    return false
@@ -97,9 +97,9 @@ end
 --- Validates the specified target for this action.
 --- @param n number The index of the target object to validate.
 --- @param owner Actor The actor that is performing the action.
---- @param toValidate any The target object to validate.
+--- @param toValidate any The target to validate.
 --- @param previousTargets? any[] The previously selected targets.
---- @return boolean -- True if the specified target actor is valid for this action, false otherwise.
+--- @return boolean -- True if the specified target value is valid for this action, false otherwise.
 function Action:validateTarget(n, level, owner, toValidate, previousTargets)
    --- @diagnostic disable-next-line
    return self.targets[n]:validate(level, owner, toValidate, previousTargets)
