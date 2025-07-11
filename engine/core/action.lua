@@ -66,7 +66,7 @@ end
 ---@param n number The index of the target to retrieve.
 ---@return any target The target at the specified index.
 function Action:getTarget(n)
-   if self.targets[n] then return self.targets[n] end
+   return self.targets[n]
 end
 
 --- Returns the number of targets associated with this action.
