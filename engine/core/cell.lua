@@ -1,7 +1,7 @@
---- A 'Cell' is a single tile on the map.
---- It defines the properties of the tile and has a few callbacks.
+--- A single tile on the map.
 --- Like actors, they hold components that can be used to modify their behaviour.
---- Cells are required to have a Collider.
+--- Cells are required to have a :lua:class:`Collider`. :lua:class:`Opaque` can be
+--- used to block sight in the default field of view implementation.
 --- @class Cell : Entity
 --- @overload fun(): Cell
 local Cell = prism.Entity:extend("Cell")

@@ -1,4 +1,4 @@
---- An 'Actor' represents entities in the game, including the player, enemies, and items.
+--- Entities in the game, including the player, enemies, and items.
 --- Actors are composed of Components that define their state and behavior.
 --- For example, an actor may have a Sight component that determines their field of vision, explored tiles,
 --- and other related aspects.
@@ -90,10 +90,8 @@ end
 --- @return Vector2? position Returns a copy of the actor's current position.
 function Actor:getPosition(out)
    local comp = self:get(prism.components.Position)
-   
-   if comp then
-      return comp:getVector():copy(out)
-   end
+
+   if comp then return comp:getVector():copy(out) end
 end
 
 --- @private
