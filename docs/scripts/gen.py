@@ -2,15 +2,18 @@ import os
 import re
 import sys
 
+
 def write_classes(file_path, class_names):
-    with open(file_path, 'w') as f:
+    with open(file_path, "w") as f:
         for class_name in class_names:
             f.write(f".. title:: {class_name}\n")
             f.write(f".. lua:autoobject:: {class_name}\n")
             f.write("   :members:\n")
             f.write("   :special-members: __new\n")
             f.write("   :undoc-members:\n")
-            f.write("   :inherited-members: __new\n\n")
+            f.write("   :inherited-members: __new\n")
+            f.write("   :inherited-members-table:\n\n")
+
 
 def process_files(input_dir, output_dir):
     """
@@ -28,22 +31,25 @@ def process_files(input_dir, output_dir):
             if not file.endswith(".lua"):
                 continue
             input_file_path = os.path.join(root, file)
-            output_file_path = os.path.join(output_dir, os.path.relpath(input_file_path, input_dir))
+            output_file_path = os.path.join(
+                output_dir, os.path.relpath(input_file_path, input_dir)
+            )
             output_file_path = os.path.splitext(output_file_path)[0] + ".rst"
 
             # Ensure the output directory structure exists
             os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
 
-            with open(input_file_path, 'r') as f:
+            with open(input_file_path, "r") as f:
                 content = f.readlines()
 
             class_names = []
             for line in content:
-                match = re.search(r'@class\s+(\S+)', line)
+                match = re.search(r"@class\s+(\S+)", line)
                 if match:
                     class_names.append(match.group(1))
             if len(class_names) > 0:
                 write_classes(output_file_path, class_names)
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
@@ -53,4 +59,3 @@ if __name__ == "__main__":
     input_directory = sys.argv[1]
     output_directory = sys.argv[2]
     process_files(input_directory, output_directory)
-
