@@ -82,7 +82,7 @@ or to perform other miscellaneous set up.</p>
 </section><section class="terminal-card"><header>
 Components</header><div class="docutils container">
 <p>Files in <code class="docutils literal notranslate"><span class="pre">module/components/</span></code> are assumed to return a single <a class="reference internal" href="../reference/prism/core/component.html#lua-Component" title="Component"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Component</span></code></a> each. These are loaded
-into <code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.components</span></code>.</p>
+into <a class="reference internal" href="../reference/prism/index.html#lua-prism.components" title="prism.components"><code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.components</span></code></a>.</p>
 </div>
 </section><div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">modules/components/pushable.lua</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
@@ -98,7 +98,7 @@ into <code class="xref lua lua-data docutils literal notranslate"><span class="p
 Targets</header><div class="docutils container">
 <p>All files in <code class="docutils literal notranslate"><span class="pre">module/targets/</span></code> are ran.
 <a class="reference internal" href="../reference/prism/core/target.html"><span class="doc">Targets</span></a> must be registered by providing a name and a
-factory function to <a class="reference internal" href="../reference/prism/index.html#lua-prism.registerTarget" title="prism.registerTarget"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">prism.registerTarget()</span></code></a>; these are loaded into <code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.targets</span></code>.
+factory function to <a class="reference internal" href="../reference/prism/index.html#lua-prism.registerTarget" title="prism.registerTarget"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">prism.registerTarget()</span></code></a>; these are loaded into <a class="reference internal" href="../reference/prism/index.html#lua-prism.targets" title="prism.targets"><code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.targets</span></code></a>.
 Factories can accept parameters.</p>
 </div>
 </section><div class="literal-block-wrapper docutils container" id="id2">
@@ -113,7 +113,7 @@ Factories can accept parameters.</p>
 Cells</header><div class="docutils container">
 <p>All files in <code class="docutils literal notranslate"><span class="pre">module/cells/</span></code> are ran.
 <a class="reference internal" href="../reference/prism/core/cell.html"><span class="doc">Cells</span></a> must be registered by providing a name and a
-factory function to <a class="reference internal" href="../reference/prism/index.html#lua-prism.registerCell" title="prism.registerCell"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">prism.registerCell()</span></code></a>; these are loaded into <code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.cells</span></code>.
+factory function to <a class="reference internal" href="../reference/prism/index.html#lua-prism.registerCell" title="prism.registerCell"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">prism.registerCell()</span></code></a>; these are loaded into <a class="reference internal" href="../reference/prism/index.html#lua-prism.cells" title="prism.cells"><code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.cells</span></code></a>.
 <a class="reference internal" href="../reference/prism/core/cell.html#lua-Cell.fromComponents" title="Cell.fromComponents"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Cell.fromComponents()</span></code></a> is useful here.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
@@ -135,13 +135,13 @@ factory function to <a class="reference internal" href="../reference/prism/index
 <section class="terminal-card"><header>
 Actions</header><div class="docutils container">
 <p>Files in <code class="docutils literal notranslate"><span class="pre">module/components/</span></code> are assumed to return a single <a class="reference internal" href="../reference/prism/core/action.html#lua-Action" title="Action"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Action</span></code></a> each.
-These are loaded into <code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.actions</span></code>.</p>
+These are loaded into <a class="reference internal" href="../reference/prism/index.html#lua-prism.actions" title="prism.actions"><code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.actions</span></code></a>.</p>
 </div>
 </section><section class="terminal-card"><header>
 Actors</header><div class="docutils container">
 <p>All files in <code class="docutils literal notranslate"><span class="pre">module/actors/</span></code> are ran.
 <a class="reference internal" href="../reference/prism/core/actor.html"><span class="doc">Actors</span></a> must be registered by providing a name and a factory
-function to <a class="reference internal" href="../reference/prism/index.html#lua-prism.registerActor" title="prism.registerActor"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">prism.registerActor()</span></code></a>; these are loaded into <code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.actors</span></code>.
+function to <a class="reference internal" href="../reference/prism/index.html#lua-prism.registerActor" title="prism.registerActor"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">prism.registerActor()</span></code></a>; these are loaded into <a class="reference internal" href="../reference/prism/index.html#lua-prism.actors" title="prism.actors"><code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.actors</span></code></a>.
 <a class="reference internal" href="../reference/prism/core/actor.html#lua-Actor.fromComponents" title="Actor.fromComponents"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Actor.fromComponents()</span></code></a> is useful here.</p>
 </div>
 </section><div class="literal-block-wrapper docutils container" id="id4">
@@ -167,17 +167,17 @@ function to <a class="reference internal" href="../reference/prism/index.html#lu
 <section class="terminal-card"><header>
 Messages</header><div class="docutils container">
 <p>Files in <code class="docutils literal notranslate"><span class="pre">module/messages/</span></code> are assumed to return a single <a class="reference internal" href="../reference/prism/core/message.html#lua-Message" title="Message"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Message</span></code></a> each.
-These are loaded into <code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.messages</span></code>.</p>
+These are loaded into <a class="reference internal" href="../reference/prism/index.html#lua-prism.messages" title="prism.messages"><code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.messages</span></code></a>.</p>
 </div>
 </section><section class="terminal-card"><header>
 Decisions</header><div class="docutils container">
 <p>Files in <code class="docutils literal notranslate"><span class="pre">module/decisions/</span></code> are assumed to return a single <a class="reference internal" href="../reference/prism/core/decision.html#lua-Decision" title="Decision"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Decision</span></code></a> each.
-These are loaded into <code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.decisions</span></code>.</p>
+These are loaded into <a class="reference internal" href="../reference/prism/index.html#lua-prism.decisions" title="prism.decisions"><code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.decisions</span></code></a>.</p>
 </div>
 </section><section class="terminal-card"><header>
 Systems</header><div class="docutils container">
 <p>Files in <code class="docutils literal notranslate"><span class="pre">module/systems/</span></code> are assumed to return a single <a class="reference internal" href="../reference/prism/core/system.html#lua-System" title="System"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">System</span></code></a> each.
-These are loaded into <code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.systems</span></code>.</p>
+These are loaded into <a class="reference internal" href="../reference/prism/index.html#lua-prism.systems" title="prism.systems"><code class="xref lua lua-data docutils literal notranslate"><span class="pre">prism.systems</span></code></a>.</p>
 </div>
 </section></div></section>
 
