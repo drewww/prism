@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/lua.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/terminal.css?v=2ffb2b6d" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/terminal.css?v=a16ce9c5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/goto-top/style.css?v=c152bd81" />
     <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
@@ -47,14 +47,14 @@
             
   <dl class="lua class">
 <dt class="sig sig-object lua" id="lua-SimpleScheduler">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SimpleScheduler</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scheduler.html#lua-Scheduler" title="Scheduler"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Scheduler</span></code></a><a class="headerlink" href="#lua-SimpleScheduler" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">global</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SimpleScheduler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="scheduler.html#lua-Scheduler" title="Scheduler"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Scheduler</span></code></a><a class="headerlink" href="#lua-SimpleScheduler" title="Link to this definition">¶</a><br /></dt>
 <dd><p>The ‘SimpleScheduler’ manages a queue of actors and schedules their actions.
 This implementation of the base ‘Scheduler’ class uses a simple round-robin system,
 where each actor takes its turn in order. It tracks the global round count and can be
 customized according to the needs of your game.</p>
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-SimpleScheduler.__new">
-<span class="sig-name descname"><span class="pre">__new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SimpleScheduler" title="SimpleScheduler"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SimpleScheduler</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-SimpleScheduler.__new" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__new</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SimpleScheduler" title="SimpleScheduler"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SimpleScheduler</span></code></a><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#lua-SimpleScheduler.__new" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Constructor for the SimpleScheduler class.
 Initializes an empty queue and sets the round count to 0.</p>
 <dl class="field-list simple">
@@ -63,29 +63,36 @@ Initializes an empty queue and sets the round count to 0.</p>
 
 <dl class="lua data">
 <dt class="sig sig-object lua" id="lua-SimpleScheduler.currentQueue">
-<span class="sig-name descname"><span class="pre">currentQueue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../structures/queue.html#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a><a class="headerlink" href="#lua-SimpleScheduler.currentQueue" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">currentQueue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../structures/queue.html#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a><a class="headerlink" href="#lua-SimpleScheduler.currentQueue" title="Link to this definition">¶</a><br /></dt>
 <dd><p>A basic FIFO (First In, First Out) queue implementation.</p>
 </dd></dl>
 
 <dl class="lua data">
 <dt class="sig sig-object lua" id="lua-SimpleScheduler.nextQueue">
-<span class="sig-name descname"><span class="pre">nextQueue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../structures/queue.html#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a><a class="headerlink" href="#lua-SimpleScheduler.nextQueue" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">nextQueue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../structures/queue.html#lua-Queue" title="Queue"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Queue</span></code></a><a class="headerlink" href="#lua-SimpleScheduler.nextQueue" title="Link to this definition">¶</a><br /></dt>
 <dd><p>A basic FIFO (First In, First Out) queue implementation.</p>
 </dd></dl>
 
 <dl class="lua data">
 <dt class="sig sig-object lua" id="lua-SimpleScheduler.roundCount">
-<span class="sig-name descname"><span class="pre">roundCount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><a class="headerlink" href="#lua-SimpleScheduler.roundCount" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">roundCount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><a class="headerlink" href="#lua-SimpleScheduler.roundCount" title="Link to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-SimpleScheduler.swapQueues">
-<span class="sig-name descname"><span class="pre">swapQueues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SimpleScheduler" title="SimpleScheduler"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SimpleScheduler</span></code></a></em><span class="sig-paren">)</span><a class="headerlink" href="#lua-SimpleScheduler.swapQueues" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">swapQueues</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-SimpleScheduler" title="SimpleScheduler"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">SimpleScheduler</span></code></a><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#lua-SimpleScheduler.swapQueues" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Swaps the current and next queues.</p>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
 
+<div class="lua-iherited-members docutils container">
+<p><strong>Other members:</strong></p>
+<div class="admonition">
+<p>Inherited from <a class="reference internal" href="../object.html#lua-Object" title="Object"><code class="docutils literal notranslate"><span class="pre">Object</span></code></a>: <a class="reference internal" href="../object.html#lua-Object._serializationBlacklist" title="Object._serializationBlacklist"><code class="docutils literal notranslate"><span class="pre">_serializationBlacklist</span></code></a>, <a class="reference internal" href="../object.html#lua-Object.adopt" title="Object.adopt"><code class="docutils literal notranslate"><span class="pre">adopt()</span></code></a>, <a class="reference internal" href="../object.html#lua-Object.assertType" title="Object.assertType"><code class="docutils literal notranslate"><span class="pre">assertType()</span></code></a>, <a class="reference internal" href="../object.html#lua-Object.className" title="Object.className"><code class="docutils literal notranslate"><span class="pre">className</span></code></a>, <a class="reference internal" href="../object.html#lua-Object.deserialize" title="Object.deserialize"><code class="docutils literal notranslate"><span class="pre">deserialize()</span></code></a>, <a class="reference internal" href="../object.html#lua-Object.extend" title="Object.extend"><code class="docutils literal notranslate"><span class="pre">extend()</span></code></a>, <a class="reference internal" href="../object.html#lua-Object.instanceOf" title="Object.instanceOf"><code class="docutils literal notranslate"><span class="pre">instanceOf()</span></code></a>, <a class="reference internal" href="../object.html#lua-Object.is" title="Object.is"><code class="docutils literal notranslate"><span class="pre">is()</span></code></a>, <a class="reference internal" href="../object.html#lua-Object.isInstance" title="Object.isInstance"><code class="docutils literal notranslate"><span class="pre">isInstance()</span></code></a>, <a class="reference internal" href="../object.html#lua-Object.mixin" title="Object.mixin"><code class="docutils literal notranslate"><span class="pre">mixin()</span></code></a>, <a class="reference internal" href="../object.html#lua-Object.prettyprint" title="Object.prettyprint"><code class="docutils literal notranslate"><span class="pre">prettyprint()</span></code></a>, <a class="reference internal" href="../object.html#lua-Object.serializationBlacklist" title="Object.serializationBlacklist"><code class="docutils literal notranslate"><span class="pre">serializationBlacklist</span></code></a>, <a class="reference internal" href="../object.html#lua-Object.serialize" title="Object.serialize"><code class="docutils literal notranslate"><span class="pre">serialize()</span></code></a></p>
+<p>Inherited from <a class="reference internal" href="scheduler.html#lua-Scheduler" title="Scheduler"><code class="docutils literal notranslate"><span class="pre">Scheduler</span></code></a>: <a class="reference internal" href="scheduler.html#lua-Scheduler.add" title="Scheduler.add"><code class="docutils literal notranslate"><span class="pre">add()</span></code></a>, <a class="reference internal" href="scheduler.html#lua-Scheduler.empty" title="Scheduler.empty"><code class="docutils literal notranslate"><span class="pre">empty()</span></code></a>, <a class="reference internal" href="scheduler.html#lua-Scheduler.has" title="Scheduler.has"><code class="docutils literal notranslate"><span class="pre">has()</span></code></a>, <a class="reference internal" href="scheduler.html#lua-Scheduler.next" title="Scheduler.next"><code class="docutils literal notranslate"><span class="pre">next()</span></code></a>, <a class="reference internal" href="scheduler.html#lua-Scheduler.remove" title="Scheduler.remove"><code class="docutils literal notranslate"><span class="pre">remove()</span></code></a>, <a class="reference internal" href="scheduler.html#lua-Scheduler.timestamp" title="Scheduler.timestamp"><code class="docutils literal notranslate"><span class="pre">timestamp()</span></code></a></p>
+</div>
+</div>
 </dd></dl>
 
 
@@ -205,14 +212,14 @@ SOFTWARE.
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Prism</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.actors"><code class="docutils literal notranslate"><span class="pre">prism.actors</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.actions"><code class="docutils literal notranslate"><span class="pre">prism.actions</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.components"><code class="docutils literal notranslate"><span class="pre">prism.components</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.cells"><code class="docutils literal notranslate"><span class="pre">prism.cells</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.targets"><code class="docutils literal notranslate"><span class="pre">prism.targets</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.messages"><code class="docutils literal notranslate"><span class="pre">prism.messages</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.systems"><code class="docutils literal notranslate"><span class="pre">prism.systems</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.decisions"><code class="docutils literal notranslate"><span class="pre">prism.decisions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.actors.table"><code class="docutils literal notranslate"><span class="pre">prism.actors.table</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.actions.table"><code class="docutils literal notranslate"><span class="pre">prism.actions.table</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.components.table"><code class="docutils literal notranslate"><span class="pre">prism.components.table</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.cells.table"><code class="docutils literal notranslate"><span class="pre">prism.cells.table</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.targets.table"><code class="docutils literal notranslate"><span class="pre">prism.targets.table</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.messages.table"><code class="docutils literal notranslate"><span class="pre">prism.messages.table</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.systems.table"><code class="docutils literal notranslate"><span class="pre">prism.systems.table</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#lua-prism.decisions.table"><code class="docutils literal notranslate"><span class="pre">prism.decisions.table</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../action.html"><code class="docutils literal notranslate"><span class="pre">Action</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../actor.html"><code class="docutils literal notranslate"><span class="pre">Actor</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../actorstorage.html"><code class="docutils literal notranslate"><span class="pre">ActorStorage</span></code></a></li>

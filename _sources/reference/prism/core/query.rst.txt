@@ -4,6 +4,7 @@
    :special-members: __new
    :undoc-members:
    :inherited-members: __new
+   :inherited-members-table:
 
 .. title:: Query
 .. lua:autoobject:: Query
@@ -11,4 +12,5 @@
    :special-members: __new
    :undoc-members:
    :inherited-members: __new
+   :inherited-members-table:
 
