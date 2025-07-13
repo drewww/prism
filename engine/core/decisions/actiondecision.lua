@@ -1,6 +1,9 @@
----@class ActionDecision : Decision
----@field actor Actor
----@field action Action|nil
+--- Represents an action to be taken, generally by the player.
+--- :lua:class:`PlayerController` yields one to decide what action to perform.
+--- @class ActionDecision : Decision
+--- @field actor Actor The actor making the decision.
+--- @field action Action|nil The action to perform.
+--- @overload fun(actor: Actor): ActionDecision
 local ActionDecision = prism.Decision:extend("ActionDecision")
 
 --- @param actor Actor
@@ -12,8 +15,24 @@ function ActionDecision:validateResponse()
    return self.action ~= nil
 end
 
+--- Sets an action. It must be valid, i.e. :lua:func:`Level.canPerform` returns true.
+--- @param action Action A valid action.
 function ActionDecision:setAction(action)
    self.action = action
+end
+
+--- Sets an action if it can be performed and there is not an action set already.
+--- @param action Action An action to try setting.
+--- @param level Level The level.
+--- @return boolean set True if the action was set, false otherwise.
+--- @return string? err An error message if setting the action failed.
+function ActionDecision:trySetAction(action, level)
+   if self.action then return false, "ActionDecision already has an action!" end
+
+   local can, err = level:canPerform(action)
+   if can then self.action = action end
+
+   return can, err
 end
 
 return ActionDecision
