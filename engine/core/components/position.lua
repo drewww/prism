@@ -1,4 +1,4 @@
---- A display name for an entity.
+--- Defines a position for the actor.
 --- @class Position : Component
 --- @field private _position Vector2
 --- @overload fun(pos: Vector2?): Position
