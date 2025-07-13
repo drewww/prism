@@ -286,6 +286,17 @@ function Level:perform(action, silent)
    if not silent then self.systemManager:afterAction(self, owner, action) end
 end
 
+--- Performs an action if Level:canPerform(action) is true.
+--- @param action Action The action to perform.
+--- @param silent boolean? If true this action emits no events.
+--- @return boolean performed True if the action was performed.
+--- @return string? err A string error message if the action was not performed.
+function Level:tryPerform(action, silent)
+   local can, err = self:canPerform(action)
+   if can then self:perform(action, silent) end
+   return can, err
+end
+
 --
 -- ActorStorage Wrapper
 --
