@@ -8,35 +8,35 @@ functions can be accessed from the ``prism`` global, e.g. ``prism.Level``.
 Registries get automatically loaded by :lua:func:`loadModule`. They hold all
 of the game objects, making them easy to access, e.g. ``prism.actors.Player()``.
 
-- .. lua:data:: prism.actors table<string, Actor>
+- .. lua:data:: prism.actors: table<string, Actor>
 
    The actor registry.
 
-- .. lua:data:: prism.actions table<string, Action>
+- .. lua:data:: prism.actions: table<string, Action>
 
    The actions registry.
 
-- .. lua:data:: prism.components table<string, Component>
+- .. lua:data:: prism.components: table<string, Component>
 
    The component registry.
 
-- .. lua:data:: prism.cells table<string, Cell>
+- .. lua:data:: prism.cells: table<string, Cell>
 
    The cell registry.
 
-- .. lua:data:: prism.targets table<string, Target>
+- .. lua:data:: prism.targets: table<string, Target>
 
    The target registry.
 
-- .. lua:data:: prism.messages table<string, Message>
+- .. lua:data:: prism.messages: table<string, Message>
 
    The message registry.
 
-- .. lua:data:: prism.systems table<string, System>
+- .. lua:data:: prism.systems: table<string, System>
 
    The system registry.
 
-- .. lua:data:: prism.decisions table<string, Decision>
+- .. lua:data:: prism.decisions: table<string, Decision>
 
    The decision registry.
 
