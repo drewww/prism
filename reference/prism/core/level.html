@@ -226,6 +226,26 @@ standing on.</p>
 </dd></dl>
 
 <dl class="lua method">
+<dt class="sig sig-object lua" id="lua-Level.tryPerform">
+<span class="sig-name descname"><span class="pre">tryPerform</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="action.html#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">silent?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">performed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">err?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#lua-Level.tryPerform" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Performs an action if Level:canPerform(action) is true.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>action</strong> (<a class="reference internal" href="action.html#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a>) – The action to perform.</p></li>
+<li><p><strong>silent?</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code>) – If true this action emits no events.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>performed</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code>) – True if the action was performed.</p></li>
+<li><p><strong>err?</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – A string error message if the action was not performed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Level.hasActor">
 <span class="sig-name descname"><span class="pre">hasActor</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">hasActor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#lua-Level.hasActor" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Returns true if the level contains the given actor, false otherwise. A thin wrapper
@@ -373,7 +393,7 @@ box type uses a simple box around the given position.</p>
 </dl>
 </dd></dl>
 
-<div class="lua-iherited-members docutils container">
+<div class="lua-inherited-members docutils container">
 <p><strong>Other members:</strong></p>
 <div class="admonition">
 <p>Inherited from <a class="reference internal" href="query.html#lua-IQueryable" title="IQueryable"><code class="docutils literal notranslate"><span class="pre">IQueryable</span></code></a>: <a class="reference internal" href="query.html#lua-IQueryable.query" title="IQueryable.query"><code class="docutils literal notranslate"><span class="pre">query</span></code></a></p>
@@ -534,6 +554,7 @@ SOFTWARE.
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.moveActor"><code class="docutils literal notranslate"><span class="pre">moveActor()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.canPerform"><code class="docutils literal notranslate"><span class="pre">canPerform()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.perform"><code class="docutils literal notranslate"><span class="pre">perform()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-Level.tryPerform"><code class="docutils literal notranslate"><span class="pre">tryPerform()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.hasActor"><code class="docutils literal notranslate"><span class="pre">hasActor()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.computeFOV"><code class="docutils literal notranslate"><span class="pre">computeFOV()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-Level.getActorCell"><code class="docutils literal notranslate"><span class="pre">getActorCell()</span></code></a></li>

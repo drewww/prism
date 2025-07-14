@@ -48,7 +48,9 @@
   <dl class="lua class">
 <dt class="sig sig-object lua" id="lua-Position">
 <em class="property"><span class="k"><span class="pre">global</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a><a class="headerlink" href="#lua-Position" title="Link to this definition">¶</a><br /></dt>
-<dd><p>A display name for an entity.</p>
+<dd><p>Defines a position for the actor. You should avoid
+directly manipulating this and instead use level:moveActor
+and actor:getPosition or actor:expectPosition.</p>
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Position.__new">
 <span class="sig-name descname"><span class="pre">__new</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Position" title="Position"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Position</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#lua-Position.__new" title="Link to this definition">¶</a><br /></dt>
@@ -59,11 +61,13 @@
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Position.getVector">
 <span class="sig-name descname"><span class="pre">getVector</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Position" title="Position"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Position</span></code></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../math/vector.html#lua-Vector2" title="Vector2"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Vector2</span></code></a><a class="headerlink" href="#lua-Position.getVector" title="Link to this definition">¶</a><br /></dt>
-<dd><dl class="field-list simple">
+<dd><p>Gets a reference to the inner vector. Don’t pass this around
+or modify this! Treat it as immutable!</p>
+<dl class="field-list simple">
 </dl>
 </dd></dl>
 
-<div class="lua-iherited-members docutils container">
+<div class="lua-inherited-members docutils container">
 <p><strong>Other members:</strong></p>
 <div class="admonition">
 <p>Inherited from <a class="reference internal" href="../component.html#lua-Component" title="Component"><code class="docutils literal notranslate"><span class="pre">Component</span></code></a>: <a class="reference internal" href="../component.html#lua-Component.checkRequirements" title="Component.checkRequirements"><code class="docutils literal notranslate"><span class="pre">checkRequirements()</span></code></a>, <a class="reference internal" href="../component.html#lua-Component.getBase" title="Component.getBase"><code class="docutils literal notranslate"><span class="pre">getBase()</span></code></a>, <a class="reference internal" href="../component.html#lua-Component.getRequirements" title="Component.getRequirements"><code class="docutils literal notranslate"><span class="pre">getRequirements()</span></code></a>, <a class="reference internal" href="../component.html#lua-Component.owner" title="Component.owner"><code class="docutils literal notranslate"><span class="pre">owner</span></code></a>, <a class="reference internal" href="../component.html#lua-Component.requirements" title="Component.requirements"><code class="docutils literal notranslate"><span class="pre">requirements</span></code></a></p>

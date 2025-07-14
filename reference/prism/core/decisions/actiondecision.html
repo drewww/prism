@@ -47,13 +47,13 @@
             
   <dl class="lua class">
 <dt class="sig sig-object lua" id="lua-ActionDecision">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ActionDecision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../decision.html#lua-Decision" title="Decision"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Decision</span></code></a><a class="headerlink" href="#lua-ActionDecision" title="Link to this definition">¶</a><br /></dt>
-<dd><dl class="lua data">
+<em class="property"><span class="k"><span class="pre">global</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ActionDecision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../decision.html#lua-Decision" title="Decision"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Decision</span></code></a><a class="headerlink" href="#lua-ActionDecision" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Represents an action to be taken, generally by the player.
+<a class="reference internal" href="../components/player_controller.html#lua-PlayerController" title="PlayerController"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">PlayerController</span></code></a> yields one to decide what action to perform.</p>
+<dl class="lua data">
 <dt class="sig sig-object lua" id="lua-ActionDecision.action">
 <span class="sig-name descname"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../action.html#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">nil</span></code><a class="headerlink" href="#lua-ActionDecision.action" title="Link to this definition">¶</a><br /></dt>
-<dd><p>An ‘Action’ is a command that affects a discrete change in the game state.
-An Action consists of an owner, a name, a list of targets, and a list of target objects.
-See Target for more.</p>
+<dd><p>The action to perform.</p>
 </dd></dl>
 
 <dl class="lua method">
@@ -65,12 +65,36 @@ See Target for more.</p>
 
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-ActionDecision.setAction">
-<span class="sig-name descname"><span class="pre">setAction</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-ActionDecision" title="ActionDecision"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ActionDecision</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">any</span></code><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#lua-ActionDecision.setAction" title="Link to this definition">¶</a><br /></dt>
-<dd><dl class="field-list simple">
+<span class="sig-name descname"><span class="pre">setAction</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-ActionDecision" title="ActionDecision"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ActionDecision</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../action.html#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#lua-ActionDecision.setAction" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Sets an action. It must be valid, i.e. <a class="reference internal" href="../level.html#lua-Level.canPerform" title="Level.canPerform"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">Level:canPerform()</span></code></a> returns true.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>action</strong> (<a class="reference internal" href="../action.html#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a>) – A valid action.</p>
+</dd>
 </dl>
 </dd></dl>
 
-<div class="lua-iherited-members docutils container">
+<dl class="lua method">
+<dt class="sig sig-object lua" id="lua-ActionDecision.trySetAction">
+<span class="sig-name descname"><span class="pre">trySetAction</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-ActionDecision" title="ActionDecision"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">ActionDecision</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../action.html#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../level.html#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">err?</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#lua-ActionDecision.trySetAction" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Sets an action if it can be performed and there is not an action set already.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>action</strong> (<a class="reference internal" href="../action.html#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a>) – An action to try setting.</p></li>
+<li><p><strong>level</strong> (<a class="reference internal" href="../level.html#lua-Level" title="Level"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Level</span></code></a>) – The level.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>set</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">boolean</span></code>) – True if the action was set, false otherwise.</p></li>
+<li><p><strong>err?</strong> (<code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code>) – An error message if setting the action failed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="lua-inherited-members docutils container">
 <p><strong>Other members:</strong></p>
 <div class="admonition">
 <p>Inherited from <a class="reference internal" href="../decision.html#lua-Decision" title="Decision"><code class="docutils literal notranslate"><span class="pre">Decision</span></code></a>: <a class="reference internal" href="../decision.html#lua-Decision.actor" title="Decision.actor"><code class="docutils literal notranslate"><span class="pre">actor</span></code></a>, <a class="reference internal" href="../decision.html#lua-Decision.validateResponse" title="Decision.validateResponse"><code class="docutils literal notranslate"><span class="pre">validateResponse()</span></code></a></p>
@@ -249,6 +273,7 @@ SOFTWARE.
 <li class="toctree-l3"><a class="reference internal" href="#lua-ActionDecision.action"><code class="docutils literal notranslate"><span class="pre">action</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-ActionDecision.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lua-ActionDecision.setAction"><code class="docutils literal notranslate"><span class="pre">setAction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lua-ActionDecision.trySetAction"><code class="docutils literal notranslate"><span class="pre">trySetAction()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../behavior_tree/btconditional.html"><code class="docutils literal notranslate"><span class="pre">BehaviorTree.Conditional</span></code></a></li>
