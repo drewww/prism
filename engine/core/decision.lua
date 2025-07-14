@@ -6,8 +6,11 @@
 --- @overload fun(): Decision
 local Decision = prism.Message:extend("Decision")
 
+--- Validates whether the decision is "fulfilled" and ready to be processed.
+--- @return boolean
 function Decision:validateResponse()
    assert("You must overwrite validateResponse in your Decision!")
+   return false
 end
 
 return Decision
