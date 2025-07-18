@@ -1,10 +1,11 @@
+--- Indicates that an actor can be held in an :lua:class:`Inventory`.
 --- @class Item : Component
 --- @field owner Actor
 --- @field private weight number
 --- @field private volume number
 --- @field stackable false|fun(...): Actor
 --- @overload fun(options: ItemOptions): Item
-local Item = prism.Component:extend( "Item" )
+local Item = prism.Component:extend("Item")
 Item.weight = 0
 Item.volume = 0
 Item.stackable = false
@@ -70,3 +71,4 @@ function Item:getVolume()
 end
 
 return Item
+

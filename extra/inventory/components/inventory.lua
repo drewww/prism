@@ -1,5 +1,6 @@
 --- @alias InventoryOptions {limitCount: integer?, limitWeight: number?, limitVolume: number?, multipleStacks: boolean?}
 
+--- A configurable inventory.
 --- @class Inventory : Component, IQueryable
 --- @field totalCount integer The current item/stack count in the inventory.
 --- @field totalWeight number The current weight in the inventory.
@@ -8,7 +9,7 @@
 --- @field limitWeight number The total weight allowed in the inventory.
 --- @field limitVolume number The total volume allowed in the inventory.
 --- @overload fun(options: InventoryOptions?): Inventory
-local Inventory = prism.Component:extend( "Inventory" )
+local Inventory = prism.Component:extend("Inventory")
 Inventory.totalCount = 0
 Inventory.totalWeight = 0
 Inventory.totalVolume = 0
@@ -27,9 +28,7 @@ function Inventory:__new(options)
    self.limitVolume = options.limitVolume or self.limitVolume
    self.limitWeight = options.limitWeight or self.limitWeight
 
-   if options.multipleStacks ~= nil then
-      self.multipleStacks = options.multipleStacks
-   end
+   if options.multipleStacks ~= nil then self.multipleStacks = options.multipleStacks end
 end
 
 --- Query the inner ActorStorage of the inventory.
@@ -69,9 +68,7 @@ end
 --- @return boolean success
 --- @return string? err
 function Inventory:canAddItem(actor)
-   if self:hasItem(actor) then
-      return false, "Actor already present in inventory"
-   end
+   if self:hasItem(actor) then return false, "Actor already present in inventory" end
 
    local item = actor:expect(prism.components.Item)
    local stack = self:getStack(item.stackable)
@@ -79,9 +76,7 @@ function Inventory:canAddItem(actor)
    if item.stackable and stack then
       local stackItem = stack:expect(prism.components.Item)
       if stackItem.stackCount + item.stackCount > stackItem.stackLimit then
-         if not self.multipleStacks then
-            return false, "Stack limit exceeded"
-         end
+         if not self.multipleStacks then return false, "Stack limit exceeded" end
       end
    else
       if self.totalCount + 1 > self.limitCount then
@@ -104,7 +99,7 @@ end
 --- @param actor Actor
 function Inventory:addItem(actor)
    assert(self:canAddItem(actor))
-   
+
    local item = actor:expect(prism.components.Item)
 
    local stack = self:getStack(item.stackable)
@@ -144,7 +139,7 @@ function Inventory:canRemoveQuantity(actor, count)
 end
 
 --- Removes a quantity of an item from the actor. This creates a new
---- actor using the stackable factory and correctly sets its stack 
+--- actor using the stackable factory and correctly sets its stack
 --- count using item:split().
 --- @param actor Actor
 --- @param count integer
@@ -175,6 +170,5 @@ function Inventory:updateLimits()
    end
 end
 
-
-
 return Inventory
+

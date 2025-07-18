@@ -1,6 +1,6 @@
+--- A component that stores a queue of recent log messages.
 --- @class Log : Component
 --- @field messages Queue
---- A component that stores a queue of recent log messages.
 local Log = prism.Component:extend("Log")
 
 --- Initializes a new Log component instance.
@@ -19,9 +19,7 @@ function Log:iterLast(n)
 
    return function()
       i = i - 1
-      if i >= endIndex then
-         return q.queue[i]
-      end
+      if i >= endIndex then return q.queue[i] end
    end
 end
 
@@ -35,9 +33,7 @@ function Log.addMessage(actor, message)
 
    log.messages:push(message)
 
-   if log.messages:size() > 32 then
-      log.messages:pop()
-   end
+   if log.messages:size() > 32 then log.messages:pop() end
 end
 
 --- Adds a message to all actors who sensed the source actor at the time the message was generated.
@@ -55,25 +51,19 @@ function Log.addMessageSensed(level, action, message)
       if action.owner == actor then return end
 
       local seesParty = false
-      if senses.actors:hasActor(action.owner) then
-         seesParty = true
-      end
+      if senses.actors:hasActor(action.owner) then seesParty = true end
 
       for i = 1, action:getNumTargets() do
          local target = action:getTarget(i)
          if actor == target then return end
 
          if prism.Actor:is(target) then
-            if senses.actors:hasActor(target) then
-               seesParty = true
-            end
+            if senses.actors:hasActor(target) then seesParty = true end
          end
       end
 
       -- Only log the message if the actor sensed the source
-      if seesParty then
-         Log.addMessage(actor, message)
-      end
+      if seesParty then Log.addMessage(actor, message) end
    end
 end
 

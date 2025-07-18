@@ -1,8 +1,9 @@
-local PickupTarget = prism.InventoryTarget()
+local PickupTarget = prism
+   .InventoryTarget()
    :outsideInventory()
    :with(prism.components.Item)
    :range(0)
-   :filter(function (level, owner, target)
+   :filter(function(level, owner, target)
       --- @cast owner Actor
       local inventory = owner:expect(prism.components.Inventory)
       return inventory:canAddItem(target)
@@ -12,7 +13,6 @@ local PickupTarget = prism.InventoryTarget()
 ---@field name string
 ---@field targets Target[]
 local Pickup = prism.Action:extend("PickupAction")
-Pickup.name = "pickup"
 Pickup.targets = { PickupTarget }
 Pickup.requiredComponents = {
    prism.components.Controller,
@@ -28,3 +28,4 @@ function Pickup:perform(level, item)
 end
 
 return Pickup
+

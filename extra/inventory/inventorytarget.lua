@@ -13,9 +13,7 @@ function InventoryTarget:range(range)
    --- @param target any
    self.validators["range"] = function(level, owner, target)
       local inventory = owner:get(prism.components.Inventory)
-      if inventory and inventory:hasItem(target) then
-         return true
-      end
+      if inventory and inventory:hasItem(target) then return true end
 
       if not owner:getPosition() then return false end
 
@@ -36,12 +34,11 @@ function InventoryTarget:range(range)
    return self
 end
 
+--- Checks if the target is in the owner's inventory.
 function InventoryTarget:inInventory()
-   self.validators["inventory"] = function (level, owner, target)
+   self.validators["inventory"] = function(level, owner, target)
       local inventory = owner:get(prism.components.Inventory)
-      if inventory and inventory:hasItem(target) then
-         return true
-      end
+      if inventory and inventory:hasItem(target) then return true end
 
       return false
    end
@@ -49,12 +46,11 @@ function InventoryTarget:inInventory()
    return self
 end
 
+--- Checks that the target is not in the owner's inventory.
 function InventoryTarget:outsideInventory()
-   self.validators["outsideinventory"] = function (level, owner, target)
+   self.validators["outsideinventory"] = function(level, owner, target)
       local inventory = owner:get(prism.components.Inventory)
-      if inventory and inventory:hasItem(target) then
-         return false
-      end
+      if inventory and inventory:hasItem(target) then return false end
 
       return true
    end
@@ -67,10 +63,11 @@ function InventoryTarget:validate(level, owner, targetObject, previousTargets)
    if not targetObject and self._optional then return true end
 
    local inventory = owner:get(prism.components.Inventory)
-   if 
-      self.inLevel and prism.Actor:is(targetObject) and
-      not level:hasActor(targetObject) and
-      not (inventory and inventory:hasItem(targetObject))
+   if
+      self.inLevel
+      and prism.Actor:is(targetObject)
+      and not level:hasActor(targetObject)
+      and not (inventory and inventory:hasItem(targetObject))
    then
       return false
    end
@@ -83,3 +80,4 @@ function InventoryTarget:validate(level, owner, targetObject, previousTargets)
 end
 
 return InventoryTarget
+

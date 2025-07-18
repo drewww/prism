@@ -4,7 +4,7 @@ Extra
 These are optional modules for common features.
 
 .. toctree::
-  :maxdepth: 1
+  :maxdepth: 2
+  :glob:
 
-  log/index
-  sight/index
+  */index
