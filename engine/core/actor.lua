@@ -86,7 +86,7 @@ end
 --
 
 --- Returns the current position of the actor
---- @param out Vector2? An optional out parameter. A new Vector2 will be allocated in it's absence.
+--- @param out Vector2? An optional out parameter. A new Vector2 will be allocated in its absence.
 --- @return Vector2? position Returns a copy of the actor's current position.
 function Actor:getPosition(out)
    local comp = self:get(prism.components.Position)

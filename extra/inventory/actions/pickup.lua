@@ -9,10 +9,8 @@ local PickupTarget = prism
       return inventory:canAddItem(target)
    end)
 
----@class PickupAction : Action
----@field name string
----@field targets Target[]
-local Pickup = prism.Action:extend("PickupAction")
+---@class Pickup : Action
+local Pickup = prism.Action:extend("Pickup")
 Pickup.targets = { PickupTarget }
 Pickup.requiredComponents = {
    prism.components.Controller,
@@ -28,4 +26,3 @@ function Pickup:perform(level, item)
 end
 
 return Pickup
-

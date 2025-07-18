@@ -122,7 +122,7 @@ local unmixed = {
 }
 
 --- Mixes in methods and properties from another table, excluding blacklisted metamethods.
---- THis does not deep copy or merge tables, currently. It's a shallow mixin.
+--- This does not deep copy or merge tables, currently. It's a shallow mixin.
 --- @param mixin table The table containing methods and properties to mix in.
 --- @return self
 function Object:mixin(mixin)

@@ -29,6 +29,7 @@ extensions = [
 ]
 
 lua_ls_project_root = "../../"
+lua_ls_lua_version = "5.1"
 
 templates_path = ["_templates"]
 exclude_patterns = []

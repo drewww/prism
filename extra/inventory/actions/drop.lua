@@ -9,10 +9,8 @@ local QuantityParameter = prism
       return inventory:canRemoveQuantity(previousTargets[1], targetObject)
    end)
 
----@class DropAction : Action
----@field name string
----@field targets Target[]
-local Drop = prism.Action:extend("DropAction")
+---@class Drop : Action
+local Drop = prism.Action:extend("Drop")
 Drop.targets = { DropTarget, QuantityParameter }
 Drop.requiredComponents = {
    prism.components.Controller,
@@ -30,4 +28,3 @@ function Drop:perform(level, actor, quantity)
 end
 
 return Drop
-

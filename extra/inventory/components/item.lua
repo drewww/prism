@@ -39,7 +39,7 @@ function Item:stack(actor)
 end
 
 --- Splits the stack, constructing a new actor with the correct count
---- and returning it. Returns it's owner if count is 1 and the item
+--- and returning it. Returns its owner if count is 1 and the item
 --- is not stackable.
 --- @param count integer
 --- @return Actor split
@@ -58,17 +58,16 @@ function Item:split(count)
    return newActor
 end
 
---- Gets the total weight of this item taking into account it's stackCount.
+--- Gets the total weight of this item taking into account its stackCount.
 --- @return number weight
 function Item:getWeight()
    return self.weight * self.stackCount
 end
 
---- Gets the total volume of this item taking into account it's stackCount.
+--- Gets the total volume of this item taking into account its stackCount.
 --- @return number volume
 function Item:getVolume()
    return self.volume * self.stackCount
 end
 
 return Item
-
