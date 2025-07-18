@@ -47,45 +47,39 @@
             
   <section id="packing-your-bags">
 <h1>Packing your bags<a class="headerlink" href="#packing-your-bags" title="Link to this heading">¶</a></h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This chapter is a work in progress! It’s subject to change! Continue at your own risk adventurer!</p>
-</div>
-<p>In this chapter we’ll go over how to use the inventory included in prism/extra. For more information
-on how this is implemented make sure to check out the (TODO) how-to on inventory where we go over making a simple
-inventory from scratch. The inventory from prism/extra provides most of what a classic roguelike needs
-including weight, volume, and count limits along with stacking functionality.</p>
+<p>In this chapter we’ll implement a simple inventory with the <a class="reference internal" href="../reference/extra/inventory/index.html"><span class="doc">optional module</span></a>.</p>
 <p>Head over to main.lua and add the inventory module from extra.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">loadModule</span><span class="p">(</span><span class="s2">&quot;prism/extra/inventory&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <section id="giving-the-player-an-inventory">
 <h2>Giving the player an inventory<a class="headerlink" href="#giving-the-player-an-inventory" title="Link to this heading">¶</a></h2>
-<p>Let’s head over to <code class="docutils literal notranslate"><span class="pre">modules/game/actors/player.lua</span></code> and add our inventory component.</p>
+<p>Let’s head over to <code class="docutils literal notranslate"><span class="pre">modules/game/actors/player.lua</span></code> and add our inventory component.
+We’ll limit the size to the alphabet.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">{</span>
    <span class="n">limitCount</span> <span class="o">=</span> <span class="mi">26</span><span class="p">,</span>
 <span class="p">},</span>
 </pre></div>
 </div>
-<p>For our game we’re not going to use the weight or volume limits, we’ll just limi the count to the number
-of letters in the alphabet.</p>
 </section>
 <section id="adding-a-keybinding">
 <h2>Adding a keybinding<a class="headerlink" href="#adding-a-keybinding" title="Link to this heading">¶</a></h2>
-<p>Let’s head to <code class="docutils literal notranslate"><span class="pre">keybindingschema.lua</span></code> and add a new entry.</p>
+<p>Let’s head to <code class="docutils literal notranslate"><span class="pre">keybindingschema.lua</span></code> and add a few entries.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">-- inventory</span>
 <span class="p">{</span> <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;tab&quot;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;inventory&quot;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Opens the inventory screen.&quot;</span> <span class="p">},</span>
 <span class="p">{</span> <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;backspace&quot;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;return&quot;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Moves back a level in a substate.&quot;</span> <span class="p">},</span>
 <span class="p">{</span> <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;pickup&quot;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Picks up an inventory item.&quot;</span> <span class="p">},</span>
 </pre></div>
 </div>
-<p>We’ll use this a little later in the tutorial to open the inventory and return to the main
+<p>We’ll use these later in the tutorial to open the inventory and return to the main
 game state.</p>
 </section>
 <section id="creating-an-inventory-screen">
 <h2>Creating an inventory screen<a class="headerlink" href="#creating-an-inventory-screen" title="Link to this heading">¶</a></h2>
 <p>Navigate to <code class="docutils literal notranslate"><span class="pre">gamestates</span></code> and create a new file <code class="docutils literal notranslate"><span class="pre">inventorystate.lua</span></code>.</p>
-<p>Let’s start with the constructor.</p>
+<p>We create a new <a class="reference internal" href="../reference/spectrum/gamestates/meta.html#lua-GameState" title="GameState"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">GameState</span></code></a> and we pass in the display, decision, level,
+and the inventory. We get all the items at the time of instantiation and store them in the items field for convenience.
+Finally we create a mapping of letters from 1-26 corresponding to a-z which we’ll use during input handling.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">keybindings</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;keybindingschema&quot;</span>
 
 <span class="c1">--- @class InventoryState : GameState</span>
@@ -109,12 +103,19 @@ game state.</p>
 <span class="kr">end</span>
 </pre></div>
 </div>
-<p>Here we create a new class based off GameState and we pass in the display, decision, level,
-and the inventory. We get all the items at the time of instantiation and store them into the items field for convenience.
-Finally we create a mapping of letters from 1-26 corresponding to a-z which we’ll use during input handling.</p>
+<p>We also want to keep a reference to the previous <code class="docutils literal notranslate"><span class="pre">GameState</span></code>, so we’ll use <a class="reference internal" href="../reference/spectrum/gamestates/meta.html#lua-GameState.load" title="GameState.load"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">GameState:load()</span></code></a> to capture it.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">InventoryState</span><span class="p">:</span><span class="nf">load</span><span class="p">(</span><span class="n">previous</span><span class="p">)</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">previousState</span> <span class="o">=</span> <span class="n">previous</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+<p>Now we’ll draw the inventory. To show the inventory on top of the level, we’ll first draw the previous state.
+Then we clear the display and draw a simple header, aligned to the right side of the screen. Finally, we loop through
+each item in our inventory, assign it a letter based on its index, and draw it to the screen.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">InventoryState</span><span class="p">:</span><span class="nf">draw</span><span class="p">()</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">previousState</span><span class="p">:</span><span class="n">draw</span><span class="p">()</span>
    <span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">clear</span><span class="p">()</span>
-   <span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">putString</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Inventory:&quot;</span><span class="p">)</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">putString</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Inventory&quot;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span>
 
    <span class="kr">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">actor</span> <span class="kr">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">items</span><span class="p">)</span> <span class="kr">do</span>
       <span class="kd">local</span> <span class="n">name</span> <span class="o">=</span> <span class="n">actor</span><span class="p">:</span><span class="n">getName</span><span class="p">()</span>
@@ -127,14 +128,15 @@ Finally we create a mapping of letters from 1-26 corresponding to a-z which we�
       <span class="kr">end</span>
 
       <span class="kd">local</span> <span class="n">itemstr</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;[%s] %s%s&quot;</span><span class="p">):</span><span class="n">format</span><span class="p">(</span><span class="n">letter</span><span class="p">,</span> <span class="n">countstr</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-      <span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">putString</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">itemstr</span><span class="p">)</span>
+      <span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">putString</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">itemstr</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span>
    <span class="kr">end</span>
    <span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">draw</span><span class="p">()</span>
 <span class="kr">end</span>
 </pre></div>
 </div>
-<p>Now we’ll draw the inventory. We clear the display and draw a simple header. Then we loop through
-each item in our inventory, assign it a letter based on it’s index, and draw it to the screen.</p>
+<p>Now we handle keypresses. For the items we loop through our letters to find which one matches our keypress
+and for now we just try to drop the item when we hit that button. <code class="docutils literal notranslate"><span class="pre">Drop</span></code>’s <a class="reference internal" href="../reference/prism/core/action.html#lua-Action.canPerform" title="Action.canPerform"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">canPerform()</span></code></a> will return false
+if given a <code class="docutils literal notranslate"><span class="pre">nil</span></code> target.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">InventoryState</span><span class="p">:</span><span class="nf">keypressed</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
    <span class="kr">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">letter</span> <span class="kr">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">letters</span><span class="p">)</span> <span class="kr">do</span>
       <span class="kr">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">letter</span> <span class="kr">then</span>
@@ -148,7 +150,11 @@ each item in our inventory, assign it a letter based on it’s index, and draw i
          <span class="kr">return</span>
       <span class="kr">end</span>
    <span class="kr">end</span>
-
+</pre></div>
+</div>
+<p>Then we check if the user hit the inventory or return key, and if so we call <a class="reference internal" href="../reference/spectrum/gamestates/statemanager.html#lua-GameStateManager.pop" title="GameStateManager.pop"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">GameStateManager:pop()</span></code></a>,
+returning us to the previous state.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span>   <span class="kd">local</span> <span class="n">binding</span> <span class="o">=</span> <span class="n">keybindings</span><span class="p">:</span><span class="n">keypressed</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
    <span class="kr">if</span> <span class="n">binding</span> <span class="o">==</span> <span class="s2">&quot;inventory&quot;</span> <span class="ow">or</span> <span class="n">binding</span> <span class="o">==</span> <span class="s2">&quot;return&quot;</span> <span class="kr">then</span>
       <span class="n">self</span><span class="p">.</span><span class="n">manager</span><span class="p">:</span><span class="n">pop</span><span class="p">()</span>
    <span class="kr">end</span>
@@ -157,27 +163,93 @@ each item in our inventory, assign it a letter based on it’s index, and draw i
 <span class="kr">return</span> <span class="n">InventoryState</span>
 </pre></div>
 </div>
-<p>Now we handle keypresses. For the items we loop through our letters to find which one matches our keypress
-and for now we just try to drop the item when we hit that button. We don’t need to worry about if there’s an
-item actually assigned to that letter because drop will simply return false from canPerform if given a nil
-target.</p>
-<p>Then we check if the user hit the inventory or return key, and if so we pop the inventory from the statemanager,
-returning us to the gamestate.</p>
-</section>
-<section id="opening-the-inventory">
-<h2>Opening the inventory<a class="headerlink" href="#opening-the-inventory" title="Link to this heading">¶</a></h2>
-<p>Now with the inventory state done it’s time to glue things together. Head back to <code class="docutils literal notranslate"><span class="pre">gamelevelstate.lua</span></code> and
-let’s add some input handling to get the InventoryState to pop up.</p>
-<p>First thing we’re going to need to do is add a require to acces our InventoryState at the top of the file.</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">InventoryState</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;gamestates.InventoryState&quot;</span>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Complete inventorystate.lua</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><a class="reference external" href="https://github.com/PrismRL/Kicking-Kobolds/blob/part10/gamestates/inventorystate.lua">Source</a></p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">keybindings</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;keybindingschema&quot;</span>
+
+<span class="c1">--- @class InventoryState : GameState</span>
+<span class="c1">--- @field previousState GameState</span>
+<span class="c1">--- @overload fun(display: Display, decision: ActionDecision, level: Level, inventory: Inventory)</span>
+<span class="kd">local</span> <span class="n">InventoryState</span> <span class="o">=</span> <span class="n">spectrum</span><span class="p">.</span><span class="n">GameState</span><span class="p">:</span><span class="n">extend</span> <span class="s2">&quot;InventoryState&quot;</span>
+
+<span class="c1">--- @param display Display</span>
+<span class="c1">--- @param decision ActionDecision</span>
+<span class="c1">--- @param level Level</span>
+<span class="c1">--- @param inventory Inventory</span>
+<span class="kr">function</span> <span class="nc">InventoryState</span><span class="p">:</span><span class="nf">__new</span><span class="p">(</span><span class="n">display</span><span class="p">,</span> <span class="n">decision</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">inventory</span><span class="p">)</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">display</span> <span class="o">=</span> <span class="n">display</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">decision</span> <span class="o">=</span> <span class="n">decision</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">level</span> <span class="o">=</span> <span class="n">level</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">inventory</span> <span class="o">=</span> <span class="n">inventory</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">items</span> <span class="o">=</span> <span class="n">inventory</span><span class="p">.</span><span class="n">inventory</span><span class="p">:</span><span class="n">getAllActors</span><span class="p">()</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">letters</span> <span class="o">=</span> <span class="p">{}</span>
+   <span class="kr">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">#</span><span class="n">self</span><span class="p">.</span><span class="n">items</span> <span class="kr">do</span>
+      <span class="n">self</span><span class="p">.</span><span class="n">letters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">string.char</span><span class="p">(</span><span class="mi">96</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="c1">-- a, b, c, ...</span>
+   <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="kr">function</span> <span class="nc">InventoryState</span><span class="p">:</span><span class="nf">load</span><span class="p">(</span><span class="n">previous</span><span class="p">)</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">previousState</span> <span class="o">=</span> <span class="n">previous</span>
+<span class="kr">end</span>
+
+<span class="kr">function</span> <span class="nc">InventoryState</span><span class="p">:</span><span class="nf">draw</span><span class="p">()</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">previousState</span><span class="p">:</span><span class="n">draw</span><span class="p">()</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">clear</span><span class="p">()</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">putString</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Inventory&quot;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span>
+
+   <span class="kr">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">actor</span> <span class="kr">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">items</span><span class="p">)</span> <span class="kr">do</span>
+      <span class="kd">local</span> <span class="n">name</span> <span class="o">=</span> <span class="n">actor</span><span class="p">:</span><span class="n">getName</span><span class="p">()</span>
+      <span class="kd">local</span> <span class="n">letter</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">letters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+      <span class="kd">local</span> <span class="n">item</span> <span class="o">=</span> <span class="n">actor</span><span class="p">:</span><span class="n">expect</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Item</span><span class="p">)</span>
+      <span class="kd">local</span> <span class="n">countstr</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+      <span class="kr">if</span> <span class="n">item</span><span class="p">.</span><span class="n">stackCount</span> <span class="ow">and</span> <span class="n">item</span><span class="p">.</span><span class="n">stackCount</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="kr">then</span> <span class="n">countstr</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;%sx &quot;</span><span class="p">):</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">.</span><span class="n">stackCount</span><span class="p">)</span> <span class="kr">end</span>
+
+      <span class="kd">local</span> <span class="n">itemstr</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;[%s] %s%s&quot;</span><span class="p">):</span><span class="n">format</span><span class="p">(</span><span class="n">letter</span><span class="p">,</span> <span class="n">countstr</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+      <span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">putString</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">itemstr</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span>
+   <span class="kr">end</span>
+
+   <span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">:</span><span class="n">draw</span><span class="p">()</span>
+<span class="kr">end</span>
+
+<span class="kr">function</span> <span class="nc">InventoryState</span><span class="p">:</span><span class="nf">keypressed</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+   <span class="kr">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">letter</span> <span class="kr">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">letters</span><span class="p">)</span> <span class="kr">do</span>
+      <span class="kr">if</span> <span class="n">key</span> <span class="o">==</span> <span class="n">letter</span> <span class="kr">then</span>
+         <span class="kd">local</span> <span class="n">pressedItem</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">items</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+         <span class="kd">local</span> <span class="n">drop</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actions</span><span class="p">.</span><span class="n">Drop</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">decision</span><span class="p">.</span><span class="n">actor</span><span class="p">,</span> <span class="n">pressedItem</span><span class="p">)</span>
+         <span class="kr">if</span> <span class="n">drop</span><span class="p">:</span><span class="n">canPerform</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">)</span> <span class="kr">then</span> <span class="n">self</span><span class="p">.</span><span class="n">decision</span><span class="p">:</span><span class="n">setAction</span><span class="p">(</span><span class="n">drop</span><span class="p">)</span> <span class="kr">end</span>
+
+         <span class="n">self</span><span class="p">.</span><span class="n">manager</span><span class="p">:</span><span class="n">pop</span><span class="p">()</span>
+         <span class="kr">return</span>
+      <span class="kr">end</span>
+   <span class="kr">end</span>
+
+   <span class="kd">local</span> <span class="n">binding</span> <span class="o">=</span> <span class="n">keybindings</span><span class="p">:</span><span class="n">keypressed</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+   <span class="kr">if</span> <span class="n">binding</span> <span class="o">==</span> <span class="s2">&quot;inventory&quot;</span> <span class="ow">or</span> <span class="n">binding</span> <span class="o">==</span> <span class="s2">&quot;return&quot;</span> <span class="kr">then</span> <span class="n">self</span><span class="p">.</span><span class="n">manager</span><span class="p">:</span><span class="n">pop</span><span class="p">()</span> <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="kr">return</span> <span class="n">InventoryState</span>
 </pre></div>
 </div>
-<p>Then at the bottom of <code class="docutils literal notranslate"><span class="pre">GameLevelState:keypressed</span></code> just above the wait action check let’s add the following.</p>
+</div>
+</details></section>
+<section id="opening-the-inventory">
+<h2>Opening the inventory<a class="headerlink" href="#opening-the-inventory" title="Link to this heading">¶</a></h2>
+<p>With the inventory state complete it’s time to glue things together. Head back to <code class="docutils literal notranslate"><span class="pre">gamelevelstate.lua</span></code> and
+let’s add some input handling to get the <code class="docutils literal notranslate"><span class="pre">InventoryState</span></code> to pop up.</p>
+<p>First <a class="reference external" href="https://www.lua.org/manual/5.1/manual.html#pdf-require"><code class="xref lua lua-func docutils literal notranslate"><span class="pre">require</span></code></a> access our <code class="docutils literal notranslate"><span class="pre">InventoryState</span></code> at the top of the file.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">InventoryState</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;gamestates.inventorystate&quot;</span>
+</pre></div>
+</div>
+<p>Then at the bottom of <code class="docutils literal notranslate"><span class="pre">GameLevelState:keypressed</span></code>, just above the wait action, we’ll check for the inventory key
+and push the <code class="docutils literal notranslate"><span class="pre">InventoryState</span></code>, if the current actor (<code class="docutils literal notranslate"><span class="pre">owner</span></code>) has an inventory.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">MyGameLevelState</span><span class="p">:</span><span class="nf">keypressed</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">scancode</span><span class="p">)</span>
    <span class="c1">-- ...</span>
 
    <span class="kr">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;inventory&quot;</span> <span class="kr">then</span>
-      <span class="kd">local</span> <span class="n">inventory</span> <span class="o">=</span> <span class="n">decision</span><span class="p">.</span><span class="n">actor</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">)</span>
+      <span class="kd">local</span> <span class="n">inventory</span> <span class="o">=</span> <span class="n">owner</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">)</span>
       <span class="kr">if</span> <span class="n">inventory</span> <span class="kr">then</span>
          <span class="kd">local</span> <span class="n">inventoryState</span> <span class="o">=</span> <span class="n">InventoryState</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">display</span><span class="p">,</span> <span class="n">decision</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">,</span> <span class="n">inventory</span><span class="p">)</span>
          <span class="n">self</span><span class="p">.</span><span class="n">manager</span><span class="p">:</span><span class="n">push</span><span class="p">(</span><span class="n">inventoryState</span><span class="p">)</span>
@@ -189,14 +261,13 @@ let’s add some input handling to get the InventoryState to pop up.</p>
 <span class="kr">end</span>
 </pre></div>
 </div>
-<p>Okay now we can run the game and hit tab. The inventory screen will show up! That’s great but we can’t actually do anything
-with it yet.</p>
+<p>Now we can run the game and hit tab. The inventory menu will show up (but won’t do anything)!</p>
 </section>
 <section id="creating-an-item">
 <h2>Creating an item<a class="headerlink" href="#creating-an-item" title="Link to this heading">¶</a></h2>
 <p>Our kobold kicking hero needs something to chew on, and a way to regain health! Let’s add a Meat Brick that they
-can pick up and eat to restore their health!</p>
-<p>Create a new file in <code class="docutils literal notranslate"><span class="pre">modules/game/actors</span></code> called <code class="docutils literal notranslate"><span class="pre">meatbrick.lua</span></code> and add the following.</p>
+can pick up and eat to restore their health.</p>
+<p>Create a new file in <code class="docutils literal notranslate"><span class="pre">modules/game/actors</span></code> called <code class="docutils literal notranslate"><span class="pre">meatbrick.lua</span></code> and register the following actor.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">registerActor</span><span class="p">(</span><span class="s2">&quot;MeatBrick&quot;</span><span class="p">,</span> <span class="kr">function</span> <span class="p">()</span>
    <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">.</span><span class="n">fromComponents</span><span class="p">{</span>
       <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Name</span><span class="p">(</span><span class="s2">&quot;Meat Brick&quot;</span><span class="p">),</span>
@@ -209,10 +280,12 @@ can pick up and eat to restore their health!</p>
 <span class="kr">end</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>We give it the <a class="reference internal" href="../reference/extra/inventory/components/item.html#lua-Item" title="Item"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Item</span></code></a> component to indicate it can be held in an <a class="reference internal" href="../reference/extra/inventory/components/inventory.html#lua-Inventory" title="Inventory"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Inventory</span></code></a>.
+We’ll make it consumable in the next chapter!</p>
 </section>
 <section id="picking-things-up">
 <h2>Picking things up<a class="headerlink" href="#picking-things-up" title="Link to this heading">¶</a></h2>
-<p>Now to be able to pick these things up we’ll need to hook up the PickUp action provided by <code class="docutils literal notranslate"><span class="pre">extra/inventory</span></code> to the user interface.</p>
+<p>Now to be able to pick these things up we’ll need to hook up the <a class="reference internal" href="../reference/extra/inventory/actions/pickup.html#lua-Pickup" title="Pickup"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">Pickup</span></code></a> action.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;pickup&quot;</span> <span class="kr">then</span>
    <span class="kd">local</span> <span class="n">target</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">level</span><span class="p">:</span><span class="n">query</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Item</span><span class="p">)</span>
       <span class="p">:</span><span class="n">at</span><span class="p">(</span><span class="n">owner</span><span class="p">:</span><span class="n">getPosition</span><span class="p">():</span><span class="n">decompose</span><span class="p">())</span>
@@ -226,14 +299,15 @@ can pick up and eat to restore their health!</p>
 <span class="kr">end</span>
 </pre></div>
 </div>
-<p>When the user hits the pickup binding we grab the first item we can find on the tile, and generate a pickup action for it
-placing it in the inventory. Go ahead and boot up the game and draw in a few meat bricks with Geometer. You should be able to
+<p>We grab the first item on the tile and use it as the target for <code class="docutils literal notranslate"><span class="pre">Pickup</span></code>.
+Boot up the game and draw in a few meat bricks with Geometer. You should be able to
 pick up and drop them now!</p>
 </section>
 <section id="fixing-the-draw-order">
 <h2>Fixing the draw order<a class="headerlink" href="#fixing-the-draw-order" title="Link to this heading">¶</a></h2>
 <p>You might notice that now when the player moves on top of the food sometimes the player is drawn underneath the food.
-We can fix this by changing the depth or ‘layer’ the player’s drawable is drawn at. Go ahead and navigate back to <code class="docutils literal notranslate"><span class="pre">modules/game/actors/player.lua</span></code>
+We can fix this by changing the depth or ‘layer’ the player’s drawable is drawn at.
+Go ahead and navigate back to <code class="docutils literal notranslate"><span class="pre">modules/game/actors/player.lua</span></code>
 and change the following line from</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Drawable</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">Color4</span><span class="p">.</span><span class="n">GREEN</span><span class="p">),</span>
 </pre></div>
@@ -242,13 +316,14 @@ and change the following line from</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Drawable</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">Color4</span><span class="p">.</span><span class="n">GREEN</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="nb">math.huge</span><span class="p">),</span>
 </pre></div>
 </div>
-<p>We’re setting the background color to nil so that it still defaults to trasnparent, but we’re setting our draw priority
-to the highest number a Lua number can represent so that the player will always draw on top of everything else.</p>
+<p>We’re setting the background color to <code class="docutils literal notranslate"><span class="pre">nil</span></code> so that it still defaults to transparent, but we’re setting our draw priority
+to <a class="reference external" href="https://www.lua.org/manual/5.1/manual.html#pdf-math.huge"><code class="xref lua lua-data docutils literal notranslate"><span class="pre">math.huge</span></code></a> so the player will always draw on top of everything else.</p>
 </section>
 <section id="in-the-next-chapter">
 <h2>In the next chapter<a class="headerlink" href="#in-the-next-chapter" title="Link to this heading">¶</a></h2>
-<p>In the next chapter we’ll add eating the meat bricks to heal the player, spawning them into the game world, and adding the requiredComponents
-user interface elements for the user to choose between dropping and eating the meat. See you next time!</p>
+<p>We’ve implemented a simple inventory with the provided inventory module.
+In the next chapter we’ll make the bricks consumable, get them to drop from kobolds, and add
+user interface elements to allow the user a choice between dropping and eating the meat.</p>
 </section>
 </section>
 

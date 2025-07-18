@@ -7,7 +7,7 @@
 <template id="tmpl_gotoTop"><div id="gotoTop">
   <button>Back to top</button>
 </div></template>
-    <title>PickupAction &#8212; Prism  documentation</title>
+    <title>Pickup &#8212; Prism  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=266695fe" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css?v=fbfae649" />
@@ -27,7 +27,7 @@
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
     <link rel="next" title="InventoryTarget" href="../inventorytarget.html" />
-    <link rel="prev" title="DropAction" href="drop.html" />
+    <link rel="prev" title="Drop" href="drop.html" />
    
   <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
   
@@ -46,11 +46,11 @@
           <div class="body" role="main">
             
   <dl class="lua class">
-<dt class="sig sig-object lua" id="lua-PickupAction">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PickupAction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../../prism/core/action.html#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a><a class="headerlink" href="#lua-PickupAction" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object lua" id="lua-Pickup">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Pickup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../../prism/core/action.html#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a><a class="headerlink" href="#lua-Pickup" title="Link to this definition">¶</a><br /></dt>
 <dd><dl class="lua method">
-<dt class="sig sig-object lua" id="lua-PickupAction.__new">
-<span class="sig-name descname"><span class="pre">__new</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../../prism/core/action.html#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">owner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../../prism/core/actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">...</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../../prism/core/object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#lua-PickupAction.__new" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object lua" id="lua-Pickup.__new">
+<span class="sig-name descname"><span class="pre">__new</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../../prism/core/action.html#lua-Action" title="Action"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Action</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">owner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../../prism/core/actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">...</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../../prism/core/object.html#lua-Object" title="Object"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Object</span></code></a><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#lua-Pickup.__new" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Constructor for the Action class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -61,11 +61,6 @@
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="lua data">
-<dt class="sig sig-object lua" id="lua-PickupAction.name">
-<span class="sig-name descname"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">string</span></code><a class="headerlink" href="#lua-PickupAction.name" title="Link to this definition">¶</a><br /></dt>
-<dd></dd></dl>
 
 <div class="lua-inherited-members docutils container">
 <p><strong>Other members:</strong></p>
@@ -198,10 +193,9 @@ SOFTWARE.
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html">Inventory module</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../components/inventory.html"><code class="docutils literal notranslate"><span class="pre">Inventory</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../components/item.html"><code class="docutils literal notranslate"><span class="pre">Item</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="drop.html"><code class="docutils literal notranslate"><span class="pre">DropAction</span></code></a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">PickupAction</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#lua-PickupAction.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#lua-PickupAction.name"><code class="docutils literal notranslate"><span class="pre">name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="drop.html"><code class="docutils literal notranslate"><span class="pre">Drop</span></code></a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Pickup</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Pickup.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../inventorytarget.html"><code class="docutils literal notranslate"><span class="pre">InventoryTarget</span></code></a></li>
@@ -219,7 +213,7 @@ SOFTWARE.
   <li><a href="../../../../index.html">Documentation overview</a><ul>
   <li><a href="../../index.html">Extra</a><ul>
   <li><a href="../index.html">Inventory module</a><ul>
-      <li>Previous: <a href="drop.html" title="previous chapter">DropAction</a></li>
+      <li>Previous: <a href="drop.html" title="previous chapter">Drop</a></li>
       <li>Next: <a href="../inventorytarget.html" title="next chapter">InventoryTarget</a></li>
   </ul></li>
   </ul></li>

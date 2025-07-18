@@ -26,7 +26,7 @@
     <link rel="icon" href="../../../../_static/prism.png"/>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="DropAction" href="../actions/drop.html" />
+    <link rel="next" title="Drop" href="../actions/drop.html" />
     <link rel="prev" title="Inventory" href="inventory.html" />
    
   <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
@@ -90,7 +90,7 @@ the input item.</p>
 <dt class="sig sig-object lua" id="lua-Item.split">
 <span class="sig-name descname"><span class="pre">split</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Item" title="Item"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Item</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">split</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../../prism/core/actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#lua-Item.split" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Splits the stack, constructing a new actor with the correct count
-and returning it. Returns it’s owner if count is 1 and the item
+and returning it. Returns its owner if count is 1 and the item
 is not stackable.</p>
 <dl class="field-list simple">
 </dl>
@@ -99,7 +99,7 @@ is not stackable.</p>
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Item.getWeight">
 <span class="sig-name descname"><span class="pre">getWeight</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Item" title="Item"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Item</span></code></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#lua-Item.getWeight" title="Link to this definition">¶</a><br /></dt>
-<dd><p>Gets the total weight of this item taking into account it’s stackCount.</p>
+<dd><p>Gets the total weight of this item taking into account its stackCount.</p>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -107,7 +107,7 @@ is not stackable.</p>
 <dl class="lua method">
 <dt class="sig sig-object lua" id="lua-Item.getVolume">
 <span class="sig-name descname"><span class="pre">getVolume</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Item" title="Item"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Item</span></code></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">volume</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">number</span></code><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#lua-Item.getVolume" title="Link to this definition">¶</a><br /></dt>
-<dd><p>Gets the total volume of this item taking into account it’s stackCount.</p>
+<dd><p>Gets the total volume of this item taking into account its stackCount.</p>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -254,8 +254,8 @@ SOFTWARE.
 <li class="toctree-l4"><a class="reference internal" href="#lua-Item.getVolume"><code class="docutils literal notranslate"><span class="pre">getVolume()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../actions/drop.html"><code class="docutils literal notranslate"><span class="pre">DropAction</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../actions/pickup.html"><code class="docutils literal notranslate"><span class="pre">PickupAction</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../actions/drop.html"><code class="docutils literal notranslate"><span class="pre">Drop</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../actions/pickup.html"><code class="docutils literal notranslate"><span class="pre">Pickup</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../inventorytarget.html"><code class="docutils literal notranslate"><span class="pre">InventoryTarget</span></code></a></li>
 </ul>
 </li>
@@ -272,7 +272,7 @@ SOFTWARE.
   <li><a href="../../index.html">Extra</a><ul>
   <li><a href="../index.html">Inventory module</a><ul>
       <li>Previous: <a href="inventory.html" title="previous chapter">Inventory</a></li>
-      <li>Next: <a href="../actions/drop.html" title="next chapter">DropAction</a></li>
+      <li>Next: <a href="../actions/drop.html" title="next chapter">Drop</a></li>
   </ul></li>
   </ul></li>
   </ul></li>

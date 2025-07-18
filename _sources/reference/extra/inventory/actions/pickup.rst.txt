@@ -1,5 +1,5 @@
-.. title:: PickupAction
-.. lua:autoobject:: PickupAction
+.. title:: Pickup
+.. lua:autoobject:: Pickup
    :members:
    :special-members: __new
    :undoc-members:

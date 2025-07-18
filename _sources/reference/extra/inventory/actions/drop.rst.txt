@@ -1,5 +1,5 @@
-.. title:: DropAction
-.. lua:autoobject:: DropAction
+.. title:: Drop
+.. lua:autoobject:: Drop
    :members:
    :special-members: __new
    :undoc-members:
