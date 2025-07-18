@@ -35,15 +35,11 @@ Find our docs here:
 ## Community
 
 Join our community on Discord to discuss, collaborate, and get support:  
-[Discord Server](https://discord.gg/rSmzekJe)
+[Discord Server](https://discord.gg/9YpsH4hYVF)
 
 ## Gallery
 
-
-
-https://github.com/user-attachments/assets/6c7042d2-bfa3-4a13-b77c-d0b3b875e89e
-
-
+<https://github.com/user-attachments/assets/6c7042d2-bfa3-4a13-b77c-d0b3b875e89e>
 
 ## Credits
 
@@ -57,4 +53,5 @@ https://github.com/user-attachments/assets/6c7042d2-bfa3-4a13-b77c-d0b3b875e89e
 - Parts of [MRMOTEXT](https://mrmotarius.itch.io/mrmotext), buy the asset for full use!
 
 ### Gallery
+
 - Also [MRMOTEXT](https://mrmotarius.itch.io/mrmotext)!

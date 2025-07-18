@@ -361,5 +361,5 @@ That's all for part one. In conclusion, we've accomplished the following:
 2. Implemented a kick action to shove kobolds around.
 3. Integrated the kick by performing it when bumping into a valid target.
 
-You can find the code for this part at https://github.com/prismrl/prism-tutorial on the ``part1`` branch. In the 
+You can find the code for this part at https://github.com/prismrl/Kicking-Kobolds on the ``part1`` branch. In the 
 :doc:`next section <part2>`, we'll do some work with components and systems to flesh out the combat system.
