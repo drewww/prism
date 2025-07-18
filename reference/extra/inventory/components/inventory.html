@@ -26,6 +26,8 @@
     <link rel="icon" href="../../../../_static/prism.png"/>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Item" href="item.html" />
+    <link rel="prev" title="Inventory module" href="../index.html" />
    
   <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
   
@@ -45,8 +47,9 @@
             
   <dl class="lua class">
 <dt class="sig sig-object lua" id="lua-Inventory">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Inventory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../../prism/core/component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../../../prism/core/query.html#lua-IQueryable" title="IQueryable"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">IQueryable</span></code></a><a class="headerlink" href="#lua-Inventory" title="Link to this definition">¶</a><br /></dt>
-<dd><dl class="lua data">
+<em class="property"><span class="k"><span class="pre">global</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Inventory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../../prism/core/component.html#lua-Component" title="Component"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Component</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../../../prism/core/query.html#lua-IQueryable" title="IQueryable"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">IQueryable</span></code></a><a class="headerlink" href="#lua-Inventory" title="Link to this definition">¶</a><br /></dt>
+<dd><p>A configurable inventory.</p>
+<dl class="lua data">
 <dt class="sig sig-object lua" id="lua-Inventory.totalCount">
 <span class="sig-name descname"><span class="pre">totalCount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><a class="headerlink" href="#lua-Inventory.totalCount" title="Link to this definition">¶</a><br /></dt>
 <dd><p>The current item/stack count in the inventory.</p>
@@ -161,7 +164,7 @@ the inventory’s stack.</p>
 <dt class="sig sig-object lua" id="lua-Inventory.removeQuantity">
 <span class="sig-name descname"><span class="pre">removeQuantity</span></span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#lua-Inventory" title="Inventory"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Inventory</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../../prism/core/actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">integer</span></code><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../../prism/core/actor.html#lua-Actor" title="Actor"><code class="xref lua lua-obj docutils literal notranslate"><span class="pre">Actor</span></code></a><a class="headerlink" href="#lua-Inventory.removeQuantity" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Removes a quantity of an item from the actor. This creates a new
-actor using the stackable factory and correctly sets its stack 
+actor using the stackable factory and correctly sets its stack
 count using item:split().</p>
 <dl class="field-list simple">
 </dl>
@@ -300,16 +303,53 @@ SOFTWARE.
 <li class="toctree-l1"><a class="reference internal" href="../../../../explainers/game-loop.html">The game loop</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../prism/index.html">Prism</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../spectrum/index.html">Spectrum</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../index.html">Extra</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Extra</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Inventory module</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Inventory</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Inventory.totalCount"><code class="docutils literal notranslate"><span class="pre">totalCount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Inventory.totalWeight"><code class="docutils literal notranslate"><span class="pre">totalWeight</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Inventory.totalVolume"><code class="docutils literal notranslate"><span class="pre">totalVolume</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Inventory.limitCount"><code class="docutils literal notranslate"><span class="pre">limitCount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Inventory.limitWeight"><code class="docutils literal notranslate"><span class="pre">limitWeight</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Inventory.limitVolume"><code class="docutils literal notranslate"><span class="pre">limitVolume</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Inventory.multipleStacks"><code class="docutils literal notranslate"><span class="pre">multipleStacks</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Inventory.__new"><code class="docutils literal notranslate"><span class="pre">__new()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Inventory.inventory"><code class="docutils literal notranslate"><span class="pre">inventory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Inventory.hasItem"><code class="docutils literal notranslate"><span class="pre">hasItem()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Inventory.getStack"><code class="docutils literal notranslate"><span class="pre">getStack()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Inventory.canAddItem"><code class="docutils literal notranslate"><span class="pre">canAddItem()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Inventory.addItem"><code class="docutils literal notranslate"><span class="pre">addItem()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Inventory.removeItem"><code class="docutils literal notranslate"><span class="pre">removeItem()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Inventory.canRemoveQuantity"><code class="docutils literal notranslate"><span class="pre">canRemoveQuantity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Inventory.removeQuantity"><code class="docutils literal notranslate"><span class="pre">removeQuantity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lua-Inventory.updateLimits"><code class="docutils literal notranslate"><span class="pre">updateLimits()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="item.html"><code class="docutils literal notranslate"><span class="pre">Item</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../actions/drop.html"><code class="docutils literal notranslate"><span class="pre">DropAction</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../actions/pickup.html"><code class="docutils literal notranslate"><span class="pre">PickupAction</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../inventorytarget.html"><code class="docutils literal notranslate"><span class="pre">InventoryTarget</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../log/index.html">Log module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sight/index.html">Sight module</a></li>
+</ul>
+</li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Extra</a><ul>
+  <li><a href="../index.html">Inventory module</a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter">Inventory module</a></li>
+      <li>Next: <a href="item.html" title="next chapter">Item</a></li>
+  </ul></li>
+  </ul></li>
   </ul></li>
 </ul>
 </div>
