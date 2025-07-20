@@ -107,7 +107,7 @@ end
 --- Get the range from this actor to another actor.
 --- @param actor Actor The other actor to get the range to.
 --- @param type? DistanceType Optional distance type.
---- @return number The calculated range.
+--- @return number range The calculated range.
 function Actor:getRange(actor, type)
    local collider = self:get(prism.components.Collider)
    local otherCollider = actor:get(prism.components.Collider)
