@@ -173,11 +173,11 @@ end
 --- @param y integer? The y coordinate to place the actor at.
 function Level:addActor(actor, x, y)
    if x and y then
-      if actor:has(prism.components.Position) then
+      if actor:getPosition() then
          actor:give(prism.components.Position(prism.Vector2(x, y)))
       else
          prism.logger.warn(
-            "Attempted to add", actor:getName(),
+            "Attempted to add", actor:getName(), "to level",
             "at position", x, ",", y, "but it did not have a position component!"
          )
       end
