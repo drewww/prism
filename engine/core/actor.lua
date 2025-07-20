@@ -23,7 +23,7 @@ end
 --- Adds a component to the entity. This function will check if the component's
 --- prerequisites are met and will throw an error if they are not.
 --- @param component Component The component to add to the entity.
---- @return Entity
+--- @return Entity actor The actor given the component for chaining.
 function Actor:give(component)
    prism.Entity.give(self, component)
    if self.level then
@@ -37,7 +37,7 @@ end
 --- Removes a component from the actor. This function will throw an error if the
 --- component is not present on the actor.
 --- @param component Component The component to remove from the actor.
---- @return Entity
+--- @return Entity actor The actor removing the component for chaining.
 function Actor:remove(component)
    prism.Entity.remove(self, component)
    if self.level then
@@ -94,17 +94,22 @@ function Actor:getPosition(out)
    if comp then return comp:getVector():copy(out) end
 end
 
+--- Returns the current position of the actor, erroring if it doesn't have one.
+--- @param out Vector2? An optional out parameter.
+--- @return Vector2 position The actor's current position.
+function Actor:expectPosition(out)
+   return self:expect(prism.components.Position):getVector():copy(out)
+end
+
 --- @private
 function Actor:_setPosition(vec)
    --- @diagnostic disable-next-line
    self:expect(prism.components.Position)._position = vec:copy()
 end
 
-function Actor:expectPosition(out)
-   return self:expect(prism.components.Position):getVector():copy(out)
-end
 
---- Get the range from this actor to another actor.
+--- Get the range from this actor to another actor. Expects position
+--- on both actors and errors otherwise.
 --- @param actor Actor The other actor to get the range to.
 --- @param type? DistanceType Optional distance type.
 --- @return number range The calculated range.
@@ -143,7 +148,7 @@ end
 --- Get the range from this actor to a given vector.
 --- @param vector Vector2 The vector to get the range to.
 --- @param type? DistanceType The type of range calculation to use.
---- @return number -- The calculated range.
+--- @return number range The calculated range.
 function Actor:getRangeVec(vector, type)
    return self:expectPosition():getRange(vector, type)
 end
