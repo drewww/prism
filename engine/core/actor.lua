@@ -106,11 +106,39 @@ end
 
 --- Get the range from this actor to another actor.
 --- @param actor Actor The other actor to get the range to.
---- @param type? DistanceType
---- @return number -- The calculated range.
+--- @param type? DistanceType Optional distance type.
+--- @return number The calculated range.
 function Actor:getRange(actor, type)
-   return self:expectPosition():getRange(actor:expectPosition(), type)
+   local collider = self:get(prism.components.Collider)
+   local otherCollider = actor:get(prism.components.Collider)
+
+   if not collider or not otherCollider then
+      return self:expectPosition():getRange(actor:expectPosition(), type)
+   end
+
+   local pos1 = self:expectPosition()
+   local size1 = collider:getSize()
+   local pos2 = actor:expectPosition()
+   local size2 = otherCollider:getSize()
+
+   local x1Min, x1Max = pos1.x, pos1.x + size1 - 1
+   local y1Min, y1Max = pos1.y, pos1.y + size1 - 1
+   local x2Min, x2Max = pos2.x, pos2.x + size2 - 1
+   local y2Min, y2Max = pos2.y, pos2.y + size2 - 1
+
+   local point1 = prism.Vector2(
+      math.max(x2Min, math.min(x1Min, x2Max)),
+      math.max(y2Min, math.min(y1Min, y2Max))
+   )
+
+   local point2 = prism.Vector2(
+      math.max(x1Min, math.min(x2Min, x1Max)),
+      math.max(y1Min, math.min(y2Min, y1Max))
+   )
+
+   return point1:getRange(point2, type)
 end
+
 
 --- Get the range from this actor to a given vector.
 --- @param vector Vector2 The vector to get the range to.
