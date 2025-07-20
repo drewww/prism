@@ -50,6 +50,7 @@ Finally we create a mapping of letters from 1-26 corresponding to a-z which we'l
 
 .. code:: lua
 
+   local utf8 = require "utf8"
    local keybindings = require "keybindingschema"
 
    --- @class InventoryState : GameState
@@ -68,7 +69,7 @@ Finally we create a mapping of letters from 1-26 corresponding to a-z which we'l
       self.items = inventory.inventory:getAllActors()
       self.letters = {}
       for i = 1, #self.items do
-         self.letters[i] = string.char(96 + i) -- a, b, c, ...
+         self.letters[i] = utf8.char(96 + i) -- a, b, c, ...
       end
    end
 

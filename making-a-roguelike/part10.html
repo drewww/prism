@@ -80,7 +80,8 @@ game state.</p>
 <p>We create a new <a class="reference internal" href="../reference/spectrum/gamestates/meta.html#lua-GameState" title="GameState"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">GameState</span></code></a> and we pass in the display, decision, level,
 and the inventory. We get all the items at the time of instantiation and store them in the items field for convenience.
 Finally we create a mapping of letters from 1-26 corresponding to a-z which weâ€™ll use during input handling.</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">keybindings</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;keybindingschema&quot;</span>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">utf8</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;utf8&quot;</span>
+<span class="kd">local</span> <span class="n">keybindings</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;keybindingschema&quot;</span>
 
 <span class="c1">--- @class InventoryState : GameState</span>
 <span class="c1">--- @overload fun(display: Display, decision: ActionDecision, level: Level, inventory: Inventory)</span>
@@ -98,7 +99,7 @@ Finally we create a mapping of letters from 1-26 corresponding to a-z which weâ€
    <span class="n">self</span><span class="p">.</span><span class="n">items</span> <span class="o">=</span> <span class="n">inventory</span><span class="p">.</span><span class="n">inventory</span><span class="p">:</span><span class="n">getAllActors</span><span class="p">()</span>
    <span class="n">self</span><span class="p">.</span><span class="n">letters</span> <span class="o">=</span> <span class="p">{}</span>
    <span class="kr">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">#</span><span class="n">self</span><span class="p">.</span><span class="n">items</span> <span class="kr">do</span>
-      <span class="n">self</span><span class="p">.</span><span class="n">letters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">string.char</span><span class="p">(</span><span class="mi">96</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="c1">-- a, b, c, ...</span>
+      <span class="n">self</span><span class="p">.</span><span class="n">letters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">utf8.char</span><span class="p">(</span><span class="mi">96</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="c1">-- a, b, c, ...</span>
    <span class="kr">end</span>
 <span class="kr">end</span>
 </pre></div>
