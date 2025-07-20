@@ -1,10 +1,10 @@
 Installation
 ============
 
-Prism is based on version 12.0 of `LÖVE <https://love2d.org>`_ version 12.0, which
+Prism is based on version 12.0 of `LÖVE <https://love2d.org>`_, which
 is in a stable but pre-release state.
 
-Latest downloads, as of June 2025:
+Latest downloads:
 
 - `Windows <https://nightly.link/love2d/love/workflows/main/main/love-windows-x64.zip>`_
 - `Linux AppImage <https://nightly.link/love2d/love/workflows/main/main/love-linux-X64.AppImage.zip>`_
