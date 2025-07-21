@@ -154,10 +154,10 @@ seeing if it contains the player. We should also ensure the kobold has the compo
 .. code:: lua
    
    local senses = actor:get(prism.components.Senses)
-   if not senses then return prism.actions.Wait() end -- we can't see!
+   if not senses then return prism.actions.Wait(actor) end -- we can't see!
 
    local player = senses:query(prism.components.PlayerController):first()
-   if not player then return prism.actions.Wait() end
+   if not player then return prism.actions.Wait(actor) end
 
 .. note::
 
@@ -169,7 +169,7 @@ positions and the kobold's collision mask.
 .. code:: lua
 
    local mover = actor:get(prism.components.Mover)
-   if not mover then return prism.actions.Wait() end -- we can't move!
+   if not mover then return prism.actions.Wait(actor) end -- we can't move!
 
    local path = level:findPath(actor:getPosition(), player:getPosition(), actor, mover.mask, 1)
 
@@ -200,11 +200,13 @@ Jump back into the game and you should find kobolds chasing after you.
 
       function KoboldController:act(level, actor)
          local senses = actor:get(prism.components.Senses)
-         if not senses then return prism.actions.Wait() end -- we can't see!
+         if not senses then return prism.actions.Wait(actor) end -- we can't see!
+
          local player = senses:query(prism.components.PlayerController):first()
-         if not player then return prism.actions.Wait() end
+         if not player then return prism.actions.Wait(actor) end
+
          local mover = actor:get(prism.components.Mover)
-         if not mover then return prism.actions.Wait() end
+         if not mover then return prism.actions.Wait(actor) end
 
          local path = level:findPath(actor:getPosition(), player:getPosition(), actor, mover.mask, 1)
 
