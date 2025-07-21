@@ -169,7 +169,20 @@ end
 --- inserting the actor into the sparse map. It will also add the actor to the
 --- scheduler if it has a controller.
 --- @param actor Actor The actor to add.
-function Level:addActor(actor)
+--- @param x integer? The x coordinate to place the actor at.
+--- @param y integer? The y coordinate to place the actor at.
+function Level:addActor(actor, x, y)
+   if x and y then
+      if actor:getPosition() then
+         actor:give(prism.components.Position(prism.Vector2(x, y)))
+      else
+         prism.logger.warn(
+            "Attempted to add", actor:getName(), "to level",
+            "at position", x, ",", y, "but it did not have a position component!"
+         )
+      end
+   end
+
    prism.logger.debug("Actor", actor:getName(), "was added to level")
    actor.level = self
 

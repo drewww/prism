@@ -19,8 +19,15 @@ end
 --- @param x number? The x-coordinate.
 --- @param y number? The y-coordinate.
 function MapBuilder:addActor(actor, x, y)
-   if x and y and actor:getPosition() then
-      actor:give(prism.components.Position(prism.Vector2(x, y)))
+   if x and y then
+      if actor:getPosition() then
+         actor:give(prism.components.Position(prism.Vector2(x, y)))
+      else
+         prism.logger.warn(
+            "Attempted to add", actor:getName(), "to mapbuilder",
+            "at position", x, ",", y, "but it did not have a position component!"
+         )
+      end
    end
 
    self.actors:addActor(actor)
