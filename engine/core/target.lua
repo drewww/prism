@@ -164,13 +164,20 @@ function Target:los(mask)
 
       if prism.Actor:is(target) and not target:getPosition() then return false end
 
-      local i, j = owner:getPosition():decompose()
-      --- @diagnostic disable-next-line
-      local k, l = target.getPosition and target:getPosition():decompose() or target:decompose()
-      local points = prism.Bresenham(i, j, k, l)
+      local ownerX, ownerY = owner:expectPosition():decompose()
+      local targetX, targetY
+      if prism.Actor:is(target) then
+         --- @cast target Actor
+         targetX, targetY = target:expectPosition():decompose()
+      else
+         --- @cast target Vector2
+         targetX, targetY = target:decompose()
+      end
+      local points = prism.Bresenham(ownerX, ownerY, targetX, targetY)
 
       for _, point in ipairs(points) do
          local x, y = point[1], point[2]
+         if x == ownerX and y == ownerY then return true end
          if not level:getCellPassable(x, y, mask) then return false end
       end
    end
