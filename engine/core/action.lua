@@ -14,6 +14,8 @@ local Action = prism.Object:extend("Action")
 ---@param owner Actor The actor that is performing the action.
 ---@param ... Object An optional list of target actors. Not all actions require targets.
 function Action:__new(owner, ...)
+   assert(owner, "Actions must have an owner!")
+   
    self.owner = owner
    self.targets = self.targets or {}
    self.targetObjects = { ... }
