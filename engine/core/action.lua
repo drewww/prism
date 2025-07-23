@@ -23,6 +23,10 @@ end
 
 --- @private
 function Action:__validateTargets(level)
+   if #self.targets < #self.targetObjects then
+      return false, string.format("Expected %s targets got %s targets for action %s", #self.targets, #self.targetObjects, self.className)
+   end
+
    for i = 1, #self.targets do
       local target = self.targets[i]
       --- @diagnostic disable-next-line
