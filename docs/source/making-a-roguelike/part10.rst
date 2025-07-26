@@ -261,7 +261,7 @@ Create a new file in ``modules/game/actors`` called ``meatbrick.lua`` and regist
          prism.components.Name("Meat Brick"),
          prism.components.Drawable("%", prism.Color4.RED),
          prism.components.Item{
-            stackable = true,
+            stackable = prism.actors.MeatBrick,
             stackLimit = 99
          }
       }
