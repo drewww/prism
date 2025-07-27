@@ -1,3 +1,6 @@
+local sf = string.format
+local Name = prism.components.Name
+
 local DropTarget = prism.InventoryTarget():inInventory()
 
 local QuantityParameter = prism
@@ -25,6 +28,12 @@ function Drop:perform(level, actor, quantity)
    local removedActor = inventory:removeQuantity(actor, quantity or item.stackCount or 1)
    removedActor:give(prism.components.Position(self.owner:getPosition()))
    level:addActor(removedActor)
+
+   if prism.components.Log then
+      Log = prism.components.Log
+      Log.addMessage(self.owner, sf("You drop the %s", Name.get(actor)))
+      Log.addMessageSensed(level, self, sf("%s drops the %s", Name.get(self.owner), Name.get(actor)))
+   end
 end
 
 return Drop

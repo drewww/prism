@@ -1,3 +1,6 @@
+local sf = string.format
+local Name = prism.components.Name
+
 local PickupTarget = prism
    .InventoryTarget()
    :outsideInventory()
@@ -23,6 +26,12 @@ function Pickup:perform(level, item)
    inventory:addItem(item)
    level:removeActor(item)
    item:remove(prism.components.Position)
+
+   if prism.components.Log then
+      Log = prism.components.Log
+      Log.addMessage(self.owner, sf("You pick up the %s", Name.get(item)))
+      Log.addMessageSensed(level, self, sf("%s picks up the %s", Name.get(self.owner), Name.get(item)))
+   end
 end
 
 return Pickup
