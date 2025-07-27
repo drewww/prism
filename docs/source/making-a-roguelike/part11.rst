@@ -84,6 +84,9 @@ as we defined above.
 
       local inventory = self.owner:expect(prism.components.Inventory)
       inventory:removeQuantity(food, 1)
+
+      Log.addMessage(self.owner, sf("You eat the %s", Name.get(food)))
+      Log.addMessageSensed(level, self, sf("%s eats the %s", Name.get(self.owner), Name.get(food)))
    end
 
    return Eat
