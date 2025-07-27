@@ -3,11 +3,13 @@
 --- @class DropTableCategory
 --- @field chance number? Defaults to one if not specified
 --- @field entries DropTableWeightedOption[]?
+--- @field quantity integer?
 --- @field entry DropTableEntry?
 
 --- @class DropTableWeightedOption
 --- @field weight integer
 --- @field entry DropTableEntry
+--- @field quantity integer?
 
 --- @alias DropTableEntry ActorFactory|Actor
 
@@ -48,6 +50,33 @@ function DropTable:__new(table)
    end
 end
 
+--- @param quantity integer
+--- @param item DropTableEntry
+--- @return Actor[] drops
+function DropTable:quantifyItem(quantity, item)
+   if type(item) ~= "function" then
+      if quantity > 1 then
+         prism.logger.warn("DropTable entry had specific actor and quantity >1 dropping 1 instead!")
+      end
+
+      return {item}
+   end
+
+   local dummy = item()
+   if prism.components.Item and dummy:has(prism.components.Item) then
+      local item = dummy:get(prism.components.Item)
+      item.stackCount = quantity
+      return {dummy}
+   end
+
+   local drops = {}
+   for _ = 1, quantity do
+      table.insert(drops, item())
+   end
+
+   return drops
+end
+
 --- Takes an RNG and returns an actor from the drop table.
 ---@param rng RNG
 ---@return Actor[]
@@ -57,6 +86,7 @@ function DropTable:getDrops(rng)
    
    for _, category in ipairs(self.table) do
       local chance = category.chance or 1.0
+      local quantity = category.quantity or 1
       
       if rng:random() <= chance then
          local entry = category.entry
@@ -76,16 +106,13 @@ function DropTable:getDrops(rng)
                end
             end
             
+            quantity = category.entries[low].quantity or quantity
             entry = category.entries[low].entry
          end
          
-         local actor = entry
-         if type(entry) == "function" then
-            actor = entry()
+         for _, actor in ipairs(self:quantifyItem(quantity, entry)) do
+            table.insert(drops, actor)
          end
-         
-         ---@cast actor Actor
-         table.insert(drops, actor)
       end
    end
    
