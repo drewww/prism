@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<template id="tmpl_gotoTop"><div id="gotoTop">
+  <button>Back to top</button>
+</div></template>
+    <title>Stashing treasure &#8212; Prism  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=266695fe" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=fbfae649" />
+    <link rel="stylesheet" type="text/css" href="../_static/lua.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/terminal.css?v=0c361d08" />
+    <link rel="stylesheet" type="text/css" href="../_static/goto-top/style.css?v=c152bd81" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/goto-top/main.js?v=69fc67a6"></script>
+    <link rel="icon" href="../_static/prism.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="stashing-treasure">
+<h1>Stashing treasure<a class="headerlink" href="#stashing-treasure" title="Link to this heading">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section hasn’t had a second pass! Some chests might be mimics!</p>
+</div>
+<p>In this chapter we’ll add a drop table to the kobolds, and create chests the player can open like a loot pinata. To do this we’ll be making
+heavy use of the DropTable component included in <code class="docutils literal notranslate"><span class="pre">extra/droptable</span></code>. How to write your own drop tables will be covered in a future how-to.</p>
+<section id="getting-the-drop-on-it">
+<h2>Getting the drop on it<a class="headerlink" href="#getting-the-drop-on-it" title="Link to this heading">¶</a></h2>
+<p>Let’s head over to <code class="docutils literal notranslate"><span class="pre">main.lua</span></code> where you’ll add the following line to your module loading before <code class="docutils literal notranslate"><span class="pre">modules/game</span></code>.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">loadModule</span><span class="p">(</span><span class="s2">&quot;prism/extra/droptable&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now let’s make our way over to <code class="docutils literal notranslate"><span class="pre">modules/game/actors/kobold.lua</span></code> and add the droptable component.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">DropTable</span><span class="p">{</span>
+   <span class="n">chance</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span>
+   <span class="n">entry</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actors</span><span class="p">.</span><span class="n">MeatBrick</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This is a really simple drop table, and it just says there’s a 30% chance for the kobold to drop a meat brick. If you were to go into the game
+and kick a few kobolds now you’d notice nothing is happening! That’s because the drop table needs to be hooked into the game logic. Let’s head
+over to <code class="docutils literal notranslate"><span class="pre">modules/game/actions/die.lua</span></code> where we’ll change the beginning the Die action.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">walkmask</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Collision</span><span class="p">.</span><span class="n">createBitmaskFromMovetypes</span><span class="p">{</span><span class="s2">&quot;walk&quot;</span><span class="p">}</span>
+<span class="kr">function</span> <span class="nc">Die</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">getPosition</span><span class="p">():</span><span class="n">decompose</span><span class="p">()</span>
+   <span class="kd">local</span> <span class="n">dropTable</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">DropTable</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">cellmask</span> <span class="o">=</span> <span class="n">level</span><span class="p">:</span><span class="n">getCell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span><span class="n">getCollisionMask</span><span class="p">()</span>
+
+   <span class="kr">if</span> <span class="n">prism</span><span class="p">.</span><span class="n">Collision</span><span class="p">.</span><span class="n">checkBitmaskOverlap</span><span class="p">(</span><span class="n">walkmask</span><span class="p">,</span> <span class="n">cellmask</span><span class="p">)</span> <span class="ow">and</span> <span class="n">dropTable</span> <span class="kr">then</span>
+      <span class="kd">local</span> <span class="n">drops</span> <span class="o">=</span> <span class="n">dropTable</span><span class="p">:</span><span class="n">getDrops</span><span class="p">(</span><span class="n">level</span><span class="p">.</span><span class="n">RNG</span><span class="p">)</span>
+      <span class="kr">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">drop</span> <span class="kr">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">drops</span><span class="p">)</span> <span class="kr">do</span>
+         <span class="n">level</span><span class="p">:</span><span class="n">addActor</span><span class="p">(</span><span class="n">drop</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+      <span class="kr">end</span>
+   <span class="kr">end</span>
+
+   <span class="c1">-- rest of Die:perform</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
+<p>First we make our walkmask, a simple collision mask saying an actor with the walk movetype can move onto this tile. Then within perform we’ll get the Die’ers position,
+drop table, and the cell they’re standing on’s mask.</p>
+<p>If the cell is walkable and they have a drop table we roll on the table and then add all of the results to the the level at the tile which they died. We check walkability so we don’t
+spawn items over a pit. Now if you boot up the game and kick a few kobolds around you should start getting some meat bricks as drops, success!</p>
+</section>
+<section id="creating-containers">
+<h2>Creating containers<a class="headerlink" href="#creating-containers" title="Link to this heading">¶</a></h2>
+<p>Many games won’t settle just for drop tables. You might want a zelda style chest the player can crack open and get some goodies! So let’s add that. The first step we’ll need to take
+is adding a new tag component. Navigate to <code class="docutils literal notranslate"><span class="pre">modules/game/components</span></code> and create a new file there called <code class="docutils literal notranslate"><span class="pre">container.lua</span></code>.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class Container : Component</span>
+<span class="c1">--- @overload fun(): Container</span>
+<span class="kd">local</span> <span class="n">Container</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Component</span><span class="p">:</span><span class="n">extend</span> <span class="s2">&quot;Container&quot;</span>
+
+<span class="kr">function</span> <span class="nc">Container</span><span class="p">:</span><span class="nf">getRequirements</span><span class="p">()</span>
+   <span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span>
+<span class="kr">end</span>
+
+<span class="kr">return</span> <span class="n">Container</span>
+</pre></div>
+</div>
+<p>This is a really simple component that just marks an actor with an inventory as a container that can be opened. Next up let’s head over to <code class="docutils literal notranslate"><span class="pre">modules/game/actions</span></code> where we’ll
+create a new file called <code class="docutils literal notranslate"><span class="pre">opencontainer.lua</span></code>.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">sf</span> <span class="o">=</span> <span class="nb">string.format</span>
+<span class="kd">local</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Name</span>
+<span class="kd">local</span> <span class="n">Log</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Log</span>
+
+<span class="kd">local</span> <span class="n">OpenContainerTarget</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Target</span><span class="p">()</span>
+   <span class="p">:</span><span class="n">with</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Container</span><span class="p">)</span>
+   <span class="p">:</span><span class="n">range</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+   <span class="p">:</span><span class="n">sensed</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Let’s start with our target. We specify it must be a container, at range 1, and sensed by the actor.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class OpenContainer : Action</span>
+<span class="kd">local</span> <span class="n">OpenContainer</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Action</span><span class="p">:</span><span class="n">extend</span> <span class="s2">&quot;OpenContainer&quot;</span>
+<span class="n">OpenContainer</span><span class="p">.</span><span class="n">targets</span> <span class="o">=</span> <span class="p">{</span> <span class="n">OpenContainerTarget</span> <span class="p">}</span>
+<span class="n">OpenContainer</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Open&quot;</span>
+
+<span class="c1">--- @param level Level</span>
+<span class="c1">--- @param container Actor</span>
+<span class="kr">function</span> <span class="nc">OpenContainer</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">container</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">inventory</span> <span class="o">=</span> <span class="n">container</span><span class="p">:</span><span class="n">expect</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">items</span> <span class="o">=</span> <span class="n">inventory</span><span class="p">:</span><span class="n">query</span><span class="p">():</span><span class="n">gather</span><span class="p">()</span>
+
+   <span class="kd">local</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">container</span><span class="p">:</span><span class="n">expectPosition</span><span class="p">():</span><span class="n">decompose</span><span class="p">()</span>
+   <span class="kr">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">item</span> <span class="kr">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="kr">do</span>
+      <span class="n">inventory</span><span class="p">:</span><span class="n">removeItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+      <span class="n">level</span><span class="p">:</span><span class="n">addActor</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+   <span class="kr">end</span>
+
+   <span class="n">level</span><span class="p">:</span><span class="n">removeActor</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+
+   <span class="kd">local</span> <span class="n">containerName</span> <span class="o">=</span> <span class="n">Name</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+   <span class="n">Log</span><span class="p">.</span><span class="n">addMessage</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">sf</span><span class="p">(</span><span class="s2">&quot;You open the %s.&quot;</span><span class="p">,</span> <span class="n">containerName</span><span class="p">))</span>
+   <span class="n">Log</span><span class="p">.</span><span class="n">addMessageSensed</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">self</span><span class="p">,</span> <span class="n">sf</span><span class="p">(</span><span class="s2">&quot;The %s opens the %s.&quot;</span><span class="p">,</span> <span class="n">Name</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">),</span> <span class="n">containerName</span><span class="p">))</span>
+<span class="kr">end</span>
+
+<span class="kr">return</span> <span class="n">OpenContainer</span>
+</pre></div>
+</div>
+<p>Then we get to the perform action. We know that the container has to have an inventory because it’s required by the container component. So we grab the
+inventory and get a list of the items it contains. Then we loop through that list and remove them from the container’s inventory while adding them to the
+level. Finally, we remove the container itself from the level.</p>
+<p>Now that we’re all set up with our container logic we need to actually make a container to try this with. Let’s create a new file in <code class="docutils literal notranslate"><span class="pre">modules/game/actors</span></code>
+called <code class="docutils literal notranslate"><span class="pre">chest.lua</span></code>.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">registerActor</span><span class="p">(</span><span class="s2">&quot;Chest&quot;</span><span class="p">,</span> <span class="kr">function</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">chest</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">.</span><span class="n">fromComponents</span> <span class="p">{</span>
+      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Name</span><span class="p">(</span><span class="s2">&quot;Chest&quot;</span><span class="p">),</span>
+      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Position</span><span class="p">(),</span>
+      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">(),</span>
+      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Drawable</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">Color4</span><span class="p">.</span><span class="n">YELLOW</span><span class="p">),</span>
+      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Container</span><span class="p">(),</span>
+      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Collider</span><span class="p">()</span>
+   <span class="p">}</span>
+
+   <span class="kr">if</span> <span class="n">contents</span> <span class="kr">then</span>
+      <span class="kd">local</span> <span class="n">inventory</span> <span class="o">=</span> <span class="n">chest</span><span class="p">:</span><span class="n">expect</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">)</span>
+      <span class="c1">--- @cast contents Actor[]</span>
+      <span class="kr">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">actor</span> <span class="kr">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span> <span class="kr">do</span>
+         <span class="nb">assert</span><span class="p">(</span><span class="n">actor</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Item</span><span class="p">),</span> <span class="s2">&quot;Contents of a chest must be an item!&quot;</span><span class="p">)</span>
+         <span class="n">inventory</span><span class="p">:</span><span class="n">addItem</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+      <span class="kr">end</span>
+   <span class="kr">end</span>
+
+   <span class="kr">return</span> <span class="n">chest</span>
+<span class="kr">end</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s break this down a little since this is the first time we’re really making use of the factory to take optional parameters for an actor. First we create
+a chest just like you should be used to at this point. We create an actor from a list of components. The next step is we check if the contents parameter is not
+nil. If so we go through all the contents and put them into the chest’s inventory. Pretty simple, but there’s an important note here! Any parameters passed into
+and ActorFactory should always be optional! If they’re not some of prism’s subsystems like Geometer might crash.</p>
+</section>
+<section id="cracking-a-cold-one">
+<h2>Cracking a cold one<a class="headerlink" href="#cracking-a-cold-one" title="Link to this heading">¶</a></h2>
+<p>If you go ingame now and bump the chest you’ll notice you kick it, that’s definitely not what we want. We’ll have to change to logic
+in <code class="docutils literal notranslate"><span class="pre">GameLevelState</span></code>. Let’s find out way to <code class="docutils literal notranslate"><span class="pre">GameLevelState:keypressed</span></code> and add the following right above where we try to kick:</p>
+<p>Okay! When you walk into a chest now you should pop that sucker open! Congratulations! Wait, nothing was inside the chest though. That’s not very fun. Let’s take care of that.</p>
+</section>
+<section id="spicing-up-level-generation">
+<h2>Spicing up level generation<a class="headerlink" href="#spicing-up-level-generation" title="Link to this heading">¶</a></h2>
+<p>Let’s first create a new top level folder, <code class="docutils literal notranslate"><span class="pre">loot</span></code> and within that folder a new file <code class="docutils literal notranslate"><span class="pre">chest.lua</span></code>. Let’s keep it really simple for now.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">return</span> <span class="p">{</span>
+   <span class="p">{</span>
+      <span class="n">entry</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">actors</span><span class="p">.</span><span class="n">MeatBrick</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This defines a single gauranteed drop of a meatbrick. We’ll flesh this out a lot more when we create more stuff for chests to drop. Next let’s head over to <code class="docutils literal notranslate"><span class="pre">levelgen.lua</span></code>
+and let’s spawn a chest using this level generation.</p>
+<p>At the end of the anonymous function we return in this file just above <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">builder</span></code> let’s add the following.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">chestRoom</span> <span class="o">=</span> <span class="n">availableRooms</span><span class="p">[</span><span class="n">rng</span><span class="p">:</span><span class="n">random</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">#</span><span class="n">availableRooms</span><span class="p">)]</span>
+<span class="kd">local</span> <span class="n">center</span> <span class="o">=</span> <span class="n">chestRoom</span><span class="p">:</span><span class="n">center</span><span class="p">()</span>
+<span class="kd">local</span> <span class="n">drops</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">DropTable</span><span class="p">(</span><span class="n">chestloot</span><span class="p">):</span><span class="n">getDrops</span><span class="p">(</span><span class="n">rng</span><span class="p">)</span>
+
+<span class="kd">local</span> <span class="n">mf</span> <span class="o">=</span> <span class="nb">math.floor</span>
+<span class="n">builder</span><span class="p">:</span><span class="n">addActor</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">actors</span><span class="p">.</span><span class="n">Chest</span><span class="p">(</span><span class="n">drops</span><span class="p">),</span> <span class="n">mf</span><span class="p">(</span><span class="n">center</span><span class="p">.</span><span class="n">x</span><span class="p">),</span> <span class="n">mf</span><span class="p">(</span><span class="n">center</span><span class="p">.</span><span class="n">y</span><span class="p">))</span>
+
+<span class="kr">return</span> <span class="n">builder</span>
+</pre></div>
+</div>
+<p>The chest will overlap with a kobold which we’re also spawning in the center of the room, but that’s fine we’ll deal with that when we revisit the level generation in the future.
+You’ll see now that when we open the chest we get a meat brick!</p>
+</section>
+<section id="in-the-next-chapter">
+<h2>In the next chapter<a class="headerlink" href="#in-the-next-chapter" title="Link to this heading">¶</a></h2>
+<p>In the next chapter we’ll create some more items to add to our loot tables and make the game more interesting. We’ll focus on usable items like wands and adding a system for
+targetting.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/prism.png" alt="Logo" />
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=prismrl&repo=prism&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<!--
+Taken from the sphinx library theme: https://vsalvino.github.io/sphinx-library/.
+
+MIT License
+
+Copyright (c) 2020 Vince Salvino and contributors.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<script>
+  function toggleMode(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("sphinx-terminal-mode", theme);
+  }
+  var theme = localStorage.getItem("sphinx-terminal-mode");
+  if(theme !== null)
+    toggleMode(theme);
+</script>
+<h3>Reading Mode</h3>
+
+<div class="btn-group">
+<button class="btn btn-default" type="button" onclick="toggleMode('light');">Light</button>
+<button class="btn btn-default" type="button" onclick="toggleMode('sepia');">Sepia</button>
+<button class="btn btn-default" type="button" onclick="toggleMode('dark');">Dark</button>
+</div>
+
+<noscript>
+  <div>
+    JavaScript is required to toggle reading modes.
+  </div>
+</noscript>
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture-primer.html">Architecture primer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conventions.html">Conventions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-tos</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/object-registration.html">Object registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/query.html">Queries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/collision.html">Collision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../how-tos/targets.html">Targets</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Making a roguelike</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="part1.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Taking flight</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">Starting fights</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">Taking licks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">Writing things down</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part6.html">Losing the game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part7.html">Carving out caverns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part8.html">Descending into the depths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part9.html">Creating continuity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part10.html">Packing your bags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part11.html">Having a snack</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Explainers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../explainers/game-loop.html">The game loop</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/prism/index.html">Prism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/spectrum/index.html">Spectrum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/extra/index.html">Extra</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Matthew Blanchard, LJNIC.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/making-a-roguelike/part12.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

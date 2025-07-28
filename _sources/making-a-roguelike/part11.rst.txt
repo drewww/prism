@@ -216,4 +216,4 @@ A little strange to say the least! The next thing we need to do is get the inven
 In the next chapter
 -------------------
 
-In the next chapter we'll go over drop tables and containers like chests, populating the dungeon for delicious meat and shiny trinkets!
+In the next chapter we'll go over drop tables and containers like chests, populating the dungeon with delicious meat and shiny trinkets!
