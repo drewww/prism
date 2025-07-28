@@ -118,16 +118,16 @@ function Color4:clamp()
 end
 
 --- Predefined colors
-Color4.BLACK = Color4(0, 0, 0, 1)
-Color4.WHITE = Color4(1, 1, 1, 1)
-Color4.RED = Color4(1, 0, 0, 1)
-Color4.GREEN = Color4(0, 1, 0, 1)
-Color4.BLUE = Color4(0, 0, 1, 1)
-Color4.YELLOW   = Color4(0.5, 0.5, 0.0, 1.0)   -- #808000
-Color4.MAGENTA  = Color4(0.5, 0.0, 0.5, 1.0)   -- #800080
-Color4.CYAN     = Color4(0.0, 0.5, 0.5, 1.0)   -- #008080
-Color4.LIGHTGRAY = Color4(0.75, 0.75, 0.75, 1.0) -- #C0C0C0
-Color4.DARKGRAY  = Color4(0.25, 0.25, 0.25, 1.0) -- #404040
-Color4.TRANSPARENT = Color4(0, 0, 0, 0)
+Color4.BLACK       = Color4(0, 0, 0, 1)           -- #000000
+Color4.WHITE       = Color4(1, 1, 1, 1)           -- #FFFFFF
+Color4.RED         = Color4(1, 0, 0, 1)           -- #FF0000
+Color4.GREEN       = Color4(0, 1, 0, 1)           -- #00FF00
+Color4.BLUE        = Color4(0, 0, 1, 1)           -- #0000FF
+Color4.YELLOW      = Color4(0.5, 0.5, 0.0, 1.0)   -- #808000
+Color4.MAGENTA     = Color4(0.5, 0.0, 0.5, 1.0)   -- #800080
+Color4.CYAN        = Color4(0.0, 0.5, 0.5, 1.0)   -- #008080
+Color4.LIGHTGRAY   = Color4(0.75, 0.75, 0.75, 1.0)-- #C0C0C0
+Color4.DARKGRAY    = Color4(0.25, 0.25, 0.25, 1.0)-- #404040
+Color4.TRANSPARENT = Color4(0, 0, 0, 0)           -- #00000000
 
 return Color4
