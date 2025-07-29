@@ -29,6 +29,12 @@ function Inventory:__new(options)
    self.limitWeight = options.limitWeight or self.limitWeight
 
    if options.multipleStacks ~= nil then self.multipleStacks = options.multipleStacks end
+
+   if options.items then
+      for _, actor in ipairs(options.items) do
+         self:addItem(actor)
+      end
+   end
 end
 
 --- Query the inner ActorStorage of the inventory.
