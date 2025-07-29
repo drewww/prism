@@ -74,8 +74,15 @@ details.sd-dropdown summary.sd-summary-title {
 }
 
 /* Targeting the main content area */
-body div.document div.body {
-  width: 120ch !important;
+div.document {
+  width: 140ch  !important;
+  max-width: 90% !important;
+  margin: auto !important;
+}
+
+div.body {
+  width: auto !important;
+  max-width: 100% !important;
 }
 
 #gotoTop > button,
