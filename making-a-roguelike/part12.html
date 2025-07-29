@@ -152,32 +152,20 @@ level. Finally, we remove the container itself from the level.</p>
 <p>Now that we’re all set up with our container logic we need to actually make a container to try this with. Let’s create a new file in <code class="docutils literal notranslate"><span class="pre">modules/game/actors</span></code>
 called <code class="docutils literal notranslate"><span class="pre">chest.lua</span></code>.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">prism</span><span class="p">.</span><span class="n">registerActor</span><span class="p">(</span><span class="s2">&quot;Chest&quot;</span><span class="p">,</span> <span class="kr">function</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
-   <span class="kd">local</span> <span class="n">chest</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">.</span><span class="n">fromComponents</span> <span class="p">{</span>
-      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Name</span><span class="p">(</span><span class="s2">&quot;Chest&quot;</span><span class="p">),</span>
-      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Position</span><span class="p">(),</span>
-      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">(),</span>
-      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Drawable</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">Color4</span><span class="p">.</span><span class="n">YELLOW</span><span class="p">),</span>
-      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Container</span><span class="p">(),</span>
-      <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Collider</span><span class="p">()</span>
-   <span class="p">}</span>
-
-   <span class="kr">if</span> <span class="n">contents</span> <span class="kr">then</span>
-      <span class="kd">local</span> <span class="n">inventory</span> <span class="o">=</span> <span class="n">chest</span><span class="p">:</span><span class="n">expect</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">)</span>
-      <span class="c1">--- @cast contents Actor[]</span>
-      <span class="kr">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">actor</span> <span class="kr">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span> <span class="kr">do</span>
-         <span class="nb">assert</span><span class="p">(</span><span class="n">actor</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Item</span><span class="p">),</span> <span class="s2">&quot;Contents of a chest must be an item!&quot;</span><span class="p">)</span>
-         <span class="n">inventory</span><span class="p">:</span><span class="n">addItem</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
-      <span class="kr">end</span>
-   <span class="kr">end</span>
-
-   <span class="kr">return</span> <span class="n">chest</span>
+<span class="kr">return</span> <span class="n">prism</span><span class="p">.</span><span class="n">Actor</span><span class="p">.</span><span class="n">fromComponents</span> <span class="p">{</span>
+    <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Name</span><span class="p">(</span><span class="s2">&quot;Chest&quot;</span><span class="p">),</span>
+    <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Position</span><span class="p">(),</span>
+    <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Inventory</span><span class="p">{</span><span class="n">items</span> <span class="o">=</span> <span class="n">contents</span><span class="p">},</span>
+    <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Drawable</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="n">prism</span><span class="p">.</span><span class="n">Color4</span><span class="p">.</span><span class="n">YELLOW</span><span class="p">),</span>
+    <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Container</span><span class="p">(),</span>
+    <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Collider</span><span class="p">()</span>
+<span class="p">}</span>
 <span class="kr">end</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Let’s break this down a little since this is the first time we’re really making use of the factory to take optional parameters for an actor. First we create
-a chest just like you should be used to at this point. We create an actor from a list of components. The next step is we check if the contents parameter is not
-nil. If so we go through all the contents and put them into the chest’s inventory. Pretty simple, but there’s an important note here! Any parameters passed into
-and ActorFactory should always be optional! If they’re not some of prism’s subsystems like Geometer might crash.</p>
+<p>Let’s break this down a little since this is the first time we’re really making use of the factory to take optional parameters for an actor. We accept
+a contents argument to the Chest constructor. All parameters to the factory function MUST be optional! In this case it’d set items = nil and inventory
+wouldn’t see the field. If this parameter is not optional Geometer will crash on startup!</p>
 </section>
 <section id="cracking-a-cold-one">
 <h2>Cracking a cold one<a class="headerlink" href="#cracking-a-cold-one" title="Link to this heading">¶</a></h2>

@@ -125,32 +125,20 @@ called ``chest.lua``.
 
 .. code:: lua
 
-   prism.registerActor("Chest", function(contents)
-      local chest = prism.Actor.fromComponents {
-         prism.components.Name("Chest"),
-         prism.components.Position(),
-         prism.components.Inventory(),
-         prism.components.Drawable("(", prism.Color4.YELLOW),
-         prism.components.Container(),
-         prism.components.Collider()
-      }
-
-      if contents then
-         local inventory = chest:expect(prism.components.Inventory)
-         --- @cast contents Actor[]
-         for _, actor in ipairs(contents) do
-            assert(actor:get(prism.components.Item), "Contents of a chest must be an item!")
-            inventory:addItem(actor)
-         end
-      end
-
-      return chest
-   end)
-
-Let's break this down a little since this is the first time we're really making use of the factory to take optional parameters for an actor. First we create
-a chest just like you should be used to at this point. We create an actor from a list of components. The next step is we check if the contents parameter is not
-nil. If so we go through all the contents and put them into the chest's inventory. Pretty simple, but there's an important note here! Any parameters passed into
-and ActorFactory should always be optional! If they're not some of prism's subsystems like Geometer might crash.
+    prism.registerActor("Chest", function(contents)
+    return prism.Actor.fromComponents {
+        prism.components.Name("Chest"),
+        prism.components.Position(),
+        prism.components.Inventory{items = contents},
+        prism.components.Drawable("(", prism.Color4.YELLOW),
+        prism.components.Container(),
+        prism.components.Collider()
+    }
+    end)
+    
+Let's break this down a little since this is the first time we're really making use of the factory to take optional parameters for an actor. We accept
+a contents argument to the Chest constructor. All parameters to the factory function MUST be optional! In this case it'd set items = nil and inventory
+wouldn't see the field. If this parameter is not optional Geometer will crash on startup!
 
 Cracking a cold one
 -------------------
