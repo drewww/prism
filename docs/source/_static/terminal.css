@@ -73,21 +73,17 @@ details.sd-dropdown summary.sd-summary-title {
   padding: 1em;
 }
 
-<<<<<<< HEAD
-/* Targeting the main content area */
 div.document {
-  width: 140ch  !important;
-  max-width: 90% !important;
-  margin: auto !important;
+  width: 140ch;
+  max-width: 90%;
+  margin: auto;
 }
 
 div.body {
-  width: auto !important;
-  max-width: 100% !important;
+  width: auto;
+  max-width: 100%;
 }
 
-=======
->>>>>>> 06de24a8abc5de255a8137554e8e236942abdfd4
 #gotoTop > button,
 body,
 div.body {
