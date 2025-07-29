@@ -73,11 +73,6 @@ details.sd-dropdown summary.sd-summary-title {
   padding: 1em;
 }
 
-/* Targeting the main content area */
-body div.document div.body {
-  width: 120ch !important;
-}
-
 #gotoTop > button,
 body,
 div.body {
