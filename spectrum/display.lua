@@ -193,7 +193,9 @@ function Display:putSenses(primary, secondary)
    end
 
    for _, senses in ipairs(secondary) do
-      self:_drawCells(drawnCells, senses.explored, 0.3)
+      if senses.explored then
+         self:_drawCells(drawnCells, senses.explored, 0.3)
+      end
    end
 
    local drawnActors = {}
@@ -211,7 +213,9 @@ function Display:putSenses(primary, secondary)
    end
 
    for _, senses in ipairs(secondary) do
-      self:_drawRemembered(drawnActors, senses.remembered, 0.3)
+      if senses.remembered then
+         self:_drawRemembered(drawnActors, senses.remembered, 0.3)
+      end
    end
 end
 
