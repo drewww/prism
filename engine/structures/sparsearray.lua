@@ -1,72 +1,89 @@
+local bit = require("bit") -- LuaJIT's bit library
+
 ---@class SparseArray : Object
+---@field private data table<number, any> # Internal storage table mapping index -> item
+---@field private freeIndices number[] # List of freed indices available for reuse
+---@field private generations table<number, number> # Generation counters per slot
 ---@overload fun(): SparseArray
 local SparseArray = prism.Object:extend("SparseArray")
 
---- Constructor for SparseArray.
+local INDEX_BITS = 32
+local INDEX_MASK = 0xFFFFFFFF -- (1 << 32) - 1
+
+--- Packs index and generation into a single integer handle.
+--- @param index number The slot index
+--- @param generation number The generation count
+--- @return number handle Packed handle as a Lua number
+local function pack_handle(index, generation)
+   return bit.bor(index, bit.lshift(generation, INDEX_BITS))
+end
+
+--- Unpacks a handle into index and generation components.
+--- @param handle number The packed handle
+--- @return number index The slot index
+--- @return number generation The generation count
+local function unpack_handle(handle)
+   local index = bit.band(handle, INDEX_MASK)
+   local generation = bit.rshift(handle, INDEX_BITS)
+   return index, generation
+end
+
+--- Constructs a new SparseArray instance.
 function SparseArray:__new()
-   self.data = {} -- Holds the actual values
-   self.freeIndices = {} -- Tracks free indices
+   self.data = {}
+   self.freeIndices = {}
+   self.generations = {}
 end
 
 --- Adds an item to the sparse array.
 --- @param item any The item to add.
---- @return number index The index where the item was added.
+--- @return number handle A packed handle representing the item's location.
 function SparseArray:add(item)
    local index
    if #self.freeIndices > 0 then
-      -- Reuse a free index
       index = table.remove(self.freeIndices)
    else
-      -- Add to the end of the data
       index = #self.data + 1
    end
+
    self.data[index] = item
-   return index
+   self.generations[index] = self.generations[index] or 0
+   return pack_handle(index, self.generations[index])
 end
 
---- Removes an item from the sparse array.
---- @param index number The index to remove the item from.
-function SparseArray:remove(index)
-   if self.data[index] ~= nil then
+--- Removes an item from the sparse array by its handle.
+--- @param handle number The packed handle representing the item.
+function SparseArray:remove(handle)
+   local index, gen = unpack_handle(handle)
+   if self.data[index] ~= nil and self.generations[index] == gen then
       self.data[index] = nil
-      table.insert(self.freeIndices, index) -- Mark the index as free
-   else
-      error("Index " .. index .. " is invalid or already nil.")
+      self.generations[index] = self.generations[index] + 1
+      table.insert(self.freeIndices, index)
    end
 end
 
---- Gets an item from the sparse array.
---- @param index number The index of the item.
---- @return any -- The item at the specified index, or nil if none exists.
-function SparseArray:get(index)
-   return self.data[index]
+--- Retrieves an item from the sparse array by its handle.
+--- @param handle number The packed handle representing the item.
+--- @return any|nil The item at the given handle, or nil if not found or stale.
+function SparseArray:get(handle)
+   local index, gen = unpack_handle(handle)
+   if self.generations[index] == gen then
+      return self.data[index]
+   end
 end
 
---- Clears the sparse array.
+--- Clears the sparse array, removing all items and resetting state.
 function SparseArray:clear()
    self.data = {}
    self.freeIndices = {}
+   self.generations = {}
 end
 
---- Bakes the sparse array into a dense array.
---- This removes all nil values and reassigns indices.
---- @return any[] -- The new dense array.
-function SparseArray:bake()
-   local denseArray = {}
-   for _, value in ipairs(self.data) do
-      if value ~= nil then table.insert(denseArray, value) end
-   end
-   self.data = denseArray
-   self.freeIndices = {}
-   return self.data
-end
-
---- Prints the sparse array for debugging purposes.
+--- Prints the contents and free indices for debugging purposes.
 function SparseArray:debugPrint()
-   for i, v in ipairs(self.data) do
-      print("Index", i, ":", v)
+   for i, v in pairs(self.data) do
+      print(("Index %d: %s (Gen %d)"):format(i, tostring(v), self.generations[i] or 0))
    end
-
    print("Free indices:", table.concat(self.freeIndices, ", "))
 end
 
