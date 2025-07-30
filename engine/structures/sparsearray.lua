@@ -69,8 +69,6 @@ function SparseArray:get(handle)
    local index, gen = unpack_handle(handle)
    if self.generations[index] == gen then
       return self.data[index]
-   else
-      return nil
    end
 end
 
