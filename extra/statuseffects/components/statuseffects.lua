@@ -57,7 +57,7 @@ end
 
 --- @param prototype StatusEffectsModifier
 --- @return StatusEffectsModifier[]?
-function StatusEffects:getModifiersByMeta(prototype)
+function StatusEffects:getModifiers(prototype)
    return self.modifierMap[prototype]
 end
 
@@ -94,10 +94,10 @@ function StatusEffectsInstance:__new(options)
    end
 end
 
---- @param modifierMeta table
+--- @param prototype table
 --- @return StatusEffectsModifier[]?
-function StatusEffectsInstance:getModifiersByMeta(modifierMeta)
-   return self.modifierMap[modifierMeta]
+function StatusEffectsInstance:getModifiers(prototype)
+   return self.modifierMap[prototype]
 end
 
 
@@ -107,5 +107,4 @@ local StatusEffectsModifier = prism.Object:extend "StatusEffectsModifier"
 StatusEffects.Modifier = StatusEffectsModifier
 StatusEffects.Instance = StatusEffectsInstance
 
-print "YAYETT"
 return StatusEffects
