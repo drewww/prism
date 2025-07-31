@@ -9,7 +9,7 @@ local Item = prism.Component:extend("Item")
 Item.weight = 0
 Item.volume = 0
 Item.stackable = false
-Item.stackCount = nil
+Item.stackCount = 1
 Item.stacklimit = nil
 
 --- @alias ItemOptions { weight?: number, volume?: number, stackable?: ActorFactory|boolean, stackLimit: number|nil }
@@ -22,7 +22,6 @@ function Item:__new(options)
    self.weight = options.weight or 0
    self.volume = options.volume or 0
    self.stackable = options.stackable or false
-   self.stackCount = options.stackable and 1 or nil
    self.stackLimit = options.stackable and options.stackLimit or math.huge
 end
 
