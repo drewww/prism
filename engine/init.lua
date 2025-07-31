@@ -152,31 +152,81 @@ prism.BehaviorTree.Sequence = prism.require "core.behavior_tree.btsequence"
 --- @module "engine.core.behavior_tree.btsucceeder"
 prism.BehaviorTree.Succeeder = prism.require "core.behavior_tree.btsucceeder"
 
---- The actor registry.
-prism.actors = {}
+prism.registries = {}
 
---- The actions registry.
-prism.actions = {}
+--- Registers a factory for a registry.
+--- @param name string
+--- @param type string
+--- @param moduleTable table
+--- @param moduleName string
+local function registerFactory(name, type, moduleTable, moduleName)
+   local registry = moduleTable[name]
 
---- The component registry.
-prism.components = {}
+   if prism._currentDefinitions then
+      table.insert(
+         prism._currentDefinitions,
+         string.format("Registers a %s in the %s registry.", type, name)
+      )
+      table.insert(prism._currentDefinitions, "--- @param name string A name for the factory")
+      table.insert(prism._currentDefinitions, string.format("--- @param factory %sFactory", type))
+      table.insert(
+         prism._currentDefinitions,
+         string.format("function %s.register%s(name, factory) end", moduleName, type)
+      )
+   end
 
---- The component registry.
-prism.cells = {}
+   moduleTable["register" .. type] = function(objectName, factory)
+      assert(registry[objectName] == nil, type .. " " .. name .. " is already registered!")
+      registry[objectName] = factory
 
---- The target registry.
-prism.targets = {}
+      if prism._currentDefinitions then
+         table.insert(prism._currentDefinitions, "--- @type fun(...): " .. type)
+         table.insert(
+            prism._currentDefinitions,
+            string.format("%s.%s.%s = nil", moduleName, name, objectName)
+         )
+      end
+   end
+end
 
---- The message registry.
-prism.messages = {}
+--- Registers a registry, a global list of game objects.
+--- @param name string The name of the registry, e.g. "components".
+--- @param type string The type of the object, e.g. "Component".
+--- @param manual? boolean Whether objects in the registry are registered manually with a factory. Defaults to false.
+--- @param module? string The table to assign the registry to. Defaults to the prism global.
+function prism.registerRegistry(name, type, manual, module)
+   if prism.registries[name] then
+      error("A registry with name " .. name .. " is already registered!")
+   end
 
---- The system registry.
-prism.systems = {}
+   local moduleTable = _G[module] or prism
+   if moduleTable[name] then
+      error("namespace for registry " .. name .. "already contains " .. name .. "!")
+   end
+   moduleTable[name] = {}
 
---- The decision registry.
-prism.decisions = {}
+   local pattern = ""
+   for i = 1, #type do
+      local c = name:sub(i, i)
+      pattern = string.format("%s[%s%s]", pattern, c:lower(), c:upper())
+   end
 
-prism.behaviors = {}
+   table.insert(
+      prism.registries,
+      { name = name, type = type, manual = manual or false, module = module, pattern = pattern }
+   )
+
+   if manual then registerFactory(name, type, moduleTable, module or "prism") end
+end
+
+prism.registerRegistry("components", prism.Component.className)
+prism.registerRegistry("targets", prism.Target.className, true)
+prism.registerRegistry("cells", prism.Cell.className, true)
+prism.registerRegistry("actions", prism.Action.className)
+prism.registerRegistry("actors", prism.Actor.className, true)
+prism.registerRegistry("messages", prism.Message.className)
+prism.registerRegistry("decisions", prism.Decision.className)
+prism.registerRegistry("systems", prism.System.className)
 
 --- @module "engine.core.systems.senses"
 prism.systems.Senses = prism.require "core.systems.senses"
@@ -214,110 +264,86 @@ prism.messages.ActionMessage = prism.require "core.messages.actionmessage"
 --- @module "engine.core.messages.debugmessage"
 prism.messages.DebugMessage = prism.require "core.messages.debugmessage"
 
-prism._items = {
-   "components",
-   "targets",
-   "cells",
-   "actions",
-   --"behaviors",
-   "actors",
-   "messages",
-   "decisions",
-   "systems",
-}
+-- --- @param name string
+-- --- @param factory CellFactory
+-- function prism.registerCell(name, factory)
+--    assert(prism.cells[name] == nil, "Cell " .. name .. " is already registered!")
+--    prism.cells[name] = factory
+--
+--    if prism._currentDefinitions then
+--       table.insert(prism._currentDefinitions, "--- @type fun(...): Cell")
+--       table.insert(prism._currentDefinitions, "prism.cells." .. name .. " = nil")
+--    end
+-- end
+--
+-- --- @param name string
+-- --- @param factory ActorFactory
+-- function prism.registerActor(name, factory)
+--    assert(prism.actors[name] == nil, "Actor " .. name .. " is already registered!")
+--    prism.actors[name] = factory
+--
+--    if prism._currentDefinitions then
+--       table.insert(prism._currentDefinitions, "--- @type fun(...): Actor")
+--       table.insert(prism._currentDefinitions, "prism.actors." .. name .. " = nil")
+--    end
+-- end
+--
+-- --- @param name string
+-- --- @param target TargetFactory
+-- function prism.registerTarget(name, target)
+--    assert(prism.targets[name] == nil, "Target " .. name .. " is already registered!")
+--    prism.targets[name] = target
+--
+--    if prism._currentDefinitions then
+--       table.insert(prism._currentDefinitions, "--- @type fun(...): Target")
+--       table.insert(prism._currentDefinitions, "prism.targets." .. name .. " = nil")
+--    end
+-- end
 
-prism._itemPatterns = {
-   components = "[cC][oO][mM][pP][oO][nN][eE][nN][tT]",
-   actors = "[aA][cC][tT][oO][rR]",
-   actions = "[aA][cC][tT][iI][oO][nN]",
-   cells = "[cC][eE][lL][lL]",
-   targets = "[tT][aA][rR][gG][eE][tT]",
-   messages = "[mM][eE][sS][sS][aA][gG][eE]",
-   systems = "[sS][yY][sS][tT][eE][mM]",
-   decisions = "[dD][eE][cC][iI][sS][iI][oO][nN]",
-   behaviors = "[bB][eE][hH][aA][vV][iI][oO][rR]",
-}
-
---- @param name string
---- @param factory CellFactory
-function prism.registerCell(name, factory)
-   assert(prism.cells[name] == nil, "Cell " .. name .. " is already registered!")
-   prism.cells[name] = factory
-
-   if prism._currentDefinitions then
-      table.insert(prism._currentDefinitions, "--- @type fun(...): Cell")
-      table.insert(prism._currentDefinitions, "prism.cells." .. name .. " = nil")
-   end
-end
-
---- @param name string
---- @param factory ActorFactory
-function prism.registerActor(name, factory)
-   assert(prism.actors[name] == nil, "Actor " .. name .. " is already registered!")
-   prism.actors[name] = factory
-
-   if prism._currentDefinitions then
-      table.insert(prism._currentDefinitions, "--- @type fun(...): Actor")
-      table.insert(prism._currentDefinitions, "prism.actors." .. name .. " = nil")
-   end
-end
-
---- @param name string
---- @param target TargetFactory
-function prism.registerTarget(name, target)
-   assert(prism.targets[name] == nil, "Target " .. name .. " is already registered!")
-   prism.targets[name] = target
-
-   if prism._currentDefinitions then
-      table.insert(prism._currentDefinitions, "--- @type fun(...): Target")
-      table.insert(prism._currentDefinitions, "prism.targets." .. name .. " = nil")
-   end
-end
-
-local function loadItems(path, itemType, recurse, definitions)
+--- @param path string The path to load into the registry from.
+local function loadRegistry(path, registry, recurse, definitions)
    local info = {}
-   local items = prism[itemType]
+   local items = prism[registry.name]
 
    for _, itemPath in pairs(love.filesystem.getDirectoryItems(path)) do
       local fileName = path .. "/" .. itemPath
       love.filesystem.getInfo(fileName, info)
+
       if info.type == "file" then
          local requireName = string.gsub(fileName, ".lua", "")
          requireName = string.gsub(requireName, "/", ".")
 
          local item = require(requireName)
 
-         if itemType == "actors" or itemType == "cells" or itemType == "targets" then
-            goto continue
-         end
+         if registry.manual then goto continue end
 
          assert(
             type(item) == "table",
             "Expected a table from " .. fileName .. " but received a " .. type(item) .. "!"
          )
-         local name = string.gsub(item.className, prism._itemPatterns[itemType], "")
-         if not item.stripName then name = item.className end
+         local name = item.className
+         if item.stripName then name = string.gsub(item.className, registry.pattern, "") end
 
          assert(
             name ~= "",
-            "File "
-               .. fileName
-               .. " contains type "
-               .. itemType
-               .. " without a valid stripped name!"
+            string.format(
+               "File %s contains type %s wihout a valid stripped name!",
+               fileName,
+               registry.type
+            )
          )
          assert(
             items[name] == nil,
-            "File " .. fileName .. " contains type " .. itemType .. " with duplicate name!"
+            string.format("File %s contains type %s with duplicate name", fileName, registry.type)
          )
          items[name] = item
 
-         table.insert(definitions, "--- @module " .. '"' .. requireName .. '"')
-         table.insert(definitions, "prism." .. itemType .. "." .. name .. " = nil")
+         table.insert(definitions, '--- @module "' .. requireName .. '"')
+         table.insert(definitions, "prism." .. registry.name .. "." .. name .. " = nil")
 
          ::continue::
       elseif info.type == "directory" and recurse then
-         loadItems(fileName, itemType, recurse, definitions)
+         loadRegistry(fileName, registry, recurse, definitions)
       end
    end
 end
@@ -345,8 +371,8 @@ function prism.loadModule(directory)
    local definitions = { "---@meta " .. string.lower(directory) }
    prism._currentDefinitions = definitions
 
-   for _, item in ipairs(prism._items) do
-      loadItems(directory .. "/" .. item, item, true, definitions)
+   for _, registry in ipairs(prism.registries) do
+      loadRegistry(directory .. "/" .. registry.name, registry, true, definitions)
    end
 
    for _, component in pairs(prism.components) do
