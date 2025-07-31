@@ -55,8 +55,9 @@ function StatusEffects:remove(handle)
    self.instances:remove(handle)
 end
 
---- @param prototype StatusEffectsModifier
---- @return StatusEffectsModifier[]?
+--- @generic T
+--- @param prototype T
+--- @return T[]?
 function StatusEffects:getModifiers(prototype)
    return self.modifierMap[prototype]
 end
@@ -94,8 +95,9 @@ function StatusEffectsInstance:__new(options)
    end
 end
 
---- @param prototype table
---- @return StatusEffectsModifier[]?
+--- @generic T
+--- @param prototype T
+--- @return T[]?
 function StatusEffectsInstance:getModifiers(prototype)
    return self.modifierMap[prototype]
 end
