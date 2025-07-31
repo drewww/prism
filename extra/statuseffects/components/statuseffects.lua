@@ -14,6 +14,24 @@ end
 --- @param instance StatusEffectsInstance
 --- @return StatusEffectsHandle handle
 function StatusEffects:add(instance)
+   -- remove existing instances of the same subclass if set to singleton
+   if instance.singleton then
+      local toRemove = {}
+      for handle, existing in self:pairs() do
+         if getmetatable(instance) == self.Instance then
+            prism.logger.warn("Status effect set to singleton, but not subclassed! This will remove all anonymous instances!")
+         end
+
+         if getmetatable(instance).is(existing) then
+            table.insert(toRemove, handle)
+         end
+      end
+
+      for _, handle in ipairs(toRemove) do
+         self:remove(handle)
+      end
+   end
+
    local handle = self.instances:add(instance)
 
    for _, modifier in ipairs(instance.modifiers) do
@@ -78,8 +96,10 @@ end
 
 --- @class StatusEffectsInstance : Object
 --- @field modifiers StatusEffectsModifier[]
+--- @field singleton boolean
 --- @field modifierMap table<StatusEffectsModifier, StatusEffectsModifier[]>
 local StatusEffectsInstance = prism.Object:extend "StatusEffectsInstance"
+StatusEffectsInstance.singleton = false
 
 function StatusEffectsInstance:__new(options)
    self.modifiers = options.modifiers
