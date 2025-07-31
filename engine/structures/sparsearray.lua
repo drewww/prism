@@ -15,7 +15,7 @@ local INDEX_MASK = 0xFFFFFFFF -- (1 << 32) - 1
 --- @param generation number The generation count
 --- @return number handle Packed handle as a Lua number
 local function pack_handle(index, generation)
-   return bit.bor(index, bit.lshift(generation, INDEX_BITS))
+   return index + generation * 2^32
 end
 
 --- Unpacks a handle into index and generation components.
@@ -24,7 +24,7 @@ end
 --- @return number generation The generation count
 local function unpack_handle(handle)
    local index = bit.band(handle, INDEX_MASK)
-   local generation = bit.rshift(handle, INDEX_BITS)
+   local generation = math.floor(handle / 2^32)
    return index, generation
 end
 
@@ -56,9 +56,11 @@ end
 function SparseArray:remove(handle)
    local index, gen = unpack_handle(handle)
    if self.data[index] ~= nil and self.generations[index] == gen then
+      local data = self.data[index]
       self.data[index] = nil
       self.generations[index] = self.generations[index] + 1
       table.insert(self.freeIndices, index)
+      return data
    end
 end
 
@@ -67,6 +69,7 @@ end
 --- @return any|nil The item at the given handle, or nil if not found or stale.
 function SparseArray:get(handle)
    local index, gen = unpack_handle(handle)
+   print(index, gen)
    if self.generations[index] == gen then
       return self.data[index]
    end
@@ -77,6 +80,24 @@ function SparseArray:clear()
    self.data = {}
    self.freeIndices = {}
    self.generations = {}
+end
+
+--- Returns an iterator over valid (handle, item) pairs in the sparse array.
+--- @return fun(): (number?, any?) Iterator function returning (handle, item)
+function SparseArray:pairs()
+   local data = self.data
+   local generations = self.generations
+   local i = 0
+   return function()
+      repeat
+         i = i + 1
+         local item = data[i]
+         if item ~= nil then
+            local handle = pack_handle(i, generations[i] or 0)
+            return handle, item
+         end
+      until i > #data
+   end
 end
 
 --- Prints the contents and free indices for debugging purposes.
