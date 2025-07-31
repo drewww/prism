@@ -157,16 +157,35 @@ prism.registries = {}
 --- Registers a factory for a registry.
 --- @param name string
 --- @param type string
-local function registerFactory(name, type)
-   local registry = prism[name]
+--- @param moduleTable table
+--- @param moduleName string
+local function registerFactory(name, type, moduleTable, moduleName)
+   local registry = moduleTable[name]
 
-   prism["register" .. type] = function(objectName, factory)
+   if prism._currentDefinitions then
+      table.insert(
+         prism._currentDefinitions,
+         string.format("Registers a %s in the %s registry.", type, name)
+      )
+      table.insert(prism._currentDefinitions, "--- @param name string A name for the factory")
+      table.insert(prism._currentDefinitions, string.format("--- @param factory %sFactory", type))
+      table.insert(
+         prism._currentDefinitions,
+         string.format("function %s.register%s(name, factory) end", moduleName, type)
+      )
+   end
+
+   moduleTable["register" .. type] = function(objectName, factory)
       assert(registry[objectName] == nil, type .. " " .. name .. " is already registered!")
       registry[objectName] = factory
+      print(prism._currentDefinitions, objectName)
 
       if prism._currentDefinitions then
          table.insert(prism._currentDefinitions, "--- @type fun(...): " .. type)
-         table.insert(prism._currentDefinitions, "prism." .. name .. "." .. objectName .. " = nil")
+         table.insert(
+            prism._currentDefinitions,
+            string.format("%s.%s.%s = nil", moduleName, name, objectName)
+         )
       end
    end
 end
@@ -175,13 +194,17 @@ end
 --- @param name string The name of the registry, e.g. "components".
 --- @param type string The type of the object, e.g. "Component".
 --- @param manual? boolean Whether objects in the registry are registered manually with a factory. Defaults to false.
---- @param module? table The table to assign the registry to. Defaults to the prism global.
+--- @param module? string The table to assign the registry to. Defaults to the prism global.
 function prism.registerRegistry(name, type, manual, module)
    if prism.registries[name] then
       error("A registry with name " .. name .. " is already registered!")
    end
 
-   if prism[name] then error("prism namespace already contains " .. name .. "!") end
+   local moduleTable = _G[module] or prism
+   if moduleTable[name] then
+      error("namespace for registry " .. name .. "already contains " .. name .. "!")
+   end
+   moduleTable[name] = {}
 
    local pattern = ""
    for i = 1, #type do
@@ -191,12 +214,10 @@ function prism.registerRegistry(name, type, manual, module)
 
    table.insert(
       prism.registries,
-      { name = name, type = type, manual = manual or false, pattern = pattern }
+      { name = name, type = type, manual = manual or false, module = module, pattern = pattern }
    )
-   module = module or prism
-   module[name] = {}
 
-   if manual then registerFactory(name, type) end
+   if manual then registerFactory(name, type, moduleTable, module or "prism") end
 end
 
 prism.registerRegistry("components", prism.Component.className)
