@@ -178,7 +178,6 @@ local function registerFactory(name, type, moduleTable, moduleName)
    moduleTable["register" .. type] = function(objectName, factory)
       assert(registry[objectName] == nil, type .. " " .. name .. " is already registered!")
       registry[objectName] = factory
-      print(prism._currentDefinitions, objectName)
 
       if prism._currentDefinitions then
          table.insert(prism._currentDefinitions, "--- @type fun(...): " .. type)
