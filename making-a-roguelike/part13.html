@@ -153,6 +153,11 @@ more things. First let’s change heal to use our new getter function.</p>
 </pre></div>
 </div>
 <p>Next we’ll add a small function that will clamp hp to maxhp for a little bit later in the tutorial.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nc">Health</span><span class="p">:</span><span class="nf">enforceBounds</span><span class="p">()</span>
+   <span class="n">self</span><span class="p">.</span><span class="n">hp</span> <span class="o">=</span> <span class="nb">math.min</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">hp</span><span class="p">,</span> <span class="n">self</span><span class="p">:</span><span class="n">getMaxHP</span><span class="p">())</span>
+<span class="kr">end</span>
+</pre></div>
+</div>
 <p>And finally we’ll set <code class="docutils literal notranslate"><span class="pre">Health.Modifier</span></code> to the modifier we’ve just created for this component so that we can access it from a convenient place.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="n">Health</span><span class="p">.</span><span class="n">Modifier</span> <span class="o">=</span> <span class="n">HealthModifier</span>
 </pre></div>
