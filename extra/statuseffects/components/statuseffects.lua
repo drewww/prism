@@ -86,6 +86,20 @@ function StatusEffects:getInstance(handle)
    return self.instances:get(handle)
 end
 
+local dummy = {}
+
+--- @generic T
+--- @param actor Entity
+--- @param prototype T
+--- @return T[]
+function StatusEffects.getActorModifiers(actor, prototype)
+   local status = actor:get(prism.components.StatusEffects)
+   if not status then return dummy end
+
+   local modifiers = status:getModifiers(prototype)
+   return modifiers
+end
+
 --- @return fun():(StatusEffectsHandle, StatusEffectsInstance)
 function StatusEffects:pairs()
    return self.instances:pairs()
