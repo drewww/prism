@@ -349,7 +349,7 @@ function Display:fitWindowToTerminal()
    local cellWidth, cellHeight = self.cellSize.x, self.cellSize.y
    local windowWidth = self.width * cellWidth
    local windowHeight = self.height * cellHeight
-   love.window.setMode(windowWidth, windowHeight, { resizable = true, usedpiscale = false })
+   love.window.updateMode(windowWidth, windowHeight, { resizable = true, usedpiscale = false })
 end
 
 --- Calculates the top-left offset needed to center a given position on the display.
