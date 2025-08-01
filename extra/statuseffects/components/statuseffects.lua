@@ -75,9 +75,9 @@ end
 
 --- @generic T
 --- @param prototype T
---- @return T[]?
+--- @return T[]
 function StatusEffects:getModifiers(prototype)
-   return self.modifierMap[prototype]
+   return self.modifierMap[prototype] or {}
 end
 
 --- @param handle StatusEffectsHandle
@@ -117,9 +117,9 @@ end
 
 --- @generic T
 --- @param prototype T
---- @return T[]?
+--- @return T[]
 function StatusEffectsInstance:getModifiers(prototype)
-   return self.modifierMap[prototype]
+   return self.modifierMap[prototype] or {}
 end
 
 
