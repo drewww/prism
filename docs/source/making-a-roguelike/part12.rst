@@ -204,5 +204,5 @@ You'll see now that when we open the chest we get a meat brick!
 In the next chapter
 -------------------
 
-In the next chapter we'll create some more items to add to our loot tables and make the game more interesting. We'll focus on usable items like wands and adding a system for
-targetting.
+In the next chapter we'll create some more items to add to our loot tables and make the game more interesting. We'll add a potion and go over
+making buffs using the StatusEffect component included in /extra!
