@@ -133,6 +133,7 @@ more things. First let's change heal to use our new getter function.
 Next we'll add a small function that will clamp hp to maxhp for a little bit later in the tutorial.
 
 .. code:: lua
+   
    function Health:enforceBounds()
       self.hp = math.min(self.hp, self:getMaxHP())
    end
