@@ -60,11 +60,8 @@ the individual pieces like +5 maxhp. You can subclass this to define a new named
 
 .. code::
 
-   local path = ...
-   local basePath = path:match("^(.*)%.") or ""
-
    --- @module "modules.game.statusinstance"
-   prism.GameStatusInstance = require (basePath .. ".statusinstance")
+   prism.GameStatusInstance = require ("modules.game.statusinstance")
 
 The path string manipulation is just so that this file loads correctly now matter which folder our module is loaded from, that won't matter here,
 but it's a good idea to do this.
@@ -74,6 +71,12 @@ Modifying health
 
 Let's head back to ``modules/game/components/health.lua`` and take a look at our health component. At the top of the file let's add
 the following code.
+
+.. code:: lua
+
+   local StatusEffects = prism.components.StatusEffects
+
+Let's quickly alias the StatusEffects component, we're going to use one of it's static methods later in the file.
 
 .. code:: lua
 
@@ -100,18 +103,8 @@ Next let's create a getMaxHP function that will take our new modifier into accou
 
    --- @return integer maxHP
    function Health:getMaxHP()
-      local status = self.owner:get(prism.components.StatusEffects)
-      if not status then return self.maxHP end
+      local modifiers = StatusEffects.getActorModifiers(self.owner, HealthModifier)
 
-      local modifiers = status:getModifiers(HealthModifier)
-      if not modifiers then return self.maxHP end
-
-If the actor with this health component doesn't have a statuseffects component we simply return maxhp. If they don't have any active
-modifiers we do the same.
-
-.. code:: lua
-
-      ---@cast modifiers HealthModifier[]
       local modifiedMaxHP = self.maxHP
       for _, modifier in ipairs(modifiers) do
          modifiedMaxHP = modifiedMaxHP + modifier.maxHP
@@ -120,7 +113,7 @@ modifiers we do the same.
       return modifiedMaxHP
    end
 
-Then we loop through each modifier, add it to our base maxHP, and return the modified value. While we're here we'll need to change a few
+We loop through each modifier, add it to our base maxHP, and return the modified value. While we're here we'll need to change a few
 more things. First let's change heal to use our new getter function.
 
 .. code:: lua
@@ -133,7 +126,7 @@ more things. First let's change heal to use our new getter function.
 Next we'll add a small function that will clamp hp to maxhp for a little bit later in the tutorial.
 
 .. code:: lua
-   
+
    function Health:enforceBounds()
       self.hp = math.min(self.hp, self:getMaxHP())
    end
@@ -193,6 +186,7 @@ Now let's create a new file in ``modules/game/actions`` called ``drink.lua``.
 First we define our target an item in the actor's inventory with the Drinkable component.
 
 .. code:: lua
+
    --- @class Drink : Action
    local Drink = prism.Action:extend "Drink"
    Drink.targets = {
