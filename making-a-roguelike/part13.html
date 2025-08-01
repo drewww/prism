@@ -92,11 +92,8 @@ durations.</p>
 We’re going to load this file and inject our status instance into the global namespace simply for convenience sake.</p>
 <p>This Instance is a collection of Modifiers. A status effect instance might be the entire buff a potion gives you like +5 maxhp, +2 strength. A modifier is
 the individual pieces like +5 maxhp. You can subclass this to define a new named instance or use it anonymously.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">local</span> <span class="n">path</span> <span class="o">=</span> <span class="o">...</span>
-<span class="n">local</span> <span class="n">basePath</span> <span class="o">=</span> <span class="n">path</span><span class="p">:</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;^(.*)%.&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
-
-<span class="o">---</span> <span class="nd">@module</span> <span class="s2">&quot;modules.game.statusinstance&quot;</span>
-<span class="n">prism</span><span class="o">.</span><span class="n">GameStatusInstance</span> <span class="o">=</span> <span class="n">require</span> <span class="p">(</span><span class="n">basePath</span> <span class="o">..</span> <span class="s2">&quot;.statusinstance&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">---</span> <span class="nd">@module</span> <span class="s2">&quot;modules.game.statusinstance&quot;</span>
+<span class="n">prism</span><span class="o">.</span><span class="n">GameStatusInstance</span> <span class="o">=</span> <span class="n">require</span> <span class="p">(</span><span class="s2">&quot;modules.game.statusinstance&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The path string manipulation is just so that this file loads correctly now matter which folder our module is loaded from, that won’t matter here,
@@ -106,6 +103,10 @@ but it’s a good idea to do this.</p>
 <h2>Modifying health<a class="headerlink" href="#modifying-health" title="Link to this heading">¶</a></h2>
 <p>Let’s head back to <code class="docutils literal notranslate"><span class="pre">modules/game/components/health.lua</span></code> and take a look at our health component. At the top of the file let’s add
 the following code.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="kd">local</span> <span class="n">StatusEffects</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">StatusEffects</span>
+</pre></div>
+</div>
+<p>Let’s quickly alias the StatusEffects component, we’re going to use one of it’s static methods later in the file.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class HealthModifier : StatusEffectsModifier</span>
 <span class="c1">--- @field maxHP integer</span>
 <span class="kd">local</span> <span class="n">HealthModifier</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">StatusEffects</span><span class="p">.</span><span class="n">Modifier</span><span class="p">:</span><span class="n">extend</span> <span class="s2">&quot;HealthModifier&quot;</span>
@@ -125,16 +126,8 @@ the following code.</p>
 <p>Next let’s create a getMaxHP function that will take our new modifier into account.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @return integer maxHP</span>
 <span class="kr">function</span> <span class="nc">Health</span><span class="p">:</span><span class="nf">getMaxHP</span><span class="p">()</span>
-   <span class="kd">local</span> <span class="n">status</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">StatusEffects</span><span class="p">)</span>
-   <span class="kr">if</span> <span class="ow">not</span> <span class="n">status</span> <span class="kr">then</span> <span class="kr">return</span> <span class="n">self</span><span class="p">.</span><span class="n">maxHP</span> <span class="kr">end</span>
+   <span class="kd">local</span> <span class="n">modifiers</span> <span class="o">=</span> <span class="n">StatusEffects</span><span class="p">.</span><span class="n">getActorModifiers</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">HealthModifier</span><span class="p">)</span>
 
-   <span class="kd">local</span> <span class="n">modifiers</span> <span class="o">=</span> <span class="n">status</span><span class="p">:</span><span class="n">getModifiers</span><span class="p">(</span><span class="n">HealthModifier</span><span class="p">)</span>
-   <span class="kr">if</span> <span class="ow">not</span> <span class="n">modifiers</span> <span class="kr">then</span> <span class="kr">return</span> <span class="n">self</span><span class="p">.</span><span class="n">maxHP</span> <span class="kr">end</span>
-</pre></div>
-</div>
-<p>If the actor with this health component doesn’t have a statuseffects component we simply return maxhp. If they don’t have any active
-modifiers we do the same.</p>
-<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span>   <span class="c1">---@cast modifiers HealthModifier[]</span>
    <span class="kd">local</span> <span class="n">modifiedMaxHP</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">maxHP</span>
    <span class="kr">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">modifier</span> <span class="kr">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">modifiers</span><span class="p">)</span> <span class="kr">do</span>
       <span class="n">modifiedMaxHP</span> <span class="o">=</span> <span class="n">modifiedMaxHP</span> <span class="o">+</span> <span class="n">modifier</span><span class="p">.</span><span class="n">maxHP</span>
@@ -144,7 +137,7 @@ modifiers we do the same.</p>
 <span class="kr">end</span>
 </pre></div>
 </div>
-<p>Then we loop through each modifier, add it to our base maxHP, and return the modified value. While we’re here we’ll need to change a few
+<p>We loop through each modifier, add it to our base maxHP, and return the modified value. While we’re here we’ll need to change a few
 more things. First let’s change heal to use our new getter function.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @param amount integer</span>
 <span class="kr">function</span> <span class="nc">Health</span><span class="p">:</span><span class="nf">heal</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
@@ -200,6 +193,22 @@ more things. First let’s change heal to use our new getter function.</p>
 </pre></div>
 </div>
 <p>First we define our target an item in the actor’s inventory with the Drinkable component.</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">--- @class Drink : Action</span>
+<span class="kd">local</span> <span class="n">Drink</span> <span class="o">=</span> <span class="n">prism</span><span class="p">.</span><span class="n">Action</span><span class="p">:</span><span class="n">extend</span> <span class="s2">&quot;Drink&quot;</span>
+<span class="n">Drink</span><span class="p">.</span><span class="n">targets</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="n">DrinkTarget</span>
+<span class="p">}</span>
+
+<span class="c1">--- @param level Level</span>
+<span class="kr">function</span> <span class="nc">Drink</span><span class="p">:</span><span class="nf">perform</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">drink</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">drinkable</span> <span class="o">=</span> <span class="n">drink</span><span class="p">:</span><span class="n">expect</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Drinkable</span><span class="p">)</span>
+
+   <span class="kd">local</span> <span class="n">statusComponent</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">StatusEffects</span><span class="p">)</span>
+   <span class="kr">if</span> <span class="n">statusComponent</span> <span class="ow">and</span> <span class="n">drinkable</span><span class="p">.</span><span class="n">status</span> <span class="kr">then</span>
+      <span class="n">statusComponent</span><span class="p">:</span><span class="n">add</span><span class="p">(</span><span class="n">drinkable</span><span class="p">.</span><span class="n">status</span><span class="p">)</span>
+   <span class="kr">end</span>
+</pre></div>
+</div>
 <p>Then if we’ve got a status effects component and our drink applies a status effect we add that to the status effects component.</p>
 <div class="highlight-lua notranslate"><div class="highlight"><pre><span></span>   <span class="kd">local</span> <span class="n">health</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">owner</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">prism</span><span class="p">.</span><span class="n">components</span><span class="p">.</span><span class="n">Health</span><span class="p">)</span>
    <span class="kr">if</span> <span class="n">health</span> <span class="ow">and</span> <span class="n">drinkable</span><span class="p">.</span><span class="n">healing</span> <span class="kr">then</span>
