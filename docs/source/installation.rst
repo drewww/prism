@@ -32,6 +32,12 @@ to start a new GitHub repository, or use the following command to clone it local
 
    git clone --recursive --depth 1 https://github.com/PrismRL/prism-template.git
 
+If you cloned the repository without initializing the submodule during clone you can do so with the following:
+
+.. code:: sh
+
+    git submodule update --init --recursive
+
 You can start the game by running ``love .`` in the terminal from the root directory,
 or dragging the root folder onto the LÖVE executable.
 
