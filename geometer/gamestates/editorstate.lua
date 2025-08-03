@@ -1,3 +1,5 @@
+local keybindings = require "keybindingschema"
+
 --- The game state for Geometer. This should be the only thing you have to interface with
 --- to use Geometer in a game.
 --- @class EditorState : GameState
@@ -51,7 +53,7 @@ function EditorState:mousereleased(x, y, button)
 end
 
 function EditorState:keypressed(key, scancode)
-   if key == "`" then self.manager:pop() return end
+   if keybindings:keypressed(key) == "close editor" then self.manager:pop() return end
    self.editor:keypressed(key, scancode)
 end
 
