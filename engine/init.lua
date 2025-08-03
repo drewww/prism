@@ -151,6 +151,8 @@ prism.BehaviorTree.Selector = prism.require "core.behavior_tree.btselector"
 prism.BehaviorTree.Sequence = prism.require "core.behavior_tree.btsequence"
 --- @module "engine.core.behavior_tree.btsucceeder"
 prism.BehaviorTree.Succeeder = prism.require "core.behavior_tree.btsucceeder"
+--- @module "engine.core.behavior_tree.btconditional"
+prism.BehaviorTree.Conditional = prism.require "core.behavior_tree.btconditional"
 
 prism.registries = {}
 
