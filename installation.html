@@ -74,6 +74,10 @@ to start a new GitHub repository, or use the following command to clone it local
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>--recursive<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span><span class="w"> </span>https://github.com/PrismRL/prism-template.git
 </pre></div>
 </div>
+<p>If you cloned the repository without initializing the submodule during clone you can do so with the following:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
+</pre></div>
+</div>
 <p>You can start the game by running <code class="docutils literal notranslate"><span class="pre">love</span> <span class="pre">.</span></code> in the terminal from the root directory,
 or dragging the root folder onto the LÖVE executable.</p>
 <p>Upon launching, you should see an <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> symbol on the screen. You can
