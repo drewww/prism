@@ -4,13 +4,13 @@
 --- @field private weight number
 --- @field private volume number
 --- @field stackable false|fun(...): Actor
---- @overload fun(options: ItemOptions): Item
+--- @overload fun(options: ItemOptions?): Item
 local Item = prism.Component:extend("Item")
 Item.weight = 0
 Item.volume = 0
 Item.stackable = false
 Item.stackCount = 1
-Item.stacklimit = nil
+Item.stacklimit = math.huge
 
 --- @alias ItemOptions { weight?: number, volume?: number, stackable?: ActorFactory|boolean, stackLimit: number|nil }
 
