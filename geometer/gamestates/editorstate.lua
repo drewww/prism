@@ -51,6 +51,7 @@ function EditorState:mousereleased(x, y, button)
 end
 
 function EditorState:keypressed(key, scancode)
+   if key == "`" then self.manager:pop() return end
    self.editor:keypressed(key, scancode)
 end
 
