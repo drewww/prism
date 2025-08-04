@@ -75,7 +75,9 @@ Note that here, ``AttackTarget`` is an Actor with a Health component, and is pas
 
    return Attack
 
-Next we need to make kobolds actually use the attack action. Navigate to ``modules/game/components/koboldcontroller.lua``
+Next we need to make kobolds actually use the attack action. We will simply attempt to attack regardless of the situation, and assume that `canPerform` will reject the attempt if the circumstances are wrong (e.g. out of range). 
+
+Navigate to ``modules/game/components/koboldcontroller.lua``
 and right above the final return we're going to add the following:
 
 .. code:: lua
