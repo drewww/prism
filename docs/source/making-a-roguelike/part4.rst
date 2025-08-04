@@ -47,6 +47,8 @@ Now let's make an attack action that the kobolds can use on the player. This is
 pretty straightforward. Anything with health is attackable, and we apply our ``Damage`` action
 based on the ``Attacker`` component.
 
+Note that here, ``AttackTarget`` is an Actor with a Health component, and is passed into ``perform`` as ``attacked.`` This is more commonly how Targets are used, versus enforcing basic types like "number".
+
 .. code:: lua
 
    local AttackTarget = prism.Target()
