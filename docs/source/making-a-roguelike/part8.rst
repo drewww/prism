@@ -25,7 +25,7 @@ Next we'll register a ``Stairs`` actor in ``modules/game/actors/stairs.lua`` wit
       return prism.Actor.fromComponents {
          prism.components.Name("Stairs"),
          prism.components.Position(),
-         prism.components.Drawable(">"),
+         prism.components.Drawable { char = ">" },
          prism.components.Stair(),
          prism.components.Remembered(),
       }
