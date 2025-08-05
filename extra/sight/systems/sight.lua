@@ -49,10 +49,12 @@ function SightSystem:updateSeenActors(level, actor)
 
    -- clear the actor visibility table
    sensesComponent.actors = prism.ActorStorage()
+   actor:removeAllRelationships(prism.relationships.Seen)
 
    local query = level:query()
    for x, y, _ in sensesComponent.cells:each() do
       for other in query:at(x, y):iter() do
+         actor:addRelationship(prism.relationships.Seen, other)
          sensesComponent.actors:addActor(other)
       end
    end

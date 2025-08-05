@@ -109,6 +109,8 @@ prism.SimpleScheduler = prism.require "core.scheduler.simple_scheduler"
 prism.Action = prism.require "core.action"
 --- @module "engine.core.component"
 prism.Component = prism.require "core.component"
+--- @module "engine.core.relationship"
+prism.Relationship = prism.require "core.relationship"
 --- @module "engine.core.entity"
 prism.Entity = prism.require "core.entity"
 --- @module "engine.core.actor"
@@ -222,6 +224,7 @@ function prism.registerRegistry(name, type, manual, module)
 end
 
 prism.registerRegistry("components", prism.Component.className)
+prism.registerRegistry("relationships", prism.Relationship.className)
 prism.registerRegistry("targets", prism.Target.className, true)
 prism.registerRegistry("cells", prism.Cell.className, true)
 prism.registerRegistry("actions", prism.Action.className)

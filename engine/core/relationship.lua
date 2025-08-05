@@ -28,7 +28,7 @@ end
 --- @return Relationship
 function Relationship:getBase()
    local proto = self:isInstance() and getmetatable(self) or self
-   while proto and proto ~= prism.Relationship do
+   while proto and getmetatable(proto) ~= prism.Relationship do
       proto = getmetatable(proto)
    end
    return proto

@@ -138,18 +138,18 @@ end
 --- Enforces cardinality, symmetry, and exclusivity rules.
 --- @param relationship Relationship The relationship instance to add.
 --- @param target Entity The target entity of the relationship.
+--- @param final boolean? If true this add is part of a symmetry and we shouldn't attempt again.
 --- @return Entity
-function Entity:addRelationship(relationship, target)
+function Entity:addRelationship(relationship, target, final)
    assert(prism.Entity:is(target), "Target must be an Entity!")
 
    local relType = relationship:getBase()
    self.relationships = self.relationships or {}
 
    -- Get or create relationship map for this type
-   local map = self.relationships[relType]
-   if not map then
-      map = {}
-      self.relationships[relType] = map
+   if not self.relationships[relType] then
+      print "Creating map!"
+      self.relationships[relType] = {}
    end
 
    -- Enforce exclusivity: remove all others of this type
@@ -160,17 +160,17 @@ function Entity:addRelationship(relationship, target)
    end
 
    -- Add the relationship
-   map[target] = relationship
+   self.relationships[relType][target] = relationship
 
    -- Add symmetric inverse if applicable
    local symmetricRelationship = relationship:generateSymmetric()
-   if symmetricRelationship then
-      target:addRelationship(symmetricRelationship, self)
+   if symmetricRelationship and not final then
+      target:addRelationship(symmetricRelationship, self, true)
    end
 
    local inverseRelationship = relationship:generateInverse()
-   if inverseRelationship then
-      target:addRelationship(inverseRelationship, self)
+   if inverseRelationship and not final then
+      target:addRelationship(inverseRelationship, self, true)
    end
 
    return self
@@ -182,20 +182,37 @@ end
 --- @return Entity
 function Entity:removeRelationship(relationshipType, target)
    self.relationships = self.relationships or {}
-   local map = self.relationships[relationshipType]
-   if not map then return self end
+   if not self.relationships[relationshipType] then return self end
 
-   if map[target] then
-      map[target] = nil
+   local relationship
+   if self.relationships[relationshipType][target] then
+      relationship = self.relationships[relationshipType][target]
+      self.relationships[relationshipType][target] = nil
+   else
+      return self
    end
 
    -- Remove symmetric inverse if needed
-   local symmetric = relationshipType:generateSymmetric()
+   local symmetric = relationship:generateSymmetric()
    if symmetric then
       target:removeRelationship(symmetric:getBase(), self)
    end
 
+   local inverse = relationship:generateInverse()
+   if inverse then
+      target:removeRelationship(inverse:getBase(), self)
+   end
+
    return self
+end
+
+--- @param relationshipType Relationship
+function Entity:removeAllRelationships(relationshipType)
+   if not self.relationships[relationshipType] then return self end
+
+   for entity in pairs(self.relationships[relationshipType]) do
+      self:removeRelationship(relationshipType, entity)
+   end
 end
 
 --- Checks whether this entity has a relationship of a given type with a specific target.
@@ -204,16 +221,14 @@ end
 --- @return boolean
 function Entity:hasRelationship(relationshipType, target)
    self.relationships = self.relationships or {}
-   local map = self.relationships[relationshipType]
-   if not map then return false end
-   return map[target] ~= nil
+   if not self.relationships[relationshipType] then return false end
+   return self.relationships[relationshipType][target] ~= nil
 end
 
 --- Gets all relationships of a given type.
 --- @param relationshipType Relationship The relationship type/class.
 --- @return table<Entity, Relationship>
 function Entity:getRelationships(relationshipType)
-   self.relationships = self.relationships or {}
    return self.relationships[relationshipType] or {}
 end
 
