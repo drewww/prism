@@ -138,7 +138,7 @@ Finally, head over to main.lua and ``require`` the class right below where we’
    ...
    prism.loadModule("modules/game")
 
-   local Game = require("game")
+   Game = require("game")
 
 In ``love.load()``, we'll generate the first level and pass a seed for the level to our ``MyGameLevelState``.
 
