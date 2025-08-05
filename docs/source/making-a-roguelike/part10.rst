@@ -292,7 +292,8 @@ Now to be able to pick these things up we'll need to hook up the :lua:class:`Pic
 
 We grab the first item on the tile and use it as the target for ``Pickup``.
 Boot up the game and draw in a few meat bricks with Geometer. You should be able to
-pick up and drop them now!
+pick up and drop them now! In a future chapter, we'll hook up the `Die` action to sometimes
+create a new `MeatBrick`.
 
 Fixing the draw order
 ---------------------
