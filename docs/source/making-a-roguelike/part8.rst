@@ -126,7 +126,7 @@ Now that we've got everything set up we need to actually handle the descend mess
 .. code:: lua
 
    if prism.messages.Descend:is(message) then
-      self.manager:enter(GameLevelState(self.display))
+      self.manager:enter(MyGameLevelState(self.display))
    end
 
 If we run the game and find ourselves a staircase we'll be able to go down
