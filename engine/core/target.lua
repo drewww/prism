@@ -17,7 +17,6 @@ function Target:__new(...)
    self:with(...)
 end
 
---- @private
 --- @param level Level
 --- @param owner Actor The actor performing the action.
 --- @param targetObject any

@@ -67,16 +67,32 @@ function Query:at(x, y)
    return self
 end
 
-local components = {}
-
--- Helper function to check all required components for an actor
-local function hasRequired(actor, storage, requiredComponents)
-   for component in pairs(requiredComponents) do
-      local cache = storage:getComponentCache(component)
-      if not cache or not cache[actor] then return false end
+--- Applies a Target filter to this query.
+--- Automatically adds required components from the Target.
+--- The query will only return actors that validate against this Target.
+--- @param target Target
+--- @param level Level
+--- @param owner Actor
+--- @param previousTargets any[]?
+--- @return Query
+function Query:target(target, level, owner, previousTargets)
+   -- Merge Target's required components into the query
+   for componentType in pairs(target.reqcomponents) do
+      if not self.requiredComponents[componentType] then
+         self:with(componentType)
+      end
    end
-   return true
+
+   -- Set the validator
+   self.targetValidator = function(actor)
+      return target:validate(level, owner, actor, previousTargets)
+   end
+
+   return self
 end
+
+
+local components = {}
 
 -- Helper function to get components for an actor
 --- @param actor Actor
@@ -131,7 +147,7 @@ local function lazyIntersectSets(sets, counts, requiredComponentsList)
          end
 
          if inAll then
-            return actor, getComponents(actor, requiredComponentsList)
+            return actor
          end
       end
    end
@@ -187,9 +203,14 @@ function Query:iter()
    local intersectionIter = lazyIntersectSets(sets, counts, self.requiredComponentsList)
 
    return function()
-      local actor = intersectionIter()
-      if not actor then return nil end
-      return actor, getComponents(actor, self.requiredComponentsList)
+      while true do
+         local actor = intersectionIter()
+         if not actor then return nil end
+
+         if not self.targetValidator or self.targetValidator(actor) then
+            return actor, getComponents(actor, self.requiredComponentsList)
+         end
+      end
    end
 end
 
