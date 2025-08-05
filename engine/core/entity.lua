@@ -148,13 +148,12 @@ function Entity:addRelationship(relationship, target, final)
 
    -- Get or create relationship map for this type
    if not self.relationships[relType] then
-      print "Creating map!"
       self.relationships[relType] = {}
    end
 
    -- Enforce exclusivity: remove all others of this type
    if relationship.exclusive then
-      for other in pairs(map) do
+      for other in pairs(self.relationships[relType]) do
          self:removeRelationship(relType, other)
       end
    end
