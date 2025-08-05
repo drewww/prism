@@ -260,7 +260,7 @@ Create a new file in ``modules/game/actors`` called ``meatbrick.lua`` and regist
       return prism.Actor.fromComponents{
          prism.components.Name("Meat Brick"),
          prism.components.Position(),
-         prism.components.Drawable("%", prism.Color4.RED),
+         prism.components.Drawable { char = "%", color=prism.Color4.RED },
          prism.components.Item{
             stackable = prism.actors.MeatBrick,
             stackLimit = 99
@@ -304,13 +304,13 @@ and change the following line from
 
 .. code:: lua
 
-   prism.components.Drawable("@", prism.Color4.GREEN),
+   prism.components.Drawable{ char = "@", color = prism.Color4.GREEN },
 
 to
 
 .. code:: lua
 
-   prism.components.Drawable("@", prism.Color4.GREEN, nil, math.huge),
+   prism.components.Drawable { char = "@", color = prism.Color4.GREEN, layer = math.huge },
 
 We're setting the background color to ``nil`` so that it still defaults to transparent, but we're setting our draw priority
 to :lua:data:`math.huge` so the player will always draw on top of everything else.
