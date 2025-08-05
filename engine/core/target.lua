@@ -185,6 +185,20 @@ function Target:los(mask)
    return self
 end
 
+--- Requires that the target is related to the action owner via a specific relationship type.
+--- @param relationshipType Relationship
+function Target:related(relationshipType)
+   assert(relationshipType, "Missing relationship type")
+
+   --- @param owner Actor
+   self.validators["related"] = function(_, owner, target)
+      if not prism.Entity:is(target) then return false end
+      return owner:hasRelationship(relationshipType, target)
+   end
+
+   return self
+end
+
 --- Sets a string hint for the target, useful for UI handling.
 --- @param hint string
 function Target:setHint(hint)
