@@ -269,6 +269,12 @@ prism.messages.ActionMessage = prism.require "core.messages.actionmessage"
 --- @module "engine.core.messages.debugmessage"
 prism.messages.DebugMessage = prism.require "core.messages.debugmessage"
 
+--- @module "engine.core.relationships.senses"
+prism.relationships.Senses = prism.require "core.relationships.senses"
+
+--- @module "engine.core.relationships.sensedby"
+prism.relationships.SensedBy = prism.require "core.relationships.sensedby"
+
 -- --- @param name string
 -- --- @param factory CellFactory
 -- function prism.registerCell(name, factory)
