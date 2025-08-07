@@ -3,7 +3,7 @@
 local SeenBy = prism.Relationship:extend "SeenBy"
 
 function SeenBy:generateInverse()
-   return prism.relationships.Seen
+   return prism.relationships.Sees
 end
 
 return SeenBy

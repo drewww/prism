@@ -1,9 +1,9 @@
---- @class Seen : Relationship
---- @overload fun(): Seen
-local Seen = prism.Relationship:extend "Seen"
+--- @class Sees : Relationship
+--- @overload fun(): Sees
+local Sees = prism.Relationship:extend "Seen"
 
-function Seen:generateInverse()
+function Sees:generateInverse()
    return prism.relationships.SeenBy
 end
 
-return Seen
+return Sees
