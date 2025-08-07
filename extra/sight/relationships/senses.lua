@@ -1,6 +1,6 @@
 --- @class Senses : Relationship
 --- @overload fun(): Senses
-local Senses = prism.Relationship:extend "Seen"
+local Senses = prism.Relationship:extend "SensesRelationship"
 
 function Senses:generateInverse()
    return prism.relationships.SeenBy
