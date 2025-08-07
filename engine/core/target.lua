@@ -17,7 +17,6 @@ function Target:__new(...)
    self:with(...)
 end
 
---- @private
 --- @param level Level
 --- @param owner Actor The actor performing the action.
 --- @param targetObject any
@@ -180,6 +179,20 @@ function Target:los(mask)
          if x == ownerX and y == ownerY then return true end
          if not level:getCellPassable(x, y, mask) then return false end
       end
+   end
+
+   return self
+end
+
+--- Requires that the target is related to the action owner via a specific relationship type.
+--- @param relationshipType Relationship
+function Target:related(relationshipType)
+   assert(relationshipType, "Missing relationship type")
+
+   --- @param owner Actor
+   self.validators["related"] = function(_, owner, target)
+      if not prism.Entity:is(target) then return false end
+      return owner:hasRelationship(relationshipType, target)
    end
 
    return self
