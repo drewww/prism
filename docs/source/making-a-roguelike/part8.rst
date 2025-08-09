@@ -120,13 +120,13 @@ just pressed we'll add the following. Make sure this is checked before the `Move
 Creating the next floor
 -----------------------
 
-Now that we've got everything set up we need to actually handle the descend message. In 
+Now that we've got everything set up we need to actually handle the descend message. In
 ``GameLevelState:handleMessage`` we'll add the following message handling.
 
 .. code:: lua
 
    if prism.messages.Descend:is(message) then
-      self.manager:enter(MyGameLevelState(self.display))
+      self.manager:enter(GameLevelState(self.display))
    end
 
 If we run the game and find ourselves a staircase we'll be able to go down

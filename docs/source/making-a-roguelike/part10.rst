@@ -81,7 +81,7 @@ We also want to keep a reference to the previous ``GameState``, so we'll use :lu
       self.previousState = previous
    end
 
-Now we'll draw the inventory. To show the inventory on top of the level, we'll first draw the previous state. 
+Now we'll draw the inventory. To show the inventory on top of the level, we'll first draw the previous state.
 Then we clear the display and draw a simple header, aligned to the right side of the screen. Finally, we loop through
 each item in our inventory, assign it a letter based on its index, and draw it to the screen.
 
@@ -109,7 +109,7 @@ each item in our inventory, assign it a letter based on its index, and draw it t
    end
 
 Now we handle keypresses. For the items we loop through our letters to find which one matches our keypress
-and for now we just try to drop the item when we hit that button. ``Drop``'s :lua:class:`canPerform() <Action.canPerform>` will return false 
+and for now we just try to drop the item when we hit that button. ``Drop``'s :lua:class:`canPerform() <Action.canPerform>` will return false
 if given a ``nil`` target.
 
 .. code:: lua
@@ -229,7 +229,7 @@ and push the ``InventoryState``, if the current actor (``owner``) has an invento
 
 .. code:: lua
 
-   function MyGameLevelState:keypressed(key, scancode)
+   function GameLevelState:keypressed(key, scancode)
       -- ...
 
       if action == "inventory" then

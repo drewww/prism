@@ -85,14 +85,14 @@ The first thing we’ll do is remove the levelgen require:
 
    -local levelgen = require "levelgen"
 
-Next we'll change ``MyGameLevelState``'s constructor.
+Next we'll change ``GameLevelState``'s constructor.
 
 .. code:: lua
 
    --- @param display Display
    --- @param builder MapBuilder
    --- @param seed string
-   function MyGameLevelState:__new(display, builder, seed)
+   function GameLevelState:__new(display, builder, seed)
       -- Build the map and instantiate the level with systems
       local map, actors = builder:build()
       local level = prism.Level(map, actors, {
@@ -111,8 +111,8 @@ Let's change our overload here as well to reflect the new arguments.
 
 .. code:: lua
 
-   --- @overload fun(display: Display, builder: MapBuilder, seed: string): MyGameLevelState
-   local MyGameLevelState = spectrum.LevelState:extend "MyGameLevelState"
+   --- @overload fun(display: Display, builder: MapBuilder, seed: string): GameLevelState
+   local GameLevelState = spectrum.LevelState:extend "GameLevelState"
 
 Now modify our message handler so it passes the player into the next level:
 
@@ -120,7 +120,7 @@ Now modify our message handler so it passes the player into the next level:
 
    if prism.messages.Descend:is(message) then
       --- @cast message DescendMessage
-      self.manager:enter(MyGameLevelState(self.display, Game:generateNextFloor(message.descender), Game:getLevelSeed()))
+      self.manager:enter(GameLevelState(self.display, Game:generateNextFloor(message.descender), Game:getLevelSeed()))
    end
 
 To indicate what level we're on, add another call to :lua:func:`Display.putString` below our health display:
@@ -138,14 +138,14 @@ Finally, head over to main.lua and ``require`` the class right below where we’
    ...
    prism.loadModule("modules/game")
 
-   Game = require("game")
+   local Game = require("game")
 
-In ``love.load()``, we'll generate the first level and pass a seed for the level to our ``MyGameLevelState``.
+In ``love.load()``, we'll generate the first level and pass a seed for the level to our ``GameLevelState``.
 
 .. code:: lua
 
    local builder = Game:generateNextFloor(prism.actors.Player())
-   manager:push(MyGameLevelState(display, builder, Game:getLevelSeed()))
+   manager:push(GameLevelState(display, builder, Game:getLevelSeed()))
 
 Launch the game, and your health should be maintained between floors!
 

@@ -75,7 +75,7 @@ Note that here, ``AttackTarget`` is an Actor with a Health component, and is pas
 
    return Attack
 
-Next we need to make kobolds actually use the attack action. We will simply attempt to attack regardless of the situation, and assume that `canPerform` will reject the attempt if the circumstances are wrong (e.g. out of range). 
+Next we need to make kobolds actually use the attack action. We will simply attempt to attack regardless of the situation, and assume that ``canPerform`` will reject the attempt if the circumstances are wrong (e.g. out of range).
 
 Navigate to ``modules/game/components/koboldcontroller.lua``
 and right above the final return we're going to add the following:
@@ -146,6 +146,6 @@ If we receive our ``LoseMessage``, we simply close the game. We'll improve on th
 Wrapping up
 -----------
 
-That's it for this chapter. Kobolds now wield an ``Attack`` action and we've handled 
-a fatal game crash by using a :lua:class:`Message`. In the :doc:`next section <part5>` we'll focus on 
+That's it for this chapter. Kobolds now wield an ``Attack`` action and we've handled
+a fatal game crash by using a :lua:class:`Message`. In the :doc:`next section <part5>` we'll focus on
 the user interface with stuff like adding a game over screen and a message log.
